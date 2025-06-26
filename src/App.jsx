@@ -6,6 +6,8 @@ import Reviews from './pages/Reviews.jsx'
 import Research from './pages/Research.jsx'
 import About from './pages/About.jsx'
 import Compare from './pages/Compare.jsx'
+import Blog from './pages/Blog.jsx'
+import BlogPost from './blog/components/BlogPost.jsx'
 import './App.css'
 
 function App() {
@@ -22,6 +24,11 @@ function App() {
 
   // Simple routing based on pathname
   const renderPage = () => {
+    // Handle blog post routes (e.g., /blog/post-slug)
+    if (currentPath.startsWith('/blog/') && currentPath !== '/blog/') {
+      return <BlogPost />
+    }
+    
     switch (currentPath) {
       case '/guide':
         return <Guide />
@@ -33,6 +40,8 @@ function App() {
         return <About />
       case '/compare':
         return <Compare />
+      case '/blog':
+        return <Blog />
       default:
         return <Home />
     }

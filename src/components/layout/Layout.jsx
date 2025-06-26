@@ -16,6 +16,7 @@ export default function Layout({ children }) {
     { name: 'Reviews', href: '/reviews' },
     { name: 'Compare', href: '/compare' },
     { name: 'Research', href: '/research' },
+    { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' }
   ]
 

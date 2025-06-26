@@ -44,6 +44,29 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Blog Page - Content hub -->
+  <url>
+    <loc>https://dhmguide.com/blog</loc>
+    <lastmod>2025-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://dhmguide.com/blog/dhm-dosage-guide-2025</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://dhmguide.com/blog/dhm-science-explained</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- About Page - Trust building -->
   <url>
     <loc>https://dhmguide.com/about</loc>
