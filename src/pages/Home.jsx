@@ -527,8 +527,8 @@ export default function Home() {
                     className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <Link 
-                      to="/"
-                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      to="/about"
+                      onClick={() => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)}
                     >
                       Our Heritage Story
                       <Leaf className="ml-2 w-5 h-5" />
