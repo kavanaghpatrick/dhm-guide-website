@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../components/CustomLink.jsx'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
@@ -30,26 +30,6 @@ export default function Guide() {
     { id: 'safety-dosage', title: 'Safety & Dosage', icon: <Shield className="w-4 h-4" /> },
     { id: 'choosing-supplements', title: 'Choosing Supplements', icon: <Award className="w-4 h-4" /> }
   ]
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-      {/* DISTINCTIVE HEADER TO CONFIRM GUIDE PAGE IS LOADING */}
-      <div style={{ 
-        backgroundColor: 'red', 
-        color: 'white', 
-        padding: '20px', 
-        textAlign: 'center',
-        fontSize: '32px',
-        fontWeight: 'bold',
-        border: '10px solid yellow'
-      }}>
-        🎯 GUIDE PAGE IS NOW LOADING! 🎯
-      </div>
-      
-      <div>Guide page content will go here...</div>
-    </div>
-  )
-}
 
   const keyBenefits = [
     {
