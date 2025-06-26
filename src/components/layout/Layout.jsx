@@ -1,0 +1,181 @@
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { Button } from '@/components/ui/button.jsx'
+import { Menu, X, Leaf } from 'lucide-react'
+
+export default function Layout({ children }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { scrollY } = useScroll()
+  const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
+  const location = useLocation()
+
+  // Navigation items
+  const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Guide', href: '/guide' },
+    { name: 'Reviews', href: '/reviews' },
+    { name: 'Research', href: '/research' },
+    { name: 'About', href: '/about' }
+  ]
+
+  const isActive = (href) => {
+    if (href === '/') return location.pathname === '/'
+    return location.pathname.startsWith(href)
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+      {/* Header */}
+      <motion.header 
+        style={{ opacity: headerOpacity }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-green-100"
+      >
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-2 group">
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+                className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center"
+              >
+                <Leaf className="w-5 h-5 text-white" />
+              </motion.div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                DHM Guide
+              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    isActive(item.href)
+                      ? 'text-green-600'
+                      : 'text-gray-600 hover:text-green-600'
+                  }`}
+                >
+                  {item.name}
+                  {isActive(item.href) && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            {/* CTA Button */}
+            <div className="hidden md:block">
+              <Button 
+                asChild
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+              >
+                <Link to="/guide">Get Started</Link>
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 text-gray-600 hover:text-green-600 transition-colors"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden mt-4 pb-4 border-t border-green-100 pt-4"
+            >
+              <div className="flex flex-col space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                      isActive(item.href)
+                        ? 'bg-green-100 text-green-600'
+                        : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <Button 
+                  asChild
+                  className="mt-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+                >
+                  <Link to="/guide" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                </Button>
+              </div>
+            </motion.nav>
+          )}
+        </div>
+      </motion.header>
+
+      {/* Main Content */}
+      <main className="pt-20">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                  <Leaf className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold">DHM Guide</span>
+              </div>
+              <p className="text-gray-400 mb-4 max-w-md">
+                Your comprehensive resource for understanding DHM (Dihydromyricetin) and its benefits for hangover prevention and liver health.
+              </p>
+              <p className="text-sm text-gray-500">
+                © 2025 DHM Guide. All rights reserved. Information provided for educational purposes only.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-gray-400">
+                {navItems.map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.href} className="hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Resources</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link to="/research" className="hover:text-white transition-colors">Scientific Studies</Link></li>
+                <li><Link to="/reviews" className="hover:text-white transition-colors">Product Reviews</Link></li>
+                <li><Link to="/guide" className="hover:text-white transition-colors">Dosage Guide</Link></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">Safety Information</Link></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+

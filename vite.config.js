@@ -15,12 +15,18 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer']
+    allowedHosts: [
+      '5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
+      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer'
+    ]
   },
   preview: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer']
+    allowedHosts: [
+      '5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
+      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer'
+    ]
   }
 })
 
