@@ -59,20 +59,20 @@ export default function Home() {
   const topProducts = [
     {
       name: "No Days Wasted DHM Detox",
-      rating: 4.8,
-      price: "$47.00",
-      dhm: "450mg+",
+      rating: 4.3,
+      price: "$26.99",
+      dhm: "1000mg",
       badge: "Editor's Choice",
-      features: ["Highest DHM content", "Premium ingredients", "Third-party tested"],
+      features: ["1K+ bought this month", "Science-backed formula", "350K+ customers"],
       affiliateLink: "https://amzn.to/3HSHjgu"
     },
     {
       name: "Double Wood Supplements",
-      rating: 4.6,
-      price: "$18.99",
-      dhm: "300mg",
+      rating: 4.4,
+      price: "$19.75",
+      dhm: "1000mg",
       badge: "Best Value",
-      features: ["98% pure DHM", "Great price", "Simple formula"],
+      features: ["Amazon's Choice", "2K+ bought monthly", "Enhanced with electrolytes"],
       affiliateLink: "https://amzn.to/44sczuq"
     },
     {
