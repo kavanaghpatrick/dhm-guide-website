@@ -429,8 +429,11 @@ export default function Reviews() {
                         asChild 
                         className="bg-green-700 hover:bg-green-800 text-white flex-1"
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer">
-                          View Product Details
+                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                          <span>Buy on Amazon</span>
+                          <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+                            Free Shipping
+                          </span>
                           <ExternalLink className="w-4 h-4 ml-2" />
                         </a>
                       </Button>

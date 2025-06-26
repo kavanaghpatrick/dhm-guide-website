@@ -133,7 +133,7 @@ export default function About() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Dedicated to providing <span className="font-semibold text-green-700">evidence-based information</span> 
+              Dedicated to providing <span className="font-semibold text-green-700">evidence-based information</span>{' '}
               about Dihydromyricetin through rigorous research, independent testing, and unbiased analysis.
             </p>
 

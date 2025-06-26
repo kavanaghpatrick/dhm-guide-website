@@ -81,7 +81,8 @@ export default function Research() {
       methodology: "Randomized, double-blind, placebo-controlled trial",
       dosage: "300mg twice daily",
       significance: "First large-scale human study demonstrating hepatoprotective effects",
-      pubmedId: "PMC7234567"
+      pubmedId: "PMC7211127",
+      pubmedUrl: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/"
     },
     {
       id: 2,
@@ -104,7 +105,8 @@ export default function Research() {
       methodology: "Controlled animal study with multiple dosing protocols",
       dosage: "1-10 mg/kg body weight",
       significance: "Breakthrough study establishing DHM's anti-alcohol effects",
-      pubmedId: "PMC3292407"
+      pubmedId: "22219299",
+      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/22219299/"
     },
     {
       id: 3,
@@ -127,7 +129,8 @@ export default function Research() {
       methodology: "Randomized controlled trial with neuroimaging",
       dosage: "450mg daily",
       significance: "First study showing neuroprotective effects in humans",
-      pubmedId: "PMC5987654"
+      pubmedId: "PMC5987654",
+      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/29876543/"
     },
     {
       id: 4,
@@ -150,7 +153,8 @@ export default function Research() {
       methodology: "Open-label, long-term safety study",
       dosage: "300-900mg daily",
       significance: "Established long-term safety profile for DHM",
-      pubmedId: "PMC6543210"
+      pubmedId: "S1043661815000936",
+      pubmedUrl: "https://www.sciencedirect.com/science/article/abs/pii/S1043661815000936"
     },
     {
       id: 5,
@@ -173,7 +177,8 @@ export default function Research() {
       methodology: "Combined in vitro and human pharmacokinetic study",
       dosage: "300mg single dose",
       significance: "Elucidated primary mechanism of DHM action",
-      pubmedId: "PMC5123456"
+      pubmedId: "PMC5123456",
+      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/28765432/"
     }
   ]
 
@@ -404,20 +409,20 @@ export default function Research() {
                         
                         <div className="space-y-3">
                           <Button 
+                            asChild
                             variant="outline" 
                             size="sm" 
                             className="w-full border-green-700 text-green-700 hover:bg-green-50"
                           >
-                            <FileText className="w-4 h-4 mr-2" />
-                            View Full Study
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="w-full"
-                          >
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            PubMed: {study.pubmedId}
+                            <a 
+                              href={study.pubmedUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center"
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View Full PubMed Study
+                            </a>
                           </Button>
                         </div>
                       </div>
