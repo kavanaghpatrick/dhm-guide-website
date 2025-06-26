@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
@@ -8,7 +7,7 @@ export default function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
-  const location = useLocation()
+  const currentPath = window.location.pathname
 
   // Navigation items
   const navItems = [
@@ -20,8 +19,14 @@ export default function Layout({ children }) {
   ]
 
   const isActive = (href) => {
-    if (href === '/') return location.pathname === '/'
-    return location.pathname.startsWith(href)
+    if (href === '/') return currentPath === '/'
+    return currentPath.startsWith(href)
+  }
+
+  const handleNavigation = (href) => {
+    window.history.pushState({}, '', href)
+    window.dispatchEvent(new PopStateEvent('popstate'))
+    setIsMenuOpen(false)
   }
 
   return (
@@ -34,7 +39,7 @@ export default function Layout({ children }) {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
+            <button onClick={() => handleNavigation('/')} className="flex items-center space-x-2 group">
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
@@ -45,14 +50,14 @@ export default function Layout({ children }) {
               <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 DHM Guide
               </span>
-            </Link>
+            </button>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  to={item.href}
+                  onClick={() => handleNavigation(item.href)}
                   className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive(item.href)
                       ? 'text-green-600'
@@ -68,17 +73,17 @@ export default function Layout({ children }) {
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
-                </Link>
+                </button>
               ))}
             </nav>
 
             {/* CTA Button */}
             <div className="hidden md:block">
               <Button 
-                asChild
+                onClick={() => handleNavigation('/guide')}
                 className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
               >
-                <Link to="/guide">Get Started</Link>
+                Get Started
               </Button>
             </div>
 
@@ -101,24 +106,23 @@ export default function Layout({ children }) {
             >
               <div className="flex flex-col space-y-2">
                 {navItems.map((item) => (
-                  <Link
+                  <button
                     key={item.name}
-                    to={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    onClick={() => handleNavigation(item.href)}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors text-left ${
                       isActive(item.href)
                         ? 'bg-green-100 text-green-600'
                         : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
                     }`}
                   >
                     {item.name}
-                  </Link>
+                  </button>
                 ))}
                 <Button 
-                  asChild
+                  onClick={() => handleNavigation('/guide')}
                   className="mt-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
                 >
-                  <Link to="/guide" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                  Get Started
                 </Button>
               </div>
             </motion.nav>
@@ -155,9 +159,9 @@ export default function Layout({ children }) {
               <ul className="space-y-2 text-gray-400">
                 {navItems.map((item) => (
                   <li key={item.name}>
-                    <Link to={item.href} className="hover:text-white transition-colors">
+                    <button onClick={() => handleNavigation(item.href)} className="hover:text-white transition-colors">
                       {item.name}
-                    </Link>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -166,10 +170,10 @@ export default function Layout({ children }) {
             <div>
               <h3 className="font-semibold mb-4">Resources</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/research" className="hover:text-white transition-colors">Scientific Studies</Link></li>
-                <li><Link to="/reviews" className="hover:text-white transition-colors">Product Reviews</Link></li>
-                <li><Link to="/guide" className="hover:text-white transition-colors">Dosage Guide</Link></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">Safety Information</Link></li>
+                <li><button onClick={() => handleNavigation('/research')} className="hover:text-white transition-colors">Scientific Studies</button></li>
+                <li><button onClick={() => handleNavigation('/reviews')} className="hover:text-white transition-colors">Product Reviews</button></li>
+                <li><button onClick={() => handleNavigation('/guide')} className="hover:text-white transition-colors">Dosage Guide</button></li>
+                <li><button onClick={() => handleNavigation('/about')} className="hover:text-white transition-colors">Safety Information</button></li>
               </ul>
             </div>
           </div>
