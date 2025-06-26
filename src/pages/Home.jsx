@@ -88,39 +88,82 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="pt-16 pb-16 px-4">
+      {/* Hero Section - Before/After Transformation */}
+      <section className="pt-16 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto">
-          <motion.div 
-            className="text-center max-w-4xl mx-auto"
-            style={{ y: heroY }}
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            
+            {/* Before/After Image - Left Column */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="order-1 lg:order-1"
             >
-              <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200">
-                Science-Backed Hangover Prevention
-              </Badge>
+              <div className="relative">
+                <img 
+                  src="/01_before_after_hangover.png" 
+                  alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
+                  className="w-full h-auto rounded-2xl shadow-2xl"
+                  loading="eager"
+                />
+                {/* Subtle overlay for better text readability if needed */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none"></div>
+              </div>
+            </motion.div>
+
+            {/* Headline + Value Prop + CTA - Right Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="order-2 lg:order-2 text-center lg:text-left"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200 text-sm font-semibold">
+                  🧬 Science-Backed Transformation
+                </Badge>
+              </motion.div>
               
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-                The Ultimate Guide to DHM
-              </h1>
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                Never Wake Up 
+                <span className="block bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                  Hungover Again
+                </span>
+              </motion.h1>
               
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Discover the science behind <span className="font-semibold text-green-700">Dihydromyricetin</span> - 
-                the most effective natural hangover prevention compound backed by clinical research.
-              </p>
+              <motion.p 
+                className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                DHM (Dihydromyricetin) transforms your morning from misery to feeling amazing - 
+                <span className="font-semibold text-green-700"> clinically proven</span> to prevent hangovers before they start.
+              </motion.p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
                 <Button 
                   asChild
                   size="lg" 
-                  className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 text-lg"
+                  className="bg-green-700 hover:bg-green-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <Link to="/guide">
-                    Read Complete Guide
+                    Get the Complete Guide
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
@@ -128,33 +171,54 @@ export default function Home() {
                   asChild
                   variant="outline" 
                   size="lg"
-                  className="border-green-700 text-green-700 hover:bg-green-50 px-8 py-3 text-lg"
+                  className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-8 py-4 text-lg font-semibold"
                 >
-                  <Link to="/reviews">View Product Reviews</Link>
+                  <Link to="/reviews">Try DHM Detox</Link>
                 </Button>
-              </div>
-            </motion.div>
+              </motion.div>
 
-            {/* Hero Stats */}
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <div className="text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">1000+</div>
-                <div className="text-gray-600">Years of Traditional Use</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">50+</div>
-                <div className="text-gray-600">Clinical Studies</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-green-700 mb-2">95%</div>
-                <div className="text-gray-600">User Satisfaction</div>
-              </div>
+              {/* Trust Indicators */}
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center text-sm text-gray-500"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                  <span className="font-medium">4.3/5 from 2,000+ reviews</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-green-600" />
+                  <span className="font-medium">15+ Clinical Studies</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-blue-600" />
+                  <span className="font-medium">Works in 30 minutes</span>
+                </div>
+              </motion.div>
             </motion.div>
+          </div>
+
+          {/* Hero Stats - Below the main content */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+          >
+            <div className="text-center">
+              <div className="text-4xl font-bold text-green-700 mb-2">1000+</div>
+              <div className="text-gray-600">Years of Traditional Use</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-green-700 mb-2">50+</div>
+              <div className="text-gray-600">Clinical Studies</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-green-700 mb-2">95%</div>
+              <div className="text-gray-600">User Satisfaction</div>
+            </div>
           </motion.div>
         </div>
       </section>
