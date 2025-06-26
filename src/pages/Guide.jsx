@@ -530,7 +530,7 @@ export default function Guide() {
                 asChild
                 size="lg" 
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
               >
                 <Link to="/research">See Research Studies</Link>
               </Button>

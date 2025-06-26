@@ -76,35 +76,18 @@ export default function Home() {
       affiliateLink: "https://amzn.to/44sczuq"
     },
     {
-      name: "Toniiq Ease",
-      rating: 4.7,
-      price: "$34.95",
-      dhm: "300mg",
-      badge: "Most Popular",
-      features: ["High-quality extract", "Potent formula", "Trusted brand"],
-      affiliateLink: "https://amzn.to/4ejE4uq"
+      name: "Cheers Restore",
+      rating: 3.9,
+      price: "$34.99",
+      dhm: "Most DHM per dose",
+      badge: "Shark Tank",
+      features: ["Patented DHM + Cysteine", "25M+ better mornings", "Full transparency"],
+      affiliateLink: "https://amzn.to/3T8cO8H"
     }
   ]
 
   return (
     <div>
-      {/* EMERGENCY TEST MARKER - REACT IS WORKING */}
-      <div style={{ 
-        backgroundColor: 'red', 
-        color: 'white', 
-        padding: '20px', 
-        textAlign: 'center',
-        fontSize: '32px',
-        fontWeight: 'bold',
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        right: '0',
-        zIndex: '9999'
-      }}>
-        🚨 REACT APP IS WORKING - AFFILIATE LINKS SHOULD WORK 🚨
-      </div>
-      
       {/* Hero Section */}
       <section className="pt-16 pb-16 px-4">
         <div className="container mx-auto">

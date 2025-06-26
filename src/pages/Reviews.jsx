@@ -149,33 +149,34 @@ export default function Reviews() {
     },
     {
       id: 5,
-      name: "Thorne Liver Cleanse",
-      brand: "Thorne Health",
-      rating: 4.3,
-      reviews: 743,
-      price: "$52.00",
-      pricePerServing: "$1.73",
-      servings: 30,
-      dhm: "250mg",
-      purity: "99%",
-      badge: "Premium Quality",
-      badgeColor: "bg-indigo-500",
-      score: 8.4,
-      affiliateLink: "#", // Placeholder - no affiliate link available
+      name: "Cheers Restore",
+      brand: "Cheers®",
+      rating: 3.9,
+      reviews: 7419,
+      price: "$34.99",
+      pricePerServing: "$2.92",
+      servings: 12,
+      dhm: "Most DHM per dose",
+      purity: "Patented blend",
+      badge: "As Seen on Shark Tank",
+      badgeColor: "bg-blue-500",
+      score: 8.6,
+      affiliateLink: "https://amzn.to/3T8cO8H",
       pros: [
-        "Highest purity (99%)",
-        "Pharmaceutical grade",
-        "Excellent quality control",
-        "Doctor recommended"
+        "Patented DHM + Cysteine formula",
+        "Most DHM + Cysteine per dose on market",
+        "No proprietary blends - full transparency",
+        "25+ million better mornings delivered",
+        "Academic research backing"
       ],
       cons: [
-        "Very expensive",
-        "Lower DHM content",
-        "Limited availability"
+        "Higher price per serving",
+        "Only 12 doses per package",
+        "Mixed experiences with effectiveness"
       ],
-      bestFor: "Users who prioritize pharmaceutical-grade quality",
-      ingredients: ["DHM 250mg", "Silymarin", "Dandelion", "Artichoke"],
-      category: "pharmaceutical"
+      bestFor: "Users wanting maximum DHM content with proven formula",
+      ingredients: ["DHM", "L-Cysteine", "Prickly Pear", "B-Vitamins", "Ginger", "Vine Tea"],
+      category: "premium"
     }
   ]
 
