@@ -94,6 +94,7 @@ public/*
 !public/favicon.png
 !public/og-image.jpg
 !public/twitter-image.jpg
+!public/dhm-dosage-guide-infographic.png
 
 # Storybook build outputs
 .out

@@ -19,6 +19,8 @@ Whether you're new to dihydromyricetin or looking to optimize your current routi
 
 This dosage provides optimal hangover prevention for 80% of users based on clinical research. However, your ideal dose may vary based on body weight, alcohol consumption, and individual tolerance.
 
+![DHM Dosage Guide - Optimal dosage recommendations showing 500mg as the sweet spot, with 300-600mg range depending on body weight, taken 30-60 minutes before drinking](/dhm-dosage-guide-infographic.png)
+
 ## The Science-Backed DHM Dosage Range
 
 ### Clinical Research Findings
