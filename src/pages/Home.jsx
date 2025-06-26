@@ -520,27 +520,18 @@ export default function Home() {
                   Today's DHM supplements honor this heritage with rigorous quality standards and sustainable sourcing practices.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div className="flex justify-center items-center">
                   <Button 
                     asChild
                     size="lg" 
                     className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    <Link to="/about">
+                    <Link 
+                      to="/"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    >
                       Our Heritage Story
                       <Leaf className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                  
-                  <Button 
-                    asChild
-                    variant="outline" 
-                    size="lg"
-                    className="border-2 border-amber-600 text-amber-700 hover:bg-amber-50 px-8 py-4 text-lg font-semibold bg-white/80 backdrop-blur-sm"
-                  >
-                    <Link to="/about">
-                      <Award className="mr-2 w-5 h-5" />
-                      See Sourcing Standards
                     </Link>
                   </Button>
                 </div>
