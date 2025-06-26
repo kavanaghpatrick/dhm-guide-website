@@ -4,10 +4,10 @@ export const posts = [
     slug: 'dhm-dosage-guide-2025',
     title: 'DHM Dosage Guide 2025: How Much Dihydromyricetin Should You Take for Hangover Prevention?',
     excerpt: 'Discover the optimal DHM dosage for effective hangover prevention. Science-backed recommendations, timing strategies, and safety guidelines from clinical research.',
-    date: '2025-01-15',
+    date: '2025-06-26',
     author: 'DHM Guide Team',
     tags: ['dhm dosage', 'hangover prevention', 'dihydromyricetin', 'supplement guide'],
-    content: `# DHM Dosage Guide 2025: How Much Dihydromyricetin Should You Take for Hangover Prevention?
+    content: `![DHM Dosage Guide Hero - Professional illustration showing 500mg optimal dose, 30-60 minute timing, body weight considerations, and 76% effectiveness rate](/dhm-dosage-hero.png)
 
 **Looking for the perfect DHM dosage to prevent hangovers?** You're in the right place. After analyzing 15+ clinical studies and thousands of user experiences, we've created the most comprehensive DHM dosage guide available.
 
@@ -307,7 +307,7 @@ Now that you know the optimal DHM dosage, the next step is choosing a high-quali
     slug: 'dhm-science-explained',
     title: 'DHM Science Explained: How Dihydromyricetin Prevents Hangovers at the Molecular Level',
     excerpt: 'Discover the fascinating molecular mechanisms behind DHM\'s hangover prevention. Learn how dihydromyricetin protects your liver and brain from alcohol damage.',
-    date: '2025-01-10',
+    date: '2025-06-26',
     author: 'Dr. Sarah Chen',
     tags: ['dhm science', 'dihydromyricetin research', 'hangover prevention', 'liver protection'],
     content: `**Ever wondered how a simple plant extract can prevent hangovers better than any traditional remedy?** The answer lies in DHM's remarkable ability to work at the molecular level, protecting your body through two sophisticated biological pathways.
