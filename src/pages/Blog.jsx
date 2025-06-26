@@ -1,9 +1,37 @@
-import React from 'react';
-import { Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, Clock, Tag, ArrowRight, Filter, X } from 'lucide-react';
 import { getAllPosts } from '../blog/utils/postLoader';
 
 const Blog = () => {
   const posts = getAllPosts();
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  // Get all unique tags from all posts
+  const getAllTags = () => {
+    const allTags = posts.flatMap(post => post.tags);
+    return [...new Set(allTags)].sort();
+  };
+
+  // Filter posts based on selected tags
+  const filteredPosts = selectedTags.length === 0 
+    ? posts 
+    : posts.filter(post => 
+        selectedTags.some(selectedTag => post.tags.includes(selectedTag))
+      );
+
+  // Toggle tag selection
+  const toggleTag = (tag) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) 
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+  };
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSelectedTags([]);
+  };
 
   const handleNavigation = (href) => {
     window.history.pushState({}, '', href);
@@ -77,25 +105,73 @@ const Blog = () => {
               </span>
             </div>
           </div>
-
-          {/* Stats Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">50+</div>
-              <div className="text-green-100 text-sm">Research Studies</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">1000+</div>
-              <div className="text-green-100 text-sm">User Experiences</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">85%</div>
-              <div className="text-green-100 text-sm">Effectiveness Rate</div>
-            </div>
-          </div>
         </div>
       </div>
 
+      {/* Tag Filter Section */}
+      <div className="bg-white border-b border-gray-200 py-6">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            {/* Filter Header */}
+            <div className="flex items-center gap-3">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <h3 className="text-lg font-semibold text-gray-800">Filter by Topic</h3>
+              {selectedTags.length > 0 && (
+                <span className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
+                  {selectedTags.length} active
+                </span>
+              )}
+            </div>
+
+            {/* Clear Filters Button */}
+            {selectedTags.length > 0 && (
+              <button
+                onClick={clearFilters}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                <X className="w-4 h-4" />
+                Clear all filters
+              </button>
+            )}
+          </div>
+
+          {/* Tag Filter Buttons */}
+          <div className="flex flex-wrap gap-3 mt-4">
+            {getAllTags().map(tag => (
+              <button
+                key={tag}
+                onClick={() => toggleTag(tag)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  selectedTags.includes(tag)
+                    ? 'bg-green-600 text-white shadow-md transform scale-105'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-sm'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <Tag className="w-3 h-3" />
+                  {tag}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Results Counter */}
+          <div className="mt-4 text-sm text-gray-600">
+            {selectedTags.length > 0 ? (
+              <span>
+                Showing {filteredPosts.length} of {posts.length} articles
+                {selectedTags.length > 0 && (
+                  <span className="ml-2">
+                    for: {selectedTags.map(tag => `"${tag}"`).join(', ')}
+                  </span>
+                )}
+              </span>
+            ) : (
+              <span>Showing all {posts.length} articles</span>
+            )}
+          </div>
+        </div>
+      </div>
       {/* Blog Posts */}
       <div className="max-w-4xl mx-auto px-4 py-12">
         {posts.length === 0 ? (
@@ -107,9 +183,27 @@ const Blog = () => {
               We're working on creating valuable content for you. Check back soon for expert insights on DHM and hangover prevention.
             </p>
           </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="mb-6">
+              <Filter className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+                No articles found
+              </h2>
+              <p className="text-gray-500 mb-6">
+                No articles match the selected tags. Try different tags or clear your filters.
+              </p>
+              <button
+                onClick={clearFilters}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Clear all filters
+              </button>
+            </div>
+          </div>
         ) : (
-          <div className="space-y-8">
-            {posts.map((post) => (
+          <div className="grid gap-8">
+            {filteredPosts.map((post) => (
               <article 
                 key={post.slug}
                 className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
