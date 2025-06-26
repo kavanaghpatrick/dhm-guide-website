@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
+import missionVisual from '../assets/dhm_mission_visual.png'
 import { 
   Users, 
   Target, 
@@ -175,10 +176,28 @@ export default function About() {
             </h2>
             
             <div className="prose prose-lg max-w-none">
-              <p className="text-gray-700 leading-relaxed mb-6 text-center text-xl">
+              <p className="text-gray-700 leading-relaxed mb-8 text-center text-xl">
                 To bridge the gap between cutting-edge DHM research and practical, actionable information 
                 that helps people make informed decisions about hangover prevention and liver health.
               </p>
+              
+              {/* Mission Visual */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="mb-12 flex justify-center"
+              >
+                <div className="relative max-w-4xl w-full">
+                  <img 
+                    src={missionVisual}
+                    alt="DHM Guide Mission: Bridging Research and Practical Information"
+                    className="w-full h-auto rounded-2xl shadow-2xl border border-gray-200"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl"></div>
+                </div>
+              </motion.div>
               
               <div className="bg-green-50 p-8 rounded-lg mb-8">
                 <h3 className="text-2xl font-semibold text-green-800 mb-4 text-center">Why DHM Guide Exists</h3>
