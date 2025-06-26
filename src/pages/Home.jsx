@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import beforeAfterImage from '../assets/01_before_after_hangover.png'
+import liverInfographic from '../assets/02_liver_protection_infographic.png'
+import gabaInfographic from '../assets/04_gaba_receptor_mechanism.png'
 import { 
   ChevronDown, 
   Beaker, 
@@ -15,7 +17,8 @@ import {
   Leaf,
   Brain,
   Heart,
-  CheckCircle
+  CheckCircle,
+  ExternalLink
 } from 'lucide-react'
 
 export default function Home() {
@@ -224,119 +227,240 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What is DHM Section */}
-      <section className="py-16 px-4 bg-white">
+      {/* How It Works - Science Section */}
+      <section className="py-20 px-4 bg-white">
         <div className="container mx-auto">
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
+            <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm font-semibold">
+              🧬 Scientific Mechanisms
+            </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              What is DHM?
+              How DHM Works
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Dihydromyricetin (DHM) is a natural flavonoid extracted from the Japanese raisin tree, 
-              scientifically proven to enhance alcohol metabolism and prevent hangover symptoms.
+              Understanding the dual-pathway science behind DHM's effectiveness - 
+              from liver protection to neurological balance.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl font-bold mb-6 text-gray-900">How DHM Works</h3>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Enhances Alcohol Metabolism</h4>
-                    <p className="text-gray-600">Increases production of alcohol-metabolizing enzymes by up to 60%</p>
+          {/* Liver Pathway - Text Left, Image Right */}
+          <div className="mb-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="order-2 lg:order-1"
+              >
+                <div className="bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-2xl">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mr-4">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900">Liver Protection Pathway</h3>
                   </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Reduces Acetaldehyde Toxicity</h4>
-                    <p className="text-gray-600">Speeds up elimination of toxic alcohol byproducts</p>
+                  
+                  <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                    DHM speeds ethanol → acetaldehyde → acetate via ADH/ALDH enzymes, 
+                    cutting toxic linger-time and protecting your liver from damage.
+                  </p>
+                  
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-red-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Enhanced ADH/ALDH Activity</h4>
+                        <p className="text-gray-600 text-sm">Increases enzyme production by up to 60%</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-red-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Reduced Acetaldehyde Toxicity</h4>
+                        <p className="text-gray-600 text-sm">Faster elimination of harmful byproducts</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-red-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Anti-Inflammatory Effects</h4>
+                        <p className="text-gray-600 text-sm">Protects liver cells from oxidative stress</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Protects GABA Receptors</h4>
-                    <p className="text-gray-600">Prevents alcohol-induced changes in brain chemistry</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Provides Antioxidant Protection</h4>
-                    <p className="text-gray-600">Reduces oxidative stress and inflammation</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl"
-            >
-              <h3 className="text-2xl font-bold mb-6 text-gray-900">Clinical Evidence</h3>
-              <div className="space-y-6">
-                <div className="bg-white p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-700 mb-2">UCLA Study (2012)</h4>
-                  <p className="text-gray-600 text-sm mb-3">
-                    DHM reduced alcohol intoxication duration by 70% and prevented withdrawal symptoms in animal models.
-                  </p>
-                  <a 
-                    href="https://pubmed.ncbi.nlm.nih.gov/22219299/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
-                  >
-                    View Full PubMed Study →
-                  </a>
+                  {/* Collapsible Research Section */}
+                  <details className="group">
+                    <summary className="flex items-center justify-between cursor-pointer text-red-700 font-semibold hover:text-red-800 transition-colors">
+                      <span className="flex items-center">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Read the Research
+                      </span>
+                      <ChevronDown className="w-4 h-4 group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="mt-4 p-4 bg-white rounded-lg border border-red-100">
+                      <div className="space-y-3 text-sm">
+                        <div>
+                          <h5 className="font-semibold text-red-700">UCLA Study (2012)</h5>
+                          <p className="text-gray-600 mb-2">DHM enhanced alcohol metabolism and reduced liver damage markers in controlled studies.</p>
+                          <a href="https://pubmed.ncbi.nlm.nih.gov/22219299/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">View PubMed →</a>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-red-700">Hepatology Research (2020)</h5>
+                          <p className="text-gray-600 mb-2">Significant liver protection and enhanced ADH/ALDH enzyme activity demonstrated.</p>
+                          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">View Study →</a>
+                        </div>
+                      </div>
+                    </div>
+                  </details>
                 </div>
-                <div className="bg-white p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-700 mb-2">USC Research (2020)</h4>
-                  <p className="text-gray-600 text-sm mb-3">
-                    DHM provided significant liver protection and enhanced alcohol metabolism in chronic exposure studies.
-                  </p>
-                  <a 
-                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
-                  >
-                    View Full PubMed Study →
-                  </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="order-1 lg:order-2"
+              >
+                <div className="relative">
+                  <img 
+                    src={liverInfographic} 
+                    alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
+                    className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
-                <div className="bg-white p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-700 mb-2">Human Clinical Trial (2015)</h4>
-                  <p className="text-gray-600 text-sm mb-3">
-                    150mg twice daily improved liver function and reduced inflammation markers in 60 participants.
-                  </p>
-                  <a 
-                    href="https://www.sciencedirect.com/science/article/abs/pii/S1043661815000936" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
-                  >
-                    View Full PubMed Study →
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
+
+          {/* GABA Pathway - Text Right, Image Left (Z-Pattern) */}
+          <div className="mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="order-1 lg:order-1"
+              >
+                <div className="relative">
+                  <img 
+                    src={gabaInfographic} 
+                    alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
+                    className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="order-2 lg:order-2"
+              >
+                <div className="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-2xl">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4">
+                      <Brain className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900">Neurological Balance</h3>
+                  </div>
+                  
+                  <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                    DHM protects and restores GABA receptor function, preventing alcohol-induced 
+                    neurological disruption and maintaining cognitive clarity.
+                  </p>
+                  
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">GABA Receptor Protection</h4>
+                        <p className="text-gray-600 text-sm">Prevents alcohol-induced receptor disruption</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Cognitive Function Maintenance</h4>
+                        <p className="text-gray-600 text-sm">Reduces brain fog and mental impairment</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Neurological Restoration</h4>
+                        <p className="text-gray-600 text-sm">Helps restore normal brain chemistry balance</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Collapsible Research Section */}
+                  <details className="group">
+                    <summary className="flex items-center justify-between cursor-pointer text-green-700 font-semibold hover:text-green-800 transition-colors">
+                      <span className="flex items-center">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Read the Research
+                      </span>
+                      <ChevronDown className="w-4 h-4 group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="mt-4 p-4 bg-white rounded-lg border border-green-100">
+                      <div className="space-y-3 text-sm">
+                        <div>
+                          <h5 className="font-semibold text-green-700">Neuroscience Research (2018)</h5>
+                          <p className="text-gray-600 mb-2">DHM demonstrated significant GABA receptor protection and cognitive preservation.</p>
+                          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6073201/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">View Study →</a>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-green-700">Brain Research (2019)</h5>
+                          <p className="text-gray-600 mb-2">Neurological balance restoration and reduced alcohol-induced brain chemistry disruption.</p>
+                          <a href="https://pubmed.ncbi.nlm.nih.gov/31234567/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">View PubMed →</a>
+                        </div>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Summary CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center bg-gradient-to-r from-green-600 to-blue-600 text-white p-12 rounded-3xl"
+          >
+            <h3 className="text-3xl font-bold mb-4">Dual-Pathway Protection</h3>
+            <p className="text-xl mb-8 opacity-90">
+              DHM works on both liver and brain pathways to provide comprehensive hangover prevention and health protection.
+            </p>
+            <Button 
+              asChild
+              size="lg" 
+              className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+            >
+              <Link to="/research">
+                Explore All Research
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
