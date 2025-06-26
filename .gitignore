@@ -95,6 +95,9 @@ public/*
 !public/og-image.jpg
 !public/twitter-image.jpg
 !public/dhm-dosage-guide-infographic.png
+!public/dhm-molecular-structure.png
+!public/dhm-gaba-protection.png
+!public/dhm-hangover-prevention.png
 
 # Storybook build outputs
 .out
