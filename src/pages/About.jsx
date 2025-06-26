@@ -171,25 +171,56 @@ export default function About() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-900 text-center">
               Our Mission
             </h2>
             
-            <div className="prose prose-lg max-w-none">
-              <p className="text-gray-700 leading-relaxed mb-8 text-center text-xl">
-                To bridge the gap between cutting-edge DHM research and practical, actionable information 
-                that helps people make informed decisions about hangover prevention and liver health.
-              </p>
-              
+            {/* Split Layout: Mission Text + Visual */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+              {/* Mission Text */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                <p className="text-gray-700 leading-relaxed text-xl">
+                  To bridge the gap between cutting-edge DHM research and practical, actionable information 
+                  that helps people make informed decisions about hangover prevention and liver health.
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="text-gray-600">
+                      <span className="font-semibold text-gray-900">Evidence-Based:</span> Every recommendation backed by peer-reviewed research
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="text-gray-600">
+                      <span className="font-semibold text-gray-900">Independent:</span> Unbiased analysis with no affiliate influence
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="text-gray-600">
+                      <span className="font-semibold text-gray-900">Accessible:</span> Complex science made simple and actionable
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Mission Visual */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="mb-12 flex justify-center"
+                className="flex justify-center lg:justify-end"
               >
-                <div className="relative max-w-4xl w-full">
+                <div className="relative max-w-lg w-full">
                   <img 
                     src={missionVisual}
                     alt="DHM Guide Mission: Bridging Research and Practical Information"
@@ -198,7 +229,9 @@ export default function About() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl"></div>
                 </div>
               </motion.div>
-              
+            </div>
+            
+            <div className="prose prose-lg max-w-none">
               <div className="bg-green-50 p-8 rounded-lg mb-8">
                 <h3 className="text-2xl font-semibold text-green-800 mb-4 text-center">Why DHM Guide Exists</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
