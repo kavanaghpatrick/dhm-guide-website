@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
+import beforeAfterImage from '../assets/01_before_after_hangover.png'
 import { 
   ChevronDown, 
   Beaker, 
@@ -102,7 +103,7 @@ export default function Home() {
             >
               <div className="relative">
                 <img 
-                  src="/01_before_after_hangover.png" 
+                  src={beforeAfterImage} 
                   alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
                   className="w-full h-auto rounded-2xl shadow-2xl"
                   loading="eager"
