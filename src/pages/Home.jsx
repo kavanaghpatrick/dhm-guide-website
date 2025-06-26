@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge.jsx'
 import beforeAfterImage from '../assets/01_before_after_hangover.png'
 import liverInfographic from '../assets/02_liver_protection_infographic.png'
 import gabaInfographic from '../assets/04_gaba_receptor_mechanism.png'
+import traditionalHeritage from '../assets/05_traditional_heritage.png'
 import { 
   ChevronDown, 
   Beaker, 
@@ -18,12 +19,14 @@ import {
   Brain,
   Heart,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  Award
 } from 'lucide-react'
 
 export default function Home() {
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
+  const traditionY = useTransform(scrollY, [0, 1000], [0, -100])
 
   // Benefits data
   const benefits = [
@@ -460,6 +463,105 @@ export default function Home() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Rooted in Tradition - Parallax Storytelling Section */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Parallax Background */}
+        <motion.div 
+          style={{ y: traditionY }}
+          className="absolute inset-0 w-full h-full"
+        >
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url(${traditionalHeritage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'brightness(0.85)'
+            }}
+          />
+          {/* Subtle overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-900/20 to-green-900/20" />
+        </motion.div>
+
+        {/* Content Overlay */}
+        <div className="relative z-10 container mx-auto px-4 flex items-center justify-center min-h-[400px]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto text-center"
+          >
+            {/* Translucent Card */}
+            <div className="bg-white/90 backdrop-blur-md rounded-3xl p-12 shadow-2xl border border-white/20">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <Badge className="mb-6 bg-amber-100 text-amber-800 hover:bg-amber-200 text-sm font-semibold">
+                  🌿 Ancient Wisdom, Modern Science
+                </Badge>
+                
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+                  Rooted in 
+                  <span className="block bg-gradient-to-r from-amber-600 to-green-700 bg-clip-text text-transparent">
+                    1000+ Years of Tradition
+                  </span>
+                </h2>
+                
+                <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                  From ancient Chinese medicine to modern laboratories, the Japanese raisin tree has been trusted for centuries. 
+                  Today's DHM supplements honor this heritage with rigorous quality standards and sustainable sourcing practices.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button 
+                    asChild
+                    size="lg" 
+                    className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Link to="/about">
+                      Our Heritage Story
+                      <Leaf className="ml-2 w-5 h-5" />
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    asChild
+                    variant="outline" 
+                    size="lg"
+                    className="border-2 border-amber-600 text-amber-700 hover:bg-amber-50 px-8 py-4 text-lg font-semibold bg-white/80 backdrop-blur-sm"
+                  >
+                    <Link to="/about">
+                      <Award className="mr-2 w-5 h-5" />
+                      See Sourcing Standards
+                    </Link>
+                  </Button>
+                </div>
+
+                {/* Heritage Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-amber-200">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-amber-700 mb-2">1000+</div>
+                    <div className="text-gray-600 text-sm">Years of Traditional Use</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-amber-700 mb-2">100%</div>
+                    <div className="text-gray-600 text-sm">Sustainably Sourced</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-amber-700 mb-2">3rd Party</div>
+                    <div className="text-gray-600 text-sm">Quality Tested</div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
