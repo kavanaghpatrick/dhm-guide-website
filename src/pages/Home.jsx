@@ -229,21 +229,45 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="bg-white p-4 rounded-lg">
                   <h4 className="font-semibold text-green-700 mb-2">UCLA Study (2012)</h4>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-sm mb-3">
                     DHM reduced alcohol intoxication duration by 70% and prevented withdrawal symptoms in animal models.
                   </p>
+                  <a 
+                    href="https://pubmed.ncbi.nlm.nih.gov/22219299/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
+                  >
+                    View Full PubMed Study →
+                  </a>
                 </div>
                 <div className="bg-white p-4 rounded-lg">
                   <h4 className="font-semibold text-green-700 mb-2">USC Research (2020)</h4>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-sm mb-3">
                     DHM provided significant liver protection and enhanced alcohol metabolism in chronic exposure studies.
                   </p>
+                  <a 
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
+                  >
+                    View Full PubMed Study →
+                  </a>
                 </div>
                 <div className="bg-white p-4 rounded-lg">
                   <h4 className="font-semibold text-green-700 mb-2">Human Clinical Trial (2015)</h4>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-sm mb-3">
                     150mg twice daily improved liver function and reduced inflammation markers in 60 participants.
                   </p>
+                  <a 
+                    href="https://www.sciencedirect.com/science/article/abs/pii/S1043661815000936" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm text-green-700 hover:text-green-800 font-medium"
+                  >
+                    View Full PubMed Study →
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -408,7 +432,7 @@ export default function Home() {
                 asChild
                 size="lg" 
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
               >
                 <Link to="/research">View Research</Link>
               </Button>

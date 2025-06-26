@@ -84,7 +84,7 @@ export default function Reviews() {
         "Single ingredient formula"
       ],
       bestFor: "Budget-conscious users who want pure DHM without extras",
-      ingredients: ["DHM 1000mg", "Electrolytes (Potassium, Sodium, Chloride, Magnesium, Calcium)"],
+      ingredients: ["DHM 1000mg", "Electrolytes", "Essential Minerals"],
       category: "budget"
     },
     {
@@ -478,7 +478,7 @@ export default function Reviews() {
                 asChild
                 size="lg" 
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
               >
                 <Link to="/research">See Research Data</Link>
               </Button>
