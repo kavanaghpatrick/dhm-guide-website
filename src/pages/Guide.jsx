@@ -31,6 +31,26 @@ export default function Guide() {
     { id: 'choosing-supplements', title: 'Choosing Supplements', icon: <Award className="w-4 h-4" /> }
   ]
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+      {/* DISTINCTIVE HEADER TO CONFIRM GUIDE PAGE IS LOADING */}
+      <div style={{ 
+        backgroundColor: 'red', 
+        color: 'white', 
+        padding: '20px', 
+        textAlign: 'center',
+        fontSize: '32px',
+        fontWeight: 'bold',
+        border: '10px solid yellow'
+      }}>
+        🎯 GUIDE PAGE IS NOW LOADING! 🎯
+      </div>
+      
+      <div>Guide page content will go here...</div>
+    </div>
+  )
+}
+
   const keyBenefits = [
     {
       icon: <Zap className="w-6 h-6" />,
