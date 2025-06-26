@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
+import ComparisonWidget from '../components/ComparisonWidget.jsx'
 import { 
   Star, 
   CheckCircle, 
@@ -16,12 +17,42 @@ import {
   TrendingUp,
   Users,
   ThumbsUp,
-  ExternalLink
+  ExternalLink,
+  Plus,
+  Check
 } from 'lucide-react'
 
 export default function Reviews() {
   const [sortBy, setSortBy] = useState('rating')
   const [filterBy, setFilterBy] = useState('all')
+  const [selectedForComparison, setSelectedForComparison] = useState([])
+
+  const handleComparisonToggle = (product) => {
+    setSelectedForComparison(prev => {
+      const isSelected = prev.find(p => p.id === product.id)
+      if (isSelected) {
+        return prev.filter(p => p.id !== product.id)
+      } else if (prev.length < 4) { // Limit to 4 products
+        return [...prev, product]
+      }
+      return prev
+    })
+  }
+
+  const handleRemoveFromComparison = (productId) => {
+    setSelectedForComparison(prev => prev.filter(p => p.id !== productId))
+  }
+
+  const handleClearComparison = () => {
+    setSelectedForComparison([])
+  }
+
+  const handleCompare = () => {
+    // Navigate to compare page with selected products
+    const productIds = selectedForComparison.map(p => p.id).join(',')
+    window.history.pushState({}, '', `/compare?products=${productIds}`)
+    window.dispatchEvent(new PopStateEvent('popstate'))
+  }
 
   const topProducts = [
     {
@@ -437,8 +468,27 @@ export default function Reviews() {
                           <ExternalLink className="w-4 h-4 ml-2" />
                         </a>
                       </Button>
-                      <Button variant="outline" className="border-green-700 text-green-700 hover:bg-green-50">
-                        Compare Products
+                      <Button 
+                        onClick={() => handleComparisonToggle(product)}
+                        variant="outline" 
+                        className={`border-green-700 hover:bg-green-50 ${
+                          selectedForComparison.find(p => p.id === product.id)
+                            ? 'bg-green-50 text-green-800 border-green-800'
+                            : 'text-green-700'
+                        }`}
+                        disabled={!selectedForComparison.find(p => p.id === product.id) && selectedForComparison.length >= 4}
+                      >
+                        {selectedForComparison.find(p => p.id === product.id) ? (
+                          <>
+                            <Check className="w-4 h-4 mr-2" />
+                            Added to Compare
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add to Compare
+                          </>
+                        )}
                       </Button>
                     </div>
                   </CardContent>
@@ -489,6 +539,15 @@ export default function Reviews() {
           </motion.div>
         </div>
       </section>
+
+      {/* Comparison Widget */}
+      <ComparisonWidget
+        selectedProducts={selectedForComparison}
+        onRemoveProduct={handleRemoveFromComparison}
+        onClearAll={handleClearComparison}
+        onCompare={handleCompare}
+        isVisible={selectedForComparison.length > 0}
+      />
     </div>
   )
 }

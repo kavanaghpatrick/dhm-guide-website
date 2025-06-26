@@ -5,6 +5,7 @@ import Guide from './pages/Guide.jsx'
 import Reviews from './pages/Reviews.jsx'
 import Research from './pages/Research.jsx'
 import About from './pages/About.jsx'
+import Compare from './pages/Compare.jsx'
 import './App.css'
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
         return <Research />
       case '/about':
         return <About />
+      case '/compare':
+        return <Compare />
       default:
         return <Home />
     }

@@ -14,6 +14,7 @@ export default function Layout({ children }) {
     { name: 'Home', href: '/' },
     { name: 'Guide', href: '/guide' },
     { name: 'Reviews', href: '/reviews' },
+    { name: 'Compare', href: '/compare' },
     { name: 'Research', href: '/research' },
     { name: 'About', href: '/about' }
   ]
