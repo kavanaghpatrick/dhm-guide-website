@@ -87,7 +87,13 @@ dist
 
 # Gatsby files
 .cache/
-public
+public/*
+!public/sitemap.xml
+!public/robots.txt
+!public/favicon.svg
+!public/favicon.png
+!public/og-image.jpg
+!public/twitter-image.jpg
 
 # Storybook build outputs
 .out
