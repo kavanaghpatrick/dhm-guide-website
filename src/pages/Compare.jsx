@@ -26,7 +26,8 @@ import {
   Clock,
   Package,
   Truck,
-  RefreshCw
+  RefreshCw,
+  ShoppingCart
 } from 'lucide-react'
 
 export default function Compare() {
@@ -614,49 +615,38 @@ export default function Compare() {
                           </td>
                         ))}
                       </tr>
+
+                      {/* Purchase Links */}
+                      <tr className="bg-green-50">
+                        <td className="px-6 py-4 font-semibold text-gray-900">
+                          <div className="flex items-center">
+                            <ShoppingCart className="w-5 h-5 mr-2 text-green-600" />
+                            Purchase
+                          </div>
+                        </td>
+                        {selectedProductsData.map((product) => (
+                          <td key={product.id} className="px-6 py-4 text-center">
+                            <Button 
+                              asChild 
+                              className="bg-green-700 hover:bg-green-800 text-white w-full"
+                            >
+                              <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                                <span>Buy on Amazon</span>
+                                <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+                                  Free Shipping
+                                </span>
+                                <ExternalLink className="w-4 h-4 ml-2" />
+                              </a>
+                            </Button>
+                            <div className="text-xs text-gray-500 mt-2">
+                              {product.monthlyBuyers} monthly buyers
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
                     </tbody>
                   </table>
                 </div>
-              </div>
-
-              {/* Purchase CTAs */}
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {selectedProductsData.map((product, index) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
-                    <Card className="h-full bg-white border-green-100 hover:shadow-lg transition-all duration-300">
-                      <CardHeader className="text-center">
-                        <Badge className={getBadgeColor(product.badgeColor)}>
-                          {product.badge}
-                        </Badge>
-                        <CardTitle className="text-lg">{product.name}</CardTitle>
-                        <div className="text-2xl font-bold text-green-700">{product.price}</div>
-                        <div className="text-sm text-gray-600">{product.pricePerServing} per serving</div>
-                      </CardHeader>
-                      <CardContent className="text-center">
-                        <Button 
-                          asChild 
-                          className="w-full bg-green-700 hover:bg-green-800 text-white mb-3"
-                        >
-                          <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                            <span>Buy on Amazon</span>
-                            <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
-                              Free Shipping
-                            </span>
-                            <ExternalLink className="w-4 h-4 ml-2" />
-                          </a>
-                        </Button>
-                        <div className="text-xs text-gray-500">
-                          {product.monthlyBuyers} monthly buyers
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
               </div>
             </motion.div>
           </div>

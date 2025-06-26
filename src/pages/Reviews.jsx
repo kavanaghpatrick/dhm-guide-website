@@ -52,6 +52,8 @@ export default function Reviews() {
     const productIds = selectedForComparison.map(p => p.id).join(',')
     window.history.pushState({}, '', `/compare?products=${productIds}`)
     window.dispatchEvent(new PopStateEvent('popstate'))
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const topProducts = [

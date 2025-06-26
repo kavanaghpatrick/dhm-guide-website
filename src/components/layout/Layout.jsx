@@ -28,6 +28,8 @@ export default function Layout({ children }) {
     window.history.pushState({}, '', href)
     window.dispatchEvent(new PopStateEvent('popstate'))
     setIsMenuOpen(false)
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
