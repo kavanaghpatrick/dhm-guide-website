@@ -38,6 +38,7 @@ export default function Reviews() {
       badge: "Editor's Choice",
       badgeColor: "bg-yellow-500",
       score: 9.5,
+      affiliateLink: "https://amzn.to/3HSHjgu",
       pros: [
         "Highest DHM content per serving (450mg+)",
         "Excellent user reviews (4.8/5 stars)",
@@ -67,6 +68,7 @@ export default function Reviews() {
       badge: "Best Value",
       badgeColor: "bg-green-500",
       score: 9.2,
+      affiliateLink: "https://amzn.to/44sczuq",
       pros: [
         "Excellent value for money",
         "High purity (98% DHM)",
@@ -85,32 +87,34 @@ export default function Reviews() {
     },
     {
       id: 3,
-      name: "Flyby Recovery",
-      brand: "Flyby",
-      rating: 4.5,
-      reviews: 2156,
-      price: "$40.00",
-      pricePerServing: "$1.33",
+      name: "Toniiq Ease",
+      brand: "Toniiq",
+      rating: 4.7,
+      reviews: 1456,
+      price: "$34.95",
+      pricePerServing: "$1.17",
       servings: 30,
       dhm: "300mg",
-      purity: "95%",
+      purity: "95%+",
       badge: "Most Popular",
       badgeColor: "bg-blue-500",
-      score: 8.9,
+      score: 9.0,
+      affiliateLink: "https://amzn.to/4ejE4uq",
       pros: [
-        "Comprehensive formula",
-        "B vitamins included",
-        "Proven results",
-        "Good customer support",
-        "Wide availability"
+        "Comprehensive liver support formula",
+        "DHM standardized to 98% purity",
+        "Includes supportive ingredients (Milk Thistle, Reishi)",
+        "120 capsules per bottle (good value)",
+        "Contains B vitamins and L-Cysteine",
+        "BioPerine for enhanced absorption"
       ],
       cons: [
-        "Lower DHM purity",
-        "More expensive per serving",
-        "Some users report stomach upset"
+        "Complex formula may not suit everyone",
+        "More expensive than simple DHM supplements",
+        "Larger capsule size due to multiple ingredients"
       ],
-      bestFor: "Users who want a complete hangover prevention formula",
-      ingredients: ["DHM 300mg", "B-Complex", "Electrolytes", "Amino Acids"],
+      bestFor: "Users wanting comprehensive liver support with DHM plus additional beneficial ingredients",
+      ingredients: ["DHM 98%", "Milk Thistle", "Reishi", "L-Cysteine", "B Vitamins", "BioPerine"],
       category: "comprehensive"
     },
     {
@@ -127,6 +131,7 @@ export default function Reviews() {
       badge: "Rising Star",
       badgeColor: "bg-purple-500",
       score: 8.6,
+      affiliateLink: "#", // Placeholder - no affiliate link available
       pros: [
         "Good overall formula",
         "Reasonable pricing",
@@ -156,6 +161,7 @@ export default function Reviews() {
       badge: "Premium Quality",
       badgeColor: "bg-indigo-500",
       score: 8.4,
+      affiliateLink: "#", // Placeholder - no affiliate link available
       pros: [
         "Highest purity (99%)",
         "Pharmaceutical grade",
@@ -413,9 +419,14 @@ export default function Reviews() {
                     </div>
                     
                     <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-6 border-t border-gray-100">
-                      <Button className="bg-green-700 hover:bg-green-800 text-white flex-1">
-                        View Product Details
-                        <ExternalLink className="w-4 h-4 ml-2" />
+                      <Button 
+                        asChild 
+                        className="bg-green-700 hover:bg-green-800 text-white flex-1"
+                      >
+                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer">
+                          View Product Details
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </a>
                       </Button>
                       <Button variant="outline" className="border-green-700 text-green-700 hover:bg-green-50">
                         Compare Products

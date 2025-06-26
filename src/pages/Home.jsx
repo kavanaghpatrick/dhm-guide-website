@@ -63,7 +63,8 @@ export default function Home() {
       price: "$47.00",
       dhm: "450mg+",
       badge: "Editor's Choice",
-      features: ["Highest DHM content", "Premium ingredients", "Third-party tested"]
+      features: ["Highest DHM content", "Premium ingredients", "Third-party tested"],
+      affiliateLink: "https://amzn.to/3HSHjgu"
     },
     {
       name: "Double Wood Supplements",
@@ -71,15 +72,17 @@ export default function Home() {
       price: "$18.99",
       dhm: "300mg",
       badge: "Best Value",
-      features: ["98% pure DHM", "Great price", "Simple formula"]
+      features: ["98% pure DHM", "Great price", "Simple formula"],
+      affiliateLink: "https://amzn.to/44sczuq"
     },
     {
-      name: "Flyby Recovery",
-      rating: 4.5,
-      price: "$40.00",
+      name: "Toniiq Ease",
+      rating: 4.7,
+      price: "$34.95",
       dhm: "300mg",
       badge: "Most Popular",
-      features: ["Comprehensive formula", "B vitamins included", "Proven results"]
+      features: ["High-quality extract", "Potent formula", "Trusted brand"],
+      affiliateLink: "https://amzn.to/4ejE4uq"
     }
   ]
 
@@ -342,7 +345,7 @@ export default function Home() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 mb-4">
                       {product.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center space-x-2 text-sm text-gray-600">
                           <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
@@ -350,6 +353,15 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
+                    <Button 
+                      asChild 
+                      className="w-full bg-green-700 hover:bg-green-800 text-white"
+                    >
+                      <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer">
+                        Read Full Review
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
