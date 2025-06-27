@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, Tag, ArrowRight, Filter, X } from 'lucide-react';
+import { Calendar, Clock, Tag, ArrowRight, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { getAllPosts } from '../blog/utils/postLoader';
 
 const Blog = () => {
   const posts = getAllPosts();
   const [selectedTags, setSelectedTags] = useState([]);
+  const [showAllFilters, setShowAllFilters] = useState(false);
 
   // Get all unique tags from all posts
   const getAllTags = () => {
     const allTags = posts.flatMap(post => post.tags);
     return [...new Set(allTags)].sort();
+  };
+
+  // Get popular/featured tags to show by default
+  const getDefaultTags = () => {
+    const allTags = getAllTags();
+    // Show first 8 tags by default (most common ones appear first due to sorting)
+    return allTags.slice(0, 8);
   };
 
   // Filter posts based on selected tags
@@ -33,6 +41,11 @@ const Blog = () => {
     setSelectedTags([]);
   };
 
+  // Toggle filter section visibility
+  const toggleFilterVisibility = () => {
+    setShowAllFilters(!showAllFilters);
+  };
+
   const handleNavigation = (href) => {
     window.history.pushState({}, '', href);
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -52,6 +65,11 @@ const Blog = () => {
     const wordCount = content.split(' ').length;
     return Math.ceil(wordCount / wordsPerMinute);
   };
+
+  const allTags = getAllTags();
+  const defaultTags = getDefaultTags();
+  const tagsToShow = showAllFilters ? allTags : defaultTags;
+  const hasMoreTags = allTags.length > defaultTags.length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -108,7 +126,7 @@ const Blog = () => {
         </div>
       </div>
 
-      {/* Tag Filter Section */}
+      {/* Collapsible Tag Filter Section */}
       <div className="bg-white border-b border-gray-200 py-6">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -137,7 +155,7 @@ const Blog = () => {
 
           {/* Tag Filter Buttons */}
           <div className="flex flex-wrap gap-3 mt-4">
-            {getAllTags().map(tag => (
+            {tagsToShow.map(tag => (
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
@@ -154,6 +172,28 @@ const Blog = () => {
               </button>
             ))}
           </div>
+
+          {/* Show More/Less Button */}
+          {hasMoreTags && (
+            <div className="mt-4 text-center">
+              <button
+                onClick={toggleFilterVisibility}
+                className="inline-flex items-center gap-2 px-4 py-2 text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors font-medium"
+              >
+                {showAllFilters ? (
+                  <>
+                    <ChevronUp className="w-4 h-4" />
+                    Show Less Filters
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4" />
+                    Show All Filters ({allTags.length - defaultTags.length} more)
+                  </>
+                )}
+              </button>
+            </div>
+          )}
 
           {/* Results Counter */}
           <div className="mt-4 text-sm text-gray-600">
