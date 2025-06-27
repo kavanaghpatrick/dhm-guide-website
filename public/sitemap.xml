@@ -54,6 +54,13 @@
 
   <!-- Blog Posts -->
   <url>
+    <loc>https://dhmguide.com/blog/dhm-japanese-raisin-tree-complete-guide</loc>
+    <lastmod>2025-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://dhmguide.com/blog/how-to-cure-a-hangover-complete-science-guide</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
