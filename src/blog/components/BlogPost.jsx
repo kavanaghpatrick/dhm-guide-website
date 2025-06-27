@@ -214,7 +214,7 @@ const BlogPost = () => {
             {isClient ? (
               <button 
                 onClick={() => handleNavigation('/')}
-                className="hover:text-green-600 transition-colors"
+                className="hover:text-green-600 transition-colors fast-click blog-link"
               >
                 Home
               </button>
@@ -225,7 +225,7 @@ const BlogPost = () => {
             {isClient ? (
               <button 
                 onClick={() => handleNavigation('/blog')}
-                className="hover:text-green-600 transition-colors"
+                className="hover:text-green-600 transition-colors fast-click blog-link"
               >
                 Blog
               </button>
@@ -239,7 +239,7 @@ const BlogPost = () => {
           {isClient ? (
             <button 
               onClick={() => handleNavigation('/blog')}
-              className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6 fast-click blog-link"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
@@ -269,7 +269,7 @@ const BlogPost = () => {
             {isClient && (
               <button
                 onClick={sharePost}
-                className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors"
+                className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors fast-click blog-link"
               >
                 <Share2 className="w-4 h-4" />
                 Share
