@@ -27,12 +27,20 @@ const BlogPost = () => {
   useEffect(() => {
     if (post && contentRef.current) {
       const headings = contentRef.current.querySelectorAll('h2, h3');
-      const items = Array.from(headings).map((heading, index) => {
-        const id = `heading-${index}`;
+      const items = Array.from(headings).map((heading) => {
+        // Generate a clean ID from the heading text
+        const text = heading.textContent;
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/-+/g, '-') // Replace multiple hyphens with single
+          .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+        
         heading.id = id;
         return {
           id,
-          text: heading.textContent,
+          text,
           level: parseInt(heading.tagName.charAt(1))
         };
       });
@@ -160,7 +168,14 @@ const BlogPost = () => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerOffset = 100; // Account for fixed header and some padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -259,21 +274,21 @@ const BlogPost = () => {
         {tocItems.length > 0 && (
           <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-24">
-              <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <List className="w-4 h-4" />
+                  <List className="w-4 h-4 text-green-600" />
                   Table of Contents
                 </h3>
-                <nav className="space-y-2">
+                <nav className="space-y-1">
                   {tocItems.map((item) => (
                     <button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}
-                      className={`block w-full text-left text-sm py-1 px-2 rounded transition-colors ${
+                      className={`block w-full text-left text-sm py-2 px-3 rounded-lg transition-all duration-150 ${
                         activeSection === item.id
-                          ? 'bg-green-100 text-green-700 font-medium'
-                          : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
-                      } ${item.level === 3 ? 'ml-4' : ''}`}
+                          ? 'bg-green-100 text-green-700 font-medium shadow-sm border-l-2 border-green-500'
+                          : 'text-gray-600 hover:text-green-600 hover:bg-green-50 hover:shadow-sm'
+                      } ${item.level === 3 ? 'ml-4 text-xs' : ''}`}
                     >
                       {item.text}
                     </button>
@@ -291,13 +306,20 @@ const BlogPost = () => {
             <div className="lg:hidden mb-6">
               <button
                 onClick={() => setShowToc(!showToc)}
-                className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md text-gray-700 hover:text-green-600 transition-colors"
+                className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md text-gray-700 hover:text-green-600 transition-all duration-200 hover:shadow-lg"
               >
                 <List className="w-4 h-4" />
-                Table of Contents
+                <span>Table of Contents</span>
+                <div className={`transform transition-transform duration-200 ${showToc ? 'rotate-180' : ''}`}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </button>
               
-              {showToc && (
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showToc ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}>
                 <div className="mt-4 bg-white rounded-lg shadow-lg p-4">
                   <nav className="space-y-2">
                     {tocItems.map((item) => (
@@ -307,9 +329,9 @@ const BlogPost = () => {
                           scrollToSection(item.id);
                           setShowToc(false);
                         }}
-                        className={`block w-full text-left text-sm py-1 px-2 rounded transition-colors ${
+                        className={`block w-full text-left text-sm py-2 px-3 rounded transition-all duration-150 ${
                           activeSection === item.id
-                            ? 'bg-green-100 text-green-700 font-medium'
+                            ? 'bg-green-100 text-green-700 font-medium shadow-sm'
                             : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
                         } ${item.level === 3 ? 'ml-4' : ''}`}
                       >
@@ -318,7 +340,7 @@ const BlogPost = () => {
                     ))}
                   </nav>
                 </div>
-              )}
+              </div>
             </div>
           )}
 
