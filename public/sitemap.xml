@@ -54,13 +54,30 @@
 
   <!-- Blog Posts -->
   <url>
+    <loc>https://www.dhmguide.com/blog/longevity-biohacking-dhm-liver-protection</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/blog/gut-health-alcohol-microbiome-protection</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/blog/sleep-optimization-social-drinkers-circadian-rhythm</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/blog/dhm-japanese-raisin-tree-complete-guide</loc>
     <lastmod>2025-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <url>
+  <url>>
     <loc>https://www.dhmguide.com/blog/how-to-cure-a-hangover-complete-science-guide</loc>
     <lastmod>2025-06-27</lastmod>
     <changefreq>monthly</changefreq>
