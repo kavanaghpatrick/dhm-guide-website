@@ -167,20 +167,20 @@ export default function Home() {
                 <Button 
                   asChild
                   size="lg" 
-                  className="bg-green-700 hover:bg-green-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                 >
                   <Link to="/guide">
-                    Get the Complete Guide
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    📚 Get the Complete Guide
+                    <ArrowRight className="ml-3 w-6 h-6" />
                   </Link>
                 </Button>
                 <Button 
                   asChild
                   variant="outline" 
                   size="lg"
-                  className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-8 py-4 text-lg font-semibold"
+                  className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-10 py-5 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Link to="/reviews">Try DHM Detox</Link>
+                  <Link to="/reviews">🛒 Try DHM Detox</Link>
                 </Button>
               </motion.div>
 

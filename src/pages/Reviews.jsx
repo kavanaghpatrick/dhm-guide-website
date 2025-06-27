@@ -457,23 +457,25 @@ export default function Reviews() {
                       </div>
                     </div>
                     
-                    <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-6 border-t border-gray-100">
+                    <div className="flex flex-col sm:flex-row gap-4 mt-6 pt-6 border-t border-gray-100">
                       <Button 
                         asChild 
-                        className="bg-green-700 hover:bg-green-800 text-white flex-1"
+                        size="lg"
+                        className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold"
                       >
                         <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                          <span>Buy on Amazon</span>
-                          <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+                          <span>🛒 Buy on Amazon</span>
+                          <span className="ml-3 px-3 py-1 bg-orange-500 text-white text-sm font-bold rounded-full shadow-md">
                             Free Shipping
                           </span>
-                          <ExternalLink className="w-4 h-4 ml-2" />
+                          <ExternalLink className="w-5 h-5 ml-3" />
                         </a>
                       </Button>
                       <Button 
                         onClick={() => handleComparisonToggle(product)}
                         variant="outline" 
-                        className={`border-green-700 hover:bg-green-50 ${
+                        size="lg"
+                        className={`border-2 border-green-700 hover:bg-green-50 transition-all duration-200 ${
                           selectedForComparison.find(p => p.id === product.id)
                             ? 'bg-green-50 text-green-800 border-green-800'
                             : 'text-green-700'

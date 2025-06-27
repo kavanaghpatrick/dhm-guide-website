@@ -94,7 +94,7 @@ export default function Layout({ children }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-600 hover:text-green-600 transition-colors"
+              className="md:hidden p-3 text-gray-600 hover:text-green-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -108,12 +108,12 @@ export default function Layout({ children }) {
               exit={{ opacity: 0, y: -20 }}
               className="md:hidden mt-4 pb-4 border-t border-green-100 pt-4"
             >
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col space-y-3">
                 {navItems.map((item) => (
                   <button
                     key={item.name}
                     onClick={() => handleNavigation(item.href)}
-                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors text-left ${
+                    className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors text-left min-h-[44px] ${
                       isActive(item.href)
                         ? 'bg-green-100 text-green-600'
                         : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
@@ -150,17 +150,17 @@ export default function Layout({ children }) {
                 </div>
                 <span className="text-xl font-bold">DHM Guide</span>
               </div>
-              <p className="text-gray-400 mb-4 max-w-md">
+              <p className="text-gray-300 mb-4 max-w-md">
                 Your comprehensive resource for understanding DHM (Dihydromyricetin) and its benefits for hangover prevention and liver health.
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400">
                 © 2025 DHM Guide. All rights reserved.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-gray-400">
+              <ul className="space-y-2 text-gray-300">
                 {navItems.map((item) => (
                   <li key={item.name}>
                     <button onClick={() => handleNavigation(item.href)} className="hover:text-white transition-colors">
@@ -173,7 +173,7 @@ export default function Layout({ children }) {
             
             <div>
               <h3 className="font-semibold mb-4">Resources</h3>
-              <ul className="space-y-2 text-gray-400">
+              <ul className="space-y-2 text-gray-300">
                 <li><button onClick={() => handleNavigation('/research')} className="hover:text-white transition-colors">Scientific Studies</button></li>
                 <li><button onClick={() => handleNavigation('/reviews')} className="hover:text-white transition-colors">Product Reviews</button></li>
                 <li><button onClick={() => handleNavigation('/guide')} className="hover:text-white transition-colors">Dosage Guide</button></li>
