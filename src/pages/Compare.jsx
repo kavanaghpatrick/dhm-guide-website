@@ -377,275 +377,472 @@ export default function Compare() {
               
               {/* Comparison Table */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gradient-to-r from-green-700 to-green-800 text-white">
-                      <tr>
-                        <th className="px-6 py-4 text-left font-semibold">Comparison Factor</th>
-                        {selectedProductsData.map((product) => (
-                          <th key={product.id} className="px-6 py-4 text-center font-semibold min-w-[200px]">
-                            <div className="flex flex-col items-center">
-                              <div className="text-sm">{product.brand}</div>
-                              <div className="text-lg font-bold">{product.name.split(' ').slice(0, 3).join(' ')}</div>
-                              <Badge className={`mt-2 ${getBadgeColor(product.badgeColor)}`}>
+                {/* Desktop Table View */}
+                <div className="hidden lg:block">
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-gradient-to-r from-green-700 to-green-800 text-white">
+                        <tr>
+                          <th className="px-6 py-4 text-left font-semibold">Comparison Factor</th>
+                          {selectedProductsData.map((product) => (
+                            <th key={product.id} className="px-6 py-4 text-center font-semibold min-w-[200px]">
+                              <div className="flex flex-col items-center">
+                                <div className="text-sm">{product.brand}</div>
+                                <div className="text-lg font-bold">{product.name.split(' ').slice(0, 3).join(' ')}</div>
+                                <Badge className={`mt-2 ${getBadgeColor(product.badgeColor)}`}>
+                                  {product.badge}
+                                </Badge>
+                              </div>
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {/* Overall Score */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Award className="w-5 h-5 mr-2 text-yellow-500" />
+                              Overall Score
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => {
+                            const isWinner = getWinner('effectiveness')?.id === product.id
+                            return (
+                              <td key={product.id} className="px-6 py-4 text-center">
+                                <div className={`text-2xl font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
+                                  {product.score}/10
+                                  {isWinner && <Crown className="w-5 h-5 inline ml-2 text-yellow-500" />}
+                                </div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+
+                        {/* Price */}
+                        <tr>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <DollarSign className="w-5 h-5 mr-2 text-green-500" />
+                              Price
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <div className="text-xl font-bold text-green-700">{product.price}</div>
+                              <div className="text-sm text-gray-600">{product.pricePerServing} per serving</div>
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* DHM Content */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Microscope className="w-5 h-5 mr-2 text-blue-500" />
+                              DHM Content
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => {
+                            const isWinner = getWinner('dhm')?.id === product.id
+                            return (
+                              <td key={product.id} className="px-6 py-4 text-center">
+                                <div className={`text-lg font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
+                                  {product.dhm}
+                                  {isWinner && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">{product.purity} purity</div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+
+                        {/* Value (DHM per Dollar) */}
+                        <tr>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Target className="w-5 h-5 mr-2 text-purple-500" />
+                              Value (mg DHM per $)
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => {
+                            const isWinner = getWinner('dhmPerDollar')?.id === product.id
+                            return (
+                              <td key={product.id} className="px-6 py-4 text-center">
+                                <div className={`text-lg font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
+                                  {product.dhmPerDollar.toFixed(1)} mg/$
+                                  {isWinner && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">Best value indicator</div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+
+                        {/* Customer Rating */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Star className="w-5 h-5 mr-2 text-yellow-500" />
+                              Customer Rating
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => {
+                            const isWinner = getWinner('rating')?.id === product.id
+                            return (
+                              <td key={product.id} className="px-6 py-4 text-center">
+                                <div className={`flex items-center justify-center ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
+                                  <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 mr-1" />
+                                  <span className="text-lg font-bold">{product.rating}</span>
+                                  {isWinner && <Crown className="w-4 h-4 ml-1 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">({product.reviews} reviews)</div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+
+                        {/* Servings */}
+                        <tr>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Package className="w-5 h-5 mr-2 text-indigo-500" />
+                              Servings per Container
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <div className="text-lg font-bold text-gray-700">{product.servings}</div>
+                              <div className="text-sm text-gray-600">servings</div>
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Third-Party Testing */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Shield className="w-5 h-5 mr-2 text-green-500" />
+                              Third-Party Tested
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              {product.thirdPartyTested ? (
+                                <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
+                              ) : (
+                                <X className="w-6 h-6 text-red-500 mx-auto" />
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Money Back Guarantee */}
+                        <tr>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <RefreshCw className="w-5 h-5 mr-2 text-blue-500" />
+                              Money Back Guarantee
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              {product.moneyBackGuarantee ? (
+                                <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
+                              ) : (
+                                <X className="w-6 h-6 text-red-500 mx-auto" />
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Shipping Speed */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Truck className="w-5 h-5 mr-2 text-orange-500" />
+                              Shipping Speed
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <div className="text-sm font-medium text-gray-700">{product.shippingSpeed}</div>
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Additional Ingredients */}
+                        <tr>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Plus className="w-5 h-5 mr-2 text-purple-500" />
+                              Additional Ingredients
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <div className="text-sm text-gray-700">
+                                {product.additionalIngredients.length > 0 ? (
+                                  <div className="space-y-1">
+                                    {product.additionalIngredients.slice(0, 2).map((ingredient, idx) => (
+                                      <div key={idx} className="bg-gray-100 px-2 py-1 rounded text-xs">
+                                        {ingredient}
+                                      </div>
+                                    ))}
+                                    {product.additionalIngredients.length > 2 && (
+                                      <div className="text-xs text-gray-500">
+                                        +{product.additionalIngredients.length - 2} more
+                                      </div>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <span className="text-gray-400">DHM only</span>
+                                )}
+                              </div>
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Best For */}
+                        <tr className="bg-gray-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <Users className="w-5 h-5 mr-2 text-teal-500" />
+                              Best For
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <div className="text-sm text-gray-700 font-medium">{product.bestForUseCase}</div>
+                            </td>
+                          ))}
+                        </tr>
+
+                        {/* Purchase Links */}
+                        <tr className="bg-green-50">
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <div className="flex items-center">
+                              <ShoppingCart className="w-5 h-5 mr-2 text-green-600" />
+                              Purchase
+                            </div>
+                          </td>
+                          {selectedProductsData.map((product) => (
+                            <td key={product.id} className="px-6 py-4 text-center">
+                              <Button 
+                                asChild 
+                                className="bg-green-700 hover:bg-green-800 text-white w-full"
+                              >
+                                <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                                  <span>Buy on Amazon</span>
+                                  <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+                                    Free Shipping
+                                  </span>
+                                  <ExternalLink className="w-4 h-4 ml-2" />
+                                </a>
+                              </Button>
+                              <div className="text-xs text-gray-500 mt-2">
+                                {product.monthlyBuyers} monthly buyers
+                              </div>
+                            </td>
+                          ))}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="lg:hidden">
+                  <div className="space-y-6 p-4">
+                    {selectedProductsData.map((product, index) => {
+                      const isTopChoice = getWinner('effectiveness')?.id === product.id
+                      const isBestValue = getWinner('dhmPerDollar')?.id === product.id
+                      const isHighestRated = getWinner('rating')?.id === product.id
+                      const isHighestDHM = getWinner('dhm')?.id === product.id
+                      
+                      return (
+                        <Card key={product.id} className={`${isTopChoice ? 'ring-2 ring-green-500 bg-green-50' : ''}`}>
+                          <CardHeader className="pb-4">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <div className="text-sm text-gray-600">{product.brand}</div>
+                                <CardTitle className="text-lg">{product.name}</CardTitle>
+                              </div>
+                              <Badge className={`${getBadgeColor(product.badgeColor)}`}>
                                 {product.badge}
                               </Badge>
                             </div>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {/* Overall Score */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Award className="w-5 h-5 mr-2 text-yellow-500" />
-                            Overall Score
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => {
-                          const isWinner = getWinner('effectiveness')?.id === product.id
-                          return (
-                            <td key={product.id} className="px-6 py-4 text-center">
-                              <div className={`text-2xl font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
+                            {isTopChoice && (
+                              <div className="flex items-center text-green-700 text-sm font-medium">
+                                <Crown className="w-4 h-4 mr-1" />
+                                Top Choice
+                              </div>
+                            )}
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            {/* Overall Score */}
+                            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center">
+                                <Award className="w-5 h-5 mr-2 text-yellow-500" />
+                                <span className="font-medium">Overall Score</span>
+                              </div>
+                              <div className={`text-xl font-bold ${isTopChoice ? 'text-green-700' : 'text-gray-700'}`}>
                                 {product.score}/10
-                                {isWinner && <Crown className="w-5 h-5 inline ml-2 text-yellow-500" />}
                               </div>
-                            </td>
-                          )
-                        })}
-                      </tr>
+                            </div>
 
-                      {/* Price */}
-                      <tr>
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <DollarSign className="w-5 h-5 mr-2 text-green-500" />
-                            Price
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <div className="text-xl font-bold text-green-700">{product.price}</div>
-                            <div className="text-sm text-gray-600">{product.pricePerServing} per serving</div>
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* DHM Content */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Microscope className="w-5 h-5 mr-2 text-blue-500" />
-                            DHM Content
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => {
-                          const isWinner = getWinner('dhm')?.id === product.id
-                          return (
-                            <td key={product.id} className="px-6 py-4 text-center">
-                              <div className={`text-lg font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
-                                {product.dhm}
-                                {isWinner && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
+                            {/* Price */}
+                            <div className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                              <div className="flex items-center">
+                                <DollarSign className="w-5 h-5 mr-2 text-green-500" />
+                                <span className="font-medium">Price</span>
                               </div>
-                              <div className="text-sm text-gray-600">{product.purity} purity</div>
-                            </td>
-                          )
-                        })}
-                      </tr>
-
-                      {/* Value (DHM per Dollar) */}
-                      <tr>
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Target className="w-5 h-5 mr-2 text-purple-500" />
-                            Value (mg DHM per $)
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => {
-                          const isWinner = getWinner('dhmPerDollar')?.id === product.id
-                          return (
-                            <td key={product.id} className="px-6 py-4 text-center">
-                              <div className={`text-lg font-bold ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
-                                {product.dhmPerDollar.toFixed(1)} mg/$
-                                {isWinner && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
+                              <div className="text-right">
+                                <div className="text-lg font-bold text-green-700">{product.price}</div>
+                                <div className="text-sm text-gray-600">{product.pricePerServing} per serving</div>
                               </div>
-                              <div className="text-sm text-gray-600">Best value indicator</div>
-                            </td>
-                          )
-                        })}
-                      </tr>
+                            </div>
 
-                      {/* Customer Rating */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Star className="w-5 h-5 mr-2 text-yellow-500" />
-                            Customer Rating
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => {
-                          const isWinner = getWinner('rating')?.id === product.id
-                          return (
-                            <td key={product.id} className="px-6 py-4 text-center">
-                              <div className={`flex items-center justify-center ${isWinner ? 'text-green-700' : 'text-gray-700'}`}>
-                                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 mr-1" />
-                                <span className="text-lg font-bold">{product.rating}</span>
-                                {isWinner && <Crown className="w-4 h-4 ml-1 text-yellow-500" />}
+                            {/* DHM Content */}
+                            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center">
+                                <Microscope className="w-5 h-5 mr-2 text-blue-500" />
+                                <span className="font-medium">DHM Content</span>
                               </div>
-                              <div className="text-sm text-gray-600">({product.reviews} reviews)</div>
-                            </td>
-                          )
-                        })}
-                      </tr>
-
-                      {/* Servings */}
-                      <tr>
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Package className="w-5 h-5 mr-2 text-indigo-500" />
-                            Servings per Container
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <div className="text-lg font-bold text-gray-700">{product.servings}</div>
-                            <div className="text-sm text-gray-600">servings</div>
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* Third-Party Testing */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Shield className="w-5 h-5 mr-2 text-green-500" />
-                            Third-Party Tested
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            {product.thirdPartyTested ? (
-                              <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
-                            ) : (
-                              <X className="w-6 h-6 text-red-500 mx-auto" />
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* Money Back Guarantee */}
-                      <tr>
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <RefreshCw className="w-5 h-5 mr-2 text-blue-500" />
-                            Money Back Guarantee
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            {product.moneyBackGuarantee ? (
-                              <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
-                            ) : (
-                              <X className="w-6 h-6 text-red-500 mx-auto" />
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* Shipping Speed */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Truck className="w-5 h-5 mr-2 text-orange-500" />
-                            Shipping Speed
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <div className="text-sm font-medium text-gray-700">{product.shippingSpeed}</div>
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* Additional Ingredients */}
-                      <tr>
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Plus className="w-5 h-5 mr-2 text-purple-500" />
-                            Additional Ingredients
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <div className="text-sm text-gray-700">
-                              {product.additionalIngredients.length > 0 ? (
-                                <div className="space-y-1">
-                                  {product.additionalIngredients.slice(0, 2).map((ingredient, idx) => (
-                                    <div key={idx} className="bg-gray-100 px-2 py-1 rounded text-xs">
-                                      {ingredient}
-                                    </div>
-                                  ))}
-                                  {product.additionalIngredients.length > 2 && (
-                                    <div className="text-xs text-gray-500">
-                                      +{product.additionalIngredients.length - 2} more
-                                    </div>
-                                  )}
+                              <div className="text-right">
+                                <div className={`text-lg font-bold ${isHighestDHM ? 'text-green-700' : 'text-gray-700'}`}>
+                                  {product.dhm}
+                                  {isHighestDHM && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
                                 </div>
-                              ) : (
-                                <span className="text-gray-400">DHM only</span>
-                              )}
+                                <div className="text-sm text-gray-600">{product.purity} purity</div>
+                              </div>
                             </div>
-                          </td>
-                        ))}
-                      </tr>
 
-                      {/* Best For */}
-                      <tr className="bg-gray-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <Users className="w-5 h-5 mr-2 text-teal-500" />
-                            Best For
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <div className="text-sm text-gray-700 font-medium">{product.bestForUseCase}</div>
-                          </td>
-                        ))}
-                      </tr>
-
-                      {/* Purchase Links */}
-                      <tr className="bg-green-50">
-                        <td className="px-6 py-4 font-semibold text-gray-900">
-                          <div className="flex items-center">
-                            <ShoppingCart className="w-5 h-5 mr-2 text-green-600" />
-                            Purchase
-                          </div>
-                        </td>
-                        {selectedProductsData.map((product) => (
-                          <td key={product.id} className="px-6 py-4 text-center">
-                            <Button 
-                              asChild 
-                              className="bg-green-700 hover:bg-green-800 text-white w-full"
-                            >
-                              <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                                <span>Buy on Amazon</span>
-                                <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
-                                  Free Shipping
-                                </span>
-                                <ExternalLink className="w-4 h-4 ml-2" />
-                              </a>
-                            </Button>
-                            <div className="text-xs text-gray-500 mt-2">
-                              {product.monthlyBuyers} monthly buyers
+                            {/* Value */}
+                            <div className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                              <div className="flex items-center">
+                                <Target className="w-5 h-5 mr-2 text-purple-500" />
+                                <span className="font-medium">Value</span>
+                              </div>
+                              <div className="text-right">
+                                <div className={`text-lg font-bold ${isBestValue ? 'text-green-700' : 'text-gray-700'}`}>
+                                  {product.dhmPerDollar.toFixed(1)} mg/$
+                                  {isBestValue && <Crown className="w-4 h-4 inline ml-1 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">Best value indicator</div>
+                              </div>
                             </div>
-                          </td>
-                        ))}
-                      </tr>
-                    </tbody>
-                  </table>
+
+                            {/* Customer Rating */}
+                            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center">
+                                <Star className="w-5 h-5 mr-2 text-yellow-500" />
+                                <span className="font-medium">Customer Rating</span>
+                              </div>
+                              <div className="text-right">
+                                <div className={`flex items-center justify-end ${isHighestRated ? 'text-green-700' : 'text-gray-700'}`}>
+                                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
+                                  <span className="text-lg font-bold">{product.rating}</span>
+                                  {isHighestRated && <Crown className="w-4 h-4 ml-1 text-yellow-500" />}
+                                </div>
+                                <div className="text-sm text-gray-600">({product.reviews} reviews)</div>
+                              </div>
+                            </div>
+
+                            {/* Servings */}
+                            <div className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                              <div className="flex items-center">
+                                <Package className="w-5 h-5 mr-2 text-indigo-500" />
+                                <span className="font-medium">Servings</span>
+                              </div>
+                              <div className="text-lg font-bold text-gray-700">{product.servings}</div>
+                            </div>
+
+                            {/* Features Grid */}
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="p-3 bg-gray-50 rounded-lg text-center">
+                                <Shield className="w-5 h-5 mx-auto mb-1 text-green-500" />
+                                <div className="text-xs font-medium">Third-Party Tested</div>
+                                {product.thirdPartyTested ? (
+                                  <CheckCircle className="w-4 h-4 text-green-500 mx-auto mt-1" />
+                                ) : (
+                                  <X className="w-4 h-4 text-red-500 mx-auto mt-1" />
+                                )}
+                              </div>
+                              <div className="p-3 bg-gray-50 rounded-lg text-center">
+                                <RefreshCw className="w-5 h-5 mx-auto mb-1 text-blue-500" />
+                                <div className="text-xs font-medium">Money Back</div>
+                                {product.moneyBackGuarantee ? (
+                                  <CheckCircle className="w-4 h-4 text-green-500 mx-auto mt-1" />
+                                ) : (
+                                  <X className="w-4 h-4 text-red-500 mx-auto mt-1" />
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Shipping */}
+                            <div className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                              <div className="flex items-center">
+                                <Truck className="w-5 h-5 mr-2 text-orange-500" />
+                                <span className="font-medium">Shipping</span>
+                              </div>
+                              <div className="text-sm font-medium text-gray-700">{product.shippingSpeed}</div>
+                            </div>
+
+                            {/* Additional Ingredients */}
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center mb-2">
+                                <Plus className="w-5 h-5 mr-2 text-purple-500" />
+                                <span className="font-medium">Additional Ingredients</span>
+                              </div>
+                              <div className="text-sm text-gray-700">
+                                {product.additionalIngredients.length > 0 ? (
+                                  <div className="flex flex-wrap gap-1">
+                                    {product.additionalIngredients.map((ingredient, idx) => (
+                                      <span key={idx} className="bg-white px-2 py-1 rounded text-xs border">
+                                        {ingredient}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <span className="text-gray-400">DHM only</span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Best For */}
+                            <div className="p-3 bg-white border rounded-lg">
+                              <div className="flex items-center mb-2">
+                                <Users className="w-5 h-5 mr-2 text-teal-500" />
+                                <span className="font-medium">Best For</span>
+                              </div>
+                              <div className="text-sm text-gray-700">{product.bestForUseCase}</div>
+                            </div>
+
+                            {/* Purchase Button */}
+                            <div className="pt-4">
+                              <Button 
+                                asChild 
+                                size="lg"
+                                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white w-full shadow-lg hover:shadow-xl transition-all duration-200"
+                              >
+                                <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                                  <span>🛒 Buy on Amazon</span>
+                                  <span className="ml-3 px-3 py-1 bg-orange-500 text-white text-sm font-bold rounded-full shadow-md">
+                                    Free Shipping
+                                  </span>
+                                  <ExternalLink className="w-5 h-5 ml-3" />
+                                </a>
+                              </Button>
+                              <div className="text-xs text-gray-500 text-center mt-2">
+                                {product.monthlyBuyers} monthly buyers
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </motion.div>
