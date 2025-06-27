@@ -111,6 +111,12 @@ public/*
 !public/dhm-liver-protection.png
 !public/dhm-japanese-raisin-tree-hero.png
 !public/dhm-liver-protection-mechanism.png
+!public/longevity-biohacking-hero.png
+!public/longevity-liver-protection.png
+!public/gut-health-microbiome-hero.png
+!public/gut-brain-axis-protection.png
+!public/sleep-optimization-hero.png
+!public/circadian-rhythm-protection.png
 
 # Storybook build outputs
 .out
