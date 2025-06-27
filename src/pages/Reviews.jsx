@@ -461,14 +461,14 @@ export default function Reviews() {
                       <Button 
                         asChild 
                         size="lg"
-                        className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold"
+                        className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                          <span>🛒 Buy on Amazon</span>
-                          <span className="ml-3 px-3 py-1 bg-orange-500 text-white text-sm font-bold rounded-full shadow-md">
+                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
+                          <span className="flex items-center">🛒 Buy on Amazon</span>
+                          <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
                           </span>
-                          <ExternalLink className="w-5 h-5 ml-3" />
+                          <ExternalLink className="w-4 h-4 flex-shrink-0" />
                         </a>
                       </Button>
                       <Button 
