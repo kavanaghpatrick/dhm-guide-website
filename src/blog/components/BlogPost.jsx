@@ -9,13 +9,28 @@ const BlogPost = () => {
   const [activeSection, setActiveSection] = useState('');
   const [readingProgress, setReadingProgress] = useState(0);
   const [showToc, setShowToc] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const contentRef = useRef(null);
   
   // Extract slug from current path
   const currentPath = window.location.pathname;
   const slug = currentPath.replace('/blog/', '');
-  const post = getPostBySlug(slug);
-  const relatedPosts = post ? getRelatedPosts(post, 3) : [];
+  
+  let post, relatedPosts;
+  
+  try {
+    post = getPostBySlug(slug);
+    relatedPosts = post ? getRelatedPosts(post, 3) : [];
+  } catch (error) {
+    console.error('BlogPost: Error loading post data:', error);
+    post = null;
+    relatedPosts = [];
+  }
+
+  // Fix hydration issues by ensuring client-side only rendering for interactive elements
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleNavigation = (href) => {
     window.history.pushState({}, '', href);
@@ -181,43 +196,60 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      {/* Reading Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
-        <div 
-          className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-150 ease-out"
-          style={{ width: `${readingProgress}%` }}
-        />
-      </div>
+      {/* Reading Progress Bar - Client-side only */}
+      {isClient && (
+        <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+          <div 
+            className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-150 ease-out"
+            style={{ width: `${readingProgress}%` }}
+          />
+        </div>
+      )}
 
       {/* Header */}
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-6">
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <button 
-              onClick={() => handleNavigation('/')}
-              className="hover:text-green-600 transition-colors"
-            >
-              Home
-            </button>
+            {isClient ? (
+              <button 
+                onClick={() => handleNavigation('/')}
+                className="hover:text-green-600 transition-colors"
+              >
+                Home
+              </button>
+            ) : (
+              <span className="hover:text-green-600 transition-colors">Home</span>
+            )}
             <ChevronRight className="w-4 h-4" />
-            <button 
-              onClick={() => handleNavigation('/blog')}
-              className="hover:text-green-600 transition-colors"
-            >
-              Blog
-            </button>
+            {isClient ? (
+              <button 
+                onClick={() => handleNavigation('/blog')}
+                className="hover:text-green-600 transition-colors"
+              >
+                Blog
+              </button>
+            ) : (
+              <span className="hover:text-green-600 transition-colors">Blog</span>
+            )}
             <ChevronRight className="w-4 h-4" />
             <span className="text-gray-700 truncate">{post.title}</span>
           </nav>
 
-          <button 
-            onClick={() => handleNavigation('/blog')}
-            className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </button>
+          {isClient ? (
+            <button 
+              onClick={() => handleNavigation('/blog')}
+              className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Blog
+            </button>
+          ) : (
+            <div className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Blog
+            </div>
+          )}
           
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
             <div className="flex items-center gap-1">
@@ -234,13 +266,15 @@ const BlogPost = () => {
                 <span>By {post.author}</span>
               </div>
             )}
-            <button
-              onClick={sharePost}
-              className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors"
-            >
-              <Share2 className="w-4 h-4" />
-              Share
-            </button>
+            {isClient && (
+              <button
+                onClick={sharePost}
+                className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors"
+              >
+                <Share2 className="w-4 h-4" />
+                Share
+              </button>
+            )}
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -271,7 +305,7 @@ const BlogPost = () => {
 
       <div className="max-w-6xl mx-auto px-4 py-12 flex gap-8">
         {/* Table of Contents - Desktop Sidebar */}
-        {tocItems.length > 0 && (
+        {isClient && tocItems.length > 0 && (
           <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-24">
               <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
@@ -302,7 +336,7 @@ const BlogPost = () => {
         {/* Main Content */}
         <div className="flex-1 min-w-0">
           {/* Mobile TOC Toggle */}
-          {tocItems.length > 0 && (
+          {isClient && tocItems.length > 0 && (
             <div className="lg:hidden mb-6">
               <button
                 onClick={() => setShowToc(!showToc)}

@@ -63,9 +63,9 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
+        drop_console: false,
+        drop_debugger: false,
+        pure_funcs: []
       }
     },
     // Optimize chunk size
@@ -96,7 +96,8 @@ export default defineConfig({
     port: 5173,
     allowedHosts: [
       '5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
-      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer'
+      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
+      '5173-i92sdp1hpl7mgnt5z3oml-93e43c32.manusvm.computer'
     ]
   }
 })
