@@ -1,5 +1,6 @@
 // New Blog Post Loader with Dynamic Loading and Caching
 import metadata from '../data/metadata/index.json';
+import postModules from '../data/postRegistry.js';
 
 // LRU Cache for loaded posts
 class PostCache {
@@ -96,9 +97,16 @@ export const getPostBySlug = async (slug) => {
   try {
     console.log(`🔄 Loading post: ${slug}`);
     
+    // Use the registry to get the import function
+    const importFn = postModules[slug];
+    if (!importFn) {
+      console.error(`❌ No import function found for slug: ${slug}`);
+      return null;
+    }
+    
     // Dynamic import of individual post file
-    const postModule = await import(`../data/posts/${slug}.json`);
-    const post = postModule.default;
+    const postModule = await importFn();
+    const post = postModule.default || postModule;
     
     // Convert date string to Date object
     const processedPost = {
