@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Custom styles for enhanced blog lists */
+.counter-reset-list {
+  counter-reset: custom-counter;
+}
+
+.counter-increment-item {
+  counter-increment: custom-counter;
+}
+
+.counter-content::before {
+  content: counter(custom-counter);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -527,9 +527,31 @@ const BlogPost = () => {
                     h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>,
                     h3: ({children}) => <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">{children}</h3>,
                     p: ({children}) => <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>,
-                    ul: ({children}) => <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2 text-lg">{children}</ul>,
-                    ol: ({children}) => <ol className="list-decimal list-inside text-gray-700 mb-6 space-y-2 text-lg">{children}</ol>,
-                    li: ({children}) => <li className="leading-relaxed">{children}</li>,
+                    ul: ({children}) => (
+                      <ul className="space-y-3 mb-6 text-lg">
+                        {children}
+                      </ul>
+                    ),
+                    ol: ({children}) => (
+                      <ol className="space-y-3 mb-6 text-lg counter-reset-list">
+                        {children}
+                      </ol>
+                    ),
+                    li: ({children, ...props}) => {
+                      const isOrderedList = props.node?.parentNode?.tagName === 'ol';
+                      return isOrderedList ? (
+                        <li className="flex items-start gap-3 leading-relaxed text-gray-700 counter-increment-item">
+                          <span className="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5 counter-content">
+                          </span>
+                          <span className="flex-1">{children}</span>
+                        </li>
+                      ) : (
+                        <li className="flex items-start gap-3 leading-relaxed text-gray-700">
+                          <span className="flex-shrink-0 w-2 h-2 bg-gradient-to-r from-green-600 to-green-700 rounded-full mt-3"></span>
+                          <span className="flex-1">{children}</span>
+                        </li>
+                      );
+                    },
                     blockquote: ({children}) => (
                       <blockquote className="border-l-4 border-green-500 pl-6 py-4 my-6 bg-green-50 italic text-gray-700 rounded-r-lg">
                         {children}
