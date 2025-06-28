@@ -450,12 +450,12 @@ export default function Compare() {
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Compare DHM Supplements
+              Compare Best Hangover Prevention Supplements
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Make an informed decision with our comprehensive <span className="font-semibold text-green-700">side-by-side comparison</span> of 
-              the top DHM supplements - analyze effectiveness, value, ingredients, and more.
+              Find your perfect <span className="font-semibold text-green-700">hangover prevention solution</span> with our 
+              comprehensive side-by-side comparison - analyze effectiveness, value, and ingredients to stop hangovers forever.
             </p>
 
             {/* Quick Comparison Stats */}
@@ -486,7 +486,7 @@ export default function Compare() {
         <div className="container mx-auto max-w-6xl">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Select Products to Compare</h2>
-            <p className="text-gray-600 mb-6">Choose up to 4 DHM supplements for detailed comparison. Top 3 products are pre-selected.</p>
+            <p className="text-gray-600 mb-6">Choose up to 4 hangover prevention supplements for detailed comparison. Top 3 products are pre-selected.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {allProducts.map((product) => (

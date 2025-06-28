@@ -149,9 +149,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'guide':
       return {
-        title: 'Complete DHM Guide 2025: Science-Backed Hangover Prevention | DHM Guide',
-        description: 'Master DHM (Dihydromyricetin) with our comprehensive 2025 guide. Clinical research, dosage protocols, safety data, and expert recommendations for effective hangover prevention.',
-        keywords: 'DHM guide, dihydromyricetin guide, hangover prevention guide, DHM dosage, DHM research, Japanese raisin tree extract',
+        title: 'Ultimate Hangover Prevention Guide 2025: How to Stop Hangovers Forever | DHM Guide',
+        description: 'Master hangover prevention with our complete 2025 guide. Clinical research, dosage protocols, and proven strategies to never wake up hungover again using DHM.',
+        keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
         ogImage: `${baseUrl}/dhm-guide-featured.jpg`,
         structuredData: {
@@ -176,9 +176,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: 'Best DHM Supplements 2025: Independent Reviews & Comparisons | DHM Guide',
-        description: 'Unbiased reviews of the top DHM supplements. Compare 15+ brands with lab testing data, user ratings, and expert analysis. Find the perfect hangover prevention supplement.',
-        keywords: 'DHM reviews, best DHM supplements, dihydromyricetin reviews, hangover supplement reviews, DHM brand comparison',
+        title: 'Best Hangover Prevention Pills 2025: Top Supplements to Stop Hangovers | Reviews',
+        description: 'Expert reviews of the best hangover prevention supplements that actually work. Compare top-rated anti-hangover pills with lab testing, user ratings, and effectiveness data.',
+        keywords: 'best hangover prevention pills, hangover supplements reviews, anti-hangover pills, hangover cure supplements, stop hangovers supplements',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.jpg`,
         structuredData: {
@@ -202,9 +202,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'DHM Research Database: 15+ Clinical Studies & Scientific Evidence | DHM Guide',
-        description: 'Comprehensive database of DHM (Dihydromyricetin) research. Access 15+ clinical studies, peer-reviewed papers, and scientific evidence on hangover prevention and liver protection.',
-        keywords: 'DHM research, dihydromyricetin studies, hangover prevention research, clinical trials DHM, scientific evidence hangover',
+        title: 'Hangover Prevention Research: 15+ Clinical Studies Prove DHM Stops Hangovers',
+        description: 'Access 15+ clinical studies proving hangover prevention works. Scientific evidence showing DHM reduces hangovers by 70%. Peer-reviewed research on effective hangover cures.',
+        keywords: 'hangover prevention research, clinical studies hangovers, hangover cure research, DHM clinical trials, scientific proof hangover prevention',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.jpg`,
         structuredData: {
@@ -221,9 +221,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'compare':
       return {
-        title: 'DHM Supplement Comparison Tool 2025: Find Your Perfect Match | DHM Guide',
-        description: 'Compare DHM supplements side-by-side. Filter by price, potency, ingredients, and user ratings. Find the best dihydromyricetin supplement for your needs.',
-        keywords: 'DHM comparison, compare DHM supplements, best DHM supplement, dihydromyricetin comparison tool',
+        title: 'Compare Best Hangover Prevention Supplements 2025: Anti-Hangover Pills Comparison',
+        description: 'Compare the best hangover prevention supplements side-by-side. Find your perfect anti-hangover pill based on effectiveness, price, and user reviews. Stop hangovers forever.',
+        keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
         ogImage: `${baseUrl}/dhm-comparison-featured.jpg`,
         structuredData: {
@@ -252,9 +252,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'about':
       return {
-        title: 'About DHM Guide: Your Trusted Hangover Prevention Resource | DHM Guide',
-        description: 'Learn about DHM Guide\'s mission to provide science-backed hangover prevention information. Meet our team of researchers and health experts dedicated to DHM education.',
-        keywords: 'about DHM Guide, hangover prevention experts, DHM research team, dihydromyricetin education',
+        title: 'About DHM Guide: Leading Hangover Prevention Experts & Research Team',
+        description: 'Meet the hangover prevention experts behind DHM Guide. Our research team is dedicated to helping you never wake up hungover again with science-backed solutions.',
+        keywords: 'hangover prevention experts, stop hangovers team, hangover cure specialists, hangover prevention research team',
         canonicalUrl: `${baseUrl}/about`,
         ogImage: `${baseUrl}/about-featured.jpg`,
         structuredData: {
