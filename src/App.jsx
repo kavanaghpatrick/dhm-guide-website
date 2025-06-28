@@ -10,6 +10,7 @@ import Blog from './pages/Blog.jsx'
 import BlogMinimal from './pages/BlogMinimal.jsx'
 import BlogBasic from './pages/BlogBasic.jsx'
 import BlogPostsOnly from './pages/BlogPostsOnly.jsx'
+import BlogSEOTest from './pages/BlogSEOTest.jsx'
 import BlogPost from './blog/components/BlogPost.jsx'
 import './App.css'
 
@@ -46,7 +47,7 @@ function App() {
       case '/compare':
         return <Compare />
       case '/blog':
-        return <BlogPostsOnly />
+        return <BlogSEOTest />
       default:
         return <Home />
     }
