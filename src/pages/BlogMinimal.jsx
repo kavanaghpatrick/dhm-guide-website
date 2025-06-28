@@ -37,21 +37,40 @@ const BlogMinimal = () => {
     error = err.message;
   }
   
+  if (error) {
+    return (
+      <div style={{ padding: '20px', color: 'red' }}>
+        <h1>Blog Error</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Blog Posts Loading Test</h1>
-      {error ? (
-        <div style={{ color: 'red' }}>
-          <h3>Error:</h3>
-          <p>{error}</p>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      {/* Simple Hero */}
+      <div className="bg-green-600 text-white py-12">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold mb-4">DHM Guide Blog</h1>
+          <p className="text-xl">Expert insights on hangover prevention</p>
         </div>
-      ) : (
-        <div style={{ color: 'green' }}>
-          <h3>Success!</h3>
-          <p>Posts loaded: {posts.length}</p>
-          <p>First post: {posts[0]?.title}</p>
+      </div>
+
+      {/* Posts List */}
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <p className="mb-8 text-gray-600">Showing {posts.length} articles</p>
+        <div className="space-y-6">
+          {posts.slice(0, 10).map((post, index) => (
+            <article key={post.slug || index} className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-2xl font-bold mb-2 text-gray-900">{post.title}</h2>
+              <p className="text-gray-600 mb-4">{post.excerpt}</p>
+              <div className="text-sm text-gray-500">
+                Published: {post.date} • By {post.author || 'DHM Guide Team'}
+              </div>
+            </article>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
