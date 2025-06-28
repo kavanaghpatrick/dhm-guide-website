@@ -107,3 +107,174 @@ nav a,
   }
 }
 
+/* Magazine Layout Styles */
+.magazine-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: none;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 767px) {
+  .magazine-layout p:first-letter {
+    font-size: 1.1em;
+  }
+  
+  .magazine-layout h2 + p:first-letter,
+  .magazine-layout h1 + p:first-letter {
+    font-size: 2.5rem;
+    line-height: 2rem;
+    padding-right: 0.3rem;
+    padding-top: 0.1rem;
+  }
+  
+  .magazine-layout {
+    gap: 1rem;
+  }
+}
+
+/* Tablet layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .magazine-layout {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1.5rem;
+    column-gap: 2rem;
+  }
+  
+  .magazine-layout > * {
+    grid-column: 1 / -1;
+  }
+  
+  /* Single column but wider spacing on tablets */
+  .magazine-layout > p {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+}
+
+/* Desktop layout */
+@media (min-width: 1024px) {
+  .magazine-layout {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    column-gap: 3rem;
+  }
+  
+  .magazine-layout > * {
+    grid-column: 1 / -1;
+  }
+  
+  /* Two-column layout for paragraphs on larger screens */
+  .magazine-layout > p:nth-child(4n+1),
+  .magazine-layout > p:nth-child(4n+2) {
+    grid-column: 1 / 7;
+  }
+  
+  .magazine-layout > p:nth-child(4n+3),
+  .magazine-layout > p:nth-child(4n) {
+    grid-column: 7 / 13;
+  }
+  
+  /* Full width for headings, quotes, and code blocks */
+  .magazine-layout > h1,
+  .magazine-layout > h2,
+  .magazine-layout > h3,
+  .magazine-layout > blockquote,
+  .magazine-layout > pre,
+  .magazine-layout > ul,
+  .magazine-layout > ol {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Large desktop layout */
+@media (min-width: 1280px) {
+  .magazine-layout {
+    column-gap: 4rem;
+  }
+}
+
+/* Enhanced Typography */
+.magazine-layout h1,
+.magazine-layout h2,
+.magazine-layout h3 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: -0.02em;
+}
+
+.magazine-layout p {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: justify;
+  hanging-punctuation: first last;
+  word-spacing: 0.1em;
+}
+
+.magazine-layout p:first-letter {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* Beautiful dropcaps for the first paragraph after headings */
+.magazine-layout h2 + p:first-letter,
+.magazine-layout h1 + p:first-letter {
+  float: left;
+  font-size: 4rem;
+  line-height: 3.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  font-weight: 700;
+  color: #16a34a;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* Elegant spacing */
+.magazine-layout > * + * {
+  margin-top: 0;
+}
+
+.magazine-layout blockquote {
+  font-style: italic;
+  position: relative;
+  overflow: hidden;
+}
+
+.magazine-layout blockquote::before {
+  content: '"';
+  font-size: 6rem;
+  color: #16a34a;
+  opacity: 0.2;
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  font-family: 'Georgia', serif;
+  line-height: 1;
+}
+
+/* Lists with better typography */
+.magazine-layout ul,
+.magazine-layout ol {
+  padding-left: 0;
+}
+
+.magazine-layout li {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.magazine-layout li::before {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Code styling */
+.magazine-layout pre {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.magazine-layout code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+

@@ -5,6 +5,29 @@ import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, Chev
 import { getPostBySlug, getRelatedPosts } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 
+// Helper function to extract the first image from markdown content
+const extractImageFromMarkdown = (content) => {
+  if (!content) return null;
+  
+  // Look for markdown image syntax: ![alt](src)
+  const imageRegex = /!\[.*?\]\((.*?)\)/;
+  const match = content.match(imageRegex);
+  
+  if (match && match[1]) {
+    return match[1];
+  }
+  
+  // Look for HTML img tags as fallback
+  const htmlImageRegex = /<img[^>]+src="([^">]+)"/;
+  const htmlMatch = content.match(htmlImageRegex);
+  
+  if (htmlMatch && htmlMatch[1]) {
+    return htmlMatch[1];
+  }
+  
+  return null;
+};
+
 const BlogPost = () => {
   const [tocItems, setTocItems] = useState([]);
   const [activeSection, setActiveSection] = useState('');
@@ -297,104 +320,130 @@ const BlogPost = () => {
         </div>
       )}
 
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            {isClient ? (
-              <button 
-                onClick={() => handleNavigation('/')}
-                className="hover:text-green-600 transition-colors fast-click blog-link"
-              >
-                Home
-              </button>
-            ) : (
-              <span className="hover:text-green-600 transition-colors">Home</span>
-            )}
-            <ChevronRight className="w-4 h-4" />
-            {isClient ? (
-              <button 
-                onClick={() => handleNavigation('/blog')}
-                className="hover:text-green-600 transition-colors fast-click blog-link"
-              >
-                Blog
-              </button>
-            ) : (
-              <span className="hover:text-green-600 transition-colors">Blog</span>
-            )}
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-700 truncate">{post.title}</span>
-          </nav>
-
+      {/* Dramatic Hero Section */}
+      <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[75vh] overflow-hidden">
+        {/* Hero Image */}
+        <img 
+          src={post ? (extractImageFromMarkdown(post.content) || '/blog-default.jpg') : '/blog-default.jpg'}
+          alt={post ? post.title : 'Blog post hero image'}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+        
+        {/* Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        
+        {/* Breadcrumbs - Top overlay */}
+        <nav className="absolute top-6 left-6 right-6 flex items-center gap-2 text-sm text-white/80 z-10">
+          {isClient ? (
+            <button 
+              onClick={() => handleNavigation('/')}
+              className="hover:text-white transition-colors fast-click blog-link"
+            >
+              Home
+            </button>
+          ) : (
+            <span className="hover:text-white transition-colors">Home</span>
+          )}
+          <ChevronRight className="w-4 h-4" />
           {isClient ? (
             <button 
               onClick={() => handleNavigation('/blog')}
-              className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6 fast-click blog-link"
+              className="hover:text-white transition-colors fast-click blog-link"
+            >
+              Blog
+            </button>
+          ) : (
+            <span className="hover:text-white transition-colors">Blog</span>
+          )}
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-white/60 truncate">{post ? post.title : 'Loading...'}</span>
+        </nav>
+
+        {/* Back to Blog Button */}
+        <div className="absolute top-6 right-6 z-10">
+          {isClient ? (
+            <button 
+              onClick={() => handleNavigation('/blog')}
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-medium transition-all px-4 py-2 rounded-lg fast-click blog-link border border-white/20"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
             </button>
           ) : (
-            <div className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white font-medium px-4 py-2 rounded-lg border border-white/20">
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
             </div>
           )}
-          
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>{formatDate(post.date)}</span>
+        </div>
+        
+        {/* Hero Content - Bottom overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 lg:p-12 text-white">
+          <div className="max-w-4xl mx-auto">
+            {/* Article Meta */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-white/80 mb-4 sm:mb-6">
+              <div className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm">{post ? formatDate(post.date) : 'Loading...'}</span>
+              </div>
+              <div className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm">{post ? calculateReadTime(post.content) : '0'} min read</span>
+              </div>
+              {post && post.author && (
+                <div className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+                  <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="text-xs sm:text-sm">By {post.author}</span>
+                </div>
+              )}
+              {isClient && post && (
+                <button
+                  onClick={sharePost}
+                  className="flex items-center gap-1 sm:gap-2 bg-green-600/80 backdrop-blur-sm hover:bg-green-600 text-white transition-all px-2 sm:px-3 py-1 rounded-full fast-click blog-link"
+                >
+                  <Share2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="text-xs sm:text-sm">Share</span>
+                </button>
+              )}
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{calculateReadTime(post.content)} min read</span>
-            </div>
-            {post.author && (
-              <div className="flex items-center gap-1">
-                <User className="w-4 h-4" />
-                <span>By {post.author}</span>
+
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+              {post ? post.title : 'Loading...'}
+            </h1>
+
+            {/* Excerpt */}
+            {post && post.excerpt && (
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed mb-4 sm:mb-6 max-w-3xl drop-shadow-md">
+                {post.excerpt}
+              </p>
+            )}
+
+            {/* Tags */}
+            {post && post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.slice(0, window.innerWidth < 640 ? 3 : 4).map((tag) => (
+                  <span 
+                    key={tag}
+                    className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs sm:text-sm font-medium border border-white/30"
+                  >
+                    <Tag className="w-2 h-2 sm:w-3 sm:h-3" />
+                    <span className="truncate max-w-20 sm:max-w-none">{tag}</span>
+                  </span>
+                ))}
+                {post.tags.length > (window.innerWidth < 640 ? 3 : 4) && (
+                  <span className="inline-flex items-center px-2 sm:px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs sm:text-sm font-medium border border-white/30">
+                    +{post.tags.length - (window.innerWidth < 640 ? 3 : 4)} more
+                  </span>
+                )}
               </div>
             )}
-            {isClient && (
-              <button
-                onClick={sharePost}
-                className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors fast-click blog-link"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
-            )}
           </div>
-
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            {post.title}
-          </h1>
-
-          {post.excerpt && (
-            <p className="text-xl text-gray-600 leading-relaxed mb-6">
-              {post.excerpt}
-            </p>
-          )}
-
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span 
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium"
-                >
-                  <Tag className="w-3 h-3" />
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-12 flex gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* Table of Contents - Desktop Sidebar */}
         {isClient && tocItems.length > 0 && (
           <div className="hidden lg:block w-64 flex-shrink-0">
@@ -469,32 +518,47 @@ const BlogPost = () => {
             </div>
           )}
 
-          {/* Article Content */}
-          <article className="bg-white rounded-xl shadow-lg p-8 md:p-12">
-            <div ref={contentRef} className="prose prose-lg prose-green max-w-none">
-              <ReactMarkdown 
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{children}</h1>,
-                  h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>,
-                  h3: ({children}) => <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">{children}</h3>,
-                  p: ({children}) => <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>,
-                  ul: ({children}) => <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2 text-lg">{children}</ul>,
-                  ol: ({children}) => <ol className="list-decimal list-inside text-gray-700 mb-6 space-y-2 text-lg">{children}</ol>,
-                  li: ({children}) => <li className="leading-relaxed">{children}</li>,
-                  blockquote: ({children}) => (
-                    <blockquote className="border-l-4 border-green-500 pl-6 py-4 my-6 bg-green-50 italic text-gray-700 rounded-r-lg">
-                      {children}
-                    </blockquote>
-                  ),
-                  code: ({inline, children}) => 
-                    inline ? (
-                      <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{children}</code>
-                    ) : (
-                      <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6">
-                        <code className="text-sm font-mono text-gray-800">{children}</code>
-                      </pre>
+          {/* Article Content - Magazine Style Layout */}
+          <article className="bg-white rounded-xl shadow-lg overflow-hidden">
+            {/* Article Introduction */}
+            <div className="p-8 md:p-12 bg-gradient-to-r from-green-50 to-blue-50 border-b border-gray-100">
+              <div className="max-w-4xl">
+                <div className="text-lg leading-relaxed text-gray-700 font-light tracking-wide">
+                  {post && post.excerpt && (
+                    <p className="text-xl md:text-2xl text-gray-800 font-normal mb-6 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Main Content Area - Magazine Grid */}
+            <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+              <div ref={contentRef} className="magazine-layout">
+                <ReactMarkdown 
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h1: ({children}) => <h1 className="col-span-full text-4xl md:text-5xl font-bold text-gray-900 mt-12 mb-8 first:mt-0 leading-tight tracking-tight">{children}</h1>,
+                    h2: ({children}) => <h2 className="col-span-full text-3xl md:text-4xl font-bold text-gray-900 mt-12 mb-6 border-b-2 border-green-500 pb-3 leading-tight">{children}</h2>,
+                    h3: ({children}) => <h3 className="col-span-full text-2xl md:text-3xl font-bold text-gray-900 mt-10 mb-4 text-green-700 leading-tight">{children}</h3>,
+                    p: ({children}) => <p className="text-gray-700 leading-relaxed mb-6 text-lg md:text-xl font-light tracking-wide hyphens-auto" style={{lineHeight: '1.8'}}>{children}</p>,
+                    ul: ({children}) => <ul className="list-none text-gray-700 mb-8 space-y-3 text-lg md:text-xl">{children}</ul>,
+                    ol: ({children}) => <ol className="list-decimal list-inside text-gray-700 mb-8 space-y-3 text-lg md:text-xl pl-4">{children}</ol>,
+                    li: ({children}) => <li className="leading-relaxed flex items-start gap-3 before:content-['•'] before:text-green-600 before:font-bold before:text-xl before:leading-none before:mt-1">{children}</li>,
+                    blockquote: ({children}) => (
+                      <blockquote className="col-span-full border-l-4 border-green-500 pl-8 py-6 my-8 bg-gradient-to-r from-green-50 to-transparent italic text-gray-800 rounded-r-lg text-xl md:text-2xl font-light leading-relaxed">
+                        {children}
+                      </blockquote>
                     ),
+                    code: ({inline, children}) => 
+                      inline ? (
+                        <code className="bg-green-100 text-green-800 px-2 py-1 rounded text-base font-mono font-medium">{children}</code>
+                      ) : (
+                        <pre className="col-span-full bg-gray-50 border border-gray-200 p-6 rounded-xl overflow-x-auto mb-8 shadow-inner">
+                          <code className="text-base font-mono text-gray-800">{children}</code>
+                        </pre>
+                      ),
                   a: ({href, children}) => {
                     // Handle internal vs external links
                     const isExternal = href?.startsWith('http');
@@ -541,6 +605,7 @@ const BlogPost = () => {
                 {post.content}
               </ReactMarkdown>
             </div>
+          </div>
           </article>
 
           {/* Author Bio */}
