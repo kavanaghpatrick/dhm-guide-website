@@ -5,7 +5,12 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
-import lcpPlaceholder from '../data/lcp-placeholder.json'
+// Inline placeholder to avoid JSON import issues
+const lcpPlaceholder = {
+  base64: "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAgCdASoUAA0APzmEulO/qKWisAgD8CcJZQCdAC5JAAD+w93fB761v0e6gClroICuMghCtMAAAA==",
+  width: 20,
+  height: 13
+}
 import liverInfographic from '../assets/02_liver_protection_infographic.webp'
 import gabaInfographic from '../assets/04_gaba_receptor_mechanism.webp'
 import traditionalHeritage from '../assets/05_traditional_heritage.webp'
