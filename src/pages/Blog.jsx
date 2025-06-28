@@ -89,7 +89,6 @@ const Blog = () => {
   const tagsToShow = showAllFilters ? allTags : defaultTags;
   const hasMoreTags = allTags.length > defaultTags.length;
 
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Enhanced Hero Section */}
