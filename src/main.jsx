@@ -124,6 +124,9 @@ function initializeApp() {
     // Add touch optimization class to root
     container.classList.add('fast-click');
     
+    // Clear any static skeleton content
+    container.innerHTML = '';
+    
     const root = createRoot(container);
     
     root.render(
