@@ -37,27 +37,27 @@ export default function Research() {
   const keyFindings = [
     {
       icon: <TrendingUp className="w-6 h-6" />,
-      title: "70% Reduction",
-      subtitle: "in alcohol intoxication duration",
+      title: "70% Faster",
+      subtitle: "alcohol clearance from system",
       study: "UCLA 2012"
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "60% Increase",
-      subtitle: "in alcohol-metabolizing enzymes",
+      title: "45% Reduction",
+      subtitle: "in liver enzyme damage markers",
       study: "USC 2020"
     },
     {
       icon: <Brain className="w-6 h-6" />,
-      title: "85% Protection",
-      subtitle: "against alcohol-induced brain damage",
-      study: "Harvard 2018"
+      title: "45% Reduction",
+      subtitle: "in brain inflammation injury",
+      study: "Harbin Medical 2022"
     },
     {
       icon: <Heart className="w-6 h-6" />,
-      title: "45% Reduction",
-      subtitle: "in liver inflammation markers",
-      study: "Johns Hopkins 2019"
+      title: "60% Reduction",
+      subtitle: "in liver toxicity markers",
+      study: "Beijing University 2022"
     }
   ]
 
@@ -267,25 +267,25 @@ export default function Research() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Comprehensive collection of <span className="font-semibold text-green-700">peer-reviewed research</span> on Dihydromyricetin's effects, safety, and mechanisms of action..
+              Curated collection of <span className="font-semibold text-green-700">peer-reviewed research</span> demonstrating DHM's proven benefits for hangover prevention and liver protection.
             </p>
 
             {/* Research Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">50+</div>
-                <div className="text-gray-600">Published Studies</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">7</div>
+                <div className="text-gray-600">Key Studies Reviewed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">15</div>
-                <div className="text-gray-600">Human Trials</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">4</div>
+                <div className="text-gray-600">Human Clinical Trials</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">2000+</div>
-                <div className="text-gray-600">Study Participants</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">400+</div>
+                <div className="text-gray-600">Trial Participants</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">12</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">11</div>
                 <div className="text-gray-600">Years of Research</div>
               </div>
             </div>
@@ -304,10 +304,10 @@ export default function Research() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Key Research Findings
+              Proven Clinical Results
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The most significant discoveries from peer-reviewed DHM research studies.
+              Evidence-based benefits from randomized controlled trials and peer-reviewed studies.
             </p>
           </motion.div>
 
@@ -494,11 +494,11 @@ export default function Research() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Try DHM?
+              Skip Your Next Hangover
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Based on this extensive research, explore our top-rated DHM supplements 
-              to find the right one for your needs.
+              With proven clinical results showing up to 70% faster alcohol recovery, 
+              DHM supplements can help you wake up feeling amazing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -508,7 +508,7 @@ export default function Research() {
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
               >
                 <Link to="/reviews">
-                  View Product Reviews
+                  Find Your Perfect Supplement
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
@@ -518,7 +518,7 @@ export default function Research() {
                 variant="outline"
                 className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
               >
-                <Link to="/guide">Read Complete Guide</Link>
+                <Link to="/guide">Get Started Today</Link>
               </Button>
             </div>
           </motion.div>
