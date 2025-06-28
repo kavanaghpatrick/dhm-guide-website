@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import ComparisonWidget from '../components/ComparisonWidget.jsx'
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { 
   Star, 
   CheckCircle, 
@@ -23,6 +24,8 @@ import {
 } from 'lucide-react'
 
 export default function Reviews() {
+  useSEO(generatePageSEO('reviews'));
+  
   const [sortBy, setSortBy] = useState('rating')
   const [filterBy, setFilterBy] = useState('all')
   const [selectedForComparison, setSelectedForComparison] = useState([])

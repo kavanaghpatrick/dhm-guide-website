@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, Tag, ArrowRight, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { getAllPosts } from '../blog/utils/postLoader';
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js';
 
 const Blog = () => {
+  useSEO(generatePageSEO('blog'));
+  
   const posts = getAllPosts();
   const [selectedTags, setSelectedTags] = useState([]);
   const [showAllFilters, setShowAllFilters] = useState(false);

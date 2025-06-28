@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from '../components/CustomLink.jsx'
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
@@ -24,6 +25,9 @@ import {
 } from 'lucide-react'
 
 export default function Home() {
+  // SEO optimization for homepage
+  useSEO(generatePageSEO('home'));
+
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
   const traditionY = useTransform(scrollY, [0, 1000], [0, -100])

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import missionVisual from '../assets/dhm_mission_visual.png'
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { 
   Users, 
   Target, 
@@ -21,6 +22,8 @@ import {
 } from 'lucide-react'
 
 export default function About() {
+  useSEO(generatePageSEO('about'));
+  
   const values = [
     {
       icon: <Microscope className="w-8 h-8" />,

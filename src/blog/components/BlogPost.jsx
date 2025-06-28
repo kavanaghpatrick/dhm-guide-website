@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, ChevronRight } from 'lucide-react';
 import { getPostBySlug, getRelatedPosts } from '../utils/postLoader';
+import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 
 const BlogPost = () => {
   const [tocItems, setTocItems] = useState([]);
@@ -37,6 +38,17 @@ const BlogPost = () => {
       setLoading(false);
     }
   }, []);
+
+  // SEO optimization for individual blog posts
+  useSEO(post ? generatePageSEO('blog-post', {
+    title: post.title,
+    excerpt: post.excerpt,
+    slug: post.slug,
+    author: post.author,
+    date: post.date,
+    image: post.image,
+    tags: post.tags
+  }) : null);
 
   const handleNavigation = (href) => {
     window.history.pushState({}, '', href);

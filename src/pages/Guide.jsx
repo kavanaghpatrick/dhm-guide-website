@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from '../components/CustomLink.jsx'
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
@@ -22,6 +23,8 @@ import {
 } from 'lucide-react'
 
 export default function Guide() {
+  // SEO optimization for guide page
+  useSEO(generatePageSEO('guide'));
   const tableOfContents = [
     { id: 'what-is-dhm', title: 'What is DHM?', icon: <Leaf className="w-4 h-4" /> },
     { id: 'traditional-medicine', title: 'Traditional Medicine', icon: <TreePine className="w-4 h-4" /> },

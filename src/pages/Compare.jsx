@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { 
   Star, 
   CheckCircle, 
@@ -31,6 +32,8 @@ import {
 } from 'lucide-react'
 
 export default function Compare() {
+  useSEO(generatePageSEO('compare'));
+  
   const [selectedProducts, setSelectedProducts] = useState([])
   const [showAll, setShowAll] = useState(false)
 
