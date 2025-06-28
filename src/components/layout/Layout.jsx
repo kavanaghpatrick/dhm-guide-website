@@ -41,9 +41,9 @@ export default function Layout({ children }) {
         className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-green-100"
       >
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between min-h-[40px]">
             {/* Logo */}
-            <button onClick={() => handleNavigation('/')} className="flex items-center space-x-2 group">
+            <button onClick={() => handleNavigation('/')} className="flex items-center space-x-2 group flex-shrink-0">
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
@@ -51,18 +51,18 @@ export default function Layout({ children }) {
               >
                 <Leaf className="w-5 h-5 text-white" />
               </motion.div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+              <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent whitespace-nowrap">
                 DHM Guide
               </span>
             </button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-1 justify-center max-w-4xl mx-8">
               {navItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => handleNavigation(item.href)}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
                     isActive(item.href)
                       ? 'text-green-600'
                       : 'text-gray-600 hover:text-green-600'
@@ -82,7 +82,7 @@ export default function Layout({ children }) {
             </nav>
 
             {/* CTA Button */}
-            <div className="hidden md:block">
+            <div className="hidden lg:block flex-shrink-0">
               <Button 
                 onClick={() => handleNavigation('/guide')}
                 className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
@@ -94,7 +94,7 @@ export default function Layout({ children }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-3 text-gray-600 hover:text-green-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="lg:hidden p-3 text-gray-600 hover:text-green-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -106,7 +106,7 @@ export default function Layout({ children }) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="md:hidden mt-4 pb-4 border-t border-green-100 pt-4"
+              className="lg:hidden mt-4 pb-4 border-t border-green-100 pt-4"
             >
               <div className="flex flex-col space-y-3">
                 {navItems.map((item) => (
