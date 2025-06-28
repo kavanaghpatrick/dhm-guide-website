@@ -584,6 +584,41 @@ const BlogPost = () => {
                   },
                   strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
                   em: ({children}) => <em className="italic text-gray-700">{children}</em>,
+                  table: ({children}) => (
+                    <div className="overflow-x-auto my-8 rounded-xl shadow-lg border border-gray-200">
+                      <table className="w-full border-collapse bg-white">
+                        {children}
+                      </table>
+                    </div>
+                  ),
+                  thead: ({children}) => (
+                    <thead className="bg-gradient-to-r from-green-600 to-green-700">
+                      {children}
+                    </thead>
+                  ),
+                  tbody: ({children}) => (
+                    <tbody className="divide-y divide-gray-200">
+                      {children}
+                    </tbody>
+                  ),
+                  tr: ({children, ...props}) => {
+                    const isHeader = props.node?.tagName === 'tr' && props.node?.parentNode?.tagName === 'thead';
+                    return (
+                      <tr className={isHeader ? '' : 'hover:bg-gray-50 transition-colors duration-150'}>
+                        {children}
+                      </tr>
+                    );
+                  },
+                  th: ({children}) => (
+                    <th className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-r border-green-500 last:border-r-0">
+                      {children}
+                    </th>
+                  ),
+                  td: ({children}) => (
+                    <td className="px-6 py-4 text-sm text-gray-700 border-r border-gray-200 last:border-r-0 leading-relaxed">
+                      {children}
+                    </td>
+                  ),
                 }}
               >
                 {post.content}
