@@ -88,7 +88,8 @@ export default defineConfig({
     port: 5173,
     allowedHosts: [
       '5173-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
-      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer'
+      '5174-i1fnroqrfai6g2ekq2bpx-3f25a3df.manusvm.computer',
+      '5173-imgkk9wseqbrgzudhc7ly-d28d70b7.manusvm.computer'
     ]
   },
   preview: {
