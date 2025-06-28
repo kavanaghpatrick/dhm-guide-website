@@ -126,25 +126,6 @@ nav a,
   word-spacing: 0.1em;
 }
 
-/* Elegant first letter styling */
-.enhanced-typography p:first-letter {
-  font-size: 1.1em;
-  font-weight: 600;
-  color: #16a34a;
-}
-
-/* Beautiful dropcaps for the first paragraph after headings */
-.enhanced-typography h2 + p:first-letter,
-.enhanced-typography h1 + p:first-letter {
-  float: left;
-  font-size: 3rem;
-  line-height: 2.5rem;
-  padding-right: 0.4rem;
-  padding-top: 0.2rem;
-  font-weight: 700;
-  color: #16a34a;
-  font-family: 'Georgia', 'Times New Roman', serif;
-}
 
 .enhanced-typography blockquote {
   font-style: italic;
