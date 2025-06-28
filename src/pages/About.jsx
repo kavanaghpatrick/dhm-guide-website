@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
-import missionVisual from '../assets/dhm_mission_visual.png'
+import missionVisual from '../assets/dhm_mission_visual.webp'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { 
   Users, 

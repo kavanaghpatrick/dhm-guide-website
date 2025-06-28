@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
-import beforeAfterImage from '../assets/01_before_after_hangover.png'
-import liverInfographic from '../assets/02_liver_protection_infographic.png'
-import gabaInfographic from '../assets/04_gaba_receptor_mechanism.png'
-import traditionalHeritage from '../assets/05_traditional_heritage.png'
+import beforeAfterImage from '../assets/01_before_after_hangover.webp'
+import liverInfographic from '../assets/02_liver_protection_infographic.webp'
+import gabaInfographic from '../assets/04_gaba_receptor_mechanism.webp'
+import traditionalHeritage from '../assets/05_traditional_heritage.webp'
 import { 
   ChevronDown, 
   Beaker, 
