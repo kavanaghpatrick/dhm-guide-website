@@ -506,6 +506,18 @@ const BlogPost = () => {
 
           {/* Article Content */}
           <article className="bg-white rounded-xl shadow-lg p-8 md:p-12">
+            {/* Hero Image */}
+            {post && post.image && (
+              <div className="mb-8 -mx-8 md:-mx-12">
+                <img 
+                  src={post.image} 
+                  alt={`${post.title} - DHM Guide`}
+                  className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-t-xl"
+                  loading="eager"
+                />
+              </div>
+            )}
+            
             <div ref={contentRef} className="prose prose-lg prose-green max-w-none enhanced-typography">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
