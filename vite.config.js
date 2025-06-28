@@ -9,21 +9,24 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Image optimization plugin
+    // Enhanced image optimization plugin for dramatic size reduction
     viteImagemin({
       gifsicle: {
         optimizationLevel: 7,
         interlaced: false,
       },
       mozjpeg: {
-        quality: 80,
+        quality: 75,
+        progressive: true,
       },
       pngquant: {
-        quality: [0.65, 0.8],
-        speed: 4,
+        quality: [0.5, 0.7],
+        speed: 1,
+        floyd: 0.5,
       },
       webp: {
-        quality: 80,
+        quality: 75,
+        method: 6,
       },
     }),
   ],
@@ -59,13 +62,20 @@ export default defineConfig({
         }
       }
     },
-    // Minification and compression
+    // Enhanced minification and compression for SEO performance
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: false,
-        drop_debugger: false,
-        pure_funcs: []
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.warn'],
+        passes: 2
+      },
+      mangle: {
+        safari10: true
+      },
+      format: {
+        comments: false
       }
     },
     // Optimize chunk size
