@@ -148,11 +148,6 @@ export default function Home() {
             >
               <div className="relative">
                 <picture>
-                  {/* AVIF for modern browsers (smallest file size) */}
-                  <source 
-                    type="image/avif" 
-                    srcSet="/images/before-after-dhm.avif"
-                  />
                   {/* WebP with responsive sizes */}
                   <source
                     type="image/webp"
