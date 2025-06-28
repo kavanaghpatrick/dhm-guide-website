@@ -60,56 +60,100 @@ const BlogPost = () => {
   // Generate Table of Contents
   useEffect(() => {
     if (post && contentRef.current) {
-      const headings = contentRef.current.querySelectorAll('h2, h3');
-      const items = Array.from(headings).map((heading) => {
-        // Generate a clean ID from the heading text
-        const text = heading.textContent;
-        const id = text
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-          .replace(/\s+/g, '-') // Replace spaces with hyphens
-          .replace(/-+/g, '-') // Replace multiple hyphens with single
-          .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-        
-        heading.id = id;
-        return {
-          id,
-          text,
-          level: parseInt(heading.tagName.charAt(1))
-        };
-      });
-      setTocItems(items);
+      // Wait for content to be fully rendered
+      setTimeout(() => {
+        const headings = contentRef.current.querySelectorAll('h2, h3');
+        const items = Array.from(headings).map((heading, index) => {
+          // Generate a clean ID from the heading text
+          const text = heading.textContent;
+          let id = text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/-+/g, '-') // Replace multiple hyphens with single
+            .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+          
+          // Ensure ID is not empty and unique
+          if (!id) {
+            id = `heading-${index}`;
+          }
+          
+          // Check if ID already exists and make it unique
+          let finalId = id;
+          let counter = 1;
+          while (document.getElementById(finalId)) {
+            finalId = `${id}-${counter}`;
+            counter++;
+          }
+          
+          heading.id = finalId;
+          return {
+            id: finalId,
+            text,
+            level: parseInt(heading.tagName.charAt(1))
+          };
+        });
+        setTocItems(items);
+      }, 100);
     }
   }, [post]);
 
   // Track reading progress and active section
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (!contentRef.current) return;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!contentRef.current) return;
 
-      // Calculate reading progress
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min((scrollTop / docHeight) * 100, 100);
-      setReadingProgress(progress);
+          // Calculate reading progress
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = Math.min((scrollTop / docHeight) * 100, 100);
+          setReadingProgress(progress);
 
-      // Find active section
-      const headings = contentRef.current.querySelectorAll('h2, h3');
-      let current = '';
-      
-      headings.forEach((heading) => {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top <= 100) {
-          current = heading.id;
-        }
-      });
-      
-      setActiveSection(current);
+          // Find active section
+          const headings = contentRef.current.querySelectorAll('h2, h3');
+          let current = '';
+          
+          // Find the heading that's currently in view
+          headings.forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            // Use a more generous threshold for active section detection
+            if (rect.top <= 150 && rect.bottom >= 0) {
+              current = heading.id;
+            }
+          });
+          
+          // If no heading is in the threshold, find the closest one above
+          if (!current && headings.length > 0) {
+            let closest = headings[0];
+            let closestDistance = Math.abs(headings[0].getBoundingClientRect().top);
+            
+            headings.forEach((heading) => {
+              const distance = Math.abs(heading.getBoundingClientRect().top);
+              if (distance < closestDistance && heading.getBoundingClientRect().top <= 150) {
+                closest = heading;
+                closestDistance = distance;
+              }
+            });
+            current = closest.id;
+          }
+          
+          setActiveSection(current);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial call to set active section
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [post]);
 
   // Add structured data
   useEffect(() => {
@@ -215,7 +259,7 @@ const BlogPost = () => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 100; // Account for fixed header and some padding
+      const headerOffset = 120; // Increased offset for better positioning
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -223,6 +267,21 @@ const BlogPost = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      
+      // Also update the active section immediately
+      setActiveSection(id);
+    } else {
+      // Fallback: try to find the element by text content
+      const headings = contentRef.current?.querySelectorAll('h2, h3');
+      if (headings) {
+        const matchingHeading = Array.from(headings).find(heading => 
+          heading.id === id || heading.textContent.toLowerCase().includes(id.replace(/-/g, ' '))
+        );
+        if (matchingHeading) {
+          matchingHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActiveSection(matchingHeading.id || id);
+        }
+      }
     }
   };
 
