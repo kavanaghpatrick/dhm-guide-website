@@ -28,6 +28,22 @@ export default function Home() {
   // SEO optimization for homepage
   useSEO(generatePageSEO('home'));
 
+  // Preload critical LCP image
+  React.useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = beforeAfterImage;
+    link.fetchPriority = 'high';
+    document.head.appendChild(link);
+    
+    return () => {
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+    };
+  }, []);
+
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
   const traditionY = useTransform(scrollY, [0, 1000], [0, -100])
@@ -123,6 +139,8 @@ export default function Home() {
                   alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
                   className="w-full h-auto rounded-2xl shadow-2xl"
                   loading="eager"
+                  width={1536}
+                  height={1024}
                 />
                 {/* Subtle overlay for better text readability if needed */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none"></div>
@@ -393,6 +411,8 @@ export default function Home() {
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
                     className="w-full h-auto rounded-2xl shadow-2xl"
                     loading="lazy"
+                    width={1536}
+                    height={1024}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
@@ -416,6 +436,8 @@ export default function Home() {
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
                     className="w-full h-auto rounded-2xl shadow-2xl"
                     loading="lazy"
+                    width={1536}
+                    height={1024}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
