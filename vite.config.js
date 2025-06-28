@@ -5,6 +5,7 @@ import path from 'path'
 import viteImagemin from 'vite-plugin-imagemin'
 
 // https://vite.dev/config/
+// Last updated: 2025-06-28 - Testing Vercel webhook
 export default defineConfig({
   plugins: [
     react(),
