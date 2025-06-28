@@ -46,40 +46,58 @@ const BlogMinimal = () => {
     );
   }
 
-  return (
-    <div style={{ padding: '20px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <h1 style={{ color: '#333', marginBottom: '20px' }}>DHM Guide Blog - Step by Step Test</h1>
-      <p style={{ marginBottom: '20px' }}>Posts loaded: {posts.length}</p>
-      
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Testing first post data:</h3>
-        <pre style={{ backgroundColor: '#white', padding: '10px', fontSize: '12px' }}>
-          {JSON.stringify({
-            title: posts[0]?.title,
-            slug: posts[0]?.slug,
-            date: posts[0]?.date,
-            author: posts[0]?.author,
-            excerpt: posts[0]?.excerpt?.substring(0, 100) + '...'
-          }, null, 2)}
-        </pre>
+  // Test rendering step by step to find the exact issue
+  let renderContent = null;
+  
+  try {
+    console.log('Starting render test...');
+    
+    renderContent = (
+      <div style={{ padding: '20px' }}>
+        <h1>Blog Render Test - Step by Step</h1>
+        <p>Posts available: {posts.length}</p>
+        
+        {/* Test 1: Basic text only */}
+        <div style={{ marginBottom: '20px', border: '1px solid green', padding: '10px' }}>
+          <h3>Test 1: Basic text rendering</h3>
+          <p>This is basic text. If you see this, basic rendering works.</p>
+        </div>
+        
+        {/* Test 2: Simple data display */}
+        <div style={{ marginBottom: '20px', border: '1px solid blue', padding: '10px' }}>
+          <h3>Test 2: First post title only</h3>
+          <p>Title: {String(posts[0]?.title || 'NO TITLE')}</p>
+        </div>
+        
+        {/* Test 3: Try rendering ONE post safely */}
+        <div style={{ marginBottom: '20px', border: '1px solid orange', padding: '10px' }}>
+          <h3>Test 3: Single post render</h3>
+          {posts[0] ? (
+            <div>
+              <p>ID: {String(posts[0].id || 'no-id')}</p>
+              <p>Slug: {String(posts[0].slug || 'no-slug')}</p>
+              <p>Date: {String(posts[0].date || 'no-date')}</p>
+            </div>
+          ) : (
+            <p>No first post found</p>
+          )}
+        </div>
       </div>
-      
-      <div>
-        <h3>First 3 posts (no Tailwind):</h3>
-        {posts.slice(0, 3).map((post, index) => (
-          <div key={index} style={{ border: '1px solid #ddd', padding: '15px', marginBottom: '15px', backgroundColor: 'white' }}>
-            <h4 style={{ margin: '0 0 10px 0', color: '#333' }}>{post.title || 'No title'}</h4>
-            <p style={{ margin: '0 0 10px 0', color: '#666', fontSize: '14px' }}>
-              {post.excerpt || 'No excerpt'}
-            </p>
-            <small style={{ color: '#999' }}>
-              {post.date || 'No date'} • {post.author || 'DHM Guide Team'}
-            </small>
-          </div>
-        ))}
+    );
+    
+    console.log('Render content created successfully');
+    
+  } catch (renderError) {
+    console.error('Render error:', renderError);
+    renderContent = (
+      <div style={{ padding: '20px', color: 'red' }}>
+        <h1>Render Error</h1>
+        <p>Error during render: {renderError.message}</p>
       </div>
-    </div>
-  );
+    );
+  }
+  
+  return renderContent;
 };
 
 export default BlogMinimal;
