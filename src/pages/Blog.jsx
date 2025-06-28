@@ -3,6 +3,21 @@ import { Calendar, Clock, Tag, ArrowRight, Filter, X, ChevronDown, ChevronUp } f
 import { getAllPosts } from '../blog/utils/postLoader';
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js';
 
+// Helper function to format titles with colons
+const formatTitle = (title) => {
+  if (!title || !title.includes(':')) {
+    return { mainTitle: title, subtitle: null };
+  }
+  
+  const [mainTitle, ...subtitleParts] = title.split(':');
+  const subtitle = subtitleParts.join(':').trim();
+  
+  return {
+    mainTitle: mainTitle.trim(),
+    subtitle: subtitle || null
+  };
+};
+
 const Blog = () => {
   useSEO(generatePageSEO('blog'));
   
@@ -273,7 +288,19 @@ const Blog = () => {
                       onClick={() => handleNavigation(`/blog/${post.slug}`)}
                       className="text-left w-full"
                     >
-                      {post.title}
+                      {(() => {
+                        const { mainTitle, subtitle } = formatTitle(post.title);
+                        return (
+                          <>
+                            <span className="block">{mainTitle}</span>
+                            {subtitle && (
+                              <span className="block text-xl md:text-2xl font-medium text-gray-600 mt-2 leading-relaxed">
+                                {subtitle}
+                              </span>
+                            )}
+                          </>
+                        );
+                      })()}
                     </button>
                   </h2>
 
