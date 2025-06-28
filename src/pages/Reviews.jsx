@@ -137,7 +137,7 @@ export default function Reviews() {
       badge: "Most Popular",
       badgeColor: "bg-blue-500",
       score: 9.0,
-      affiliateLink: "https://amzn.to/4ejE4uq",
+      affiliateLink: "https://amzn.to/44E95Gi",
       pros: [
         "Amazon's Choice - 500+ bought this month",
         "50x Super Concentrated Extract with 1800mg per serving",
