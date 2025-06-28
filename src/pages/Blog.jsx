@@ -19,11 +19,24 @@ const formatTitle = (title) => {
 };
 
 const Blog = () => {
-  useSEO(generatePageSEO('blog'));
+  // Temporarily comment out SEO to test
+  // useSEO(generatePageSEO('blog'));
   
-  const posts = getAllPosts();
+  const [posts, setPosts] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showAllFilters, setShowAllFilters] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Load posts safely
+  React.useEffect(() => {
+    try {
+      const loadedPosts = getAllPosts();
+      setPosts(loadedPosts);
+    } catch (err) {
+      console.error('Error loading posts:', err);
+      setError(err.message);
+    }
+  }, []);
 
   // Get all unique tags from all posts
   const getAllTags = () => {
@@ -88,6 +101,24 @@ const Blog = () => {
   const defaultTags = getDefaultTags();
   const tagsToShow = showAllFilters ? allTags : defaultTags;
   const hasMoreTags = allTags.length > defaultTags.length;
+
+  // Show error state if there's an error
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md">
+          <h2 className="text-xl font-bold text-red-600 mb-4">Blog Loading Error</h2>
+          <p className="text-gray-700 mb-4">Error: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
