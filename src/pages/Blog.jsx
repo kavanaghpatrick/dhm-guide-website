@@ -19,31 +19,20 @@ const formatTitle = (title) => {
 };
 
 const Blog = () => {
-  console.log('Blog: Starting component...');
-  
-  console.log('Blog: Step 1 - SEO hook...');
   useSEO(generatePageSEO('blog'));
-  console.log('Blog: Step 1 ✅ - SEO completed');
   
-  console.log('Blog: Step 2 - Loading posts...');
   const posts = getAllPosts();
-  console.log('Blog: Step 2 ✅ - Posts loaded:', posts.length);
-  
-  console.log('Blog: Step 3 - Setting up state...');
   const [selectedTags, setSelectedTags] = useState([]);
   const [showAllFilters, setShowAllFilters] = useState(false);
-  console.log('Blog: Step 3 ✅ - State initialized');
 
   // Get all unique tags from all posts
   const getAllTags = () => {
-    console.log('Blog: getAllTags called');
     const allTags = posts.flatMap(post => post.tags);
     return [...new Set(allTags)].sort();
   };
 
   // Get popular/featured tags to show by default
   const getDefaultTags = () => {
-    console.log('Blog: getDefaultTags called');
     const allTags = getAllTags();
     // Show first 8 tags by default (most common ones appear first due to sorting)
     return allTags.slice(0, 8);
@@ -95,17 +84,11 @@ const Blog = () => {
     return Math.ceil(wordCount / wordsPerMinute);
   };
 
-  console.log('Blog: Step 4 - Computing tag variables...');
   const allTags = getAllTags();
-  console.log('Blog: Step 4a ✅ - allTags computed:', allTags.length);
   const defaultTags = getDefaultTags();
-  console.log('Blog: Step 4b ✅ - defaultTags computed:', defaultTags.length);
   const tagsToShow = showAllFilters ? allTags : defaultTags;
-  console.log('Blog: Step 4c ✅ - tagsToShow computed:', tagsToShow.length);
   const hasMoreTags = allTags.length > defaultTags.length;
-  console.log('Blog: Step 4d ✅ - hasMoreTags computed:', hasMoreTags);
 
-  console.log('Blog: Step 5 - About to render...');
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Enhanced Hero Section */}
