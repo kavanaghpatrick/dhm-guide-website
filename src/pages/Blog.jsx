@@ -292,16 +292,16 @@ const Blog = () => {
                       {(() => {
                         const { mainTitle, subtitle } = formatTitle(post.title);
                         return (
-                          <>
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight group-hover:text-green-600 mb-1" style={{ textAlign: 'left' }}>
+                          <div className="w-full" style={{ textAlign: 'left' }}>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight group-hover:text-green-600 mb-1 block w-full" style={{ textAlign: 'left', display: 'block' }}>
                               {mainTitle}
                             </h2>
                             {subtitle && (
-                              <h3 className="text-xl md:text-2xl font-medium text-gray-600 leading-relaxed" style={{ textAlign: 'left' }}>
+                              <h3 className="text-xl md:text-2xl font-medium text-gray-600 leading-relaxed mt-2 block w-full" style={{ textAlign: 'left', display: 'block' }}>
                                 {subtitle}
                               </h3>
                             )}
-                          </>
+                          </div>
                         );
                       })()}
                     </button>
