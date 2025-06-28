@@ -525,7 +525,12 @@ const BlogPost = () => {
                   components={{
                     h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{children}</h1>,
                     h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>,
-                    h3: ({children}) => <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">{children}</h3>,
+                    h3: ({children}) => (
+                      <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4 relative">
+                        <span className="relative z-10 bg-white pr-4">{children}</span>
+                        <div className="absolute left-0 top-1/2 w-full h-px bg-gradient-to-r from-green-200 to-transparent -translate-y-1/2 -z-0"></div>
+                      </h3>
+                    ),
                     p: ({children}) => <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>,
                     ul: ({children}) => (
                       <ul className="space-y-3 mb-6 text-lg">
@@ -604,7 +609,21 @@ const BlogPost = () => {
                       </a>
                     );
                   },
-                  strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
+                  strong: ({children}) => {
+                    // Check if this is a concept/formula (ends with colon)
+                    const text = typeof children === 'string' ? children : '';
+                    const isFormula = text.includes(':') && text.endsWith(':');
+                    
+                    return isFormula ? (
+                      <strong className="inline-block font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent border-b-2 border-green-200 pb-1 mr-1">
+                        {children}
+                      </strong>
+                    ) : (
+                      <strong className="font-bold text-gray-900 bg-green-50 px-1 py-0.5 rounded">
+                        {children}
+                      </strong>
+                    );
+                  },
                   em: ({children}) => <em className="italic text-gray-700">{children}</em>,
                   table: ({children}) => (
                     <div className="overflow-x-auto my-8 rounded-xl shadow-lg border border-gray-200">
