@@ -1,5 +1,6 @@
 import React from 'react';
 import { getAllPosts } from '../blog/utils/postLoader';
+import { useSEO, generatePageSEO } from '../hooks/useSEO.js';
 
 const BlogMinimal = () => {
   console.log('BlogMinimal rendering...');
@@ -8,12 +9,16 @@ const BlogMinimal = () => {
   let error = null;
   
   try {
-    console.log('Step 1: getAllPosts imported successfully');
-    console.log('Step 2: Calling getAllPosts...');
+    console.log('Step 1: Testing SEO hook...');
+    useSEO(generatePageSEO('blog'));
+    console.log('Step 2: SEO hook successful');
+    
+    console.log('Step 3: getAllPosts imported successfully');
+    console.log('Step 4: Calling getAllPosts...');
     posts = getAllPosts();
-    console.log('Step 3: Posts loaded successfully:', posts.length);
+    console.log('Step 5: Posts loaded successfully:', posts.length);
   } catch (err) {
-    console.error('Error loading posts:', err);
+    console.error('Error in BlogMinimal:', err);
     error = err.message;
   }
   
