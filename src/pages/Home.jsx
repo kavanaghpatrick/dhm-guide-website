@@ -197,11 +197,11 @@ export default function Home() {
               >
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                  <span className="font-medium">4.3/5 from 2,000+ reviews</span>
+                  <span className="font-medium">4.4/5 from 1,000+ reviews</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-green-600" />
-                  <span className="font-medium">15+ Clinical Studies</span>
+                  <span className="font-medium">7 Clinical Studies</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-blue-600" />
