@@ -247,6 +247,25 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         }
       };
 
+    case 'never-hungover':
+      return {
+        title: 'Never Hungover: Master Science-Backed Hangover Prevention',
+        description: 'Learn how to never wake up hungover again. Expert guides on DHM, proven prevention strategies, and cutting-edge research. Master the hangover-free lifestyle.',
+        keywords: 'never hungover, hangover prevention, how to never get hungover, DHM hangover prevention, hangover-free lifestyle, prevent hangovers completely',
+        canonicalUrl: `${baseUrl}/never-hungover`,
+        ogImage: `${baseUrl}/never-hungover-featured.jpg`,
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": "Never Hungover - DHM Guide",
+          "description": "Master the science of hangover prevention and never wake up hungover again",
+          "publisher": {
+            "@type": "Organization",
+            "name": "DHM Guide"
+          }
+        }
+      };
+
     case 'about':
       return {
         title: 'About DHM Guide: Hangover Prevention Experts',

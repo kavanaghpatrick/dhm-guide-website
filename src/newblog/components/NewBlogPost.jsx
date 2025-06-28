@@ -239,7 +239,7 @@ const NewBlogPost = () => {
         <div className="text-center">
           <div className="flex items-center justify-center mb-4">
             <Loader2 className="w-8 h-8 animate-spin text-green-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-900">New Blog</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Never Hungover</h1>
           </div>
           <p className="text-gray-600 mb-2">Loading post dynamically...</p>
           <div className="text-sm text-green-600">
@@ -260,11 +260,11 @@ const NewBlogPost = () => {
             {loadingError || "The blog post you're looking for doesn't exist."}
           </p>
           <button
-            onClick={() => handleNavigation('/newblog')}
+            onClick={() => handleNavigation('/never-hungover')}
             className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to New Blog
+            Back to Never Hungover
           </button>
         </div>
       </div>
@@ -310,10 +310,10 @@ const NewBlogPost = () => {
             </button>
             <ChevronRight className="w-4 h-4" />
             <button 
-              onClick={() => handleNavigation('/newblog')}
+              onClick={() => handleNavigation('/never-hungover')}
               className="hover:text-green-600 transition-colors"
             >
-              New Blog
+              Never Hungover
             </button>
             <ChevronRight className="w-4 h-4" />
             <span className="text-gray-700 truncate">
@@ -322,11 +322,11 @@ const NewBlogPost = () => {
           </nav>
 
           <button 
-            onClick={() => handleNavigation('/newblog')}
+            onClick={() => handleNavigation('/never-hungover')}
             className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to New Blog
+            Back to Never Hungover
           </button>
           
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
@@ -641,7 +641,7 @@ const NewBlogPost = () => {
                   <div 
                     key={relatedPost.slug}
                     className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => handleNavigation(`/newblog/${relatedPost.slug}`)}
+                    onClick={() => handleNavigation(`/never-hungover/${relatedPost.slug}`)}
                   >
                     {relatedPost.image && (
                       <img 

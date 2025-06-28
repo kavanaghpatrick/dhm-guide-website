@@ -33,14 +33,21 @@ function App() {
 
   // Simple routing based on pathname
   const renderPage = () => {
-    // Handle new blog post routes (e.g., /newblog/post-slug)
-    if (currentPath.startsWith('/newblog/') && currentPath !== '/newblog/') {
+    // Handle Never Hungover blog post routes (e.g., /never-hungover/post-slug)
+    if (currentPath.startsWith('/never-hungover/') && currentPath !== '/never-hungover/') {
       return <NewBlogPost />
     }
     
-    // Handle old blog post routes (e.g., /blog/post-slug)
+    // Handle old blog post routes (e.g., /blog/post-slug) - legacy support
     if (currentPath.startsWith('/blog/') && currentPath !== '/blog/') {
       return <BlogPost />
+    }
+
+    // Handle legacy /newblog routes - redirect to new path
+    if (currentPath.startsWith('/newblog')) {
+      window.history.replaceState({}, '', currentPath.replace('/newblog', '/never-hungover'));
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      return null;
     }
     
     switch (currentPath) {
@@ -54,10 +61,10 @@ function App() {
         return <About />
       case '/compare':
         return <Compare />
+      case '/never-hungover':
+        return <NewBlogListing />
       case '/blog':
         return <Blog />
-      case '/newblog':
-        return <NewBlogListing />
       default:
         return <Home />
     }

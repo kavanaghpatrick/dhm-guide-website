@@ -16,8 +16,7 @@ export default function Layout({ children }) {
     { name: 'Best Supplements', href: '/reviews' },
     { name: 'Compare Solutions', href: '/compare' },
     { name: 'The Science', href: '/research' },
-    { name: 'Recovery Tips', href: '/blog' },
-    { name: 'New Blog ⚡', href: '/newblog' },
+    { name: 'Never Hungover', href: '/never-hungover' },
     { name: 'About', href: '/about' }
   ]
 

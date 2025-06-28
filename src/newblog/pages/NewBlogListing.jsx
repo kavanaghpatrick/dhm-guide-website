@@ -11,7 +11,7 @@ import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 
 const NewBlogListing = () => {
   // SEO optimization
-  useSEO(generatePageSEO('blog'));
+  useSEO(generatePageSEO('never-hungover'));
 
   // State management
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,11 +82,11 @@ const NewBlogListing = () => {
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              New Blog <span className="text-green-600">⚡</span>
+              Never Hungover <span className="text-green-600">🚀</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Optimized blog with dynamic loading. Expert tips on hangover prevention, 
-              DHM research, and health optimization strategies.
+              Master the science of hangover prevention. Expert guides, proven strategies, 
+              and cutting-edge research to help you never wake up hungover again.
             </p>
             <div className="mt-4 text-sm text-gray-500">
               {allPosts.length} articles • Average read time: 12 minutes
@@ -179,7 +179,7 @@ const NewBlogListing = () => {
               <article
                 key={post.id}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
-                onClick={() => handleNavigation(`/newblog/${post.slug}`)}
+                onClick={() => handleNavigation(`/never-hungover/${post.slug}`)}
                 onMouseEnter={() => handlePostHover(post.slug)}
               >
                 {/* Post Image */}
