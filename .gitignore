@@ -90,6 +90,8 @@ dist
 public/*
 !public/sitemap.xml
 !public/robots.txt
+!public/critical-lcp.css
+!public/images/
 !public/favicon.svg
 !public/favicon.png
 !public/site.webmanifest

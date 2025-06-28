@@ -1,0 +1,34 @@
+/* Critical CSS for LCP image optimization */
+@media (max-width: 640px) {
+  img[src*="before-after-dhm"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 640px 427px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  img[src*="before-after-dhm"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 768px 512px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  img[src*="before-after-dhm"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 1024px 683px;
+  }
+}
+
+@media (min-width: 1025px) {
+  img[src*="before-after-dhm"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 1536px 1024px;
+  }
+}
+
+/* Ensure smooth placeholder transition */
+img[src*="before-after-dhm"] {
+  background-color: #f3f4f6;
+  background-repeat: no-repeat;
+}

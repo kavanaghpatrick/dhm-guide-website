@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
-import beforeAfterImage from '../assets/01_before_after_hangover.webp'
+import lcpPlaceholder from '../data/lcp-placeholder.json'
 import liverInfographic from '../assets/02_liver_protection_infographic.webp'
 import gabaInfographic from '../assets/04_gaba_receptor_mechanism.webp'
 import traditionalHeritage from '../assets/05_traditional_heritage.webp'
@@ -28,12 +28,20 @@ export default function Home() {
   // SEO optimization for homepage
   useSEO(generatePageSEO('home'));
 
-  // Preload critical LCP image
+  // Preload critical LCP image with responsive sizes
   React.useEffect(() => {
+    // Preload the most likely size based on viewport
+    const viewportWidth = window.innerWidth;
+    let imageSize = '1536w';
+    if (viewportWidth <= 640) imageSize = '640w';
+    else if (viewportWidth <= 768) imageSize = '768w';
+    else if (viewportWidth <= 1024) imageSize = '1024w';
+    
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
-    link.href = beforeAfterImage;
+    link.href = `/images/before-after-dhm-${imageSize}.webp`;
+    link.type = 'image/webp';
     link.fetchPriority = 'high';
     document.head.appendChild(link);
     
@@ -134,14 +142,37 @@ export default function Home() {
               className="order-1 lg:order-1"
             >
               <div className="relative">
-                <img 
-                  src={beforeAfterImage} 
-                  alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
-                  className="w-full h-auto rounded-2xl shadow-2xl"
-                  loading="eager"
-                  width={1536}
-                  height={1024}
-                />
+                <picture>
+                  {/* AVIF for modern browsers (smallest file size) */}
+                  <source 
+                    type="image/avif" 
+                    srcSet="/images/before-after-dhm.avif"
+                  />
+                  {/* WebP with responsive sizes */}
+                  <source
+                    type="image/webp"
+                    sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
+                    srcSet="/images/before-after-dhm-640w.webp 640w,
+                            /images/before-after-dhm-768w.webp 768w,
+                            /images/before-after-dhm-1024w.webp 1024w,
+                            /images/before-after-dhm-1536w.webp 1536w"
+                  />
+                  {/* Fallback image with blur-up placeholder */}
+                  <img 
+                    src="/images/before-after-dhm-1536w.webp"
+                    alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
+                    className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="eager"
+                    fetchPriority="high"
+                    width={1536}
+                    height={1024}
+                    style={{
+                      backgroundImage: `url(${lcpPlaceholder.base64})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  />
+                </picture>
                 {/* Subtle overlay for better text readability if needed */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none"></div>
               </div>
