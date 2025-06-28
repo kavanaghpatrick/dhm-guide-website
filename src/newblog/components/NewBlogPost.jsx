@@ -26,7 +26,7 @@ const NewBlogPost = () => {
   // Extract slug from URL
   const extractSlug = () => {
     const currentPath = window.location.pathname;
-    return currentPath.replace('/newblog/', '');
+    return currentPath.replace('/never-hungover/', '').replace('/newblog/', '');
   };
 
   // Load post data dynamically
