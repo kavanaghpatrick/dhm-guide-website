@@ -10,26 +10,32 @@ const BlogPost = () => {
   const [readingProgress, setReadingProgress] = useState(0);
   const [showToc, setShowToc] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [post, setPost] = useState(null);
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const contentRef = useRef(null);
   
-  // Extract slug from current path
-  const currentPath = window.location.pathname;
-  const slug = currentPath.replace('/blog/', '');
-  
-  let post, relatedPosts;
-  
-  try {
-    post = getPostBySlug(slug);
-    relatedPosts = post ? getRelatedPosts(post, 3) : [];
-  } catch (error) {
-    console.error('BlogPost: Error loading post data:', error);
-    post = null;
-    relatedPosts = [];
-  }
-
   // Fix hydration issues by ensuring client-side only rendering for interactive elements
   useEffect(() => {
     setIsClient(true);
+    
+    // Extract slug from current path safely on client side
+    try {
+      const currentPath = window.location.pathname;
+      const slug = currentPath.replace('/blog/', '');
+      
+      const foundPost = getPostBySlug(slug);
+      const foundRelatedPosts = foundPost ? getRelatedPosts(foundPost, 3) : [];
+      
+      setPost(foundPost);
+      setRelatedPosts(foundRelatedPosts);
+    } catch (error) {
+      console.error('BlogPost: Error loading post data:', error);
+      setPost(null);
+      setRelatedPosts([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const handleNavigation = (href) => {
@@ -134,6 +140,19 @@ const BlogPost = () => {
       };
     }
   }, [post]);
+
+  // Show loading state while content is being loaded
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">DHM Guide</h1>
+          <p className="text-gray-600 mb-6">Loading blog post...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -404,17 +423,45 @@ const BlogPost = () => {
                         <code className="text-sm font-mono text-gray-800">{children}</code>
                       </pre>
                     ),
-                  a: ({href, children}) => (
-                    <a 
-                      href={href} 
-                      className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
-                      target={href?.startsWith('http') ? '_blank' : undefined}
-                      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {children}
-                      {href?.startsWith('http') && <ExternalLink className="w-3 h-3" />}
-                    </a>
-                  ),
+                  a: ({href, children}) => {
+                    // Handle internal vs external links
+                    const isExternal = href?.startsWith('http');
+                    const isInternal = href && !isExternal && href !== '#';
+                    
+                    if (isInternal && isClient) {
+                      return (
+                        <span
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigation(href);
+                          }}
+                          className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1 cursor-pointer"
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleNavigation(href);
+                            }
+                          }}
+                        >
+                          {children}
+                        </span>
+                      );
+                    }
+                    
+                    return (
+                      <a 
+                        href={href} 
+                        className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
+                        target={isExternal ? '_blank' : undefined}
+                        rel={isExternal ? 'noopener noreferrer' : undefined}
+                      >
+                        {children}
+                        {isExternal && <ExternalLink className="w-3 h-3" />}
+                      </a>
+                    );
+                  },
                   strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
                   em: ({children}) => <em className="italic text-gray-700">{children}</em>,
                 }}
