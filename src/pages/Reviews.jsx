@@ -218,6 +218,166 @@ export default function Reviews() {
       bestFor: "Users wanting maximum DHM content with proven formula",
       ingredients: ["DHM", "L-Cysteine", "Prickly Pear", "B-Vitamins", "Ginger", "Vine Tea"],
       category: "premium"
+    },
+    {
+      id: 6,
+      name: "Flyby Recovery",
+      brand: "Flyby",
+      rating: 4.3,
+      reviews: 7200,
+      price: "$17.99",
+      pricePerServing: "$4.50",
+      servings: 4,
+      dhm: "300mg",
+      purity: "Proprietary extraction",
+      badge: "Comprehensive Formula",
+      badgeColor: "bg-purple-500",
+      score: 8.4,
+      affiliateLink: "https://amzn.to/4kjCRVw",
+      pros: [
+        "Comprehensive formula with 18 amino acids and full B-vitamin complex",
+        "Two-stage hangover protocol (take before and after drinking)",
+        "7,200+ verified customer reviews",
+        "Money-back satisfaction guarantee",
+        "GMP certified, Non-GMO, and Gluten-Free",
+        "Fast-acting with Prime 1-2 day shipping"
+      ],
+      cons: [
+        "Higher cost per serving at $4.50",
+        "Only 4 servings per package",
+        "Complex ingredient list may not suit sensitive users"
+      ],
+      bestFor: "Users wanting a comprehensive two-stage hangover prevention protocol",
+      ingredients: ["DHM 300mg", "Milk Thistle", "B-Vitamins (B1,B2,B6,B9,B12)", "18 Amino Acids", "Vitamin C", "Apple Cider Vinegar", "Electrolytes"],
+      category: "comprehensive"
+    },
+    {
+      id: 7,
+      name: "Good Morning Hangover Pills",
+      brand: "Good Health Co",
+      rating: 4.2,
+      reviews: 124,
+      price: "$29.95",
+      pricePerServing: "$1.00",
+      servings: 30,
+      dhm: "DHM + Milk Thistle Blend",
+      purity: "80% Silymarin Milk Thistle",
+      badge: "88.89% Effective",
+      badgeColor: "bg-green-500",
+      score: 8.2,
+      affiliateLink: "https://amzn.to/44nKqo9",
+      pros: [
+        "Convenient single-pill dosing - no complicated protocols",
+        "Contains 80% Silymarin Milk Thistle for liver protection",
+        "88.89% effectiveness rating from verified users",
+        "Prime overnight shipping available",
+        "GMP certified and Non-GMO ingredients",
+        "Good value at $1.00 per serving"
+      ],
+      cons: [
+        "Newer brand with fewer customer reviews",
+        "DHM content not precisely specified",
+        "No money-back guarantee offered"
+      ],
+      bestFor: "Users seeking single-pill convenience with proven effectiveness",
+      ingredients: ["DHM + Milk Thistle Blend", "Electrolytes", "B-Vitamins", "Vitamin C", "Vitamin E", "L-Cysteine", "White Willow Bark"],
+      category: "convenience"
+    },
+    {
+      id: 8,
+      name: "DHM1000",
+      brand: "Double Wood Supplements",
+      rating: 4.3,
+      reviews: 496,
+      price: "$29.95",
+      pricePerServing: "$1.00",
+      servings: 30,
+      dhm: "1000mg",
+      purity: "High potency + electrolytes",
+      badge: "Most Powerful",
+      badgeColor: "bg-red-500",
+      score: 8.6,
+      affiliateLink: "https://amzn.to/44nvh65",
+      pros: [
+        "Maximum 1000mg DHM potency per serving",
+        "Enhanced with electrolytes for hydration support",
+        "496+ verified customer reviews",
+        "Money-back satisfaction guarantee",
+        "GMP certified and Non-GMO ingredients",
+        "Prime 1-2 day shipping available"
+      ],
+      cons: [
+        "Higher price point than basic DHM supplements",
+        "Not third-party tested for purity verification",
+        "Single-ingredient focus without additional liver support"
+      ],
+      bestFor: "Users seeking maximum DHM potency with electrolyte enhancement",
+      ingredients: ["DHM 1000mg", "Electrolytes (Sodium, Potassium, Magnesium)"],
+      category: "premium"
+    },
+    {
+      id: 9,
+      name: "Fuller Health After Party",
+      brand: "Fuller Health",
+      rating: 4.0,
+      reviews: 92,
+      price: "$49.95",
+      pricePerServing: "$1.67",
+      servings: 30,
+      dhm: "650mg",
+      purity: "Pure DHM + GABA support",
+      badge: "Celebrity Endorsed",
+      badgeColor: "bg-purple-500",
+      score: 7.8,
+      affiliateLink: "https://amzn.to/4eBbyEP",
+      pros: [
+        "Celebrity endorsement and premium positioning",
+        "Pure DHM formula with GABA support mechanisms",
+        "Organic and pure ingredient sourcing",
+        "Money-back satisfaction guarantee",
+        "Focus on premium purity standards",
+        "Unique GABA receptor support approach"
+      ],
+      cons: [
+        "Most expensive option at $1.67 per serving",
+        "Limited customer reviews (only 92)",
+        "Standard shipping only (3-5 days)"
+      ],
+      bestFor: "Users seeking premium purity with celebrity endorsement",
+      ingredients: ["DHM 650mg", "GABA Support Mechanism"],
+      category: "premium"
+    },
+    {
+      id: 10,
+      name: "DHM Depot",
+      brand: "Double Wood Supplements",
+      rating: 4.5,
+      reviews: 1129,
+      price: "$44.95",
+      pricePerServing: "$0.90",
+      servings: 50,
+      dhm: "300mg",
+      purity: "Third-party tested",
+      badge: "Highest Rated",
+      badgeColor: "bg-blue-500",
+      score: 8.8,
+      affiliateLink: "https://amzn.to/4l1ZoqN",
+      pros: [
+        "Highest customer rating at 4.5/5 stars",
+        "1,129+ verified customer reviews",
+        "Third-party tested for purity and potency",
+        "Comprehensive certifications (GMP, Non-GMO, Gluten-Free)",
+        "Excellent value at $0.90 per serving",
+        "Pure DHM without unnecessary additives"
+      ],
+      cons: [
+        "Lower DHM content at 300mg per serving",
+        "Higher overall package price",
+        "May require multiple doses for some users"
+      ],
+      bestFor: "Users prioritizing quality assurance and highest customer ratings",
+      ingredients: ["DHM 300mg"],
+      category: "premium"
     }
   ]
 
@@ -226,7 +386,7 @@ export default function Reviews() {
     { value: 'premium', label: 'Premium' },
     { value: 'budget', label: 'Budget' },
     { value: 'comprehensive', label: 'Comprehensive' },
-    { value: 'beginner', label: 'Beginner' }
+    { value: 'convenience', label: 'Convenience' }
   ]
 
   const sortOptions = [
