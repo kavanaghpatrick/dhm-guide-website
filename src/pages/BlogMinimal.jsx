@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAllPosts } from '../blog/utils/postLoader';
 
 const BlogMinimal = () => {
   console.log('BlogMinimal rendering...');
@@ -7,8 +8,7 @@ const BlogMinimal = () => {
   let error = null;
   
   try {
-    console.log('Step 1: Testing getAllPosts import...');
-    const { getAllPosts } = require('../blog/utils/postLoader');
+    console.log('Step 1: getAllPosts imported successfully');
     console.log('Step 2: Calling getAllPosts...');
     posts = getAllPosts();
     console.log('Step 3: Posts loaded successfully:', posts.length);
