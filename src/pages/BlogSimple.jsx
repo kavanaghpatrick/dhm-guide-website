@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { getAllPosts } from '../blog/utils/postLoader';
+import { posts } from '../blog/data/posts.js';
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js';
 
 const BlogSimple = () => {
   useSEO(generatePageSEO('blog'));
   
-  const posts = getAllPosts();
+  // Use posts directly without date conversion
+  const sortedPosts = [...posts].sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
   const [selectedTags, setSelectedTags] = useState([]);
 
   // Filter posts based on selected tags
   const filteredPosts = selectedTags.length === 0 
-    ? posts 
-    : posts.filter(post => 
+    ? sortedPosts 
+    : sortedPosts.filter(post => 
         selectedTags.some(selectedTag => post.tags.includes(selectedTag))
       );
 
@@ -53,7 +56,7 @@ const BlogSimple = () => {
 
       {/* Posts List */}
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <p className="mb-8 text-gray-600">Showing {filteredPosts.length} of {posts.length} articles</p>
+        <p className="mb-8 text-gray-600">Showing {filteredPosts.length} of {sortedPosts.length} articles</p>
         
         <div className="grid gap-8">
           {filteredPosts.map((post) => (
