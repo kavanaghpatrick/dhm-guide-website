@@ -1,34 +1,29 @@
 /* Critical CSS for LCP image optimization */
-@media (max-width: 640px) {
-  img[src*="before-after-dhm"] {
-    content-visibility: auto;
-    contain-intrinsic-size: 640px 427px;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 768px) {
-  img[src*="before-after-dhm"] {
-    content-visibility: auto;
-    contain-intrinsic-size: 768px 512px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  img[src*="before-after-dhm"] {
-    content-visibility: auto;
-    contain-intrinsic-size: 1024px 683px;
-  }
-}
-
-@media (min-width: 1025px) {
-  img[src*="before-after-dhm"] {
-    content-visibility: auto;
-    contain-intrinsic-size: 1536px 1024px;
-  }
-}
-
-/* Ensure smooth placeholder transition */
+/* Ensure hero image space is reserved to prevent layout shift */
 img[src*="before-after-dhm"] {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1536 / 1024;
   background-color: #f3f4f6;
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Optimize rendering */
+.w-full {
+  width: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
