@@ -28,11 +28,10 @@ export default function Research() {
   const [selectedCategory, setSelectedCategory] = useState('all')
 
   const researchCategories = [
-    { id: 'all', label: 'All Studies', count: 8 },
+    { id: 'all', label: 'All Studies', count: 7 },
     { id: 'metabolism', label: 'Alcohol Metabolism', count: 2 },
     { id: 'liver', label: 'Liver Protection', count: 4 },
-    { id: 'neuroprotection', label: 'Neuroprotection', count: 1 },
-    { id: 'safety', label: 'Safety Studies', count: 1 }
+    { id: 'neuroprotection', label: 'Neuroprotection', count: 1 }
   ]
 
   const keyFindings = [
@@ -121,7 +120,7 @@ export default function Research() {
       participants: "Pharmacokinetic analysis",
       duration: "Single dose study",
       category: "metabolism",
-      type: "Pharmacokinetic Study",
+      type: "Preclinical Study",
       findings: "Study examined DHM's actual impact on alcohol metabolism, finding limited direct effects on alcohol clearance rates.",
       keyResults: [
         "No significant effect on blood alcohol clearance",
@@ -231,150 +230,6 @@ export default function Research() {
       pubmedId: "s12986-021-00589-6",
       pubmedUrl: "https://nutritionandmetabolism.biomedcentral.com/articles/10.1186/s12986-021-00589-6"
     },
-    {
-      id: 8,
-      title: "Dihydromyricetin Ameliorates Liver Fibrosis via Stellate Cell Inhibition",
-      authors: "Liu, Y., Chen, X., Wang, P., et al.",
-      journal: "Nutrition & Metabolism",
-      year: 2021,
-      institution: "Shanghai Medical University",
-      participants: 90,
-      duration: "24 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM effectively prevented liver fibrosis progression by inhibiting hepatic stellate cell activation.",
-      keyResults: [
-        "50% reduction in fibrosis markers",
-        "Improved liver architecture",
-        "Reduced collagen deposition",
-        "Enhanced liver function"
-      ],
-      methodology: "Prospective cohort study with liver biopsy",
-      dosage: "500mg daily",
-      significance: "Breakthrough study on DHM anti-fibrotic mechanisms",
-      pubmedId: "s12986-021-00589-6",
-      pubmedUrl: "https://nutritionandmetabolism.biomedcentral.com/articles/10.1186/s12986-021-00589-6"
-    },
-    {
-      id: 11,
-      title: "DHM Impact on Alcohol Metabolism Enzymes",
-      authors: "Anderson, K., Patel, N., Johnson, D., et al.",
-      journal: "Alcohol and Alcoholism",
-      year: 2021,
-      institution: "University of Edinburgh",
-      participants: "In vitro + 40 humans",
-      duration: "6 weeks",
-      category: "metabolism",
-      type: "Mechanistic Study",
-      findings: "DHM significantly enhanced alcohol dehydrogenase and aldehyde dehydrogenase enzyme activities.",
-      keyResults: [
-        "55% increase in ADH activity",
-        "40% increase in ALDH activity",
-        "Faster alcohol clearance",
-        "Reduced acetaldehyde accumulation"
-      ],
-      methodology: "Combined in vitro enzyme assays and human pharmacokinetic study",
-      dosage: "250mg single dose",
-      significance: "Detailed mechanistic understanding of DHM alcohol metabolism effects",
-      pubmedId: "PMC8603706",
-      pubmedUrl: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8603706/"
-    },
-    {
-      id: 12,
-      title: "DHM Improves Mitochondrial Function in Liver Cells",
-      authors: "Garcia, M., Liu, H., Smith, A., et al.",
-      journal: "Archives of Biochemistry and Biophysics",
-      year: 2020,
-      institution: "University of Texas",
-      participants: "In vitro + 60 humans",
-      duration: "8 weeks",
-      category: "metabolism",
-      type: "Mechanistic Study",
-      findings: "DHM enhanced mitochondrial function and energy metabolism in liver cells.",
-      keyResults: [
-        "30% increase in ATP production",
-        "Improved mitochondrial respiration",
-        "Enhanced fatty acid oxidation",
-        "Reduced oxidative damage"
-      ],
-      methodology: "Mitochondrial function assays and metabolic profiling",
-      dosage: "300mg daily",
-      significance: "Elucidated DHM effects on cellular energy metabolism",
-      pubmedId: "S0741832920302901",
-      pubmedUrl: "https://www.sciencedirect.com/science/article/abs/pii/S0741832920302901"
-    },
-    {
-      id: 13,
-      title: "DHM Ameliorates Hepatic Steatosis and Insulin Resistance",
-      authors: "Kumar, S., Wang, L., Chen, Y., et al.",
-      journal: "Journal of Translational Medicine",
-      year: 2024,
-      institution: "University of Michigan",
-      participants: 180,
-      duration: "16 weeks",
-      category: "metabolism",
-      type: "Human Clinical Trial",
-      findings: "DHM treatment significantly improved hepatic steatosis and insulin sensitivity in patients.",
-      keyResults: [
-        "35% reduction in liver fat content",
-        "Improved insulin sensitivity",
-        "Better glucose control",
-        "Reduced inflammatory markers"
-      ],
-      methodology: "Randomized controlled trial with MRI liver assessment",
-      dosage: "400mg twice daily",
-      significance: "Major breakthrough in metabolic syndrome treatment",
-      pubmedId: "s12967-024-05060-7",
-      pubmedUrl: "https://translational-medicine.biomedcentral.com/articles/10.1186/s12967-024-05060-7"
-    },
-    {
-      id: 14,
-      title: "DHM Treatment for Nonalcoholic Fatty Liver Disease",
-      authors: "Thompson, B., Lee, J., Martinez, C., et al.",
-      journal: "Evidence-Based Complementary Medicine",
-      year: 2023,
-      institution: "Cleveland Clinic",
-      participants: 200,
-      duration: "24 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM supplementation effectively reduced NAFLD severity and improved liver function.",
-      keyResults: [
-        "45% improvement in liver enzyme levels",
-        "Reduced liver inflammation",
-        "Improved lipid profiles",
-        "Better quality of life scores"
-      ],
-      methodology: "Multi-center randomized controlled trial",
-      dosage: "500mg twice daily",
-      significance: "Largest NAFLD study with DHM to date",
-      pubmedId: "2023/5029934",
-      pubmedUrl: "https://onlinelibrary.wiley.com/doi/10.1155/2023/5029934"
-    },
-    {
-      id: 15,
-      title: "Long-term Safety Profile of DHM Supplementation",
-      authors: "Wilson, P., Chang, R., Miller, K., et al.",
-      journal: "Clinical Safety Review",
-      year: 2023,
-      institution: "FDA Clinical Research Center",
-      participants: 500,
-      duration: "104 weeks",
-      category: "safety",
-      type: "Safety Study",
-      findings: "Comprehensive 2-year safety study confirmed excellent tolerability of DHM with no serious adverse events.",
-      keyResults: [
-        "Zero serious adverse events",
-        "No drug interactions observed",
-        "Excellent long-term tolerability",
-        "Improved liver function markers"
-      ],
-      methodology: "Prospective long-term safety monitoring study",
-      dosage: "300-600mg daily",
-      significance: "Definitive long-term safety data for regulatory approval",
-      pubmedId: "NCBI594407",
-      pubmedUrl: "https://www.ncbi.nlm.nih.gov/books/NBK594407/"
-    }
   ]
 
   const filteredStudies = selectedCategory === 'all' 
