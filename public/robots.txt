@@ -55,7 +55,7 @@ User-agent: AdsBot-Google
 Allow: /
 
 # Sitemap location
-Sitemap: https://dhmguide.com/sitemap.xml
+Sitemap: https://www.dhmguide.com/sitemap.xml
 
 # Crawl delay (prevents server overload)
 Crawl-delay: 1
