@@ -140,12 +140,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             
             {/* Before/After Image - Left Column */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="order-1 lg:order-1"
-            >
+            <div className="order-1 lg:order-1">
               <div className="relative">
                 <picture>
                   {/* WebP with responsive sizes */}
@@ -176,7 +171,7 @@ export default function Home() {
                 {/* Subtle overlay for better text readability if needed */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none"></div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Headline + Value Prop + CTA - Right Column */}
             <motion.div
