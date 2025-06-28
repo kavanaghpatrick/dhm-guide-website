@@ -269,7 +269,7 @@ export default function Reviews() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
       {/* Hero Section */}
-      <section className="pt-8 pb-16 px-4">
+      <section className="pt-6 pb-8 md:pb-12 px-4">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -277,33 +277,32 @@ export default function Reviews() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
+            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
               <Award className="w-4 h-4 mr-2" />
-              2025 Product Reviews
+              2025 Reviews
             </Badge>
             
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Best DHM Supplements 2025
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
+              Best Hangover Supplements
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Complete reviews and rankings of the top <span className="font-semibold text-green-700">DHM supplements</span> - 
-              tested, analyzed, and ranked by effectiveness, value, and user satisfaction.
+            <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+              Top-rated supplements tested and ranked by effectiveness and value.
             </p>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            {/* Quick Stats - Hidden on mobile to save space */}
+            <div className="hidden md:grid grid-cols-3 gap-6 mt-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">20+</div>
-                <div className="text-gray-600">Brands Tested</div>
+                <div className="text-2xl font-bold text-green-700 mb-1">20+</div>
+                <div className="text-gray-600 text-sm">Brands Tested</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">5000+</div>
-                <div className="text-gray-600">User Reviews Analyzed</div>
+                <div className="text-2xl font-bold text-green-700 mb-1">5000+</div>
+                <div className="text-gray-600 text-sm">Reviews Analyzed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">6</div>
-                <div className="text-gray-600">Months of Testing</div>
+                <div className="text-2xl font-bold text-green-700 mb-1">6</div>
+                <div className="text-gray-600 text-sm">Months Testing</div>
               </div>
             </div>
           </motion.div>
@@ -311,9 +310,9 @@ export default function Reviews() {
       </section>
 
       {/* Filter and Sort Section */}
-      <section className="py-8 px-4 bg-white">
+      <section className="py-4 md:py-6 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4 md:mb-6">
             <div className="flex items-center space-x-4">
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="font-medium text-gray-900">Filter by:</span>
