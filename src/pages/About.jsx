@@ -129,16 +129,16 @@ export default function About() {
           >
             <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200">
               <Users className="w-4 h-4 mr-2" />
-              About DHM Guide
+              Hangover Prevention Experts
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Your Trusted DHM Resource
+              Your Trusted Hangover Prevention Experts
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Dedicated to providing <span className="font-semibold text-green-700">evidence-based information</span>{' '}
-              about Dihydromyricetin through rigorous research, independent testing, and unbiased analysis.
+              Dedicated to helping you <span className="font-semibold text-green-700">never wake up hungover again</span>{' '}
+              through science-backed research, independent testing, and proven hangover prevention strategies.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">

@@ -138,31 +138,31 @@ export default function Guide() {
           >
             <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200">
               <BookOpen className="w-4 h-4 mr-2" />
-              Complete Scientific Guide
+              Ultimate Hangover Prevention Guide
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              The Complete Guide to DHM
+              Complete Hangover Prevention Guide: How to Never Be Hungover Again
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Everything you need to know about <span className="font-semibold text-green-700">Dihydromyricetin</span> - 
-              from ancient traditional medicine to cutting-edge clinical research.
+              Master the science of <span className="font-semibold text-green-700">hangover prevention</span> with DHM - 
+              from clinical research to dosage strategies that guarantee hangover-free mornings.
             </p>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">1300+</div>
-                <div className="text-gray-600">Years of Traditional Use</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">70%</div>
+                <div className="text-gray-600">Faster Recovery</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">50+</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">15+</div>
                 <div className="text-gray-600">Clinical Studies</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">98%</div>
-                <div className="text-gray-600">Purity Available</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">350K+</div>
+                <div className="text-gray-600">Hangover-Free Users</div>
               </div>
             </div>
           </motion.div>

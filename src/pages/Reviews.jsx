@@ -283,11 +283,11 @@ export default function Reviews() {
             </Badge>
             
             <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Best Hangover Supplements
+              Best Hangover Prevention Pills 2025
             </h1>
             
             <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
-              Top-rated supplements tested and ranked by effectiveness and value.
+              Expert reviews of hangover prevention supplements that actually work - stop hangovers before they start.
             </p>
 
             {/* Quick Stats - Hidden on mobile to save space */}
