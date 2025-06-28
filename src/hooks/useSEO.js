@@ -127,9 +127,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
   switch (pageType) {
     case 'home':
       return {
-        title: 'DHM Guide: #1 Science-Backed Hangover Prevention Resource | Dihydromyricetin Reviews & Research',
-        description: '🧬 The definitive DHM (Dihydromyricetin) guide with 15+ clinical studies, independent product reviews, and expert dosage recommendations. Prevent hangovers naturally with science-backed supplements. Trusted by 500+ users with 4.8/5 rating.',
-        keywords: 'DHM, dihydromyricetin, hangover prevention, hangover cure, anti-hangover supplement, Japanese raisin tree, Hovenia dulcis, liver protection, alcohol metabolism, hangover remedy, natural supplement',
+        title: 'Never Wake Up Hungover Again: Science-Backed Hangover Prevention | DHM Guide',
+        description: '🚀 Wake up feeling amazing after drinking - no matter how much you had. Clinically-proven hangover prevention with 15+ studies, expert reviews, and thousands of success stories. Stop suffering from hangovers forever.',
+        keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.jpg`,
         twitterImage: `${baseUrl}/twitter-image.jpg`,
