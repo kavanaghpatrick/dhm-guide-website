@@ -41,25 +41,9 @@
           imagesizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
           fetchpriority="high">
     
-    <!-- Inline Critical CSS for zero-delay rendering -->
-    <style>
-      /* Critical styles for instant render */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: system-ui, -apple-system, sans-serif; }
-      img { max-width: 100%; height: auto; }
-      
-      /* Pre-allocate space for hero section */
-      #hero-skeleton {
-        min-height: 600px;
-        background: linear-gradient(to bottom right, #f9fafb, #ffffff);
-        padding: 4rem 1rem;
-      }
-      
-      /* Hide skeleton when React loads */
-      body.react-loaded #hero-skeleton {
-        display: none;
-      }
-    </style>
+    <!-- Critical CSS for LCP optimization -->
+    <link rel="preload" href="/critical-lcp.css" as="style">
+    <link rel="stylesheet" href="/critical-lcp.css">
     
     <!-- Primary Meta Tags -->
     <title>DHM Guide: #1 Science-Backed Hangover Prevention Resource | Dihydromyricetin Reviews & Research</title>
@@ -210,40 +194,7 @@
     </script>
   </head>
   <body>
-    <!-- Hero skeleton for instant paint -->
-    <div id="hero-skeleton">
-      <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 3rem;">
-        <div style="max-width: 768px;">
-          <picture>
-            <source
-              type="image/webp"
-              sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
-              srcset="/images/before-after-dhm-640w.webp 640w,
-                      /images/before-after-dhm-768w.webp 768w,
-                      /images/before-after-dhm-1024w.webp 1024w,
-                      /images/before-after-dhm-1536w.webp 1536w"
-            />
-            <img 
-              src="/images/before-after-dhm-1536w.webp"
-              alt="Before and After DHM"
-              style="width: 100%; height: auto; border-radius: 1rem; display: block;"
-              width="1536"
-              height="1024"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
-    
     <div id="root"></div>
-    
-    <script>
-      // Mark body when React loads
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() { document.body.classList.add('react-loaded'); }, 50);
-      });
-    </script>
-    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

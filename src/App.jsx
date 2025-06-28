@@ -71,11 +71,9 @@ function App() {
   }
 
   return (
-    <div style={{ position: 'relative', zIndex: 10, background: 'white' }}>
-      <Layout>
-        {renderPage()}
-      </Layout>
-    </div>
+    <Layout>
+      {renderPage()}
+    </Layout>
   )
 }
 
