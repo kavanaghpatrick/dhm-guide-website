@@ -1,38 +1,30 @@
 import React, { useState } from 'react';
-import { posts } from '../blog/data/posts.js';
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js';
 
 const BlogSimple = () => {
   useSEO(generatePageSEO('blog'));
   
-  // Use posts directly without date conversion
-  const sortedPosts = [...posts].sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
-  });
-  const [selectedTags, setSelectedTags] = useState([]);
-
-  // Filter posts based on selected tags
-  const filteredPosts = selectedTags.length === 0 
-    ? sortedPosts 
-    : sortedPosts.filter(post => 
-        selectedTags.some(selectedTag => post.tags.includes(selectedTag))
-      );
-
-  // Format date
-  const formatDate = (date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(date);
-  };
-
-  // Calculate read time
-  const calculateReadTime = (content) => {
-    const wordsPerMinute = 200;
-    const wordCount = content.split(' ').length;
-    return Math.ceil(wordCount / wordsPerMinute);
-  };
+  // Test with hardcoded data to isolate the issue
+  const mockPosts = [
+    {
+      id: 'test-1',
+      title: 'Test Post 1',
+      slug: 'test-post-1',
+      excerpt: 'This is a test post excerpt',
+      date: '2025-06-28',
+      author: 'Test Author',
+      tags: ['test', 'example']
+    },
+    {
+      id: 'test-2', 
+      title: 'Test Post 2',
+      slug: 'test-post-2',
+      excerpt: 'This is another test post excerpt',
+      date: '2025-06-27',
+      author: 'Test Author',
+      tags: ['test', 'sample']
+    }
+  ];
 
   const handleNavigation = (href) => {
     window.history.pushState({}, '', href);
@@ -56,10 +48,10 @@ const BlogSimple = () => {
 
       {/* Posts List */}
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <p className="mb-8 text-gray-600">Showing {filteredPosts.length} of {sortedPosts.length} articles</p>
+        <p className="mb-8 text-gray-600">Showing {mockPosts.length} test articles</p>
         
         <div className="grid gap-8">
-          {filteredPosts.map((post) => (
+          {mockPosts.map((post) => (
             <article 
               key={post.slug}
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
@@ -67,9 +59,9 @@ const BlogSimple = () => {
               <div className="p-8">
                 {/* Post Header */}
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-                  <span>📅 {formatDate(post.date)}</span>
-                  <span>⏱️ {calculateReadTime(post.content)} min read</span>
-                  {post.author && <span>By {post.author}</span>}
+                  <span>📅 {post.date}</span>
+                  <span>⏱️ 5 min read</span>
+                  <span>By {post.author}</span>
                 </div>
 
                 {/* Post Title */}
