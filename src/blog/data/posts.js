@@ -103,18 +103,13 @@ This two-stage approach addresses both prevention and recovery, targeting multip
 
 ## Pricing and Value Analysis
 
-**Cost Breakdown:**
-- 20 Count: $19.97 ($4.99 per 4-capsule dose)
-- 40 Count: Better value per dose
-- 80 Count: Significant savings for regular users
-- 120 Count: Best value for frequent users
-
-**Subscription Option:**
-- 15% discount with subscription
-- 20 Count: $16.97 with subscription
+**Cost Breakdown (Amazon Pricing):**
+- 20 Count: $17.99 ($4.50 per 4-capsule dose)
+- 80 Count: $34.99 ($1.75 per 4-capsule dose) - Best value
+- Available on [Amazon](https://amzn.to/4kjCRVw) with Prime shipping
 
 **Value Assessment:**
-While more expensive than basic DHM supplements, Flyby's comprehensive formula and proven track record justify the premium for users seeking maximum hangover prevention effectiveness.
+While more expensive than basic DHM supplements, Flyby's comprehensive formula and proven track record justify the premium for users seeking maximum hangover prevention effectiveness. The 80-count option provides significant savings for regular users.
 
 ## Who Should Use Flyby Recovery?
 
@@ -177,11 +172,11 @@ Flyby Recovery is designed for occasional use before drinking sessions, not dail
 Flyby offers a more comprehensive formula than basic DHM supplements but costs more. It's positioned as a premium option with additional vitamins, minerals, and liver support compounds.
 
 ### Where can I buy Flyby Recovery?
-Flyby Recovery is available on the official Flyby website, Amazon, and select retailers. Amazon often offers competitive pricing and faster shipping options.
+Flyby Recovery is available on [Amazon](https://amzn.to/4kjCRVw) with Prime shipping, the official Flyby website, and select retailers. Amazon often offers competitive pricing and faster shipping options.
 
 ---
 
-**Ready to try Flyby Recovery?** Check out our [complete DHM supplement comparison](/compare) to see how Flyby stacks up against other top-rated hangover prevention options, or read our [DHM dosage guide](/blog/dhm-dosage-guide-2025) for more information about optimal DHM supplementation strategies.`
+**Ready to try Flyby Recovery?** [Get it on Amazon](https://amzn.to/4kjCRVw) with Prime shipping, or check out our [complete DHM supplement comparison](/compare) to see how Flyby stacks up against other top-rated hangover prevention options. For dosage guidance, read our [DHM dosage guide](/blog/dhm-dosage-guide-2025).`
   },
   {
     id: 'dhm-randomized-controlled-trials-2024',
