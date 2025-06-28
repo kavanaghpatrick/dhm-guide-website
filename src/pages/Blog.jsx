@@ -290,15 +290,15 @@ const Blog = () => {
                     >
                       {(() => {
                         const { mainTitle, subtitle } = formatTitle(post.title);
-                        return subtitle ? (
+                        return (
                           <>
-                            <span>{mainTitle}</span>
-                            <span className="text-xl md:text-2xl font-medium text-gray-600">
-                              : {subtitle}
-                            </span>
+                            <span className="block">{mainTitle}</span>
+                            {subtitle && (
+                              <span className="block text-xl md:text-2xl font-medium text-gray-600 mt-2 leading-relaxed">
+                                {subtitle}
+                              </span>
+                            )}
                           </>
-                        ) : (
-                          <span>{mainTitle}</span>
                         );
                       })()}
                     </button>
