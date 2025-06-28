@@ -11,7 +11,9 @@ import BlogPost from './blog/components/BlogPost.jsx'
 import './App.css'
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [currentPath, setCurrentPath] = useState(() => 
+    typeof window !== 'undefined' ? window.location.pathname : '/'
+  )
 
   useEffect(() => {
     const handlePopState = () => {

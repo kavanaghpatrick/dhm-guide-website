@@ -92,95 +92,51 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// Client-side only wrapper to prevent hydration issues
-function ClientOnlyApp() {
-  const [isClient, setIsClient] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Add touch interaction optimizations
-    document.body.style.touchAction = 'manipulation';
-    document.body.style.webkitTapHighlightColor = 'transparent';
-    
-    // Remove 300ms click delay
+// Touch optimization setup
+function setupTouchOptimizations() {
+  // Add touch interaction optimizations
+  document.body.style.touchAction = 'manipulation';
+  document.body.style.webkitTapHighlightColor = 'transparent';
+  
+  // Remove 300ms click delay
+  const existingMeta = document.querySelector('meta[name="viewport"]');
+  if (existingMeta) {
+    existingMeta.content = 'width=device-width, initial-scale=1, user-scalable=no';
+  } else {
     const meta = document.createElement('meta');
     meta.name = 'viewport';
     meta.content = 'width=device-width, initial-scale=1, user-scalable=no';
-    
-    const existingMeta = document.querySelector('meta[name="viewport"]');
-    if (existingMeta) {
-      existingMeta.content = 'width=device-width, initial-scale=1, user-scalable=no';
-    } else {
-      document.head.appendChild(meta);
-    }
-
-    // Delay to ensure proper hydration
-    const timer = setTimeout(() => {
-      setIsClient(true);
-      setIsLoading(false);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isClient || isLoading) {
-    return (
-      <div style={{ 
-        padding: '20px', 
-        textAlign: 'center', 
-        fontFamily: 'system-ui, sans-serif',
-        backgroundColor: '#f9fafb',
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <div>
-          <h2 style={{ color: '#059669', marginBottom: '16px' }}>
-            DHM Guide
-          </h2>
-          <p style={{ color: '#6b7280' }}>
-            Loading...
-          </p>
-        </div>
-      </div>
-    );
+    document.head.appendChild(meta);
   }
-
-  return <App />;
 }
 
-// Enhanced initialization with touch optimization
+// Initialize React app
 function initializeApp() {
   try {
-    console.log('Initializing DHM Guide React app...');
-    
     const container = document.getElementById('root');
     if (!container) {
       throw new Error('Root container not found');
     }
 
-    // Clear any existing content to prevent hydration conflicts
-    container.innerHTML = '';
+    // Setup touch optimizations
+    setupTouchOptimizations();
     
-    // Add touch optimization classes
-    container.className = 'fast-click';
+    // Add touch optimization class to root
+    container.classList.add('fast-click');
     
     const root = createRoot(container);
     
     root.render(
       <StrictMode>
         <ErrorBoundary>
-          <ClientOnlyApp />
+          <App />
         </ErrorBoundary>
       </StrictMode>
     );
-
-    console.log('DHM Guide React app initialized successfully');
   } catch (error) {
-    console.error('Failed to initialize DHM Guide React app:', error);
+    console.error('Failed to initialize React app:', error);
     
-    // Enhanced fallback rendering with touch optimization
+    // Fallback rendering
     const container = document.getElementById('root');
     if (container) {
       container.innerHTML = `
