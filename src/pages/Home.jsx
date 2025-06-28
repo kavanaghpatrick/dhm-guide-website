@@ -152,9 +152,9 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                Never Wake Up to a 
+                Never Wake Up 
                 <span className="block bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
-                  Hangover Again
+                  Hungover Again
                 </span>
               </motion.h1>
               
