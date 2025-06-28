@@ -44,7 +44,7 @@ function App() {
       case '/compare':
         return <Compare />
       case '/blog':
-        return <BlogDebug />
+        return <Blog />
       default:
         return <Home />
     }
