@@ -47,29 +47,36 @@ const BlogMinimal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      {/* Simple Hero */}
-      <div className="bg-green-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">DHM Guide Blog</h1>
-          <p className="text-xl">Expert insights on hangover prevention</p>
-        </div>
+    <div style={{ padding: '20px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <h1 style={{ color: '#333', marginBottom: '20px' }}>DHM Guide Blog - Step by Step Test</h1>
+      <p style={{ marginBottom: '20px' }}>Posts loaded: {posts.length}</p>
+      
+      <div style={{ marginBottom: '20px' }}>
+        <h3>Testing first post data:</h3>
+        <pre style={{ backgroundColor: '#white', padding: '10px', fontSize: '12px' }}>
+          {JSON.stringify({
+            title: posts[0]?.title,
+            slug: posts[0]?.slug,
+            date: posts[0]?.date,
+            author: posts[0]?.author,
+            excerpt: posts[0]?.excerpt?.substring(0, 100) + '...'
+          }, null, 2)}
+        </pre>
       </div>
-
-      {/* Posts List */}
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <p className="mb-8 text-gray-600">Showing {posts.length} articles</p>
-        <div className="space-y-6">
-          {posts.slice(0, 10).map((post, index) => (
-            <article key={post.slug || index} className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-2xl font-bold mb-2 text-gray-900">{post.title}</h2>
-              <p className="text-gray-600 mb-4">{post.excerpt}</p>
-              <div className="text-sm text-gray-500">
-                Published: {post.date} • By {post.author || 'DHM Guide Team'}
-              </div>
-            </article>
-          ))}
-        </div>
+      
+      <div>
+        <h3>First 3 posts (no Tailwind):</h3>
+        {posts.slice(0, 3).map((post, index) => (
+          <div key={index} style={{ border: '1px solid #ddd', padding: '15px', marginBottom: '15px', backgroundColor: 'white' }}>
+            <h4 style={{ margin: '0 0 10px 0', color: '#333' }}>{post.title || 'No title'}</h4>
+            <p style={{ margin: '0 0 10px 0', color: '#666', fontSize: '14px' }}>
+              {post.excerpt || 'No excerpt'}
+            </p>
+            <small style={{ color: '#999' }}>
+              {post.date || 'No date'} • {post.author || 'DHM Guide Team'}
+            </small>
+          </div>
+        ))}
       </div>
     </div>
   );
