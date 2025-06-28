@@ -254,12 +254,6 @@ export default function Research() {
       significance: "Breakthrough study on DHM anti-fibrotic mechanisms",
       pubmedId: "s12986-021-00589-6",
       pubmedUrl: "https://nutritionandmetabolism.biomedcentral.com/articles/10.1186/s12986-021-00589-6"
-    }
-  ]
-      dosage: "450mg daily",
-      significance: "Promising results for age-related cognitive protection",
-      pubmedId: "S0304394021003414",
-      pubmedUrl: "https://www.sciencedirect.com/science/article/abs/pii/S0304394021003414"
     },
     {
       id: 11,
