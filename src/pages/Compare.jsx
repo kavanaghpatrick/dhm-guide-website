@@ -193,6 +193,37 @@ export default function Compare() {
       customerSatisfaction: 3.9,
       monthlyBuyers: "Variable",
       category: "premium"
+    },
+    {
+      id: 6,
+      name: "Flyby Recovery",
+      brand: "Flyby",
+      rating: 4.3,
+      reviews: 7200,
+      price: "$19.97",
+      pricePerServing: "$4.99",
+      servings: 4,
+      dhm: "300mg",
+      purity: "Proprietary extraction",
+      badge: "Comprehensive Formula",
+      badgeColor: "bg-purple-500",
+      score: 8.4,
+      affiliateLink: "https://www.flyby.co/products/recovery-capsules",
+      // Additional comparison fields
+      dhmPerDollar: 15.0,
+      additionalIngredients: ["Milk Thistle", "B-Vitamins (B1,B2,B6,B9,B12)", "18 Amino Acids", "Vitamin C", "Apple Cider Vinegar", "Electrolytes"],
+      thirdPartyTested: true,
+      moneyBackGuarantee: true,
+      shippingSpeed: "Standard 3-5 days",
+      manufacturingLocation: "USA",
+      certifications: ["GMP", "Non-GMO", "Gluten-Free"],
+      bestForUseCase: "Two-stage hangover protocol",
+      valueScore: 7.0,
+      effectivenessScore: 8.5,
+      safetyScore: 9.0,
+      customerSatisfaction: 4.3,
+      monthlyBuyers: "1K+",
+      category: "comprehensive"
     }
   ]
 

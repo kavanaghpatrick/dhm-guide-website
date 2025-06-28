@@ -1,6 +1,189 @@
 // Blog posts data - embedded for production reliability
 export const posts = [
   {
+    id: 'flyby-recovery-review-2025',
+    title: 'Flyby Recovery Review 2025: Does This DHM Supplement Really Work?',
+    slug: 'flyby-recovery-review-2025',
+    excerpt: 'Comprehensive Flyby Recovery review based on 7,200+ Amazon reviews and independent testing. Discover if this premium DHM supplement justifies its cost for hangover prevention.',
+    date: '2025-06-28',
+    author: 'DHM Guide Team',
+    tags: ['flyby recovery', 'dhm supplements', 'hangover prevention', 'product reviews', 'supplement comparison'],
+    image: '/flyby-recovery-review-hero.png',
+    content: `**Quick Verdict**: Flyby Recovery delivers solid hangover prevention with 300mg DHM plus comprehensive vitamin support, earning 4.1-4.5 stars across thousands of Amazon reviews. While more expensive than basic DHM supplements, its two-stage protocol and additional ingredients justify the premium for serious hangover prevention.
+
+![Flyby Recovery Review - Comprehensive analysis of this popular DHM hangover supplement with customer feedback and effectiveness data](/flyby-recovery-review-hero.png)
+
+## What is Flyby Recovery?
+
+Flyby Recovery is a comprehensive hangover prevention supplement that goes beyond basic DHM (dihydromyricetin) to include vitamins, minerals, and liver support compounds. Founded in 2016 by Eddie Huai in New York, Flyby has grown from startup to $1M+ in sales within 10 months, establishing itself as a premium player in the hangover prevention market.
+
+The supplement uses a two-stage protocol: take 2 capsules before drinking and 2 more before bed, providing 4 capsules total per drinking session.
+
+## Flyby Recovery Ingredients Analysis
+
+### Primary Active Compounds
+
+**DHM (Dihydromyricetin): 300mg per serving**
+- Sourced from Ampelopsis grossedentata
+- Extracted via proprietary method for enhanced purity
+- Supports alcohol metabolism and liver function
+- Clinical research shows effectiveness for hangover prevention
+
+**Milk Thistle Extract**
+- Delivers antioxidant-rich silymarin
+- Supports healthy liver function
+- Helps protect liver cells during alcohol processing
+
+**B-Vitamin Complex**
+- 100% daily value or more of vitamins B1, B2, B6, B9, B12
+- Replenishes nutrients depleted by alcohol consumption
+- Supports energy metabolism and nervous system function
+
+**Additional Support Ingredients**
+- 18 naturally occurring amino acids
+- Vitamin C (50mg) for antioxidant support
+- Apple Cider Vinegar (100mg) for digestive support
+- Electrolytes (sodium, magnesium, potassium)
+
+## How Flyby Recovery Works
+
+Flyby's effectiveness comes from its comprehensive approach to alcohol's effects on the body:
+
+### Stage 1: Pre-Drinking Protection (2 capsules)
+- DHM begins supporting liver enzyme function
+- B-vitamins prepare the body for alcohol metabolism
+- Milk thistle provides protective antioxidants
+
+### Stage 2: Overnight Recovery (2 capsules before bed)
+- Continued DHM support during peak alcohol processing
+- Vitamin and mineral replenishment
+- Amino acids support recovery processes
+
+This two-stage approach addresses both prevention and recovery, targeting multiple pathways affected by alcohol consumption.
+
+## Customer Reviews and Real-World Performance
+
+### Amazon Performance (Third-Party Data)
+- **Average Rating**: 4.1-4.5 stars across multiple listings
+- **Review Volume**: 2,000-7,200+ reviews (varies by listing)
+- **Bestseller Status**: Consistently ranked as Amazon bestseller in hangover supplements
+
+### Independent Media Testing
+
+**Bon Appétit Review (2019)**
+"After using Flyby I woke up without a headache or a turning stomach. Still exhausted, but I wasn't expecting miracles."
+
+**The Daily Beast Assessment (2024)**
+"By adding sodium, magnesium, and potassium alongside DHM, Flyby is built to fight the effects of alcohol on both fronts."
+
+### Customer Feedback Themes
+
+**Positive Experiences:**
+- "I was skeptical & it may not work for the HARDEST night of binge drinking, but it definitely helps with the sneaky hangovers or almost totally reduces"
+- "The price is well worth the avoidance of a bad hangover!"
+- Strong word-of-mouth referrals (33% of customers try based on recommendations)
+
+**Limitations Noted:**
+- Less effective for extremely heavy drinking sessions
+- Higher cost per dose compared to basic DHM supplements
+- Large capsule size can be difficult to swallow
+
+## Flyby vs. Other DHM Supplements
+
+### Advantages
+- **Comprehensive Formula**: Goes beyond DHM with vitamins, minerals, and liver support
+- **Two-Stage Protocol**: Addresses both prevention and recovery
+- **Quality Assurance**: GMP certified, no synthetic fillers, proprietary DHM extraction
+- **Strong Track Record**: Thousands of positive reviews and media coverage
+
+### Disadvantages
+- **Higher Cost**: $3-1 per dose depending on quantity purchased
+- **Pill Burden**: 4 large capsules per drinking session
+- **DHM Concentration**: 300mg is moderate compared to some dedicated DHM supplements
+
+## Pricing and Value Analysis
+
+**Cost Breakdown:**
+- 20 Count: $19.97 ($4.99 per 4-capsule dose)
+- 40 Count: Better value per dose
+- 80 Count: Significant savings for regular users
+- 120 Count: Best value for frequent users
+
+**Subscription Option:**
+- 15% discount with subscription
+- 20 Count: $16.97 with subscription
+
+**Value Assessment:**
+While more expensive than basic DHM supplements, Flyby's comprehensive formula and proven track record justify the premium for users seeking maximum hangover prevention effectiveness.
+
+## Who Should Use Flyby Recovery?
+
+**Ideal Candidates:**
+- Social drinkers seeking reliable hangover prevention
+- Business professionals who can't afford next-day impairment
+- Wedding parties and special event attendees
+- Users who want comprehensive support beyond just DHM
+
+**Consider Alternatives If:**
+- You're on a tight budget (basic DHM supplements cost less)
+- You have difficulty swallowing large capsules
+- You only drink occasionally and don't need premium features
+
+## How to Use Flyby Recovery Effectively
+
+### Optimal Protocol
+1. **Before Drinking**: Take 2 capsules with food and water
+2. **Before Bed**: Take 2 more capsules with water
+3. **Hydration**: Maintain adequate water intake throughout
+
+### Pro Tips for Maximum Effectiveness
+- Don't skip the pre-drinking dose
+- Take with food to improve absorption
+- Maintain hydration throughout the evening
+- Follow the 4-capsule protocol even for lighter drinking
+
+## Flyby Recovery: Final Verdict
+
+**Overall Rating: 4.2/5 stars**
+
+Flyby Recovery earns its reputation as a premium hangover prevention supplement. With 300mg of quality DHM plus comprehensive vitamin and mineral support, it delivers consistent results for most users. The two-stage protocol and additional ingredients justify the higher cost for serious hangover prevention.
+
+**Pros:**
+✅ Comprehensive formula beyond basic DHM
+✅ Strong third-party review performance (4.1-4.5 stars)
+✅ Two-stage prevention and recovery protocol
+✅ Quality manufacturing and ingredient sourcing
+✅ Proven track record with thousands of satisfied customers
+
+**Cons:**
+❌ Higher cost per dose than basic DHM supplements
+❌ Large capsule size (4 capsules per session)
+❌ Less effective for extremely heavy drinking
+
+**Bottom Line**: Flyby Recovery is an excellent choice for users who want comprehensive hangover prevention and are willing to pay a premium for quality and effectiveness. While not the cheapest option, its proven performance and comprehensive formula make it a solid investment for regular social drinkers.
+
+## Frequently Asked Questions
+
+### How much DHM is in Flyby Recovery?
+Flyby Recovery contains 300mg of DHM per 4-capsule serving, sourced from Ampelopsis grossedentata and extracted using a proprietary method for enhanced purity.
+
+### Can I take just 2 capsules instead of 4?
+While you can take fewer capsules, the full 4-capsule protocol (2 before drinking, 2 before bed) is designed for optimal effectiveness. Reducing the dose may decrease hangover prevention benefits.
+
+### Is Flyby Recovery safe for daily use?
+Flyby Recovery is designed for occasional use before drinking sessions, not daily supplementation. For daily liver support, consider dedicated liver health supplements.
+
+### How does Flyby compare to other hangover supplements?
+Flyby offers a more comprehensive formula than basic DHM supplements but costs more. It's positioned as a premium option with additional vitamins, minerals, and liver support compounds.
+
+### Where can I buy Flyby Recovery?
+Flyby Recovery is available on the official Flyby website, Amazon, and select retailers. Amazon often offers competitive pricing and faster shipping options.
+
+---
+
+**Ready to try Flyby Recovery?** Check out our [complete DHM supplement comparison](/compare) to see how Flyby stacks up against other top-rated hangover prevention options, or read our [DHM dosage guide](/blog/dhm-dosage-guide-2025) for more information about optimal DHM supplementation strategies.`
+  },
+  {
     id: 'dhm-randomized-controlled-trials-2024',
     title: 'DHM Randomized Controlled Trials 2024: Latest Clinical Evidence for Hangover Prevention',
     slug: 'dhm-randomized-controlled-trials-2024',
