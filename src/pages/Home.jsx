@@ -197,11 +197,11 @@ export default function Home() {
               >
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                  <span className="font-medium">4.3/5 from 2,000+ reviews</span>
+                  <span className="font-medium">4.4/5 from 1,000+ reviews</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-green-600" />
-                  <span className="font-medium">15+ Clinical Studies</span>
+                  <span className="font-medium">7 Clinical Studies</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-blue-600" />
@@ -211,26 +211,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Hero Stats - Below the main content */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-700 mb-2">1000+</div>
-              <div className="text-gray-600">Years of Traditional Use</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-700 mb-2">50+</div>
-              <div className="text-gray-600">Clinical Studies</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-700 mb-2">95%</div>
-              <div className="text-gray-600">User Satisfaction</div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
