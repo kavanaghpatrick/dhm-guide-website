@@ -127,8 +127,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
   switch (pageType) {
     case 'home':
       return {
-        title: 'Stop Hangovers Forever: Proven DHM Prevention Guide',
-        description: 'Wake up refreshed after drinking with clinically-proven DHM. 15+ studies show 70% hangover reduction. Join 10,000+ who never suffer hangovers again.',
+        title: 'DHM Guide: Science-Backed Hangover Prevention That Actually Works',
+        description: 'Discover the UCLA-proven supplement that prevents hangovers in 70% of cases. Expert reviews, dosage guides, and 15+ clinical studies. Never wake up hungover again.',
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.jpg`,
@@ -149,8 +149,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'guide':
       return {
-        title: 'DHM Hangover Prevention Guide: Stop Hangovers Forever',
-        description: 'Complete DHM guide with dosage protocols and clinical research. 70% hangover reduction proven in studies. Master hangover prevention in 10 minutes.',
+        title: 'The Complete DHM Guide: Never Wake Up Hungover Again',
+        description: 'Step-by-step hangover prevention protocol using DHM. Covers dosage, timing, and science behind 70% hangover reduction. Master the hangover-free lifestyle.',
         keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
         ogImage: `${baseUrl}/dhm-guide-featured.jpg`,
@@ -183,17 +183,14 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         ogImage: `${baseUrl}/dhm-reviews-featured.jpg`,
         structuredData: {
           "@context": "https://schema.org",
-          "@type": "Review",
-          "itemReviewed": {
-            "@type": "Product",
-            "name": "DHM (Dihydromyricetin) Supplements"
-          },
-          "reviewRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.6",
-            "reviewCount": "500"
-          },
+          "@type": "Article",
+          "headline": "Best Hangover Pills: Lab-Tested Supplements That Work",
+          "description": "Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness.",
           "author": {
+            "@type": "Organization",
+            "name": "DHM Guide"
+          },
+          "publisher": {
             "@type": "Organization",
             "name": "DHM Guide"
           }
@@ -237,8 +234,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'blog':
       return {
-        title: 'DHM Blog: Latest Hangover Prevention Research & Tips',
-        description: 'Latest DHM research, hangover prevention tips, and supplement news. Expert insights on dihydromyricetin science to optimize your health daily.',
+        title: 'DHM Blog: Expert Hangover Prevention Tips & Latest Research',
+        description: 'Latest hangover science, DHM research updates, and proven prevention strategies. From college drinking to business travel - expert guides for every lifestyle.',
         keywords: 'DHM blog, hangover prevention blog, dihydromyricetin news, health optimization, supplement research',
         canonicalUrl: `${baseUrl}/blog`,
         ogImage: `${baseUrl}/blog-featured.jpg`,
