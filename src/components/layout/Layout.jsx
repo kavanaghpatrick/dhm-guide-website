@@ -17,6 +17,7 @@ export default function Layout({ children }) {
     { name: 'Compare Solutions', href: '/compare' },
     { name: 'The Science', href: '/research' },
     { name: 'Recovery Tips', href: '/blog' },
+    { name: 'New Blog ⚡', href: '/newblog' },
     { name: 'About', href: '/about' }
   ]
 

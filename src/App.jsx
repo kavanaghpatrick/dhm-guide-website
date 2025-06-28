@@ -13,6 +13,8 @@ import BlogPostsOnly from './pages/BlogPostsOnly.jsx'
 import BlogSEOTest from './pages/BlogSEOTest.jsx'
 import BlogCombinedTest from './pages/BlogCombinedTest.jsx'
 import BlogPost from './blog/components/BlogPost.jsx'
+import NewBlogListing from './newblog/pages/NewBlogListing.jsx'
+import NewBlogPost from './newblog/components/NewBlogPost.jsx'
 import './App.css'
 
 function App() {
@@ -31,7 +33,12 @@ function App() {
 
   // Simple routing based on pathname
   const renderPage = () => {
-    // Handle blog post routes (e.g., /blog/post-slug)
+    // Handle new blog post routes (e.g., /newblog/post-slug)
+    if (currentPath.startsWith('/newblog/') && currentPath !== '/newblog/') {
+      return <NewBlogPost />
+    }
+    
+    // Handle old blog post routes (e.g., /blog/post-slug)
     if (currentPath.startsWith('/blog/') && currentPath !== '/blog/') {
       return <BlogPost />
     }
@@ -49,6 +56,8 @@ function App() {
         return <Compare />
       case '/blog':
         return <Blog />
+      case '/newblog':
+        return <NewBlogListing />
       default:
         return <Home />
     }
