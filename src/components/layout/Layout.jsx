@@ -12,11 +12,11 @@ export default function Layout({ children }) {
   // Navigation items
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Guide', href: '/guide' },
-    { name: 'Reviews', href: '/reviews' },
-    { name: 'Compare', href: '/compare' },
-    { name: 'Research', href: '/research' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Hangover Relief', href: '/guide' },
+    { name: 'Best Supplements', href: '/reviews' },
+    { name: 'Compare Solutions', href: '/compare' },
+    { name: 'The Science', href: '/research' },
+    { name: 'Recovery Tips', href: '/blog' },
     { name: 'About', href: '/about' }
   ]
 

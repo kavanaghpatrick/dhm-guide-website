@@ -35,34 +35,34 @@ export default function Home() {
   // Benefits data
   const benefits = [
     {
-      icon: <Beaker className="w-8 h-8" />,
-      title: "Science-Backed",
-      description: "Proven effectiveness in clinical studies with over 1,000 participants"
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Liver Protection",
-      description: "Enhances alcohol metabolism and protects liver cells from damage"
-    },
-    {
       icon: <Zap className="w-8 h-8" />,
-      title: "Fast Acting",
-      description: "Works within 30 minutes to reduce intoxication and prevent hangovers"
-    },
-    {
-      icon: <Leaf className="w-8 h-8" />,
-      title: "Natural & Safe",
-      description: "Extracted from Japanese raisin tree, used safely for over 1,000 years"
+      title: "Wake Up Refreshed",
+      description: "Skip the morning headache, nausea, and fatigue - feel amazing instead"
     },
     {
       icon: <Brain className="w-8 h-8" />,
-      title: "Mental Clarity",
-      description: "Reduces brain fog and maintains cognitive function after drinking"
+      title: "Stay Sharp & Focused",
+      description: "No more brain fog or cloudy thinking the next day"
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: "Drink Without Worry",
+      description: "Enjoy your night out knowing you'll feel great tomorrow"
     },
     {
       icon: <Heart className="w-8 h-8" />,
-      title: "Overall Wellness",
-      description: "Supports cardiovascular health and reduces inflammation"
+      title: "Protect Your Health",
+      description: "Support your liver and overall wellness while drinking"
+    },
+    {
+      icon: <Beaker className="w-8 h-8" />,
+      title: "Clinically Proven",
+      description: "Backed by 15+ studies with over 1,000 participants"
+    },
+    {
+      icon: <Leaf className="w-8 h-8" />,
+      title: "100% Natural",
+      description: "Safe herbal extract used for over 1,000 years"
     }
   ]
 
@@ -158,8 +158,8 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                DHM (Dihydromyricetin) transforms your morning from misery to feeling amazing - 
-                <span className="font-semibold text-green-700"> clinically proven</span> to prevent hangovers before they start.
+                The scientifically-proven way to wake up feeling amazing after drinking - no matter how much you had last night. 
+                <span className="font-semibold text-green-700"> Clinically tested</span> and trusted by thousands.
               </motion.p>
               
               <motion.div 
@@ -174,7 +174,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                 >
                   <Link to="/guide">
-                    📚 Get the Complete Guide
+                    🚀 Stop Your Next Hangover
                     <ArrowRight className="ml-3 w-6 h-6" />
                   </Link>
                 </Button>
@@ -184,7 +184,7 @@ export default function Home() {
                   size="lg"
                   className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-10 py-5 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Link to="/reviews">🛒 Try DHM Detox</Link>
+                  <Link to="/reviews">🛡️ Find Best Supplements</Link>
                 </Button>
               </motion.div>
 
