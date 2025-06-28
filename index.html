@@ -194,39 +194,7 @@
     </script>
   </head>
   <body>
-    <div id="root">
-      <!-- Static hero skeleton for instant LCP -->
-      <div style="padding-top: 4rem; padding-bottom: 4rem; padding-left: 1rem; padding-right: 1rem; background: linear-gradient(to bottom right, #f9fafb, #ffffff);">
-        <div style="max-width: 80rem; margin: 0 auto;">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; max-width: 80rem; margin: 0 auto;">
-            <!-- LCP Image - Shows immediately -->
-            <div style="order: 1;">
-              <div style="position: relative;">
-                <picture>
-                  <source
-                    type="image/webp"
-                    sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
-                    srcset="/images/before-after-dhm-640w.webp 640w,
-                            /images/before-after-dhm-768w.webp 768w,
-                            /images/before-after-dhm-1024w.webp 1024w,
-                            /images/before-after-dhm-1536w.webp 1536w"
-                  />
-                  <img 
-                    src="/images/before-after-dhm-1536w.webp"
-                    alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
-                    style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); display: block; aspect-ratio: 1536 / 1024; background-color: #f3f4f6;"
-                    loading="eager"
-                    fetchpriority="high"
-                    width="1536"
-                    height="1024"
-                  />
-                </picture>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

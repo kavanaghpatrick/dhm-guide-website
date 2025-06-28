@@ -132,20 +132,22 @@ export default function Home() {
                   <img 
                     src="/images/before-after-dhm-1536w.webp"
                     alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
-                    className="w-full h-auto rounded-2xl shadow-2xl"
                     loading="eager"
                     fetchPriority="high"
                     width={1536}
                     height={1024}
                     style={{
+                      width: '100%',
+                      height: 'auto',
+                      borderRadius: '1rem',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                      display: 'block',
                       backgroundImage: `url(${lcpPlaceholder.base64})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
                   />
                 </picture>
-                {/* Subtle overlay for better text readability if needed */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none"></div>
               </div>
             </div>
 
