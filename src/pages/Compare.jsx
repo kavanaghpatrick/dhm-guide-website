@@ -398,9 +398,11 @@ export default function Compare() {
           prev.effectivenessScore > current.effectivenessScore ? prev : current
         )
       case 'dhm':
-        return selectedProductsData.reduce((prev, current) => 
-          parseInt(prev.dhm.replace(/[^\d]/g, '')) > parseInt(current.dhm.replace(/[^\d]/g, '')) ? prev : current
-        )
+        return selectedProductsData.reduce((prev, current) => {
+          const prevDhm = parseInt(prev.dhm.replace(/[^\d]/g, '')) || 0
+          const currentDhm = parseInt(current.dhm.replace(/[^\d]/g, '')) || 0
+          return prevDhm > currentDhm ? prev : current
+        })
       case 'reviews':
         return selectedProductsData.reduce((prev, current) => 
           prev.reviews > current.reviews ? prev : current
@@ -410,9 +412,11 @@ export default function Compare() {
           prev.rating > current.rating ? prev : current
         )
       case 'dhmPerDollar':
-        return selectedProductsData.reduce((prev, current) => 
-          prev.dhmPerDollar > current.dhmPerDollar ? prev : current
-        )
+        return selectedProductsData.reduce((prev, current) => {
+          const prevValue = typeof prev.dhmPerDollar === 'string' ? 0 : prev.dhmPerDollar
+          const currentValue = typeof current.dhmPerDollar === 'string' ? 0 : current.dhmPerDollar
+          return prevValue > currentValue ? prev : current
+        })
       default:
         return null
     }
