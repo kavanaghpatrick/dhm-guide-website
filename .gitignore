@@ -92,6 +92,8 @@ public/*
 !public/robots.txt
 !public/favicon.svg
 !public/favicon.png
+!public/site.webmanifest
+!public/browserconfig.xml
 !public/og-image.jpg
 !public/twitter-image.jpg
 !public/dhm-dosage-guide-infographic.png
