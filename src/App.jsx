@@ -7,6 +7,7 @@ import Research from './pages/Research.jsx'
 import About from './pages/About.jsx'
 import Compare from './pages/Compare.jsx'
 import Blog from './pages/Blog.jsx'
+import BlogMinimal from './pages/BlogMinimal.jsx'
 import BlogPost from './blog/components/BlogPost.jsx'
 import './App.css'
 
@@ -43,7 +44,7 @@ function App() {
       case '/compare':
         return <Compare />
       case '/blog':
-        return <Blog />
+        return <BlogMinimal />
       default:
         return <Home />
     }
