@@ -283,7 +283,7 @@ const Blog = () => {
                   </div>
 
                   {/* Post Title */}
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 hover:text-green-600 transition-colors">
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 hover:text-green-600 transition-colors min-h-[4rem] flex items-start">
                     <button 
                       onClick={() => handleNavigation(`/blog/${post.slug}`)}
                       className="text-left w-full"
@@ -291,14 +291,14 @@ const Blog = () => {
                       {(() => {
                         const { mainTitle, subtitle } = formatTitle(post.title);
                         return (
-                          <>
-                            <span className="block">{mainTitle}</span>
+                          <div className="space-y-1">
+                            <span className="block leading-tight">{mainTitle}</span>
                             {subtitle && (
-                              <span className="block text-xl md:text-2xl font-medium text-gray-600 mt-2 leading-relaxed">
+                              <span className="block text-xl md:text-2xl font-medium text-gray-600 leading-relaxed">
                                 {subtitle}
                               </span>
                             )}
-                          </>
+                          </div>
                         );
                       })()}
                     </button>
