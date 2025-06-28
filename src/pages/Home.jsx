@@ -174,49 +174,25 @@ export default function Home() {
             </div>
 
             {/* Headline + Value Prop + CTA - Right Column */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="order-2 lg:order-2 text-center lg:text-left"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
+            <div className="order-2 lg:order-2 text-center lg:text-left">
+              <div>
                 <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200 text-sm font-semibold">
                   🧬 Science-Backed Transformation
                 </Badge>
-              </motion.div>
+              </div>
               
-              <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight">
                 Never Wake Up 
                 <span className="block bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                   Hungover Again
                 </span>
-              </motion.h1>
+              </h1>
               
-              <motion.p 
-                className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
+              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
                 The UCLA-discovered supplement that prevents hangovers by blocking alcohol damage before it starts. <span className="font-semibold text-green-700">Proven 70% effective</span> in clinical studies.
-              </motion.p>
+              </p>
               
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-              >
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
                 <Button 
                   asChild
                   size="lg" 
@@ -235,15 +211,10 @@ export default function Home() {
                 >
                   <Link to="/reviews">🛡️ Find Best Supplements</Link>
                 </Button>
-              </motion.div>
+              </div>
 
               {/* Trust Indicators */}
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center text-sm text-gray-500"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
+              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center text-sm text-gray-500">
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-yellow-500 fill-current" />
                   <span className="font-medium">4.4/5 from 1,000+ reviews</span>
@@ -256,8 +227,8 @@ export default function Home() {
                   <Zap className="w-4 h-4 text-blue-600" />
                   <span className="font-medium">Works in 30 minutes</span>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
         </div>
