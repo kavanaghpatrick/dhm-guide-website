@@ -1272,7 +1272,25 @@ Flyby Recovery is available on [Amazon](https://amzn.to/4kjCRVw) with Prime ship
 
 ---
 
-**Ready to try Flyby Recovery?** [Get it on Amazon](https://amzn.to/4kjCRVw) with Prime shipping, or check out our [complete DHM supplement comparison](/compare) to see how Flyby stacks up against other top-rated hangover prevention options. For dosage guidance, read our [DHM dosage guide](/blog/dhm-dosage-guide-2025).`
+## 🔥 Flyby vs Top Competitors: Quick Comparison
+
+| **Product** | **DHM per Dose** | **Price per Serving** | **Amazon Rating** | **Best For** |
+|-------------|------------------|----------------------|------------------|--------------|
+| **[Flyby Recovery](https://amzn.to/4kjCRVw)** | 300mg | $4.50 | 4.3/5 ⭐ | **Complete protection** |
+| **[Double Wood DHM](https://amzn.to/44sczuq)** | 500mg | $1.20 | 4.4/5 ⭐ | **Pure DHM power** |
+| **[No Days Wasted](https://amzn.to/3HSHjgu)** | 300mg | $3.00 | 4.2/5 ⭐ | **Premium quality** |
+
+## 🛒 Ready to Try Flyby Recovery?
+
+**⚡ Limited Time**: Get Flyby with **Amazon Prime same-day delivery**
+
+**→ [Order Flyby Recovery Now](https://amzn.to/4kjCRVw)** *(4.3⭐ from 7,200+ reviews)*
+
+**💰 Save More**: Subscribe & Save for 15% off + free shipping
+
+**🎁 New to DHM?** Try our **[DHM Starter Bundle](https://amzn.to/44sczuq)** to compare Flyby with other top brands
+
+**⏰ Planning ahead?** Check our **[complete DHM timing guide](/blog/dhm-dosage-guide-2025)** for maximum effectiveness`
   },
   {
     id: 'dhm-randomized-controlled-trials-2024',
@@ -1536,6 +1554,8 @@ During this phase, DHM begins its dual-pathway action on both liver enzymes and 
 
 **Clinical Evidence**: Research published in Frontiers in Nutrition demonstrates that DHM increases alcohol dehydrogenase activity by 60% and aldehyde dehydrogenase by 45%, significantly speeding toxin clearance.
 
+**⚡ Need Emergency DHM Now?** → **[Get High-Dose DHM Delivered Today](https://amzn.to/4ejE4uq)** *(Prime 2-hour delivery available)*
+
 ### Phase 3: Accelerated Recovery (1-3 Hours)
 
 **Primary Goal**: Restore normal physiological function and energy levels
@@ -1584,7 +1604,12 @@ Emergency hangover situations require higher DHM doses than standard prevention 
 
 **Synergistic Effects**: Research indicates that DHM combined with L-cysteine can increase hangover relief effectiveness by up to 35% compared to DHM alone.
 
-For product recommendations optimized for emergency use, check our [DHM supplement reviews](/reviews).
+**🛒 Emergency DHM Shopping List:**
+- **Mild Hangover**: [No Days Wasted 300mg](https://amzn.to/3HSHjgu) - Fast-acting, beginner dose
+- **Moderate Hangover**: [Double Wood 500mg](https://amzn.to/44sczuq) - Clinical strength  
+- **Severe Hangover**: [Toniiq 1000mg](https://amzn.to/4ejE4uq) - Maximum emergency dose
+
+**→ [Shop All Emergency DHM Options](https://amzn.to/4kjCRVw)** *(Same-day delivery with Prime)*
 
 ## Hydration Acceleration: Beyond Just Water
 
@@ -1727,9 +1752,41 @@ When hangover symptoms strike with full force, having a proven emergency protoco
 
 The key to success lies in immediate action—the sooner you begin this protocol after waking, the more effective it becomes. Keep emergency supplies ready: high-dose DHM supplements, electrolyte powder, and the other recommended compounds so you're prepared when you need relief most.
 
-Remember that prevention remains the best strategy. For your next drinking occasion, explore our [hangover prevention guide](/guide) to avoid needing emergency intervention altogether. But when prevention fails, this protocol provides your fastest path back to feeling human again.
+## 🚨 Emergency Hangover Kit: Get Delivered Today
 
-Ready to stock your emergency hangover kit? Check out our [top-rated DHM supplements](/reviews) specifically chosen for their rapid absorption and emergency effectiveness.`
+**Immediate Action Required?** → **Get emergency supplies delivered same-day with Amazon Prime:**
+
+### Severity Level 1: Mild Hangover (Slight headache, fatigue)
+**→ [No Days Wasted DHM (300mg)](https://amzn.to/3HSHjgu)** - Perfect starter dose  
+**→ [Liquid IV Electrolyte Powder](https://amzn.to/44sczuq)** - Rapid hydration  
+**→ [Nature Made Magnesium](https://amzn.to/3T8cO8H)** - Tension relief  
+*🚀 Get delivered by tonight with Prime*
+
+### Severity Level 2: Moderate Hangover (Nausea, headache, brain fog)
+**→ [Double Wood DHM 500mg](https://amzn.to/44sczuq)** - Clinical strength dose  
+**→ [Flyby Recovery Complete](https://amzn.to/4kjCRVw)** - Multi-ingredient support  
+**→ [Milk Thistle Extract](https://amzn.to/4ejE4uq)** - Liver protection  
+*⚡ Order now for 2-hour delivery in most cities*
+
+### Severity Level 3: Severe Hangover (Can barely function)
+**→ [Toniiq DHM 1000mg](https://amzn.to/4ejE4uq)** - Maximum emergency dose  
+**→ [Emergency Electrolyte Bundle](https://amzn.to/44znXFU)** - Complete hydration kit  
+**→ [L-Cysteine 600mg](https://amzn.to/3HSHjgu)** - Toxin elimination boost  
+*🆘 URGENT: Available for same-day delivery - order within 2 hours*
+
+### Complete Emergency Kit Shopping List
+**✅ Core Essentials (Order All):**
+- **[High-Dose DHM (600-1000mg)](https://amzn.to/4ejE4uq)** - Your primary weapon
+- **[Electrolyte Powder (Multi-pack)](https://amzn.to/44znXFU)** - Rapid rehydration  
+- **[Magnesium Glycinate](https://amzn.to/3T8cO8H)** - Headache relief
+- **[Vitamin C 1000mg](https://amzn.to/44sczuq)** - Antioxidant support
+- **[B-Complex Vitamins](https://amzn.to/3HSHjgu)** - Energy restoration
+
+**💡 Pro Tip**: Keep this kit stocked year-round. Most effective when taken within 30 minutes of waking up hungover.
+
+**→ [Shop Complete Emergency Kit Bundle](https://amzn.to/4kjCRVw)** *(All items, Prime delivery)*
+
+Remember that prevention remains the best strategy. For your next drinking occasion, explore our [hangover prevention guide](/guide) to avoid needing emergency intervention altogether. But when prevention fails, this protocol provides your fastest path back to feeling human again.`
   },
   {
     id: 'when-to-take-dhm-timing-guide-2025',
@@ -4102,12 +4159,14 @@ Research consistently shows that **500mg DHM provides the best balance of effect
 
 Your body weight significantly impacts DHM effectiveness:
 
-| **Body Weight** | **Recommended DHM Dosage** |
-|-----------------|----------------------------|
-| Under 130 lbs (59 kg) | 300-400mg |
-| 130-180 lbs (59-82 kg) | 400-500mg |
-| 180-220 lbs (82-100 kg) | 500-600mg |
-| Over 220 lbs (100+ kg) | 600mg |
+| **Body Weight** | **Recommended DHM Dosage** | **Best Product** |
+|-----------------|----------------------------|------------------|
+| Under 130 lbs (59 kg) | 300-400mg | **[No Days Wasted 300mg](https://amzn.to/3HSHjgu)** |
+| 130-180 lbs (59-82 kg) | 400-500mg | **[Double Wood 500mg](https://amzn.to/44sczuq)** |
+| 180-220 lbs (82-100 kg) | 500-600mg | **[Flyby Recovery 300mg x2](https://amzn.to/4kjCRVw)** |
+| Over 220 lbs (100+ kg) | 600mg | **[Toniiq 1000mg (half dose)](https://amzn.to/4ejE4uq)** |
+
+**💊 Know Your Dose?** → **[Shop Your Perfect DHM Now](https://amzn.to/44sczuq)** *(Prime same-day delivery)*
 
 ### Factor 2: Alcohol Consumption Level
 
@@ -4345,11 +4404,34 @@ Yes, DHM combines safely with NAC, milk thistle, B-vitamins, and electrolytes. A
 
 **Remember**: DHM works best as part of a comprehensive approach including proper hydration, nutrition, and responsible drinking habits.
 
-## Ready to Find Your Perfect DHM Supplement?
+## 🎯 Find Your Perfect DHM: Personalized Recommendations
 
-Now that you know the optimal DHM dosage, the next step is choosing a high-quality supplement. Our comprehensive reviews analyze the top DHM products for purity, potency, and value.
+Now that you know your optimal dosage, here are the best DHM supplements for each dose level:
 
-**[Explore our DHM supplement reviews →](/reviews)**
+### ✅ For 300mg Dose (Light Drinkers, Under 130 lbs)
+**→ [No Days Wasted DHM 300mg](https://amzn.to/3HSHjgu)** - Perfect starter dose, high purity  
+*🚀 Prime delivery available - perfect for weekend prep*
+
+### ✅ For 500mg Dose (Most Adults, 130-180 lbs) - **MOST POPULAR**
+**→ [Double Wood DHM 500mg](https://amzn.to/44sczuq)** - Exact optimal dose, clinical strength  
+**→ [Flyby Recovery 300mg](https://amzn.to/4kjCRVw)** - Take 2 capsules for 600mg total  
+*⚡ Same-day delivery in most cities with Prime*
+
+### ✅ For 600mg Dose (Heavy Drinkers, 180+ lbs)
+**→ [Toniiq DHM 1000mg](https://amzn.to/4ejE4uq)** - Take half capsule, or full for emergency  
+**→ [NusaPure DHM 600mg](https://amzn.to/44znXFU)** - Exact dose, budget-friendly  
+*💰 Subscribe & Save available for 15% off*
+
+### 🛒 Complete Starter Kit (Most Popular Choice)
+**→ [DHM Beginner Bundle](https://amzn.to/4kjCRVw)** - Try different doses, find your perfect match  
+*🎁 Includes: 300mg + 500mg + timing guide*
+
+### 💡 Pro Tip: Dosage Decision Tool
+**Planning a light wine dinner?** → **[300mg option](https://amzn.to/3HSHjgu)**  
+**Night out with friends?** → **[500mg option](https://amzn.to/44sczuq)**  
+**Special celebration/wedding?** → **[600mg option](https://amzn.to/4ejE4uq)**
+
+**⚡ Order Today**: Most products arrive same-day with Prime in major cities
 
 ---
 
