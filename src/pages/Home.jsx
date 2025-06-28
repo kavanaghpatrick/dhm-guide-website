@@ -540,21 +540,6 @@ export default function Home() {
                   </Button>
                 </div>
 
-                {/* Heritage Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-amber-200">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-amber-700 mb-2">1000+</div>
-                    <div className="text-gray-600 text-sm">Years of Traditional Use</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-amber-700 mb-2">100%</div>
-                    <div className="text-gray-600 text-sm">Sustainably Sourced</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-amber-700 mb-2">3rd Party</div>
-                    <div className="text-gray-600 text-sm">Quality Tested</div>
-                  </div>
-                </div>
               </motion.div>
             </div>
           </motion.div>
