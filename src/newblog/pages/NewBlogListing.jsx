@@ -81,15 +81,30 @@ const NewBlogListing = () => {
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Never Hungover <span className="text-green-600">🚀</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2">
+                <span className="bg-gradient-to-r from-green-600 via-green-700 to-green-600 bg-clip-text text-transparent inline-block transform hover:scale-105 transition-transform duration-300">
+                  Never
+                </span>
+                <span className="text-gray-900 ml-3 inline-block">
+                  Hungover
+                </span>
+              </h1>
+              <div className="h-1 w-32 mx-auto bg-gradient-to-r from-green-500 to-green-600 rounded-full mb-6"></div>
+            </div>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
               Master the science of hangover prevention. Expert guides, proven strategies, 
-              and cutting-edge research to help you never wake up hungover again.
+              and cutting-edge research to help you <span className="font-medium text-green-700">never wake up hungover again</span>.
             </p>
-            <div className="mt-4 text-sm text-gray-500">
-              {allPosts.length} articles • Average read time: 12 minutes
+            <div className="mt-6 flex items-center justify-center gap-4 text-sm text-gray-500">
+              <span className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                {allPosts.length} Expert Articles
+              </span>
+              <span className="text-gray-300">•</span>
+              <span>Average read: 12 minutes</span>
+              <span className="text-gray-300">•</span>
+              <span>Science-backed content</span>
             </div>
           </div>
 
