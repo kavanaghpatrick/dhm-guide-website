@@ -47,7 +47,8 @@ const BlogPost = () => {
     author: post.author,
     date: post.date,
     image: post.image,
-    tags: post.tags
+    tags: post.tags,
+    content: post.content
   }) : null);
 
   const handleNavigation = (href) => {

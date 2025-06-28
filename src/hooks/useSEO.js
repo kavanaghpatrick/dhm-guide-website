@@ -1,6 +1,27 @@
 import { useEffect } from 'react';
 
 /**
+ * Extract the first image URL from markdown content
+ */
+const extractImageFromMarkdown = (content) => {
+  if (!content) return null;
+  
+  // Match markdown image syntax: ![alt](url)
+  const imageMatch = content.match(/!\[.*?\]\(([^)]+)\)/);
+  if (imageMatch) {
+    return imageMatch[1];
+  }
+  
+  // Match HTML img tags as fallback
+  const htmlMatch = content.match(/<img[^>]+src="([^"]+)"/);
+  if (htmlMatch) {
+    return htmlMatch[1];
+  }
+  
+  return null;
+};
+
+/**
  * Custom hook for managing dynamic SEO meta tags
  * Automatically updates document head with page-specific SEO data
  */
@@ -245,15 +266,19 @@ export const generatePageSEO = (pageType, pageData = {}) => {
       };
 
     case 'blog-post':
-      const { title, excerpt, slug, author, date, image, tags } = pageData;
+      const { title, excerpt, slug, author, date, image, tags, content } = pageData;
       const blogPostUrl = `${baseUrl}/blog/${slug}`;
+      
+      // Extract image from content if not explicitly provided
+      const extractedImage = image || extractImageFromMarkdown(content);
+      const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.jpg`;
       
       return {
         title: `${title} | DHM Guide`,
         description: excerpt,
         keywords: tags ? tags.join(', ') : 'DHM, dihydromyricetin, hangover prevention',
         canonicalUrl: blogPostUrl,
-        ogImage: image ? `${baseUrl}${image}` : `${baseUrl}/blog-default.jpg`,
+        ogImage: finalImage,
         ogType: 'article',
         author,
         structuredData: {
@@ -261,7 +286,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           "@type": "Article",
           "headline": title,
           "description": excerpt,
-          "image": image ? `${baseUrl}${image}` : `${baseUrl}/blog-default.jpg`,
+          "image": finalImage,
           "datePublished": new Date(date).toISOString(),
           "dateModified": new Date(date).toISOString(),
           "author": {
