@@ -5,6 +5,21 @@ import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, Chev
 import { getPostBySlug, getRelatedPosts } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 
+// Helper function to format titles with colons
+const formatTitle = (title) => {
+  if (!title || !title.includes(':')) {
+    return { mainTitle: title, subtitle: null };
+  }
+  
+  const [mainTitle, ...subtitleParts] = title.split(':');
+  const subtitle = subtitleParts.join(':').trim();
+  
+  return {
+    mainTitle: mainTitle.trim(),
+    subtitle: subtitle || null
+  };
+};
+
 const BlogPost = () => {
   const [tocItems, setTocItems] = useState([]);
   const [activeSection, setActiveSection] = useState('');
@@ -324,7 +339,9 @@ const BlogPost = () => {
               <span className="hover:text-green-600 transition-colors">Blog</span>
             )}
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-700 truncate">{post ? post.title : 'Loading...'}</span>
+            <span className="text-gray-700 truncate">
+              {post ? formatTitle(post.title).mainTitle : 'Loading...'}
+            </span>
           </nav>
 
           {isClient ? (
@@ -368,9 +385,27 @@ const BlogPost = () => {
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            {post ? post.title : 'Loading...'}
-          </h1>
+          <div className="mb-4">
+            {post ? (() => {
+              const { mainTitle, subtitle } = formatTitle(post.title);
+              return (
+                <>
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                    {mainTitle}
+                  </h1>
+                  {subtitle && (
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-600 mt-3 leading-relaxed">
+                      {subtitle}
+                    </h2>
+                  )}
+                </>
+              );
+            })() : (
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                Loading...
+              </h1>
+            )}
+          </div>
 
           {post && post.excerpt && (
             <p className="text-xl text-gray-600 leading-relaxed mb-6">
