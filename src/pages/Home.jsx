@@ -33,30 +33,6 @@ export default function Home() {
   // SEO optimization for homepage
   useSEO(generatePageSEO('home'));
 
-  // Preload critical LCP image with responsive sizes
-  React.useEffect(() => {
-    // Preload the most likely size based on viewport
-    const viewportWidth = window.innerWidth;
-    let imageSize = '1536w';
-    if (viewportWidth <= 640) imageSize = '640w';
-    else if (viewportWidth <= 768) imageSize = '768w';
-    else if (viewportWidth <= 1024) imageSize = '1024w';
-    
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = `/images/before-after-dhm-${imageSize}.webp`;
-    link.type = 'image/webp';
-    link.fetchPriority = 'high';
-    document.head.appendChild(link);
-    
-    return () => {
-      if (document.head.contains(link)) {
-        document.head.removeChild(link);
-      }
-    };
-  }, []);
-
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
   const traditionY = useTransform(scrollY, [0, 1000], [0, -100])

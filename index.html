@@ -31,7 +31,15 @@
     <link rel="dns-prefetch" href="//www.google-analytics.com">
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     
-    <!-- Preload critical images - LCP image is now preloaded via React -->
+    <!-- Preload critical LCP image with responsive sizes -->
+    <link rel="preload" as="image" 
+          href="/images/before-after-dhm-1536w.webp" 
+          imagesrcset="/images/before-after-dhm-640w.webp 640w,
+                      /images/before-after-dhm-768w.webp 768w,
+                      /images/before-after-dhm-1024w.webp 1024w,
+                      /images/before-after-dhm-1536w.webp 1536w"
+          imagesizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
+          fetchpriority="high">
     
     <!-- Critical CSS for LCP optimization -->
     <link rel="preload" href="/critical-lcp.css" as="style">
