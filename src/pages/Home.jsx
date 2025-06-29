@@ -308,7 +308,7 @@ export default function Home() {
                   
                   <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                     DHM speeds ethanol → acetaldehyde → acetate via ADH/ALDH enzymes, 
-                    cutting toxic linger-time and protecting your liver from damage.
+                    cutting toxic residence time and protecting your liver from damage.
                   </p>
                   
                   <div className="space-y-4 mb-6">

@@ -144,8 +144,8 @@ const NewBlogPost = () => {
           const text = heading.textContent;
           let id = text
             .toLowerCase()
-            .replace(/[^a-z0-9\\s-]/g, '')
-            .replace(/\\s+/g, '-')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
             .replace(/-+/g, '-')
             .replace(/^-|-$/g, '');
           
