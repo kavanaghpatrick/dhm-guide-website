@@ -6,6 +6,8 @@ export function Link({ to, children, className, ...props }) {
     e.preventDefault()
     window.history.pushState({}, '', to)
     window.dispatchEvent(new PopStateEvent('popstate'))
+    // Scroll to top of the page for consistent navigation behavior
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (

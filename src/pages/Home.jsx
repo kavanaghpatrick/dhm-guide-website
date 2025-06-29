@@ -595,7 +595,6 @@ export default function Home() {
                   >
                     <Link 
                       to="/about"
-                      onClick={() => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)}
                     >
                       Our Heritage Story
                       <Leaf className="ml-2 w-5 h-5" />
