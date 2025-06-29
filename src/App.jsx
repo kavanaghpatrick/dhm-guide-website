@@ -9,8 +9,6 @@ const Reviews = lazy(() => import('./pages/Reviews.jsx'))
 const Research = lazy(() => import('./pages/Research.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Compare = lazy(() => import('./pages/Compare.jsx'))
-const Blog = lazy(() => import('./pages/Blog.jsx'))
-const BlogPost = lazy(() => import('./blog/components/BlogPost.jsx'))
 const NewBlogListing = lazy(() => import('./newblog/pages/NewBlogListing.jsx'))
 const NewBlogPost = lazy(() => import('./newblog/components/NewBlogPost.jsx'))
 
@@ -49,10 +47,6 @@ function App() {
       return <NewBlogPost />
     }
     
-    // Handle old blog post routes (e.g., /blog/post-slug) - legacy support
-    if (currentPath.startsWith('/blog/')) {
-      return <BlogPost />
-    }
 
     // Handle legacy /newblog routes - redirect to new path
     if (currentPath.startsWith('/newblog')) {
@@ -76,8 +70,6 @@ function App() {
         return <Compare />
       case '/never-hungover':
         return <NewBlogListing />
-      case '/blog':
-        return <Blog />
       default:
         return <Home />
     }

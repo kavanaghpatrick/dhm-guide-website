@@ -19,8 +19,7 @@ const staticPages = [
   { path: '/reviews', priority: '0.9', changefreq: 'weekly' },
   { path: '/compare', priority: '0.8', changefreq: 'weekly' },
   { path: '/research', priority: '0.8', changefreq: 'monthly' },
-  { path: '/never-hungover', priority: '0.9', changefreq: 'daily' }, // New blog section
-  { path: '/blog', priority: '0.7', changefreq: 'weekly' }, // Legacy blog
+  { path: '/never-hungover', priority: '0.9', changefreq: 'daily' }, // Blog section
   { path: '/about', priority: '0.6', changefreq: 'monthly' }
 ];
 
@@ -59,25 +58,7 @@ metadata.forEach((post, index) => {
 `;
 });
 
-// Add legacy blog posts (keep most important ones for now)
-const legacyBlogPosts = [
-  'dhm-science-explained',
-  'dhm-dosage-guide-2025',
-  'how-to-cure-a-hangover-complete-science-guide',
-  'how-to-get-rid-of-hangover-fast',
-  'dhm-randomized-controlled-trials-2024'
-];
-
-legacyBlogPosts.forEach(slug => {
-  sitemap += `  <url>
-    <loc>${BASE_URL}/blog/${slug}</loc>
-    <lastmod>${TODAY}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-`;
-});
+// Legacy blog posts removed - all content now served through /never-hungover
 
 sitemap += `</urlset>`;
 
@@ -87,10 +68,9 @@ fs.writeFileSync(sitemapPath, sitemap);
 
 console.log('✅ Sitemap generated successfully!');
 console.log(`📍 Location: ${sitemapPath}`);
-console.log(`📊 Total URLs: ${staticPages.length + metadata.length + legacyBlogPosts.length}`);
+console.log(`📊 Total URLs: ${staticPages.length + metadata.length}`);
 console.log(`   - Static pages: ${staticPages.length}`);
 console.log(`   - Never Hungover posts: ${metadata.length}`);
-console.log(`   - Legacy blog posts: ${legacyBlogPosts.length}`);
 
 // Also create a robots.txt if it doesn't exist
 const robotsPath = path.join(__dirname, '../public/robots.txt');

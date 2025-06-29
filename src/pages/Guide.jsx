@@ -153,7 +153,7 @@ export default function Guide() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
               Discover everything you need to know about DHM (Dihydromyricetin) - the scientifically-proven hangover prevention supplement. 
               <span className="font-semibold text-green-700">From traditional medicine to cutting-edge research.</span> 
-              Learn about <Link to="/blog/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM's molecular mechanisms</Link> and explore our <Link to="/blog/dhm-dosage-guide-2025" className="text-green-600 hover:text-green-800 font-semibold">comprehensive dosage guide</Link>.
+              Learn about <Link to="/never-hungover/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM's molecular mechanisms</Link> and explore our <Link to="/never-hungover/dhm-dosage-guide-2025" className="text-green-600 hover:text-green-800 font-semibold">comprehensive dosage guide</Link>.
             </p>
 
             {/* Problem/Solution Grid */}
@@ -475,7 +475,7 @@ export default function Guide() {
             
             <p className="text-lg text-gray-600 mb-8">
               DHM prevents hangovers through sophisticated molecular mechanisms that protect both your liver and brain. 
-              For an in-depth analysis of these pathways, see our detailed <Link to="/blog/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM science guide</Link>.
+              For an in-depth analysis of these pathways, see our detailed <Link to="/never-hungover/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM science guide</Link>.
             </p>
             
             <div className="space-y-6 mb-8">

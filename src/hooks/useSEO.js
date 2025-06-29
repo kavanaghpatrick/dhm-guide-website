@@ -237,7 +237,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         title: 'DHM Blog: Expert Hangover Prevention Tips & Latest Research',
         description: 'Latest hangover science, DHM research updates, and proven prevention strategies. From college drinking to business travel - expert guides for every lifestyle.',
         keywords: 'DHM blog, hangover prevention blog, dihydromyricetin news, health optimization, supplement research',
-        canonicalUrl: `${baseUrl}/blog`,
+        canonicalUrl: `${baseUrl}/never-hungover`,
         ogImage: `${baseUrl}/blog-featured.jpg`,
         structuredData: {
           "@context": "https://schema.org",
@@ -283,7 +283,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'blog-post':
       const { title, excerpt, slug, author, date, image, tags, content } = pageData;
-      const blogPostUrl = `${baseUrl}/blog/${slug}`;
+      const blogPostUrl = `${baseUrl}/never-hungover/${slug}`;
       
       // Extract image from content if not explicitly provided
       const extractedImage = image || extractImageFromMarkdown(content);

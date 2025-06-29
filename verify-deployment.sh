@@ -58,7 +58,7 @@ echo "🔍 Verifying critical files..."
 
 critical_files=(
     "src/App.jsx"
-    "src/blog/components/BlogPost.jsx"
+    "src/newblog/components/NewBlogPost.jsx"
     "src/components/ui/button.jsx"
     "src/pages/Compare.jsx"
     "src/pages/Reviews.jsx"
