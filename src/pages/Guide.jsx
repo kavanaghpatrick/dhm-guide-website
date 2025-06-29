@@ -27,11 +27,13 @@ export default function Guide() {
   useSEO(generatePageSEO('guide'));
   const tableOfContents = [
     { id: 'what-is-dhm', title: 'What is DHM?', icon: <Leaf className="w-4 h-4" /> },
-    { id: 'traditional-medicine', title: 'Traditional Medicine', icon: <TreePine className="w-4 h-4" /> },
     { id: 'how-it-works', title: 'How DHM Works', icon: <Beaker className="w-4 h-4" /> },
-    { id: 'clinical-studies', title: 'Clinical Studies', icon: <Microscope className="w-4 h-4" /> },
-    { id: 'safety-dosage', title: 'Safety & Dosage', icon: <Shield className="w-4 h-4" /> },
-    { id: 'choosing-supplements', title: 'Choosing Supplements', icon: <Award className="w-4 h-4" /> }
+    { id: 'benefits-research', title: 'Benefits & Research', icon: <Microscope className="w-4 h-4" /> },
+    { id: 'dosing-guidelines', title: 'Dosing Guidelines', icon: <Shield className="w-4 h-4" /> },
+    { id: 'timing-protocols', title: 'Timing & Usage', icon: <Clock className="w-4 h-4" /> },
+    { id: 'product-selection', title: 'Product Selection', icon: <Award className="w-4 h-4" /> },
+    { id: 'safety-information', title: 'Safety Information', icon: <Heart className="w-4 h-4" /> },
+    { id: 'clinical-studies', title: 'Clinical Studies', icon: <BookOpen className="w-4 h-4" /> }
   ]
 
   const keyBenefits = [
@@ -142,15 +144,16 @@ export default function Guide() {
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
-              The Last Hangover Guide
+              The Complete Guide to DHM
               <span className="block bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
-                You'll Ever Need
+                Science-Based Hangover Prevention
               </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              No more "hair of the dog." No more wasted weekends. No more promising yourself you'll drink less. 
-              <span className="font-semibold text-green-700">Just a simple system that actually works.</span>
+              Discover everything you need to know about DHM (Dihydromyricetin) - the scientifically-proven hangover prevention supplement. 
+              <span className="font-semibold text-green-700">From traditional medicine to cutting-edge research.</span> 
+              Learn about <Link to="/blog/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM's molecular mechanisms</Link> and explore our <Link to="/blog/dhm-dosage-guide-2025" className="text-green-600 hover:text-green-800 font-semibold">comprehensive dosage guide</Link>.
             </p>
 
             {/* Problem/Solution Grid */}
@@ -320,7 +323,8 @@ export default function Guide() {
               Key Benefits at a Glance
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              DHM offers comprehensive benefits backed by 7 clinical studies and 1,000+ years of traditional use.
+              DHM offers comprehensive benefits backed by 7 clinical studies and 1,000+ years of traditional use. 
+              Discover the <Link to="/blog/dhm-japanese-raisin-tree-complete-guide" className="text-green-600 hover:text-green-800 font-semibold">fascinating traditional origins</Link> and explore our <Link to="/reviews" className="text-green-600 hover:text-green-800 font-semibold">top supplement recommendations</Link>.
             </p>
           </motion.div>
 
@@ -381,7 +385,7 @@ export default function Guide() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">10:00 PM - During</h4>
-                    <p className="text-blue-600 text-sm">Extra 300mg if still drinking heavily</p>
+                    <p className="text-blue-600 text-sm">Extra 300mg if still drinking heavily (see our <Link to="/blog/when-to-take-dhm-timing-guide-2025" className="text-blue-800 hover:underline">complete timing guide</Link>)</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">1:00 AM - Before Bed</h4>
@@ -469,6 +473,11 @@ export default function Guide() {
               How DHM Works: The Science Behind the Benefits
             </h2>
             
+            <p className="text-lg text-gray-600 mb-8">
+              DHM prevents hangovers through sophisticated molecular mechanisms that protect both your liver and brain. 
+              For an in-depth analysis of these pathways, see our detailed <Link to="/blog/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM science guide</Link>.
+            </p>
+            
             <div className="space-y-6 mb-8">
               {mechanismSteps.map((step, index) => (
                 <motion.div
@@ -524,7 +533,7 @@ export default function Guide() {
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
                 <h3 className="text-lg font-bold text-green-800 mb-3">🤔 What if I forget to take it before?</h3>
-                <p className="text-gray-700">Take it as soon as you remember, even while drinking. Late is better than never.</p>
+                <p className="text-gray-700">Take it as soon as you remember, even while drinking. Late is better than never. For emergency situations, see our <Link to="/blog/emergency-hangover-protocol-2025" className="text-green-600 font-semibold hover:underline">emergency hangover protocol</Link>.</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
@@ -534,21 +543,29 @@ export default function Guide() {
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
                 <h3 className="text-lg font-bold text-green-800 mb-3">📦 Where do I buy good DHM?</h3>
-                <p className="text-gray-700">We've tested 10+ brands. <Link to="/reviews" className="text-green-600 font-semibold">See our top picks →</Link></p>
+                <p className="text-gray-700">We've tested 10+ brands. <Link to="/reviews" className="text-green-600 font-semibold">See our top picks →</Link> or read specific reviews like our <Link to="/blog/flyby-recovery-review-2025" className="text-green-600 font-semibold">Flyby Recovery analysis</Link>.</p>
               </div>
             </div>
 
             <div className="mt-12 p-6 bg-white rounded-xl border border-green-200 text-center">
               <h4 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h4>
-              <p className="text-gray-700 mb-4">Read our complete research breakdown</p>
-              <Button 
-                asChild
-                className="bg-green-600 hover:bg-green-700 text-white"
-              >
-                <Link to="/research">
-                  View Research Studies →
+              <p className="text-gray-700 mb-4">Explore our comprehensive guides and research</p>
+              <div className="space-x-4">
+                <Button 
+                  asChild
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  <Link to="/research">
+                    View Research Studies →
+                  </Link>
+                </Button>
+                <Link 
+                  to="/blog/how-to-cure-a-hangover-complete-science-guide" 
+                  className="inline-flex items-center text-green-600 font-semibold hover:underline"
+                >
+                  Complete hangover cure guide <ArrowRight className="w-4 h-4 ml-1" />
                 </Link>
-              </Button>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -596,7 +613,7 @@ export default function Guide() {
                 <p className="text-gray-700 italic mb-4">
                   "I was skeptical but tried it for a work happy hour. Woke up ready for my 7 AM workout. This stuff is legit."
                 </p>
-                <p className="text-sm text-gray-600">— James, 35</p>
+                <p className="text-sm text-gray-600">— James, 35 (<Link to="/blog/antioxidant-anti-aging-dhm-powerhouse-2025" className="text-purple-600 hover:underline">Read about DHM's anti-aging benefits</Link>)</p>
               </div>
             </div>
 
@@ -605,7 +622,7 @@ export default function Guide() {
                 Join thousands who've stopped waking up hungover
               </h4>
               <p className="text-gray-700 mb-6">
-                Based on 7 clinical studies and 1,000+ years of safe traditional use
+                Based on 7 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/blog/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/blog/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
               </p>
               <Button 
                 asChild
@@ -634,7 +651,7 @@ export default function Guide() {
               Your Hangover-Free Life Starts Tonight
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Don't spend another weekend recovering. Get DHM, follow the protocol, and never wake up hungover again.
+              Don't spend another weekend recovering. Get DHM, follow the protocol, and never wake up hungover again. Whether you're a <Link to="/blog/business-dinner-networking-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">business professional</Link>, <Link to="/blog/college-student-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">college student</Link>, or <Link to="/blog/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-300 hover:text-white font-semibold">fitness enthusiast</Link>, DHM can protect your performance.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -664,7 +681,9 @@ export default function Guide() {
             </Button>
             
             <p className="text-green-100 text-sm mt-4">
-              Free shipping • 30-day returns • Thousands of 5-star reviews
+              Free shipping • 30-day returns • Thousands of 5-star reviews<br/>
+              <Link to="/blog/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-200 hover:text-white text-xs">Fitness enthusiasts guide</Link> • 
+              <Link to="/blog/organic-natural-hangover-prevention-clean-living-2025" className="text-green-200 hover:text-white text-xs">Clean living approach</Link>
             </p>
           </motion.div>
         </div>
