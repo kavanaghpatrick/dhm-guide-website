@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { lazy, Suspense, useState, useEffect } from 'react'
 import Layout from './components/layout/Layout.jsx'
-import Home from './pages/Home.jsx'
-import Guide from './pages/Guide.jsx'
-import Reviews from './pages/Reviews.jsx'
-import Research from './pages/Research.jsx'
-import About from './pages/About.jsx'
-import Compare from './pages/Compare.jsx'
-import Blog from './pages/Blog.jsx'
-import BlogMinimal from './pages/BlogMinimal.jsx'
-import BlogBasic from './pages/BlogBasic.jsx'
-import BlogPostsOnly from './pages/BlogPostsOnly.jsx'
-import BlogSEOTest from './pages/BlogSEOTest.jsx'
-import BlogCombinedTest from './pages/BlogCombinedTest.jsx'
-import BlogPost from './blog/components/BlogPost.jsx'
-import NewBlogListing from './newblog/pages/NewBlogListing.jsx'
-import NewBlogPost from './newblog/components/NewBlogPost.jsx'
 import './App.css'
+
+// Lazy load all page components for better performance
+const Home = lazy(() => import('./pages/Home.jsx'))
+const Guide = lazy(() => import('./pages/Guide.jsx'))
+const Reviews = lazy(() => import('./pages/Reviews.jsx'))
+const Research = lazy(() => import('./pages/Research.jsx'))
+const About = lazy(() => import('./pages/About.jsx'))
+const Compare = lazy(() => import('./pages/Compare.jsx'))
+const Blog = lazy(() => import('./pages/Blog.jsx'))
+const BlogPost = lazy(() => import('./blog/components/BlogPost.jsx'))
+const NewBlogListing = lazy(() => import('./newblog/pages/NewBlogListing.jsx'))
+const NewBlogPost = lazy(() => import('./newblog/components/NewBlogPost.jsx'))
+
+// Loading component for suspense fallback
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-500 border-t-transparent"></div>
+  </div>
+)
 
 function App() {
   const [currentPath, setCurrentPath] = useState(() => {
@@ -79,7 +83,9 @@ function App() {
 
   return (
     <Layout>
-      {renderPage()}
+      <Suspense fallback={<PageLoader />}>
+        {renderPage()}
+      </Suspense>
     </Layout>
   )
 }
