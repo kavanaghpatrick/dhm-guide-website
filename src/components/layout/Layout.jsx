@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
+import { navigateWithScrollToTop } from '@/lib/mobileScrollUtils.js'
 
 export default function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -26,11 +27,7 @@ export default function Layout({ children }) {
   }
 
   const handleNavigation = (href) => {
-    window.history.pushState({}, '', href)
-    window.dispatchEvent(new PopStateEvent('popstate'))
-    setIsMenuOpen(false)
-    // Scroll to top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    navigateWithScrollToTop(href, () => setIsMenuOpen(false))
   }
 
   return (

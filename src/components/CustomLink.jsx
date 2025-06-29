@@ -1,13 +1,11 @@
 import React from 'react'
+import { navigateWithScrollToTop } from '@/lib/mobileScrollUtils.js'
 
 // Custom Link component that works with manual routing
 export function Link({ to, children, className, ...props }) {
   const handleClick = (e) => {
     e.preventDefault()
-    window.history.pushState({}, '', to)
-    window.dispatchEvent(new PopStateEvent('popstate'))
-    // Scroll to top of the page for consistent navigation behavior
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    navigateWithScrollToTop(to)
   }
 
   return (
