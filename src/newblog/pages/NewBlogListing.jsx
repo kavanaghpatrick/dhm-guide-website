@@ -263,18 +263,6 @@ const NewBlogListing = () => {
         )}
       </div>
 
-      {/* Performance Info */}
-      <div className="max-w-6xl mx-auto px-4 pb-8">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-sm">
-          <h4 className="font-semibold text-green-800 mb-2">⚡ Performance Optimized</h4>
-          <div className="text-green-700 space-y-1">
-            <div>• Metadata loaded instantly (40KB vs 1.1MB)</div>
-            <div>• Individual posts load on-demand (~10-50KB each)</div>
-            <div>• Smart caching and preloading on hover</div>
-            <div>• {filteredPosts.length} posts shown in under 100ms</div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
