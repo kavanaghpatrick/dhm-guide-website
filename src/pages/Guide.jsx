@@ -324,7 +324,7 @@ export default function Guide() {
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               DHM offers comprehensive benefits backed by 7 clinical studies and 1,000+ years of traditional use. 
-              Discover the <Link to="/blog/dhm-japanese-raisin-tree-complete-guide" className="text-green-600 hover:text-green-800 font-semibold">fascinating traditional origins</Link> and explore our <Link to="/reviews" className="text-green-600 hover:text-green-800 font-semibold">top supplement recommendations</Link>.
+              Discover the <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-600 hover:text-green-800 font-semibold">fascinating traditional origins</Link> and explore our <Link to="/reviews" className="text-green-600 hover:text-green-800 font-semibold">top supplement recommendations</Link>.
             </p>
           </motion.div>
 
@@ -385,7 +385,7 @@ export default function Guide() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">10:00 PM - During</h4>
-                    <p className="text-blue-600 text-sm">Extra 300mg if still drinking heavily (see our <Link to="/blog/when-to-take-dhm-timing-guide-2025" className="text-blue-800 hover:underline">complete timing guide</Link>)</p>
+                    <p className="text-blue-600 text-sm">Extra 300mg if still drinking heavily (see our <Link to="/never-hungover/when-to-take-dhm-timing-guide-2025" className="text-blue-800 hover:underline">complete timing guide</Link>)</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">1:00 AM - Before Bed</h4>
@@ -533,7 +533,7 @@ export default function Guide() {
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
                 <h3 className="text-lg font-bold text-green-800 mb-3">🤔 What if I forget to take it before?</h3>
-                <p className="text-gray-700">Take it as soon as you remember, even while drinking. Late is better than never. For emergency situations, see our <Link to="/blog/emergency-hangover-protocol-2025" className="text-green-600 font-semibold hover:underline">emergency hangover protocol</Link>.</p>
+                <p className="text-gray-700">Take it as soon as you remember, even while drinking. Late is better than never. For emergency situations, see our <Link to="/never-hungover/emergency-hangover-protocol-2025" className="text-green-600 font-semibold hover:underline">emergency hangover protocol</Link>.</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
@@ -543,7 +543,7 @@ export default function Guide() {
 
               <div className="bg-white p-6 rounded-xl border border-green-100">
                 <h3 className="text-lg font-bold text-green-800 mb-3">📦 Where do I buy good DHM?</h3>
-                <p className="text-gray-700">We've tested 10+ brands. <Link to="/reviews" className="text-green-600 font-semibold">See our top picks →</Link> or read specific reviews like our <Link to="/blog/flyby-recovery-review-2025" className="text-green-600 font-semibold">Flyby Recovery analysis</Link>.</p>
+                <p className="text-gray-700">We've tested 10+ brands. <Link to="/reviews" className="text-green-600 font-semibold">See our top picks →</Link> or read specific reviews like our <Link to="/never-hungover/flyby-recovery-review-2025" className="text-green-600 font-semibold">Flyby Recovery analysis</Link>.</p>
               </div>
             </div>
 
@@ -560,7 +560,7 @@ export default function Guide() {
                   </Link>
                 </Button>
                 <Link 
-                  to="/blog/how-to-cure-a-hangover-complete-science-guide" 
+                  to="/never-hungover/how-to-get-rid-of-hangover-fast" 
                   className="inline-flex items-center text-green-600 font-semibold hover:underline"
                 >
                   Complete hangover cure guide <ArrowRight className="w-4 h-4 ml-1" />
@@ -613,7 +613,7 @@ export default function Guide() {
                 <p className="text-gray-700 italic mb-4">
                   "I was skeptical but tried it for a work happy hour. Woke up ready for my 7 AM workout. This stuff is legit."
                 </p>
-                <p className="text-sm text-gray-600">— James, 35 (<Link to="/blog/antioxidant-anti-aging-dhm-powerhouse-2025" className="text-purple-600 hover:underline">Read about DHM's anti-aging benefits</Link>)</p>
+                <p className="text-sm text-gray-600">— James, 35 (<Link to="/never-hungover/antioxidant-anti-aging-dhm-powerhouse-2025" className="text-purple-600 hover:underline">Read about DHM's anti-aging benefits</Link>)</p>
               </div>
             </div>
 
@@ -622,7 +622,7 @@ export default function Guide() {
                 Join thousands who've stopped waking up hungover
               </h4>
               <p className="text-gray-700 mb-6">
-                Based on 7 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/blog/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/blog/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
+                Based on 7 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/never-hungover/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
               </p>
               <Button 
                 asChild
@@ -651,7 +651,7 @@ export default function Guide() {
               Your Hangover-Free Life Starts Tonight
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Don't spend another weekend recovering. Get DHM, follow the protocol, and never wake up hungover again. Whether you're a <Link to="/blog/business-dinner-networking-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">business professional</Link>, <Link to="/blog/college-student-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">college student</Link>, or <Link to="/blog/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-300 hover:text-white font-semibold">fitness enthusiast</Link>, DHM can protect your performance.
+              Don't spend another weekend recovering. Get DHM, follow the protocol, and never wake up hungover again. Whether you're a <Link to="/never-hungover/business-dinner-networking-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">business professional</Link>, <Link to="/never-hungover/college-student-dhm-guide-2025" className="text-green-300 hover:text-white font-semibold">college student</Link>, or <Link to="/never-hungover/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-300 hover:text-white font-semibold">fitness enthusiast</Link>, DHM can protect your performance.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -682,8 +682,8 @@ export default function Guide() {
             
             <p className="text-green-100 text-sm mt-4">
               Free shipping • 30-day returns • Thousands of 5-star reviews<br/>
-              <Link to="/blog/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-200 hover:text-white text-xs">Fitness enthusiasts guide</Link> • 
-              <Link to="/blog/organic-natural-hangover-prevention-clean-living-2025" className="text-green-200 hover:text-white text-xs">Clean living approach</Link>
+              <Link to="/never-hungover/fitness-enthusiast-social-drinking-dhm-2025" className="text-green-200 hover:text-white text-xs">Fitness enthusiasts guide</Link> • 
+              <Link to="/never-hungover/organic-natural-hangover-prevention-clean-living-2025" className="text-green-200 hover:text-white text-xs">Clean living approach</Link>
             </p>
           </motion.div>
         </div>
