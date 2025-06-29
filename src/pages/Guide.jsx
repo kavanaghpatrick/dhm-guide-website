@@ -90,7 +90,7 @@ export default function Guide() {
     {
       timing: "Before Drinking",
       dose: "300-600mg",
-      description: "Take 30 minutes before alcohol consumption for maximum prevention"
+      description: "Take 30 minutes before alcohol consumption for maximum prevention. Higher doses (up to 1000mg) may be used for heavy drinking scenarios."
     },
     {
       timing: "During Drinking",
@@ -231,7 +231,7 @@ export default function Guide() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Before You Drink</h3>
                 <div className="bg-blue-50 p-6 rounded-xl">
-                  <p className="font-semibold text-blue-800 mb-2">Take 500-1000mg DHM</p>
+                  <p className="font-semibold text-blue-800 mb-2">Take 300-600mg DHM</p>
                   <p className="text-blue-700 text-sm mb-4">30 minutes before your first drink</p>
                   <ul className="text-left text-blue-700 text-sm space-y-1">
                     <li>• Activates liver enzymes</li>
@@ -301,7 +301,7 @@ export default function Guide() {
                 className="bg-green-600 hover:bg-green-700 text-white"
               >
                 <Link to="/reviews">
-                  Get Your DHM Supplement →
+                  Compare DHM Supplements →
                 </Link>
               </Button>
             </div>
@@ -381,7 +381,7 @@ export default function Guide() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">6:00 PM - Before</h4>
-                    <p className="text-blue-600 text-sm">Take 750mg DHM with dinner</p>
+                    <p className="text-blue-600 text-sm">Take 300-600mg DHM with dinner</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-2">10:00 PM - During</h4>
@@ -403,7 +403,7 @@ export default function Guide() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2">Before Dinner</h4>
-                    <p className="text-green-600 text-sm">500mg DHM 30 minutes before first glass</p>
+                    <p className="text-green-600 text-sm">300-600mg DHM 30 minutes before first glass</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2">Before Bed</h4>
@@ -421,7 +421,7 @@ export default function Guide() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
                     <h4 className="font-semibold text-orange-700 mb-2">Pre-Event</h4>
-                    <p className="text-orange-600 text-sm">1000mg DHM before first drink</p>
+                    <p className="text-orange-600 text-sm">300-600mg DHM before first drink (up to 1000mg for heavy drinking)</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-orange-700 mb-2">Mid-Event</h4>
@@ -452,7 +452,7 @@ export default function Guide() {
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg font-bold"
               >
                 <Link to="/reviews">
-                  Shop DHM Supplements →
+                  Find Your DHM Supplement →
                 </Link>
               </Button>
             </div>
@@ -676,7 +676,7 @@ export default function Guide() {
               className="bg-white text-green-700 hover:bg-gray-100 px-12 py-4 text-xl font-bold"
             >
               <Link to="/reviews">
-                🚀 Get Your DHM Supplement
+                🚀 Find Your DHM Supplement
               </Link>
             </Button>
             
