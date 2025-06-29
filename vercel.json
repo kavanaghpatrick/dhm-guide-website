@@ -1,5 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/blog/:path*",
+      "destination": "/never-hungover/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!api/|_next/static/|_next/image/|favicon.ico|robots.txt|sitemap.xml|.*\\.).*)",
