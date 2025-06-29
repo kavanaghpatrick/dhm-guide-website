@@ -10,6 +10,20 @@ import {
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 
+// Helper function to render content based on format
+const renderContent = (post) => {
+  // Handle array-based content structure (new posts)
+  if (Array.isArray(post.content)) {
+    return post.content
+      .filter(section => section.type === 'section')
+      .map(section => `## ${section.heading}\n\n${section.content}`)
+      .join('\n\n');
+  }
+  
+  // Handle simple string content (legacy posts)
+  return post.content || '';
+};
+
 const NewBlogPost = () => {
   // State management
   const [tocItems, setTocItems] = useState([]);
@@ -626,7 +640,7 @@ const NewBlogPost = () => {
                     ),
                   }}
                 >
-                  {post.content}
+                  {renderContent(post)}
                 </ReactMarkdown>
               </div>
             </div>

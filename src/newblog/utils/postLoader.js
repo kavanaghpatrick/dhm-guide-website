@@ -111,7 +111,7 @@ export const getPostBySlug = async (slug) => {
     // Convert date string to Date object
     const processedPost = {
       ...post,
-      date: new Date(post.date)
+      date: new Date(post.datePublished || post.date)
     };
     
     // Cache the loaded post
