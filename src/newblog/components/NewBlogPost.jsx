@@ -15,8 +15,25 @@ const renderContent = (post) => {
   // Handle array-based content structure (new posts)
   if (Array.isArray(post.content)) {
     return post.content
-      .filter(section => section.type === 'section')
-      .map(section => `## ${section.heading}\n\n${section.content}`)
+      .map(section => {
+        // Handle different content types
+        switch (section.type) {
+          case 'section':
+            return `## ${section.heading}\n\n${section.content}`;
+          case 'callout':
+            return `> **${section.title}**: ${section.content}`;
+          case 'highlight':
+            if (section.stats) {
+              const stats = section.stats.map(stat => `- **${stat.label}**: ${stat.value}`).join('\n');
+              return `### Key Statistics\n\n${stats}`;
+            }
+            return '';
+          default:
+            // For any other content types, just return the content if it exists
+            return section.content || '';
+        }
+      })
+      .filter(content => content.length > 0) // Remove empty content
       .join('\n\n');
   }
   
