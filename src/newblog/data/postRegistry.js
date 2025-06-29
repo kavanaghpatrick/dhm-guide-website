@@ -54,7 +54,12 @@ const postModules = {
   'how-to-cure-a-hangover-complete-science-guide': () => import('./posts/how-to-cure-a-hangover-complete-science-guide.json'),
   'summer-alcohol-consumption-dhm-safety-guide': () => import('./posts/summer-alcohol-consumption-dhm-safety-guide.json'),
   'dhm-dosage-guide-2025': () => import('./posts/dhm-dosage-guide-2025.json'),
-  'dhm-science-explained': () => import('./posts/dhm-science-explained.json')
+  'dhm-science-explained': () => import('./posts/dhm-science-explained.json'),
+  'complete-guide-hangover-types-2025': () => import('./posts/complete-guide-hangover-types-2025.json'),
+  'post-dry-january-smart-drinking-strategies-2025': () => import('./posts/post-dry-january-smart-drinking-strategies-2025.json'),
+  'professional-hangover-free-networking-guide-2025': () => import('./posts/professional-hangover-free-networking-guide-2025.json'),
+  'viral-hangover-cures-tested-science-2025': () => import('./posts/viral-hangover-cures-tested-science-2025.json'),
+  'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json')
 };
 
 export default postModules;
