@@ -18,13 +18,20 @@ import NewBlogPost from './newblog/components/NewBlogPost.jsx'
 import './App.css'
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(() => 
-    typeof window !== 'undefined' ? window.location.pathname : '/'
-  )
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (typeof window !== 'undefined') {
+      // Remove trailing slash except for root
+      const path = window.location.pathname;
+      return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+    }
+    return '/';
+  })
 
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname)
+      const path = window.location.pathname;
+      // Remove trailing slash except for root
+      setCurrentPath(path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path);
     }
 
     window.addEventListener('popstate', handlePopState)
