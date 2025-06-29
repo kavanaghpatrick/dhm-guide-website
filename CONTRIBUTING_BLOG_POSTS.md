@@ -6,8 +6,10 @@ This guide explains how to add new blog posts to the DHM Guide website's "Never 
 
 1. Create a new JSON file in `/src/newblog/data/posts/` named `your-post-slug.json`
 2. Copy the structure from an existing post
-3. Add your post slug to the sitemap at `/public/sitemap.xml`
-4. Commit and push your changes
+3. **CRITICAL**: Register your post in `/src/newblog/data/postRegistry.js`
+4. **CRITICAL**: Add post metadata to `/src/newblog/data/metadata/index.json`
+5. Add your post slug to the sitemap at `/public/sitemap.xml`
+6. Commit and push your changes
 
 ## Detailed Instructions
 
@@ -162,7 +164,49 @@ The blog system supports various content types:
 }
 ```
 
-### Step 4: Add to Sitemap
+### Step 4: Register Your Post (CRITICAL)
+
+**This step is essential - your post won't appear on the site without it!**
+
+#### 4a. Add to Post Registry
+
+Add your post to `/src/newblog/data/postRegistry.js`:
+
+```javascript
+const postModules = {
+  // ... existing posts ...
+  'your-post-slug-here': () => import('./posts/your-post-slug-here.json'),
+};
+```
+
+#### 4b. Add to Metadata Index
+
+Add your post metadata to `/src/newblog/data/metadata/index.json` at the **beginning** of the array:
+
+```json
+[
+  {
+    "id": "your-post-slug-here",
+    "title": "Your Blog Post Title",
+    "slug": "your-post-slug-here", 
+    "excerpt": "Your meta description",
+    "date": "2025-01-15",
+    "author": "Author Name",
+    "tags": ["dhm", "hangover prevention", "wellness"],
+    "image": "/images/your-post-slug-here-hero.webp",
+    "readTime": 7
+  },
+  // ... existing posts ...
+]
+```
+
+**Important Notes:**
+- Add new posts at the **beginning** of the array (they'll appear first)
+- Use `date` field (not `datePublished`) in metadata
+- Image path should be `/images/filename.webp` for optimized images
+- The `id` and `slug` should match your JSON filename
+
+### Step 5: Add to Sitemap
 
 Add your new post to `/public/sitemap.xml`:
 
@@ -177,7 +221,21 @@ Add your new post to `/public/sitemap.xml`:
 
 **Placement:** Add it before the closing `</urlset>` tag, grouped with similar content.
 
-### Step 5: Best Practices
+### Step 6: Hero Images (Optional but Recommended)
+
+If you have a hero image for your post:
+
+1. **Optimize the image**: Use WebP format, 1200x630px, 85% quality
+2. **Upload to**: `/public/images/your-post-slug-here-hero.webp`
+3. **Update metadata**: Set `"image": "/images/your-post-slug-here-hero.webp"`
+
+#### Image Optimization Commands:
+```bash
+# Convert to WebP (if you have ImageMagick/WebP tools installed)
+cwebp -q 85 -resize 1200 630 your-image.jpg -o your-post-slug-here-hero.webp
+```
+
+### Step 7: Best Practices
 
 #### Content Guidelines:
 - **Length**: Aim for 1,500-2,500 words for comprehensive coverage
@@ -198,7 +256,7 @@ Add your new post to `/public/sitemap.xml`:
 - **Markdown**: Test your markdown formatting
 - **JSON**: Validate your JSON (use jsonlint.com)
 
-### Step 6: Testing Your Post
+### Step 8: Testing Your Post
 
 1. **Validate JSON**: Ensure your JSON is valid
 2. **Check Links**: Verify all links work
@@ -233,9 +291,28 @@ When committing your new post:
 Add new blog post: [Post Title]
 
 - Created new post about [topic]
+- Registered in postRegistry.js
+- Added metadata to index.json
 - Added to sitemap
 - Targets [primary keyword]
 ```
+
+### Troubleshooting Common Issues
+
+#### "Post not appearing in blog listing"
+- ✅ Check if added to `/src/newblog/data/metadata/index.json`
+- ✅ Verify metadata uses `date` field (not `datePublished`)
+- ✅ Ensure image path starts with `/images/`
+
+#### "Individual post page crashes"
+- ✅ Check if added to `/src/newblog/data/postRegistry.js`
+- ✅ Verify post slug matches filename
+- ✅ Ensure JSON structure matches template exactly
+
+#### "Images not displaying"
+- ✅ Check image path in metadata: `/images/filename.webp`
+- ✅ Verify image exists in `/public/images/`
+- ✅ Use WebP format for optimization
 
 ### Quick Checklist
 
@@ -243,11 +320,15 @@ Before submitting:
 - [ ] JSON file created in `/src/newblog/data/posts/`
 - [ ] All required fields filled out
 - [ ] Content is properly formatted markdown
+- [ ] **CRITICAL**: Added to `/src/newblog/data/postRegistry.js`
+- [ ] **CRITICAL**: Added metadata to `/src/newblog/data/metadata/index.json`
 - [ ] Added to sitemap.xml
+- [ ] Hero image optimized and uploaded (if applicable)
 - [ ] JSON validates without errors
 - [ ] SEO fields optimized
 - [ ] Read time is accurate (150-200 words per minute)
 - [ ] Tags are relevant and lowercase
+- [ ] Tested locally - post appears in listing and individual page loads
 
 ## Need Help?
 
