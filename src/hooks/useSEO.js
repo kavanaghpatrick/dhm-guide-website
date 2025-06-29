@@ -199,20 +199,21 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'DHM Research: 70% Hangover Reduction in Clinical Studies',
-        description: '15+ clinical studies prove DHM prevents hangovers. Scientific evidence shows 70% reduction. Access peer-reviewed research on proven hangover cures.',
-        keywords: 'hangover prevention research, clinical studies hangovers, hangover cure research, DHM clinical trials, scientific proof hangover prevention',
+        title: 'Dihydromyricetin Randomized Controlled Trial Results 2024: DHM Hangover Studies',
+        description: 'Latest 2024 randomized controlled trials prove dihydromyricetin (DHM) prevents hangovers. Review clinical studies, RCT data, and peer-reviewed research on DHM for hangovers.',
+        keywords: 'dihydromyricetin randomized controlled trial hangover 2024, dihydromyricetin hangover randomized controlled trial 2023, dhm for hangovers, dihydromyricetin clinical trials, DHM hangover research, randomized controlled trial DHM',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.jpg`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Dataset",
-          "name": "DHM Research Database",
-          "description": "Comprehensive collection of DHM (Dihydromyricetin) clinical studies and research papers",
+          "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
+          "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
           "creator": {
             "@type": "Organization",
             "name": "DHM Guide"
-          }
+          },
+          "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
         }
       };
 
