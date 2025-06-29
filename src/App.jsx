@@ -41,12 +41,12 @@ function App() {
   // Simple routing based on pathname
   const renderPage = () => {
     // Handle Never Hungover blog post routes (e.g., /never-hungover/post-slug)
-    if (currentPath.startsWith('/never-hungover/') && currentPath !== '/never-hungover/') {
+    if (currentPath.startsWith('/never-hungover/')) {
       return <NewBlogPost />
     }
     
     // Handle old blog post routes (e.g., /blog/post-slug) - legacy support
-    if (currentPath.startsWith('/blog/') && currentPath !== '/blog/') {
+    if (currentPath.startsWith('/blog/')) {
       return <BlogPost />
     }
 
