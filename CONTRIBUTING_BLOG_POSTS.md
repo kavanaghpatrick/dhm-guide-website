@@ -303,35 +303,202 @@ Add new blog post: [Post Title]
 - ✅ Check if added to `/src/newblog/data/metadata/index.json`
 - ✅ Verify metadata uses `date` field (not `datePublished`)
 - ✅ Ensure image path starts with `/images/`
+- ✅ Confirm `id` field matches the slug exactly
 
 #### "Individual post page crashes"
 - ✅ Check if added to `/src/newblog/data/postRegistry.js`
-- ✅ Verify post slug matches filename
-- ✅ Ensure JSON structure matches template exactly
+- ✅ Verify post slug matches filename exactly
+- ✅ **CRITICAL**: Ensure all required fields are present (see Field Requirements below)
+- ✅ Validate JSON syntax using jsonlint.com or `python3 -m json.tool filename.json`
+- ✅ Check content structure compatibility (array vs string format)
 
 #### "Images not displaying"
 - ✅ Check image path in metadata: `/images/filename.webp`
 - ✅ Verify image exists in `/public/images/`
 - ✅ Use WebP format for optimization
 
+#### "Content rendering issues with array-based posts"
+- ✅ Ensure all content sections have valid `type` field (`section`, `callout`, `highlight`)
+- ✅ Verify section headings are properly defined
+- ✅ Check for special characters that might break JSON parsing
+- ✅ Ensure content sections have both `heading` and `content` fields
+
+### Critical Field Requirements (NEW)
+
+**All posts MUST include these exact field names to prevent crashes:**
+
+```json
+{
+  "id": "your-post-slug-here",           // REQUIRED: Must match filename
+  "slug": "your-post-slug-here",         // REQUIRED: Must match filename  
+  "title": "Your Post Title",            // REQUIRED
+  "excerpt": "Post description...",      // REQUIRED: For blog listing
+  "date": "2025-01-15",                 // REQUIRED: For sorting/display
+  "author": "Author Name",               // REQUIRED
+  "image": "/images/post-hero.webp",     // REQUIRED: Hero image path
+  "tags": ["tag1", "tag2"],             // REQUIRED: Array of strings
+  "readTime": 7,                        // REQUIRED: Number in minutes
+  "content": "..." or [...],            // REQUIRED: String or array format
+}
+```
+
+**Optional but recommended fields:**
+- `description`: For SEO (can duplicate `excerpt`)
+- `datePublished`: For schema markup
+- `dateModified`: For schema markup  
+- `featured`: Boolean for featured posts
+- `meta`: Object with SEO metadata
+- `schema`: Object with structured data
+
 ### Quick Checklist
 
 Before submitting:
 - [ ] JSON file created in `/src/newblog/data/posts/`
-- [ ] All required fields filled out
-- [ ] Content is properly formatted markdown
+- [ ] **CRITICAL**: All required fields present (id, slug, title, excerpt, date, author, image, tags, readTime, content)
+- [ ] Field names match exactly (not `datePublished` instead of `date`, etc.)
+- [ ] `id` and `slug` fields match filename exactly
+- [ ] Content is properly formatted (markdown string OR array with valid sections)
 - [ ] **CRITICAL**: Added to `/src/newblog/data/postRegistry.js`
 - [ ] **CRITICAL**: Added metadata to `/src/newblog/data/metadata/index.json`
 - [ ] Added to sitemap.xml
 - [ ] Hero image optimized and uploaded (if applicable)
-- [ ] JSON validates without errors
+- [ ] JSON validates without errors (`python3 -m json.tool filename.json`)
 - [ ] SEO fields optimized
 - [ ] Read time is accurate (150-200 words per minute)
 - [ ] Tags are relevant and lowercase
-- [ ] Tested locally - post appears in listing and individual page loads
+- [ ] **CRITICAL**: Tested locally - post appears in listing AND individual page loads without errors
+
+## Complete Deployment Workflow
+
+### Step-by-Step Clean Deployment Process
+
+Follow this exact workflow for error-free blog post deployment:
+
+#### 1. Pre-Development Setup
+```bash
+# Ensure you're on the latest main branch
+git checkout main
+git pull origin main
+
+# Start development server for testing
+npm run dev
+```
+
+#### 2. Create and Validate Post File
+```bash
+# Create your post file
+touch src/newblog/data/posts/your-post-slug-2025.json
+
+# Validate JSON syntax before proceeding
+python3 -m json.tool src/newblog/data/posts/your-post-slug-2025.json
+```
+
+#### 3. Register the Post (CRITICAL)
+```javascript
+// Add to src/newblog/data/postRegistry.js
+'your-post-slug-2025': () => import('./posts/your-post-slug-2025.json'),
+```
+
+#### 4. Add Metadata Entry (CRITICAL)
+```json
+// Add to BEGINNING of src/newblog/data/metadata/index.json array
+{
+  "id": "your-post-slug-2025",
+  "title": "Your Post Title",
+  "slug": "your-post-slug-2025", 
+  "excerpt": "Your post description",
+  "date": "2025-01-15",
+  "author": "Author Name",
+  "tags": ["tag1", "tag2"],
+  "image": "/images/your-post-slug-2025-hero.webp",
+  "readTime": 7
+}
+```
+
+#### 5. Local Testing Protocol
+```bash
+# Test blog listing page
+# Navigate to: http://localhost:5173/never-hungover
+# ✅ Verify your post appears in the listing
+
+# Test individual post page  
+# Navigate to: http://localhost:5173/never-hungover/your-post-slug-2025
+# ✅ Verify post loads without crashes
+# ✅ Verify all content renders properly
+# ✅ Check browser console for any errors
+```
+
+#### 6. Image Optimization (If Applicable)
+```bash
+# Optimize hero image
+cwebp -q 85 -resize 1200 630 original-image.jpg -o public/images/your-post-slug-2025-hero.webp
+
+# Verify image was created
+ls -la public/images/your-post-slug-2025-hero.webp
+```
+
+#### 7. Final Validation
+```bash
+# Run final JSON validation
+python3 -m json.tool src/newblog/data/posts/your-post-slug-2025.json > /dev/null && echo "✅ JSON Valid" || echo "❌ JSON Invalid"
+
+# Check all required fields are present
+grep -q '"id":\|"slug":\|"title":\|"excerpt":\|"date":\|"author":\|"image":\|"tags":\|"readTime":\|"content":' src/newblog/data/posts/your-post-slug-2025.json && echo "✅ Required fields present" || echo "❌ Missing required fields"
+```
+
+#### 8. Git Workflow
+```bash
+# Stage all changes
+git add .
+
+# Commit with descriptive message
+git commit -m "Add new blog post: Your Post Title
+
+- Created comprehensive post about [topic]
+- Registered in postRegistry.js 
+- Added metadata to index.json
+- Optimized hero image
+- Tested locally - post loads successfully
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# Push to GitHub
+git push origin main
+```
+
+#### 9. Production Verification
+```bash
+# Wait 2-3 minutes for Vercel deployment, then verify:
+# ✅ https://www.dhmguide.com/never-hungover (post appears in listing)
+# ✅ https://www.dhmguide.com/never-hungover/your-post-slug-2025 (post loads)
+```
+
+### Emergency Troubleshooting Commands
+
+If your post isn't working after deployment:
+
+```bash
+# Quick diagnostic checks
+echo "Checking post registration..."
+grep -n "your-post-slug-2025" src/newblog/data/postRegistry.js
+
+echo "Checking metadata entry..."
+grep -n "your-post-slug-2025" src/newblog/data/metadata/index.json
+
+echo "Validating JSON..."
+python3 -m json.tool src/newblog/data/posts/your-post-slug-2025.json
+
+echo "Checking required fields..."
+jq 'keys' src/newblog/data/posts/your-post-slug-2025.json 2>/dev/null || echo "JSON invalid or jq not installed"
+```
 
 ## Need Help?
 
 - Check existing posts in `/src/newblog/data/posts/` for examples
 - The most recent posts usually follow best practices
-- Popular posts to model: `hangover-career-impact-dhm-solution-2025.json`
+- **Simple content posts**: Model after `hangover-career-impact-dhm-solution-2025.json`
+- **Array-based content posts**: Model after `complete-guide-hangover-types-2025.json`
+- Always test locally before pushing to production
+- When in doubt, validate JSON syntax first
