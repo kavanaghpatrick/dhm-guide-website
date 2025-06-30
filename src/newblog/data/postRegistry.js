@@ -61,7 +61,10 @@ const postModules = {
   'viral-hangover-cures-tested-science-2025': () => import('./posts/viral-hangover-cures-tested-science-2025.json'),
   'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json'),
   'hangxiety-2025-dhm-prevents-post-drinking-anxiety': () => import('./posts/hangxiety-2025-dhm-prevents-post-drinking-anxiety.json'),
-  'festival-season-survival-dhm-guide-concert-music-festival-recovery': () => import('./posts/festival-season-survival-dhm-guide-concert-music-festival-recovery.json')
+  'festival-season-survival-dhm-guide-concert-music-festival-recovery': () => import('./posts/festival-season-survival-dhm-guide-concert-music-festival-recovery.json'),
+  'ultimate-mexico-travel-hangover-prevention-guide-2025': () => import('./posts/ultimate-mexico-travel-hangover-prevention-guide-2025.json'),
+  'spring-break-2025-cancun-survival-guide-dhm': () => import('./posts/spring-break-2025-cancun-survival-guide-dhm.json'),
+  'traditional-mexican-hangover-remedies-vs-modern-supplements': () => import('./posts/traditional-mexican-hangover-remedies-vs-modern-supplements.json')
 };
 
 export default postModules;
