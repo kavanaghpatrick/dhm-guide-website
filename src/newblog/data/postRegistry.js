@@ -64,7 +64,10 @@ const postModules = {
   'festival-season-survival-dhm-guide-concert-music-festival-recovery': () => import('./posts/festival-season-survival-dhm-guide-concert-music-festival-recovery.json'),
   'ultimate-mexico-travel-hangover-prevention-guide-2025': () => import('./posts/ultimate-mexico-travel-hangover-prevention-guide-2025.json'),
   'spring-break-2025-cancun-survival-guide-dhm': () => import('./posts/spring-break-2025-cancun-survival-guide-dhm.json'),
-  'traditional-mexican-hangover-remedies-vs-modern-supplements': () => import('./posts/traditional-mexican-hangover-remedies-vs-modern-supplements.json')
+  'traditional-mexican-hangover-remedies-vs-modern-supplements': () => import('./posts/traditional-mexican-hangover-remedies-vs-modern-supplements.json'),
+  'rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025': () => import('./posts/rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025.json'),
+  'fraternity-formal-hangover-prevention-complete-dhm-guide-2025': () => import('./posts/fraternity-formal-hangover-prevention-complete-dhm-guide-2025.json'),
+  'greek-week-champion-recovery-guide-dhm-competition-success-2025': () => import('./posts/greek-week-champion-recovery-guide-dhm-competition-success-2025.json')
 };
 
 export default postModules;
