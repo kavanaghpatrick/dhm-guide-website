@@ -66,7 +66,7 @@ export default function Home() {
     {
       icon: <Beaker className="w-8 h-8" />,
       title: "Clinically-Proven Science",
-      description: "7 peer-reviewed studies prove 70% faster alcohol recovery in 1,000+ participants",
+      description: "11 peer-reviewed studies prove 70% faster alcohol recovery in 1,000+ participants",
       mechanism: "Clinical Evidence"
     },
     {

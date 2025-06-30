@@ -128,7 +128,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
     case 'home':
       return {
         title: 'DHM Guide: Science-Backed Hangover Prevention That Actually Works',
-        description: 'Discover the UCLA-proven supplement that prevents hangovers in 70% of cases. Expert reviews, dosage guides, and 15+ clinical studies. Never wake up hungover again.',
+        description: 'Discover the UCLA-proven supplement that prevents hangovers in 70% of cases. Expert reviews, dosage guides, and 11 clinical studies. Never wake up hungover again.',
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.jpg`,

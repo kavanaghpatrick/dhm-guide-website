@@ -294,7 +294,7 @@ export default function Guide() {
                 ✅ Result: Wake up feeling like you barely drank
               </h4>
               <p className="text-gray-700 mb-4">
-                Based on 7 clinical studies showing 70% faster alcohol recovery
+                Based on 11 clinical studies showing 70% faster alcohol recovery
               </p>
               <Button 
                 asChild
@@ -323,7 +323,7 @@ export default function Guide() {
               Key Benefits at a Glance
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              DHM offers comprehensive benefits backed by 7 clinical studies and 1,000+ years of traditional use. 
+              DHM offers comprehensive benefits backed by 11 clinical studies and 1,000+ years of traditional use. 
               Discover the <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-600 hover:text-green-800 font-semibold">fascinating traditional origins</Link> and explore our <Link to="/reviews" className="text-green-600 hover:text-green-800 font-semibold">top supplement recommendations</Link>.
             </p>
           </motion.div>
@@ -622,7 +622,7 @@ export default function Guide() {
                 Join thousands who've stopped waking up hungover
               </h4>
               <p className="text-gray-700 mb-6">
-                Based on 7 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/never-hungover/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
+                Based on 11 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/never-hungover/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
               </p>
               <Button 
                 asChild
