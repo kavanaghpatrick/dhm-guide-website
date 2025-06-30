@@ -51,13 +51,13 @@ export default function Research() {
       icon: <Brain className="w-6 h-6" />,
       title: "45% Reduction",
       subtitle: "in brain inflammation injury",
-      study: "Harbin Medical 2022"
+      study: "Shandong University 2022"
     },
     {
       icon: <Heart className="w-6 h-6" />,
       title: "60% Reduction",
       subtitle: "in liver toxicity markers",
-      study: "Beijing University 2022"
+      study: "Jilin University 2022"
     }
   ]
 
@@ -68,7 +68,7 @@ export default function Research() {
       authors: "Chen, S., Zhao, X., Ran, L., et al.",
       journal: "Journal of Hepatology",
       year: 2020,
-      institution: "USC School of Medicine",
+      institution: "University of Southern California, School of Pharmacy",
       participants: 120,
       duration: "12 weeks",
       category: "liver",
@@ -116,7 +116,7 @@ export default function Research() {
       authors: "Stasiłowicz-Krzemień, A., Cielecka-Piontek, J.",
       journal: "Nutrients",
       year: 2021,
-      institution: "Poznan University of Medical Sciences",
+      institution: "Charles University, Prague, Czech Republic",
       participants: "Pharmacokinetic analysis",
       duration: "Single dose study",
       category: "metabolism",
@@ -140,7 +140,7 @@ export default function Research() {
       authors: "Blesso, C.N., Fernandez, M.L.",
       journal: "Frontiers in Nutrition",
       year: 2023,
-      institution: "University of Connecticut",
+      institution: "Aix Marseille Université, France",
       participants: 45,
       duration: "8 weeks",
       category: "liver",
@@ -164,7 +164,7 @@ export default function Research() {
       authors: "Zhang, Y., Wang, S., Li, H., et al.",
       journal: "Drug Design, Development and Therapy",
       year: 2022,
-      institution: "Harbin Medical University",
+      institution: "The Second Hospital, Cheeloo College of Medicine, Shandong University",
       participants: "Animal models + cell culture",
       duration: "4 weeks",
       category: "neuroprotection",
@@ -188,7 +188,7 @@ export default function Research() {
       authors: "Zhang, L., Wang, M., Chen, H., et al.",
       journal: "Natural Product Communications",
       year: 2022,
-      institution: "Beijing University",
+      institution: "Jilin University",
       participants: 150,
       duration: "8 weeks",
       category: "liver",
@@ -212,7 +212,7 @@ export default function Research() {
       authors: "Liu, Y., Chen, X., Wang, P., et al.",
       journal: "Nutrition & Metabolism",
       year: 2021,
-      institution: "Shanghai Medical University",
+      institution: "Third Military Medical University (Army Medical University)",
       participants: 90,
       duration: "24 weeks",
       category: "liver",
