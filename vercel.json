@@ -5,6 +5,17 @@
       "source": "/blog/:path*",
       "destination": "/never-hungover/:path*",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://www.dhmguide.com/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "dhmguide.com"
+        }
+      ]
     }
   ],
   "rewrites": [
