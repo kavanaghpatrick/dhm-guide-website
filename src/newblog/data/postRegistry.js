@@ -59,9 +59,7 @@ const postModules = {
   'post-dry-january-smart-drinking-strategies-2025': () => import('./posts/post-dry-january-smart-drinking-strategies-2025.json'),
   'professional-hangover-free-networking-guide-2025': () => import('./posts/professional-hangover-free-networking-guide-2025.json'),
   'viral-hangover-cures-tested-science-2025': () => import('./posts/viral-hangover-cures-tested-science-2025.json'),
-  'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json'),
-  'hangxiety-2025-dhm-prevents-post-drinking-anxiety': () => import('./posts/hangxiety-2025-dhm-prevents-post-drinking-anxiety.json'),
-  'festival-season-survival-dhm-guide-concert-music-festival-recovery': () => import('./posts/festival-season-survival-dhm-guide-concert-music-festival-recovery.json')
+  'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json')
 };
 
 export default postModules;
