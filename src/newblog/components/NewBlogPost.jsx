@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, ChevronRight, Loader2 } from 'lucide-react';
+import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, ChevronRight, Loader2, Info, AlertCircle, CheckCircle, Lightbulb, Leaf } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.jsx';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx';
+import { Badge } from '@/components/ui/badge.jsx';
+import { Button } from '@/components/ui/button.jsx';
+import { Separator } from '@/components/ui/separator.jsx';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip.jsx';
 import { 
   getPostBySlug, 
   getRelatedPostsMetadata, 
@@ -9,6 +15,100 @@ import {
   getCacheStats 
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
+
+// Helper function to create enhanced components for special content patterns
+const createEnhancedComponents = () => {
+  // Function to detect and render info boxes
+  const renderInfoBox = (text) => {
+    // Pattern: **Info Box:** content
+    if (text.startsWith('**Info Box:**')) {
+      const content = text.replace('**Info Box:**', '').trim();
+      return (
+        <Alert className="border-blue-200 bg-blue-50 my-4">
+          <Info className="h-4 w-4 text-blue-600" />
+          <AlertTitle>Did You Know?</AlertTitle>
+          <AlertDescription>{content}</AlertDescription>
+        </Alert>
+      );
+    }
+    
+    // Pattern: **Warning:** content
+    if (text.startsWith('**Warning:**')) {
+      const content = text.replace('**Warning:**', '').trim();
+      return (
+        <Alert className="border-amber-200 bg-amber-50 my-4">
+          <AlertCircle className="h-4 w-4 text-amber-600" />
+          <AlertTitle>Important</AlertTitle>
+          <AlertDescription>{content}</AlertDescription>
+        </Alert>
+      );
+    }
+    
+    // Pattern: **Pro Tip:** content
+    if (text.startsWith('**Pro Tip:**')) {
+      const content = text.replace('**Pro Tip:**', '').trim();
+      return (
+        <Alert className="border-green-200 bg-green-50 my-4">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertTitle>Pro Tip</AlertTitle>
+          <AlertDescription>{content}</AlertDescription>
+        </Alert>
+      );
+    }
+    
+    // Pattern: **Key Insight:** content
+    if (text.startsWith('**Key Insight:**')) {
+      const content = text.replace('**Key Insight:**', '').trim();
+      return (
+        <Alert className="border-purple-200 bg-purple-50 my-4">
+          <Lightbulb className="h-4 w-4 text-purple-600" />
+          <AlertTitle>Key Insight</AlertTitle>
+          <AlertDescription>{content}</AlertDescription>
+        </Alert>
+      );
+    }
+    
+    return null;
+  };
+
+  // Function to create enhanced product cards
+  const renderProductCard = (text) => {
+    // Pattern: **Product Spotlight: [Product Name]** - details
+    const productMatch = text.match(/\*\*Product Spotlight: (.+?)\*\* - (.+)/);
+    if (productMatch) {
+      const [_, productName, details] = productMatch;
+      return (
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer border-green-200 my-6">
+          <CardHeader>
+            <div className="flex justify-between items-start">
+              <CardTitle className="text-green-800">{productName}</CardTitle>
+              <Badge className="bg-green-100 text-green-800">Featured</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-700">{details}</p>
+            <Button variant="outline" size="sm" className="mt-4">
+              Learn More →
+            </Button>
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  };
+
+  // Function to render visual separators
+  const renderVisualSeparator = () => (
+    <div className="relative my-12">
+      <Separator className="bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4">
+        <Leaf className="w-6 h-6 text-green-600" />
+      </div>
+    </div>
+  );
+
+  return { renderInfoBox, renderProductCard, renderVisualSeparator };
+};
 
 // Helper function to render content based on format
 const renderContent = (post) => {
@@ -528,7 +628,27 @@ const NewBlogPost = () => {
                         <div className="absolute left-0 top-1/2 w-full h-px bg-gradient-to-r from-green-200 to-transparent -translate-y-1/2 -z-0"></div>
                       </h3>
                     ),
-                    p: ({children}) => <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>,
+                    p: ({children}) => {
+                      const text = typeof children === 'string' ? children : '';
+                      const { renderInfoBox, renderProductCard } = createEnhancedComponents();
+                      
+                      // Check for info box patterns
+                      const infoBox = renderInfoBox(text);
+                      if (infoBox) return infoBox;
+                      
+                      // Check for product card patterns
+                      const productCard = renderProductCard(text);
+                      if (productCard) return productCard;
+                      
+                      // Check for separator pattern
+                      if (text.trim() === '---') {
+                        const { renderVisualSeparator } = createEnhancedComponents();
+                        return renderVisualSeparator();
+                      }
+                      
+                      // Default paragraph rendering
+                      return <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>;
+                    },
                     ul: ({children}) => (
                       <ul className="space-y-3 mb-6 text-lg">
                         {children}
@@ -541,15 +661,32 @@ const NewBlogPost = () => {
                     ),
                     li: ({children, ...props}) => {
                       const isOrderedList = props.node?.parentNode?.tagName === 'ol';
+                      const text = typeof children === 'string' ? children : '';
+                      
+                      // Check for special list item patterns
+                      let icon = null;
+                      let specialClass = '';
+                      
+                      if (text.includes('✅') || text.toLowerCase().includes('benefit')) {
+                        icon = <CheckCircle className="w-5 h-5 text-green-600" />;
+                        specialClass = 'bg-green-50 border-l-2 border-green-500 pl-4 -ml-4';
+                      } else if (text.includes('⚠️') || text.toLowerCase().includes('warning')) {
+                        icon = <AlertCircle className="w-5 h-5 text-amber-600" />;
+                        specialClass = 'bg-amber-50 border-l-2 border-amber-500 pl-4 -ml-4';
+                      } else if (text.includes('💡') || text.toLowerCase().includes('tip')) {
+                        icon = <Lightbulb className="w-5 h-5 text-purple-600" />;
+                        specialClass = 'bg-purple-50 border-l-2 border-purple-500 pl-4 -ml-4';
+                      }
+                      
                       return isOrderedList ? (
-                        <li className="flex items-start gap-3 leading-relaxed text-gray-700 counter-increment-item">
+                        <li className={`flex items-start gap-3 leading-relaxed text-gray-700 counter-increment-item ${specialClass}`}>
                           <span className="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5 counter-content">
                           </span>
                           <span className="flex-1">{children}</span>
                         </li>
                       ) : (
-                        <li className="flex items-start gap-3 leading-relaxed text-gray-700">
-                          <span className="flex-shrink-0 w-2 h-2 bg-gradient-to-r from-green-600 to-green-700 rounded-full mt-3"></span>
+                        <li className={`flex items-start gap-3 leading-relaxed text-gray-700 ${specialClass}`}>
+                          {icon || <span className="flex-shrink-0 w-2 h-2 bg-gradient-to-r from-green-600 to-green-700 rounded-full mt-3"></span>}
                           <span className="flex-1">{children}</span>
                         </li>
                       );
@@ -559,14 +696,47 @@ const NewBlogPost = () => {
                         {children}
                       </blockquote>
                     ),
-                    code: ({inline, children}) => 
-                      inline ? (
-                        <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{children}</code>
-                      ) : (
+                    code: ({inline, children}) => {
+                      if (inline) {
+                        const text = typeof children === 'string' ? children : '';
+                        
+                        // Common DHM-related terms that should have tooltips
+                        const tooltipTerms = {
+                          'ADH': 'Alcohol dehydrogenase - an enzyme that breaks down alcohol in your liver',
+                          'ALDH': 'Aldehyde dehydrogenase - an enzyme that processes toxic acetaldehyde',
+                          'GABA': 'Gamma-aminobutyric acid - the main inhibitory neurotransmitter in the brain',
+                          'DHM': 'Dihydromyricetin - a natural flavonoid that prevents hangovers',
+                          'mg/kg': 'Milligrams per kilogram of body weight - a standard dosing measurement',
+                          'NAD+': 'Nicotinamide adenine dinucleotide - a coenzyme essential for metabolism',
+                          'RCT': 'Randomized Controlled Trial - the gold standard for clinical research'
+                        };
+                        
+                        if (tooltipTerms[text]) {
+                          return (
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help">
+                                    {children}
+                                  </code>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="max-w-xs">{tooltipTerms[text]}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          );
+                        }
+                        
+                        return <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{children}</code>;
+                      }
+                      
+                      return (
                         <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6">
                           <code className="text-sm font-mono text-gray-800">{children}</code>
                         </pre>
-                      ),
+                      );
+                    },
                     a: ({href, children}) => {
                       const isExternal = href?.startsWith('http');
                       const isInternal = href && !isExternal && href !== '#';
@@ -608,6 +778,28 @@ const NewBlogPost = () => {
                     strong: ({children}) => {
                       const text = typeof children === 'string' ? children : '';
                       const isFormula = text.includes(':') && text.endsWith(':');
+                      
+                      // Check for percentage patterns (e.g., "70% faster")
+                      const percentageMatch = text.match(/^(\d+)%\s+(.+)$/);
+                      if (percentageMatch) {
+                        const [_, percentage, description] = percentageMatch;
+                        return (
+                          <span className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-blue-50 px-3 py-1 rounded-lg border border-green-200">
+                            <strong className="text-2xl font-bold text-green-700">{percentage}%</strong>
+                            <span className="text-gray-700 font-medium">{description}</span>
+                          </span>
+                        );
+                      }
+                      
+                      // Check for key stat patterns (e.g., "300mg" or "$29.99")
+                      const statMatch = text.match(/^([\$]?\d+(?:mg|g|ml|L)?|\$\d+\.\d{2})$/);
+                      if (statMatch) {
+                        return (
+                          <strong className="inline-block text-xl font-bold text-green-700 bg-green-50 px-2 py-1 rounded-md border border-green-200">
+                            {children}
+                          </strong>
+                        );
+                      }
                       
                       return isFormula ? (
                         <strong className="inline-block font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent border-b-2 border-green-200 pb-1 mr-1">
