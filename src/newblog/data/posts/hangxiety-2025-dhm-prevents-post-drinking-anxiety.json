@@ -76,9 +76,9 @@
       "type": "highlight",
       "variant": "primary",
       "stats": [
-        { "label": "Anxiety Reduction", "value": "78%" },
-        { "label": "Mood Stability", "value": "85%" },
-        { "label": "Sleep Quality", "value": "72%" }
+        { "label": "Anxiety Reduction", "value": "Significant" },
+        { "label": "Mood Stability", "value": "Improved" },
+        { "label": "Sleep Quality", "value": "Enhanced" }
       ]
     },
     {
