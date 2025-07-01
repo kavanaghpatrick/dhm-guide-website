@@ -640,65 +640,60 @@ const NewBlogPost = () => {
                       const fullText = extractText(children);
                       const { renderInfoBox, renderProductCard, renderVisualSeparator } = createEnhancedComponents();
                       
+                      // Check for special patterns only at the start of the paragraph
+                      const trimmedText = fullText.trim();
+                      
                       // Check for info box patterns
-                      if (fullText.includes('Info Box:')) {
-                        const match = fullText.match(/Info Box:\s*(.+)/);
-                        if (match) {
-                          return (
-                            <Alert className="border-blue-200 bg-blue-50 my-4">
-                              <Info className="h-4 w-4 text-blue-600" />
-                              <AlertTitle>Did You Know?</AlertTitle>
-                              <AlertDescription>{match[1]}</AlertDescription>
-                            </Alert>
-                          );
-                        }
+                      if (trimmedText.startsWith('Info Box:')) {
+                        const content = trimmedText.replace(/^Info Box:\s*/, '');
+                        return (
+                          <Alert className="border-blue-200 bg-blue-50 my-4">
+                            <Info className="h-4 w-4 text-blue-600" />
+                            <AlertTitle>Did You Know?</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
                       }
                       
                       // Check for warning patterns
-                      if (fullText.includes('Warning:')) {
-                        const match = fullText.match(/Warning:\s*(.+)/);
-                        if (match) {
-                          return (
-                            <Alert className="border-amber-200 bg-amber-50 my-4">
-                              <AlertCircle className="h-4 w-4 text-amber-600" />
-                              <AlertTitle>Important</AlertTitle>
-                              <AlertDescription>{match[1]}</AlertDescription>
-                            </Alert>
-                          );
-                        }
+                      if (trimmedText.startsWith('Warning:')) {
+                        const content = trimmedText.replace(/^Warning:\s*/, '');
+                        return (
+                          <Alert className="border-amber-200 bg-amber-50 my-4">
+                            <AlertCircle className="h-4 w-4 text-amber-600" />
+                            <AlertTitle>Important</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
                       }
                       
                       // Check for pro tip patterns
-                      if (fullText.includes('Pro Tip:')) {
-                        const match = fullText.match(/Pro Tip:\s*(.+)/);
-                        if (match) {
-                          return (
-                            <Alert className="border-green-200 bg-green-50 my-4">
-                              <CheckCircle className="h-4 w-4 text-green-600" />
-                              <AlertTitle>Pro Tip</AlertTitle>
-                              <AlertDescription>{match[1]}</AlertDescription>
-                            </Alert>
-                          );
-                        }
+                      if (trimmedText.startsWith('Pro Tip:')) {
+                        const content = trimmedText.replace(/^Pro Tip:\s*/, '');
+                        return (
+                          <Alert className="border-green-200 bg-green-50 my-4">
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                            <AlertTitle>Pro Tip</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
                       }
                       
                       // Check for key insight patterns
-                      if (fullText.includes('Key Insight:')) {
-                        const match = fullText.match(/Key Insight:\s*(.+)/);
-                        if (match) {
-                          return (
-                            <Alert className="border-purple-200 bg-purple-50 my-4">
-                              <Lightbulb className="h-4 w-4 text-purple-600" />
-                              <AlertTitle>Key Insight</AlertTitle>
-                              <AlertDescription>{match[1]}</AlertDescription>
-                            </Alert>
-                          );
-                        }
+                      if (trimmedText.startsWith('Key Insight:')) {
+                        const content = trimmedText.replace(/^Key Insight:\s*/, '');
+                        return (
+                          <Alert className="border-purple-200 bg-purple-50 my-4">
+                            <Lightbulb className="h-4 w-4 text-purple-600" />
+                            <AlertTitle>Key Insight</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
                       }
                       
                       // Check for product card patterns
-                      if (fullText.includes('Product Spotlight:')) {
-                        const productMatch = fullText.match(/Product Spotlight:\s*([^-]+?)\s*-\s*(.+)/);
+                      if (trimmedText.startsWith('Product Spotlight:')) {
+                        const productMatch = trimmedText.match(/^Product Spotlight:\s*([^-]+?)\s*-\s*(.+)/);
                         if (productMatch) {
                           const [_, productName, details] = productMatch;
                           return (
