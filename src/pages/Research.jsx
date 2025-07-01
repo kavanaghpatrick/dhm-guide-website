@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
@@ -19,19 +19,34 @@ import {
   Shield,
   BarChart3,
   Award,
-  CheckCircle
+  CheckCircle,
+  Download,
+  Clock,
+  Filter
 } from 'lucide-react'
 
 export default function Research() {
   useSEO(generatePageSEO('research'));
   
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedYear, setSelectedYear] = useState('all')
+  const [showTimeline, setShowTimeline] = useState(false)
 
   const researchCategories = [
     { id: 'all', label: 'All Studies', count: 11 },
     { id: 'metabolism', label: 'Alcohol Metabolism', count: 4 },
     { id: 'liver', label: 'Liver Protection', count: 6 },
     { id: 'neuroprotection', label: 'Neuroprotection', count: 1 }
+  ]
+  
+  const yearFilters = [
+    { id: 'all', label: 'All Years' },
+    { id: '2024', label: '2024' },
+    { id: '2023', label: '2023' },
+    { id: '2022', label: '2022' },
+    { id: '2021', label: '2021' },
+    { id: '2020', label: '2020' },
+    { id: 'pre2020', label: 'Before 2020' }
   ]
 
   const keyFindings = [
@@ -328,9 +343,38 @@ export default function Research() {
     },
   ]
 
-  const filteredStudies = selectedCategory === 'all' 
-    ? studies 
-    : studies.filter(study => study.category === selectedCategory)
+  const filteredStudies = useMemo(() => {
+    let filtered = studies
+    
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(study => study.category === selectedCategory)
+    }
+    
+    if (selectedYear !== 'all') {
+      if (selectedYear === 'pre2020') {
+        filtered = filtered.filter(study => study.year < 2020)
+      } else {
+        filtered = filtered.filter(study => study.year === parseInt(selectedYear))
+      }
+    }
+    
+    return filtered
+  }, [selectedCategory, selectedYear])
+  
+  // Timeline data for interactive display
+  const timelineData = useMemo(() => {
+    return studies
+      .sort((a, b) => b.year - a.year)
+      .map(study => ({
+        year: study.year,
+        title: study.title,
+        type: study.type,
+        category: study.category,
+        institution: study.institution,
+        keyFinding: study.keyResults[0],
+        id: study.id
+      }))
+  }, [])
 
   const getTypeColor = (type) => {
     const colors = {
@@ -460,6 +504,190 @@ export default function Research() {
         </div>
       </section>
 
+      {/* Interactive Timeline Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge className="mb-6 bg-purple-100 text-purple-800 hover:bg-purple-200">
+              <Clock className="w-4 h-4 mr-2" />
+              Interactive Research Timeline
+            </Badge>
+            
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+              DHM Clinical Trials Timeline 2012-2024
+            </h2>
+            
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+              Explore the progression of DHM research from initial discoveries to latest clinical trials
+            </p>
+            
+            <Button
+              onClick={() => setShowTimeline(!showTimeline)}
+              size="lg"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
+            >
+              <Clock className="w-5 h-5 mr-2" />
+              {showTimeline ? 'Hide Timeline' : 'View Interactive Timeline'}
+            </Button>
+          </motion.div>
+          
+          {showTimeline && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              transition={{ duration: 0.5 }}
+              className="mt-12"
+            >
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-200 via-purple-400 to-purple-600"></div>
+                
+                {/* Timeline items */}
+                <div className="space-y-12">
+                  {timelineData.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                    >
+                      <div className="w-1/2"></div>
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-white border-4 border-purple-600 rounded-full z-10 relative"></div>
+                      </div>
+                      <div className="w-1/2 px-6">
+                        <Card className="hover:shadow-lg transition-all duration-300 border-purple-200">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge className="bg-purple-100 text-purple-800">
+                                {item.year}
+                              </Badge>
+                              <Badge className={getTypeColor(item.type)}>
+                                {item.type}
+                              </Badge>
+                            </div>
+                            <CardTitle className="text-lg text-gray-900">
+                              {item.title}
+                            </CardTitle>
+                            <CardDescription className="text-sm">
+                              {item.institution}
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-gray-700">
+                              <CheckCircle className="w-4 h-4 inline-block mr-1 text-green-600" />
+                              {item.keyFinding}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* Downloadable Resources Section */}
+      <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-green-50">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
+              <Download className="w-4 h-4 mr-2" />
+              Research Resources
+            </Badge>
+            
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+              Download DHM Clinical Trial Summaries
+            </h2>
+            
+            <p className="text-lg text-gray-600 mb-8">
+              Get comprehensive PDF summaries of all DHM clinical trials and research findings
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="bg-white hover:shadow-lg transition-all duration-300 border-blue-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-blue-800">
+                    <FileText className="w-5 h-5 mr-2" />
+                    2024 Clinical Trials Summary
+                  </CardTitle>
+                  <CardDescription>
+                    Complete analysis of all 2024 DHM randomized controlled trials
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="text-sm text-gray-600 space-y-2 mb-4">
+                    <li>• 7 human clinical trials analyzed</li>
+                    <li>• Key findings and methodologies</li>
+                    <li>• Dosage recommendations</li>
+                    <li>• Safety profile data</li>
+                  </ul>
+                  <Button 
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    onClick={() => alert('PDF download functionality coming soon!')}
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download 2024 Summary (PDF)
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white hover:shadow-lg transition-all duration-300 border-green-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-green-800">
+                    <FileText className="w-5 h-5 mr-2" />
+                    Complete Research Database
+                  </CardTitle>
+                  <CardDescription>
+                    All DHM studies from 2012-2024 with detailed analysis
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="text-sm text-gray-600 space-y-2 mb-4">
+                    <li>• 11 comprehensive studies</li>
+                    <li>• Liver protection research</li>
+                    <li>• Metabolism studies</li>
+                    <li>• Neuroprotection findings</li>
+                  </ul>
+                  <Button 
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={() => alert('PDF download functionality coming soon!')}
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Full Database (PDF)
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="mt-8 p-6 bg-white rounded-lg border border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Why Download Our Research Summaries?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Our comprehensive PDF summaries provide healthcare professionals, researchers, and informed consumers with detailed analysis of all DHM clinical trials. Each summary includes methodology reviews, statistical analysis, dosage protocols, and safety data to help you make informed decisions about DHM supplementation.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Key Findings Section */}
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
@@ -509,23 +737,57 @@ export default function Research() {
         </div>
       </section>
 
-      {/* Research Categories */}
+      {/* Research Categories and Filters */}
       <section className="py-8 px-4 bg-gradient-to-br from-green-50 to-blue-50">
         <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-wrap gap-3 justify-center mb-8">
-            {researchCategories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  selectedCategory === category.id
-                    ? 'bg-green-700 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-200'
-                }`}
-              >
-                {category.label} ({category.count})
-              </button>
-            ))}
+          <div className="mb-6">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <h3 className="text-lg font-semibold text-gray-800">Filter Studies</h3>
+            </div>
+            
+            {/* Category Filters */}
+            <div className="flex flex-wrap gap-3 justify-center mb-4">
+              {researchCategories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    selectedCategory === category.id
+                      ? 'bg-green-700 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-200'
+                  }`}
+                >
+                  {category.label} ({category.count})
+                </button>
+              ))}
+            </div>
+            
+            {/* Year Filters */}
+            <div className="flex flex-wrap gap-3 justify-center">
+              {yearFilters.map((year) => (
+                <button
+                  key={year.id}
+                  onClick={() => setSelectedYear(year.id)}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                    selectedYear === year.id
+                      ? 'bg-blue-700 text-white shadow-lg'
+                      : 'bg-white text-gray-600 hover:bg-blue-50 border border-gray-200'
+                  }`}
+                >
+                  {year.label}
+                </button>
+              ))}
+            </div>
+            
+            {/* Active Filter Count */}
+            {(selectedCategory !== 'all' || selectedYear !== 'all') && (
+              <div className="text-center mt-4">
+                <Badge className="bg-gray-100 text-gray-700">
+                  Showing {filteredStudies.length} of {studies.length} studies
+                </Badge>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -9,6 +9,7 @@ const Reviews = lazy(() => import('./pages/Reviews.jsx'))
 const Research = lazy(() => import('./pages/Research.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Compare = lazy(() => import('./pages/Compare.jsx'))
+const DosageCalculator = lazy(() => import('./pages/DosageCalculator.jsx'))
 const NewBlogListing = lazy(() => import('./newblog/pages/NewBlogListing.jsx'))
 const NewBlogPost = lazy(() => import('./newblog/components/NewBlogPost.jsx'))
 
@@ -68,6 +69,8 @@ function App() {
         return <About />
       case '/compare':
         return <Compare />
+      case '/dhm-dosage-calculator':
+        return <DosageCalculator />
       case '/never-hungover':
         return <NewBlogListing />
       default:

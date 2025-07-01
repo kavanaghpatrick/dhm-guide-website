@@ -296,14 +296,25 @@ export default function Guide() {
               <p className="text-gray-700 mb-4">
                 Based on 11 clinical studies showing 70% faster alcohol recovery
               </p>
-              <Button 
-                asChild
-                className="bg-green-600 hover:bg-green-700 text-white"
-              >
-                <Link to="/reviews">
-                  Compare DHM Supplements →
-                </Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button 
+                  asChild
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  <Link to="/reviews">
+                    Compare DHM Supplements →
+                  </Link>
+                </Button>
+                <Button 
+                  asChild
+                  variant="outline"
+                  className="border-green-600 text-green-700 hover:bg-green-50"
+                >
+                  <Link to="/dhm-dosage-calculator">
+                    Calculate Your Dosage →
+                  </Link>
+                </Button>
+              </div>
             </div>
           </motion.div>
         </div>

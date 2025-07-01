@@ -842,10 +842,18 @@ export default function Home() {
               >
                 <Link to="/reviews">Find Your DHM Supplement</Link>
               </Button>
-              <div className="flex items-center text-green-100 text-sm">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                <span>Free shipping • 70% proven reduction</span>
-              </div>
+              <Button 
+                asChild
+                size="lg" 
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+              >
+                <Link to="/dhm-dosage-calculator">Calculate Your Dosage</Link>
+              </Button>
+            </div>
+            <div className="flex items-center justify-center text-green-100 text-sm mt-4">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              <span>Free shipping • 70% proven reduction</span>
             </div>
             <p className="text-green-100 text-sm mt-4 max-w-md mx-auto">
               Join thousands who've switched from suffering to science-backed prevention
