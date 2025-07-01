@@ -2,6 +2,14 @@
 // This file is auto-generated and helps Vite bundle dynamic imports correctly
 
 const postModules = {
+  'flyby-vs-toniiq-ease-complete-comparison-2025': () => import('./posts/flyby-vs-toniiq-ease-complete-comparison-2025.json'),
+  'flyby-vs-nusapure-complete-comparison-2025': () => import('./posts/flyby-vs-nusapure-complete-comparison-2025.json'),
+  'flyby-vs-no-days-wasted-complete-comparison-2025': () => import('./posts/flyby-vs-no-days-wasted-complete-comparison-2025.json'),
+  'flyby-vs-good-morning-pills-complete-comparison-2025': () => import('./posts/flyby-vs-good-morning-pills-complete-comparison-2025.json'),
+  'flyby-vs-fuller-health-complete-comparison-2025': () => import('./posts/flyby-vs-fuller-health-complete-comparison-2025.json'),
+  'flyby-vs-double-wood-complete-comparison-2025': () => import('./posts/flyby-vs-double-wood-complete-comparison-2025.json'),
+  'flyby-vs-dhm1000-complete-comparison-2025': () => import('./posts/flyby-vs-dhm1000-complete-comparison-2025.json'),
+  'flyby-vs-cheers-complete-comparison-2025': () => import('./posts/flyby-vs-cheers-complete-comparison-2025.json'),
   'hangover-career-impact-dhm-solution-2025': () => import('./posts/hangover-career-impact-dhm-solution-2025.json'),
   'business-dinner-networking-dhm-guide-2025': () => import('./posts/business-dinner-networking-dhm-guide-2025.json'),
   'work-life-balance-dhm-2025': () => import('./posts/work-life-balance-dhm-2025.json'),
