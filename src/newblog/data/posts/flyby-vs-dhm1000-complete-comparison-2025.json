@@ -8,9 +8,15 @@
     "keywords": "flyby vs dhm1000, dhm1000 vs flyby, flyby recovery vs dhm1000, high dose dhm vs comprehensive formula, 300mg vs 1000mg dhm"
   },
   "author": "Patrick Kavanagh",
-  "date": "2025-01-01",
+  "date": "2025-07-01",
   "category": "comparison",
-  "tags": ["flyby", "dhm1000", "comparison", "high dose dhm", "dhm supplements"],
+  "tags": [
+    "flyby",
+    "dhm1000",
+    "comparison",
+    "high dose dhm",
+    "dhm supplements"
+  ],
   "featured": true,
   "rating": {
     "value": 4.1,
@@ -85,13 +91,37 @@
     {
       "type": "comparisonTable",
       "title": "DHM Dosage Comparison",
-      "headers": ["Aspect", "Flyby Recovery", "DHM1000"],
+      "headers": [
+        "Aspect",
+        "Flyby Recovery",
+        "DHM1000"
+      ],
       "rows": [
-        ["DHM per dose", "300mg (4 capsules)", "1000mg (1 tablet)"],
-        ["Dosing approach", "Fixed comprehensive protocol", "Flexible 1-3 tablets"],
-        ["Clinical research", "300mg extensively studied", "1000mg limited safety data"],
-        ["Bioavailability", "Enhanced with cofactors", "Pure DHM absorption"],
-        ["Safety profile", "Well-established", "Requires caution with high doses"]
+        [
+          "DHM per dose",
+          "300mg (4 capsules)",
+          "1000mg (1 tablet)"
+        ],
+        [
+          "Dosing approach",
+          "Fixed comprehensive protocol",
+          "Flexible 1-3 tablets"
+        ],
+        [
+          "Clinical research",
+          "300mg extensively studied",
+          "1000mg limited safety data"
+        ],
+        [
+          "Bioavailability",
+          "Enhanced with cofactors",
+          "Pure DHM absorption"
+        ],
+        [
+          "Safety profile",
+          "Well-established",
+          "Requires caution with high doses"
+        ]
       ]
     },
     {
@@ -163,13 +193,37 @@
     {
       "type": "comparisonTable",
       "title": "Safety Profile Comparison",
-      "headers": ["Safety Factor", "Flyby Recovery", "DHM1000"],
+      "headers": [
+        "Safety Factor",
+        "Flyby Recovery",
+        "DHM1000"
+      ],
       "rows": [
-        ["Maximum single dose", "300mg DHM", "Up to 3000mg DHM"],
-        ["Side effect risk", "Low (established dosage)", "Moderate (high dose effects)"],
-        ["Drug interactions", "Minimal", "Potential with sedatives"],
-        ["Tolerance assessment", "Not required", "Start with 1/2 tablet recommended"],
-        ["Research backing", "Extensive at this dose", "Limited at high doses"]
+        [
+          "Maximum single dose",
+          "300mg DHM",
+          "Up to 3000mg DHM"
+        ],
+        [
+          "Side effect risk",
+          "Low (established dosage)",
+          "Moderate (high dose effects)"
+        ],
+        [
+          "Drug interactions",
+          "Minimal",
+          "Potential with sedatives"
+        ],
+        [
+          "Tolerance assessment",
+          "Not required",
+          "Start with 1/2 tablet recommended"
+        ],
+        [
+          "Research backing",
+          "Extensive at this dose",
+          "Limited at high doses"
+        ]
       ]
     },
     {
@@ -298,13 +352,37 @@
     {
       "type": "comparisonTable",
       "title": "Effectiveness Comparison",
-      "headers": ["Factor", "Flyby Recovery", "DHM1000"],
+      "headers": [
+        "Factor",
+        "Flyby Recovery",
+        "DHM1000"
+      ],
       "rows": [
-        ["Light drinking (1-3 drinks)", "May be over-supplemented", "Excellent (1 tablet)"],
-        ["Moderate drinking (4-6 drinks)", "Excellent (full protocol)", "Good (1-2 tablets)"],
-        ["Heavy drinking (7+ drinks)", "Good (may need extra)", "Excellent (2-3 tablets)"],
-        ["Consistency", "Predictable results", "Variable based on dosing"],
-        ["Cognitive benefits", "B-vitamins support brain function", "High DHM may reduce brain fog"]
+        [
+          "Light drinking (1-3 drinks)",
+          "May be over-supplemented",
+          "Excellent (1 tablet)"
+        ],
+        [
+          "Moderate drinking (4-6 drinks)",
+          "Excellent (full protocol)",
+          "Good (1-2 tablets)"
+        ],
+        [
+          "Heavy drinking (7+ drinks)",
+          "Good (may need extra)",
+          "Excellent (2-3 tablets)"
+        ],
+        [
+          "Consistency",
+          "Predictable results",
+          "Variable based on dosing"
+        ],
+        [
+          "Cognitive benefits",
+          "B-vitamins support brain function",
+          "High DHM may reduce brain fog"
+        ]
       ]
     },
     {
@@ -492,5 +570,7 @@
       "@type": "WebPage",
       "@id": "https://yoursite.com/flyby-vs-dhm1000-complete-comparison-2025"
     }
-  }
+  },
+  "image": "/images/dhm-comparison-research-lab.webp",
+  "readTime": 8
 }

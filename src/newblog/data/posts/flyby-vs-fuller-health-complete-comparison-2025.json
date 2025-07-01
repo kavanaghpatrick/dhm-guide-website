@@ -7,7 +7,13 @@
   "slug": "flyby-vs-fuller-health-complete-comparison",
   "category": "comparisons",
   "subcategory": "brand-comparisons",
-  "tags": ["flyby", "fuller-health", "dhm-supplements", "hangover-recovery", "comparison"],
+  "tags": [
+    "flyby",
+    "fuller-health",
+    "dhm-supplements",
+    "hangover-recovery",
+    "comparison"
+  ],
   "author": {
     "name": "DHM Guide Team",
     "credentials": "Recovery Supplement Specialists"
@@ -67,15 +73,47 @@
       "title": "Side-by-Side Comparison Table",
       "content": "Here's how these recovery formulas stack up:",
       "table": {
-        "headers": ["Feature", "Flyby Recovery", "Fuller Health After Party"],
+        "headers": [
+          "Feature",
+          "Flyby Recovery",
+          "Fuller Health After Party"
+        ],
         "rows": [
-          ["Overall Rating", "4.3/5 stars (7,200+ reviews)", "4.0/5 stars"],
-          ["DHM Content", "300mg per serving", "Included (proprietary blend)"],
-          ["Key Ingredients", "DHM, Milk Thistle, Prickly Pear", "DHM, Milk Thistle, NAC, B-Complex"],
-          ["Price Per Dose", "$4.50", "Varies by retailer"],
-          ["Protocol", "Two-stage system", "Single-stage formula"],
-          ["Unique Feature", "Pre & post drinking doses", "NAC for glutathione support"],
-          ["Best For", "Proven effectiveness", "Comprehensive protection"]
+          [
+            "Overall Rating",
+            "4.3/5 stars (7,200+ reviews)",
+            "4.0/5 stars"
+          ],
+          [
+            "DHM Content",
+            "300mg per serving",
+            "Included (proprietary blend)"
+          ],
+          [
+            "Key Ingredients",
+            "DHM, Milk Thistle, Prickly Pear",
+            "DHM, Milk Thistle, NAC, B-Complex"
+          ],
+          [
+            "Price Per Dose",
+            "$4.50",
+            "Varies by retailer"
+          ],
+          [
+            "Protocol",
+            "Two-stage system",
+            "Single-stage formula"
+          ],
+          [
+            "Unique Feature",
+            "Pre & post drinking doses",
+            "NAC for glutathione support"
+          ],
+          [
+            "Best For",
+            "Proven effectiveness",
+            "Comprehensive protection"
+          ]
         ]
       }
     },
@@ -268,5 +306,8 @@
       "@type": "WebPage",
       "@id": "https://dhmguide.com/blog/flyby-vs-fuller-health-complete-comparison"
     }
-  }
+  },
+  "date": "2025-07-01",
+  "image": "/images/dhm-comparison-research-lab.webp",
+  "readTime": 8
 }

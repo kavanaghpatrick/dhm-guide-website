@@ -8,9 +8,15 @@
     "keywords": "flyby vs good morning pills, good morning pills vs flyby recovery, dhm supplement comparison, hangover prevention comparison, clinical trial supplements"
   },
   "author": "Patrick Kavanagh",
-  "date": "2025-01-01",
+  "date": "2025-07-01",
   "category": "comparison",
-  "tags": ["flyby", "good morning pills", "comparison", "clinical trials", "dhm supplements"],
+  "tags": [
+    "flyby",
+    "good morning pills",
+    "comparison",
+    "clinical trials",
+    "dhm supplements"
+  ],
   "featured": true,
   "rating": {
     "value": 4.3,
@@ -85,12 +91,32 @@
     {
       "type": "comparisonTable",
       "title": "DHM Transparency Comparison",
-      "headers": ["Aspect", "Flyby Recovery", "Good Morning Pills"],
+      "headers": [
+        "Aspect",
+        "Flyby Recovery",
+        "Good Morning Pills"
+      ],
       "rows": [
-        ["DHM Amount", "300mg (clearly stated)", "Undisclosed in blend"],
-        ["Transparency", "Full DHM disclosure", "Blend without breakdown"],
-        ["Verifiability", "Can verify exact dosage", "Cannot verify DHM amount"],
-        ["Formula Approach", "DHM-focused with support ingredients", "Multi-ingredient comprehensive blend"]
+        [
+          "DHM Amount",
+          "300mg (clearly stated)",
+          "Undisclosed in blend"
+        ],
+        [
+          "Transparency",
+          "Full DHM disclosure",
+          "Blend without breakdown"
+        ],
+        [
+          "Verifiability",
+          "Can verify exact dosage",
+          "Cannot verify DHM amount"
+        ],
+        [
+          "Formula Approach",
+          "DHM-focused with support ingredients",
+          "Multi-ingredient comprehensive blend"
+        ]
       ]
     },
     {
@@ -231,12 +257,32 @@
     {
       "type": "comparisonTable",
       "title": "Convenience Comparison",
-      "headers": ["Factor", "Flyby Recovery", "Good Morning Pills"],
+      "headers": [
+        "Factor",
+        "Flyby Recovery",
+        "Good Morning Pills"
+      ],
       "rows": [
-        ["Pills Per Dose", "Multiple pills", "1 pill"],
-        ["Timing Flexibility", "Can adjust dosage", "Fixed single dose"],
-        ["Travel Convenience", "Bulkier", "Ultra-portable"],
-        ["Compliance", "May forget multiple pills", "Easy to remember one pill"]
+        [
+          "Pills Per Dose",
+          "Multiple pills",
+          "1 pill"
+        ],
+        [
+          "Timing Flexibility",
+          "Can adjust dosage",
+          "Fixed single dose"
+        ],
+        [
+          "Travel Convenience",
+          "Bulkier",
+          "Ultra-portable"
+        ],
+        [
+          "Compliance",
+          "May forget multiple pills",
+          "Easy to remember one pill"
+        ]
       ]
     },
     {
@@ -420,5 +466,7 @@
       "@type": "WebPage",
       "@id": "https://yoursite.com/flyby-vs-good-morning-pills-complete-comparison-2025"
     }
-  }
+  },
+  "image": "/images/dhm-comparison-research-lab.webp",
+  "readTime": 8
 }

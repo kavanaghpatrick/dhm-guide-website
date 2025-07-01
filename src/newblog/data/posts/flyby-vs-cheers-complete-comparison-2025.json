@@ -8,9 +8,15 @@
     "keywords": "flyby vs cheers, cheers vs flyby, flyby recovery vs cheers restore, shark tank hangover supplement, dhm supplement comparison"
   },
   "author": "Patrick Kavanagh",
-  "date": "2025-01-01",
+  "date": "2025-07-01",
   "category": "comparison",
-  "tags": ["flyby", "cheers", "comparison", "shark tank", "dhm supplements"],
+  "tags": [
+    "flyby",
+    "cheers",
+    "comparison",
+    "shark tank",
+    "dhm supplements"
+  ],
   "featured": true,
   "rating": {
     "value": 4.3,
@@ -85,12 +91,32 @@
     {
       "type": "comparisonTable",
       "title": "DHM Transparency Comparison",
-      "headers": ["Aspect", "Flyby Recovery", "Cheers Restore"],
+      "headers": [
+        "Aspect",
+        "Flyby Recovery",
+        "Cheers Restore"
+      ],
       "rows": [
-        ["DHM Amount", "300mg (clearly stated)", "\"Most DHM per dose\" (amount hidden)"],
-        ["Transparency", "Full disclosure", "Proprietary blend"],
-        ["Verifiability", "Can verify dosage", "Cannot verify claim"],
-        ["Consumer Trust", "High - know what you're getting", "Lower - relies on marketing claims"]
+        [
+          "DHM Amount",
+          "300mg (clearly stated)",
+          "\"Most DHM per dose\" (amount hidden)"
+        ],
+        [
+          "Transparency",
+          "Full disclosure",
+          "Proprietary blend"
+        ],
+        [
+          "Verifiability",
+          "Can verify dosage",
+          "Cannot verify claim"
+        ],
+        [
+          "Consumer Trust",
+          "High - know what you're getting",
+          "Lower - relies on marketing claims"
+        ]
       ]
     },
     {
@@ -395,5 +421,7 @@
       "@type": "WebPage",
       "@id": "https://yoursite.com/flyby-vs-cheers-complete-comparison-2025"
     }
-  }
+  },
+  "image": "/images/dhm-comparison-research-lab.webp",
+  "readTime": 8
 }
