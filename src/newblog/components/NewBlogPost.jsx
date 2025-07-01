@@ -138,7 +138,9 @@ const renderContent = (post) => {
   }
   
   // Handle simple string content (legacy posts)
-  return post.content || '';
+  // Replace escaped newlines with actual newlines for proper markdown rendering
+  const content = post.content || '';
+  return content.replace(/\\n/g, '\n');
 };
 
 const NewBlogPost = () => {
