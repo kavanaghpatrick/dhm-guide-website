@@ -20,7 +20,6 @@ import {
   BarChart3,
   Award,
   CheckCircle,
-  Download,
   Clock,
   Filter
 } from 'lucide-react'
@@ -594,97 +593,6 @@ export default function Research() {
               </div>
             </motion.div>
           )}
-        </div>
-      </section>
-
-      {/* Downloadable Resources Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-green-50">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
-              <Download className="w-4 h-4 mr-2" />
-              Research Resources
-            </Badge>
-            
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Download DHM Clinical Trial Summaries
-            </h2>
-            
-            <p className="text-lg text-gray-600 mb-8">
-              Get comprehensive PDF summaries of all DHM clinical trials and research findings
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="bg-white hover:shadow-lg transition-all duration-300 border-blue-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-blue-800">
-                    <FileText className="w-5 h-5 mr-2" />
-                    2024 Clinical Trials Summary
-                  </CardTitle>
-                  <CardDescription>
-                    Complete analysis of all 2024 DHM randomized controlled trials
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="text-sm text-gray-600 space-y-2 mb-4">
-                    <li>• 7 human clinical trials analyzed</li>
-                    <li>• Key findings and methodologies</li>
-                    <li>• Dosage recommendations</li>
-                    <li>• Safety profile data</li>
-                  </ul>
-                  <Button 
-                    className="w-full bg-blue-600 hover:bg-blue-700"
-                    onClick={() => alert('PDF download functionality coming soon!')}
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download 2024 Summary (PDF)
-                  </Button>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white hover:shadow-lg transition-all duration-300 border-green-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-green-800">
-                    <FileText className="w-5 h-5 mr-2" />
-                    Complete Research Database
-                  </CardTitle>
-                  <CardDescription>
-                    All DHM studies from 2012-2024 with detailed analysis
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="text-sm text-gray-600 space-y-2 mb-4">
-                    <li>• 11 comprehensive studies</li>
-                    <li>• Liver protection research</li>
-                    <li>• Metabolism studies</li>
-                    <li>• Neuroprotection findings</li>
-                  </ul>
-                  <Button 
-                    className="w-full bg-green-600 hover:bg-green-700"
-                    onClick={() => alert('PDF download functionality coming soon!')}
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Full Database (PDF)
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <div className="mt-8 p-6 bg-white rounded-lg border border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Why Download Our Research Summaries?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Our comprehensive PDF summaries provide healthcare professionals, researchers, and informed consumers with detailed analysis of all DHM clinical trials. Each summary includes methodology reviews, statistical analysis, dosage protocols, and safety data to help you make informed decisions about DHM supplementation.
-              </p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
