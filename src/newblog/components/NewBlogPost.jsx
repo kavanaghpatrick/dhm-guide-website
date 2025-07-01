@@ -642,8 +642,16 @@ const NewBlogPost = () => {
                       
                       // Check for info box patterns
                       if (fullText.includes('Info Box:')) {
-                        const infoBox = renderInfoBox(fullText);
-                        if (infoBox) return infoBox;
+                        const match = fullText.match(/Info Box:\s*(.+)/);
+                        if (match) {
+                          return (
+                            <Alert className="border-blue-200 bg-blue-50 my-4">
+                              <Info className="h-4 w-4 text-blue-600" />
+                              <AlertTitle>Did You Know?</AlertTitle>
+                              <AlertDescription>{match[1]}</AlertDescription>
+                            </Alert>
+                          );
+                        }
                       }
                       
                       // Check for warning patterns
@@ -689,8 +697,28 @@ const NewBlogPost = () => {
                       }
                       
                       // Check for product card patterns
-                      const productCard = renderProductCard(fullText);
-                      if (productCard) return productCard;
+                      if (fullText.includes('Product Spotlight:')) {
+                        const productMatch = fullText.match(/Product Spotlight:\s*([^-]+?)\s*-\s*(.+)/);
+                        if (productMatch) {
+                          const [_, productName, details] = productMatch;
+                          return (
+                            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-green-200 my-6">
+                              <CardHeader>
+                                <div className="flex justify-between items-start">
+                                  <CardTitle className="text-green-800">{productName.trim()}</CardTitle>
+                                  <Badge className="bg-green-100 text-green-800">Featured</Badge>
+                                </div>
+                              </CardHeader>
+                              <CardContent>
+                                <p className="text-gray-700">{details.trim()}</p>
+                                <Button variant="outline" size="sm" className="mt-4">
+                                  Learn More →
+                                </Button>
+                              </CardContent>
+                            </Card>
+                          );
+                        }
+                      }
                       
                       // Check for separator pattern
                       if (fullText.trim() === '---') {
