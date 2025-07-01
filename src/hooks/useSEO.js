@@ -200,7 +200,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
     case 'research':
       return {
         title: 'Dihydromyricetin Randomized Controlled Trial Results 2024: DHM Hangover Studies',
-        description: '23 clinical studies prove DHM reduces hangovers by 85%. FDA-recognized research on dihydromyricetin's liver protection and alcohol metabolism.',
+        description: '23 clinical studies prove DHM reduces hangovers by 85%. FDA-recognized research on dihydromyricetin\'s liver protection and alcohol metabolism.',
         keywords: 'dihydromyricetin randomized controlled trial hangover 2024, dihydromyricetin hangover randomized controlled trial 2023, dhm for hangovers, dihydromyricetin clinical trials, DHM hangover research, randomized controlled trial DHM',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.jpg`,
