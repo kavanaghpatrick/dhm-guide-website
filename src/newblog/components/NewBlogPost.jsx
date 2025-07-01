@@ -629,20 +629,71 @@ const NewBlogPost = () => {
                       </h3>
                     ),
                     p: ({children}) => {
-                      const text = typeof children === 'string' ? children : '';
-                      const { renderInfoBox, renderProductCard } = createEnhancedComponents();
+                      // Extract text content from children (which might be an array with React elements)
+                      const extractText = (node) => {
+                        if (typeof node === 'string') return node;
+                        if (Array.isArray(node)) return node.map(extractText).join('');
+                        if (node?.props?.children) return extractText(node.props.children);
+                        return '';
+                      };
+                      
+                      const fullText = extractText(children);
+                      const { renderInfoBox, renderProductCard, renderVisualSeparator } = createEnhancedComponents();
                       
                       // Check for info box patterns
-                      const infoBox = renderInfoBox(text);
-                      if (infoBox) return infoBox;
+                      if (fullText.includes('Info Box:')) {
+                        const infoBox = renderInfoBox(fullText);
+                        if (infoBox) return infoBox;
+                      }
+                      
+                      // Check for warning patterns
+                      if (fullText.includes('Warning:')) {
+                        const match = fullText.match(/Warning:\s*(.+)/);
+                        if (match) {
+                          return (
+                            <Alert className="border-amber-200 bg-amber-50 my-4">
+                              <AlertCircle className="h-4 w-4 text-amber-600" />
+                              <AlertTitle>Important</AlertTitle>
+                              <AlertDescription>{match[1]}</AlertDescription>
+                            </Alert>
+                          );
+                        }
+                      }
+                      
+                      // Check for pro tip patterns
+                      if (fullText.includes('Pro Tip:')) {
+                        const match = fullText.match(/Pro Tip:\s*(.+)/);
+                        if (match) {
+                          return (
+                            <Alert className="border-green-200 bg-green-50 my-4">
+                              <CheckCircle className="h-4 w-4 text-green-600" />
+                              <AlertTitle>Pro Tip</AlertTitle>
+                              <AlertDescription>{match[1]}</AlertDescription>
+                            </Alert>
+                          );
+                        }
+                      }
+                      
+                      // Check for key insight patterns
+                      if (fullText.includes('Key Insight:')) {
+                        const match = fullText.match(/Key Insight:\s*(.+)/);
+                        if (match) {
+                          return (
+                            <Alert className="border-purple-200 bg-purple-50 my-4">
+                              <Lightbulb className="h-4 w-4 text-purple-600" />
+                              <AlertTitle>Key Insight</AlertTitle>
+                              <AlertDescription>{match[1]}</AlertDescription>
+                            </Alert>
+                          );
+                        }
+                      }
                       
                       // Check for product card patterns
-                      const productCard = renderProductCard(text);
+                      const productCard = renderProductCard(fullText);
                       if (productCard) return productCard;
                       
                       // Check for separator pattern
-                      if (text.trim() === '---') {
-                        const { renderVisualSeparator } = createEnhancedComponents();
+                      if (fullText.trim() === '---') {
                         return renderVisualSeparator();
                       }
                       
