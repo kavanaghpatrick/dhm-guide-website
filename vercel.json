@@ -2,13 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
-      "source": "/blog/:path*",
-      "destination": "/never-hungover/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "destination": "https://www.dhmguide.com/$1",
+      "source": "/:path*",
+      "destination": "https://www.dhmguide.com/:path*",
       "permanent": true,
       "has": [
         {
@@ -16,6 +11,11 @@
           "value": "dhmguide.com"
         }
       ]
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/never-hungover/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [
