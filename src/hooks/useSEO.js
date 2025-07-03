@@ -122,7 +122,7 @@ export const useSEO = (seoData) => {
  * Generate page-specific SEO data
  */
 export const generatePageSEO = (pageType, pageData = {}) => {
-  const baseUrl = 'https://dhmguide.com';
+  const baseUrl = 'https://www.dhmguide.com';
   
   switch (pageType) {
     case 'home':
