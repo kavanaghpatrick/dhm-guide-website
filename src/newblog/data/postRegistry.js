@@ -22,6 +22,7 @@ const postModules = {
   'dhm-japanese-raisin-tree-complete-guide': () => import('./posts/dhm-japanese-raisin-tree-complete-guide.json'),
   'dhm-randomized-controlled-trials-2024': () => import('./posts/dhm-randomized-controlled-trials-2024.json'),
   'dhm-science-explained': () => import('./posts/dhm-science-explained.json'),
+  'dhm-supplement-stack-guide-complete-combinations': () => import('./posts/dhm-supplement-stack-guide-complete-combinations.json'),
   'dhm1000-review-2025': () => import('./posts/dhm1000-review-2025.json'),
   'double-wood-dhm-review-analysis': () => import('./posts/double-wood-dhm-review-analysis.json'),
   'double-wood-dhm-vs-dhm1000-comparison-2025': () => import('./posts/double-wood-dhm-vs-dhm1000-comparison-2025.json'),
