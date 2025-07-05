@@ -124,16 +124,40 @@ const extractKeyTakeaways = (content) => {
   const takeawaysMatch = contentStr.match(/Key Takeaways?:(.*?)(?=\n\n|\n##|$)/si);
   if (takeawaysMatch) {
     const takeawaysText = takeawaysMatch[1].trim();
-    // Extract bullet points - filter out empty lines and markdown formatting
+    // Extract bullet points - filter out complex formatting and nested content
     const lines = takeawaysText.split('\n').filter(line => line.trim());
+    
     const takeaways = lines
       .filter(line => {
+        const trimmed = line.trim();
+        
+        // Skip empty lines
+        if (!trimmed) return false;
+        
         // Skip markdown formatting lines (**, *, etc. that are just formatting)
-        if (/^\*+$/.test(line.trim())) return false;
-        // Only match lines that start with bullet points and have actual content
-        return /^[-•*]\s+\S/.test(line);
+        if (/^\*+$/.test(trimmed)) return false;
+        
+        // Skip blockquotes and special formatting
+        if (trimmed.startsWith('>')) return false;
+        
+        // Skip lines with special formatting patterns
+        if (trimmed.includes('**Warning:**') || 
+            trimmed.includes('**Key Insight:**') || 
+            trimmed.includes('**Pro Tip:**') ||
+            trimmed.includes('**Important:**')) return false;
+        
+        // Skip lines that start with emoji indicators for special content
+        if (/^[🚨🔴🟡🟢⚡💡📊👨‍⚕️🛡️⚖️]/.test(trimmed)) return false;
+        
+        // Only match simple bullet points with actual content
+        if (/^[-•*]\s+[🚨🔴🟡🟢⚡💡📊👨‍⚕️🛡️⚖️]/.test(trimmed)) return false;
+        
+        // Accept simple bullet points that don't start with special formatting
+        return /^[-•*]\s+\S/.test(trimmed) && !trimmed.includes('**') && trimmed.length > 10;
       })
-      .map(line => line.replace(/^[-•*]\s+/, '').trim());
+      .map(line => line.replace(/^[-•*]\s+/, '').trim())
+      .filter(text => text.length > 5); // Ensure meaningful content
+    
     return takeaways;
   }
   
