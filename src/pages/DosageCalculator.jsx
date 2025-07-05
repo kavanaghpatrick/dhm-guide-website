@@ -138,11 +138,11 @@ export default function DosageCalculator() {
       baseDosage += (drinkingDuration - 4) * 25
     }
 
-    // Adjust for tolerance
+    // Adjust for tolerance (people with low tolerance need more help processing alcohol)
     const toleranceMultipliers = {
-      low: 0.8,
-      moderate: 1.0,
-      high: 1.2
+      low: 1.2,      // Low tolerance = need more DHM support
+      moderate: 1.0,  // Moderate tolerance = baseline dosage
+      high: 0.8       // High tolerance = already process alcohol well, need less DHM
     }
     baseDosage *= toleranceMultipliers[tolerance]
 
