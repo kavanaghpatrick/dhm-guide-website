@@ -178,7 +178,7 @@ export default function Layout({ children }) {
               <ul className="space-y-2 text-gray-300">
                 <li><button onClick={() => handleNavigation('/research')} className="hover:text-white transition-colors">Scientific Studies</button></li>
                 <li><button onClick={() => handleNavigation('/reviews')} className="hover:text-white transition-colors">Product Reviews</button></li>
-                <li><button onClick={() => handleNavigation('/guide')} className="hover:text-white transition-colors">Dosage Guide</button></li>
+                <li><button onClick={() => handleNavigation('/dhm-dosage-calculator')} className="hover:text-white transition-colors">Dosage Calculator</button></li>
                 <li><button onClick={() => handleNavigation('/about')} className="hover:text-white transition-colors">Safety Information</button></li>
               </ul>
             </div>

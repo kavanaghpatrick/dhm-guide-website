@@ -423,7 +423,7 @@ export default function DosageCalculator() {
                             : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-md'
                         }`}
                       >
-                        <div className={`font-bold text-lg capitalize mb-2 ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
+                        <div className={`font-bold text-lg capitalize mb-4 ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
                           {level}
                         </div>
                         <div className="text-sm text-gray-500">
