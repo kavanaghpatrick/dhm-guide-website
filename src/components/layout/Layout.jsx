@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
@@ -7,10 +7,20 @@ import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 
 export default function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname)
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
-  const currentPath = window.location.pathname
   const { headerRef, headerHeight } = useHeaderHeight()
+
+  // Update current path when route changes
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   // Navigation items
   const navItems = [
