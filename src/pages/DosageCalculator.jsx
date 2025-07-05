@@ -439,13 +439,15 @@ export default function DosageCalculator() {
                             : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-md'
                         }`}
                       >
-                        <div className={`font-bold text-lg capitalize mb-4 ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
-                          {level}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {level === 'low' && 'Rarely drink'}
-                          {level === 'moderate' && 'Social drinker'}
-                          {level === 'high' && 'Regular drinker'}
+                        <div className="text-center">
+                          <div className={`font-bold text-lg capitalize mb-2 ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
+                            {level}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {level === 'low' && 'Rarely drink'}
+                            {level === 'moderate' && 'Social drinker'}
+                            {level === 'high' && 'Regular drinker'}
+                          </div>
                         </div>
                       </button>
                     ))}
@@ -471,11 +473,13 @@ export default function DosageCalculator() {
                             : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
                         }`}
                       >
-                        <div className={`font-bold text-xl mb-3 ${purpose === goal ? 'text-green-700' : 'text-gray-700'}`}>
-                          {goal === 'prevention' ? 'Hangover Prevention' : 'Hangover Recovery'}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {goal === 'prevention' ? 'Take before drinking' : 'Take after drinking'}
+                        <div className="text-center">
+                          <div className={`font-bold text-xl mb-2 ${purpose === goal ? 'text-green-700' : 'text-gray-700'}`}>
+                            {goal === 'prevention' ? 'Hangover Prevention' : 'Hangover Recovery'}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {goal === 'prevention' ? 'Take before drinking' : 'Take after drinking'}
+                          </div>
                         </div>
                       </button>
                     ))}
