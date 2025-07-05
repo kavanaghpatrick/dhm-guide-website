@@ -14,12 +14,15 @@ const postModules = {
   'college-to-career-transition-dhm-2025': () => import('./posts/college-to-career-transition-dhm-2025.json'),
   'complete-guide-asian-flush-comprehensive': () => import('./posts/complete-guide-asian-flush-comprehensive.json'),
   'complete-guide-hangover-types-2025': () => import('./posts/complete-guide-hangover-types-2025.json'),
+  'dhm-adults-over-50-age-related-safety-2025': () => import('./posts/dhm-adults-over-50-age-related-safety-2025.json'),
   'conference-networking-dhm-guide-2025': () => import('./posts/conference-networking-dhm-guide-2025.json'),
   'consultant-client-site-success-2025': () => import('./posts/consultant-client-site-success-2025.json'),
   'dhm-asian-flush-science-backed-solution': () => import('./posts/dhm-asian-flush-science-backed-solution.json'),
   'dhm-depot-review-2025': () => import('./posts/dhm-depot-review-2025.json'),
   'dhm-dosage-guide-2025': () => import('./posts/dhm-dosage-guide-2025.json'),
   'dhm-japanese-raisin-tree-complete-guide': () => import('./posts/dhm-japanese-raisin-tree-complete-guide.json'),
+  'dhm-medication-interactions-safety-guide-2025': () => import('./posts/dhm-medication-interactions-safety-guide-2025.json'),
+  'dhm-product-forms-absorption-comparison-2025': () => import('./posts/dhm-product-forms-absorption-comparison-2025.json'),
   'dhm-randomized-controlled-trials-2024': () => import('./posts/dhm-randomized-controlled-trials-2024.json'),
   'dhm-science-explained': () => import('./posts/dhm-science-explained.json'),
   'dhm-supplement-stack-guide-complete-combinations': () => import('./posts/dhm-supplement-stack-guide-complete-combinations.json'),
@@ -94,6 +97,7 @@ const postModules = {
   'viral-hangover-cures-tested-science-2025': () => import('./posts/viral-hangover-cures-tested-science-2025.json'),
   'when-to-take-dhm-timing-guide-2025': () => import('./posts/when-to-take-dhm-timing-guide-2025.json'),
   'work-life-balance-dhm-2025': () => import('./posts/work-life-balance-dhm-2025.json'),
+  'dhm-women-hormonal-considerations-safety-2025': () => import('./posts/dhm-women-hormonal-considerations-safety-2025.json'),
   'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json')
 };
 
