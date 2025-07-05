@@ -208,3 +208,18 @@ nav a,
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
+/* Fix inline code display issues */
+.enhanced-typography p code,
+.enhanced-typography li code,
+.enhanced-typography td code {
+  display: inline;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+/* Ensure proper spacing around inline code */
+.enhanced-typography code + span,
+.enhanced-typography span + code {
+  margin-left: 0.125rem;
+}
+

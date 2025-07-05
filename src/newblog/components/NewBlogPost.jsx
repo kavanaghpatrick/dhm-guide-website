@@ -862,7 +862,7 @@ const NewBlogPost = () => {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <code className="inline-block bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help whitespace-nowrap">
+                                  <code className="inline bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help whitespace-nowrap">
                                     {children}
                                   </code>
                                 </TooltipTrigger>
@@ -874,7 +874,7 @@ const NewBlogPost = () => {
                           );
                         }
                         
-                        return <code className="inline-block bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 whitespace-nowrap">{children}</code>;
+                        return <code className="inline bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 whitespace-nowrap">{children}</code>;
                       }
                       
                       return (
