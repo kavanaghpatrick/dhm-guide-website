@@ -120,8 +120,8 @@ const extractKeyTakeaways = (content) => {
   const contentStr = typeof content === 'string' ? content : 
     Array.isArray(content) ? content.map(section => section.content || '').join(' ') : '';
   
-  // Look for "Key Takeaways:" pattern in the content
-  const takeawaysMatch = contentStr.match(/Key Takeaways?:(.*?)(?=\n\n|\n##|$)/si);
+  // Look for "Key Takeaways" pattern in the content (with or without heading markers and emojis)
+  const takeawaysMatch = contentStr.match(/(?:##\s*)?(?:[🎯🔥💡⚡🌟]?\s*)?Key Takeaways?(?:\s*[🎯🔥💡⚡🌟])?:?\s*(.*?)(?=\n\n|\n##|$)/si);
   if (takeawaysMatch) {
     const takeawaysText = takeawaysMatch[1].trim();
     // Extract bullet points - filter out complex formatting and nested content
@@ -938,7 +938,7 @@ const NewBlogPost = () => {
                       }
                       
                       // Skip rendering key takeaways in the main content since we show them at the top
-                      if (trimmedText.startsWith('Key Takeaways:')) {
+                      if (trimmedText.match(/^(?:##\s*)?(?:[🎯🔥💡⚡🌟]?\s*)?Key Takeaways?/i)) {
                         return null;
                       }
                       
