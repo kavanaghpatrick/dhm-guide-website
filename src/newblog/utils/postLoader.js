@@ -43,7 +43,7 @@ const postCache = new PostCache(15); // Cache up to 15 posts
 export const getAllPostsMetadata = () => {
   return metadata.map(post => ({
     ...post,
-    date: new Date(post.date)
+    date: getValidDate(post, post.slug)
   })).sort((a, b) => b.date - a.date);
 };
 
@@ -84,6 +84,38 @@ export const getAllTags = () => {
 };
 
 /**
+ * Get a valid date from post data with fallbacks
+ * @param {Object} post - The post object
+ * @param {string} slug - The post slug for logging
+ * @returns {Date} A valid Date object
+ */
+const getValidDate = (post, slug) => {
+  // Try primary date fields
+  const dateString = post.datePublished || post.date;
+  
+  if (dateString) {
+    // Parse the date string
+    const date = new Date(dateString);
+    
+    // Check if the date is valid
+    if (!isNaN(date.getTime())) {
+      return date;
+    }
+    
+    console.warn(`⚠️ Invalid date string "${dateString}" for post: ${slug}`);
+  } else {
+    console.warn(`⚠️ No date field found for post: ${slug}`);
+  }
+  
+  // Fallback: Use a fixed date (January 1, 2024) to ensure consistency
+  // This is better than using current date which changes on every build
+  const fallbackDate = new Date('2024-01-01T00:00:00Z');
+  console.info(`ℹ️ Using fallback date for post: ${slug}`);
+  
+  return fallbackDate;
+};
+
+/**
  * Dynamically load a single post with full content
  */
 export const getPostBySlug = async (slug) => {
@@ -108,10 +140,13 @@ export const getPostBySlug = async (slug) => {
     const postModule = await importFn();
     const post = postModule.default || postModule;
     
+    // Get a valid date with proper error handling
+    const validDate = getValidDate(post, slug);
+    
     // Convert date string to Date object
     const processedPost = {
       ...post,
-      date: new Date(post.datePublished || post.date)
+      date: validDate
     };
     
     // Cache the loaded post

@@ -1151,9 +1151,11 @@
       "healthspan extension",
       "cellular protection"
     ],
+    "image": "/images/longevity-biohacking-dhm-liver-hero.webp",
     "readTime": 12
   },
   {
+    "id": "gut-health-alcohol-microbiome-protection",
     "title": "Gut Health After Drinking: How Alcohol Destroys Your Microbiome (And How to Protect It)",
     "slug": "gut-health-alcohol-microbiome-protection",
     "excerpt": "Discover how alcohol devastates your gut microbiome and learn science-based strategies to protect your digestive health. Explore DHM's role in preserving beneficial bacteria and maintaining gut-brain axis function.",
@@ -1168,9 +1170,11 @@
       "beneficial bacteria",
       "leaky gut prevention"
     ],
+    "image": "/images/gut-health-alcohol-microbiome-protection-hero.webp",
     "readTime": 14
   },
   {
+    "id": "sleep-optimization-social-drinkers-circadian-rhythm",
     "title": "Sleep Optimization for Social Drinkers: Protecting Your Circadian Rhythm",
     "slug": "sleep-optimization-social-drinkers-circadian-rhythm",
     "excerpt": "Learn how alcohol disrupts sleep quality and circadian rhythms, and discover science-based strategies to protect your sleep while maintaining social drinking habits. Explore DHM's role in preserving restorative sleep.",
@@ -1185,6 +1189,7 @@
       "melatonin alcohol",
       "sleep biohacking"
     ],
+    "image": "/images/sleep-optimization-social-drinkers-circadian-rhythm-hero.webp",
     "readTime": 17
   },
   {
@@ -1264,6 +1269,7 @@
       "dihydromyricetin",
       "hangover remedies"
     ],
+    "image": "/images/hangover-cure-guide-hero.webp",
     "readTime": 13
   },
   {
@@ -1294,6 +1300,7 @@
       "dihydromyricetin",
       "supplement guide"
     ],
+    "image": "/images/dhm-dosage-science-lab.webp",
     "readTime": 8
   },
   {
@@ -1481,6 +1488,7 @@
     "date": "2025-07-05",
     "author": "DHM Guide Team",
     "tags": ["DHM", "Supplements", "Hangover Prevention", "Supplement Stacking", "NAC", "Milk Thistle", "Liver Health", "Alcohol Metabolism"],
+    "image": "/images/dhm-supplement-stack-guide-complete-combinations-hero.webp",
     "readTime": 18
   }
 ]

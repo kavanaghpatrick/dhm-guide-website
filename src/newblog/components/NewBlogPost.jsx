@@ -261,11 +261,20 @@ const NewBlogPost = () => {
     }
   };
 
-  // Generate Table of Contents
+  // Generate Table of Contents with MutationObserver
   useEffect(() => {
-    if (post && contentRef.current) {
-      setTimeout(() => {
-        const headings = contentRef.current.querySelectorAll('h2, h3');
+    if (!post || !contentRef.current) return;
+
+    let observer;
+    let timeoutId;
+    const maxWaitTime = 2000; // 2 second maximum wait
+    let isGenerating = true;
+
+    const generateTOC = () => {
+      const headings = contentRef.current.querySelectorAll('h2, h3');
+      
+      if (headings.length > 0) {
+        // Import the utility function inline to avoid module issues
         const items = Array.from(headings).map((heading, index) => {
           const text = heading.textContent;
           
@@ -305,9 +314,61 @@ const NewBlogPost = () => {
             level: parseInt(heading.tagName.charAt(1))
           };
         });
+        
         setTocItems(items);
-      }, 100);
-    }
+        isGenerating = false;
+        
+        // Clean up observer
+        if (observer) {
+          observer.disconnect();
+        }
+        clearTimeout(timeoutId);
+      }
+    };
+
+    // Set up MutationObserver
+    observer = new MutationObserver((mutations) => {
+      // Check if any mutations added heading elements
+      const hasNewHeadings = mutations.some(mutation => 
+        Array.from(mutation.addedNodes).some(node => 
+          node.nodeName && /^H[23]$/.test(node.nodeName)
+        )
+      );
+
+      if (hasNewHeadings) {
+        // Debounce to avoid multiple rapid calls
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(generateTOC, 50);
+      }
+    });
+
+    // Start observing
+    observer.observe(contentRef.current, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check (in case content is already rendered)
+    generateTOC();
+
+    // Timeout fallback
+    timeoutId = setTimeout(() => {
+      if (isGenerating) {
+        console.warn('TOC generation timed out');
+        generateTOC(); // Try one more time
+        if (observer) {
+          observer.disconnect();
+        }
+      }
+    }, maxWaitTime);
+
+    // Cleanup
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+      clearTimeout(timeoutId);
+    };
   }, [post]);
 
   // Track reading progress and active section
@@ -365,11 +426,22 @@ const NewBlogPost = () => {
 
   // Helper functions
   const formatDate = (date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(date);
+    // Defensive check for invalid dates
+    if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
+      console.warn('Invalid date provided to formatDate:', date);
+      return 'Date unavailable';
+    }
+    
+    try {
+      return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(date);
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Date unavailable';
+    }
   };
 
   const sharePost = () => {

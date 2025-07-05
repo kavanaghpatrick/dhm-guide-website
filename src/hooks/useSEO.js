@@ -282,13 +282,23 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         }
       };
 
-    case 'blog-post':
+    case 'blog-post': {
       const { title, excerpt, slug, author, date, image, tags, content } = pageData;
       const blogPostUrl = `${baseUrl}/never-hungover/${slug}`;
       
       // Extract image from content if not explicitly provided
       const extractedImage = image || extractImageFromMarkdown(content);
       const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.jpg`;
+      
+      // Safely handle date conversion
+      let dateString = '2024-01-01T00:00:00Z'; // Default fallback
+      if (date instanceof Date && !isNaN(date.getTime())) {
+        try {
+          dateString = date.toISOString();
+        } catch (error) {
+          console.error('Error converting date to ISO string:', error);
+        }
+      }
       
       return {
         title: `${title} | DHM Guide`,
@@ -304,8 +314,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           "headline": title,
           "description": excerpt,
           "image": finalImage,
-          "datePublished": new Date(date).toISOString(),
-          "dateModified": new Date(date).toISOString(),
+          "datePublished": dateString,
+          "dateModified": dateString,
           "author": {
             "@type": "Person",
             "name": author || "DHM Guide Team"
@@ -326,6 +336,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           "keywords": tags ? tags : ["DHM", "Dihydromyricetin", "Hangover Prevention"]
         }
       };
+    }
 
     default:
       return {
