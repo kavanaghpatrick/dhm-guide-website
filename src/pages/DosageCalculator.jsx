@@ -252,37 +252,47 @@ export default function DosageCalculator() {
 
       {/* Calculator Section */}
       <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-white shadow-xl border-blue-100">
-              <CardHeader className="text-center">
-                <CardTitle className="text-3xl text-gray-900">Calculate Your DHM Dosage</CardTitle>
-                <CardDescription className="text-lg">
-                  Answer a few questions to get your personalized recommendation
+            <Card className="bg-gradient-to-br from-white via-blue-50/30 to-green-50/30 shadow-2xl border-0 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-green-600/5"></div>
+              <CardHeader className="text-center relative z-10 py-12">
+                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mb-6">
+                  <Calculator className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
+                  Calculate Your DHM Dosage
+                </CardTitle>
+                <CardDescription className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                  Answer a few questions to get your personalized recommendation based on clinical research
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-8">
+              <CardContent className="space-y-12 relative z-10 px-8 pb-12">
                 {/* Body Weight */}
-                <div>
-                  <label className="flex items-center text-lg font-semibold text-gray-800 mb-4">
-                    <Weight className="w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
+                  <label className="flex items-center text-xl font-bold text-gray-800 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mr-4">
+                      <Weight className="w-5 h-5 text-white" />
+                    </div>
                     Body Weight
                   </label>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <div className="flex-1 w-full">
-                      <div className="flex items-center space-x-4 mb-3">
-                        <input
-                          type="number"
-                          value={weight}
-                          onChange={(e) => setWeight(Math.max(weightUnit === 'lbs' ? 90 : 40, Math.min(weightUnit === 'lbs' ? 350 : 160, parseInt(e.target.value) || 0)))}
-                          className="w-20 px-3 py-2 border border-gray-300 rounded-lg text-center font-bold text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                        <span className="text-gray-600">{weightUnit}</span>
+                      <div className="flex items-center space-x-6 mb-6">
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={weight}
+                            onChange={(e) => setWeight(Math.max(weightUnit === 'lbs' ? 90 : 40, Math.min(weightUnit === 'lbs' ? 350 : 160, parseInt(e.target.value) || 0)))}
+                            className="w-24 h-14 px-4 py-2 bg-white border-2 border-blue-200 rounded-xl text-center text-xl font-bold text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-lg"
+                          />
+                        </div>
+                        <span className="text-lg font-medium text-gray-600">{weightUnit}</span>
                       </div>
                       <Slider
                         value={[weight]}
@@ -292,19 +302,19 @@ export default function DosageCalculator() {
                         step={1}
                         className="w-full"
                       />
-                      <div className="flex justify-between text-sm text-gray-600 mt-2">
-                        <span>{weightUnit === 'lbs' ? '90 lbs' : '40 kg'}</span>
-                        <span className="font-bold text-blue-700">{weight} {weightUnit}</span>
-                        <span>{weightUnit === 'lbs' ? '350 lbs' : '160 kg'}</span>
+                      <div className="flex justify-between text-sm text-gray-500 mt-4">
+                        <span className="px-3 py-1 bg-gray-100 rounded-full">{weightUnit === 'lbs' ? '90 lbs' : '40 kg'}</span>
+                        <span className="px-4 py-2 bg-blue-100 text-blue-700 font-bold rounded-full">{weight} {weightUnit}</span>
+                        <span className="px-3 py-1 bg-gray-100 rounded-full">{weightUnit === 'lbs' ? '350 lbs' : '160 kg'}</span>
                       </div>
                     </div>
-                    <div className="flex rounded-lg border border-gray-200 overflow-hidden min-w-[80px]">
+                    <div className="flex rounded-2xl bg-gray-100 p-1 min-w-[120px] shadow-inner">
                       <button
                         onClick={() => {
                           setWeightUnit('lbs')
                           setWeight(Math.round(weight * 2.20462))
                         }}
-                        className={`px-4 py-2 text-sm font-medium transition-colors ${weightUnit === 'lbs' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
+                        className={`flex-1 px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 ${weightUnit === 'lbs' ? 'bg-white text-blue-700 shadow-lg transform scale-105' : 'text-gray-600 hover:text-gray-800'}`}
                       >
                         lbs
                       </button>
@@ -313,7 +323,7 @@ export default function DosageCalculator() {
                           setWeightUnit('kg')
                           setWeight(Math.round(weight * 0.453592))
                         }}
-                        className={`px-4 py-2 text-sm font-medium transition-colors ${weightUnit === 'kg' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
+                        className={`flex-1 px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 ${weightUnit === 'kg' ? 'bg-white text-blue-700 shadow-lg transform scale-105' : 'text-gray-600 hover:text-gray-800'}`}
                       >
                         kg
                       </button>
@@ -322,19 +332,23 @@ export default function DosageCalculator() {
                 </div>
 
                 {/* Number of Drinks */}
-                <div>
-                  <label className="flex items-center text-lg font-semibold text-gray-800 mb-4">
-                    <Wine className="w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
+                  <label className="flex items-center text-xl font-bold text-gray-800 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center mr-4">
+                      <Wine className="w-5 h-5 text-white" />
+                    </div>
                     Expected Number of Drinks
                   </label>
-                  <div className="flex items-center space-x-4 mb-3">
-                    <input
-                      type="number"
-                      value={drinks}
-                      onChange={(e) => setDrinks(Math.max(1, Math.min(12, parseInt(e.target.value) || 1)))}
-                      className="w-16 px-3 py-2 border border-gray-300 rounded-lg text-center font-bold text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <span className="text-gray-600">drinks</span>
+                  <div className="flex items-center space-x-6 mb-6">
+                    <div className="relative">
+                      <input
+                        type="number"
+                        value={drinks}
+                        onChange={(e) => setDrinks(Math.max(1, Math.min(12, parseInt(e.target.value) || 1)))}
+                        className="w-20 h-14 px-4 py-2 bg-white border-2 border-purple-200 rounded-xl text-center text-xl font-bold text-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all shadow-lg"
+                      />
+                    </div>
+                    <span className="text-lg font-medium text-gray-600">drinks</span>
                   </div>
                   <Slider
                     value={[drinks]}
@@ -344,10 +358,10 @@ export default function DosageCalculator() {
                     step={1}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm text-gray-600 mt-2">
-                    <span>1 drink</span>
-                    <span className="font-bold text-blue-700">{drinks} drinks</span>
-                    <span>12 drinks</span>
+                  <div className="flex justify-between text-sm text-gray-500 mt-4">
+                    <span className="px-3 py-1 bg-gray-100 rounded-full">1 drink</span>
+                    <span className="px-4 py-2 bg-purple-100 text-purple-700 font-bold rounded-full">{drinks} drinks</span>
+                    <span className="px-3 py-1 bg-gray-100 rounded-full">12 drinks</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-2">
                     <Info className="w-4 h-4 inline mr-1" />
@@ -356,20 +370,24 @@ export default function DosageCalculator() {
                 </div>
 
                 {/* Drinking Duration */}
-                <div>
-                  <label className="flex items-center text-lg font-semibold text-gray-800 mb-4">
-                    <Clock className="w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
+                  <label className="flex items-center text-xl font-bold text-gray-800 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center mr-4">
+                      <Clock className="w-5 h-5 text-white" />
+                    </div>
                     Drinking Duration
                   </label>
-                  <div className="flex items-center space-x-4 mb-3">
-                    <input
-                      type="number"
-                      value={drinkingDuration}
-                      onChange={(e) => setDrinkingDuration(Math.max(1, Math.min(8, parseFloat(e.target.value) || 1)))}
-                      step="0.5"
-                      className="w-16 px-3 py-2 border border-gray-300 rounded-lg text-center font-bold text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <span className="text-gray-600">hours</span>
+                  <div className="flex items-center space-x-6 mb-6">
+                    <div className="relative">
+                      <input
+                        type="number"
+                        value={drinkingDuration}
+                        onChange={(e) => setDrinkingDuration(Math.max(1, Math.min(8, parseFloat(e.target.value) || 1)))}
+                        step="0.5"
+                        className="w-20 h-14 px-4 py-2 bg-white border-2 border-green-200 rounded-xl text-center text-xl font-bold text-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all shadow-lg"
+                      />
+                    </div>
+                    <span className="text-lg font-medium text-gray-600">hours</span>
                   </div>
                   <Slider
                     value={[drinkingDuration]}
@@ -379,34 +397,36 @@ export default function DosageCalculator() {
                     step={0.5}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm text-gray-600 mt-2">
-                    <span>1 hour</span>
-                    <span className="font-bold text-blue-700">{drinkingDuration} hours</span>
-                    <span>8 hours</span>
+                  <div className="flex justify-between text-sm text-gray-500 mt-4">
+                    <span className="px-3 py-1 bg-gray-100 rounded-full">1 hour</span>
+                    <span className="px-4 py-2 bg-green-100 text-green-700 font-bold rounded-full">{drinkingDuration} hours</span>
+                    <span className="px-3 py-1 bg-gray-100 rounded-full">8 hours</span>
                   </div>
                 </div>
 
                 {/* Alcohol Tolerance */}
-                <div>
-                  <label className="flex items-center text-lg font-semibold text-gray-800 mb-4">
-                    <Activity className="w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
+                  <label className="flex items-center text-xl font-bold text-gray-800 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl flex items-center justify-center mr-4">
+                      <Activity className="w-5 h-5 text-white" />
+                    </div>
                     Alcohol Tolerance
                   </label>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {['low', 'moderate', 'high'].map((level) => (
                       <button
                         key={level}
                         onClick={() => setTolerance(level)}
-                        className={`p-4 rounded-lg border-2 transition-all ${
+                        className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
                           tolerance === level
-                            ? 'border-blue-600 bg-blue-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 shadow-lg'
+                            : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-md'
                         }`}
                       >
-                        <div className={`font-semibold capitalize ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
+                        <div className={`font-bold text-lg capitalize mb-2 ${tolerance === level ? 'text-blue-700' : 'text-gray-700'}`}>
                           {level}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">
+                        <div className="text-sm text-gray-500">
                           {level === 'low' && 'Rarely drink'}
                           {level === 'moderate' && 'Social drinker'}
                           {level === 'high' && 'Regular drinker'}
@@ -417,26 +437,28 @@ export default function DosageCalculator() {
                 </div>
 
                 {/* Purpose */}
-                <div>
-                  <label className="flex items-center text-lg font-semibold text-gray-800 mb-4">
-                    <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
+                  <label className="flex items-center text-xl font-bold text-gray-800 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-xl flex items-center justify-center mr-4">
+                      <TrendingUp className="w-5 h-5 text-white" />
+                    </div>
                     Primary Goal
                   </label>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {['prevention', 'recovery'].map((goal) => (
                       <button
                         key={goal}
                         onClick={() => setPurpose(goal)}
-                        className={`p-4 rounded-lg border-2 transition-all ${
+                        className={`p-8 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
                           purpose === goal
-                            ? 'border-blue-600 bg-blue-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-green-500 bg-gradient-to-br from-green-50 to-green-100 shadow-lg'
+                            : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
                         }`}
                       >
-                        <div className={`font-semibold capitalize ${purpose === goal ? 'text-blue-700' : 'text-gray-700'}`}>
+                        <div className={`font-bold text-xl mb-3 ${purpose === goal ? 'text-green-700' : 'text-gray-700'}`}>
                           {goal === 'prevention' ? 'Hangover Prevention' : 'Hangover Recovery'}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">
+                        <div className="text-sm text-gray-500">
                           {goal === 'prevention' ? 'Take before drinking' : 'Take after drinking'}
                         </div>
                       </button>
@@ -445,14 +467,14 @@ export default function DosageCalculator() {
                 </div>
 
                 {/* Calculate Button */}
-                <div className="pt-6">
+                <div className="pt-8">
                   <Button
                     onClick={handleCalculate}
                     size="lg"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-lg py-6"
+                    className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 text-xl font-bold py-8 rounded-2xl shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/25"
                   >
-                    <Calculator className="w-5 h-5 mr-2" />
-                    Calculate My Dosage
+                    <Calculator className="w-6 h-6 mr-3" />
+                    Calculate My Personalized Dosage
                   </Button>
                 </div>
               </CardContent>
