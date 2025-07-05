@@ -949,6 +949,62 @@ const NewBlogPost = () => {
                         );
                       }
                       
+                      // Check for patterns with asterisks (from blockquotes)
+                      if (trimmedText.startsWith('**Warning:**')) {
+                        const content = trimmedText.replace(/^\*\*Warning:\*\*\s*/, '');
+                        return (
+                          <Alert className="border-amber-200 bg-amber-50 my-4">
+                            <AlertCircle className="h-4 w-4 text-amber-600" />
+                            <AlertTitle>Warning</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
+                      if (trimmedText.startsWith('**Key Insight:**')) {
+                        const content = trimmedText.replace(/^\*\*Key Insight:\*\*\s*/, '');
+                        return (
+                          <Alert className="border-purple-200 bg-purple-50 my-4">
+                            <Lightbulb className="h-4 w-4 text-purple-600" />
+                            <AlertTitle>Key Insight</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
+                      if (trimmedText.startsWith('**Pro Tip:**')) {
+                        const content = trimmedText.replace(/^\*\*Pro Tip:\*\*\s*/, '');
+                        return (
+                          <Alert className="border-green-200 bg-green-50 my-4">
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                            <AlertTitle>Pro Tip</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
+                      if (trimmedText.startsWith('**Emergency Protocol:**')) {
+                        const content = trimmedText.replace(/^\*\*Emergency Protocol:\*\*\s*/, '');
+                        return (
+                          <Alert className="border-red-200 bg-red-50 my-4">
+                            <AlertCircle className="h-4 w-4 text-red-600" />
+                            <AlertTitle>Emergency Protocol</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
+                      if (trimmedText.startsWith('**Important Medical Information:**')) {
+                        const content = trimmedText.replace(/^\*\*Important Medical Information:\*\*\s*/, '');
+                        return (
+                          <Alert className="border-blue-200 bg-blue-50 my-4">
+                            <Info className="h-4 w-4 text-blue-600" />
+                            <AlertTitle>Important Medical Information</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
                       // Skip rendering key takeaways in the main content since we show them at the top
                       if (trimmedText.match(/^(?:##\s*)?(?:[🎯🔥💡⚡🌟]?\s*)?Key Takeaways?/i)) {
                         return null;
