@@ -268,6 +268,17 @@ const NewBlogPost = () => {
         const headings = contentRef.current.querySelectorAll('h2, h3');
         const items = Array.from(headings).map((heading, index) => {
           const text = heading.textContent;
+          
+          // Check if heading already has an ID (from embedded TOC links)
+          if (heading.id) {
+            return {
+              id: heading.id,
+              text,
+              level: parseInt(heading.tagName.charAt(1))
+            };
+          }
+          
+          // Generate ID that matches the pattern used in content
           let id = text
             .toLowerCase()
             .replace(/[^a-z0-9\s-]/g, '')
@@ -279,9 +290,10 @@ const NewBlogPost = () => {
             id = `heading-${index}`;
           }
           
+          // Check if this ID already exists (from embedded links)
           let finalId = id;
           let counter = 1;
-          while (document.getElementById(finalId)) {
+          while (document.getElementById(finalId) && document.getElementById(finalId) !== heading) {
             finalId = `${id}-${counter}`;
             counter++;
           }
@@ -374,19 +386,53 @@ const NewBlogPost = () => {
   };
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 120;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      
-      setActiveSection(id);
+    // First try to find the element directly
+    let element = document.getElementById(id);
+    
+    // If not found, wait a bit for dynamic ID generation to complete
+    if (!element) {
+      setTimeout(() => {
+        element = document.getElementById(id);
+        if (element) {
+          performScroll(element, id);
+        } else {
+          // If still not found, try to find a heading with matching text
+          const headings = contentRef.current?.querySelectorAll('h1, h2, h3, h4, h5, h6');
+          if (headings) {
+            for (const heading of headings) {
+              const headingId = heading.textContent
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+              if (headingId === id || heading.id === id) {
+                performScroll(heading, heading.id || id);
+                break;
+              }
+            }
+          }
+        }
+      }, 100);
+    } else {
+      performScroll(element, id);
     }
+  };
+  
+  const performScroll = (element, id) => {
+    const headerOffset = 120;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    // Temporarily disable smooth scrolling on mobile for better performance
+    const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: scrollBehavior
+    });
+    
+    setActiveSection(id);
   };
 
   // Loading state
@@ -816,7 +862,7 @@ const NewBlogPost = () => {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help">
+                                  <code className="inline-block bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help whitespace-nowrap">
                                     {children}
                                   </code>
                                 </TooltipTrigger>
@@ -828,7 +874,7 @@ const NewBlogPost = () => {
                           );
                         }
                         
-                        return <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{children}</code>;
+                        return <code className="inline-block bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 whitespace-nowrap">{children}</code>;
                       }
                       
                       return (
@@ -839,7 +885,33 @@ const NewBlogPost = () => {
                     },
                     a: ({href, children}) => {
                       const isExternal = href?.startsWith('http');
-                      const isInternal = href && !isExternal && href !== '#';
+                      const isHashLink = href?.startsWith('#');
+                      const isInternal = href && !isExternal && !isHashLink && href !== '#';
+                      
+                      // Handle hash links (TOC links)
+                      if (isHashLink && isClient) {
+                        return (
+                          <span
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const targetId = href.slice(1); // Remove the #
+                              scrollToSection(targetId);
+                            }}
+                            className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1 cursor-pointer"
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                const targetId = href.slice(1);
+                                scrollToSection(targetId);
+                              }
+                            }}
+                          >
+                            {children}
+                          </span>
+                        );
+                      }
                       
                       if (isInternal && isClient) {
                         return (
