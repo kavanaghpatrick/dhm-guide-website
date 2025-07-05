@@ -764,14 +764,44 @@ const NewBlogPost = () => {
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: ({children}) => <h1 className="text-3xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{children}</h1>,
-                    h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>,
-                    h3: ({children}) => (
-                      <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4 relative">
-                        <span className="relative z-10 bg-white pr-4">{children}</span>
-                        <div className="absolute left-0 top-1/2 w-full h-px bg-gradient-to-r from-green-200 to-transparent -translate-y-1/2 -z-0"></div>
-                      </h3>
-                    ),
+                    h1: ({children}) => {
+                      const extractText = (node) => {
+                        if (typeof node === 'string') return node;
+                        if (Array.isArray(node)) return node.map(extractText).join('');
+                        if (node?.props?.children) return extractText(node.props.children);
+                        return '';
+                      };
+                      const text = extractText(children);
+                      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                      return <h1 id={id} className="text-3xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{children}</h1>;
+                    },
+                    h2: ({children}) => {
+                      const extractText = (node) => {
+                        if (typeof node === 'string') return node;
+                        if (Array.isArray(node)) return node.map(extractText).join('');
+                        if (node?.props?.children) return extractText(node.props.children);
+                        return '';
+                      };
+                      const text = extractText(children);
+                      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                      return <h2 id={id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>;
+                    },
+                    h3: ({children}) => {
+                      const extractText = (node) => {
+                        if (typeof node === 'string') return node;
+                        if (Array.isArray(node)) return node.map(extractText).join('');
+                        if (node?.props?.children) return extractText(node.props.children);
+                        return '';
+                      };
+                      const text = extractText(children);
+                      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                      return (
+                        <h3 id={id} className="text-xl font-bold text-gray-900 mt-8 mb-4 relative">
+                          <span className="relative z-10 bg-white pr-4">{children}</span>
+                          <div className="absolute left-0 top-1/2 w-full h-px bg-gradient-to-r from-green-200 to-transparent -translate-y-1/2 -z-0"></div>
+                        </h3>
+                      );
+                    },
                     p: ({children}) => {
                       // Extract text content from children (which might be an array with React elements)
                       const extractText = (node) => {
