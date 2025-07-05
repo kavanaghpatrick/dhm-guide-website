@@ -123,12 +123,13 @@ const extractKeyTakeaways = (content) => {
   // Look for "Key Takeaways:" pattern in the content
   const takeawaysMatch = contentStr.match(/Key Takeaways?:(.*?)(?=\n\n|\n##|$)/si);
   if (takeawaysMatch) {
-    const takeawaysText = takeawaysMatch[1];
-    // Extract bullet points
-    const bullets = takeawaysText.match(/[-•*]\s*(.+)/g);
-    if (bullets) {
-      return bullets.map(bullet => bullet.replace(/^[-•*]\s*/, '').trim());
-    }
+    const takeawaysText = takeawaysMatch[1].trim();
+    // Extract bullet points - filter out empty lines
+    const lines = takeawaysText.split('\n').filter(line => line.trim());
+    const takeaways = lines
+      .filter(line => /^[-•*]\s*.+/.test(line))
+      .map(line => line.replace(/^[-•*]\s*/, '').trim());
+    return takeaways;
   }
   
   return [];
