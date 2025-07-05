@@ -16,6 +16,16 @@
       "source": "/blog/:path*",
       "destination": "/never-hungover/:path*",
       "permanent": true
+    },
+    {
+      "source": "/never-hungover/sober-curious-2025-mindful-drinking-dhm-science",
+      "destination": "/never-hungover/mindful-drinking-wellness-warrior-dhm-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/longevity-biohacking-2025-dhm-liver-protection",
+      "destination": "/never-hungover/longevity-biohacking-dhm-liver-protection",
+      "permanent": true
     }
   ],
   "rewrites": [
