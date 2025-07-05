@@ -72,11 +72,18 @@ DHM enhances `ADH` and `ALDH` enzyme activity
 Currently supported terms:
 - `ADH` - Alcohol dehydrogenase
 - `ALDH` - Aldehyde dehydrogenase  
+- `ALDH2` - Aldehyde dehydrogenase 2
 - `GABA` - Gamma-aminobutyric acid
 - `DHM` - Dihydromyricetin
 - `mg/kg` - Milligrams per kilogram
 - `NAD+` - Nicotinamide adenine dinucleotide
 - `RCT` - Randomized Controlled Trial
+
+**Important Implementation Notes:**
+- Technical terms must be wrapped in single backticks (`) not triple backticks
+- Terms will display inline with tooltip on hover
+- Keep terms short - ideally single words or abbreviations
+- Terms are case-sensitive
 
 ### 6. Enhanced List Items
 

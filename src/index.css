@@ -211,10 +211,25 @@ nav a,
 /* Fix inline code display issues */
 .enhanced-typography p code,
 .enhanced-typography li code,
-.enhanced-typography td code {
-  display: inline;
+.enhanced-typography td code,
+.enhanced-typography code {
+  display: inline !important;
   vertical-align: baseline;
   line-height: inherit;
+  white-space: nowrap;
+}
+
+/* Force inline display for code in paragraphs */
+.prose p > code,
+.prose li > code,
+.prose td > code {
+  display: inline !important;
+  white-space: nowrap;
+}
+
+/* Fix tooltip trigger display */
+[data-radix-tooltip-trigger] {
+  display: inline !important;
 }
 
 /* Ensure proper spacing around inline code */

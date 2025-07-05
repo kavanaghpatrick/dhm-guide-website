@@ -842,9 +842,14 @@ const NewBlogPost = () => {
                         {children}
                       </blockquote>
                     ),
-                    code: ({inline, children}) => {
-                      if (inline) {
-                        const text = typeof children === 'string' ? children : '';
+                    code: ({node, inline, className, children, ...props}) => {
+                      // ReactMarkdown v6+ doesn't always pass inline prop correctly
+                      // Check if this is inline code by looking at the parent node
+                      const isInline = inline !== false && !className?.includes('language-');
+                      
+                      if (isInline) {
+                        const text = typeof children === 'string' ? children : 
+                                    Array.isArray(children) ? children.join('') : '';
                         
                         // Common DHM-related terms that should have tooltips
                         const tooltipTerms = {
@@ -854,7 +859,8 @@ const NewBlogPost = () => {
                           'DHM': 'Dihydromyricetin - a natural flavonoid that prevents hangovers',
                           'mg/kg': 'Milligrams per kilogram of body weight - a standard dosing measurement',
                           'NAD+': 'Nicotinamide adenine dinucleotide - a coenzyme essential for metabolism',
-                          'RCT': 'Randomized Controlled Trial - the gold standard for clinical research'
+                          'RCT': 'Randomized Controlled Trial - the gold standard for clinical research',
+                          'ALDH2': 'Aldehyde dehydrogenase 2 - the specific enzyme variant that breaks down acetaldehyde'
                         };
                         
                         if (tooltipTerms[text]) {
@@ -862,7 +868,7 @@ const NewBlogPost = () => {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <code className="inline bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help whitespace-nowrap">
+                                  <code className="inline bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help" style={{display: 'inline'}}>
                                     {children}
                                   </code>
                                 </TooltipTrigger>
@@ -874,12 +880,13 @@ const NewBlogPost = () => {
                           );
                         }
                         
-                        return <code className="inline bg-gray-100 px-2 py-0.5 rounded text-sm font-mono text-gray-800 whitespace-nowrap">{children}</code>;
+                        return <code className="inline bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800" style={{display: 'inline'}} {...props}>{children}</code>;
                       }
                       
+                      // Block code
                       return (
                         <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6">
-                          <code className="text-sm font-mono text-gray-800">{children}</code>
+                          <code className={className} {...props}>{children}</code>
                         </pre>
                       );
                     },
