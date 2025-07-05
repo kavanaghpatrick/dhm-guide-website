@@ -140,23 +140,22 @@ const extractKeyTakeaways = (content) => {
         // Skip blockquotes and special formatting
         if (trimmed.startsWith('>')) return false;
         
-        // Skip lines with special formatting patterns
-        if (trimmed.includes('**Warning:**') || 
-            trimmed.includes('**Key Insight:**') || 
-            trimmed.includes('**Pro Tip:**') ||
-            trimmed.includes('**Important:**')) return false;
+        // Skip any line with special markdown formatting
+        if (trimmed.includes('**') || trimmed.includes('##') || trimmed.includes('---')) return false;
         
-        // Skip lines that start with emoji indicators for special content
-        if (/^[🚨🔴🟡🟢⚡💡📊👨‍⚕️🛡️⚖️]/.test(trimmed)) return false;
+        // Skip lines with special formatting patterns or emoji indicators
+        if (/[🚨🔴🟡🟢⚡💡📊👨‍⚕️🛡️⚖️📋📱🩸💓🧠🔄🚫⏰👥📚🎯🏥💫🌙🌱🌞🍂🔬📅📱💊⚠️]/.test(trimmed)) return false;
         
-        // Only match simple bullet points with actual content
-        if (/^[-•*]\s+[🚨🔴🟡🟢⚡💡📊👨‍⚕️🛡️⚖️]/.test(trimmed)) return false;
+        // Only accept simple bullet points that are plain text
+        if (!/^[-•*]\s+[A-Za-z]/.test(trimmed)) return false;
         
-        // Accept simple bullet points that don't start with special formatting
-        return /^[-•*]\s+\S/.test(trimmed) && !trimmed.includes('**') && trimmed.length > 10;
+        // Ensure it's not a complex formatted line
+        if (trimmed.length < 20 || trimmed.length > 200) return false;
+        
+        return true;
       })
       .map(line => line.replace(/^[-•*]\s+/, '').trim())
-      .filter(text => text.length > 5); // Ensure meaningful content
+      .filter(text => text.length > 15); // Ensure substantial content
     
     return takeaways;
   }
