@@ -88,7 +88,7 @@ export default function DosageCalculator() {
             name: 'How effective is DHM for hangover prevention?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Clinical studies show DHM reduces hangover symptoms by 85-87% when taken at proper dosages. UCLA research demonstrates significant improvements in liver function and alcohol metabolism.'
+              text: 'Clinical studies demonstrate DHM\'s effectiveness in reducing hangover symptoms and blood alcohol levels. A 2024 randomized controlled trial showed significant reductions in blood alcohol and gastrointestinal hangover symptoms compared to placebo.'
             }
           },
           {
@@ -213,20 +213,20 @@ export default function DosageCalculator() {
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white rounded-lg p-4 shadow-sm border">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">11+</div>
-                  <div className="text-sm text-gray-600">Clinical Studies</div>
+                  <div className="text-2xl font-bold text-blue-600">11</div>
+                  <div className="text-sm text-gray-600">Peer-Reviewed Studies</div>
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 shadow-sm border">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">87%</div>
-                  <div className="text-sm text-gray-600">Prevention Rate</div>
+                  <div className="text-2xl font-bold text-green-600">7</div>
+                  <div className="text-sm text-gray-600">Human Clinical Trials</div>
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 shadow-sm border">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">15,000+</div>
-                  <div className="text-sm text-gray-600">Calculations Done</div>
+                  <div className="text-2xl font-bold text-purple-600">600+</div>
+                  <div className="text-sm text-gray-600">Study Participants</div>
                 </div>
               </div>
             </div>
@@ -805,7 +805,7 @@ www.dhmguide.com
                   <CardTitle className="text-lg text-gray-900">How effective is DHM for hangover prevention?</CardTitle>
                 </CardHeader>
                 <CardContent className="text-gray-700">
-                  <p>Clinical studies show DHM reduces hangover symptoms by 85-87% when taken at proper dosages. UCLA research demonstrates significant improvements in liver function and alcohol metabolism.</p>
+                  <p>Clinical studies demonstrate DHM's effectiveness in reducing hangover symptoms and blood alcohol levels. A 2024 randomized controlled trial showed significant reductions in blood alcohol and gastrointestinal hangover symptoms compared to placebo.</p>
                 </CardContent>
               </Card>
               
@@ -846,8 +846,8 @@ www.dhmguide.com
               <Card className="bg-white border-l-4 border-l-blue-600">
                 <CardContent className="pt-6">
                   <h4 className="font-semibold text-gray-900 mb-2">UCLA Breakthrough Study (2012)</h4>
-                  <p className="text-sm text-gray-600 mb-2">Shen, Y., et al. - Journal of Neuroscience</p>
-                  <p className="text-gray-700 text-sm">DHM treatment resulted in 70% faster alcohol clearance and prevented withdrawal symptoms in controlled studies.</p>
+                  <p className="text-sm text-gray-600 mb-2">Shen, Y., et al. - Journal of Neuroscience (Animal Study)</p>
+                  <p className="text-gray-700 text-sm">DHM treatment resulted in 70% reduction in alcohol intoxication duration and prevented withdrawal symptoms in controlled animal studies.</p>
                   <Link to="/research" className="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 inline-block">
                     View Full Study Details →
                   </Link>
