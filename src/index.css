@@ -162,41 +162,234 @@ nav a,
 }
 
 /* Enhanced Typography for Blog Posts */
+
+/* Base typography settings */
 .enhanced-typography {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  /* Use system font stack for better performance and native feel */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 
+               'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 
+               'Segoe UI Symbol';
+  
+  /* Optimize text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Default text color for better readability */
+  color: #1a202c;
 }
 
+/* Headings - maintain serif for visual hierarchy */
 .enhanced-typography h1,
 .enhanced-typography h2,
+.enhanced-typography h3,
+.enhanced-typography h4,
+.enhanced-typography h5,
+.enhanced-typography h6 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  color: #0f172a;
+}
+
+/* Specific heading sizes for better hierarchy */
+.enhanced-typography h1 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+}
+
+.enhanced-typography h2 {
+  font-size: 1.875rem;
+  line-height: 1.15;
+}
+
 .enhanced-typography h3 {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  line-height: 1.25;
 }
 
+/* Paragraph styles - REMOVE justify and word-spacing */
 .enhanced-typography p {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  line-height: 1.8;
-  text-align: justify;
-  word-spacing: 0.1em;
+  /* Remove text-align: justify - use natural left alignment */
+  text-align: left;
+  
+  /* Optimal line height for readability */
+  line-height: 1.75;
+  
+  /* Remove word-spacing - let browser handle natural spacing */
+  /* word-spacing: normal; - removed completely */
+  
+  /* Proper paragraph spacing */
+  margin-bottom: 1.5rem;
+  
+  /* Enable hyphenation for better text flow (optional) */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
+/* Lists - improved spacing and alignment */
+.enhanced-typography ul,
+.enhanced-typography ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
 
+.enhanced-typography li {
+  line-height: 1.75;
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes with better styling */
 .enhanced-typography blockquote {
   font-style: italic;
   position: relative;
   overflow: hidden;
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  background-color: #f8fafc;
+  border-left: 4px solid #16a34a;
+  border-radius: 0.5rem;
 }
 
 .enhanced-typography blockquote::before {
   content: '"';
   font-size: 4rem;
   color: #16a34a;
-  opacity: 0.2;
+  opacity: 0.15;
   position: absolute;
   top: -0.5rem;
-  left: 0.5rem;
+  left: 1rem;
   font-family: 'Georgia', serif;
   line-height: 1;
+}
+
+.enhanced-typography blockquote p {
+  margin-bottom: 0;
+}
+
+/* Links - health/wellness themed */
+.enhanced-typography a {
+  color: #16a34a;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.enhanced-typography a:hover {
+  color: #15803d;
+  text-decoration-thickness: 2px;
+}
+
+/* Mobile-specific optimizations */
+@media screen and (max-width: 768px) {
+  /* Smaller base font size on mobile */
+  .enhanced-typography {
+    font-size: 16px;
+  }
+  
+  /* Adjust heading sizes for mobile */
+  .enhanced-typography h1 {
+    font-size: 1.875rem;
+    margin-top: 1.5em;
+  }
+  
+  .enhanced-typography h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5em;
+  }
+  
+  .enhanced-typography h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5em;
+  }
+  
+  /* Optimize paragraph spacing for mobile */
+  .enhanced-typography p {
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    
+    /* Disable hyphenation on mobile for cleaner look */
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+  }
+  
+  /* Reduce blockquote padding on mobile */
+  .enhanced-typography blockquote {
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .enhanced-typography blockquote::before {
+    font-size: 3rem;
+    left: 0.5rem;
+  }
+  
+  /* Adjust list padding for mobile */
+  .enhanced-typography ul,
+  .enhanced-typography ol {
+    padding-left: 1.25rem;
+  }
+}
+
+/* Small mobile devices (< 375px) */
+@media screen and (max-width: 374px) {
+  .enhanced-typography {
+    font-size: 15px;
+  }
+  
+  .enhanced-typography h1 {
+    font-size: 1.625rem;
+  }
+  
+  .enhanced-typography h2 {
+    font-size: 1.375rem;
+  }
+  
+  .enhanced-typography h3 {
+    font-size: 1.125rem;
+  }
+}
+
+/* Improve readability on very large screens */
+@media screen and (min-width: 1536px) {
+  .enhanced-typography p {
+    line-height: 1.8;
+  }
+}
+
+/* Dark mode support (if implemented) */
+@media (prefers-color-scheme: dark) {
+  .enhanced-typography {
+    color: #e2e8f0;
+  }
+  
+  .enhanced-typography h1,
+  .enhanced-typography h2,
+  .enhanced-typography h3,
+  .enhanced-typography h4,
+  .enhanced-typography h5,
+  .enhanced-typography h6 {
+    color: #f1f5f9;
+  }
+  
+  .enhanced-typography blockquote {
+    background-color: #1e293b;
+    border-left-color: #22c55e;
+  }
+  
+  .enhanced-typography a {
+    color: #22c55e;
+  }
+  
+  .enhanced-typography a:hover {
+    color: #4ade80;
+  }
 }
 
 /* Code styling */
@@ -236,5 +429,87 @@ nav a,
 .enhanced-typography code + span,
 .enhanced-typography span + code {
   margin-left: 0.125rem;
+}
+
+/* Override Tailwind prose styles that conflict with our enhanced typography */
+.prose.enhanced-typography p {
+  text-align: left !important;
+  word-spacing: normal !important;
+}
+
+/* Ensure prose classes work well with enhanced typography */
+.prose-lg.enhanced-typography {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.prose-lg.enhanced-typography p {
+  margin-bottom: 1.5rem;
+}
+
+.prose-lg.enhanced-typography h1 {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.prose-lg.enhanced-typography h2 {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-lg.enhanced-typography h3 {
+  font-size: 1.625rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Fix any potential conflicts with Tailwind's max-w-none */
+.prose.max-w-none.enhanced-typography {
+  max-width: none;
+}
+
+/* Ensure images and other media elements have proper spacing */
+.enhanced-typography img,
+.enhanced-typography video,
+.enhanced-typography figure {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Tables with health/wellness theme */
+.enhanced-typography table {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+}
+
+.enhanced-typography th {
+  background-color: #16a34a;
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+.enhanced-typography td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.enhanced-typography tbody tr:hover {
+  background-color: #f0fdf4;
+}
+
+/* Horizontal rules with subtle styling */
+.enhanced-typography hr {
+  margin: 3rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d1d5db, transparent);
 }
 
