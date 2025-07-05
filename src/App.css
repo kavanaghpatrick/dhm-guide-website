@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./styles/calculator-enhancements.css";
 
 /* Custom styles for enhanced blog lists */
 .counter-reset-list {
