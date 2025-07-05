@@ -174,7 +174,7 @@ const renderContent = (post) => {
           case 'section':
             return `## ${section.heading}\n\n${section.content}`;
           case 'callout':
-            return `> **${section.title}**: ${section.content}`;
+            return `**${section.title}**: ${section.content}`;
           case 'highlight':
             if (section.stats) {
               const stats = section.stats.map(stat => `- **${stat.label}**: ${stat.value}`).join('\n');
@@ -932,6 +932,18 @@ const NewBlogPost = () => {
                           <Alert className="border-purple-200 bg-purple-50 my-4">
                             <Lightbulb className="h-4 w-4 text-purple-600" />
                             <AlertTitle>Key Insight</AlertTitle>
+                            <AlertDescription>{content}</AlertDescription>
+                          </Alert>
+                        );
+                      }
+                      
+                      // Check for important patterns
+                      if (trimmedText.startsWith('Important:')) {
+                        const content = trimmedText.replace(/^Important:\s*/, '');
+                        return (
+                          <Alert className="border-red-200 bg-red-50 my-4">
+                            <AlertCircle className="h-4 w-4 text-red-600" />
+                            <AlertTitle>Important</AlertTitle>
                             <AlertDescription>{content}</AlertDescription>
                           </Alert>
                         );
