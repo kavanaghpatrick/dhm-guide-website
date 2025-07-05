@@ -154,6 +154,7 @@ const NewBlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingError, setLoadingError] = useState(null);
+  const [currentSlug, setCurrentSlug] = useState('');
   const contentRef = useRef(null);
 
   // Extract slug from URL
@@ -162,8 +163,23 @@ const NewBlogPost = () => {
     return currentPath.replace('/never-hungover/', '').replace('/newblog/', '');
   };
 
+  // Listen for URL changes
+  useEffect(() => {
+    const handlePopState = () => {
+      const newSlug = extractSlug();
+      setCurrentSlug(newSlug);
+    };
+
+    // Set initial slug
+    setCurrentSlug(extractSlug());
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Load post data dynamically
   useEffect(() => {
+    if (!currentSlug) return;
     let isMounted = true;
     
     const loadPostData = async () => {
@@ -171,7 +187,7 @@ const NewBlogPost = () => {
         setLoading(true);
         setLoadingError(null);
         
-        const slug = extractSlug();
+        const slug = currentSlug;
         console.log('🔄 Loading post:', slug);
         
         // Load main post
@@ -216,7 +232,7 @@ const NewBlogPost = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [currentSlug]);
 
   // SEO optimization for individual blog posts
   useSEO(post ? generatePageSEO('blog-post', {
@@ -232,9 +248,17 @@ const NewBlogPost = () => {
 
   // Navigation handler
   const handleNavigation = (href) => {
-    window.history.pushState({}, '', href);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // For internal links, ensure they work with the app's routing
+    if (href && !href.startsWith('http')) {
+      // Normalize the path
+      const normalizedPath = href.startsWith('/') ? href : `/${href}`;
+      window.history.pushState({}, '', normalizedPath);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (href && href.startsWith('http')) {
+      // External links open in new tab
+      window.open(href, '_blank', 'noopener,noreferrer');
+    }
   };
 
   // Generate Table of Contents
