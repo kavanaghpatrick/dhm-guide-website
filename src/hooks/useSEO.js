@@ -95,18 +95,22 @@ export const useSEO = (seoData) => {
       canonical.setAttribute('href', canonicalUrl);
     }
 
-    // Update structured data
+    // Update structured data (handle both single objects and arrays)
     if (structuredData) {
       // Remove existing structured data scripts added by this hook
       const existingScripts = document.querySelectorAll('script[data-seo-hook="true"]');
       existingScripts.forEach(script => script.remove());
 
-      // Add new structured data
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.setAttribute('data-seo-hook', 'true');
-      script.textContent = JSON.stringify(structuredData);
-      document.head.appendChild(script);
+      // Add new structured data (handle arrays)
+      const dataArray = Array.isArray(structuredData) ? structuredData : [structuredData];
+      dataArray.forEach((data, index) => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-seo-hook', 'true');
+        script.setAttribute('data-schema-index', index.toString());
+        script.textContent = JSON.stringify(data);
+        document.head.appendChild(script);
+      });
     }
 
     // Cleanup function
