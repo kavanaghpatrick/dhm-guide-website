@@ -15,6 +15,9 @@ import {
   getCacheStats 
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
+import KeyTakeaways from './KeyTakeaways';
+import ImageLightbox from './ImageLightbox';
+import { motion } from 'framer-motion';
 
 // Helper function to create enhanced components for special content patterns
 const createEnhancedComponents = () => {
@@ -110,6 +113,27 @@ const createEnhancedComponents = () => {
   return { renderInfoBox, renderProductCard, renderVisualSeparator };
 };
 
+// Helper function to extract key takeaways from content
+const extractKeyTakeaways = (content) => {
+  if (!content) return [];
+  
+  const contentStr = typeof content === 'string' ? content : 
+    Array.isArray(content) ? content.map(section => section.content || '').join(' ') : '';
+  
+  // Look for "Key Takeaways:" pattern in the content
+  const takeawaysMatch = contentStr.match(/Key Takeaways?:(.*?)(?=\n\n|\n##|$)/si);
+  if (takeawaysMatch) {
+    const takeawaysText = takeawaysMatch[1];
+    // Extract bullet points
+    const bullets = takeawaysText.match(/[-•*]\s*(.+)/g);
+    if (bullets) {
+      return bullets.map(bullet => bullet.replace(/^[-•*]\s*/, '').trim());
+    }
+  }
+  
+  return [];
+};
+
 // Helper function to render content based on format
 const renderContent = (post) => {
   // Handle array-based content structure (new posts)
@@ -155,6 +179,7 @@ const NewBlogPost = () => {
   const [loading, setLoading] = useState(true);
   const [loadingError, setLoadingError] = useState(null);
   const [currentSlug, setCurrentSlug] = useState('');
+  const [keyTakeaways, setKeyTakeaways] = useState([]);
   const contentRef = useRef(null);
 
   // Extract slug from URL
@@ -201,6 +226,10 @@ const NewBlogPost = () => {
           setRelatedPosts([]);
         } else {
           setPost(loadedPost);
+          
+          // Extract key takeaways from content
+          const extractedTakeaways = extractKeyTakeaways(loadedPost.content);
+          setKeyTakeaways(extractedTakeaways);
           
           // Load related posts metadata (instant)
           const relatedMeta = getRelatedPostsMetadata(loadedPost, 3);
@@ -705,9 +734,12 @@ const NewBlogPost = () => {
           {/* Mobile TOC Toggle */}
           {isClient && tocItems.length > 0 && (
             <div className="lg:hidden mb-6">
-              <button
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
                 onClick={() => setShowToc(!showToc)}
-                className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md text-gray-700 hover:text-green-600 transition-all duration-200 hover:shadow-lg"
+                className="flex items-center gap-2 bg-white px-4 py-3 rounded-lg shadow-md text-gray-700 hover:text-green-600 transition-all duration-200 hover:shadow-lg touch-manipulation min-h-[44px]"
               >
                 <List className="w-4 h-4" />
                 <span>Table of Contents</span>
@@ -716,7 +748,7 @@ const NewBlogPost = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-              </button>
+              </motion.button>
               
               <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
                 showToc ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -746,7 +778,11 @@ const NewBlogPost = () => {
           )}
 
           {/* Article Content */}
-          <article className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <motion.article 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Hero Image */}
             {post.image && (
               <div className="w-full">
@@ -760,7 +796,14 @@ const NewBlogPost = () => {
             )}
             
             <div className="p-8 md:p-12">
-              <div ref={contentRef} className="prose prose-lg prose-green max-w-none enhanced-typography">
+              {/* Key Takeaways Component */}
+              {keyTakeaways.length > 0 && (
+                <KeyTakeaways takeaways={keyTakeaways} />
+              )}
+              
+              {/* Main Content - Constrained Width */}
+              <div className="max-w-3xl mx-auto">
+                <div ref={contentRef} className="prose prose-lg prose-green max-w-none enhanced-typography">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
@@ -863,6 +906,11 @@ const NewBlogPost = () => {
                             <AlertDescription>{content}</AlertDescription>
                           </Alert>
                         );
+                      }
+                      
+                      // Skip rendering key takeaways in the main content since we show them at the top
+                      if (trimmedText.startsWith('Key Takeaways:')) {
+                        return null;
                       }
                       
                       // Check for product card patterns
@@ -1128,13 +1176,38 @@ const NewBlogPost = () => {
                         {children}
                       </td>
                     ),
+                    img: ({src, alt, ...props}) => {
+                      // Use ImageLightbox for blog content images
+                      return (
+                        <div className="my-8">
+                          <ImageLightbox 
+                            src={src} 
+                            alt={alt}
+                            className="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                          />
+                        </div>
+                      );
+                    },
+                    hr: () => (
+                      <div className="relative my-12">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div className="relative flex justify-center">
+                          <span className="bg-white px-4">
+                            <Leaf className="w-6 h-6 text-green-600" />
+                          </span>
+                        </div>
+                      </div>
+                    ),
                   }}
                 >
                   {renderContent(post)}
                 </ReactMarkdown>
+                </div>
               </div>
             </div>
-          </article>
+          </motion.article>
 
           {/* Related Articles */}
           {relatedPosts.length > 0 && (
