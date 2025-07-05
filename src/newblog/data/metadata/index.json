@@ -1499,7 +1499,7 @@
       "birth control",
       "heart medications"
     ],
-    "image": "/dhm-medication-interactions-safety-guide-hero.webp",
+    "image": "/images/dhm-medication-interactions-safety-guide-hero.jpg",
     "readTime": 16
   },
   {
@@ -1521,7 +1521,7 @@
       "estrogen",
       "progesterone"
     ],
-    "image": "/dhm-women-health-hormonal-guide-hero.png",
+    "image": "/images/dhm-women-hormonal-considerations-safety-hero.jpg",
     "readTime": 14
   },
   {
@@ -1543,7 +1543,7 @@
       "kidney health",
       "blood pressure"
     ],
-    "image": "/dhm-seniors-health-guide-hero.png",
+    "image": "/images/dhm-adults-over-50-age-related-safety-hero.jpg",
     "readTime": 15
   },
   {
@@ -1565,7 +1565,7 @@
       "clinical research",
       "pharmacokinetics"
     ],
-    "image": "/images/dhm-product-forms-comparison-study-hero.png",
+    "image": "/images/dhm-product-forms-absorption-comparison-hero.jpg",
     "readTime": 13
   },
   {
