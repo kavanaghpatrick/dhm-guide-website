@@ -57,7 +57,7 @@ export default function ComparisonWidget({
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 100, opacity: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed bottom-4 right-4 z-50 max-w-sm"
+        className="fixed bottom-4 right-4 z-comparison max-w-sm"
       >
         <div className="bg-white rounded-lg shadow-2xl border border-green-200 overflow-hidden">
           {/* Header */}

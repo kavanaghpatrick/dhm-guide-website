@@ -3,12 +3,14 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
 import { navigateWithScrollToTop } from '@/lib/mobileScrollUtils.js'
+import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 
 export default function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
   const currentPath = window.location.pathname
+  const { headerRef, headerHeight } = useHeaderHeight()
 
   // Navigation items
   const navItems = [
@@ -34,8 +36,9 @@ export default function Layout({ children }) {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
       {/* Header */}
       <motion.header 
+        ref={headerRef}
         style={{ opacity: headerOpacity }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-green-100"
+        className="fixed top-0 left-0 right-0 z-header bg-white/80 backdrop-blur-md border-b border-green-100"
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between min-h-[40px]">
@@ -134,7 +137,7 @@ export default function Layout({ children }) {
       </motion.header>
 
       {/* Main Content */}
-      <main className="pt-20">
+      <main style={{ paddingTop: `${headerHeight}px` }} className="transition-[padding] duration-300">
         {children}
       </main>
 

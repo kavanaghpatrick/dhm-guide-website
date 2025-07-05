@@ -56,6 +56,7 @@
 
 :root {
   --radius: 0.625rem;
+  --header-height: 80px; /* Default fallback */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -87,6 +88,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Z-Index Scale */
+  --z-index-base: 0;          /* Normal document flow */
+  --z-index-behind: -1;       /* Elements behind normal flow */
+  --z-index-dropdown: 10;     /* Dropdowns, tooltips */
+  --z-index-sticky: 20;       /* Sticky elements */
+  --z-index-fixed: 30;        /* Fixed navigation, headers */
+  --z-index-header: 30;       /* Main navigation header */
+  --z-index-comparison: 35;   /* Comparison widget (above header) */
+  --z-index-overlay: 40;      /* Page overlays, drawers */
+  --z-index-modal: 50;        /* Modal dialogs */
+  --z-index-popover: 60;      /* Popovers, floating UI */
+  --z-index-notification: 65; /* Toast notifications */
+  --z-index-tooltip: 70;      /* Tooltips (highest) */
 }
 
 .dark {
