@@ -28,8 +28,9 @@ import {
 export default function DosageCalculator() {
   // SEO configuration with enhanced schema markup
   useSEO({
-    title: 'DHM Dosage Calculator 2024: Personalized Hangover Prevention | DHM Guide',
-    description: 'Calculate your optimal DHM dosage for hangover prevention. Get personalized recommendations based on body weight, alcohol consumption, and timing. Free scientific DHM calculator.',
+    title: 'DHM Dosage Calculator 2024: How Much DHM Should I Take | Personalized Hangover Prevention',
+    description: 'Calculate your optimal DHM dosage for hangover prevention. Get personalized dihydromyricetin recommendations based on body weight, alcohol consumption, and timing. Free anti-hangover supplement calculator determines exact mg needed.',
+    keywords: 'DHM dosage calculator, how much DHM should I take, dihydromyricetin dosage, hangover prevention calculator, anti hangover supplement dosage, DHM dosage by weight, hangover pill calculator, prevent hangover dosage, DHM supplement calculator, dihydromyricetin calculator, hangover prevention dosage, DHM mg calculator',
     canonicalUrl: 'https://www.dhmguide.com/dhm-dosage-calculator',
     structuredData: [
       {
@@ -61,10 +62,18 @@ export default function DosageCalculator() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'How much DHM should I take?',
+            name: 'How much DHM should I take for hangover prevention?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The optimal DHM dosage depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg, calculated at 5mg per kg of body weight. Our calculator provides personalized recommendations based on scientific research.'
+              text: 'The optimal DHM dosage for hangover prevention depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg of dihydromyricetin, calculated at 5mg per kg of body weight. Our DHM dosage calculator provides personalized mg recommendations based on clinical research.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What is the correct dihydromyricetin dosage by weight?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The standard dihydromyricetin dosage is 5mg per kg of body weight. For a 150lb (68kg) person, this equals approximately 340mg of DHM. Heavier individuals may need up to 600-800mg, while lighter people may only need 250-400mg for effective hangover prevention.'
             }
           },
           {
@@ -207,8 +216,15 @@ export default function DosageCalculator() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Get personalized DHM dosage recommendations based on your body weight, drinking habits, and prevention goals. Scientifically calculated using peer-reviewed research for optimal hangover prevention.
+              Get personalized DHM dosage recommendations based on your body weight, drinking habits, and prevention goals. Calculate exactly how much dihydromyricetin you need for optimal hangover prevention using our scientifically-backed calculator.
             </p>
+            
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-blue-100">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">How Much DHM Should I Take?</h2>
+              <p className="text-gray-600">
+                Our DHM dosage calculator determines your optimal dihydromyricetin dosage based on clinical research. Whether you need hangover prevention or recovery, get personalized mg recommendations for your body weight and alcohol consumption.
+              </p>
+            </div>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -797,10 +813,19 @@ www.dhmguide.com
             <div className="space-y-6">
               <Card className="bg-white shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg text-gray-900">How much DHM should I take?</CardTitle>
+                  <CardTitle className="text-lg text-gray-900">How much DHM should I take for hangover prevention?</CardTitle>
                 </CardHeader>
                 <CardContent className="text-gray-700">
-                  <p>The optimal DHM dosage depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg, calculated at 5mg per kg of body weight. Our calculator provides personalized recommendations based on scientific research.</p>
+                  <p>The optimal DHM dosage for hangover prevention depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg of dihydromyricetin, calculated at 5mg per kg of body weight. Our DHM dosage calculator provides personalized mg recommendations based on clinical research.</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg text-gray-900">What is the correct dihydromyricetin dosage by weight?</CardTitle>
+                </CardHeader>
+                <CardContent className="text-gray-700">
+                  <p>The standard dihydromyricetin dosage is 5mg per kg of body weight. For a 150lb (68kg) person, this equals approximately 340mg of DHM. Heavier individuals may need up to 600-800mg, while lighter people may only need 250-400mg for effective hangover prevention.</p>
                 </CardContent>
               </Card>
               
