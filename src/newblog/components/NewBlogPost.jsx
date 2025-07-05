@@ -124,11 +124,16 @@ const extractKeyTakeaways = (content) => {
   const takeawaysMatch = contentStr.match(/Key Takeaways?:(.*?)(?=\n\n|\n##|$)/si);
   if (takeawaysMatch) {
     const takeawaysText = takeawaysMatch[1].trim();
-    // Extract bullet points - filter out empty lines
+    // Extract bullet points - filter out empty lines and markdown formatting
     const lines = takeawaysText.split('\n').filter(line => line.trim());
     const takeaways = lines
-      .filter(line => /^[-•*]\s*.+/.test(line))
-      .map(line => line.replace(/^[-•*]\s*/, '').trim());
+      .filter(line => {
+        // Skip markdown formatting lines (**, *, etc. that are just formatting)
+        if (/^\*+$/.test(line.trim())) return false;
+        // Only match lines that start with bullet points and have actual content
+        return /^[-•*]\s+\S/.test(line);
+      })
+      .map(line => line.replace(/^[-•*]\s+/, '').trim());
     return takeaways;
   }
   
