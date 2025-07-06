@@ -14,6 +14,8 @@ export default function CalculatorResults({ results, onReset, onShare }) {
   if (!results) return null
   
   const isHighDose = results.preDrinking >= 500
+  const totalDose = results.preDrinking + results.whileDrinking + results.beforeBed
+  const isMaxDose = totalDose >= 1200
 
   return (
     <motion.div
@@ -96,6 +98,18 @@ export default function CalculatorResults({ results, onReset, onShare }) {
             <strong>High Dosage Notice:</strong> This is a higher dosage recommendation. 
             We suggest starting with 300mg and gradually increasing if needed. 
             Always consult with a healthcare provider for personalized advice.
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      {/* Maximum Daily Dose Notice */}
+      {isMaxDose && (
+        <Alert className="border-orange-200 bg-orange-50">
+          <AlertCircle className="h-4 w-4 text-orange-600" />
+          <AlertDescription className="text-orange-900">
+            <strong>Maximum Daily Dose:</strong> This recommendation totals {totalDose}mg, 
+            which is our maximum recommended daily dose. Do not exceed this amount in a 
+            24-hour period.
           </AlertDescription>
         </Alert>
       )}

@@ -61,16 +61,30 @@ export const calculateDosage = (inputs) => {
       frequencyMultipliers[frequency] * 
       intensityMultiplier
   
-    // Round to nearest 50mg and cap at reasonable levels
+    // Calculate initial doses
+    let preDrinking = Math.min(600, Math.max(150, Math.round(finalDosage / 50) * 50))
+    let whileDrinking = Math.min(300, Math.max(150, Math.round(finalDosage * 0.5 / 50) * 50))
+    let beforeBed = Math.min(300, Math.max(150, Math.round(finalDosage * 0.5 / 50) * 50))
+    
+    // Ensure total daily dose doesn't exceed 1200mg
+    const totalDose = preDrinking + whileDrinking + beforeBed
+    if (totalDose > 1200) {
+      // Scale down proportionally to stay under 1200mg total
+      const scaleFactor = 1200 / totalDose
+      preDrinking = Math.round(preDrinking * scaleFactor / 50) * 50
+      whileDrinking = Math.round(whileDrinking * scaleFactor / 50) * 50
+      beforeBed = Math.round(beforeBed * scaleFactor / 50) * 50
+    }
+    
     return {
-      preDrinking: Math.min(600, Math.max(150, Math.round(finalDosage / 50) * 50)),
-      whileDrinking: Math.min(300, Math.max(150, Math.round(finalDosage * 0.5 / 50) * 50)),
-      beforeBed: Math.min(300, Math.max(150, Math.round(finalDosage * 0.5 / 50) * 50))
+      preDrinking,
+      whileDrinking,
+      beforeBed
     }
   } catch (error) {
     console.error('Calculation error:', error)
-    // Return safe defaults
-    return { preDrinking: 600, whileDrinking: 300, beforeBed: 300 }
+    // Return safe defaults (total 600mg)
+    return { preDrinking: 300, whileDrinking: 150, beforeBed: 150 }
   }
 }
 

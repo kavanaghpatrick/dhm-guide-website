@@ -84,9 +84,10 @@ export default function EducationSection() {
             <AccordionContent>
               <p className="text-muted-foreground">
                 DHM has been shown to be safe in doses up to 2,000mg in clinical studies. 
-                However, most people see optimal benefits between 300-1200mg. Start with our 
-                recommended dose and adjust based on your experience. Always consult a 
-                healthcare provider if you have concerns.
+                However, we recommend not exceeding 1200mg total per day. Most people see 
+                optimal benefits between 300-900mg total daily. Start with our recommended 
+                dose and adjust based on your experience. Always consult a healthcare 
+                provider if you have concerns.
               </p>
             </AccordionContent>
           </AccordionItem>
