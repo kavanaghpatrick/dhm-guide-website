@@ -13,7 +13,7 @@ import { Clock, Wine, Moon, AlertCircle, Download, Share2 } from 'lucide-react'
 export default function CalculatorResults({ results, onReset, onShare }) {
   if (!results) return null
   
-  const isHighDose = results.preDrinking > 900
+  const isHighDose = results.preDrinking >= 500
 
   return (
     <motion.div
@@ -94,7 +94,7 @@ export default function CalculatorResults({ results, onReset, onShare }) {
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             <strong>High Dosage Notice:</strong> This is a higher dosage recommendation. 
-            We suggest starting with 600mg and gradually increasing if needed. 
+            We suggest starting with 300mg and gradually increasing if needed. 
             Always consult with a healthcare provider for personalized advice.
           </AlertDescription>
         </Alert>
