@@ -491,15 +491,22 @@ export default function DosageCalculatorEnhanced() {
 
   // Check for returning user
   useEffect(() => {
-    const lastVisit = localStorage.getItem('dhm_last_visit')
-    const lastDosage = localStorage.getItem('dhm_last_dosage')
-    
-    if (lastVisit && lastDosage) {
-      setShowWelcomeBack(true)
-      setShowQuiz(false) // Skip quiz for returning users
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const lastVisit = localStorage.getItem('dhm_last_visit')
+        const lastDosage = localStorage.getItem('dhm_last_dosage')
+        
+        if (lastVisit && lastDosage) {
+          setShowWelcomeBack(true)
+          setShowQuiz(false) // Skip quiz for returning users
+        }
+        
+        localStorage.setItem('dhm_last_visit', new Date().toLocaleDateString())
+      }
+    } catch (error) {
+      // Silently fail if localStorage is not available (e.g., private browsing)
+      console.log('localStorage not available:', error)
     }
-    
-    localStorage.setItem('dhm_last_visit', new Date().toLocaleDateString())
   }, [])
 
   // Track user engagement time
@@ -670,7 +677,13 @@ export default function DosageCalculatorEnhanced() {
     setTimeout(() => {
       setShowResults(true)
       setIsCalculating(false)
-      localStorage.setItem('dhm_last_dosage', calculateDosage)
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('dhm_last_dosage', calculateDosage)
+        }
+      } catch (error) {
+        console.log('Unable to save dosage to localStorage:', error)
+      }
       
       // Track calculator completion
       engagementTracker.trackCalculatorCompletion(calculateDosage)

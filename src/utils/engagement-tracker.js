@@ -4,7 +4,7 @@ class EngagementTracker {
   constructor() {
     this.events = []
     this.sessionStartTime = Date.now()
-    this.pageLoadTime = performance.now()
+    this.pageLoadTime = typeof performance !== 'undefined' ? performance.now() : Date.now()
     this.interactions = {
       calculatorStarts: 0,
       calculatorCompletions: 0,
@@ -214,7 +214,20 @@ class EngagementTracker {
   }
 }
 
-// Create singleton instance
-const engagementTracker = new EngagementTracker()
+// Create singleton instance with lazy initialization
+let engagementTrackerInstance = null
 
-export default engagementTracker
+const getEngagementTracker = () => {
+  if (!engagementTrackerInstance && typeof window !== 'undefined') {
+    engagementTrackerInstance = new EngagementTracker()
+  }
+  return engagementTrackerInstance || {
+    // Stub methods for SSR/initial load
+    trackEvent: () => {},
+    trackScroll: () => {},
+    trackTimeOnPage: () => {},
+    getEngagementData: () => ({})
+  }
+}
+
+export default getEngagementTracker()

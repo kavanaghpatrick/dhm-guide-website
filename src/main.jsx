@@ -19,11 +19,14 @@ class ErrorBoundary extends React.Component {
   }
 
   handleRetry = () => {
-    this.setState(prevState => ({
-      hasError: false,
-      error: null,
-      retryCount: prevState.retryCount + 1
-    }));
+    // Add a small delay before retry to ensure resources are loaded
+    setTimeout(() => {
+      this.setState(prevState => ({
+        hasError: false,
+        error: null,
+        retryCount: prevState.retryCount + 1
+      }));
+    }, 100);
   }
 
   render() {
@@ -94,19 +97,28 @@ class ErrorBoundary extends React.Component {
 
 // Touch optimization setup
 function setupTouchOptimizations() {
-  // Add touch interaction optimizations
-  document.body.style.touchAction = 'manipulation';
-  document.body.style.webkitTapHighlightColor = 'transparent';
+  // Ensure DOM is ready before manipulating it
+  if (typeof document === 'undefined' || !document.body) {
+    return;
+  }
   
-  // Remove 300ms click delay
-  const existingMeta = document.querySelector('meta[name="viewport"]');
-  if (existingMeta) {
-    existingMeta.content = 'width=device-width, initial-scale=1, user-scalable=no';
-  } else {
-    const meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=device-width, initial-scale=1, user-scalable=no';
-    document.head.appendChild(meta);
+  try {
+    // Add touch interaction optimizations
+    document.body.style.touchAction = 'manipulation';
+    document.body.style.webkitTapHighlightColor = 'transparent';
+    
+    // Remove 300ms click delay
+    const existingMeta = document.querySelector('meta[name="viewport"]');
+    if (existingMeta) {
+      existingMeta.content = 'width=device-width, initial-scale=1, user-scalable=no';
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1, user-scalable=no';
+      document.head.appendChild(meta);
+    }
+  } catch (error) {
+    console.log('Touch optimizations could not be applied:', error);
   }
 }
 
