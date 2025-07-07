@@ -5,7 +5,7 @@ import { Menu, X, Leaf } from 'lucide-react'
 import { navigateWithScrollToTop } from '@/lib/mobileScrollUtils.js'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 
-export default function Layout({ children }) {
+function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -203,4 +203,6 @@ export default function Layout({ children }) {
     </div>
   )
 }
+
+export default React.memo(Layout)
 
