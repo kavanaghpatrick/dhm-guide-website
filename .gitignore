@@ -184,3 +184,7 @@ temp/
 !public/french-wine-culture-guide-hero.png
 !public/german-beer-culture-guide-hero.png
 
+# Also allow WebP versions of all images
+!public/*.webp
+!public/images/*.webp
+
