@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
@@ -27,8 +27,8 @@ function Layout({ children }) {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  // Navigation items
-  const navItems = [
+  // Navigation items - memoized to prevent recreation
+  const navItems = useMemo(() => [
     { name: 'Home', href: '/' },
     { name: 'Hangover Relief', href: '/guide' },
     { name: 'Best Supplements', href: '/reviews' },
@@ -36,16 +36,16 @@ function Layout({ children }) {
     { name: 'The Science', href: '/research' },
     { name: 'Never Hungover', href: '/never-hungover' },
     { name: 'About', href: '/about' }
-  ]
+  ], [])
 
-  const isActive = (href) => {
+  const isActive = useCallback((href) => {
     if (href === '/') return currentPath === '/'
     return currentPath.startsWith(href)
-  }
+  }, [currentPath])
 
-  const handleNavigation = (href) => {
+  const handleNavigation = useCallback((href) => {
     navigateWithScrollToTop(href, () => setIsMenuOpen(false))
-  }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">

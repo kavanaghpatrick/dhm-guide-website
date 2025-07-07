@@ -17,22 +17,29 @@ class EngagementTracker {
       bounceRisk: false
     }
     
+    this.eventListeners = []
+    this.bounceTimer = null
+    this.scrollMilestones = {}
+    this.exitIntentShown = false
+    
     this.initializeTracking()
   }
 
   initializeTracking() {
     // Track page visibility
-    document.addEventListener('visibilitychange', () => {
+    const visibilityHandler = () => {
       if (document.hidden) {
         this.trackEvent('page_hidden', { timeOnPage: this.getTimeOnPage() })
       } else {
         this.trackEvent('page_visible', { timeOnPage: this.getTimeOnPage() })
       }
-    })
+    }
+    document.addEventListener('visibilitychange', visibilityHandler)
+    this.eventListeners.push({ element: document, event: 'visibilitychange', handler: visibilityHandler })
 
     // Track scroll depth
     let maxScrollDepth = 0
-    window.addEventListener('scroll', () => {
+    const scrollHandler = () => {
       const scrollDepth = this.calculateScrollDepth()
       if (scrollDepth > maxScrollDepth) {
         maxScrollDepth = scrollDepth
@@ -56,7 +63,9 @@ class EngagementTracker {
           this.scrollMilestones = { ...this.scrollMilestones, '90': true }
         }
       }
-    })
+    }
+    window.addEventListener('scroll', scrollHandler)
+    this.eventListeners.push({ element: window, event: 'scroll', handler: scrollHandler })
 
     // Track bounce risk
     this.bounceTimer = setTimeout(() => {
@@ -211,6 +220,21 @@ class EngagementTracker {
         connectionType: navigator.connection?.effectiveType || 'unknown'
       })
     }
+  }
+  
+  // Cleanup method to prevent memory leaks
+  cleanup() {
+    // Clear timers
+    if (this.bounceTimer) {
+      clearTimeout(this.bounceTimer)
+      this.bounceTimer = null
+    }
+    
+    // Remove all event listeners
+    this.eventListeners.forEach(({ element, event, handler }) => {
+      element.removeEventListener(event, handler)
+    })
+    this.eventListeners = []
   }
 }
 

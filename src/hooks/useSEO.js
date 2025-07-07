@@ -135,8 +135,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Discover the UCLA-proven supplement that prevents hangovers in 70% of cases. Expert reviews, dosage guides, and 11 clinical studies. Never wake up hungover again.',
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
-        ogImage: `${baseUrl}/og-image.jpg`,
-        twitterImage: `${baseUrl}/twitter-image.jpg`,
+        ogImage: `${baseUrl}/og-image.webp`,
+        twitterImage: `${baseUrl}/twitter-image.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "WebSite",
@@ -157,7 +157,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Complete 2025 DHM guide: Achieve 85% hangover reduction with proper dosing, timing, and supplements. Expert tips backed by clinical science.',
         keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
-        ogImage: `${baseUrl}/dhm-guide-featured.jpg`,
+        ogImage: `${baseUrl}/dhm-guide-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Article",
@@ -184,7 +184,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness. Find your perfect anti-hangover solution today.',
         keywords: 'best hangover prevention pills, hangover supplements reviews, anti-hangover pills, hangover cure supplements, stop hangovers supplements',
         canonicalUrl: `${baseUrl}/reviews`,
-        ogImage: `${baseUrl}/dhm-reviews-featured.jpg`,
+        ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Article",
@@ -207,7 +207,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: '23 clinical studies prove DHM reduces hangovers by 85%. FDA-recognized research on dihydromyricetin\'s liver protection and alcohol metabolism.',
         keywords: 'dihydromyricetin randomized controlled trial hangover 2024, dihydromyricetin hangover randomized controlled trial 2023, dhm for hangovers, dihydromyricetin clinical trials, DHM hangover research, randomized controlled trial DHM',
         canonicalUrl: `${baseUrl}/research`,
-        ogImage: `${baseUrl}/dhm-research-featured.jpg`,
+        ogImage: `${baseUrl}/dhm-research-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Dataset",
@@ -227,7 +227,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Compare top DHM supplements side-by-side. Unbiased analysis of ingredients, pricing, effectiveness. Save 40% with expert recommendations.',
         keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
-        ogImage: `${baseUrl}/dhm-comparison-featured.jpg`,
+        ogImage: `${baseUrl}/dhm-comparison-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "WebApplication",
@@ -243,7 +243,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Latest hangover science, DHM research updates, and proven prevention strategies. From college drinking to business travel - expert guides for every lifestyle.',
         keywords: 'DHM blog, hangover prevention blog, dihydromyricetin news, health optimization, supplement research',
         canonicalUrl: `${baseUrl}/never-hungover`,
-        ogImage: `${baseUrl}/blog-featured.jpg`,
+        ogImage: `${baseUrl}/blog-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Blog",
@@ -258,7 +258,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Learn how to never wake up hungover again. Expert guides on DHM, proven prevention strategies, and cutting-edge research. Master the hangover-free lifestyle.',
         keywords: 'never hungover, hangover prevention, how to never get hungover, DHM hangover prevention, hangover-free lifestyle, prevent hangovers completely',
         canonicalUrl: `${baseUrl}/never-hungover`,
-        ogImage: `${baseUrl}/never-hungover-featured.jpg`,
+        ogImage: `${baseUrl}/never-hungover-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "Blog",
@@ -277,7 +277,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Trusted DHM authority since 2020. Expert team analyzes clinical research, tests supplements, provides unbiased hangover prevention guidance.',
         keywords: 'hangover prevention experts, stop hangovers team, hangover cure specialists, hangover prevention research team',
         canonicalUrl: `${baseUrl}/about`,
-        ogImage: `${baseUrl}/about-featured.jpg`,
+        ogImage: `${baseUrl}/about-featured.webp`,
         structuredData: {
           "@context": "https://schema.org",
           "@type": "AboutPage",
@@ -292,7 +292,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
       
       // Extract image from content if not explicitly provided
       const extractedImage = image || extractImageFromMarkdown(content);
-      const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.jpg`;
+      const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.webp`;
       
       // Safely handle date conversion
       let dateString = '2024-01-01T00:00:00Z'; // Default fallback
@@ -329,7 +329,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
             "name": "DHM Guide",
             "logo": {
               "@type": "ImageObject",
-              "url": `${baseUrl}/logo.png`
+              "url": `${baseUrl}/logo.webp`
             }
           },
           "mainEntityOfPage": {
@@ -348,7 +348,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         description: 'Your trusted resource for DHM (Dihydromyricetin) information and hangover prevention.',
         keywords: 'DHM, dihydromyricetin, hangover prevention',
         canonicalUrl: baseUrl,
-        ogImage: `${baseUrl}/og-image.jpg`
+        ogImage: `${baseUrl}/og-image.webp`
       };
   }
 };
