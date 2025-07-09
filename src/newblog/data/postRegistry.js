@@ -38,6 +38,7 @@ const postModules = {
   'double-wood-vs-toniiq-ease-dhm-comparison-2025': () => import('./posts/double-wood-vs-toniiq-ease-dhm-comparison-2025.json'),
   'emergency-hangover-protocol-2025': () => import('./posts/emergency-hangover-protocol-2025.json'),
   'executive-travel-wellness-2025': () => import('./posts/executive-travel-wellness-2025.json'),
+  'fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025': () => import('./posts/fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025.json'),
   'festival-season-survival-dhm-guide-concert-music-festival-recovery': () => import('./posts/festival-season-survival-dhm-guide-concert-music-festival-recovery.json'),
   'fitness-enthusiast-social-drinking-dhm-2025': () => import('./posts/fitness-enthusiast-social-drinking-dhm-2025.json'),
   'flyby-recovery-review-2025': () => import('./posts/flyby-recovery-review-2025.json'),
