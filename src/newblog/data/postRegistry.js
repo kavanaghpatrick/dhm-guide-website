@@ -98,7 +98,11 @@ const postModules = {
   'when-to-take-dhm-timing-guide-2025': () => import('./posts/when-to-take-dhm-timing-guide-2025.json'),
   'work-life-balance-dhm-2025': () => import('./posts/work-life-balance-dhm-2025.json'),
   'dhm-women-hormonal-considerations-safety-2025': () => import('./posts/dhm-women-hormonal-considerations-safety-2025.json'),
-  'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json')
+  'zebra-striping-drinking-trend-2025': () => import('./posts/zebra-striping-drinking-trend-2025.json'),
+  'fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025': () => import('./posts/fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025.json'),
+  'non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025': () => import('./posts/non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025.json'),
+  'fatty-liver-disease-diet-complete-nutrition-guide-2025': () => import('./posts/fatty-liver-disease-diet-complete-nutrition-guide-2025.json'),
+  'liver-inflammation-causes-symptoms-natural-treatment-2025': () => import('./posts/liver-inflammation-causes-symptoms-natural-treatment-2025.json')
 };
 
 export default postModules;
