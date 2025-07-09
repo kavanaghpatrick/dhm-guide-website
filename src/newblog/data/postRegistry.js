@@ -102,7 +102,13 @@ const postModules = {
   'fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025': () => import('./posts/fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025.json'),
   'non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025': () => import('./posts/non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025.json'),
   'fatty-liver-disease-diet-complete-nutrition-guide-2025': () => import('./posts/fatty-liver-disease-diet-complete-nutrition-guide-2025.json'),
-  'liver-inflammation-causes-symptoms-natural-treatment-2025': () => import('./posts/liver-inflammation-causes-symptoms-natural-treatment-2025.json')
+  'liver-inflammation-causes-symptoms-natural-treatment-2025': () => import('./posts/liver-inflammation-causes-symptoms-natural-treatment-2025.json'),
+  'gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025': () => import('./posts/gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025.json'),
+  'natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025': () => import('./posts/natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025.json'),
+  'sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025': () => import('./posts/sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025.json'),
+  'hangover-headache-fast-relief-methods-2025': () => import('./posts/hangover-headache-fast-relief-methods-2025.json'),
+  'hangover-nausea-complete-guide-fast-stomach-relief-2025': () => import('./posts/hangover-nausea-complete-guide-fast-stomach-relief-2025.json'),
+  'alcohol-headache-why-it-happens-how-to-prevent-2025': () => import('./posts/alcohol-headache-why-it-happens-how-to-prevent-2025.json')
 };
 
 export default postModules;
