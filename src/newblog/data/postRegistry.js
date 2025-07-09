@@ -108,7 +108,13 @@ const postModules = {
   'sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025': () => import('./posts/sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025.json'),
   'hangover-headache-fast-relief-methods-2025': () => import('./posts/hangover-headache-fast-relief-methods-2025.json'),
   'hangover-nausea-complete-guide-fast-stomach-relief-2025': () => import('./posts/hangover-nausea-complete-guide-fast-stomach-relief-2025.json'),
-  'alcohol-headache-why-it-happens-how-to-prevent-2025': () => import('./posts/alcohol-headache-why-it-happens-how-to-prevent-2025.json')
+  'alcohol-headache-why-it-happens-how-to-prevent-2025': () => import('./posts/alcohol-headache-why-it-happens-how-to-prevent-2025.json'),
+  'liver-health-complete-guide-optimal-liver-function-protection-2025': () => import('./posts/liver-health-complete-guide-optimal-liver-function-protection-2025.json'),
+  'best-liver-detox-science-based-methods-vs-marketing-myths-2025': () => import('./posts/best-liver-detox-science-based-methods-vs-marketing-myths-2025.json'),
+  'liver-health-supplements-complete-guide-evidence-based-options-2025': () => import('./posts/liver-health-supplements-complete-guide-evidence-based-options-2025.json'),
+  'dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025': () => import('./posts/dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025.json'),
+  'hangover-supplements-complete-guide-what-actually-works-2025': () => import('./posts/hangover-supplements-complete-guide-what-actually-works-2025.json'),
+  'nac-vs-dhm-which-antioxidant-better-liver-protection-2025': () => import('./posts/nac-vs-dhm-which-antioxidant-better-liver-protection-2025.json')
 };
 
 export default postModules;

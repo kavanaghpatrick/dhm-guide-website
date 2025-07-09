@@ -1578,5 +1578,307 @@
     "tags": ["DHM", "Supplements", "Hangover Prevention", "Supplement Stacking", "NAC", "Milk Thistle", "Liver Health", "Alcohol Metabolism"],
     "image": "/images/dhm-supplement-stack-guide-complete-combinations-hero.webp",
     "readTime": 18
+  },
+  {
+    "id": "non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025",
+    "title": "Non-Alcoholic Fatty Liver Disease (NAFLD): Complete Prevention & Management Guide 2025",
+    "slug": "non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025",
+    "excerpt": "Comprehensive guide to preventing and managing NAFLD. Learn about symptoms, causes, diet modifications, and evidence-based treatments for non-alcoholic fatty liver disease.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "non alcoholic fatty liver disease",
+      "NAFLD",
+      "NAFLD treatment",
+      "NAFLD diet",
+      "NAFLD symptoms",
+      "liver health",
+      "fatty liver",
+      "metabolic health"
+    ],
+    "image": "/non-alcoholic-fatty-liver-disease-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "fatty-liver-disease-diet-complete-nutrition-guide-2025",
+    "title": "Fatty Liver Disease Diet: Complete Nutrition Guide & 7-Day Meal Plan (2025)",
+    "slug": "fatty-liver-disease-diet-complete-nutrition-guide-2025",
+    "excerpt": "Comprehensive fatty liver diet guide with meal plans, recipes, and food lists. Learn what to eat and avoid for optimal liver health with our evidence-based nutrition protocol.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "fatty liver disease diet",
+      "healthy diet for fatty liver",
+      "fatty liver diet plan",
+      "foods to avoid fatty liver",
+      "fatty liver diet menu",
+      "liver health",
+      "nutrition",
+      "meal planning"
+    ],
+    "image": "/fatty-liver-diet-guide-hero.webp",
+    "readTime": 15
+  },
+  {
+    "id": "liver-inflammation-causes-symptoms-natural-treatment-2025",
+    "title": "Liver Inflammation: Natural Anti-Inflammatory Solutions & Treatment Guide (2025)",
+    "slug": "liver-inflammation-causes-symptoms-natural-treatment-2025",
+    "excerpt": "Discover evidence-based natural solutions for liver inflammation. Learn about causes, symptoms, and anti-inflammatory treatments including DHM and other proven supplements.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "liver inflammation",
+      "hepatic inflammation",
+      "liver swelling",
+      "inflamed liver symptoms",
+      "liver inflammation treatment",
+      "anti-inflammatory",
+      "natural remedies",
+      "liver health"
+    ],
+    "image": "/liver-inflammation-guide-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025",
+    "title": "GABA (Gamma-Aminobutyric Acid): Complete Guide to Benefits, Dosage & Natural Sources (2025)",
+    "slug": "gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025",
+    "excerpt": "Comprehensive guide to GABA, the brain's primary inhibitory neurotransmitter. Learn about benefits for anxiety, sleep, and mood, plus how DHM modulates GABA receptors.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "gaba",
+      "gamma aminobutyric acid",
+      "what is gaba",
+      "gaba benefits",
+      "gaba supplement",
+      "gaba neurotransmitter",
+      "gaba foods",
+      "brain health",
+      "anxiety",
+      "sleep"
+    ],
+    "image": "/gaba-complete-guide-hero.webp",
+    "readTime": 14
+  },
+  {
+    "id": "natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025",
+    "title": "Natural Anxiety Relief: GABA Supplements vs. DHM for Stress Management (2025)",
+    "slug": "natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025",
+    "excerpt": "Compare GABA supplements and DHM for natural anxiety relief. Evidence-based guide to managing stress without prescription medications.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "gaba for anxiety",
+      "natural anxiety relief",
+      "gaba anxiety",
+      "dhm for anxiety",
+      "natural stress relief",
+      "gaba vs other supplements",
+      "anxiety management",
+      "stress relief"
+    ],
+    "image": "/natural-anxiety-relief-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025",
+    "title": "Sleep Optimization: How GABA and DHM Improve Sleep Quality Naturally (2025)",
+    "slug": "sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025",
+    "excerpt": "Discover how GABA and DHM work together to enhance sleep quality naturally. Science-based protocols for better sleep architecture and morning energy.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "gaba for sleep",
+      "gaba and sleep",
+      "natural sleep aids",
+      "dhm for sleep",
+      "improve sleep quality naturally",
+      "gaba sleep benefits",
+      "sleep optimization",
+      "sleep supplements"
+    ],
+    "image": "/sleep-optimization-gaba-dhm-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "hangover-headache-fast-relief-methods-2025",
+    "title": "Hangover Headache: Fast Relief Methods That Actually Work (2025)",
+    "slug": "hangover-headache-fast-relief-methods-2025",
+    "excerpt": "Evidence-based hangover headache relief that works in 15 minutes. Learn why alcohol causes headaches and how to prevent them with DHM.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "hangover headache cure",
+      "hangover headache remedy",
+      "hangover headache",
+      "hangover headache relief",
+      "headache after drinking",
+      "alcohol headache cure",
+      "hangover relief",
+      "headache relief"
+    ],
+    "image": "/hangover-headache-relief-hero.webp",
+    "readTime": 10
+  },
+  {
+    "id": "hangover-nausea-complete-guide-fast-stomach-relief-2025",
+    "title": "Hangover Nausea: Complete Guide to Fast Stomach Relief (2025)",
+    "slug": "hangover-nausea-complete-guide-fast-stomach-relief-2025",
+    "excerpt": "Fast relief for hangover nausea and stomach pain. Proven 5-minute protocol, safe foods guide, and DHM's gastroprotective benefits.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "hangover nausea cure",
+      "hangover stomach pain",
+      "hangover stomach ache",
+      "hangover nausea relief",
+      "hangover vomiting",
+      "upset stomach after drinking",
+      "stomach relief",
+      "nausea relief"
+    ],
+    "image": "/hangover-nausea-relief-hero.webp",
+    "readTime": 10
+  },
+  {
+    "id": "alcohol-headache-why-it-happens-how-to-prevent-2025",
+    "title": "Alcohol Headache: Why It Happens and How to Prevent It (2025)",
+    "slug": "alcohol-headache-why-it-happens-how-to-prevent-2025",
+    "excerpt": "Learn why alcohol causes headaches and how to prevent them. Science-based prevention strategies for casual drinkers, including DHM's protective role.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "alcohol headache",
+      "headache after drinking alcohol",
+      "why does alcohol cause headaches",
+      "alcohol headache prevention",
+      "wine headache",
+      "prevent headaches",
+      "casual drinking",
+      "headache prevention"
+    ],
+    "image": "/alcohol-headache-prevention-hero.webp",
+    "readTime": 10
+  },
+  {
+    "id": "liver-health-complete-guide-optimal-liver-function-protection-2025",
+    "title": "Liver Health: Complete Guide to Optimal Liver Function & Protection (2025)",
+    "slug": "liver-health-complete-guide-optimal-liver-function-protection-2025",
+    "excerpt": "Comprehensive guide to optimizing liver health through diet, lifestyle, and supplements. Learn how to protect and enhance liver function naturally.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "liver health",
+      "liver function",
+      "healthy liver",
+      "improve liver health",
+      "liver health tips",
+      "liver protection",
+      "optimal liver function",
+      "liver wellness"
+    ],
+    "image": "/liver-health-complete-guide-hero.webp",
+    "readTime": 14
+  },
+  {
+    "id": "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
+    "title": "Best Liver Detox: Science-Based Methods vs. Marketing Myths (2025)",
+    "slug": "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
+    "excerpt": "Separate liver detox facts from fiction. Learn what science says about liver detoxification and which methods actually support your liver's natural processes.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "liver detox",
+      "liver cleanse",
+      "best liver detox",
+      "natural liver detox",
+      "liver detoxification",
+      "liver cleanse diet",
+      "detox myths",
+      "evidence-based detox"
+    ],
+    "image": "/liver-detox-science-myths-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "liver-health-supplements-complete-guide-evidence-based-options-2025",
+    "title": "Liver Health Supplements: Complete Guide to Evidence-Based Options (2025)",
+    "slug": "liver-health-supplements-complete-guide-evidence-based-options-2025",
+    "excerpt": "Science-based review of 15 liver supplements including DHM, milk thistle, NAC, and more. Evidence ratings, dosages, and combination protocols included.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "liver health supplements",
+      "best liver supplements",
+      "liver support supplements",
+      "liver protection supplements",
+      "natural liver supplements",
+      "liver supplement reviews",
+      "DHM supplements",
+      "evidence-based supplements"
+    ],
+    "image": "/liver-supplements-guide-hero.webp",
+    "readTime": 14
+  },
+  {
+    "id": "dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025",
+    "title": "DHM vs. Milk Thistle: Which Liver Supplement Is More Effective? (2025)",
+    "slug": "dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025",
+    "excerpt": "Evidence-based comparison of DHM and milk thistle for liver protection. Learn which supplement is better for your specific needs and when to use both.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "milk thistle vs dhm",
+      "dhm vs milk thistle",
+      "best liver supplement",
+      "liver protection supplements",
+      "dihydromyricetin vs silymarin",
+      "liver supplement comparison",
+      "DHM benefits",
+      "milk thistle benefits"
+    ],
+    "image": "/dhm-vs-milk-thistle-comparison-hero.webp",
+    "readTime": 10
+  },
+  {
+    "id": "hangover-supplements-complete-guide-what-actually-works-2025",
+    "title": "Hangover Supplements: Complete Guide to What Actually Works (2025)",
+    "slug": "hangover-supplements-complete-guide-what-actually-works-2025",
+    "excerpt": "Evidence-based review of 20+ hangover supplements. Scientific ratings, price comparisons, and buying guide to help you choose what actually works.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "hangover supplements",
+      "best hangover supplements",
+      "hangover pills",
+      "hangover prevention supplements",
+      "anti hangover pills",
+      "hangover cure supplements",
+      "DHM supplements",
+      "supplement reviews"
+    ],
+    "image": "/hangover-supplements-guide-hero.webp",
+    "readTime": 12
+  },
+  {
+    "id": "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+    "title": "NAC vs. DHM: Which Antioxidant Is Better for Liver Protection? (2025)",
+    "slug": "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+    "excerpt": "Scientific comparison of NAC and DHM for liver protection. Learn the mechanisms, benefits, and optimal use cases for each antioxidant supplement.",
+    "date": "2025-07-09",
+    "author": "DHM Guide Team",
+    "tags": [
+      "NAC vs DHM",
+      "N-acetylcysteine liver",
+      "antioxidant supplements",
+      "NAC liver benefits",
+      "DHM antioxidant",
+      "liver protection comparison",
+      "glutathione",
+      "liver antioxidants"
+    ],
+    "image": "/nac-vs-dhm-comparison-hero.webp",
+    "readTime": 10
   }
 ]
