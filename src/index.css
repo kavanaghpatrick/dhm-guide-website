@@ -388,7 +388,8 @@ nav a,
   }
 }
 
-/* Dark mode support (if implemented) */
+/* Dark mode support - DISABLED until properly implemented */
+/* Commenting out dark mode styles that are causing light text on white background
 @media (prefers-color-scheme: dark) {
   .enhanced-typography {
     color: #e2e8f0;
@@ -416,6 +417,7 @@ nav a,
     color: #4ade80;
   }
 }
+*/
 
 /* Code styling */
 .enhanced-typography pre {
