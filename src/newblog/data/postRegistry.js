@@ -115,7 +115,16 @@ const postModules = {
   'liver-health-supplements-complete-guide-evidence-based-options-2025': () => import('./posts/liver-health-supplements-complete-guide-evidence-based-options-2025.json'),
   'dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025': () => import('./posts/dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025.json'),
   'hangover-supplements-complete-guide-what-actually-works-2025': () => import('./posts/hangover-supplements-complete-guide-what-actually-works-2025.json'),
-  'nac-vs-dhm-which-antioxidant-better-liver-protection-2025': () => import('./posts/nac-vs-dhm-which-antioxidant-better-liver-protection-2025.json')
+  'nac-vs-dhm-which-antioxidant-better-liver-protection-2025': () => import('./posts/nac-vs-dhm-which-antioxidant-better-liver-protection-2025.json'),
+  'is-dhm-safe-science-behind-side-effects-2025': () => import('./posts/is-dhm-safe-science-behind-side-effects-2025.json'),
+  'does-dhm-work-honest-science-review-2025': () => import('./posts/does-dhm-work-honest-science-review-2025.json'),
+  'can-you-take-dhm-every-day-long-term-guide-2025': () => import('./posts/can-you-take-dhm-every-day-long-term-guide-2025.json'),
+  'wine-hangover-guide': () => import('./posts/wine-hangover-guide.json'),
+  'tequila-hangover-truth': () => import('./posts/tequila-hangover-truth.json'),
+  'whiskey-vs-vodka-hangover': () => import('./posts/whiskey-vs-vodka-hangover.json'),
+  'dhm-vs-prickly-pear-hangovers': () => import('./posts/dhm-vs-prickly-pear-hangovers.json'),
+  'dhm-vs-zbiotics': () => import('./posts/dhm-vs-zbiotics.json'),
+  'activated-charcoal-hangover': () => import('./posts/activated-charcoal-hangover.json')
 };
 
 export default postModules;
