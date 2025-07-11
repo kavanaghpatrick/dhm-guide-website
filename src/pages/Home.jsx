@@ -8,15 +8,39 @@ import { Badge } from '@/components/ui/badge.jsx'
 import FAQSection from '../components/FAQSection.jsx'
 import CompetitorComparison from '../components/CompetitorComparison.jsx'
 import UserTestimonials from '../components/UserTestimonials.jsx'
+import ResponsiveImage from '../components/ResponsiveImage.jsx'
 // Inline placeholder to avoid JSON import issues
 const lcpPlaceholder = {
   base64: "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAgCdASoUAA0APzmEulO/qKWisAgD8CcJZQCdAC5JAAD+w93fB761v0e6gClroICuMghCtMAAAA==",
   width: 20,
   height: 13
 }
-import liverInfographic from '../assets/02_liver_protection_infographic.webp'
-import gabaInfographic from '../assets/04_gaba_receptor_mechanism.webp'
+// Import responsive images for liver infographic
+import liver380w from '../assets/02_liver_protection_infographic-380w.webp'
+import liver760w from '../assets/02_liver_protection_infographic-760w.webp'
+import liver1536w from '../assets/02_liver_protection_infographic-1536w.webp'
+import liverPlaceholderData from '../assets/02_liver_protection_infographic-placeholder.json'
+const liverPlaceholder = liverPlaceholderData['02_liver_protection_infographic']
+const liverSrcSet = {
+  '380w': liver380w,
+  '760w': liver760w,
+  '1536w': liver1536w
+}
+
+// Import responsive images for GABA infographic
+import gaba380w from '../assets/04_gaba_receptor_mechanism-380w.webp'
+import gaba760w from '../assets/04_gaba_receptor_mechanism-760w.webp'
+import gaba1536w from '../assets/04_gaba_receptor_mechanism-1536w.webp'
+import gabaPlaceholderData from '../assets/04_gaba_receptor_mechanism-placeholder.json'
+const gabaPlaceholder = gabaPlaceholderData['04_gaba_receptor_mechanism']
+const gabaSrcSet = {
+  '380w': gaba380w,
+  '760w': gaba760w,
+  '1536w': gaba1536w
+}
+
 import traditionalHeritage from '../assets/05_traditional_heritage.webp'
+import LazyImage from '../components/LazyImage.jsx'
 import { 
   ChevronDown, 
   Beaker, 
@@ -384,13 +408,16 @@ export default function Home() {
                 className="order-1 lg:order-2"
               >
                 <div className="relative">
-                  <img 
-                    src={liverInfographic} 
+                  <ResponsiveImage
+                    src={liver1536w}
+                    srcSet={liverSrcSet}
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
-                    className="w-full h-auto rounded-2xl shadow-2xl"
-                    loading="lazy"
+                    sizes={[380, 760, 1536]}
+                    sizesAttr="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
                     width={1536}
                     height={1024}
+                    placeholder={liverPlaceholder.base64}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
@@ -409,13 +436,16 @@ export default function Home() {
                 className="order-1 lg:order-1"
               >
                 <div className="relative">
-                  <img 
-                    src={gabaInfographic} 
+                  <ResponsiveImage
+                    src={gaba1536w}
+                    srcSet={gabaSrcSet}
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
-                    className="w-full h-auto rounded-2xl shadow-2xl"
-                    loading="lazy"
+                    sizes={[380, 760, 1536]}
+                    sizesAttr="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
                     width={1536}
                     height={1024}
+                    placeholder={gabaPlaceholder.base64}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
@@ -538,14 +568,18 @@ export default function Home() {
           style={{ y: traditionY }}
           className="absolute inset-0 w-full h-full"
         >
-          <div 
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{ 
-              backgroundImage: `url(${traditionalHeritage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              filter: 'brightness(0.85)'
-            }}
+          <LazyImage
+            src="/assets/05_traditional_heritage-1536w.webp"
+            srcSet="/assets/05_traditional_heritage-640w.webp 640w,
+                    /assets/05_traditional_heritage-768w.webp 768w,
+                    /assets/05_traditional_heritage-1024w.webp 1024w,
+                    /assets/05_traditional_heritage-1536w.webp 1536w"
+            sizes="100vw"
+            alt="Traditional Japanese raisin tree harvesting"
+            className="w-full h-full object-cover"
+            style={{ filter: 'brightness(0.85)' }}
+            threshold={0.1}
+            rootMargin="100px"
           />
           {/* Subtle overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-amber-900/20 to-green-900/20" />

@@ -320,10 +320,10 @@ const CompetitorComparison = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-green-700 mb-2 flex items-center">
+                    <h3 className="font-semibold text-green-700 mb-2 flex items-center text-lg">
                       <CheckCircle className="w-4 h-4 mr-2" />
                       Pros
-                    </h4>
+                    </h3>
                     <ul className="space-y-1">
                       {comp.pros.map((pro, i) => (
                         <li key={i} className="text-sm text-gray-700 flex items-start">
@@ -335,10 +335,10 @@ const CompetitorComparison = () => {
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-red-700 mb-2 flex items-center">
+                    <h3 className="font-semibold text-red-700 mb-2 flex items-center text-lg">
                       <XCircle className="w-4 h-4 mr-2" />
                       Cons
-                    </h4>
+                    </h3>
                     <ul className="space-y-1">
                       {comp.cons.map((con, i) => (
                         <li key={i} className="text-sm text-gray-700 flex items-start">

@@ -314,10 +314,12 @@ const UserTestimonials = () => {
                   </Button>
                   
                   <div className="flex space-x-2">
-                    {testimonials.map((_, index) => (
+                    {testimonials.map((testimonial, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentTestimonial(index)}
+                        aria-label={`Go to testimonial ${index + 1} by ${testimonial.name}`}
+                        aria-current={index === currentTestimonial ? 'true' : 'false'}
                         className={`w-2 h-2 rounded-full transition-all ${
                           index === currentTestimonial 
                             ? 'bg-purple-600 w-8' 

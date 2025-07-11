@@ -24,7 +24,7 @@
     
     <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -208,14 +208,25 @@
     }
     </script>
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETG5F8LSNS"></script>
+    <!-- Google tag (gtag.js) - Deferred loading for better performance -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-ETG5F8LSNS');
+      // Defer GTM loading until after page load
+      window.addEventListener('load', function() {
+        // Initialize dataLayer before loading GTM
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        
+        // Load GTM script
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-ETG5F8LSNS';
+        script.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'G-ETG5F8LSNS');
+        };
+        document.head.appendChild(script);
+      });
     </script>
   </head>
   <body>
