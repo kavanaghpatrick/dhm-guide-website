@@ -248,11 +248,43 @@
   </head>
   <body>
     <div id="root">
-      <!-- Initial content for crawlers while React loads -->
+      <!-- Initial content for crawlers and LCP optimization -->
       <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
         <h1>DHM Guide: Science-Backed Hangover Prevention</h1>
         <p>Discover how DHM (Dihydromyricetin) prevents hangovers with clinically-proven effectiveness. Based on 11+ scientific studies and UCLA research.</p>
         <p>Learn about proper DHM dosage, timing, and the best supplements for hangover prevention.</p>
+      </div>
+      <!-- LCP Hero Image - Server-side rendered for immediate discovery -->
+      <div id="ssr-hero" style="max-width: 1280px; margin: 0 auto; padding: 16px;">
+        <picture>
+          <source
+            type="image/webp"
+            media="(max-width: 640px)"
+            srcset="/images/before-after-dhm-380w.webp 380w,
+                    /images/before-after-dhm-500w.webp 500w,
+                    /images/before-after-dhm-640w.webp 640w">
+          <source
+            type="image/webp"
+            media="(min-width: 641px)"
+            srcset="/images/before-after-dhm-768w.webp 768w,
+                    /images/before-after-dhm-1024w.webp 1024w,
+                    /images/before-after-dhm-1536w.webp 1536w">
+          <img 
+            src="/images/before-after-dhm-500w.webp"
+            srcset="/images/before-after-dhm-380w.webp 380w,
+                    /images/before-after-dhm-500w.webp 500w,
+                    /images/before-after-dhm-640w.webp 640w,
+                    /images/before-after-dhm-768w.webp 768w,
+                    /images/before-after-dhm-1024w.webp 1024w,
+                    /images/before-after-dhm-1536w.webp 1536w"
+            sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 50vw, 600px"
+            alt="Before and After DHM - Transform your morning from hangover misery to feeling great"
+            loading="eager"
+            fetchpriority="high"
+            width="1536"
+            height="1024"
+            style="width: 100%; height: auto; border-radius: 1rem; display: block; aspect-ratio: 1536/1024;">
+        </picture>
       </div>
     </div>
     
@@ -272,6 +304,18 @@
     </noscript>
     
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Hide SSR hero image once React mounts
+      window.addEventListener('DOMContentLoaded', function() {
+        // Give React time to mount
+        setTimeout(function() {
+          var ssrHero = document.getElementById('ssr-hero');
+          if (ssrHero) {
+            ssrHero.style.display = 'none';
+          }
+        }, 100);
+      });
+    </script>
   </body>
 </html>
 
