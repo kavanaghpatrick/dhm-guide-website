@@ -33,7 +33,7 @@
     
     <!-- Preload critical LCP image with responsive sizes -->
     <link rel="preload" as="image" 
-          href="/images/before-after-dhm-640w.webp"
+          href="/images/before-after-dhm-500w.webp"
           media="(max-width: 640px)"
           fetchpriority="high">
     <link rel="preload" as="image" 
@@ -41,9 +41,26 @@
           media="(min-width: 641px)"
           fetchpriority="high">
     
-    <!-- Critical CSS for LCP optimization -->
-    <link rel="preload" href="/critical-lcp.css" as="style">
-    <link rel="stylesheet" href="/critical-lcp.css">
+    <!-- Critical CSS for LCP optimization (inlined) -->
+    <style>
+      /* Critical CSS for LCP image optimization */
+      /* Ensure hero image space is reserved to prevent layout shift */
+      img[src*="before-after-dhm"] {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1536 / 1024;
+        background-color: #f3f4f6;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      /* Optimize rendering */
+      .w-full { width: 100%; }
+      .h-auto { height: auto; }
+      .rounded-2xl { border-radius: 1rem; }
+      .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+    </style>
     
     <!-- Primary Meta Tags -->
     <title>DHM Guide: Prevent 87% of Hangovers with Science-Backed Supplements | 11 Clinical Studies</title>
