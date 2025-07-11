@@ -6,7 +6,7 @@
   "description": "DHM Guide Website - Deployment trigger 2025-01-05",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/generate-blog-canonicals.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -1,79 +1,20 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "redirects": [
-    {
-      "source": "/:path*",
-      "destination": "https://www.dhmguide.com/:path*",
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "dhmguide.com"
-        }
-      ]
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "/never-hungover/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/sober-curious-2025-mindful-drinking-dhm-science",
-      "destination": "/never-hungover/mindful-drinking-wellness-warrior-dhm-2025",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/longevity-biohacking-2025-dhm-liver-protection",
-      "destination": "/never-hungover/longevity-biohacking-dhm-liver-protection",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
-      "source": "/((?!api/|_next/static/|_next/image/|favicon.ico|robots.txt|sitemap.xml|.*\\.).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/never-hungover/:slug",
       "headers": [
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(robots.txt|sitemap.xml)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
+          "key": "Link",
+          "value": "<https://www.dhmguide.com/never-hungover/:slug>; rel=\"canonical\""
         }
       ]
     }
-  ]
+  ],
+  "trailingSlash": false
 }
-
