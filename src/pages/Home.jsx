@@ -149,7 +149,7 @@ export default function Home() {
                   {/* WebP with responsive sizes */}
                   <source
                     type="image/webp"
-                    sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 50vw, 600px"
+                    sizes="(max-width: 480px) 380px, (max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 600px"
                     srcSet="/images/before-after-dhm-380w.webp 380w,
                             /images/before-after-dhm-500w.webp 500w,
                             /images/before-after-dhm-640w.webp 640w,

@@ -32,14 +32,19 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     
     <!-- Preload critical LCP image with responsive sizes -->
+    <!-- Mobile preload - specifically for 380px display with 2.625 DPR = 997.5px needed -->
     <link rel="preload" as="image" 
           href="/images/before-after-dhm-500w.webp"
           media="(max-width: 640px)"
           fetchpriority="high">
+    <!-- Tablet/Desktop preload -->
     <link rel="preload" as="image" 
           href="/images/before-after-dhm-1024w.webp" 
           media="(min-width: 641px)"
           fetchpriority="high">
+    
+    <!-- Preload main stylesheet to make it non-blocking -->
+    <link rel="preload" href="/src/index.css" as="style">
     
     <!-- Critical CSS for LCP optimization (inlined) -->
     <style>
