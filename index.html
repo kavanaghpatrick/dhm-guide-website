@@ -33,12 +33,12 @@
     
     <!-- Preload critical LCP image with responsive sizes -->
     <link rel="preload" as="image" 
-          href="/images/before-after-dhm-1536w.webp" 
-          imagesrcset="/images/before-after-dhm-640w.webp 640w,
-                      /images/before-after-dhm-768w.webp 768w,
-                      /images/before-after-dhm-1024w.webp 1024w,
-                      /images/before-after-dhm-1536w.webp 1536w"
-          imagesizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px"
+          href="/images/before-after-dhm-640w.webp"
+          media="(max-width: 640px)"
+          fetchpriority="high">
+    <link rel="preload" as="image" 
+          href="/images/before-after-dhm-1024w.webp" 
+          media="(min-width: 641px)"
           fetchpriority="high">
     
     <!-- Critical CSS for LCP optimization -->
