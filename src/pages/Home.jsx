@@ -149,8 +149,9 @@ export default function Home() {
                   {/* WebP with responsive sizes */}
                   <source
                     type="image/webp"
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
-                    srcSet="/images/before-after-dhm-640w.webp 640w,
+                    sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 50vw, 600px"
+                    srcSet="/images/before-after-dhm-380w.webp 380w,
+                            /images/before-after-dhm-640w.webp 640w,
                             /images/before-after-dhm-768w.webp 768w,
                             /images/before-after-dhm-1024w.webp 1024w,
                             /images/before-after-dhm-1536w.webp 1536w"
