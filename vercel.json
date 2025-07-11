@@ -10,6 +10,11 @@
       ],
       "destination": "https://www.dhmguide.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/blog/:slug*",
+      "destination": "/never-hungover/:slug*",
+      "permanent": true
     }
   ],
   "rewrites": [
