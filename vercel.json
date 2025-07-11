@@ -15,6 +15,21 @@
       "source": "/blog/:slug*",
       "destination": "/never-hungover/:slug*",
       "permanent": true
+    },
+    {
+      "source": "/never-hungover/longevity-biohacking-2025-dhm-liver-protection",
+      "destination": "/never-hungover/longevity-biohacking-dhm-liver-protection",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/young-professional-wellness-2025-smart-drinking-career-success",
+      "destination": "/never-hungover/professional-hangover-free-networking-guide-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/sober-curious-2025-mindful-drinking-dhm-science",
+      "destination": "/never-hungover/mindful-drinking-wellness-warrior-dhm-2025",
+      "permanent": true
     }
   ],
   "rewrites": [
