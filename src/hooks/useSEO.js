@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { generateEnhancedBlogSchema } from '../utils/productSchemaGenerator.js';
 
 /**
  * Extract the first image URL from markdown content
@@ -304,6 +305,46 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         }
       }
       
+      // Generate enhanced schemas for product reviews
+      const enhancedSchemas = generateEnhancedBlogSchema({
+        slug,
+        title,
+        excerpt,
+        date: dateString,
+        author,
+        tags,
+        content
+      });
+      
+      // Use enhanced schemas if available, otherwise fall back to default
+      const structuredDataArray = enhancedSchemas && enhancedSchemas.length > 0 ? enhancedSchemas : [{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": excerpt,
+        "image": finalImage,
+        "datePublished": dateString,
+        "dateModified": dateString,
+        "author": {
+          "@type": "Person",
+          "name": author || "DHM Guide Team"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "DHM Guide",
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${baseUrl}/logo.webp`
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": blogPostUrl
+        },
+        "articleSection": "Health & Wellness",
+        "keywords": tags ? tags : ["DHM", "Dihydromyricetin", "Hangover Prevention"]
+      }];
+      
       return {
         title: `${title} | DHM Guide`,
         description: excerpt,
@@ -312,33 +353,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         ogImage: finalImage,
         ogType: 'article',
         author,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": title,
-          "description": excerpt,
-          "image": finalImage,
-          "datePublished": dateString,
-          "dateModified": dateString,
-          "author": {
-            "@type": "Person",
-            "name": author || "DHM Guide Team"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "DHM Guide",
-            "logo": {
-              "@type": "ImageObject",
-              "url": `${baseUrl}/logo.webp`
-            }
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": blogPostUrl
-          },
-          "articleSection": "Health & Wellness",
-          "keywords": tags ? tags : ["DHM", "Dihydromyricetin", "Hangover Prevention"]
-        }
+        structuredData: structuredDataArray
       };
     }
 
