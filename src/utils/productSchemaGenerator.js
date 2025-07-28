@@ -404,7 +404,7 @@ export function generateEnhancedBlogSchema(blogPost) {
       'name': 'DHM Guide',
       'logo': {
         '@type': 'ImageObject',
-        'url': `${baseUrl}/logo.png`
+        'url': `${baseUrl}/logo.webp`
       }
     },
     'mainEntityOfPage': {
