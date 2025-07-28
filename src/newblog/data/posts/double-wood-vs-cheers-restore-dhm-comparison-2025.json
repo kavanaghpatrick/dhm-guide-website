@@ -18,10 +18,7 @@
   "readTime": 10,
   "rating": 4.5,
   "featured": true,
-  "image": {
-    "url": "/images/double-wood-vs-cheers-comparison.jpg",
-    "alt": "Double Wood DHM vs Cheers Restore Comparison"
-  },
+  "image": "/images/dhm-comparison-research-lab.webp",
   "tableOfContents": [
     {
       "id": "quick-overview",
