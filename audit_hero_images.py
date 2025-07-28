@@ -1,141 +1,102 @@
 #!/usr/bin/env python3
+
 import json
 import os
-import re
-from pathlib import Path
 
-# Directory containing blog posts
-posts_dir = Path("/Users/patrickkavanagh/dhm-guide-website/src/newblog/data/posts")
+# Read the metadata file
+with open('src/newblog/data/metadata/index.json', 'r') as f:
+    data = json.load(f)
 
-# Patterns to detect hero images or image references in content
-image_patterns = [
-    r'hero[- _]?image',
-    r'banner[- _]?image',
-    r'featured[- _]?image',
-    r'cover[- _]?image',
-    r'main[- _]?image',
-    r'header[- _]?image',
-    r'<img\s+',
-    r'!\[.*?\]\(.*?\)',  # Markdown image syntax
-    r'src\s*=\s*["\'].*\.(jpg|jpeg|png|gif|webp|svg)',
-    r'/images/',
-    r'/assets/',
-    r'image:\s*["\']',
-    r'thumbnail:\s*["\']',
+# Target posts to check - expanded list of recent 2025 posts
+target_posts = [
+    'advanced-liver-detox-science-vs-marketing-myths-2025',
+    'alcohol-aging-longevity-2025',
+    'alcohol-and-anxiety-breaking-the-cycle-naturally-2025',
+    'alcohol-and-heart-health-complete-cardiovascular-guide-2025',
+    'alcohol-and-immune-system-complete-health-impact-2025',
+    'alcohol-and-inflammation-complete-health-impact-guide-2025',
+    'alcohol-and-rem-sleep-complete-scientific-analysis-2025',
+    'alcohol-athletic-performance-complete-impact-analysis-2025',
+    'alcohol-brain-health-2025',
+    'alcohol-digestive-health-gi-impact-guide-2025',
+    'alcohol-eye-health-complete-vision-impact-guide-2025',
+    'alcohol-fertility-reproductive-health-guide-2025',
+    'alcohol-recovery-nutrition-complete-healing-protocol-2025',
+    'alcohol-skin-health-anti-aging-impact-analysis-2025',
+    'alcohol-weight-loss-metabolic-guide-2025',
+    'business-travel-alcohol-executive-health-guide-2025',
+    'cold-therapy-alcohol-recovery-guide-2025',
+    'dhm-availability-worldwide-guide-2025',
+    'functional-medicine-hangover-prevention-2025',
+    'hangxiety-2025-dhm-prevents-post-drinking-anxiety',
+    'holiday-drinking-survival-guide-health-first-approach',
+    'nad-alcohol-cellular-energy-recovery-2025',
+    'post-dry-january-smart-drinking-strategies-2025',
+    'smart-social-drinking-your-health-first-strategies-guide-2025',
+    'viral-hangover-cures-tested-science-2025',
+    'zebra-striping-drinking-trend-2025',
+    'why-women-get-hangovers-worse-than-men-science-explained-2025'
 ]
 
-# Compile regex patterns
-compiled_patterns = [re.compile(pattern, re.IGNORECASE) for pattern in image_patterns]
+print('Post Analysis for Hero Images:')
+print('=' * 50)
 
-# Results
-posts_missing_image_field = []
-posts_with_image_field = []
-posts_with_image_references = []
+missing_images = []
+found_images = []
 
-# Analyze each JSON file
-for json_file in posts_dir.glob("*.json"):
-    try:
-        with open(json_file, 'r', encoding='utf-8') as f:
-            post_data = json.load(f)
+for post in data:
+    if post['slug'] in target_posts:
+        title = post['title']
+        slug = post['slug']
+        image_path = post.get('image', 'NO IMAGE SPECIFIED')
         
-        # Check if 'image' field exists in metadata
-        has_image_field = 'image' in post_data
-        
-        # Get content
-        content = post_data.get('content', '')
-        
-        # Search for image references in content
-        image_references = []
-        for pattern in compiled_patterns:
-            matches = pattern.findall(content)
-            if matches:
-                image_references.extend(matches)
-        
-        # Extract actual image paths from content
-        image_paths = []
-        # Look for markdown images
-        md_images = re.findall(r'!\[.*?\]\((.*?)\)', content)
-        image_paths.extend(md_images)
-        
-        # Look for HTML img src
-        html_images = re.findall(r'<img[^>]+src\s*=\s*["\']([^"\']+)["\']', content, re.IGNORECASE)
-        image_paths.extend(html_images)
-        
-        # Look for any other image references
-        other_images = re.findall(r'(?:image|thumbnail|banner|hero|cover):\s*["\']([^"\']+)["\']', content, re.IGNORECASE)
-        image_paths.extend(other_images)
-        
-        # Store results
-        post_info = {
-            'file': json_file.name,
-            'title': post_data.get('title', 'Unknown'),
-            'slug': post_data.get('slug', 'Unknown'),
-            'has_image_field': has_image_field,
-            'image_field_value': post_data.get('image', None),
-            'has_image_references': len(image_references) > 0,
-            'image_paths': list(set(image_paths))  # Unique paths
-        }
-        
-        if has_image_field:
-            posts_with_image_field.append(post_info)
+        if image_path != 'NO IMAGE SPECIFIED':
+            # Check if file exists
+            full_path = 'public' + image_path
+            exists = os.path.exists(full_path)
+            
+            if exists:
+                size = os.path.getsize(full_path)
+                status = f'EXISTS ({size} bytes)'
+                found_images.append({
+                    'title': title,
+                    'slug': slug,
+                    'image_path': image_path,
+                    'size': size
+                })
+            else:
+                status = 'MISSING'
+                missing_images.append({
+                    'title': title,
+                    'slug': slug,
+                    'image_path': image_path
+                })
         else:
-            posts_missing_image_field.append(post_info)
+            status = 'NO PATH SPECIFIED'
+            missing_images.append({
+                'title': title,
+                'slug': slug,
+                'image_path': 'NO PATH SPECIFIED'
+            })
         
-        if len(image_references) > 0:
-            posts_with_image_references.append(post_info)
-    
-    except Exception as e:
-        print(f"Error processing {json_file.name}: {e}")
+        print(f'Title: {title}')
+        print(f'Slug: {slug}')
+        print(f'Image Path: {image_path}')
+        print(f'Status: {status}')
+        print('-' * 40)
 
-# Print results
-print("=" * 80)
-print("BLOG POST HERO IMAGE AUDIT RESULTS")
-print("=" * 80)
+print('\n\nSUMMARY:')
+print('=' * 50)
+print(f'Total posts checked: {len(target_posts)}')
+print(f'Missing images: {len(missing_images)}')
+print(f'Found images: {len(found_images)}')
 
-print(f"\nTotal posts analyzed: {len(list(posts_dir.glob('*.json')))}")
-print(f"Posts with 'image' field: {len(posts_with_image_field)}")
-print(f"Posts missing 'image' field: {len(posts_missing_image_field)}")
-print(f"Posts with image references in content: {len(posts_with_image_references)}")
+if missing_images:
+    print('\nMISSING IMAGES:')
+    for img in missing_images:
+        print(f'- {img["slug"]}: {img["image_path"]}')
 
-print("\n" + "=" * 80)
-print("POSTS MISSING 'IMAGE' FIELD BUT WITH IMAGE REFERENCES IN CONTENT:")
-print("=" * 80)
-
-missing_but_has_images = []
-for post in posts_missing_image_field:
-    if post['has_image_references'] or post['image_paths']:
-        missing_but_has_images.append(post)
-
-if missing_but_has_images:
-    for i, post in enumerate(missing_but_has_images, 1):
-        print(f"\n{i}. {post['title']}")
-        print(f"   File: {post['file']}")
-        print(f"   Slug: {post['slug']}")
-        if post['image_paths']:
-            print(f"   Image paths found in content:")
-            for path in post['image_paths']:
-                print(f"      - {path}")
-else:
-    print("\nNo posts found that are missing the 'image' field but have image references.")
-
-print("\n" + "=" * 80)
-print("ALL POSTS MISSING 'IMAGE' FIELD:")
-print("=" * 80)
-
-for i, post in enumerate(posts_missing_image_field, 1):
-    print(f"{i}. {post['title']} ({post['file']})")
-
-print("\n" + "=" * 80)
-print("SUMMARY OF IMAGE PATHS FOUND IN CONTENT:")
-print("=" * 80)
-
-all_image_paths = set()
-for post in posts_with_image_references:
-    all_image_paths.update(post['image_paths'])
-
-if all_image_paths:
-    print("\nUnique image paths found across all posts:")
-    for path in sorted(all_image_paths):
-        print(f"  - {path}")
-else:
-    print("\nNo image paths found in post content.")
+if found_images:
+    print('\nFOUND IMAGES:')
+    for img in found_images:
+        print(f'- {img["slug"]}: {img["image_path"]} ({img["size"]} bytes)')
