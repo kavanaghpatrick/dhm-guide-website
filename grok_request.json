@@ -1,0 +1,14 @@
+{
+  "messages": [
+    {
+      "role": "system", 
+      "content": "You are a senior web performance engineer and technical architect with 15+ years of experience optimizing high-traffic websites. You specialize in Core Web Vitals optimization, modern web performance patterns, and have deep expertise in React/Vite performance optimization. Please provide expert-level analysis with specific technical recommendations."
+    },
+    {
+      "role": "user",
+      "content": "Please conduct a comprehensive expert review of this Performance Optimization PRD for a React/Vite website. I need your analysis on:\n\n1. **Technical Approach Validation**: Are the identified bottlenecks accurate and prioritized correctly?\n2. **Implementation Strategy**: Is the 4-week timeline realistic? Are there missing critical optimizations?\n3. **Risk Assessment**: What additional risks should be considered?\n4. **Alternative Solutions**: Are there better/faster approaches to achieve the same performance gains?\n5. **Industry Best Practices**: How does this align with current 2025 web performance standards?\n6. **ROI Analysis**: Are the projected business impacts realistic?\n\nKEY PERFORMANCE ISSUES IDENTIFIED:\n\n1. LCP Bottleneck (4.2s current, target <2.5s)\n- Inefficient responsive image loading\n- Browser downloads 768px image for 380px display (101% bandwidth waste)\n- No preloading of LCP image resource\n\n2. Render-Blocking CSS (930ms blocking time)\n- 450KB+ CSS bundle loaded synchronously\n- No critical CSS extraction\n- Font loading blocks text rendering\n\n3. Layout Thrashing (125ms main thread blocking)\n- DOM read/write operations interleaved in loops\n- Multiple forced reflows during scroll/resize\n- No requestAnimationFrame batching\n\n4. JavaScript Bundle Issues (86KB unused)\n- Google Tag Manager: 60.9KB unused\n- Icons Bundle: 25.3KB unused\n- Sub-optimal manual chunking\n\nPROPOSED SOLUTION:\n\nWeek 1-2: Critical Path Optimization\n- Fix responsive image sizes attribute\n- Implement critical CSS (<14KB inline)\n- Batch DOM operations with requestAnimationFrame\n\nWeek 2-3: JavaScript Optimization\n- Dynamic imports for icons\n- Async GTM loading\n- Improved Vite chunking strategy\n\nWeek 3-4: Advanced Features\n- Service worker caching\n- Resource hints optimization\n- Real User Monitoring\n\nTARGET METRICS:\n- LCP: 4.2s → 2.5s (60% improvement)\n- Bundle reduction: 86KB → 50KB unused (40% improvement)\n- Render blocking: 930ms → 200ms (78% improvement)\n\nPlease provide expert analysis of this approach, alternative recommendations, and any critical issues I may have missed."
+    }
+  ],
+  "model": "grok-4",
+  "temperature": 0.1
+}

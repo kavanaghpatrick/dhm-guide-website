@@ -5,8 +5,15 @@
   "metaDescription": "Why does wine give you the worst hangovers? Learn the science behind wine hangovers, red wine headaches, and proven cures. Expert guide to preventing wine hangovers.",
   "date": "2025-01-10",
   "author": "Sarah Mitchell, Certified Nutritionist",
-  "tags": ["wine hangover", "red wine hangover", "white wine headache", "wine hangover cure", "alcohol science", "hangover prevention"],
-  "readTime": "10 min read",
+  "tags": [
+    "wine hangover",
+    "red wine hangover",
+    "white wine headache",
+    "wine hangover cure",
+    "alcohol science",
+    "hangover prevention"
+  ],
+  "readTime": 10,
   "hero": {
     "image": "/images/wine-hangover-hero.jpg",
     "alt": "Wine glasses with red and white wine illustrating wine hangover causes"

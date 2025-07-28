@@ -2,6 +2,23 @@
 // This file is auto-generated and helps Vite bundle dynamic imports correctly
 
 const postModules = {
+  'rum-health-analysis-complete-spirits-impact-study-2025': () => import('./posts/rum-health-analysis-complete-spirits-impact-study-2025.json'),
+  'alcohol-pharmacokinetics-advanced-absorption-science-2025': () => import('./posts/alcohol-pharmacokinetics-advanced-absorption-science-2025.json'),
+  'altitude-alcohol-high-elevation-drinking-safety-2025': () => import('./posts/altitude-alcohol-high-elevation-drinking-safety-2025.json'),
+  'alcohol-ketogenic-diet-ketosis-impact-analysis-2025': () => import('./posts/alcohol-ketogenic-diet-ketosis-impact-analysis-2025.json'),
+  'pregnant-women-and-alcohol-complete-fetal-impact-guide-2025': () => import('./posts/pregnant-women-and-alcohol-complete-fetal-impact-guide-2025.json'),
+  'alcohol-hypertension-blood-pressure-management-2025': () => import('./posts/alcohol-hypertension-blood-pressure-management-2025.json'),
+  'athletes-alcohol-sport-specific-performance-guide-2025': () => import('./posts/athletes-alcohol-sport-specific-performance-guide-2025.json'),
+  'alcohol-autoimmune-diseases-inflammatory-response-2025': () => import('./posts/alcohol-autoimmune-diseases-inflammatory-response-2025.json'),
+  'shift-workers-alcohol-circadian-disruption-guide-2025': () => import('./posts/shift-workers-alcohol-circadian-disruption-guide-2025.json'),
+  'alcohol-thyroid-hormonal-disruption-2025': () => import('./posts/alcohol-thyroid-hormonal-disruption-2025.json'),
+  'craft-beer-vs-mass-market-health-differences-study-2025': () => import('./posts/craft-beer-vs-mass-market-health-differences-study-2025.json'),
+  'alcohol-kidney-disease-renal-function-impact-2025': () => import('./posts/alcohol-kidney-disease-renal-function-impact-2025.json'),
+  'alcohol-and-nootropics-cognitive-enhancement-interactions-2025': () => import('./posts/alcohol-and-nootropics-cognitive-enhancement-interactions-2025.json'),
+  'alcohol-diabetes-blood-sugar-management-guide-2025': () => import('./posts/alcohol-diabetes-blood-sugar-management-guide-2025.json'),
+  'alcohol-intermittent-fasting-metabolic-interaction-guide': () => import('./posts/alcohol-intermittent-fasting-metabolic-interaction-guide.json'),
+  'seniors-alcohol-safety-guide-2025': () => import('./posts/seniors-alcohol-safety-guide-2025.json'),
+  'at-home-alcohol-testing-monitoring-safety-guide-2025': () => import('./posts/at-home-alcohol-testing-monitoring-safety-guide-2025.json'),
   'antioxidant-anti-aging-dhm-powerhouse-2025': () => import('./posts/antioxidant-anti-aging-dhm-powerhouse-2025.json'),
   'asian-flush-vs-alcohol-allergy-comparison': () => import('./posts/asian-flush-vs-alcohol-allergy-comparison.json'),
   'bachelor-bachelorette-party-dhm-2025': () => import('./posts/bachelor-bachelorette-party-dhm-2025.json'),
@@ -124,7 +141,21 @@ const postModules = {
   'whiskey-vs-vodka-hangover': () => import('./posts/whiskey-vs-vodka-hangover.json'),
   'dhm-vs-prickly-pear-hangovers': () => import('./posts/dhm-vs-prickly-pear-hangovers.json'),
   'dhm-vs-zbiotics': () => import('./posts/dhm-vs-zbiotics.json'),
-  'activated-charcoal-hangover': () => import('./posts/activated-charcoal-hangover.json')
+  'activated-charcoal-hangover': () => import('./posts/activated-charcoal-hangover.json'),
+  'advanced-liver-detox-science-vs-marketing-myths-2025': () => import('./posts/advanced-liver-detox-science-vs-marketing-myths-2025.json'),
+  'alcohol-aging-longevity-2025': () => import('./posts/alcohol-aging-longevity-2025.json'),
+  'alcohol-and-anxiety-breaking-the-cycle-naturally-2025': () => import('./posts/alcohol-and-anxiety-breaking-the-cycle-naturally-2025.json'),
+  'alcohol-and-inflammation-complete-health-impact-guide-2025': () => import('./posts/alcohol-and-inflammation-complete-health-impact-guide-2025.json'),
+  'alcohol-and-rem-sleep-complete-scientific-analysis-2025': () => import('./posts/alcohol-and-rem-sleep-complete-scientific-analysis-2025.json'),
+  'alcohol-brain-health-2025': () => import('./posts/alcohol-brain-health-2025.json'),
+  'business-travel-alcohol-executive-health-guide-2025': () => import('./posts/business-travel-alcohol-executive-health-guide-2025.json'),
+  'cold-therapy-alcohol-recovery-guide-2025': () => import('./posts/cold-therapy-alcohol-recovery-guide-2025.json'),
+  'functional-medicine-hangover-prevention-2025': () => import('./posts/functional-medicine-hangover-prevention-2025.json'),
+  'holiday-drinking-survival-guide-health-first-approach': () => import('./posts/holiday-drinking-survival-guide-health-first-approach.json'),
+  'how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025': () => import('./posts/how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025.json'),
+  'nad-alcohol-cellular-energy-recovery-2025': () => import('./posts/nad-alcohol-cellular-energy-recovery-2025.json'),
+  'preventative-health-strategies-regular-drinkers-2025': () => import('./posts/preventative-health-strategies-regular-drinkers-2025.json'),
+  'biohacking-alcohol-tolerance-science-based-strategies-2025': () => import('./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json')
 };
 
 export default postModules;

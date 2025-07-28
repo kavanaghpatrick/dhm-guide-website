@@ -7,57 +7,93 @@
   <!-- Main Site Pages -->
   <url>
     <loc>https://www.dhmguide.com/</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/guide</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/reviews</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/dhm-dosage-calculator</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/compare</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/research</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.dhmguide.com/about</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (126 total) -->
+  <!-- Blog Posts (140 total) -->
   <url>
     <loc>https://www.dhmguide.com/never-hungover/activated-charcoal-hangover</loc>
     <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/advanced-liver-detox-science-vs-marketing-myths-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/alcohol-aging-longevity-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/alcohol-and-anxiety-breaking-the-cycle-naturally-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/alcohol-and-inflammation-complete-health-impact-guide-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/alcohol-and-rem-sleep-complete-scientific-analysis-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/alcohol-brain-health-long-term-impact-analysis-2025</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -92,6 +128,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/biohacking-alcohol-tolerance-science-based-strategies-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/british-pub-culture-guide</loc>
     <lastmod>2025-06-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -110,6 +152,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/business-travel-alcohol-executive-health-guide-2025</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/business-travel-dhm-survival-kit-2025</loc>
     <lastmod>2025-06-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -124,6 +172,12 @@
   <url>
     <loc>https://www.dhmguide.com/never-hungover/client-entertainment-sales-mastery-2025</loc>
     <lastmod>2025-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/cold-therapy-alcohol-recovery-complete-guide-2025</loc>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -309,7 +363,7 @@
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover/double-wood-vs-good-morning-hangover-pills-comparison-2025</loc>
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -440,6 +494,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/functional-medicine-hangover-prevention-2025</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025</loc>
     <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -508,6 +568,18 @@
   <url>
     <loc>https://www.dhmguide.com/never-hungover/heavy-drinking-maximum-protection-dhm-2025</loc>
     <lastmod>2025-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/holiday-drinking-survival-guide-health-first-approach</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025</loc>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -602,6 +674,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/nad-and-alcohol-cellular-energy-and-recovery</loc>
+    <lastmod>2025-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025</loc>
     <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -682,6 +760,12 @@
   <url>
     <loc>https://www.dhmguide.com/never-hungover/pre-game-party-strategy-dhm-2025</loc>
     <lastmod>2025-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/preventative-health-strategies-regular-drinkers-2025</loc>
+    <lastmod>2025-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
