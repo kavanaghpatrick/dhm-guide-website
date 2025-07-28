@@ -14,7 +14,7 @@
       "health",
       "supplements"
     ],
-    "image": "/images/alcohol-aging-longevity.jpg",
+    "image": "/images/alcohol-aging-hero.webp",
     "readTime": "15-20 minutes"
   },
   {
@@ -34,7 +34,7 @@
       "digestive health",
       "liver health"
     ],
-    "image": "/images/blog/alcohol-gut-microbiome.jpg",
+    "image": "/images/gut-microbiome-hero.webp",
     "readTime": "15-20 minutes"
   },
   {
@@ -49,7 +49,7 @@
       "alcohol biohacking",
       "metabolic flexibility alcohol"
     ],
-    "image": "/images/biohacking-alcohol-tolerance.jpg",
+    "image": "/images/biohacking-alcohol-hero.webp",
     "readTime": 17
   },
   {
@@ -87,7 +87,7 @@
       "DHM",
       "supplements"
     ],
-    "image": "/images/blog/alcohol-inflammation.jpg",
+    "image": "/images/alcohol-inflammation-hero.webp",
     "readTime": 16
   },
   {
@@ -105,7 +105,7 @@
       "alcohol metabolism",
       "liver health"
     ],
-    "image": "/images/functional-medicine-hangover-prevention.jpg",
+    "image": "/images/functional-medicine-hero.webp",
     "readTime": "15 min read"
   },
   {
@@ -124,7 +124,7 @@
       "health",
       "science"
     ],
-    "image": "/images/blog/alcohol-rem-sleep.jpg",
+    "image": "/images/rem-sleep-hero.webp",
     "readTime": 18
   },
   {
@@ -140,7 +140,7 @@
       "alcohol mental health",
       "DHM"
     ],
-    "image": "/images/alcohol-anxiety-breaking-cycle.jpg",
+    "image": "/images/alcohol-anxiety-hero.webp",
     "readTime": 14
   },
   {
@@ -177,7 +177,7 @@
       "natural liver cleanse",
       "liver health optimization"
     ],
-    "image": "/images/blog/advanced-liver-detox.jpg",
+    "image": "/images/liver-detox-hero.webp",
     "readTime": 16
   },
   {
@@ -195,7 +195,7 @@
       "alcohol wellness",
       "DHM benefits"
     ],
-    "image": "/images/blog/preventative-alcohol-health-2025.jpg",
+    "image": "/images/preventative-health-hero.webp",
     "readTime": 15
   },
   {
@@ -232,7 +232,7 @@
       "health",
       "wellness"
     ],
-    "image": "/images/holiday-drinking-survival-guide.jpg",
+    "image": "/images/holiday-drinking-hero.webp",
     "readTime": 14
   },
   {
@@ -249,7 +249,7 @@
       "executive wellness",
       "DHM Guide"
     ],
-    "image": "/images/business-travel-alcohol-executive-health-guide.jpg",
+    "image": "/images/business-travel-hero.webp",
     "readTime": "15-20 min"
   },
   {
@@ -571,7 +571,7 @@
     "id": "post-dry-january-smart-drinking-strategies-2025",
     "title": "Post-Dry January Smart Drinking: How to Maintain Your Gains While Enjoying Alcohol Again",
     "slug": "post-dry-january-smart-drinking-strategies-2025",
-    "excerpt": "You conquered Dry January\u2014now what? Expert strategies for returning to alcohol while keeping the health benefits, energy, and clarity you gained during your sober month.",
+    "excerpt": "You conquered Dry January—now what? Expert strategies for returning to alcohol while keeping the health benefits, energy, and clarity you gained during your sober month.",
     "date": "2025-06-29",
     "author": "DHM Guide Team",
     "tags": [
@@ -1275,9 +1275,9 @@
   },
   {
     "id": "french-wine-culture-guide",
-    "title": "Mastering French Wine Culture: From Parisian Caf\u00e9s to Bordeaux Vineyards",
+    "title": "Mastering French Wine Culture: From Parisian Cafés to Bordeaux Vineyards",
     "slug": "french-wine-culture-guide",
-    "excerpt": "Navigate sophisticated French wine traditions and caf\u00e9 culture while protecting your health with DHM during your French cultural immersion.",
+    "excerpt": "Navigate sophisticated French wine traditions and café culture while protecting your health with DHM during your French cultural immersion.",
     "date": "2025-06-28",
     "author": "DHM Guide Team",
     "tags": [
@@ -1404,8 +1404,8 @@
       "healthspan extension",
       "cellular protection"
     ],
-    "image": "/images/longevity-biohacking-dhm-liver-hero.webp",
-    "readTime": 12
+    "readTime": 12,
+    "image": "/longevity-biohacking-hero.webp"
   },
   {
     "id": "gut-health-alcohol-microbiome-protection",
@@ -1423,8 +1423,8 @@
       "beneficial bacteria",
       "leaky gut prevention"
     ],
-    "image": "/images/gut-health-alcohol-microbiome-protection-hero.webp",
-    "readTime": 14
+    "readTime": 14,
+    "image": "/gut-health-microbiome-hero.webp"
   },
   {
     "id": "sleep-optimization-social-drinkers-circadian-rhythm",
@@ -1442,8 +1442,8 @@
       "melatonin alcohol",
       "sleep biohacking"
     ],
-    "image": "/images/sleep-optimization-social-drinkers-circadian-rhythm-hero.webp",
-    "readTime": 17
+    "readTime": 17,
+    "image": "/sleep-optimization-hero.webp"
   },
   {
     "title": "DHM (Dihydromyricetin): Complete Guide to Japanese Raisin Tree Extract for Hangover Prevention",
@@ -1522,8 +1522,8 @@
       "dihydromyricetin",
       "hangover remedies"
     ],
-    "image": "/images/hangover-cure-guide-hero.webp",
-    "readTime": 13
+    "readTime": 13,
+    "image": "/hangover-cure-hero.webp"
   },
   {
     "title": "Summer Alcohol Consumption: Your Complete DHM Safety Guide 2025",
@@ -1553,7 +1553,6 @@
       "dihydromyricetin",
       "supplement guide"
     ],
-    "image": "/images/dhm-dosage-science-lab.webp",
     "readTime": 8
   },
   {
@@ -1584,7 +1583,8 @@
       "medical diagnosis",
       "health comparison"
     ],
-    "readTime": 10
+    "readTime": 10,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "The Complete Guide to Asian Flush: Science, Symptoms, and Solutions (2025)",
@@ -1637,7 +1637,8 @@
       "supplement analysis",
       "dhm formulas"
     ],
-    "readTime": 9
+    "readTime": 9,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs Cheers Restore: DHM Pills Comparison Guide",
@@ -1652,7 +1653,8 @@
       "hangover pills",
       "supplement review"
     ],
-    "readTime": 10
+    "readTime": 10,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs DHM Depot: Ultimate DHM Comparison 2025",
@@ -1668,7 +1670,8 @@
       "dhm supplements",
       "value analysis"
     ],
-    "readTime": 10
+    "readTime": 10,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs Fuller Health After Party: DHM Supplement Face-Off",
@@ -1700,7 +1703,8 @@
       "double wood",
       "good morning"
     ],
-    "readTime": 8
+    "readTime": 8,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs No Days Wasted: DHM Supplement Comparison 2025",
@@ -1719,7 +1723,8 @@
       "dhm supplements",
       "nac supplements"
     ],
-    "readTime": 9
+    "readTime": 9,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs NusaPure DHM 1000mg: Budget DHM Showdown",
@@ -1738,7 +1743,8 @@
       "value comparison",
       "dhm 1000mg"
     ],
-    "readTime": 8
+    "readTime": 8,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "Double Wood vs Toniiq Ease: Which DHM Supplement Works Better?",
@@ -1753,7 +1759,8 @@
       "dhm supplements",
       "budget vs premium"
     ],
-    "readTime": 8
+    "readTime": 8,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "No Days Wasted vs Cheers Restore: Battle of Premium Hangover Pills",
@@ -1769,7 +1776,8 @@
       "comparison",
       "lifestyle brands"
     ],
-    "readTime": 9
+    "readTime": 9,
+    "image": "/images/no-days-wasted-vs-cheers-restore-dhm-comparison-2025-hero.webp"
   },
   {
     "title": "No Days Wasted vs DHM Depot: Premium Brand vs Bulk Value Champion",
@@ -1788,7 +1796,8 @@
       "dhm supplements",
       "bulk dhm buying"
     ],
-    "readTime": 9
+    "readTime": 9,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "No Days Wasted vs DHM1000: Premium Brand vs Enhanced Formula",
@@ -1807,7 +1816,8 @@
       "dhm supplements",
       "double wood supplements"
     ],
-    "readTime": 8
+    "readTime": 8,
+    "image": "/images/dhm-supplement-comparison-lab.webp"
   },
   {
     "title": "No Days Wasted vs Fuller Health: Premium Hangover Prevention Compared",
@@ -1824,7 +1834,8 @@
       "hangover prevention",
       "premium supplements"
     ],
-    "readTime": 14
+    "readTime": 14,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "No Days Wasted vs Good Morning: Which Premium Hangover Pill Wins?",
@@ -1840,7 +1851,8 @@
       "comparison",
       "reviews"
     ],
-    "readTime": 9
+    "readTime": 9,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "No Days Wasted vs NusaPure: Premium vs Budget DHM Comparison",
@@ -1859,7 +1871,8 @@
       "dhm supplements",
       "bulk dhm buying"
     ],
-    "readTime": 10
+    "readTime": 10,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "title": "No Days Wasted vs Toniiq Ease: Premium DHM Supplement Showdown",
@@ -1874,7 +1887,8 @@
       "premium supplements",
       "hangover prevention"
     ],
-    "readTime": 8
+    "readTime": 8,
+    "image": "/images/dhm-comparison-research-lab.webp"
   },
   {
     "id": "dhm-medication-interactions-safety-guide-2025",
@@ -2001,7 +2015,6 @@
       "DHM liver benefits",
       "metabolic health"
     ],
-    "image": "/fatty-liver-disease-guide-hero.webp",
     "readTime": 18
   },
   {
@@ -2021,7 +2034,6 @@
       "fatty liver",
       "metabolic health"
     ],
-    "image": "/non-alcoholic-fatty-liver-disease-hero.webp",
     "readTime": 12
   },
   {
@@ -2041,7 +2053,6 @@
       "nutrition",
       "meal planning"
     ],
-    "image": "/fatty-liver-diet-guide-hero.webp",
     "readTime": 15
   },
   {
@@ -2061,7 +2072,6 @@
       "natural remedies",
       "liver health"
     ],
-    "image": "/liver-inflammation-guide-hero.webp",
     "readTime": 12
   },
   {
@@ -2083,7 +2093,6 @@
       "anxiety",
       "sleep"
     ],
-    "image": "/gaba-complete-guide-hero.webp",
     "readTime": 14
   },
   {
@@ -2103,7 +2112,6 @@
       "anxiety management",
       "stress relief"
     ],
-    "image": "/natural-anxiety-relief-hero.webp",
     "readTime": 12
   },
   {
@@ -2123,7 +2131,6 @@
       "sleep optimization",
       "sleep supplements"
     ],
-    "image": "/sleep-optimization-gaba-dhm-hero.webp",
     "readTime": 12
   },
   {
@@ -2143,7 +2150,6 @@
       "hangover relief",
       "headache relief"
     ],
-    "image": "/hangover-headache-relief-hero.webp",
     "readTime": 10
   },
   {
@@ -2163,7 +2169,6 @@
       "stomach relief",
       "nausea relief"
     ],
-    "image": "/hangover-nausea-relief-hero.webp",
     "readTime": 10
   },
   {
@@ -2183,7 +2188,6 @@
       "casual drinking",
       "headache prevention"
     ],
-    "image": "/alcohol-headache-prevention-hero.webp",
     "readTime": 10
   },
   {
@@ -2203,7 +2207,6 @@
       "optimal liver function",
       "liver wellness"
     ],
-    "image": "/liver-health-complete-guide-hero.webp",
     "readTime": 14
   },
   {
@@ -2223,7 +2226,6 @@
       "detox myths",
       "evidence-based detox"
     ],
-    "image": "/liver-detox-science-myths-hero.webp",
     "readTime": 12
   },
   {
@@ -2243,7 +2245,6 @@
       "DHM supplements",
       "evidence-based supplements"
     ],
-    "image": "/liver-supplements-guide-hero.webp",
     "readTime": 14
   },
   {
@@ -2263,7 +2264,6 @@
       "DHM benefits",
       "milk thistle benefits"
     ],
-    "image": "/dhm-vs-milk-thistle-comparison-hero.webp",
     "readTime": 10
   },
   {
@@ -2283,7 +2283,6 @@
       "DHM supplements",
       "supplement reviews"
     ],
-    "image": "/hangover-supplements-guide-hero.webp",
     "readTime": 12
   },
   {
@@ -2303,7 +2302,6 @@
       "glutathione",
       "liver antioxidants"
     ],
-    "image": "/nac-vs-dhm-comparison-hero.webp",
     "readTime": 10
   },
   {
@@ -2322,7 +2320,6 @@
       "liver supplements",
       "hangover prevention"
     ],
-    "image": "/images/dhm-safety-science-hero.webp",
     "readTime": 12
   },
   {
@@ -2340,7 +2337,6 @@
       "hangover cure science",
       "dihydromyricetin studies"
     ],
-    "image": "/images/dhm-effectiveness-science-hero.webp",
     "readTime": 14
   },
   {
@@ -2358,7 +2354,6 @@
       "daily dhm safety",
       "dhm dosage"
     ],
-    "image": "/images/dhm-daily-use-guide-hero.webp",
     "readTime": 11
   },
   {
@@ -2377,7 +2372,6 @@
       "tannins",
       "wine headache"
     ],
-    "image": "/images/wine-hangover-guide-hero.webp",
     "readTime": 12
   },
   {
@@ -2395,7 +2389,6 @@
       "mixto tequila",
       "alcohol congeners"
     ],
-    "image": "/images/tequila-hangover-truth-hero.webp",
     "readTime": 13
   },
   {
@@ -2413,7 +2406,6 @@
       "worst alcohol hangover",
       "congeners"
     ],
-    "image": "/images/whiskey-vodka-hangover-comparison-hero.webp",
     "readTime": 11
   },
   {
@@ -2430,7 +2422,6 @@
       "prickly pear extract",
       "hangover supplements"
     ],
-    "image": "/images/dhm-prickly-pear-comparison-hero.webp",
     "readTime": 12
   },
   {
@@ -2447,7 +2438,6 @@
       "hangover prevention",
       "probiotic hangover cure"
     ],
-    "image": "/images/dhm-zbiotics-comparison-hero.webp",
     "readTime": 15
   },
   {
@@ -2464,7 +2454,6 @@
       "charcoal alcohol",
       "hangover cure myths"
     ],
-    "image": "/images/activated-charcoal-hangover-hero.webp",
     "readTime": 13
   }
 ]
