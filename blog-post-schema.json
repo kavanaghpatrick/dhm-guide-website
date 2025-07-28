@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blog Post Schema",
+  "description": "Schema for DHM Guide blog post JSON files",
+  "type": "object",
+  "required": [
+    "id",
+    "slug",
+    "title",
+    "excerpt",
+    "metaDescription",
+    "date",
+    "author",
+    "tags",
+    "image",
+    "readTime",
+    "content"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the post (should match slug)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly version of the title",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title of the post",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "excerpt": {
+      "type": "string",
+      "description": "Short summary for listings",
+      "minLength": 50,
+      "maxLength": 300
+    },
+    "metaDescription": {
+      "type": "string",
+      "description": "SEO meta description",
+      "minLength": 120,
+      "maxLength": 160
+    },
+    "date": {
+      "type": "string",
+      "description": "Publication date in ISO format",
+      "format": "date"
+    },
+    "author": {
+      "type": "object",
+      "required": ["name", "avatar"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author's display name"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Path to author's avatar image",
+          "pattern": "^/images/.*\\.(jpg|jpeg|png|webp)$"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Array of relevant tags",
+      "minItems": 3,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Path to hero image",
+          "pattern": "^/images/.*\\.(jpg|jpeg|png|webp)$"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alt text for accessibility",
+          "minLength": 10
+        }
+      }
+    },
+    "readTime": {
+      "type": "integer",
+      "description": "Estimated reading time in minutes",
+      "minimum": 1,
+      "maximum": 60
+    },
+    "content": {
+      "type": "string",
+      "description": "Full post content in Markdown format",
+      "minLength": 500
+    }
+  },
+  "additionalProperties": false
+}

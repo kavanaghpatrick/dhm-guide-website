@@ -124,7 +124,21 @@ const postModules = {
   'whiskey-vs-vodka-hangover': () => import('./posts/whiskey-vs-vodka-hangover.json'),
   'dhm-vs-prickly-pear-hangovers': () => import('./posts/dhm-vs-prickly-pear-hangovers.json'),
   'dhm-vs-zbiotics': () => import('./posts/dhm-vs-zbiotics.json'),
-  'activated-charcoal-hangover': () => import('./posts/activated-charcoal-hangover.json')
+  'activated-charcoal-hangover': () => import('./posts/activated-charcoal-hangover.json'),
+  'advanced-liver-detox-science-vs-marketing-myths-2025': () => import('./posts/advanced-liver-detox-science-vs-marketing-myths-2025.json'),
+  'alcohol-aging-longevity-2025': () => import('./posts/alcohol-aging-longevity-2025.json'),
+  'alcohol-and-anxiety-breaking-the-cycle-naturally-2025': () => import('./posts/alcohol-and-anxiety-breaking-the-cycle-naturally-2025.json'),
+  'alcohol-and-inflammation-complete-health-impact-guide-2025': () => import('./posts/alcohol-and-inflammation-complete-health-impact-guide-2025.json'),
+  'alcohol-and-rem-sleep-complete-scientific-analysis-2025': () => import('./posts/alcohol-and-rem-sleep-complete-scientific-analysis-2025.json'),
+  'alcohol-brain-health-2025': () => import('./posts/alcohol-brain-health-2025.json'),
+  'business-travel-alcohol-executive-health-guide-2025': () => import('./posts/business-travel-alcohol-executive-health-guide-2025.json'),
+  'cold-therapy-alcohol-recovery-guide-2025': () => import('./posts/cold-therapy-alcohol-recovery-guide-2025.json'),
+  'functional-medicine-hangover-prevention-2025': () => import('./posts/functional-medicine-hangover-prevention-2025.json'),
+  'holiday-drinking-survival-guide-health-first-approach': () => import('./posts/holiday-drinking-survival-guide-health-first-approach.json'),
+  'how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025': () => import('./posts/how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025.json'),
+  'nad-alcohol-cellular-energy-recovery-2025': () => import('./posts/nad-alcohol-cellular-energy-recovery-2025.json'),
+  'preventative-health-strategies-regular-drinkers-2025': () => import('./posts/preventative-health-strategies-regular-drinkers-2025.json'),
+  'biohacking-alcohol-tolerance-science-based-strategies-2025': () => import('./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json')
 };
 
 export default postModules;
