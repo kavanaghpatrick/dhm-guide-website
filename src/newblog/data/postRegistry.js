@@ -1,4 +1,7 @@
 // Post Registry - Maps slugs to dynamic imports for Vite
+// This file is auto-generated and helps Vite bundle dynamic imports correctly
+
+const postModules = {
   'alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025': () => import('./posts/alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025.json'),
   'peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025': () => import('./posts/peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025.json'),
   'alcohol-mitochondrial-function-cellular-energy-recovery-2025': () => import('./posts/alcohol-mitochondrial-function-cellular-energy-recovery-2025.json'),
@@ -10,9 +13,8 @@
   'pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025': () => import('./posts/pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025.json'),
   'alcohol-and-metabolic-flexibility-energy-system-optimization-2025': () => import('./posts/alcohol-and-metabolic-flexibility-energy-system-optimization-2025.json'),
   'biotechnology-alcohol-treatment-next-gen-therapeutics-2025': () => import('./posts/biotechnology-alcohol-treatment-next-gen-therapeutics-2025.json'),
-// This file is auto-generated and helps Vite bundle dynamic imports correctly
-
-const postModules = {
+  'ai-powered-alcohol-health-optimization-machine-learning-guide-2025': () => import('./posts/ai-powered-alcohol-health-optimization-machine-learning-guide-2025.json'),
+  'alcohol-stem-cell-regenerative-health-2025': () => import('./posts/alcohol-stem-cell-regenerative-health-2025.json'),
   'rum-health-analysis-complete-spirits-impact-study-2025': () => import('./posts/rum-health-analysis-complete-spirits-impact-study-2025.json'),
   'alcohol-pharmacokinetics-advanced-absorption-science-2025': () => import('./posts/alcohol-pharmacokinetics-advanced-absorption-science-2025.json'),
   'altitude-alcohol-high-elevation-drinking-safety-2025': () => import('./posts/altitude-alcohol-high-elevation-drinking-safety-2025.json'),
