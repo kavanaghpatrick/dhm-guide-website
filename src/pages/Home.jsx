@@ -411,13 +411,10 @@ export default function Home() {
                 <div className="relative">
                   <ResponsiveImage
                     src={liver1536w}
-                    srcSet={liverSrcSet}
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
-                    sizes={[380, 760, 1536]}
-                    sizesAttr="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
                     width={1536}
                     height={1024}
-                    placeholder={liverPlaceholder.base64}
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
@@ -439,13 +436,10 @@ export default function Home() {
                 <div className="relative">
                   <ResponsiveImage
                     src={gaba1536w}
-                    srcSet={gabaSrcSet}
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
-                    sizes={[380, 760, 1536]}
-                    sizesAttr="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
                     width={1536}
                     height={1024}
-                    placeholder={gabaPlaceholder.base64}
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
