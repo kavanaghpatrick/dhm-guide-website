@@ -15,7 +15,7 @@
       "liver health",
       "2025 health report"
     ],
-    "image": "/images/rum-health-analysis-hero.webp",
+    "image": "/images/rum-health-analysis-complete-spirits-impact-study-2025-hero.webp",
     "readTime": "20 min read"
   },
   {
@@ -33,7 +33,7 @@
       "alcohol metabolism",
       "dhm-benefits"
     ],
-    "image": "/images/alcohol-pharmacokinetics-hero.webp",
+    "image": "/images/alcohol-pharmacokinetics-advanced-absorption-science-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -49,8 +49,25 @@
       "mountain-drinking",
       "dhm-benefits"
     ],
-    "image": "/images/altitude-alcohol-hero.webp",
+    "image": "/images/altitude-alcohol-high-elevation-drinking-safety-2025-hero.webp",
     "readTime": "18 min read"
+  },
+  {
+    "id": "pregnant-women-alcohol-fetal-impact-guide-2025",
+    "title": "Pregnant Women and Alcohol: Complete Fetal Impact Guide (2025)",
+    "slug": "pregnant-women-and-alcohol-complete-fetal-impact-guide-2025",
+    "excerpt": "Pregnancy is a transformative journey, a period of immense anticipation and careful consideration for the well-being of both mother and child. Among the myriad factors influencing fetal development, maternal alcohol consumption stands as a critical concern, capable of profoundly impacting the unborn child. Despite widespread awareness campaigns, alcohol use during pregnancy remains a significant public health issue globally, leading to a spectrum of preventable birth defects and developmental disabilities collectively known as Fetal Alcohol Spectrum Disorders (FASDs).",
+    "date": "July 28, 2025",
+    "author": "DHM Guide Team",
+    "tags": [
+      "Pregnancy",
+      "Alcohol",
+      "Fetal Development",
+      "FASD",
+      "Public Health"
+    ],
+    "image": "/images/pregnant-women-and-alcohol-complete-fetal-impact-guide-2025-hero.webp",
+    "readTime": "20 min read"
   },
   {
     "id": "athletes-alcohol-sport-specific-performance-guide-2025",
@@ -65,7 +82,7 @@
       "sports-nutrition",
       "dhm-benefits"
     ],
-    "image": "/images/athletes-alcohol-hero.webp",
+    "image": "/images/athletes-alcohol-sport-specific-performance-guide-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -82,7 +99,7 @@
       "dhm-benefits",
       "gut health"
     ],
-    "image": "/images/alcohol-autoimmune-hero.webp",
+    "image": "/images/alcohol-autoimmune-diseases-inflammatory-response-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -98,7 +115,7 @@
       "thyroid-health",
       "dhm-benefits"
     ],
-    "image": "/images/alcohol-thyroid-hero.webp",
+    "image": "/images/alcohol-thyroid-hormonal-disruption-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -116,7 +133,7 @@
       "beer-health",
       "2025-study"
     ],
-    "image": "/images/craft-beer-hero.webp",
+    "image": "/images/craft-beer-vs-mass-market-health-differences-study-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -132,7 +149,7 @@
       "dhm benefits",
       "diabetes health"
     ],
-    "image": "/images/alcohol-diabetes-hero.webp",
+    "image": "/images/alcohol-diabetes-blood-sugar-management-guide-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -149,7 +166,7 @@
       "liver-health",
       "dhm-benefits"
     ],
-    "image": "/images/alcohol-intermittent-fasting-hero.webp",
+    "image": "/images/alcohol-intermittent-fasting-metabolic-interaction-guide-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -166,7 +183,7 @@
       "DHM benefits",
       "healthy aging"
     ],
-    "image": "/images/seniors-alcohol-safety-hero.webp",
+    "image": "/images/seniors-alcohol-safety-guide-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -183,7 +200,7 @@
       "hangover prevention",
       "liver health"
     ],
-    "image": "/images/alcohol-testing-hero.webp",
+    "image": "/images/at-home-alcohol-testing-monitoring-safety-guide-2025-hero.webp",
     "readTime": "18 min read"
   },
   {
@@ -199,7 +216,7 @@
       "alcohol dry eyes",
       "alcohol cataracts"
     ],
-    "image": "/images/alcohol-eye-health-hero.webp",
+    "image": "/images/alcohol-eye-health.jpg",
     "readTime": 17
   },
   {
@@ -219,7 +236,7 @@
       "GI tract",
       "stomach health"
     ],
-    "image": "/images/alcohol-digestive-health-hero.webp",
+    "image": "/images/blog/alcohol-digestive-health-guide.jpg",
     "readTime": "18 min read"
   },
   {
@@ -237,7 +254,7 @@
       "calcium",
       "DHM Guide"
     ],
-    "image": "/images/alcohol-bone-health-hero.webp",
+    "image": "/images/alcohol-bone-health.jpg",
     "readTime": 30
   },
   {
@@ -255,8 +272,27 @@
       "DHM",
       "health trends 2025"
     ],
-    "image": "/images/smart-social-drinking-hero-hero.webp",
+    "image": "/images/blog/smart-social-drinking.jpg",
     "readTime": 15
+  },
+  {
+    "id": "dda614c2-8533-4758-8005-342aa86396a9",
+    "title": "Alcohol and Work Performance: Professional Impact Guide (2025)",
+    "slug": "alcohol-work-performance-professional-impact-guide-2025",
+    "excerpt": "In the dynamic landscape of modern careers, the pursuit of peak performance and sustained productivity is paramount. Professionals are constantly seeking edges, whether through optimized routines, enhanced cognitive function, or strategic networking. Yet, an often-overlooked factor subtly influencing these critical aspects is alcohol consumption. While the overt dangers of alcohol abuse are widely recognized, the nuanced impact of moderate or even seemingly casual drinking on daily work performance, long-term career trajectories, and the evolving professional drinking culture often remains unexamined. This comprehensive guide delves into the science-backed realities of how alcohol interacts with cognitive function, affects productivity, shapes workplace relationships, and ultimately influences career optimization in 2025. We will explore not just the pitfalls, but also practical strategies for navigating social drinking, enhancing well-being, and fostering a professional environment where clarity and peak performance are prioritized.",
+    "date": "2025-07-28",
+    "author": "DHM Guide Team",
+    "tags": [
+      "alcohol",
+      "work performance",
+      "productivity",
+      "career",
+      "professional drinking",
+      "cognitive function",
+      "DHM Guide"
+    ],
+    "image": "/images/blog/alcohol-work-performance.jpg",
+    "readTime": 13
   },
   {
     "id": "alcohol-recovery-nutrition-complete-healing-protocol-2025",
@@ -271,7 +307,7 @@
       "alcohol detox nutrition",
       "recovery supplements"
     ],
-    "image": "/images/alcohol-recovery-nutrition-hero.webp",
+    "image": "/images/alcohol-recovery-nutrition.jpg",
     "readTime": 15
   },
   {
@@ -290,7 +326,7 @@
       "athlete protocols",
       "recovery strategies"
     ],
-    "image": "/images/alcohol-athletic-performance-hero-hero.webp",
+    "image": "/images/blog/alcohol-athletic-performance.jpg",
     "readTime": 15
   },
   {
@@ -311,7 +347,7 @@
       "collagen",
       "skin health"
     ],
-    "image": "/images/alcohol-skin-health-hero-hero.webp",
+    "image": "/images/blog/alcohol-skin-health-anti-aging.jpg",
     "readTime": "15 min read"
   },
   {
@@ -331,7 +367,7 @@
       "fat storage",
       "weight management"
     ],
-    "image": "/images/alcohol-weight-loss-hero-hero.webp",
+    "image": "/images/blog/alcohol-weight-loss-guide.jpg",
     "readTime": 15
   },
   {
@@ -349,7 +385,7 @@
       "infection risk",
       "DHM Guide"
     ],
-    "image": "/images/alcohol-immune-system-hero-hero.webp",
+    "image": "/images/blog/alcohol-immune-system.jpg",
     "readTime": 18
   },
   {
@@ -366,7 +402,7 @@
       "blood pressure",
       "DHM"
     ],
-    "image": "/images/alcohol-heart-health-hero.webp",
+    "image": "/images/alcohol-heart-health.jpg",
     "readTime": 9
   },
   {
@@ -386,7 +422,7 @@
       "conception",
       "DHM"
     ],
-    "image": "/images/alcohol-fertility-reproductive-hero.webp",
+    "image": "/images/blog/alcohol-fertility-guide.jpg",
     "readTime": "18 min read"
   },
   {
@@ -428,6 +464,21 @@
     "readTime": "15-20 minutes"
   },
   {
+    "id": "f384ec3e-74c6-45f5-85df-a812338f49c6",
+    "title": "Biohacking Your Alcohol Tolerance: Science-Based Strategies (2025)",
+    "slug": "biohacking-alcohol-tolerance-science-based-strategies-2025",
+    "excerpt": "In an era where personal optimization is paramount, the concept of \"biohacking\" has emerged as a powerful approach to fine-tuning our bodies and minds for peak performance. While often associated with enhancing cognitive function or physical prowess, biohacking principles can also be applied to a less conventional, yet equally relevant, aspect of modern life: alcohol consumption. This comprehensive guide delves into the science-backed strategies of biohacking your alcohol tolerance, focusing on performance optimization, the role of wearables, the benefits of cold therapy, and the crucial integration of Dihydromyricetin (DHM). As we navigate 2025, understanding how to responsibly manage and mitigate the effects of alcohol through informed choices and cutting-edge techniques becomes increasingly vital for overall well-being and sustained productivity. This article aims to provide actionable insights for those seeking to optimize their relationship with alcohol, ensuring that occasional indulgence aligns with a commitment to health and performance. We will explore the intricate mechanisms of alcohol metabolism, the factors influencing individual tolerance, and practical biohacking interventions that can help you navigate social occasions with greater control and less physiological impact.",
+    "date": "2025-07-28",
+    "author": "DHM Guide Team",
+    "tags": [
+      "biohacking alcohol",
+      "alcohol biohacking",
+      "metabolic flexibility alcohol"
+    ],
+    "image": "/images/biohacking-alcohol-hero.webp",
+    "readTime": 17
+  },
+  {
     "id": "cold-therapy-alcohol-recovery-guide-2025",
     "title": "Cold Therapy and Alcohol Recovery: Complete Guide (2025)",
     "slug": "cold-therapy-alcohol-recovery-complete-guide-2025",
@@ -444,7 +495,7 @@
       "health",
       "wellness"
     ],
-    "image": "/images/cold-therapy-alcohol-recovery-complete-guide-2025-hero.webp",
+    "image": "/images/cold-therapy-alcohol-recovery.jpg",
     "readTime": "15 min"
   },
   {
@@ -534,7 +585,7 @@
       "DHM",
       "cognitive protection"
     ],
-    "image": "/images/brain-health-hero-hero.webp",
+    "image": "/images/blog/alcohol-brain-health-2025.jpg",
     "readTime": 18
   },
   {
@@ -556,6 +607,24 @@
     "readTime": 16
   },
   {
+    "id": "c9fe95cb-2ed9-4dd6-8201-ed5619b50dc1",
+    "title": "Preventative Health Strategies for Regular Drinkers (2025)",
+    "slug": "preventative-health-strategies-regular-drinkers-2025",
+    "excerpt": "Discover science-backed preventative health strategies for regular drinkers. Learn about alcohol health screening, lifestyle interventions, and proactive approaches to maintain optimal well-being while enjoying alcohol responsibly.",
+    "date": "2025-01-28",
+    "author": "DHM Guide Team",
+    "tags": [
+      "preventative alcohol health",
+      "alcohol health screening",
+      "lifestyle medicine alcohol",
+      "proactive health management",
+      "alcohol wellness",
+      "DHM benefits"
+    ],
+    "image": "/images/preventative-health-hero.webp",
+    "readTime": 15
+  },
+  {
     "id": "nad-alcohol-cellular-energy-recovery-2025",
     "title": "NAD+ and Alcohol: Cellular Energy and Recovery",
     "slug": "nad-and-alcohol-cellular-energy-and-recovery",
@@ -571,7 +640,7 @@
       "Anti-aging",
       "Supplements"
     ],
-    "image": "/images/alcohol-recovery-nutrition-hero.webp",
+    "image": "/images/nad-alcohol-recovery.jpg",
     "readTime": "10 min read"
   },
   {
@@ -696,7 +765,7 @@
       "hangover-recovery",
       "comparison"
     ],
-    "image": "/images/double-wood-vs-fuller-health-after-party-comparison-2025-hero.webp",
+    "image": "/images/flyby-vs-fuller-health-hero.jpg",
     "readTime": 8
   },
   {
@@ -770,7 +839,7 @@
       "anxiety management",
       "college wellness"
     ],
-    "image": "/images/rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025-hero.webp",
+    "image": "/images/rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025-hero.jpg",
     "readTime": 12
   },
   {
@@ -789,7 +858,7 @@
       "party planning",
       "college wellness"
     ],
-    "image": "/images/fraternity-formal-hangover-prevention-complete-dhm-guide-2025-hero.webp",
+    "image": "/images/fraternity-formal-hangover-prevention-complete-dhm-guide-2025-hero.jpg",
     "readTime": 14
   },
   {
@@ -808,7 +877,7 @@
       "performance",
       "college athletics"
     ],
-    "image": "/images/greek-week-champion-recovery-guide-dhm-competition-success-2025-hero.webp",
+    "image": "/images/greek-week-champion-recovery-guide-dhm-competition-success-2025-hero.jpg",
     "readTime": 13
   },
   {
@@ -828,7 +897,7 @@
       "vacation health",
       "travel tips"
     ],
-    "image": "/images/ultimate-mexico-travel-hangover-prevention-guide-2025-hero.webp",
+    "image": "/images/ultimate-mexico-travel-hangover-prevention-guide-2025-hero.jpg",
     "readTime": 15
   },
   {
@@ -848,7 +917,7 @@
       "travel safety",
       "student travel"
     ],
-    "image": "/images/spring-break-2025-cancun-survival-guide-dhm-hero.webp",
+    "image": "/images/spring-break-2025-cancun-survival-guide-dhm-hero.jpg",
     "readTime": 12
   },
   {
@@ -868,7 +937,7 @@
       "suero",
       "modern science"
     ],
-    "image": "/images/traditional-mexican-hangover-remedies-vs-modern-supplements-hero.webp",
+    "image": "/images/traditional-mexican-hangover-remedies-vs-modern-supplements-hero.jpg",
     "readTime": 13
   },
   {
@@ -886,7 +955,7 @@
       "hangover prevention",
       "wellness"
     ],
-    "image": "/images/hangxiety-2025-dhm-prevents-post-drinking-anxiety-hero.webp",
+    "image": "/images/hangxiety-2025-dhm-prevents-post-drinking-anxiety-hero.jpg",
     "readTime": 12
   },
   {
@@ -904,7 +973,7 @@
       "outdoor events",
       "multi-day festivals"
     ],
-    "image": "/images/festival-season-survival-dhm-guide-concert-music-festival-recovery-hero.webp",
+    "image": "/images/festival-season-survival-dhm-guide-concert-music-festival-recovery-hero.jpg",
     "readTime": 10
   },
   {
@@ -1008,7 +1077,7 @@
       "workplace productivity",
       "dhm career benefits"
     ],
-    "image": "/images/hangover-headache-fast-relief-methods-2025-hero.webp",
+    "image": "/hangover-career-impact-hero.png",
     "readTime": 11
   },
   {
@@ -1026,7 +1095,7 @@
       "business relationship building",
       "dhm networking"
     ],
-    "image": "/images/professional-hangover-free-networking-guide-2025-hero.webp",
+    "image": "/business-dinner-networking-hero.png",
     "readTime": 11
   },
   {
@@ -1044,7 +1113,7 @@
       "dhm lifestyle optimization",
       "sustainable professional success"
     ],
-    "image": "/images/before-after-dhm-640w.webp",
+    "image": "/work-life-balance-dhm-hero.png",
     "readTime": 12
   },
   {
@@ -1062,7 +1131,7 @@
       "networking event preparation",
       "dhm conference strategy"
     ],
-    "image": "/images/professional-hangover-free-networking-guide-2025-hero.webp",
+    "image": "/conference-networking-dhm-hero.png",
     "readTime": 13
   },
   {
@@ -1080,7 +1149,7 @@
       "workplace success",
       "dhm career benefits"
     ],
-    "image": "/images/alcohol-athletic-performance-hero-hero.webp",
+    "image": "/salary-negotiation-performance-hero.png",
     "readTime": 14
   },
   {
@@ -1098,7 +1167,7 @@
       "business travel wellness",
       "dhm travel kit"
     ],
-    "image": "/images/business-travel-hero-hero.webp",
+    "image": "/business-travel-dhm-survival-kit-hero.png",
     "readTime": 17
   },
   {
@@ -1116,7 +1185,7 @@
       "sales performance dhm",
       "deal closing hangover"
     ],
-    "image": "/images/dhm-medication-interactions-safety-guide-hero.webp",
+    "image": "/client-entertainment-sales-mastery-hero.png",
     "readTime": 16
   },
   {
@@ -1170,7 +1239,7 @@
       "consultant dhm protocol",
       "consulting excellence"
     ],
-    "image": "/images/alcohol-intermittent-fasting-hero.webp",
+    "image": "/consultant-client-site-success-hero.png",
     "readTime": 19
   },
   {
@@ -1188,7 +1257,7 @@
       "student dhm guide",
       "college lifestyle wellness"
     ],
-    "image": "/images/complete-guide-hangover-types-2025-hero.webp",
+    "image": "/college-student-dhm-guide-hero.png",
     "readTime": 19
   },
   {
@@ -1242,7 +1311,7 @@
       "cultural immersion dhm",
       "global student success"
     ],
-    "image": "/images/dhm-medication-interactions-safety-guide-hero.webp",
+    "image": "/study-abroad-international-student-hero.png",
     "readTime": 20
   },
   {
@@ -1260,7 +1329,7 @@
       "professional development wellness",
       "graduate career success"
     ],
-    "image": "/images/alcohol-recovery-nutrition-hero.webp",
+    "image": "/college-to-career-transition-hero.png",
     "readTime": 19
   },
   {
@@ -1277,7 +1346,7 @@
       "clinical trials",
       "pharmacist developed"
     ],
-    "image": "/images/double-wood-vs-good-morning-hangover-pills-comparison-2025-hero.webp",
+    "image": "/good-morning-hangover-pills-review-hero.png",
     "readTime": 8
   },
   {
@@ -1311,7 +1380,7 @@
       "gaba support",
       "celebrity endorsed"
     ],
-    "image": "/images/double-wood-vs-fuller-health-after-party-comparison-2025-hero.webp",
+    "image": "/fuller-health-after-party-review-hero.png",
     "readTime": 8
   },
   {
@@ -1328,7 +1397,7 @@
       "quality certified",
       "reliable dhm"
     ],
-    "image": "/images/cold-therapy-recovery-hero.webp",
+    "image": "/dhm-depot-review-hero.png",
     "readTime": 9
   },
   {
@@ -1345,7 +1414,7 @@
       "product reviews",
       "supplement comparison"
     ],
-    "image": "/images/alcohol-recovery-nutrition-hero.webp",
+    "image": "/flyby-recovery-review-hero.png",
     "readTime": 6
   },
   {
@@ -1411,7 +1480,7 @@
       "liver wellness social drinking",
       "dhm liver benefits"
     ],
-    "image": "/images/liver-health-supplements-complete-guide-evidence-based-options-2025-hero.webp",
+    "image": "/liver-health-alcohol-supplements-hero.png",
     "readTime": 11
   },
   {
@@ -1465,7 +1534,7 @@
       "athletic performance dhm",
       "sports nutrition wellness"
     ],
-    "image": "/images/smart-social-drinking-hero-hero.webp",
+    "image": "/fitness-enthusiast-social-drinking-hero.png",
     "readTime": 11
   },
   {
@@ -1483,7 +1552,7 @@
       "organic dhm benefits",
       "natural social drinking"
     ],
-    "image": "/images/ultimate-mexico-travel-hangover-prevention-guide-2025-hero.webp",
+    "image": "/organic-natural-hangover-prevention-hero.png",
     "readTime": 12
   },
   {
@@ -1501,7 +1570,7 @@
       "party lifestyle protection",
       "intense social drinking"
     ],
-    "image": "/images/nac-vs-dhm-which-antioxidant-better-liver-protection-2025-hero.webp",
+    "image": "/heavy-drinking-maximum-protection-hero.png",
     "readTime": 11
   },
   {
@@ -1519,7 +1588,7 @@
       "party planning optimization",
       "epic night strategies"
     ],
-    "image": "/images/preventative-health-hero.webp",
+    "image": "/pre-game-party-strategy-hero.png",
     "readTime": 11
   },
   {
@@ -1555,7 +1624,7 @@
       "group party optimization",
       "special occasion strategies"
     ],
-    "image": "/images/alcohol-recovery-nutrition-hero.webp",
+    "image": "/bachelor-bachelorette-party-hero.png",
     "readTime": 11
   },
   {
@@ -1573,7 +1642,7 @@
       "nightlife content optimization",
       "influencer lifestyle protection"
     ],
-    "image": "/images/alcohol-medication-interactions-hero-hero.webp",
+    "image": "/social-media-influencer-party-hero.png",
     "readTime": 11
   },
   {
@@ -1591,7 +1660,7 @@
       "DHM Italy travel",
       "cultural immersion drinking"
     ],
-    "image": "/images/zebra-striping-drinking-trend-2025-hero.webp",
+    "image": "/italian-drinking-culture-guide-hero.png",
     "readTime": 19
   },
   {
@@ -1609,7 +1678,7 @@
       "DHM UK travel",
       "pub etiquette"
     ],
-    "image": "/images/liver-health-supplements-complete-guide-evidence-based-options-2025-hero.webp",
+    "image": "/british-pub-culture-guide-hero.png",
     "readTime": 19
   },
   {
@@ -1627,7 +1696,7 @@
       "DHM Spain travel",
       "late night drinking"
     ],
-    "image": "/images/zebra-striping-drinking-trend-2025-hero.webp",
+    "image": "/spanish-drinking-culture-guide-hero.png",
     "readTime": 16
   },
   {
@@ -1645,7 +1714,7 @@
       "DHM France travel",
       "wine etiquette"
     ],
-    "image": "/images/complete-guide-hangover-types-2025-hero.webp",
+    "image": "/french-wine-culture-guide-hero.png",
     "readTime": 15
   },
   {
@@ -1663,7 +1732,7 @@
       "DHM Germany travel",
       "biergarten culture"
     ],
-    "image": "/images/cold-therapy-alcohol-recovery-complete-guide-2025-hero.webp",
+    "image": "/german-beer-culture-guide-hero.png",
     "readTime": 15
   },
   {
@@ -1762,7 +1831,7 @@
       "cellular protection"
     ],
     "readTime": 12,
-    "image": "/images/biohacking-alcohol-hero.webp"
+    "image": "/longevity-biohacking-hero.webp"
   },
   {
     "id": "gut-health-alcohol-microbiome-protection",
@@ -1781,7 +1850,7 @@
       "leaky gut prevention"
     ],
     "readTime": 14,
-    "image": "/images/gut-microbiome-hero-hero.webp"
+    "image": "/gut-health-microbiome-hero.webp"
   },
   {
     "id": "sleep-optimization-social-drinkers-circadian-rhythm",
@@ -1800,7 +1869,7 @@
       "sleep biohacking"
     ],
     "readTime": 17,
-    "image": "/images/sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025-hero.webp"
+    "image": "/sleep-optimization-hero.webp"
   },
   {
     "title": "DHM (Dihydromyricetin): Complete Guide to Japanese Raisin Tree Extract for Hangover Prevention",
@@ -1880,7 +1949,7 @@
       "hangover remedies"
     ],
     "readTime": 13,
-    "image": "/images/viral-hangover-cures-tested-science-2025-hero.webp"
+    "image": "/hangover-cure-hero.webp"
   },
   {
     "title": "Summer Alcohol Consumption: Your Complete DHM Safety Guide 2025",
@@ -2134,7 +2203,7 @@
       "lifestyle brands"
     ],
     "readTime": 9,
-    "image": "/images/no-days-wasted-vs-nusapure-dhm-comparison-2025-hero.webp"
+    "image": "/images/no-days-wasted-vs-cheers-restore-dhm-comparison-2025-hero.webp"
   },
   {
     "title": "No Days Wasted vs DHM Depot: Premium Brand vs Bulk Value Champion",
@@ -2174,7 +2243,7 @@
       "double wood supplements"
     ],
     "readTime": 8,
-    "image": "/images/dhm-comparison-research-lab.webp"
+    "image": "/images/dhm-supplement-comparison-lab.webp"
   },
   {
     "title": "No Days Wasted vs Fuller Health: Premium Hangover Prevention Compared",
@@ -2266,7 +2335,7 @@
       "birth control",
       "heart medications"
     ],
-    "image": "/images/dhm-medication-interactions-safety-guide-hero.webp",
+    "image": "/images/dhm-medication-interactions-safety-guide-hero.jpg",
     "readTime": 16
   },
   {
@@ -2288,7 +2357,7 @@
       "estrogen",
       "progesterone"
     ],
-    "image": "/images/dhm-women-hormonal-considerations-safety-hero.webp",
+    "image": "/images/dhm-women-hormonal-considerations-safety-hero.jpg",
     "readTime": 14
   },
   {
@@ -2310,7 +2379,7 @@
       "kidney health",
       "blood pressure"
     ],
-    "image": "/images/dhm-adults-over-50-age-related-safety-hero.webp",
+    "image": "/images/dhm-adults-over-50-age-related-safety-hero.jpg",
     "readTime": 15
   },
   {
@@ -2332,7 +2401,7 @@
       "clinical research",
       "pharmacokinetics"
     ],
-    "image": "/images/dhm-product-forms-absorption-comparison-hero.webp",
+    "image": "/images/dhm-product-forms-absorption-comparison-hero.jpg",
     "readTime": 13
   },
   {

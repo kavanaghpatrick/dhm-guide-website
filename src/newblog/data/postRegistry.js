@@ -156,6 +156,22 @@ const postModules = {
   'nad-alcohol-cellular-energy-recovery-2025': () => import('./posts/nad-alcohol-cellular-energy-recovery-2025.json'),
   'preventative-health-strategies-regular-drinkers-2025': () => import('./posts/preventative-health-strategies-regular-drinkers-2025.json'),
   'biohacking-alcohol-tolerance-science-based-strategies-2025': () => import('./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json')
+
+  'alcohol-recovery-nutrition-complete-healing-protocol-2025': () => import('./posts/alcohol-recovery-nutrition-complete-healing-protocol-2025.json'),
+  'alcohol-fertility-reproductive-health-guide-2025': () => import('./posts/alcohol-fertility-reproductive-health-guide-2025.json'),
+  'complete-hangover-science-hub-2025': () => import('./posts/complete-hangover-science-hub-2025.json'),
+  'smart-social-drinking-your-health-first-strategies-guide-2025': () => import('./posts/smart-social-drinking-your-health-first-strategies-guide-2025.json'),
+  'alcohol-eye-health-complete-vision-impact-guide-2025': () => import('./posts/alcohol-eye-health-complete-vision-impact-guide-2025.json'),
+  'ultimate-dhm-safety-guide-hub-2025': () => import('./posts/ultimate-dhm-safety-guide-hub-2025.json'),
+  'alcohol-athletic-performance-complete-impact-analysis-2025': () => import('./posts/alcohol-athletic-performance-complete-impact-analysis-2025.json'),
+  'alcohol-weight-loss-metabolic-guide-2025': () => import('./posts/alcohol-weight-loss-metabolic-guide-2025.json'),
+  'alcohol-skin-health-anti-aging-impact-analysis-2025': () => import('./posts/alcohol-skin-health-anti-aging-impact-analysis-2025.json'),
+  'alcohol-and-immune-system-complete-health-impact-2025': () => import('./posts/alcohol-and-immune-system-complete-health-impact-2025.json'),
+  'alcohol-and-heart-health-complete-cardiovascular-guide-2025': () => import('./posts/alcohol-and-heart-health-complete-cardiovascular-guide-2025.json'),
+  'alcohol-and-bone-health-complete-skeletal-impact-analysis': () => import('./posts/alcohol-and-bone-health-complete-skeletal-impact-analysis.json'),
+  'dhm-availability-worldwide-guide-2025': () => import('./posts/dhm-availability-worldwide-guide-2025.json'),
+  'dhm-supplements-comparison-center-2025': () => import('./posts/dhm-supplements-comparison-center-2025.json'),
+  'alcohol-digestive-health-gi-impact-guide-2025': () => import('./posts/alcohol-digestive-health-gi-impact-guide-2025.json'),
 };
 
 export default postModules;
