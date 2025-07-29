@@ -1,4 +1,15 @@
 // Post Registry - Maps slugs to dynamic imports for Vite
+  'alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025': () => import('./posts/alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025.json'),
+  'peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025': () => import('./posts/peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025.json'),
+  'alcohol-mitochondrial-function-cellular-energy-recovery-2025': () => import('./posts/alcohol-mitochondrial-function-cellular-energy-recovery-2025.json'),
+  'environmental-toxins-alcohol-metabolism-interaction-guide-2025': () => import('./posts/environmental-toxins-alcohol-metabolism-interaction-guide-2025.json'),
+  'healthcare-workers-alcohol-safety-2025-professional-monitoring-guide': () => import('./posts/healthcare-workers-alcohol-safety-2025-professional-monitoring-guide.json'),
+  'alcohol-brain-plasticity-neuroplasticity-recovery-guide-2025': () => import('./posts/alcohol-brain-plasticity-neuroplasticity-recovery-guide-2025.json'),
+  'precision-nutrition-alcohol-metabolism-genetic-diet-guide-2025': () => import('./posts/precision-nutrition-alcohol-metabolism-genetic-diet-guide-2025.json'),
+  'alcohol-protein-synthesis-muscle-recovery-impact-guide-2025': () => import('./posts/alcohol-protein-synthesis-muscle-recovery-impact-guide-2025.json'),
+  'pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025': () => import('./posts/pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025.json'),
+  'alcohol-and-metabolic-flexibility-energy-system-optimization-2025': () => import('./posts/alcohol-and-metabolic-flexibility-energy-system-optimization-2025.json'),
+  'biotechnology-alcohol-treatment-next-gen-therapeutics-2025': () => import('./posts/biotechnology-alcohol-treatment-next-gen-therapeutics-2025.json'),
 // This file is auto-generated and helps Vite bundle dynamic imports correctly
 
 const postModules = {
