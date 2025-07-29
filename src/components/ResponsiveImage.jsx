@@ -8,12 +8,13 @@ const ResponsiveImage = ({
   height,
   loading = 'lazy',
   fetchpriority,
-  sizes = '(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1536px'
+  sizes = '(max-width: 380px) 380px, (max-width: 760px) 760px, 1536px',
+  availableSizes = [380, 760, 1536] // Default to actual available sizes
 }) => {
-  // Generate srcSet based on the original image path
+  // Generate srcSet based on the original image path and available sizes
   const generateSrcSet = (imagePath) => {
     const basePath = imagePath.replace(/(-\d+w)?\.webp$/, '');
-    return [640, 768, 1024, 1536]
+    return availableSizes
       .map(w => `${basePath}-${w}w.webp ${w}w`)
       .join(', ');
   };

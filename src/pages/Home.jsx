@@ -15,29 +15,9 @@ const lcpPlaceholder = {
   width: 20,
   height: 13
 }
-// Import responsive images for liver infographic
-import liver380w from '../assets/02_liver_protection_infographic-380w.webp'
-import liver760w from '../assets/02_liver_protection_infographic-760w.webp'
+// Import responsive images
 import liver1536w from '../assets/02_liver_protection_infographic-1536w.webp'
-import liverPlaceholderData from '../assets/02_liver_protection_infographic-placeholder.json'
-const liverPlaceholder = liverPlaceholderData['02_liver_protection_infographic']
-const liverSrcSet = {
-  '380w': liver380w,
-  '760w': liver760w,
-  '1536w': liver1536w
-}
-
-// Import responsive images for GABA infographic
-import gaba380w from '../assets/04_gaba_receptor_mechanism-380w.webp'
-import gaba760w from '../assets/04_gaba_receptor_mechanism-760w.webp'
 import gaba1536w from '../assets/04_gaba_receptor_mechanism-1536w.webp'
-import gabaPlaceholderData from '../assets/04_gaba_receptor_mechanism-placeholder.json'
-const gabaPlaceholder = gabaPlaceholderData['04_gaba_receptor_mechanism']
-const gabaSrcSet = {
-  '380w': gaba380w,
-  '760w': gaba760w,
-  '1536w': gaba1536w
-}
 
 import LazyImage from '../components/LazyImage.jsx'
 import { 
@@ -412,7 +392,7 @@ export default function Home() {
                   <ResponsiveImage
                     src={liver1536w}
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
+                    sizes="(max-width: 380px) 100vw, (max-width: 760px) 50vw, 760px"
                     width={1536}
                     height={1024}
                     loading="lazy"
@@ -437,7 +417,7 @@ export default function Home() {
                   <ResponsiveImage
                     src={gaba1536w}
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
+                    sizes="(max-width: 380px) 100vw, (max-width: 760px) 50vw, 760px"
                     width={1536}
                     height={1024}
                     loading="lazy"
