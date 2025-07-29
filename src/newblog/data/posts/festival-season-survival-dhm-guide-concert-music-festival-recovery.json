@@ -5,8 +5,15 @@
   "excerpt": "Master festival season with DHM. Complete guide to surviving multi-day music festivals, concerts, and outdoor events without hangovers. Science-backed recovery strategies.",
   "date": "2025-06-30",
   "author": "DHM Guide Team",
-  "image": "/images/festival-season-survival-dhm-guide-concert-music-festival-recovery-hero.jpg",
-  "tags": ["festival survival", "music festivals", "concert recovery", "dhm", "outdoor events", "multi-day festivals"],
+  "image": "/images/festival-season-survival-dhm-guide-concert-music-festival-recovery-hero.webp",
+  "tags": [
+    "festival survival",
+    "music festivals",
+    "concert recovery",
+    "dhm",
+    "outdoor events",
+    "multi-day festivals"
+  ],
   "readTime": 10,
   "featured": false,
   "description": "Master festival season with DHM. Complete guide to surviving multi-day music festivals, concerts, and outdoor events without hangovers. Science-backed recovery strategies.",
@@ -77,4 +84,3 @@
     }
   }
 }
-
