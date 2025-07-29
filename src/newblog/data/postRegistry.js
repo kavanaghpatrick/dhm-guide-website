@@ -2,6 +2,11 @@
 // This file is auto-generated and helps Vite bundle dynamic imports correctly
 
 const postModules = {
+  'wearable-alcohol-monitoring-technology-smart-devices-revolution-2025': () => import('./posts/wearable-alcohol-monitoring-technology-smart-devices-revolution-2025.json'),
+  'smart-sleep-technology-and-alcohol-circadian-optimization-guide-2025': () => import('./posts/smart-sleep-technology-and-alcohol-circadian-optimization-guide-2025.json'),
+  'alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025': () => import('./posts/alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025.json'),
+  'first-responders-alcohol-safety-emergency-personnel-health-guide-2025': () => import('./posts/first-responders-alcohol-safety-emergency-personnel-health-guide-2025.json'),
+  'quantum-health-monitoring-alcohol-advanced-biomonitoring-guide-2025': () => import('./posts/quantum-health-monitoring-alcohol-advanced-biomonitoring-guide-2025.json'),
   'alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025': () => import('./posts/alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025.json'),
   'peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025': () => import('./posts/peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025.json'),
   'alcohol-mitochondrial-function-cellular-energy-recovery-2025': () => import('./posts/alcohol-mitochondrial-function-cellular-energy-recovery-2025.json'),
