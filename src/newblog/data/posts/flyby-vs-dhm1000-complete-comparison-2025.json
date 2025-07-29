@@ -76,7 +76,7 @@
     {
       "type": "alert",
       "style": "info",
-      "title": "More DHM ≠ Better Results",
+      "title": "More DHM \u2260 Better Results",
       "content": "Research shows DHM effectiveness plateaus around 300-500mg for most people. Higher doses may provide flexibility but don't automatically mean better hangover prevention."
     },
     {
@@ -571,6 +571,6 @@
       "@id": "https://yoursite.com/flyby-vs-dhm1000-complete-comparison-2025"
     }
   },
-  "image": "/images/dhm-comparison-research-lab.webp",
+  "image": "/images/flyby-vs-dhm1000-complete-comparison-2025-hero.webp",
   "readTime": 8
 }
