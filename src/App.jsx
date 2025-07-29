@@ -13,6 +13,7 @@ const DosageCalculator = lazy(() => import('./pages/DosageCalculatorEnhanced.jsx
 const DosageCalculatorRewrite = lazy(() => import('./pages/DosageCalculatorRewrite/index.jsx'))
 const NewBlogListing = lazy(() => import('./newblog/pages/NewBlogListing.jsx'))
 const NewBlogPost = lazy(() => import('./newblog/components/NewBlogPost.jsx'))
+const ImportResolutionTest = lazy(() => import('./components/ImportResolutionTest.jsx'))
 
 // Loading component for suspense fallback
 const PageLoader = () => (
@@ -76,6 +77,8 @@ function App() {
         return <DosageCalculatorRewrite />
       case '/never-hungover':
         return <NewBlogListing />
+      case '/test-imports':
+        return <ImportResolutionTest />
       default:
         return <Home />
     }

@@ -8,15 +8,18 @@ import { Badge } from '@/components/ui/badge.jsx'
 import FAQSection from '../components/FAQSection.jsx'
 import CompetitorComparison from '../components/CompetitorComparison.jsx'
 import UserTestimonials from '../components/UserTestimonials.jsx'
-import ResponsiveImage from '../components/ResponsiveImage.jsx'
 // Inline placeholder to avoid JSON import issues
 const lcpPlaceholder = {
   base64: "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAgCdASoUAA0APzmEulO/qKWisAgD8CcJZQCdAC5JAAD+w93fB761v0e6gClroICuMghCtMAAAA==",
   width: 20,
   height: 13
 }
-// Import responsive images
+// Import all responsive image variants - Vite will hash these correctly
+import liver380w from '../assets/02_liver_protection_infographic-380w.webp'
+import liver760w from '../assets/02_liver_protection_infographic-760w.webp'
 import liver1536w from '../assets/02_liver_protection_infographic-1536w.webp'
+import gaba380w from '../assets/04_gaba_receptor_mechanism-380w.webp'
+import gaba760w from '../assets/04_gaba_receptor_mechanism-760w.webp'
 import gaba1536w from '../assets/04_gaba_receptor_mechanism-1536w.webp'
 
 import LazyImage from '../components/LazyImage.jsx'
@@ -389,13 +392,15 @@ export default function Home() {
                 className="order-1 lg:order-2"
               >
                 <div className="relative">
-                  <ResponsiveImage
-                    src={liver1536w}
+                  <img
+                    src={liver760w}
+                    srcSet={`${liver380w} 380w, ${liver760w} 760w, ${liver1536w} 1536w`}
+                    sizes="(max-width: 380px) 380px, (max-width: 760px) 760px, 1536px"
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
-                    sizes="(max-width: 380px) 100vw, (max-width: 760px) 50vw, 760px"
                     width={1536}
                     height={1024}
                     loading="lazy"
+                    className="w-full h-auto rounded-2xl shadow-2xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
@@ -414,13 +419,15 @@ export default function Home() {
                 className="order-1 lg:order-1"
               >
                 <div className="relative">
-                  <ResponsiveImage
-                    src={gaba1536w}
+                  <img
+                    src={gaba760w}
+                    srcSet={`${gaba380w} 380w, ${gaba760w} 760w, ${gaba1536w} 1536w`}
+                    sizes="(max-width: 380px) 380px, (max-width: 760px) 760px, 1536px"
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
-                    sizes="(max-width: 380px) 100vw, (max-width: 760px) 50vw, 760px"
                     width={1536}
                     height={1024}
                     loading="lazy"
+                    className="w-full h-auto rounded-2xl shadow-2xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
