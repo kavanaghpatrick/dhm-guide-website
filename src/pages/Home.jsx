@@ -39,7 +39,6 @@ const gabaSrcSet = {
   '1536w': gaba1536w
 }
 
-import traditionalHeritage from '../assets/05_traditional_heritage.webp'
 import LazyImage from '../components/LazyImage.jsx'
 import { 
   ChevronDown, 
