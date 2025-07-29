@@ -5,7 +5,10 @@
   "excerpt": "Master spring break 2025 in Cancun with science-backed hangover prevention. Complete survival guide for college students featuring DHM supplements, safety tips, and strategies to maximize your $8,306 spring break investment.",
   "date": "2025-06-30",
   "author": "DHM Guide Team",
-  "image": "/images/spring-break-2025-cancun-survival-guide-dhm-hero.webp",
+  "image": {
+    "heading": "Spring Break 2025: Cancun Survival Guide",
+    "description": "Party smart, not hard - maximize your $8,306 investment with science-backed hangover prevention"
+  },
   "tags": [
     "spring break 2025",
     "cancun",
@@ -25,10 +28,6 @@
     "title": "Spring Break 2025 Cancun Survival Guide with DHM | DHM Guide",
     "description": "Dominate Spring Break 2025 in Cancun with DHM strategies. Beach club survival tips, 24-hour recovery protocols, and safety guidelines for epic vacation memories.",
     "keywords": "spring break 2025, cancun, college travel, hangover prevention, dhm, party tips, travel safety, student travel, spring break survival"
-  },
-  "hero": {
-    "heading": "Spring Break 2025: Cancun Survival Guide",
-    "description": "Party smart, not hard - maximize your $8,306 investment with science-backed hangover prevention"
   },
   "tableOfContents": [
     {

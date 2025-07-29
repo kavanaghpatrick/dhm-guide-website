@@ -5,7 +5,10 @@
   "excerpt": "Discover how traditional Mexican hangover remedies like menudo and suero compare to modern DHM supplements. Complete analysis bridging ancient wisdom with cutting-edge science for optimal hangover prevention and recovery.",
   "date": "2025-06-30",
   "author": "DHM Guide Team",
-  "image": "/images/traditional-mexican-hangover-remedies-vs-modern-supplements-hero.webp",
+  "image": {
+    "heading": "Ancient Wisdom Meets Modern Science",
+    "description": "Bridging traditional Mexican hangover remedies with cutting-edge supplement technology"
+  },
   "tags": [
     "mexican remedies",
     "traditional medicine",
@@ -25,10 +28,6 @@
     "title": "Traditional Mexican Hangover Remedies vs Modern Supplements | DHM Guide",
     "description": "Discover how traditional Mexican hangover remedies like menudo & suero compare to modern DHM supplements. Ancient wisdom meets cutting-edge science.",
     "keywords": "mexican remedies, traditional medicine, dhm supplements, hangover prevention, cultural medicine, menudo, suero, modern science, hangover cures"
-  },
-  "hero": {
-    "heading": "Ancient Wisdom Meets Modern Science",
-    "description": "Bridging traditional Mexican hangover remedies with cutting-edge supplement technology"
   },
   "tableOfContents": [
     {

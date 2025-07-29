@@ -14,9 +14,10 @@
     "congeners"
   ],
   "readTime": 12,
-  "hero": {
+  "content": "",
+  "image": {
     "image": "/images/whiskey-vodka-comparison.jpg",
     "alt": "Whiskey and vodka bottles side by side illustrating hangover comparison"
   },
-  "content": ""
+  "id": "whiskey-vs-vodka-hangover"
 }

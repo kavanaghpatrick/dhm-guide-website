@@ -5,7 +5,10 @@
   "excerpt": "Master Mexico travel with science-backed hangover prevention strategies. Complete guide covering Cancun, Tulum, Oaxaca, and Jalisco with traditional remedies, modern supplements, and cultural insights for the perfect Mexican vacation.",
   "date": "2025-06-30",
   "author": "DHM Guide Team",
-  "image": "/images/ultimate-mexico-travel-hangover-prevention-guide-2025-hero.webp",
+  "image": {
+    "heading": "Ultimate Mexico Travel Hangover Prevention Guide 2025",
+    "description": "Master Mexico's vibrant drinking culture while maintaining your energy and health throughout your vacation"
+  },
   "tags": [
     "mexico travel",
     "hangover prevention",
@@ -25,10 +28,6 @@
     "title": "Ultimate Mexico Travel Hangover Prevention Guide 2025 | DHM Guide",
     "description": "Master Mexico travel with science-backed hangover prevention. Complete guide covering Cancun, Tulum, Oaxaca & Jalisco with traditional remedies & modern supplements.",
     "keywords": "mexico travel, hangover prevention, cancun, tulum, travel wellness, dhm, vacation health, travel tips, mexico hangover remedies"
-  },
-  "hero": {
-    "heading": "Ultimate Mexico Travel Hangover Prevention Guide 2025",
-    "description": "Master Mexico's vibrant drinking culture while maintaining your energy and health throughout your vacation"
   },
   "tableOfContents": [
     {

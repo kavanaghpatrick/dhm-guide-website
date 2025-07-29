@@ -1,5 +1,5 @@
 {
-  "id": "flyby-vs-fuller-health-complete-comparison-2025",
+  "id": "flyby-vs-fuller-health-complete-comparison",
   "title": "Flyby vs Fuller Health: Complete 2025 Comparison [Recovery Formula Battle]",
   "description": "Flyby vs Fuller Health After Party comparison. Two recovery formulas with DHM, milk thistle, NAC. Which works better for hangovers?",
   "publishedAt": "2025-01-01",
@@ -15,14 +15,6 @@
     "comparison"
   ],
   "author": "DHM Guide Team",
-  "hero": {
-    "title": "Flyby vs Fuller Health After Party",
-    "subtitle": "Complete 2025 Recovery Formula Comparison",
-    "image": {
-      "src": "/images/flyby-vs-fuller-health-hero.jpg",
-      "alt": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison"
-    }
-  },
   "content": [
     {
       "type": "toc",
@@ -305,6 +297,14 @@
     }
   },
   "date": "2025-07-01",
-  "image": "/images/flyby-vs-cheers-complete-comparison-2025-hero.webp",
-  "readTime": 8
+  "image": {
+    "title": "Flyby vs Fuller Health After Party",
+    "subtitle": "Complete 2025 Recovery Formula Comparison",
+    "image": {
+      "src": "/images/flyby-vs-fuller-health-hero.jpg",
+      "alt": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison"
+    }
+  },
+  "readTime": 8,
+  "excerpt": "Complete supplement comparison guide. Which DHM brand works best? Side-by-side analysis + exclusive deals. Find your perfect match!"
 }

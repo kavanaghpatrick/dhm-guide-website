@@ -10,7 +10,10 @@
   "dateModified": "2025-06-29",
   "readTime": 12,
   "featured": true,
-  "image": "/images/complete-guide-hangover-types-2025-hero.webp",
+  "image": {
+    "heading": "Not All Hangovers Are Created Equal",
+    "description": "Discover why your whiskey hangover feels different from your wine hangover, and learn science-backed strategies to prevent each type"
+  },
   "tags": [
     "hangover types",
     "alcohol effects",
@@ -22,10 +25,6 @@
     "title": "Complete Guide to Hangover Types: Vodka vs Whiskey vs Wine | DHM Guide",
     "description": "Why do different alcohols cause different hangovers? Learn the science behind vodka, whiskey, wine, and beer hangovers plus prevention strategies.",
     "keywords": "hangover types, worst hangover alcohol, vodka hangover, whiskey hangover, wine hangover, beer hangover, congeners, alcohol effects"
-  },
-  "hero": {
-    "heading": "Not All Hangovers Are Created Equal",
-    "description": "Discover why your whiskey hangover feels different from your wine hangover, and learn science-backed strategies to prevent each type"
   },
   "tableOfContents": [
     {

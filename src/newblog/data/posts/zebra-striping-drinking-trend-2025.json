@@ -10,7 +10,10 @@
   "dateModified": "2025-06-29",
   "readTime": 12,
   "featured": true,
-  "image": "/images/zebra-striping-drinking-trend-2025-hero.webp",
+  "image": {
+    "heading": "Zebra Striping: The Future of Social Drinking",
+    "description": "Discover the mindful drinking trend that lets you socialize without compromise—alternating alcoholic and non-alcoholic drinks for a sustainable, hangover-free lifestyle"
+  },
   "tags": [
     "zebra striping",
     "mindful drinking",
@@ -22,10 +25,6 @@
     "title": "Zebra Striping: The 2025 Drinking Trend for Mindful Socializing | DHM Guide",
     "description": "Learn about zebra striping, the drinking trend that alternates alcoholic and non-alcoholic drinks. Master this sustainable approach to social drinking.",
     "keywords": "zebra striping drinking trend, mindful drinking, sober curious, drinking trends 2025, social drinking strategies, hangover prevention"
-  },
-  "hero": {
-    "heading": "Zebra Striping: The Future of Social Drinking",
-    "description": "Discover the mindful drinking trend that lets you socialize without compromise—alternating alcoholic and non-alcoholic drinks for a sustainable, hangover-free lifestyle"
   },
   "tableOfContents": [
     {
