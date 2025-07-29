@@ -155,7 +155,7 @@ const postModules = {
   'how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025': () => import('./posts/how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025.json'),
   'nad-alcohol-cellular-energy-recovery-2025': () => import('./posts/nad-alcohol-cellular-energy-recovery-2025.json'),
   'preventative-health-strategies-regular-drinkers-2025': () => import('./posts/preventative-health-strategies-regular-drinkers-2025.json'),
-  'biohacking-alcohol-tolerance-science-based-strategies-2025': () => import('./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json')
+  'biohacking-alcohol-tolerance-science-based-strategies-2025': () => import('./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json'),
 
   'alcohol-recovery-nutrition-complete-healing-protocol-2025': () => import('./posts/alcohol-recovery-nutrition-complete-healing-protocol-2025.json'),
   'alcohol-fertility-reproductive-health-guide-2025': () => import('./posts/alcohol-fertility-reproductive-health-guide-2025.json'),
