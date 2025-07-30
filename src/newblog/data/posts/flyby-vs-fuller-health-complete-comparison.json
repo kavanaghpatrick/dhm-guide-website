@@ -63,14 +63,7 @@
     }
   },
   "date": "2025-07-01",
-  "image": {
-    "title": "Flyby vs Fuller Health After Party",
-    "subtitle": "Complete 2025 Recovery Formula Comparison",
-    "image": {
-      "src": "/images/flyby-vs-fuller-health-hero.jpg",
-      "alt": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison"
-    }
-  },
+  "image": "/images/flyby-vs-fuller-health-complete-comparison-hero.webp",
   "readTime": 8,
   "excerpt": "Complete supplement comparison guide. Which DHM brand works best? Side-by-side analysis + exclusive deals. Find your perfect match!"
 }

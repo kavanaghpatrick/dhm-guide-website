@@ -38,14 +38,14 @@ const LazyImage = ({
   return (
     <div 
       ref={imgRef}
-      className={`relative ${className}`}
+      className="relative w-full h-full"
       style={{ backgroundColor: isLoaded ? 'transparent' : '#f3f4f6' }}
     >
       {isInView && (
         <img
           src={src}
           alt={alt}
-          className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`${className} transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setIsLoaded(true)}
           loading="lazy"
           {...props}
