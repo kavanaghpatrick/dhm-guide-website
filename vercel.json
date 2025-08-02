@@ -38,16 +38,5 @@
       "destination": "/index.html"
     }
   ],
-  "headers": [
-    {
-      "source": "/never-hungover/:slug",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://www.dhmguide.com/never-hungover/:slug>; rel=\"canonical\""
-        }
-      ]
-    }
-  ],
   "trailingSlash": false
 }

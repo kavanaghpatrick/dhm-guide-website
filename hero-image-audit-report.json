@@ -1,0 +1,175 @@
+{
+  "timestamp": "2025-07-30T03:46:07.834Z",
+  "totalAudited": 23,
+  "summary": {
+    "correct": 9,
+    "wrongFormat": 11,
+    "fileNotFound": 6,
+    "noImageField": 0,
+    "missingImage": 0
+  },
+  "details": {
+    "correct": [
+      {
+        "file": "activated-charcoal-hangover.json",
+        "path": "/images/activated-charcoal-hangover-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "double-wood-vs-toniiq-ease-dhm-comparison-2025.json",
+        "path": "/images/double-wood-vs-toniiq-ease-dhm-comparison-2025-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "flyby-vs-cheers-complete-comparison-2025.json",
+        "path": "/images/flyby-vs-cheers-complete-comparison-2025-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "flyby-vs-dhm1000-complete-comparison-2025.json",
+        "path": "/images/flyby-vs-dhm1000-complete-comparison-2025-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "flyby-vs-good-morning-pills-complete-comparison-2025.json",
+        "path": "/images/flyby-vs-toniiq-ease-complete-comparison-2025-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "is-dhm-safe-science-behind-side-effects-2025.json",
+        "path": "/images/dhm-dosage-science-lab.webp",
+        "exists": true
+      },
+      {
+        "file": "alcohol-and-immune-system-complete-health-impact-2025.json",
+        "path": "/images/alcohol-and-immune-system-complete-health-impact-2025-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "sleep-optimization-social-drinkers-circadian-rhythm.json",
+        "path": "/images/sleep-optimization-social-drinkers-circadian-rhythm-hero.webp",
+        "exists": true
+      },
+      {
+        "file": "adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives.json",
+        "path": "/images/adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives-hero.webp",
+        "exists": true
+      }
+    ],
+    "missingImage": [],
+    "noImageField": [],
+    "wrongFormat": [
+      {
+        "file": "activated-charcoal-hangover.json",
+        "format": "object",
+        "path": "/images/activated-charcoal-hangover-hero.webp"
+      },
+      {
+        "file": "complete-guide-hangover-types-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "Not All Hangovers Are Created Equal",
+          "description": "Discover why your whiskey hangover feels different from your wine hangover, and learn science-backed strategies to prevent each type"
+        }
+      },
+      {
+        "file": "dhm-vs-prickly-pear-hangovers.json",
+        "format": "object",
+        "path": "/images/dhm-vs-prickly-pear.jpg"
+      },
+      {
+        "file": "dhm-vs-zbiotics.json",
+        "format": "object",
+        "path": "/images/dhm-vs-zbiotics-comparison.jpg"
+      },
+      {
+        "file": "flyby-vs-fuller-health-complete-comparison.json",
+        "format": "object",
+        "path": {
+          "src": "/images/flyby-vs-fuller-health-hero.jpg",
+          "alt": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison"
+        }
+      },
+      {
+        "file": "fraternity-formal-hangover-prevention-complete-dhm-guide-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "Fraternity Formal Hangover Prevention: Complete DHM Guide for Peak Performance",
+          "description": "Transform your formal experience with science-backed strategies that let you celebrate fully while maintaining peak performance and avoiding next-day regrets."
+        }
+      },
+      {
+        "file": "greek-week-champion-recovery-guide-dhm-competition-success-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "Greek Week Champion's Recovery Guide: DHM for Competition Success",
+          "description": "Transform your Greek Week performance with science-backed recovery strategies that maintain competitive edge while supporting rapid recovery between events."
+        }
+      },
+      {
+        "file": "hangxiety-2025-dhm-prevents-post-drinking-anxiety.json",
+        "format": "object",
+        "data": {
+          "heading": "Beat Hangxiety: Wake Up Anxiety-Free",
+          "description": "Discover how DHM protects your mental health and prevents post-drinking anxiety for peaceful mornings"
+        }
+      },
+      {
+        "file": "post-dry-january-smart-drinking-strategies-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "You Survived Dry January--Now Master Smart Drinking",
+          "description": "Keep the energy, clarity, and health benefits you gained while enjoying alcohol responsibly and hangover-free"
+        }
+      },
+      {
+        "file": "professional-hangover-free-networking-guide-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "Network Like a Pro, Perform Like a Champion",
+          "description": "Master the delicate balance of professional drinking without compromising your career trajectory or next-day performance"
+        }
+      },
+      {
+        "file": "rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025.json",
+        "format": "object",
+        "data": {
+          "heading": "Rush Week Survival Guide: DHM Strategies for Sorority Recruitment Success",
+          "description": "Navigate recruitment week with confidence using science-backed wellness strategies that help you shine while staying healthy and anxiety-free."
+        }
+      }
+    ],
+    "fileNotFound": [
+      {
+        "file": "dhm-vs-prickly-pear-hangovers.json",
+        "path": "/images/dhm-vs-prickly-pear.jpg",
+        "expectedLocation": "public/images/dhm-vs-prickly-pear.jpg"
+      },
+      {
+        "file": "dhm-vs-zbiotics.json",
+        "path": "/images/dhm-vs-zbiotics-comparison.jpg",
+        "expectedLocation": "public/images/dhm-vs-zbiotics-comparison.jpg"
+      },
+      {
+        "file": "dhm-japanese-raisin-tree-complete-guide.json",
+        "path": "/images/dhm-japanese-raisin-tree-complete-guide-hero.webp",
+        "expectedLocation": "public/images/dhm-japanese-raisin-tree-complete-guide-hero.webp"
+      },
+      {
+        "file": "how-long-does-hangover-last.json",
+        "path": "/images/how-long-does-hangover-last-hero.webp",
+        "expectedLocation": "public/images/how-long-does-hangover-last-hero.webp"
+      },
+      {
+        "file": "summer-alcohol-consumption-dhm-safety-guide.json",
+        "path": "/images/summer-alcohol-consumption-dhm-safety-guide-hero.webp",
+        "expectedLocation": "public/images/summer-alcohol-consumption-dhm-safety-guide-hero.webp"
+      },
+      {
+        "file": "how-to-get-over-hangover.json",
+        "path": "/images/how-to-get-over-hangover-hero.webp",
+        "expectedLocation": "public/images/how-to-get-over-hangover-hero.webp"
+      }
+    ]
+  }
+}

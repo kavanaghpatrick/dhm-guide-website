@@ -1,0 +1,17 @@
+[
+  {
+    "file": "dhm-vs-prickly-pear-hangovers.json",
+    "expectedPath": "/images/dhm-vs-prickly-pear.jpg",
+    "slug": "dhm-vs-prickly-pear-hangovers"
+  },
+  {
+    "file": "dhm-vs-zbiotics.json",
+    "expectedPath": "/images/dhm-vs-zbiotics-comparison.jpg",
+    "slug": "dhm-vs-zbiotics"
+  },
+  {
+    "file": "flyby-vs-fuller-health-complete-comparison.json",
+    "expectedPath": "/images/flyby-vs-fuller-health-hero.jpg",
+    "slug": "flyby-vs-fuller-health-complete-comparison"
+  }
+]
