@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react'
 import Layout from './components/layout/Layout.jsx'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './App.css'
 
 // Lazy load all page components for better performance
@@ -89,6 +90,7 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         {renderPage()}
       </Suspense>
+      <SpeedInsights />
     </Layout>
   )
 }
