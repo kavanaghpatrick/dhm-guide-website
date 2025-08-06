@@ -15,6 +15,7 @@ import {
   getCacheStats 
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
+import { applyRedirect } from '../../utils/redirects.js';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
 import { motion } from 'framer-motion';
@@ -219,6 +220,11 @@ const NewBlogPost = () => {
 
   // Listen for URL changes
   useEffect(() => {
+    // Check for redirects first
+    const currentPath = window.location.pathname;
+    if (applyRedirect(currentPath)) {
+      return; // Redirect applied, no need to load
+    }
     const handlePopState = () => {
       const newSlug = extractSlug();
       setCurrentSlug(newSlug);

@@ -6,12 +6,13 @@
   "description": "DHM Guide Website - Deployment trigger 2025-01-05",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build",
+    "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "verify-registry": "node verify-registry.js",
     "generate-registry": "node generate-registry.js",
-    "prebuild": "node verify-registry.js"
+    "validate-posts": "node scripts/validate-posts.js",
+    "prebuild": "node verify-registry.js && node scripts/validate-posts.js"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.3.1",
