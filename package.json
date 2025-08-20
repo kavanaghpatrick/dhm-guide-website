@@ -6,12 +6,13 @@
   "description": "DHM Guide Website - Deployment trigger 2025-01-05",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build",
+    "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build && node scripts/prerender-blog-posts-enhanced.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "verify-registry": "node verify-registry.js",
     "generate-registry": "node generate-registry.js",
     "validate-posts": "node scripts/validate-posts.js",
+    "prerender": "node scripts/prerender-blog-posts.js",
     "prebuild": "node verify-registry.js && node scripts/validate-posts.js"
   },
   "dependencies": {
@@ -84,6 +85,7 @@
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
     "imagemin-webp": "^8.0.0",
+    "jsdom": "^26.1.0",
     "sharp": "^0.34.2",
     "tw-animate-css": "^1.2.9",
     "vite": "^6.3.5",

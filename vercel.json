@@ -68,7 +68,7 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!never-hungover/).*)",
       "destination": "/index.html"
     }
   ],
