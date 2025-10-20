@@ -50,17 +50,7 @@ function App() {
     if (currentPath.startsWith('/never-hungover/')) {
       return <NewBlogPost />
     }
-    
 
-    // Handle legacy /newblog routes - redirect to new path
-    if (currentPath.startsWith('/newblog')) {
-      window.history.replaceState({}, '', currentPath.replace('/newblog', '/never-hungover'));
-      window.dispatchEvent(new PopStateEvent('popstate'));
-      // Scroll to top for consistent navigation behavior
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return null;
-    }
-    
     switch (currentPath) {
       case '/guide':
         return <Guide />
