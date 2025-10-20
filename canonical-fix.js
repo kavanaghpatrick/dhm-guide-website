@@ -12,8 +12,8 @@
       const normalizedPath = currentPath.length > 1 && currentPath.endsWith('/')
         ? currentPath.slice(0, -1)
         : currentPath;
-      // Build the full canonical URL
-      const canonicalUrl = `https://www.dhmguide.com${normalizedPath}`;
+      // Build the full canonical URL using current origin (works in dev/staging/prod)
+      const canonicalUrl = `${window.location.origin}${normalizedPath}`;
       canonicalLink.setAttribute('href', canonicalUrl);
     }
   }
