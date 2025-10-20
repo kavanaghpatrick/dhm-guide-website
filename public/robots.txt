@@ -1,62 +1,8 @@
 User-agent: *
 Allow: /
 
-# Allow all major search engines
-User-agent: Googlebot
-Allow: /
+# Block search template URL with placeholder
+Disallow: /search?q=%7B*
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-# Allow AI and LLM crawlers for maximum visibility
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: AdsBot-Google
-Allow: /
-
-# Sitemap location
+# Sitemap
 Sitemap: https://www.dhmguide.com/sitemap.xml
-
-# Crawl delay (prevents server overload)
-Crawl-delay: 1
-
