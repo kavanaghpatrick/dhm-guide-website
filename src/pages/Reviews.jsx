@@ -504,6 +504,75 @@ export default function Reviews() {
         </div>
       </section>
 
+      {/* Quick Comparison Table */}
+      <section className="py-8 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 text-center">
+              Quick Comparison Table
+            </h2>
+            <p className="text-gray-600 text-center mb-6">
+              Compare all DHM supplements side-by-side at a glance
+            </p>
+
+            <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-green-700 text-white">
+                    <th className="py-3 px-4 text-left font-semibold">Brand</th>
+                    <th className="py-3 px-4 text-center font-semibold">DHM</th>
+                    <th className="py-3 px-4 text-center font-semibold">Price</th>
+                    <th className="py-3 px-4 text-center font-semibold">Per Serving</th>
+                    <th className="py-3 px-4 text-center font-semibold">Rating</th>
+                    <th className="py-3 px-4 text-center font-semibold">Reviews</th>
+                    <th className="py-3 px-4 text-center font-semibold">Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topProducts.map((product, index) => (
+                    <tr
+                      key={product.id}
+                      className={`border-b border-gray-200 hover:bg-green-50 transition-colors ${
+                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                      }`}
+                    >
+                      <td className="py-3 px-4">
+                        <div>
+                          <div className="font-semibold text-gray-900">{product.name}</div>
+                          <div className="text-sm text-gray-600">{product.brand}</div>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-center font-medium text-green-700">{product.dhm}</td>
+                      <td className="py-3 px-4 text-center font-semibold text-gray-900">{product.price}</td>
+                      <td className="py-3 px-4 text-center text-gray-700">{product.pricePerServing}</td>
+                      <td className="py-3 px-4 text-center">
+                        <div className="flex items-center justify-center space-x-1">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{product.rating}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-center text-gray-700">{product.reviews.toLocaleString()}</td>
+                      <td className="py-3 px-4 text-center">
+                        <span className="font-bold text-green-700">{product.score}/10</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="text-sm text-gray-600 text-center mt-4">
+              Scroll down for detailed reviews with pros, cons, and buying recommendations
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Product Reviews Section */}
       <section className="py-8 px-4">
         <div className="container mx-auto max-w-6xl">
