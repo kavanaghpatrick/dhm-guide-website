@@ -65,25 +65,16 @@ export const useSEO = (seoData) => {
       meta.setAttribute('content', value);
     };
 
-    // Update basic meta tags
+    // Update basic meta tags (for SPA navigation)
+    // Note: OG tags are NOT updated here because social media crawlers don't execute JavaScript
+    // They only see the prerendered static HTML with baked-in OG tags
     updateMetaTag('meta[name="description"]', 'name', description);
     updateMetaTag('meta[name="keywords"]', 'name', keywords);
     updateMetaTag('meta[name="author"]', 'name', author);
     updateMetaTag('meta[name="robots"]', 'name', noIndex ? 'noindex, nofollow' : 'index, follow');
 
-    // Update Open Graph tags
-    updateMetaTag('meta[property="og:title"]', 'property', title);
-    updateMetaTag('meta[property="og:description"]', 'property', description);
-    updateMetaTag('meta[property="og:type"]', 'property', ogType);
-    updateMetaTag('meta[property="og:url"]', 'property', canonicalUrl);
-    updateMetaTag('meta[property="og:image"]', 'property', ogImage);
-    updateMetaTag('meta[property="og:site_name"]', 'property', 'DHM Guide');
-
-    // Update Twitter Card tags
-    updateMetaTag('meta[name="twitter:title"]', 'name', title);
-    updateMetaTag('meta[name="twitter:description"]', 'name', description);
-    updateMetaTag('meta[name="twitter:image"]', 'name', twitterImage || ogImage);
-    updateMetaTag('meta[name="twitter:card"]', 'name', 'summary_large_image');
+    // OG tags and Twitter cards are already in static HTML from prerendering
+    // No need to update them client-side since social crawlers don't run JavaScript
 
     // Update canonical URL
     if (canonicalUrl) {

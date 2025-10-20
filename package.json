@@ -6,7 +6,7 @@
   "description": "DHM Guide Website - Deployment trigger 2025-01-05",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build && node scripts/prerender-blog-posts-enhanced.js",
+    "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build && node scripts/prerender-blog-posts-enhanced.js && node scripts/prerender-main-pages.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "verify-registry": "node verify-registry.js",
