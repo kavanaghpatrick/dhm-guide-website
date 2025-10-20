@@ -8,8 +8,12 @@
     const canonicalLink = document.querySelector('link[rel="canonical"]');
     
     if (canonicalLink) {
+      // Normalize path: remove trailing slash except for root
+      const normalizedPath = currentPath.length > 1 && currentPath.endsWith('/')
+        ? currentPath.slice(0, -1)
+        : currentPath;
       // Build the full canonical URL
-      const canonicalUrl = `https://www.dhmguide.com${currentPath}`;
+      const canonicalUrl = `https://www.dhmguide.com${normalizedPath}`;
       canonicalLink.setAttribute('href', canonicalUrl);
     }
   }

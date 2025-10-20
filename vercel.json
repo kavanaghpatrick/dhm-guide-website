@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/((?!api/).*)/",
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
       "source": "/blog/:slug*",
       "destination": "/never-hungover/:slug*",
       "permanent": true
@@ -8,51 +13,6 @@
     {
       "source": "/newblog/:slug*",
       "destination": "/never-hungover/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/complete-guide-hangover-types-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/flyby-vs-fuller-health-complete-comparison",
-      "destination": "/reviews",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/fraternity-formal-hangover-prevention-complete-dhm-guide-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/greek-week-champion-recovery-guide-dhm-competition-success-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/hangxiety-2025-dhm-prevents-post-drinking-anxiety",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/post-dry-january-smart-drinking-strategies-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/professional-hangover-free-networking-guide-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/rush-week-survival-guide-dhm-strategies-sorority-recruitment-2025",
-      "destination": "/never-hungover",
-      "permanent": true
-    },
-    {
-      "source": "/never-hungover/whiskey-vs-vodka-hangover",
-      "destination": "/never-hungover/wine-hangover-guide",
       "permanent": true
     },
     {
