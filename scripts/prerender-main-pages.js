@@ -18,14 +18,14 @@ const pages = [
   },
   {
     route: '/reviews',
-    title: 'DHM Supplement Reviews 2025 | Tested & Ranked',
-    description: 'Comprehensive reviews of top DHM supplements. Independent testing, purity analysis, effectiveness ratings, and value comparisons to help you choose the best hangover prevention supplement.',
+    title: 'Best Hangover Pills 2025: Top 10 Tested & Ranked (Reviews)',
+    description: 'Expert reviews of 10+ hangover supplements tested in real conditions. Compare prices, effectiveness, and ingredients. Find what actually works for you.',
     ogImage: '/reviews-og.jpg'
   },
   {
     route: '/research',
-    title: 'DHM Clinical Research | 11+ Scientific Studies on Hangover Prevention',
-    description: 'Complete analysis of DHM (Dihydromyricetin) clinical research. UCLA studies, meta-analysis, safety data, and scientific evidence for hangover prevention and liver protection.',
+    title: 'DHM Clinical Studies & Research: 15+ Peer-Reviewed Trials (2025)',
+    description: 'Complete analysis of 15+ clinical studies on DHM effectiveness. Review randomized controlled trials, safety data, and scientific evidence.',
     ogImage: '/research-og.jpg'
   },
   {
