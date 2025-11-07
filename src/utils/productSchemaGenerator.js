@@ -412,6 +412,127 @@ export function generateEnhancedBlogSchema(blogPost) {
       '@id': `${baseUrl}/never-hungover/${slug}`
     }
   });
-  
+
+  // Add FAQ schema for specific high-priority posts
+  const faqSchema = generateFAQSchema(slug);
+  if (faqSchema) {
+    schemas.push(faqSchema);
+  }
+
   return schemas;
+}
+
+/**
+ * FAQ data for high-priority blog posts (Week 3 SEO optimization)
+ */
+const faqData = {
+  'flyby-recovery-review-2025': [
+    {
+      question: "Does Flyby Recovery actually work for hangovers?",
+      answer: "Based on 7,200+ customer reviews with a 4.3-star rating, Flyby Recovery shows effectiveness for most users. It contains 300mg DHM plus B-vitamins and milk thistle. Clinical studies on DHM show 70%+ hangover reduction, though individual results vary based on alcohol consumption and body weight."
+    },
+    {
+      question: "How much does Flyby Recovery cost?",
+      answer: "Flyby Recovery costs $17.99 for 20 capsules (5 uses) or $34.99 for 80 capsules (20 uses). The cost per dose ranges from $1.75-$4.50 depending on package size. The 80-count offers the best value at $1.75 per 4-capsule serving."
+    },
+    {
+      question: "When should I take Flyby Recovery?",
+      answer: "Take 2 capsules before drinking and 2 more capsules before bed (4 capsules total per drinking session). For best results, take the first dose 30-60 minutes before your first drink with water and food."
+    },
+    {
+      question: "Is Flyby better than cheaper DHM supplements?",
+      answer: "Flyby offers comprehensive formula (DHM + vitamins + minerals) versus basic DHM-only supplements. While more expensive per mg of DHM, the additional ingredients provide broader support. Pure DHM supplements like Double Wood offer better value if you only want DHM."
+    },
+    {
+      question: "What are Flyby Recovery side effects?",
+      answer: "Flyby Recovery has minimal reported side effects. Some users note large capsule size makes swallowing difficult. The supplement contains safe, well-studied ingredients. As with any supplement, take with food if you experience stomach sensitivity."
+    }
+  ],
+  'no-days-wasted-vs-cheers-restore-dhm-comparison-2025': [
+    {
+      question: "Which is better: No Days Wasted or Cheers Restore?",
+      answer: "No Days Wasted offers 1000mg DHM per serving versus Cheers' 300mg, making it more potent. However, Cheers includes additional liver support ingredients. No Days Wasted provides better value at $1.80 per dose versus Cheers at $2-3 per dose for pure DHM potency."
+    },
+    {
+      question: "How do the prices compare between No Days Wasted and Cheers?",
+      answer: "No Days Wasted costs $26.99 for 15 servings ($1.80 per use) while Cheers Restore costs approximately $30-45 for 15 servings ($2-3 per use). No Days Wasted offers better price-per-milligram of DHM value."
+    },
+    {
+      question: "Do both products have the same DHM dosage?",
+      answer: "No. No Days Wasted contains 1000mg DHM per serving, while Cheers Restore contains 300mg DHM. This 3.3x difference in DHM content makes No Days Wasted significantly more potent for hangover prevention."
+    },
+    {
+      question: "Which formula includes more additional ingredients?",
+      answer: "Cheers Restore includes more comprehensive additional ingredients including milk thistle, NAC, and B-vitamins. No Days Wasted focuses primarily on high-dose DHM plus L-Cysteine. Choose Cheers for comprehensive support or No Days Wasted for maximum DHM potency."
+    },
+    {
+      question: "Are there customer review differences between the two?",
+      answer: "Both products have positive customer reviews. No Days Wasted has approximately 200 Amazon reviews with 4.3 stars, while Cheers has fewer public reviews but strong testimonials. Both show effectiveness for most users who follow dosing instructions."
+    }
+  ],
+  'dhm-dosage-guide-2025': [
+    {
+      question: "What is the optimal DHM dosage for hangover prevention?",
+      answer: "The optimal DHM dosage is 5mg per kg of body weight, typically 300-600mg for most adults. A 150lb (68kg) person should take approximately 340mg. Clinical studies show this dosage provides 70%+ hangover reduction when taken 30-60 minutes before drinking."
+    },
+    {
+      question: "Can you take too much DHM?",
+      answer: "The maximum recommended DHM dosage is 1200mg in 24 hours. Clinical studies have tested up to 2000mg daily without adverse effects, but higher doses don't provide additional benefits. Most people need only 300-600mg per drinking session for effective hangover prevention."
+    },
+    {
+      question: "Does DHM dosage vary by body weight?",
+      answer: "Yes, DHM dosage should be adjusted for body weight. The formula is 5mg DHM per kg body weight. A 120lb person needs about 270mg while a 200lb person needs approximately 450mg. Use a dosage calculator for personalized recommendations."
+    },
+    {
+      question: "When should I take DHM for best results?",
+      answer: "Take DHM 30-60 minutes before your first alcoholic drink for optimal prevention. You can also split the dose: half before drinking and half before bed. DHM reaches peak blood levels in 1-2 hours and remains effective for 4-6 hours."
+    },
+    {
+      question: "How does alcohol amount affect DHM dosage?",
+      answer: "For light drinking (1-3 drinks), use the standard 300-400mg DHM dose. For moderate drinking (4-6 drinks), increase to 500-600mg. For heavy drinking (7+ drinks), use 600-900mg but understand DHM effectiveness decreases with excessive alcohol consumption."
+    }
+  ],
+  'dhm1000-review-2025': [
+    {
+      question: "Is DHM1000 worth the premium price?",
+      answer: "DHM1000 costs $47 for 30 servings ($1.57 per use) and provides 1000mg DHM per serving - the highest single-dose potency available. Compared to 300mg supplements at $0.50-1.00 per dose, you're paying premium for convenience of single high-dose capsules rather than multiple pills."
+    },
+    {
+      question: "How does DHM1000 compare to Double Wood DHM?",
+      answer: "DHM1000 offers 1000mg in a single capsule versus Double Wood's 300mg (requiring 3-4 capsules for equivalent dose). DHM1000 costs more per serving but provides convenience. Double Wood offers better value at $0.33 per 300mg dose if you don't mind taking multiple capsules."
+    },
+    {
+      question: "Does 1000mg DHM work better than 300-600mg?",
+      answer: "Clinical research shows 300-600mg DHM is effective for most people. Higher doses like 1000mg may benefit heavier individuals (200+ lbs) or heavy drinking sessions, but don't necessarily provide proportionally better results. Most users find 500-600mg sufficient."
+    },
+    {
+      question: "Are there DHM1000 side effects from the high dose?",
+      answer: "DHM1000's 1000mg dose is within safe ranges tested in clinical studies (up to 2000mg daily shown safe). Users report no significant side effects beyond occasional mild drowsiness. The higher dose doesn't increase side effect risk compared to standard 300-600mg doses."
+    },
+    {
+      question: "Where can you buy DHM1000?",
+      answer: "DHM1000 is available directly from dhm1000.com and select online retailers. It's less widely available than mass-market brands like Flyby or Double Wood, which are sold on Amazon with Prime shipping. Direct purchase ensures product authenticity."
+    }
+  ]
+};
+
+/**
+ * Generate FAQ schema for blog posts
+ */
+export function generateFAQSchema(slug) {
+  const faqs = faqData[slug];
+  if (!faqs || faqs.length === 0) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map(faq => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer
+      }
+    }))
+  };
 }

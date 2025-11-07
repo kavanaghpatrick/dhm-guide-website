@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import jsdom from 'jsdom';
+import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -153,7 +154,16 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   scriptTag.type = 'application/ld+json';
   scriptTag.textContent = JSON.stringify(structuredData);
   document.head.appendChild(scriptTag);
-  
+
+  // Add FAQ schema if available for this post
+  const faqSchema = generateFAQSchema(post.slug);
+  if (faqSchema) {
+    const faqScript = document.createElement('script');
+    faqScript.type = 'application/ld+json';
+    faqScript.textContent = JSON.stringify(faqSchema);
+    document.head.appendChild(faqScript);
+  }
+
   // Extract and escape first paragraph
   let safeFirstParagraph = '';
   if (post.content) {
