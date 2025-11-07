@@ -172,8 +172,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: 'Best Hangover Pills: Lab-Tested Supplements That Work',
-        description: 'Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness. Find your perfect anti-hangover solution today.',
+        title: 'Best Hangover Pills 2025: Top 10 Tested & Ranked (Reviews)',
+        description: 'Expert reviews of 10+ hangover supplements tested in real conditions. Compare prices, effectiveness, and ingredients. Find what actually works for you.',
         keywords: 'best hangover prevention pills, hangover supplements reviews, anti-hangover pills, hangover cure supplements, stop hangovers supplements',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
@@ -195,8 +195,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'Dihydromyricetin Randomized Controlled Trial Results 2024: DHM Hangover Studies',
-        description: '23 clinical studies prove DHM reduces hangovers by 85%. FDA-recognized research on dihydromyricetin\'s liver protection and alcohol metabolism.',
+        title: 'DHM Clinical Studies & Research: 15+ Peer-Reviewed Trials (2025)',
+        description: 'Complete analysis of 15+ clinical studies on DHM effectiveness. Review randomized controlled trials, safety data, and scientific evidence.',
         keywords: 'dihydromyricetin randomized controlled trial hangover 2024, dihydromyricetin hangover randomized controlled trial 2023, dhm for hangovers, dihydromyricetin clinical trials, DHM hangover research, randomized controlled trial DHM',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
