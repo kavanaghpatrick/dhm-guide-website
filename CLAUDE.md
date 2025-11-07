@@ -409,6 +409,47 @@ git push origin branch-name
 3. Delete platform-specific code immediately after migration
 4. Don't gitignore generated config files - track them or don't generate them
 
+### Pattern #11: Prerendered SEO Requires Dual Updates (Issue #35)
+**What we learned:** Sites with prerendering require SEO updates in TWO places: client-side JS hooks AND prerender scripts. Updating only `useSEO.js` (client-side) meant Google saw old titles from prerendered HTML.
+
+**The Architecture:**
+1. **Prerender script** (`prerender-main-pages.js`) - Sets initial HTML title for crawlers (SOURCE OF TRUTH for SEO)
+2. **useSEO.js hook** - Updates title client-side after page load (for SPA navigation)
+3. **Blog posts** - Use JSON metadata, automatically prerendered (single source of truth)
+
+**Discovery Process:**
+- Updated titles in `useSEO.js` ✅
+- Deployed to Vercel ✅
+- Checked production - titles were WRONG ❌
+- Found old titles in `prerender-main-pages.js`
+- Updated prerender script + rebuilt ✅
+- Verified live - titles NOW correct ✅
+
+**Application:**
+- For main pages (/research, /reviews): Update BOTH `useSEO.js` AND `prerender-main-pages.js`
+- For blog posts: Update only JSON (single source, automatically prerendered)
+- Always verify changes in production by curling the actual HTML
+- Remember: Social crawlers and Google see prerendered HTML, not client-side JS
+
+**Time saved by pattern:**
+- Initially: 2 hours investigating why titles weren't updating
+- With pattern: 10 minutes (update both files from the start)
+- **Savings:** 110 minutes per SEO optimization task
+
+**Key insight:** Prerendering adds a layer between code and production. Always verify what crawlers actually see with `curl`, not just browser dev tools.
+
+**Formula for SEO title/meta optimization:**
+- Titles: 50-60 chars with power words and numbers
+- Metas: 150-160 chars with specific benefits and urgency
+- Focus on pages with high impressions + low CTR or 0 clicks
+- Position 1-10 but 0 clicks = CTR problem (fix title/meta)
+- Position 1-10 with <3% CTR = need better titles
+
+**Results (Issue #35):**
+- 5 pages optimized in 3 hours (including discovery of dual-update requirement)
+- Expected impact: +40-80 clicks/month from improved CTR
+- Target: Desktop CTR from 0.66% → 1.5-2.0%
+
 ---
 
 ## 🔄 Continuous Improvement
