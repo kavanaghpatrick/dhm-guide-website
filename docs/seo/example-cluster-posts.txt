@@ -1,0 +1,137 @@
+BLOG TOPIC CLUSTER ANALYSIS - EXAMPLE POST ASSIGNMENTS
+========================================================
+
+CLUSTER 1: DHM SAFETY & SCIENCE (46 posts) - CRITICAL PRIORITY
+Hub: ultimate-dhm-safety-guide-hub-2025
+----------------------------------------------------------------
+✓ is-dhm-safe-science-behind-side-effects-2025
+✓ can-you-take-dhm-every-day-long-term-guide-2025
+✓ dhm-medication-interactions-safety-guide-2025
+✓ dhm-adults-over-50-age-related-safety-2025
+✓ dhm-women-hormonal-considerations-safety-2025
+✓ does-dhm-work-honest-science-review-2025
+✓ dhm-randomized-controlled-trials-2024
+✓ dhm-dosage-guide-2025
+✓ dhm-product-forms-absorption-comparison-2025
+  ... and 37 more safety/science posts
+
+
+CLUSTER 2: HANGOVER SCIENCE & RECOVERY (43 posts) - CRITICAL PRIORITY
+Hub: complete-hangover-science-hub-2025
+----------------------------------------------------------------
+✓ how-to-cure-a-hangover-complete-science-guide
+✓ emergency-hangover-protocol-2025
+✓ hangover-headache-fast-relief-methods-2025
+✓ hangover-nausea-complete-guide-fast-stomach-relief-2025
+✓ hangxiety-2025-dhm-prevents-post-drinking-anxiety
+✓ how-long-does-hangover-last
+✓ how-to-get-rid-of-hangover-fast
+✓ how-to-get-over-hangover
+✓ wine-hangover-guide
+✓ tequila-hangover-truth
+✓ whiskey-vs-vodka-hangover
+✓ hangover-supplements-complete-guide-what-actually-works-2025
+  ... and 31 more hangover posts
+
+
+CLUSTER 3: DHM PRODUCT REVIEWS (14 posts) - HIGH PRIORITY
+Hub: dhm-supplements-comparison-center-2025
+----------------------------------------------------------------
+✓ dhm-depot-review-2025
+✓ dhm1000-review-2025
+✓ flyby-recovery-review-2025
+✓ fuller-health-after-party-review-2025
+✓ good-morning-hangover-pills-review-2025
+✓ double-wood-dhm-review-analysis
+✓ no-days-wasted-dhm-review-analysis
+✓ nusapure-dhm-review-analysis
+✓ toniiq-ease-dhm-review-analysis
+✓ dhm-vs-zbiotics
+✓ dhm-vs-prickly-pear-hangovers
+✓ dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025
+✓ nac-vs-dhm-which-antioxidant-better-liver-protection-2025
+✓ asian-flush-vs-alcohol-allergy-comparison
+
+
+CLUSTER 4: DHM USAGE & TIMING (8 posts) - HIGH PRIORITY
+Hub: CREATE NEW - "complete-dhm-usage-guide-dosage-timing-stacking-2025"
+----------------------------------------------------------------
+✓ when-to-take-dhm-timing-guide-2025
+✓ dhm-dosage-guide-2025
+✓ dhm-supplement-stack-guide-complete-combinations
+✓ dhm-product-forms-absorption-comparison-2025
+✓ dhm-availability-worldwide-guide-2025
+✓ can-you-take-dhm-every-day-long-term-guide-2025 (also in Safety)
+
+
+CLUSTER 5: LIVER HEALTH & PROTECTION (24 posts) - HIGH PRIORITY
+Hub: liver-health-complete-guide-optimal-liver-function-protection-2025
+----------------------------------------------------------------
+✓ fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025
+✓ non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025
+✓ fatty-liver-disease-diet-complete-nutrition-guide-2025
+✓ liver-inflammation-causes-symptoms-natural-treatment-2025
+✓ liver-health-supplements-complete-guide-evidence-based-options-2025
+✓ liver-health-alcohol-supplements-dhm-2025
+✓ dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025
+✓ nac-vs-dhm-which-antioxidant-better-liver-protection-2025
+✓ best-liver-detox-science-based-methods-vs-marketing-myths-2025
+✓ advanced-liver-detox-science-vs-marketing-myths-2025
+✓ longevity-biohacking-dhm-liver-protection
+  ... and 13 more liver health posts
+
+
+CLUSTER 9: PROFESSIONAL & CAREER (29 posts)
+Hub: CREATE NEW - "professional-success-smart-drinking-guide"
+----------------------------------------------------------------
+✓ hangover-career-impact-dhm-solution-2025
+✓ alcohol-work-performance-professional-impact-guide-2025
+✓ executive-cognitive-performance-alcohol-impact-business-decision-making
+✓ business-dinner-networking-dhm-guide-2025
+✓ client-entertainment-sales-mastery-2025
+✓ business-travel-alcohol-executive-health-guide-2025
+✓ business-travel-dhm-survival-kit-2025
+✓ executive-travel-wellness-2025
+✓ international-business-success-2025
+✓ consultant-client-site-success-2025
+✓ salary-negotiation-performance-dhm-2025
+✓ conference-networking-dhm-guide-2025
+✓ work-life-balance-dhm-2025
+✓ workplace-wellness-alcohol-hidden-impact-professional-performance
+✓ remote-work-alcohol-managing-home-based-drinking-for-peak-productivity
+  ... and 14 more professional posts
+
+
+CLUSTER 10: COLLEGE & STUDENT LIFE (16 posts)
+Hub: CREATE NEW - "college-student-complete-dhm-guide"
+----------------------------------------------------------------
+✓ college-student-dhm-guide-2025
+✓ broke-college-student-budget-dhm-2025
+✓ greek-life-success-dhm-2025
+✓ spring-break-2025-cancun-survival-guide-dhm
+✓ study-abroad-international-student-dhm-2025
+✓ college-to-career-transition-dhm-2025
+✓ music-festival-survival-dhm-2025
+✓ festival-season-survival-dhm-guide-concert-music-festival-recovery
+  ... and 8 more college/student posts
+
+
+CLUSTER 15: ASIAN FLUSH (4 posts)
+Hub: complete-guide-asian-flush-comprehensive
+----------------------------------------------------------------
+✓ complete-guide-asian-flush-comprehensive
+✓ dhm-asian-flush-science-backed-solution
+✓ asian-flush-vs-alcohol-allergy-comparison
+✓ alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025
+
+
+TOTAL: 173 posts organized into 18 strategic clusters
+All posts link to relevant hub + 3-5 related cluster posts
+Hubs link to ALL posts in their cluster
+
+NEXT STEPS:
+1. Review cluster assignments
+2. Create 10 new hub posts
+3. Update 8 existing hub posts
+4. Add internal links systematically
+5. Track engagement metrics
