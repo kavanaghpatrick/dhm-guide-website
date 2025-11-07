@@ -8,16 +8,17 @@ import { Badge } from '@/components/ui/badge.jsx';
 import { Button } from '@/components/ui/button.jsx';
 import { Separator } from '@/components/ui/separator.jsx';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip.jsx';
-import { 
-  getPostBySlug, 
-  getRelatedPostsMetadata, 
+import {
+  getPostBySlug,
+  getRelatedPostsMetadata,
   preloadRelatedPosts,
-  getCacheStats 
+  getCacheStats
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 import { applyRedirect } from '../../utils/redirects.js';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
+import { Link as CustomLink } from '../../components/CustomLink';
 import { motion } from 'framer-motion';
 
 // Helper function to create enhanced components for special content patterns
@@ -1175,23 +1176,12 @@ const NewBlogPost = () => {
                       
                       if (isInternal && isClient) {
                         return (
-                          <span
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleNavigation(href);
-                            }}
-                            className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1 cursor-pointer"
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                handleNavigation(href);
-                              }
-                            }}
+                          <CustomLink
+                            to={href}
+                            className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
                           >
                             {children}
-                          </span>
+                          </CustomLink>
                         );
                       }
                       
@@ -1318,29 +1308,33 @@ const NewBlogPost = () => {
               <h3 className="font-bold text-gray-900 mb-6">Related Articles</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedPosts.map((relatedPost) => (
-                  <div 
+                  <div
                     key={relatedPost.slug}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => handleNavigation(`/never-hungover/${relatedPost.slug}`)}
+                    className="border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
                   >
-                    {relatedPost.image && (
-                      <img 
-                        src={relatedPost.image} 
-                        alt={relatedPost.title}
-                        className="w-full h-32 object-cover rounded-lg mb-3"
-                        loading="lazy"
-                      />
-                    )}
-                    <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-                      {relatedPost.title}
-                    </h4>
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                      {relatedPost.excerpt}
-                    </p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <Clock className="w-3 h-3" />
-                      <span>{relatedPost.readTime} min read</span>
-                    </div>
+                    <CustomLink
+                      to={`/never-hungover/${relatedPost.slug}`}
+                      className="block p-4"
+                    >
+                      {relatedPost.image && (
+                        <img
+                          src={relatedPost.image}
+                          alt={relatedPost.title}
+                          className="w-full h-32 object-cover rounded-lg mb-3"
+                          loading="lazy"
+                        />
+                      )}
+                      <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                        {relatedPost.title}
+                      </h4>
+                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                        {relatedPost.excerpt}
+                      </p>
+                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <Clock className="w-3 h-3" />
+                        <span>{relatedPost.readTime} min read</span>
+                      </div>
+                    </CustomLink>
                   </div>
                 ))}
               </div>

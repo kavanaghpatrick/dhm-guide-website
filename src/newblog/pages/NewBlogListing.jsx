@@ -1,13 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { Calendar, Clock, Tag, Search, Filter, Loader2 } from 'lucide-react';
-import { 
-  getAllPostsMetadata, 
-  getAllTags, 
-  searchPostsMetadata, 
+import {
+  getAllPostsMetadata,
+  getAllTags,
+  searchPostsMetadata,
   getPostsByTag,
-  preloadPost 
+  preloadPost
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
+import { Link as CustomLink } from '../../components/CustomLink';
 
 const NewBlogListing = () => {
   // SEO optimization
@@ -193,70 +194,74 @@ const NewBlogListing = () => {
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
-                onClick={() => handleNavigation(`/never-hungover/${post.slug}`)}
-                onMouseEnter={() => handlePostHover(post.slug)}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
-                {/* Post Image */}
-                {post.image && (
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-
-                <div className="p-6">
-                  {/* Post Meta */}
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{formatDate(post.date)}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{post.readTime} min read</span>
-                    </div>
-                  </div>
-
-                  {/* Post Title */}
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-green-600 transition-colors">
-                    {post.title}
-                  </h2>
-
-                  {/* Post Excerpt */}
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Tags */}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium"
-                        >
-                          <Tag className="w-3 h-3" />
-                          {tag}
-                        </span>
-                      ))}
-                      {post.tags.length > 3 && (
-                        <span className="text-xs text-gray-500">
-                          +{post.tags.length - 3} more
-                        </span>
-                      )}
+                <CustomLink
+                  to={`/never-hungover/${post.slug}`}
+                  className="block h-full"
+                  onMouseEnter={() => handlePostHover(post.slug)}
+                >
+                  {/* Post Image */}
+                  {post.image && (
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                        loading="lazy"
+                      />
                     </div>
                   )}
 
-                  {/* Author */}
-                  <div className="text-sm text-gray-500">
-                    By {post.author}
+                  <div className="p-6">
+                    {/* Post Meta */}
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(post.date)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{post.readTime} min read</span>
+                      </div>
+                    </div>
+
+                    {/* Post Title */}
+                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-green-600 transition-colors">
+                      {post.title}
+                    </h2>
+
+                    {/* Post Excerpt */}
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+
+                    {/* Tags */}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium"
+                          >
+                            <Tag className="w-3 h-4" />
+                            {tag}
+                          </span>
+                        ))}
+                        {post.tags.length > 3 && (
+                          <span className="text-xs text-gray-500">
+                            +{post.tags.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Author */}
+                    <div className="text-sm text-gray-500">
+                      By {post.author}
+                    </div>
                   </div>
-                </div>
+                </CustomLink>
               </article>
             ))}
           </div>
