@@ -377,6 +377,38 @@ git push origin branch-name
 4. Fix only items representing meaningful traffic (typically top 10-20%)
 5. Skip/defer items with <5% of total traffic
 
+### Pattern #10: Dead Code Costs More Than Disk Space (Issue #32)
+**What we learned:** Dead code's real cost isn't storage - it's analysis paralysis. The `public/_redirects` file (264 lines, 28KB) was copied to production but completely ignored by Vercel. This caused 4+ hours of ULTRATHINK investigation, 66KB of documentation, and confusion about which redirect system was active.
+
+**The Hidden Costs:**
+1. **Analysis Paralysis** - 10 parallel agents spent hours investigating rules that never executed
+2. **False Debugging** - Attributed 46 GSC failures to inactive code (actual cause: Issue #29)
+3. **Maintenance Burden** - Developers might update files that have zero effect
+4. **Architecture Confusion** - Two redirect systems (vercel.json active, _redirects ignored)
+
+**Application:**
+- When changing platforms (Netlify → Vercel), audit and DELETE platform-specific files immediately
+- Don't create "fallback" configurations for platforms that don't support fallbacks
+- Verify code is actually EXECUTED, not just copied to production
+- Test that config files work before assuming they do
+- Use ULTRATHINK verification (10+ agents) before concluding code is dead
+
+**Evidence of Dead Code:**
+- Vercel official docs: "Does NOT support Netlify _redirects format"
+- Live testing: 0 of 6 redirect rules worked from _redirects
+- File existed in dist/ but Vercel never read it
+- Generator script created 262 redundant individual rules (all caught by 1 wildcard)
+
+**Key insight:** Dead code creates a false sense of backup. The `_redirects` file was added as "Netlify/Vercel fallback" but Vercel has no fallback support. This wasted more time investigating than the original problem.
+
+**Resolution:** Deleted 329 lines (264 + 65 generator script). Clarified vercel.json is single source of truth.
+
+**How to prevent:**
+1. Research platform capabilities BEFORE creating "fallback" configs
+2. Test that backup systems actually work
+3. Delete platform-specific code immediately after migration
+4. Don't gitignore generated config files - track them or don't generate them
+
 ---
 
 ## 🔄 Continuous Improvement
