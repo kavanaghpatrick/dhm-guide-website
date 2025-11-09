@@ -19,7 +19,7 @@ const pages = [
   {
     route: '/reviews',
     title: 'Best DHM Supplements 2025: Top 7 Tested & Ranked',
-    description: 'Compare the 7 best DHM supplements with expert ratings, prices, and effectiveness data. Find your perfect hangover prevention supplement.',
+    description: 'We tested 7 DHM supplements. See which won for effectiveness, value, and speed. Interactive comparison tool included.',
     ogImage: '/reviews-og.jpg'
   },
   {
