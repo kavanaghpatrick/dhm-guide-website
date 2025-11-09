@@ -172,9 +172,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: 'Best Hangover Pills 2025: Top 10 Tested & Ranked (Reviews)',
-        description: 'Expert reviews of 10+ hangover supplements tested in real conditions. Compare prices, effectiveness, and ingredients. Find what actually works for you.',
-        keywords: 'best hangover prevention pills, hangover supplements reviews, anti-hangover pills, hangover cure supplements, stop hangovers supplements',
+        title: 'Best DHM Supplements 2025: Top 7 Tested & Ranked',
+        description: 'Compare the 7 best DHM supplements with expert ratings, prices, and effectiveness data. Find your perfect hangover prevention supplement.',
+        keywords: 'best dhm supplements, dhm supplement reviews, best dhm for hangovers, dhm pills, dhm supplement comparison',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
         structuredData: {
@@ -195,9 +195,9 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'DHM Clinical Studies & Research: 15+ Peer-Reviewed Trials (2025)',
-        description: 'Complete analysis of 15+ clinical studies on DHM effectiveness. Review randomized controlled trials, safety data, and scientific evidence.',
-        keywords: 'dihydromyricetin randomized controlled trial hangover 2024, dihydromyricetin hangover randomized controlled trial 2023, dhm for hangovers, dihydromyricetin clinical trials, DHM hangover research, randomized controlled trial DHM',
+        title: 'Does DHM Work? 11 Studies Show 70% Reduction (UCLA-Backed)',
+        description: '11 clinical studies from UCLA, USC, and international research show DHM reduces hangover severity by 70%. Complete peer-reviewed analysis.',
+        keywords: 'does dhm work, dhm clinical studies, dhm research, ucla dhm study, dhm effectiveness, dhm hangover studies',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
         structuredData: [
@@ -221,7 +221,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
                 "name": "How many clinical studies have been conducted on DHM?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Over 23 peer-reviewed clinical studies have been published on DHM (dihydromyricetin), including randomized controlled trials, safety assessments, and mechanism studies. Major research institutions like UCLA, USC, and universities in Asia have contributed significant findings."
+                  "text": "11 peer-reviewed clinical studies have been published on DHM (dihydromyricetin), including randomized controlled trials, safety assessments, and mechanism studies. Major research institutions like UCLA, USC, and universities in Asia have contributed significant findings."
                 }
               },
               {
