@@ -75,6 +75,7 @@ const postModules = {
   "dhm-medication-interactions-safety-guide-2025": () => import("./posts/dhm-medication-interactions-safety-guide-2025.json"),
   "dhm-product-forms-absorption-comparison-2025": () => import("./posts/dhm-product-forms-absorption-comparison-2025.json"),
   "dhm-randomized-controlled-trials-2024": () => import("./posts/dhm-randomized-controlled-trials-2024.json"),
+  "dhm-safety-complete-guide-2025": () => import("./posts/dhm-safety-complete-guide-2025.json"),
   "dhm-science-explained": () => import("./posts/dhm-science-explained.json"),
   "dhm-supplement-stack-guide-complete-combinations": () => import("./posts/dhm-supplement-stack-guide-complete-combinations.json"),
   "dhm-supplements-comparison-center-2025": () => import("./posts/dhm-supplements-comparison-center-2025.json"),

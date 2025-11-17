@@ -1,0 +1,186 @@
+================================================================================
+ROUTING DUPLICATION ANALYSIS - DHM GUIDE WEBSITE
+================================================================================
+
+PROBLEM IDENTIFIED:
+- Route paths are hardcoded in MULTIPLE locations
+- Adding a route requires changes to 2-3+ files
+- Risk of inconsistency between files
+- No centralized source of truth for routes
+
+DUPLICATION POINTS:
+================================================================================
+
+1. ROUTE PATH DEFINITIONS (7 routes appear in BOTH files):
+   - App.jsx:      Switch statement with case for each route (lines 53-72)
+   - Layout.jsx:   navItems array with path/name pairs (lines 31-39)
+   - Layout.jsx:   Footer links hardcoded (lines 194-197)
+
+   Routes duplicated:
+   - /           (App default + Layout navItem)
+   - /guide      (App case + Layout navItem + Layout footer)
+   - /reviews    (App case + Layout navItem + Layout footer)
+   - /research   (App case + Layout navItem + Layout footer)
+   - /about      (App case + Layout navItem + Layout footer)
+   - /compare    (App case + Layout navItem)
+   - /never-hungover (App case + Layout navItem)
+
+2. STATE MANAGEMENT (Both files independently track currentPath):
+   - App.jsx:     Lines 26-33, 35-44
+   - Layout.jsx:  Lines 10-15, 21-28
+   
+   Issues:
+   - App normalizes trailing slashes: /guide/ → /guide
+   - Layout does NOT normalize
+   - Leads to inconsistent behavior
+
+3. ACTIVE STATE LOGIC:
+   - App.jsx:     Uses switch + startsWith() checks
+   - Layout.jsx:  Uses isActive() callback (lines 41-44)
+   - Different implementations could diverge
+
+4. NAVIGATION LOGIC:
+   - Both files import navigateWithScrollToTop()
+   - Both handle onClick navigation
+   - Both listen to popstate events
+   - Duplicate event listener setup
+
+================================================================================
+CONSOLIDATION SOLUTION: useRouter HOOK
+================================================================================
+
+Create single source of truth:
+
+File: src/hooks/useRouter.js
+- ROUTES constant (all routes defined once)
+- useRouter() hook with:
+  - currentPath state management
+  - navigate(path) function
+  - isActive(path) logic
+  - getNavItems() - for Layout
+  - getFooterItems() - for footer links
+  - getRouteByPath(path) - for App.jsx rendering
+
+Updated files:
+
+1. App.jsx:
+   - Import useRouter hook
+   - Replace 20-line switch statement with getRouteByPath() lookup
+   - Routes come from ROUTES constant
+
+2. Layout.jsx:
+   - Import useRouter hook
+   - Replace hardcoded navItems with getNavItems()
+   - Replace hardcoded footer links with getFooterItems()
+   - Use navigate() from hook instead of direct calls
+   - Use isActive() from hook
+
+================================================================================
+BENEFITS
+================================================================================
+
+MAINTENANCE:
+  Before: Adding route = edit App.jsx + Layout.jsx + maybe footer = 3 edits
+  After:  Adding route = edit ROUTES constant = 1 edit (+ pageComponents mapping)
+
+CONSISTENCY:
+  Before: Trailing slash handling different between files
+  After:  Single getNormalizedPath() used everywhere
+
+SCALABILITY:
+  Before: New team members ask "where are routes?"
+  After:  "Look in src/hooks/useRouter.js"
+
+FLEXIBILITY:
+  Before: Routes scattered across code
+  After:  ROUTES constant easily imported by other code (sitemap, meta tags, etc.)
+
+CODE REDUCTION:
+  Before: ~30 lines of route definitions spread across 2+ files
+  After:  ~20 lines in ROUTES constant, reused everywhere
+
+================================================================================
+MIGRATION RISK: LOW
+================================================================================
+
+Trailing Slash:
+  ✓ vercel.json already handles /route/ → /route redirects
+  ✓ Normalizing everywhere is correct behavior
+
+Dynamic Routes:
+  ✓ Regex pattern for /never-hungover/:slug is simple
+  ✓ Test with: /never-hungover/my-post, /never-hungover/test-123, etc.
+
+SSR/Prerendering:
+  ✓ Already handles window check (typeof window !== 'undefined')
+  ✓ Prerender script uses static paths, not affected
+
+Component Mapping:
+  ✓ pageComponents object stays in sync with ROUTES
+  ✓ Lazy loading unchanged
+
+================================================================================
+IMPLEMENTATION STEPS
+================================================================================
+
+Phase 1: Create Hook (no breaking changes)
+  - Create src/hooks/useRouter.js
+  - Export ROUTES constant
+  - Export useRouter function
+  - Test in isolation
+
+Phase 2: Update App.jsx
+  - Import useRouter and ROUTES
+  - Replace switch statement with getRouteByPath()
+  - Test all pages load correctly
+
+Phase 3: Update Layout.jsx
+  - Import useRouter
+  - Replace navItems with getNavItems()
+  - Replace footer links with getFooterItems()
+  - Use navigate() and isActive() from hook
+  - Test nav highlighting and clicks
+
+Phase 4: Cleanup
+  - Document new route addition process
+  - Update README
+
+================================================================================
+TESTING REQUIRED
+================================================================================
+
+Manual Tests:
+  [ ] Click each nav item → page loads
+  [ ] Back button → previous page
+  [ ] Direct URL access /guide → correct page
+  [ ] Direct URL /guide/ → same as /guide
+  [ ] Nav highlighting matches current page
+  [ ] Mobile menu works
+  [ ] Footer links work
+  [ ] /never-hungover/my-post → blog post renders
+  [ ] /never-hungover/my-post → /never-hungover highlighted in nav
+  [ ] /invalid-route → home page (fallback)
+
+Pre-deployment:
+  [ ] npm run build (check for errors)
+  [ ] Local testing all pages
+  [ ] Google Search Console - no new 404s after deploy
+
+================================================================================
+FULL IMPLEMENTATION AVAILABLE IN:
+================================================================================
+
+ROUTING_CONSOLIDATION_ANALYSIS.md
+  - 300+ lines of detailed analysis
+  - Complete useRouter.js implementation
+  - Modified App.jsx code
+  - Modified Layout.jsx code
+  - Risk mitigation strategies
+  - Test cases and checklist
+
+Quick Start:
+  1. Read ROUTING_CONSOLIDATION_ANALYSIS.md section 5
+  2. Copy useRouter.js implementation
+  3. Follow Phase 1-4 implementation steps
+
+================================================================================

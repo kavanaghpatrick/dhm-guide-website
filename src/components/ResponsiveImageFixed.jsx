@@ -29,7 +29,6 @@ const ResponsiveImageFixed = ({
   const generateSrcSet = (imagePath) => {
     // If explicitly disabled or it's a Vite-processed import, don't generate srcSet
     if (disableSrcSet || isViteProcessedImport(imagePath)) {
-      console.log('ResponsiveImage: Skipping srcSet generation for Vite-processed import:', imagePath);
       return undefined;
     }
 
@@ -38,8 +37,7 @@ const ResponsiveImageFixed = ({
     const srcSet = availableSizes
       .map(w => `${basePath}-${w}w.webp ${w}w`)
       .join(', ');
-    
-    console.log('ResponsiveImage: Generated srcSet:', srcSet);
+
     return srcSet;
   };
 
@@ -58,9 +56,6 @@ const ResponsiveImageFixed = ({
       fetchPriority={fetchpriority}
       onError={(e) => {
         console.error('ResponsiveImage: Failed to load image:', src, e);
-      }}
-      onLoad={() => {
-        console.log('ResponsiveImage: Successfully loaded image:', src);
       }}
     />
   );

@@ -1,20 +1,22 @@
-import React, { lazy, Suspense, useState, useEffect } from 'react'
+import React, { lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout.jsx'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { useRouter } from './hooks/useRouter'
 import './App.css'
 
-// Lazy load all page components for better performance
-const Home = lazy(() => import('./pages/Home.jsx'))
-const Guide = lazy(() => import('./pages/Guide.jsx'))
-const Reviews = lazy(() => import('./pages/Reviews.jsx'))
-const Research = lazy(() => import('./pages/Research.jsx'))
-const About = lazy(() => import('./pages/About.jsx'))
-const Compare = lazy(() => import('./pages/Compare.jsx'))
-const DosageCalculator = lazy(() => import('./pages/DosageCalculatorEnhanced.jsx'))
-const DosageCalculatorRewrite = lazy(() => import('./pages/DosageCalculatorRewrite/index.jsx'))
-const NewBlogListing = lazy(() => import('./newblog/pages/NewBlogListing.jsx'))
-const NewBlogPost = lazy(() => import('./newblog/components/NewBlogPost.jsx'))
-const ImportResolutionTest = lazy(() => import('./components/ImportResolutionTest.jsx'))
+// Lazy load all page components - mapped to route paths
+const pageComponents = {
+  '/': lazy(() => import('./pages/Home.jsx')),
+  '/guide': lazy(() => import('./pages/Guide.jsx')),
+  '/reviews': lazy(() => import('./pages/Reviews.jsx')),
+  '/research': lazy(() => import('./pages/Research.jsx')),
+  '/about': lazy(() => import('./pages/About.jsx')),
+  '/compare': lazy(() => import('./pages/Compare.jsx')),
+  '/dhm-dosage-calculator': lazy(() => import('./pages/DosageCalculatorEnhanced.jsx')),
+  '/dhm-dosage-calculator-new': lazy(() => import('./pages/DosageCalculatorRewrite/index.jsx')),
+  '/never-hungover': lazy(() => import('./newblog/pages/NewBlogListing.jsx')),
+  '/never-hungover/:slug': lazy(() => import('./newblog/components/NewBlogPost.jsx')),
+}
 
 // Loading component for suspense fallback
 const PageLoader = () => (
@@ -24,55 +26,24 @@ const PageLoader = () => (
 )
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(() => {
-    if (typeof window !== 'undefined') {
-      // Remove trailing slash except for root
-      const path = window.location.pathname;
-      return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
-    }
-    return '/';
-  })
+  const { currentPath, getRouteByPath } = useRouter()
 
-  useEffect(() => {
-    const handlePopState = () => {
-      const path = window.location.pathname;
-      // Remove trailing slash except for root
-      setCurrentPath(path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path);
-    }
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
-
-  // Simple routing based on pathname
+  // Replace switch statement with route registry lookup
   const renderPage = () => {
-    // Handle Never Hungover blog post routes (e.g., /never-hungover/post-slug)
-    if (currentPath.startsWith('/never-hungover/')) {
-      return <NewBlogPost />
+    // Find matching route using centralized registry
+    const route = getRouteByPath(currentPath)
+
+    if (!route) {
+      // Fallback to home if no route matches
+      const HomeComponent = pageComponents['/']
+      return <HomeComponent />
     }
 
-    switch (currentPath) {
-      case '/guide':
-        return <Guide />
-      case '/reviews':
-        return <Reviews />
-      case '/research':
-        return <Research />
-      case '/about':
-        return <About />
-      case '/compare':
-        return <Compare />
-      case '/dhm-dosage-calculator':
-        return <DosageCalculator />
-      case '/dhm-dosage-calculator-new':
-        return <DosageCalculatorRewrite />
-      case '/never-hungover':
-        return <NewBlogListing />
-      case '/test-imports':
-        return <ImportResolutionTest />
-      default:
-        return <Home />
-    }
+    // Use path for exact routes, use route.path for dynamic routes
+    const ComponentPath = route.isDynamic ? route.path : currentPath
+    const Component = pageComponents[ComponentPath] || pageComponents['/']
+
+    return <Component />
   }
 
   return (

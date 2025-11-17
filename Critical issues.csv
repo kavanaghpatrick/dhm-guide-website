@@ -1,0 +1,10 @@
+Reason,Source,Validation,Pages
+Page with redirect,Website,Failed,46
+Not found (404),Website,Not Started,3
+Alternate page with proper canonical tag,Website,Started,12
+Blocked due to other 4xx issue,Website,Started,1
+Soft 404,Website,Started,1
+Crawled - currently not indexed,Google systems,Started,106
+Redirect error,Website,Passed,3
+Discovered - currently not indexed,Google systems,Passed,27
+"Duplicate, Google chose different canonical than user",Google systems,Passed,10

@@ -413,11 +413,9 @@ export function generateEnhancedBlogSchema(blogPost) {
     }
   });
 
-  // Add FAQ schema for specific high-priority posts
-  const faqSchema = generateFAQSchema(slug);
-  if (faqSchema) {
-    schemas.push(faqSchema);
-  }
+  // Note: FAQ schema is added by prerender scripts (scripts/prerender-blog-posts-enhanced.js)
+  // Removed client-side FAQ generation to avoid duplicate schema markup that causes
+  // Google Search Console errors. Blog post prerendering adds FAQ schema to static HTML.
 
   return schemas;
 }

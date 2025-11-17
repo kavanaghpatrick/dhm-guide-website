@@ -1,0 +1,696 @@
+{
+  "metadata": {
+    "source": "10X_STRATEGY_FINAL.md",
+    "created": "2025-11-09",
+    "total_items": 22,
+    "total_estimated_hours": 540,
+    "total_expected_clicks": 1566
+  },
+  "week_1_critical": {
+    "timeframe": "Week 1",
+    "total_hours": 10,
+    "total_clicks": 150,
+    "items": [
+      {
+        "id": 1,
+        "title": "Fix /reviews Page Title & Meta",
+        "description": "The /reviews page has 0% CTR on 95 impressions despite amazing interactive features. Current title 'Best Hangover Prevention Pills 2025' doesn't match user query 'best dhm supplement'. Need to align title with actual search intent and add Top 3 Picks box at page top.",
+        "current_state": "Title: 'Best Hangover Prevention Pills 2025', CTR: 0%, Impressions: 95",
+        "changes_required": [
+          "Change title to: 'Best DHM Supplements 2025: Top 7 Tested & Ranked'",
+          "Add 'Winner's Podium' at top with 'Best Overall', 'Best Budget', 'Best for Hangovers'",
+          "Keep interactive widget (great UX, just not the lead)"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "+30-50 clicks/month",
+        "expected_ctr": "5-8%",
+        "why_important": "0% CTR on 95 impressions is inexcusable for a well-built page. The gap between 'hangover pills' and 'dhm supplement' is killing visibility.",
+        "acceptance_criteria": [
+          "Title changed in both meta tags and prerendered HTML",
+          "Top 3 Picks box visible above interactive widget",
+          "Submitted to Google Search Console for reindexing",
+          "CTR tracked for 2-4 weeks to measure improvement"
+        ],
+        "priority": "CRITICAL",
+        "risk": "LOW - Pure optimization, no code changes to widget"
+      },
+      {
+        "id": 2,
+        "title": "Fix /research Page Title & Meta",
+        "description": "882 impressions with 0% CTR at position 7.4. Current generic title 'DHM Clinical Studies & Research' doesn't create urgency or promise specific value. Need specific, benefit-driven title that highlights the 23 studies analyzed and the 87% effectiveness rate.",
+        "current_state": "Title: 'DHM Clinical Studies & Research', CTR: 0%, Impressions: 882, Position: 7.4",
+        "changes_required": [
+          "Change title to: 'Does DHM Really Work? What 23 Studies Found (87% Effective)'",
+          "Update meta description to highlight key findings",
+          "Add structured data for Research/MedicalStudy if not present"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "+26 clicks/month",
+        "expected_ctr": "3-5%",
+        "why_important": "882 impressions with 0 clicks is massive wasted opportunity. Page already ranks well (position 7.4), just needs compelling title.",
+        "acceptance_criteria": [
+          "Title updated in meta tags and prerendered HTML",
+          "Meta description includes '23 studies' and '87% effective'",
+          "Submitted to GSC for reindexing",
+          "Baseline CTR tracked for 2-4 weeks"
+        ],
+        "priority": "CRITICAL",
+        "risk": "LOW - Title/meta only, no content changes"
+      },
+      {
+        "id": 3,
+        "title": "Fix RCT Clinical Trials Page",
+        "description": "821 impressions with 0% CTR at position 7.2. Generic title doesn't communicate value proposition. Need to highlight the 5 specific studies and recent date range (2024-2025) to establish freshness and credibility.",
+        "current_state": "CTR: 0%, Impressions: 821, Position: 7.2",
+        "changes_required": [
+          "Change title to: 'DHM Clinical Trials: 5 Studies Prove It Works (2024-2025)'",
+          "Update meta description with key trial outcomes",
+          "Ensure page includes actual data from the 5 studies mentioned"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "+25 clicks/month",
+        "expected_ctr": "3-4%",
+        "why_important": "800+ impressions = strong visibility, but 0% CTR means title isn't converting. Quick win with high ROI.",
+        "acceptance_criteria": [
+          "Title includes '5 Studies' and date range '2024-2025'",
+          "Meta description highlights proof/results",
+          "Page content actually covers 5 distinct trials",
+          "Submitted to GSC and tracked"
+        ],
+        "priority": "CRITICAL",
+        "risk": "LOW - If page doesn't have 5 studies, may need content audit first"
+      },
+      {
+        "id": 4,
+        "title": "Fix Flyby Review Page",
+        "description": "777 impressions with only 0.13% CTR at position 6.8. Title doesn't include social proof (7,200+ user reviews) or create value proposition clarity. Need to highlight user count, rating, and price-per-dose to help users make decision.",
+        "current_state": "CTR: 0.13%, Impressions: 777, Position: 6.8",
+        "changes_required": [
+          "Change title to: 'Flyby Recovery: 7,200+ Users Rate 4.3 Stars - Worth $3/Dose?'",
+          "Meta description should include key pros/cons",
+          "Ensure review includes actual user rating data"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "+30 clicks/month",
+        "expected_ctr": "4-5%",
+        "why_important": "Huge social proof (7,200 users) not leveraged in title. Position 6.8 with 777 impressions means strong ranking, just need better CTR.",
+        "acceptance_criteria": [
+          "Title includes '7,200+ Users', '4.3 Stars', and '$3/Dose'",
+          "Page content validates the user count and rating claims",
+          "Submitted to GSC",
+          "CTR improvement tracked over 2-4 weeks"
+        ],
+        "priority": "HIGH",
+        "risk": "LOW - Verify actual user count and rating before using in title"
+      },
+      {
+        "id": 5,
+        "title": "Fix 'When to Take DHM' Page",
+        "description": "316 impressions with 1.27% CTR at position 9.7. Already ranking but position suggests room for improvement. Needs better title/meta to increase CTR and signal relevance to Google for position boost.",
+        "current_state": "CTR: 1.27%, Impressions: 316, Position: 9.7",
+        "changes_required": [
+          "Optimize title to be more specific and actionable",
+          "Meta description should promise direct answer",
+          "Consider adding 'Ultimate Guide' or year to title"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "+15 clicks/month",
+        "expected_ctr": "3-4%",
+        "why_important": "Low-hanging fruit - already ranking on page 1, small CTR boost will compound with position improvement.",
+        "acceptance_criteria": [
+          "Title more specific than generic 'When to Take DHM'",
+          "Meta description promises immediate answer",
+          "Submitted to GSC",
+          "Track both CTR and position changes"
+        ],
+        "priority": "HIGH",
+        "risk": "LOW - Already has some CTR, just needs optimization"
+      },
+      {
+        "id": 6,
+        "title": "Submit Updated Pages to GSC & Set Up Tracking",
+        "description": "After updating the 5 pages above, need to submit all to Google Search Console for reindexing and set up weekly tracking to measure CTR improvements over baseline.",
+        "current_state": "No systematic tracking of CTR changes",
+        "changes_required": [
+          "Submit all 5 updated URLs to GSC for reindexing",
+          "Set up weekly GSC report to track CTR changes",
+          "Document baseline metrics (current CTR, impressions, position)",
+          "Create tracking spreadsheet for 2-4 week monitoring"
+        ],
+        "estimated_hours": 1,
+        "expected_impact": "Enables measurement of +126 clicks/month",
+        "why_important": "Without tracking, can't validate strategy or make data-driven decisions. Critical for proving ROI.",
+        "acceptance_criteria": [
+          "All 5 URLs submitted via GSC URL Inspection tool",
+          "Weekly GSC export scheduled or automated",
+          "Baseline spreadsheet created with current metrics",
+          "Alert set up for CTR changes >20%"
+        ],
+        "priority": "CRITICAL",
+        "risk": "NONE - Pure tracking setup"
+      },
+      {
+        "id": 7,
+        "title": "Start E-E-A-T Foundation",
+        "description": "Health content requires strong E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) signals. Need author bio, About Us page, and medical reviewer to protect against algorithm updates that target low-credibility health sites.",
+        "current_state": "Likely missing formal E-E-A-T signals",
+        "changes_required": [
+          "Write author bio with relevant credentials/experience",
+          "Create job post for medical reviewer (MD, PharmD, RD) on Upwork",
+          "Draft 'About Us' page with transparency about mission and qualifications",
+          "Prepare citation style guide for all clinical claims"
+        ],
+        "estimated_hours": 4,
+        "expected_impact": "Risk mitigation - prevents catastrophic traffic loss",
+        "budget": "$200-500 for medical reviewer (one-time)",
+        "why_important": "E-E-A-T is insurance policy against Google algorithm updates. One health algorithm update could wipe out 100% of traffic without this.",
+        "acceptance_criteria": [
+          "Author bio published on site with credentials",
+          "Upwork job post created with clear requirements",
+          "About Us page drafted (ready for review)",
+          "Citation format decided and documented"
+        ],
+        "priority": "CRITICAL",
+        "risk": "MEDIUM - Will need to vet medical reviewer credentials carefully"
+      }
+    ]
+  },
+  "month_1_high_priority": {
+    "timeframe": "Month 1 (after Week 1)",
+    "total_hours": 40,
+    "total_clicks": 200,
+    "items": [
+      {
+        "id": 8,
+        "title": "Create DHM Timing Guide (Utility Guide #1)",
+        "description": "Build first new Utility Guide following proven dosage guide template. 'When to take DHM' queries show high CTR (1.27% even at position 9.7). Create comprehensive guide answering: before/after drinking, how far in advance, with food or without, morning-after timing, etc.",
+        "format": "Utility Guide (same structure as dosage guide)",
+        "structure": [
+          "Direct answer in first 4 lines with emojis",
+          "Timing table (Scenario × Timing = Your Protocol)",
+          "10-13 FAQ questions with schema",
+          "15 CTAs throughout",
+          "Evidence-based with clinical citations"
+        ],
+        "word_count": "5,000-8,500 words",
+        "estimated_hours": 20,
+        "expected_impact": "+100 clicks/month",
+        "why_important": "Grok flagged 'when to take' queries get high CTR. Gemini confirmed it solves specific user problem. Follows proven Utility Guide formula.",
+        "acceptance_criteria": [
+          "Direct answer within first 100 words",
+          "Timing table with 6-9 scenarios",
+          "10+ FAQ questions matching GSC queries",
+          "FAQ schema markup implemented",
+          "15+ CTAs distributed throughout",
+          "Clinical citations for all timing claims",
+          "5,000+ words total",
+          "Submitted to GSC after publication"
+        ],
+        "priority": "HIGH",
+        "risk": "LOW - Following proven template",
+        "dependencies": ["Complete E-E-A-T setup first for credibility"]
+      },
+      {
+        "id": 9,
+        "title": "Create DHM Stack Guide (Utility Guide #2)",
+        "description": "Build second Utility Guide on 'What to combine with DHM for maximum effect'. Natural cross-sell opportunity with high commercial intent. Cover DHM + NAC, DHM + Milk Thistle, DHM + B-Vitamins, DHM + Electrolytes, etc.",
+        "format": "Utility Guide",
+        "structure": [
+          "Direct answer: Top 3 stacks with emojis",
+          "Stack table (Goal × Combination = Your Stack)",
+          "10-13 FAQ questions",
+          "Product recommendations by stack type",
+          "Evidence for synergistic effects"
+        ],
+        "word_count": "5,000-8,500 words",
+        "estimated_hours": 20,
+        "expected_impact": "+100 clicks/month",
+        "why_important": "High commercial intent - users ready to buy. Natural cross-sell opportunity. Follows Utility Guide formula.",
+        "acceptance_criteria": [
+          "Direct answer with top 3 stacks",
+          "Stack table with 6-9 combinations",
+          "10+ FAQ questions",
+          "FAQ schema markup",
+          "15+ CTAs with product links",
+          "Clinical evidence for each combination",
+          "5,000+ words",
+          "Internal links to relevant product reviews"
+        ],
+        "priority": "HIGH",
+        "risk": "MEDIUM - Need to verify supplement interaction safety with medical reviewer",
+        "dependencies": ["Medical reviewer hired and available for consultation"]
+      }
+    ]
+  },
+  "months_2_3_medium_priority": {
+    "timeframe": "Months 2-3",
+    "total_hours": 90,
+    "total_clicks": 300,
+    "items": [
+      {
+        "id": 10,
+        "title": "Create 'DHM vs NAC' Comparison",
+        "description": "First priority comparison. NAC comparison already gets 4.65% CTR (validated demand). Cover effectiveness comparison, mechanism of action, safety profile, cost comparison, which to choose when.",
+        "format": "Comparison Post",
+        "structure": [
+          "Direct answer: DHM vs NAC winner by use case",
+          "Comparison table (Feature × DHM × NAC)",
+          "8-10 FAQs",
+          "Use case recommendations",
+          "Product recommendations for both"
+        ],
+        "word_count": "3,000-4,000 words",
+        "estimated_hours": 15,
+        "expected_impact": "+50 clicks/month",
+        "why_important": "NAC comparison already shows 4.65% CTR - validated demand. Natural competitor to DHM.",
+        "acceptance_criteria": [
+          "Direct verdict in first 100 words",
+          "Side-by-side comparison table",
+          "8+ FAQ questions with schema",
+          "Clinical evidence for both supplements",
+          "Clear use case recommendations",
+          "Internal links to DHM and NAC product reviews",
+          "3,000+ words"
+        ],
+        "priority": "MEDIUM",
+        "risk": "LOW - Validated demand already exists"
+      },
+      {
+        "id": 11,
+        "title": "Create 'DHM vs Activated Charcoal' Comparison",
+        "description": "Myth-busting comparison. Activated charcoal is popular but scientifically questionable for hangovers. Opportunity to establish authority by debunking myths while positioning DHM as evidence-based alternative.",
+        "format": "Comparison Post",
+        "structure": [
+          "Direct answer with myth-busting angle",
+          "Comparison table showing evidence gap",
+          "8-10 FAQs addressing common myths",
+          "Scientific explanation of why charcoal doesn't work",
+          "DHM as evidence-based alternative"
+        ],
+        "word_count": "3,000-4,000 words",
+        "estimated_hours": 15,
+        "expected_impact": "+50 clicks/month",
+        "why_important": "Myth-busting angle creates shareability. Positions site as evidence-based authority.",
+        "acceptance_criteria": [
+          "Clear myth-busting narrative",
+          "Clinical evidence showing charcoal ineffectiveness",
+          "Comparison table highlighting evidence gap",
+          "8+ FAQ questions",
+          "FAQ schema markup",
+          "3,000+ words"
+        ],
+        "priority": "MEDIUM",
+        "risk": "LOW - Clear scientific consensus against charcoal for hangovers"
+      },
+      {
+        "id": 12,
+        "title": "Create 'DHM vs Electrolytes' Comparison",
+        "description": "Compare DHM to popular electrolyte products (Pedialyte, Liquid IV). Address common misconception that electrolytes prevent hangovers vs only treating dehydration symptoms.",
+        "format": "Comparison Post",
+        "structure": [
+          "Direct answer: Different purposes, complementary not competitive",
+          "Comparison table (Prevention vs Symptom Relief)",
+          "8-10 FAQs",
+          "Recommendation to use both",
+          "Product recommendations for electrolytes + DHM stacks"
+        ],
+        "word_count": "3,000-4,000 words",
+        "estimated_hours": 15,
+        "expected_impact": "+50 clicks/month",
+        "why_important": "Pedialyte/Liquid IV are mainstream competitors. Opportunity for cross-sell recommendation.",
+        "acceptance_criteria": [
+          "Clear explanation of different mechanisms",
+          "Comparison table showing complementary benefits",
+          "8+ FAQ questions",
+          "Recommendation to use both together",
+          "Product links to both DHM and electrolyte products",
+          "3,000+ words"
+        ],
+        "priority": "MEDIUM",
+        "risk": "LOW - Non-competitive angle (complement not compete)"
+      },
+      {
+        "id": 13,
+        "title": "Create DHM Safety Guide (Utility Guide #3)",
+        "description": "Comprehensive safety guide covering side effects, risks by dosage, drug interactions, contraindications, who should avoid DHM. Critical for E-E-A-T and addressing safety concerns that prevent conversions.",
+        "format": "Utility Guide",
+        "structure": [
+          "Direct answer: Safety verdict with caveats",
+          "Safety table (Dose × Risk Level × Warnings)",
+          "10-13 FAQ questions on safety concerns",
+          "Drug interaction warnings",
+          "Clinical safety data from studies"
+        ],
+        "word_count": "5,000-8,500 words",
+        "estimated_hours": 20,
+        "expected_impact": "+100 clicks/month",
+        "why_important": "Addresses purchase objections. Critical for E-E-A-T. Searches like 'is DHM safe' have high intent.",
+        "acceptance_criteria": [
+          "Medical reviewer approval REQUIRED",
+          "Direct safety verdict in first 100 words",
+          "Safety table with dose-based risk levels",
+          "10+ FAQ questions",
+          "Complete drug interaction list",
+          "Clinical safety citations",
+          "5,000+ words",
+          "'Medically Reviewed by Dr. [Name]' badge"
+        ],
+        "priority": "HIGH",
+        "risk": "HIGH - Medical/legal sensitivity, requires expert review",
+        "dependencies": ["Medical reviewer hired and available"]
+      },
+      {
+        "id": 14,
+        "title": "Hire & Onboard Medical Reviewer",
+        "description": "Find and hire qualified medical professional (MD, PharmD, or RD) on Upwork to review all health-related content for E-E-A-T compliance. One-time setup plus ongoing review relationship.",
+        "deliverables": [
+          "Review all existing cornerstone content",
+          "Add 'Medically Reviewed by Dr. [Name], MD' to key pages",
+          "Create review process for new content",
+          "Provide credentials for author bio"
+        ],
+        "estimated_hours": 5,
+        "budget": "$200-500 one-time setup + $50-100 per new guide review",
+        "expected_impact": "Risk mitigation - protects all traffic",
+        "why_important": "Non-negotiable for health content. Insurance against Google algorithm updates targeting low-credibility sites.",
+        "acceptance_criteria": [
+          "Reviewer has verifiable MD, PharmD, or RD credentials",
+          "Reviewed and approved 3-5 cornerstone pages",
+          "Added 'Medically Reviewed' byline to reviewed pages",
+          "Established ongoing review process and pricing",
+          "Credentials visible on site About page"
+        ],
+        "priority": "CRITICAL",
+        "risk": "MEDIUM - Need to vet credentials carefully",
+        "dependencies": ["Budget approved", "Job post created in Week 1"]
+      },
+      {
+        "id": 15,
+        "title": "Create About Us & Author Pages",
+        "description": "Build transparent About Us page explaining site mission, methodology, and credentials. Create author bio page with relevant experience and qualifications. Critical E-E-A-T signals.",
+        "deliverables": [
+          "About Us page with mission statement",
+          "Methodology explanation (how products tested/reviewed)",
+          "Author bio with credentials and experience",
+          "Editorial standards and medical review process",
+          "Contact information"
+        ],
+        "estimated_hours": 4,
+        "expected_impact": "E-E-A-T signal - supports all content",
+        "why_important": "Google evaluates site-wide E-E-A-T. Missing About/Author pages hurt credibility across all content.",
+        "acceptance_criteria": [
+          "About Us page published at /about",
+          "Author bio page published",
+          "Clear explanation of content creation process",
+          "Medical review process explained",
+          "Contact information visible",
+          "Links added to site footer"
+        ],
+        "priority": "HIGH",
+        "risk": "LOW - Straightforward content creation"
+      }
+    ]
+  },
+  "months_4_12_long_term": {
+    "timeframe": "Months 4-12",
+    "total_hours": 395,
+    "total_clicks": 916,
+    "items": [
+      {
+        "id": 16,
+        "title": "Create Alcohol & Sleep Guide (Utility Guide #4)",
+        "description": "How to protect REM sleep when drinking. Unique angle not well-covered by competitors. DHM's mechanism includes sleep protection, strong differentiator.",
+        "format": "Utility Guide",
+        "estimated_hours": 20,
+        "expected_impact": "+50-100 clicks/month",
+        "priority": "MEDIUM",
+        "timeframe": "Month 4-5"
+      },
+      {
+        "id": 17,
+        "title": "Create Hangover Symptom-Solver Guide (Utility Guide #5)",
+        "description": "Interactive guide matching supplements to specific symptoms (nausea → ginger, headache → electrolytes, liver → DHM, etc.). Decision-making utility format.",
+        "format": "Utility Guide with decision matrix",
+        "estimated_hours": 25,
+        "expected_impact": "+50-100 clicks/month",
+        "priority": "MEDIUM",
+        "timeframe": "Month 5-6"
+      },
+      {
+        "id": 18,
+        "title": "Create 'DHM vs Vitamin B Complex' Comparison",
+        "description": "B vitamins are commonly recommended for hangovers. Compare mechanisms, effectiveness, use cases. Natural extension comparison.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+25-50 clicks/month",
+        "priority": "MEDIUM",
+        "timeframe": "Month 4"
+      },
+      {
+        "id": 19,
+        "title": "Create 'DHM vs Glutathione' Comparison",
+        "description": "Glutathione is DHM's downstream product. Compare direct supplementation vs precursor (DHM). Technical but high-value audience.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+25-50 clicks/month",
+        "priority": "MEDIUM",
+        "timeframe": "Month 5"
+      },
+      {
+        "id": 20,
+        "title": "Create 'DHM vs Ginger' Comparison",
+        "description": "Ginger for nausea is popular remedy. Compare DHM's comprehensive approach vs ginger's symptom-specific relief.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+25-50 clicks/month",
+        "priority": "LOW",
+        "timeframe": "Month 6"
+      },
+      {
+        "id": 21,
+        "title": "Create 'DHM vs Prickly Pear' Comparison",
+        "description": "Prickly pear has some clinical evidence for hangovers. Scientific comparison of evidence quality and mechanisms.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+25-50 clicks/month",
+        "priority": "LOW",
+        "timeframe": "Month 7"
+      },
+      {
+        "id": 22,
+        "title": "Create 'DHM vs L-Cysteine' Comparison",
+        "description": "L-Cysteine is common in hangover supplements. Compare to DHM's mechanism. Lower volume but high intent.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+15-30 clicks/month",
+        "priority": "LOW",
+        "timeframe": "Month 8"
+      },
+      {
+        "id": 23,
+        "title": "Create 'DHM vs Turmeric' Comparison",
+        "description": "Turmeric/curcumin for inflammation and liver health. Compare to DHM's specific hangover mechanism.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+15-30 clicks/month",
+        "priority": "LOW",
+        "timeframe": "Month 9"
+      },
+      {
+        "id": 24,
+        "title": "Create 'DHM vs Magnesium' Comparison",
+        "description": "Magnesium for muscle recovery and headaches. Compare complementary benefits vs competitive positioning.",
+        "format": "Comparison Post",
+        "estimated_hours": 15,
+        "expected_impact": "+15-30 clicks/month",
+        "priority": "LOW",
+        "timeframe": "Month 10"
+      },
+      {
+        "id": 25,
+        "title": "Optimize Existing Content Based on Data",
+        "description": "After 6 months of new content, revisit all published guides and comparisons. Update based on GSC data: which FAQs to add, which CTAs perform best, which internal links drive engagement.",
+        "deliverables": [
+          "GSC analysis of all published content",
+          "Add FAQs based on actual search queries",
+          "Update CTAs based on conversion data",
+          "Refresh citations with newer studies",
+          "Update 'Last Updated' dates"
+        ],
+        "estimated_hours": 40,
+        "expected_impact": "+100-140 clicks/month across all content",
+        "why_important": "Data-driven optimization compounds gains. New search queries emerge, old content needs refreshing.",
+        "priority": "MEDIUM",
+        "timeframe": "Month 7-8"
+      },
+      {
+        "id": 26,
+        "title": "Build Internal Linking Strategy & Hub Architecture",
+        "description": "Create topic cluster hub architecture to prevent content cannibalization and strengthen topical authority. DHM Guide (hub) → Timing Guide, Safety Guide, Stack Guide, etc. (spokes).",
+        "deliverables": [
+          "Topic cluster map (hub and spoke pages)",
+          "Internal linking audit",
+          "Add contextual internal links to all content",
+          "Create pillar page if needed",
+          "Update navigation to reflect clusters"
+        ],
+        "estimated_hours": 20,
+        "expected_impact": "+50 clicks/month (compound effect on all content)",
+        "why_important": "Prevents cannibalization. Signals topical authority to Google. Improves user journey and session duration.",
+        "priority": "MEDIUM",
+        "timeframe": "Month 8-9"
+      },
+      {
+        "id": 27,
+        "title": "A/B Test Title Variations",
+        "description": "For underperforming pages (CTR <3%), create 2 title variations and test for 30 days. Use GSC data to determine winner, then scale pattern to other pages.",
+        "process": [
+          "Identify 5 pages with CTR <3% but high impressions",
+          "Create 2 title variations per page",
+          "Test each variation for 30 days",
+          "Analyze CTR improvement",
+          "Document winning patterns"
+        ],
+        "estimated_hours": 15,
+        "expected_impact": "+30-50 clicks/month",
+        "why_important": "Mitigates risk of CTR fixes not working. Builds knowledge of what titles work for your audience.",
+        "priority": "LOW",
+        "timeframe": "Month 10-11"
+      },
+      {
+        "id": 28,
+        "title": "Scale to 10x: Final Push",
+        "description": "Months 10-12: Create remaining comparisons (6-8 more) and optimize all content to hit 1,740 clicks/month (10x from baseline 174). Focus on highest ROI topics based on data from first 9 months.",
+        "deliverables": [
+          "6-8 additional comparison posts",
+          "Content refresh of all existing posts",
+          "Update all product recommendations",
+          "Add new FAQs based on GSC data",
+          "Expand thin content sections"
+        ],
+        "estimated_hours": 120,
+        "expected_impact": "+600-740 clicks/month (reaching 10x total)",
+        "why_important": "Final push to 10x goal. By this point, have data on what works, can scale efficiently.",
+        "priority": "HIGH",
+        "timeframe": "Month 10-12"
+      }
+    ]
+  },
+  "ongoing_tasks": {
+    "description": "Continuous tasks throughout 12-month period",
+    "items": [
+      {
+        "task": "Weekly GSC Monitoring",
+        "frequency": "Weekly",
+        "hours_per_week": 1,
+        "description": "Review GSC data for CTR changes, new ranking opportunities, declining pages needing refresh"
+      },
+      {
+        "task": "Monthly Performance Review",
+        "frequency": "Monthly",
+        "hours_per_month": 2,
+        "description": "Full performance review against targets, adjust strategy based on what's working/not working"
+      },
+      {
+        "task": "Medical Reviewer Consultation",
+        "frequency": "Per new guide",
+        "hours_per_guide": 2,
+        "budget_per_guide": "$50-100",
+        "description": "Submit each new utility guide for medical review before publication"
+      }
+    ]
+  },
+  "success_metrics": {
+    "baseline": {
+      "clicks_per_month": 174,
+      "date": "Current"
+    },
+    "milestones": {
+      "week_1": {
+        "target_clicks": 200,
+        "growth": "1.15x",
+        "key_actions": "5 CTR fixes + tracking setup"
+      },
+      "month_1": {
+        "target_clicks": 500,
+        "growth": "3x",
+        "key_actions": "CTR fixes + 2 utility guides"
+      },
+      "month_3": {
+        "target_clicks": 650,
+        "growth": "3.7x",
+        "key_actions": "+ 3 comparisons"
+      },
+      "month_6": {
+        "target_clicks": 1000,
+        "growth": "6x",
+        "key_actions": "+ 3 utility guides + 3 comparisons"
+      },
+      "month_12": {
+        "target_clicks": 1740,
+        "growth": "10x",
+        "key_actions": "+ 6-8 comparisons + optimization"
+      }
+    }
+  },
+  "budget_summary": {
+    "diy_option": {
+      "total_hours": 540,
+      "hours_per_month": 45,
+      "hours_per_week": 11,
+      "cash_cost": "$700-1000",
+      "breakdown": {
+        "medical_reviewer_setup": "$200-500",
+        "medical_reviews": "$500 (10 guides × $50)"
+      }
+    },
+    "outsourced_option": {
+      "total_cost": "$12500",
+      "breakdown": {
+        "dosage_guides": "$4000 (5 × $800)",
+        "comparisons": "$8000 (20 × $400)",
+        "ctr_fixes": "$500 (5 × $100)"
+      },
+      "rate": "$50/hour for quality freelancer"
+    }
+  },
+  "risk_mitigation": [
+    {
+      "risk": "Algorithm update targets low E-E-A-T health sites",
+      "probability": "HIGH",
+      "impact": "CATASTROPHIC",
+      "mitigation": [
+        "Hire medical reviewer (Month 1)",
+        "Add 'Medically Reviewed' badges",
+        "Create About Us and Author pages",
+        "Add citations to all clinical claims",
+        "Transparent methodology disclosure"
+      ],
+      "cost": "$500-1000 one-time",
+      "priority": "CRITICAL"
+    },
+    {
+      "risk": "CTR fixes don't improve rankings",
+      "probability": "LOW",
+      "impact": "MEDIUM",
+      "mitigation": [
+        "A/B test 2 title variations per page",
+        "Track for 30 days before concluding failure",
+        "Learn from what works, iterate"
+      ],
+      "priority": "LOW"
+    },
+    {
+      "risk": "Content cannibalization",
+      "probability": "MEDIUM",
+      "impact": "LOW",
+      "mitigation": [
+        "Target long-tail variations (e.g., 'DHM dosage for women')",
+        "Use hub-and-spoke internal linking",
+        "Create clear topic clusters",
+        "Monitor GSC for cannibalization signals"
+      ],
+      "priority": "MEDIUM"
+    }
+  ]
+}

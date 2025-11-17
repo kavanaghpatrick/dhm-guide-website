@@ -22,12 +22,6 @@ const LazyImage = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log('🔍 Intersection Observer:', {
-          isIntersecting: entry.isIntersecting,
-          intersectionRatio: entry.intersectionRatio,
-          src: src
-        });
-        
         if (entry.isIntersecting) {
           setIsInView(true);
           observer.unobserve(entry.target);
@@ -47,7 +41,6 @@ const LazyImage = ({
   }, [threshold, rootMargin, src]);
 
   const handleLoad = () => {
-    console.log('✅ Image loaded successfully:', src);
     setIsLoaded(true);
     setHasError(false);
   };

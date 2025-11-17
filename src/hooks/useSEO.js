@@ -200,65 +200,19 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'does dhm work, dhm clinical studies, dhm research, ucla dhm study, dhm effectiveness, dhm hangover studies',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
-        structuredData: [
-          {
-            "@context": "https://schema.org",
-            "@type": "Dataset",
-            "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
-            "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
-            "creator": {
-              "@type": "Organization",
-              "name": "DHM Guide"
-            },
-            "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
+        structuredData: {
+          "@context": "https://schema.org",
+          "@type": "Dataset",
+          "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
+          "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
+          "creator": {
+            "@type": "Organization",
+            "name": "DHM Guide"
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "How many clinical studies have been conducted on DHM?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "11 peer-reviewed clinical studies have been published on DHM (dihydromyricetin), including randomized controlled trials, safety assessments, and mechanism studies. Major research institutions like UCLA, USC, and universities in Asia have contributed significant findings."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What did the UCLA DHM study find?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "The landmark UCLA study published in the Journal of Neuroscience found that DHM counteracts acute alcohol intoxication and prevents alcohol withdrawal symptoms by modulating GABA-A receptors. The study showed significant reductions in alcohol-induced impairment."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are there randomized controlled trials on DHM for hangovers?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, multiple randomized controlled trials have examined DHM's effectiveness for hangover prevention. A 2024 study in Foods journal showed significant hangover severity reduction (p<0.001) compared to placebo, with improvements in cognitive function and nausea."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is DHM proven to protect the liver?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Clinical studies demonstrate DHM's hepatoprotective effects, including reduced liver enzyme elevation (ALT/AST) by 38-41%, decreased oxidative stress by 55%, and prevention of alcohol-induced fatty liver in 78% of cases. Research shows DHM enhances alcohol metabolism and protects liver cells."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What is the optimal DHM dosage according to research?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Clinical trials typically use 300-600mg DHM per drinking session. Studies show effectiveness at 5mg per kg body weight, with doses up to 1200mg daily tested safely. Most research supports 300-600mg taken 30-60 minutes before alcohol consumption for optimal hangover prevention."
-                }
-              }
-            ]
-          }
-        ]
+          "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
+        }
+        // Note: FAQ schema is added by prerender script (scripts/prerender-main-pages.js)
+        // to avoid duplicate schema markup that causes Google Search Console errors
       };
 
     case 'compare':

@@ -1,51 +1,32 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
-import { navigateWithScrollToTop } from '@/lib/mobileScrollUtils.js'
+import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [currentPath, setCurrentPath] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.location.pathname
-    }
-    return '/'
-  })
+  const { currentPath, navigate, isActive, getNavItems, getFooterItems } = useRouter()
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
   const { headerRef, headerHeight } = useHeaderHeight()
 
-  // Update current path when route changes
-  useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname)
-    }
+  // Get navigation items from centralized router
+  const navItems = getNavItems().map(route => ({
+    name: route.name,
+    href: route.path
+  }))
 
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
-
-  // Navigation items - memoized to prevent recreation
-  const navItems = useMemo(() => [
-    { name: 'Home', href: '/' },
-    { name: 'Hangover Relief', href: '/guide' },
-    { name: 'Best Supplements', href: '/reviews' },
-    { name: 'Compare Solutions', href: '/compare' },
-    { name: 'The Science', href: '/research' },
-    { name: 'Never Hungover', href: '/never-hungover' },
-    { name: 'About', href: '/about' }
-  ], [])
-
-  const isActive = useCallback((href) => {
-    if (href === '/') return currentPath === '/'
-    return currentPath.startsWith(href)
-  }, [currentPath])
+  // Get footer resource items
+  const footerItems = getFooterItems().map(route => ({
+    name: route.name,
+    href: route.path
+  }))
 
   const handleNavigation = useCallback((href) => {
-    navigateWithScrollToTop(href, () => setIsMenuOpen(false))
-  }, [])
+    navigate(href, () => setIsMenuOpen(false))
+  }, [navigate])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">

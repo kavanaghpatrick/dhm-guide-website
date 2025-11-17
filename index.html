@@ -125,37 +125,16 @@
           "url": "https://www.dhmguide.com/favicon.svg"
         }
       },
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Does DHM help a hangover?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, clinical studies show DHM (Dihydromyricetin) prevents hangovers in 87% of cases by enhancing alcohol metabolism and protecting liver function."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How long before drinking should I take DHM?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Take DHM 30-60 minutes before drinking for optimal effectiveness. This allows time for absorption and enzyme activation."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What cures a hangover quickly?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "DHM is the most effective hangover prevention supplement, but for existing hangovers: hydration, electrolytes, B-vitamins, and rest are most helpful."
-            }
-          }
-        ]
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.dhmguide.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
       }
     }
     </script>
+
+    <!-- Note: FAQ schema is added by FAQSection component on homepage -->
+    <!-- Other pages add FAQ schema via prerender scripts to avoid duplicates -->
     
     <script type="application/ld+json">
     {
