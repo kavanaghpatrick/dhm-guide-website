@@ -39,7 +39,17 @@ function Layout({ children }) {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between min-h-[40px]">
             {/* Logo */}
-            <button onClick={() => handleNavigation('/')} className="flex items-center space-x-2 group flex-shrink-0">
+            <a
+              href="/"
+              onClick={(e) => {
+                // Allow Ctrl/Cmd+click for "open in new tab"
+                if (e.metaKey || e.ctrlKey) return;
+
+                e.preventDefault();
+                handleNavigation('/');
+              }}
+              className="flex items-center space-x-2 group flex-shrink-0"
+            >
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
@@ -50,14 +60,21 @@ function Layout({ children }) {
               <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent whitespace-nowrap">
                 DHM Guide
               </span>
-            </button>
+            </a>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-1 justify-center max-w-4xl mx-8">
               {navItems.map((item) => (
-                <button
+                <a
                   key={item.name}
-                  onClick={() => handleNavigation(item.href)}
+                  href={item.href}
+                  onClick={(e) => {
+                    // Allow Ctrl/Cmd+click for "open in new tab"
+                    if (e.metaKey || e.ctrlKey) return;
+
+                    e.preventDefault();
+                    handleNavigation(item.href);
+                  }}
                   className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
                     isActive(item.href)
                       ? 'text-green-600'
@@ -73,17 +90,28 @@ function Layout({ children }) {
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
-                </button>
+                </a>
               ))}
             </nav>
 
             {/* CTA Button */}
             <div className="hidden lg:block flex-shrink-0">
-              <Button 
-                onClick={() => handleNavigation('/guide')}
+              <Button
+                asChild
                 className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
               >
-                Get Started
+                <a
+                  href="/guide"
+                  onClick={(e) => {
+                    // Allow Ctrl/Cmd+click for "open in new tab"
+                    if (e.metaKey || e.ctrlKey) return;
+
+                    e.preventDefault();
+                    handleNavigation('/guide');
+                  }}
+                >
+                  Get Started
+                </a>
               </Button>
             </div>
 
@@ -108,9 +136,16 @@ function Layout({ children }) {
             >
               <div className="flex flex-col space-y-3">
                 {navItems.map((item) => (
-                  <button
+                  <a
                     key={item.name}
-                    onClick={() => handleNavigation(item.href)}
+                    href={item.href}
+                    onClick={(e) => {
+                      // Allow Ctrl/Cmd+click for "open in new tab"
+                      if (e.metaKey || e.ctrlKey) return;
+
+                      e.preventDefault();
+                      handleNavigation(item.href);
+                    }}
                     className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors text-left min-h-[44px] ${
                       isActive(item.href)
                         ? 'bg-green-100 text-green-600'
@@ -118,13 +153,24 @@ function Layout({ children }) {
                     }`}
                   >
                     {item.name}
-                  </button>
+                  </a>
                 ))}
-                <Button 
-                  onClick={() => handleNavigation('/guide')}
+                <Button
+                  asChild
                   className="mt-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
                 >
-                  Get Started
+                  <a
+                    href="/guide"
+                    onClick={(e) => {
+                      // Allow Ctrl/Cmd+click for "open in new tab"
+                      if (e.metaKey || e.ctrlKey) return;
+
+                      e.preventDefault();
+                      handleNavigation('/guide');
+                    }}
+                  >
+                    Get Started
+                  </a>
                 </Button>
               </div>
             </motion.nav>
@@ -154,6 +200,9 @@ function Layout({ children }) {
               <p className="text-sm text-gray-400">
                 © 2025 DHM Guide. All rights reserved.
               </p>
+              <p className="text-sm text-gray-400 mt-3">
+                As an Amazon Associate I earn from qualifying purchases made through links on this site, at no additional cost to you.
+              </p>
             </div>
             
             <div>
@@ -161,9 +210,19 @@ function Layout({ children }) {
               <ul className="space-y-2 text-gray-300">
                 {navItems.map((item) => (
                   <li key={item.name}>
-                    <button onClick={() => handleNavigation(item.href)} className="hover:text-white transition-colors">
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        // Allow Ctrl/Cmd+click for "open in new tab"
+                        if (e.metaKey || e.ctrlKey) return;
+
+                        e.preventDefault();
+                        handleNavigation(item.href);
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
                       {item.name}
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -172,10 +231,58 @@ function Layout({ children }) {
             <div>
               <h3 className="font-semibold mb-4">Resources</h3>
               <ul className="space-y-2 text-gray-300">
-                <li><button onClick={() => handleNavigation('/research')} className="hover:text-white transition-colors">Scientific Studies</button></li>
-                <li><button onClick={() => handleNavigation('/reviews')} className="hover:text-white transition-colors">Product Reviews</button></li>
-                <li><button onClick={() => handleNavigation('/dhm-dosage-calculator')} className="hover:text-white transition-colors">Dosage Calculator</button></li>
-                <li><button onClick={() => handleNavigation('/about')} className="hover:text-white transition-colors">Safety Information</button></li>
+                <li>
+                  <a
+                    href="/research"
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey) return;
+                      e.preventDefault();
+                      handleNavigation('/research');
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Scientific Studies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/reviews"
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey) return;
+                      e.preventDefault();
+                      handleNavigation('/reviews');
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Product Reviews
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/dhm-dosage-calculator"
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey) return;
+                      e.preventDefault();
+                      handleNavigation('/dhm-dosage-calculator');
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Dosage Calculator
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/about"
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey) return;
+                      e.preventDefault();
+                      handleNavigation('/about');
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Safety Information
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

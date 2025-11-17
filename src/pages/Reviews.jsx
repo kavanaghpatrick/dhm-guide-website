@@ -694,7 +694,7 @@ export default function Reviews() {
                         size="lg"
                         className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
+                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
                           <span className="flex items-center">🛒 Buy on Amazon</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
@@ -726,6 +726,9 @@ export default function Reviews() {
                         )}
                       </Button>
                     </div>
+                    <p className="text-xs text-gray-600 mt-2 text-center">
+                      As an Amazon Associate I earn from qualifying purchases
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>

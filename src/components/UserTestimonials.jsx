@@ -148,37 +148,6 @@ const UserTestimonials = () => {
 
   const currentReview = testimonials[currentTestimonial]
 
-  // Generate review schema markup
-  const generateReviewSchema = () => {
-    return {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "DHM (Dihydromyricetin) Supplement",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "50000",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "review": testimonials.map(review => ({
-        "@type": "Review",
-        "author": {
-          "@type": "Person",
-          "name": review.name
-        },
-        "datePublished": review.date,
-        "reviewBody": review.story,
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": review.rating,
-          "bestRating": "5",
-          "worstRating": "1"
-        }
-      }))
-    }
-  }
-
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-purple-50 via-white to-blue-50">
       <div className="container mx-auto max-w-7xl">
@@ -458,13 +427,6 @@ const UserTestimonials = () => {
         </motion.div>
       </div>
 
-      {/* Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateReviewSchema())
-        }}
-      />
     </section>
   )
 }

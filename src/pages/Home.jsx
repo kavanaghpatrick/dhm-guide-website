@@ -812,7 +812,7 @@ export default function Home() {
                       asChild 
                       className="w-full bg-green-700 hover:bg-green-800 text-white"
                     >
-                      <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                      <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center">
                         <span>Buy on Amazon</span>
                         <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
                           Free Shipping
@@ -820,6 +820,9 @@ export default function Home() {
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </a>
                     </Button>
+                    <p className="text-xs text-gray-600 mt-2 text-center">
+                      As an Amazon Associate I earn from qualifying purchases
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>

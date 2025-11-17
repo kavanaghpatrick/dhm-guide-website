@@ -128,19 +128,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.webp`,
-        twitterImage: `${baseUrl}/twitter-image.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "DHM Guide",
-          "description": "Comprehensive guide to DHM (Dihydromyricetin) - the science-backed hangover prevention supplement",
-          "url": baseUrl,
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": `${baseUrl}/search?q={search_term_string}`,
-            "query-input": "required name=search_term_string"
-          }
-        }
+        twitterImage: `${baseUrl}/twitter-image.webp`
+        // No structuredData - homepage uses index.html schemas
       };
 
     case 'guide':

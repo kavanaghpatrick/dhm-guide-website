@@ -173,10 +173,10 @@ export default function ComparisonWidget({
                         variant="outline"
                         className="w-full border-green-600 text-green-600 hover:bg-green-50"
                       >
-                        <a 
-                          href={selectedProducts[0].affiliateLink} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
+                        <a
+                          href={selectedProducts[0].affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
                           className="flex items-center justify-center"
                         >
                           <ShoppingCart className="w-4 h-4 mr-2" />
