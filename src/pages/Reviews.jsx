@@ -6,12 +6,12 @@ import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import ComparisonWidgetWrapper from '../components/ComparisonWidgetWrapper.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { 
-  Star, 
-  CheckCircle, 
-  Award, 
-  DollarSign, 
-  Shield, 
+import {
+  Star,
+  CheckCircle,
+  Award,
+  DollarSign,
+  Shield,
   Zap,
   ArrowRight,
   Filter,
@@ -20,7 +20,8 @@ import {
   ThumbsUp,
   ExternalLink,
   Plus,
-  Check
+  Check,
+  BarChart3
 } from 'lucide-react'
 
 export default function Reviews() {
@@ -737,6 +738,69 @@ export default function Reviews() {
         </div>
       </section>
 
+      {/* Head-to-Head Comparisons Section */}
+      <section className="py-16 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+              Head-to-Head Product Comparisons
+            </h2>
+            <p className="text-lg text-gray-600">
+              Detailed analysis comparing these supplements side-by-side
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "No Days Wasted vs NusaPure", slug: "no-days-wasted-vs-nusapure-dhm-comparison-2025", desc: "Premium brand vs budget bulk value" },
+              { title: "Double Wood vs No Days Wasted", slug: "double-wood-vs-no-days-wasted-dhm-comparison-2025", desc: "Best value vs premium effectiveness" },
+              { title: "Flyby vs No Days Wasted", slug: "flyby-vs-no-days-wasted-complete-comparison-2025", desc: "Two premium alternatives compared" },
+              { title: "Double Wood vs Toniiq Ease", slug: "double-wood-vs-toniiq-ease-dhm-comparison-2025", desc: "Value leaders go head-to-head" },
+              { title: "Flyby vs Double Wood", slug: "flyby-vs-double-wood-complete-comparison-2025", desc: "Two top-rated supplements tested" },
+              { title: "No Days Wasted vs Good Morning", slug: "no-days-wasted-vs-good-morning-hangover-pills-comparison-2025", desc: "Premium hangover pill showdown" }
+            ].map((comparison, index) => (
+              <motion.div
+                key={comparison.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  to={`/never-hungover/${comparison.slug}`}
+                  className="block p-5 bg-white rounded-xl border border-gray-200 hover:border-green-500 hover:shadow-md transition-all duration-300 h-full"
+                >
+                  <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4 text-green-600" />
+                    {comparison.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">{comparison.desc}</p>
+                  <span className="text-green-600 text-sm font-medium mt-3 inline-flex items-center gap-1">
+                    Read full comparison <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/compare"
+              className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+            >
+              <BarChart3 className="w-5 h-5" />
+              Compare Products Side-by-Side
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Buying Guide CTA */}
       <section className="py-16 px-4 bg-gradient-to-r from-green-700 to-green-800 text-white">
         <div className="container mx-auto text-center">
@@ -750,13 +814,13 @@ export default function Reviews() {
               Need Help Choosing?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Read our comprehensive buying guide to understand what to look for 
+              Read our comprehensive buying guide to understand what to look for
               in a quality DHM supplement.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
               >
@@ -765,9 +829,9 @@ export default function Reviews() {
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="outline"
                 className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
               >
