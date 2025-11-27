@@ -1082,6 +1082,70 @@ export default function Compare() {
         </section>
       )}
 
+      {/* Popular Comparison Guides Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+              In-Depth Comparison Guides
+            </h2>
+            <p className="text-lg text-gray-600">
+              Detailed head-to-head analysis of popular DHM supplements
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "No Days Wasted vs NusaPure", slug: "no-days-wasted-vs-nusapure-dhm-comparison-2025", desc: "Premium vs budget DHM options" },
+              { title: "Double Wood vs No Days Wasted", slug: "double-wood-vs-no-days-wasted-dhm-comparison-2025", desc: "Value vs premium showdown" },
+              { title: "Flyby vs Double Wood", slug: "flyby-vs-double-wood-complete-comparison-2025", desc: "Two top-rated supplements" },
+              { title: "No Days Wasted vs Toniiq Ease", slug: "no-days-wasted-vs-toniiq-ease-dhm-comparison-2025", desc: "Premium DHM face-off" },
+              { title: "Double Wood vs Cheers", slug: "double-wood-vs-cheers-restore-dhm-comparison-2025", desc: "Trusted brands compared" },
+              { title: "Flyby vs No Days Wasted", slug: "flyby-vs-no-days-wasted-complete-comparison-2025", desc: "Premium alternatives" },
+              { title: "No Days Wasted vs DHM Depot", slug: "no-days-wasted-vs-dhm-depot-comparison-2025", desc: "Brand vs bulk value" },
+              { title: "Double Wood vs Fuller Health", slug: "double-wood-vs-fuller-health-after-party-comparison-2025", desc: "Complete formulas compared" }
+            ].map((comparison, index) => (
+              <motion.div
+                key={comparison.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  to={`/never-hungover/${comparison.slug}`}
+                  className="block p-6 bg-gray-50 rounded-xl hover:bg-green-50 hover:shadow-md transition-all duration-300 h-full"
+                >
+                  <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4 text-green-600" />
+                    {comparison.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">{comparison.desc}</p>
+                  <span className="text-green-600 text-sm font-medium mt-3 inline-flex items-center gap-1">
+                    Read comparison <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/never-hungover?tag=comparison"
+              className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold"
+            >
+              View all comparison guides <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-4xl">
