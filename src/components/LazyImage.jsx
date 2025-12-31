@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ImageOff } from 'lucide-react';
 
 const LazyImage = ({
   src,
@@ -82,13 +83,12 @@ const LazyImage = ({
         />
       )}
       
-      {/* Error state */}
+      {/* Error state - uses Lucide icon for cross-platform consistency (fixes #98) */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-600">
           <div className="text-center">
-            <div className="text-2xl mb-2">📷</div>
+            <ImageOff className="w-8 h-8 mx-auto mb-2 text-gray-400" aria-hidden="true" />
             <div className="text-sm">Image failed to load</div>
-            <div className="text-xs mt-1 opacity-75">{src}</div>
           </div>
         </div>
       )}

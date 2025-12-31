@@ -1,10 +1,8 @@
 
 /* Touch Interaction Optimizations */
 
-/* Remove 300ms click delay on mobile devices */
-* {
-  touch-action: manipulation;
-}
+/* Note: Global touch-action removed (fixes #99) - was breaking accessibility zoom.
+   Interactive elements already have touch-action: manipulation scoped below. */
 
 /* Mobile-specific utilities */
 @media (max-width: 767px) {
@@ -217,8 +215,8 @@ nav a,
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   
-  /* Default text color for better readability */
-  color: #1a202c;
+  /* Default text color - uses CSS variable for dark mode support (fixes #96) */
+  color: var(--foreground, #1a202c);
 }
 
 /* Headings - maintain serif for visual hierarchy */
@@ -555,5 +553,25 @@ nav a,
   border: none;
   height: 1px;
   background: linear-gradient(to right, transparent, #d1d5db, transparent);
+}
+
+/* Gradient text with solid fallback for older browsers (fixes #100) */
+.gradient-text-green {
+  color: #15803d; /* Fallback: solid green-700 */
+}
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .gradient-text-green {
+    background: linear-gradient(to right, #16a34a, #15803d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+/* Forced colors/high contrast mode - ensure text is visible */
+@media (forced-colors: active) {
+  .gradient-text-green {
+    color: CanvasText;
+    background: none;
+  }
 }
 

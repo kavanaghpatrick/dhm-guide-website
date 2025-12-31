@@ -789,9 +789,15 @@ const NewBlogPost = () => {
                 </div>
               </motion.button>
               
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                showToc ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-              }`}>
+              {/* TOC animation uses grid for GPU-accelerated smooth animation (fixes #97) */}
+              <div
+                className="grid transition-all duration-300 ease-in-out"
+                style={{ gridTemplateRows: showToc ? '1fr' : '0fr' }}
+              >
+                <div
+                  className={`overflow-hidden transition-opacity duration-300 ${showToc ? 'opacity-100' : 'opacity-0'}`}
+                  style={{ visibility: showToc ? 'visible' : 'hidden' }}
+                >
                 <div className="mt-4 bg-white rounded-lg shadow-lg p-4">
                   <nav className="space-y-2">
                     {tocItems.map((item) => (
@@ -812,6 +818,7 @@ const NewBlogPost = () => {
                     ))}
                   </nav>
                 </div>
+              </div>
               </div>
             </div>
           )}
@@ -1227,7 +1234,7 @@ const NewBlogPost = () => {
                       }
                       
                       return isFormula ? (
-                        <strong className="inline-block font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent border-b-2 border-green-200 pb-1 mr-1">
+                        <strong className="inline-block font-bold gradient-text-green border-b-2 border-green-200 pb-1 mr-1">
                           {children}
                         </strong>
                       ) : (
