@@ -227,10 +227,38 @@ LESSON: Use platform features instead of custom solutions
 - **Performance monitoring** - Track Core Web Vitals and loading times
 
 ### Technical Stack
-- **Framework**: Vite + Vue.js + Tailwind CSS
+- **Framework**: Vite + React + Tailwind CSS
 - **Deployment**: Vercel (automatic deploys from main branch)
-- **Analytics**: Google Search Console, Google Analytics
+- **Analytics**: PostHog (primary), GA4, Vercel Speed Insights
 - **CMS**: JSON-based blog posts in `/src/newblog/data/posts/`
+
+### Analytics Stack (PostHog)
+- **Dashboard**: https://us.posthog.com
+- **Proxy**: `/ingest` → PostHog (bypasses ad blockers)
+- **API Key**: `POSTHOG_PERSONAL_API_KEY` in ~/.zshrc
+
+**Key Files:**
+- `src/lib/posthog.js` - Initialization + tracking functions
+- `src/hooks/useAffiliateTracking.js` - Amazon link clicks
+- `src/hooks/useScrollTracking.js` - Scroll depth (25/50/75/90%)
+- `src/hooks/useElementTracking.js` - CTAs, product cards, internal links
+- `src/hooks/useEngagementTracking.js` - Time on page, rage clicks, copy
+
+**Events Tracked:**
+| Event | Purpose |
+|-------|---------|
+| `affiliate_link_click` | Amazon conversions |
+| `scroll_depth_milestone` | Content engagement |
+| `element_clicked` | UI interactions |
+| `time_on_page_milestone` | Engagement depth |
+| `rage_click_detected` | UX problems |
+
+**Query Helper:**
+```bash
+./scripts/posthog-query.sh events     # Event counts
+./scripts/posthog-query.sh affiliate  # Affiliate clicks
+./scripts/posthog-query.sh scroll     # Scroll data
+```
 
 ### SEO Priorities
 1. **Indexability**: Ensure Google can crawl and index all pages
