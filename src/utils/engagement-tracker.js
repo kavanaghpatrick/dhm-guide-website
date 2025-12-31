@@ -102,9 +102,23 @@ class EngagementTracker {
         url: window.location.href
       }
     }
-    
+
     this.events.push(event)
-    
+
+    // Send to PostHog (primary analytics)
+    if (typeof window !== 'undefined' && window.posthog) {
+      try {
+        window.posthog.capture(`calculator_${eventName}`, {
+          ...data,
+          time_on_page_seconds: this.getTimeOnPage(),
+          page_path: window.location.pathname,
+          device_type: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop'
+        })
+      } catch (e) {
+        // Silently fail
+      }
+    }
+
     // Send to Google Analytics if available
     if (typeof gtag !== 'undefined') {
       gtag('event', eventName, {
@@ -114,7 +128,7 @@ class EngagementTracker {
         ...data
       })
     }
-    
+
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
       console.log('📊 Engagement Event:', event)
