@@ -627,10 +627,13 @@ const NewBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      {/* Reading Progress Bar */}
+      {/* Reading Progress Bar - positioned below header using CSS variable */}
       {isClient && (
-        <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
-          <div 
+        <div
+          className="fixed left-0 w-full h-1 bg-gray-200 z-sticky"
+          style={{ top: 'var(--header-height, 80px)' }}
+        >
+          <div
             className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-150 ease-out"
             style={{ width: `${readingProgress}%` }}
           />
