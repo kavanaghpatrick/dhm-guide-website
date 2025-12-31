@@ -742,7 +742,7 @@ const NewBlogPost = () => {
         {/* Table of Contents - Desktop Sidebar */}
         {isClient && tocItems.length > 0 && (
           <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24">
+            <div className="sticky" style={{ top: 'calc(var(--header-height, 80px) + 16px)' }}>
               <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <List className="w-4 h-4 text-green-600" />
@@ -822,13 +822,13 @@ const NewBlogPost = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="bg-white rounded-xl shadow-lg overflow-hidden">
-            {/* Hero Image */}
+            {/* Hero Image - uses aspect-video for consistent ratio and no CLS */}
             {post.image && (
               <div className="w-full">
-                <img 
-                  src={post.image} 
+                <img
+                  src={post.image}
                   alt={`${post.title} - DHM Guide`}
-                  className="w-full h-64 md:h-80 lg:h-96 object-cover"
+                  className="w-full aspect-video object-cover"
                   loading="eager"
                 />
               </div>
