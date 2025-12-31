@@ -57,18 +57,97 @@ export function initPostHog() {
 }
 
 /**
- * Track a custom event
+ * Track a custom event (safe wrapper)
+ * Note: posthog-js has built-in queuing, so we trust the import rather than window.posthog
  */
 export function trackEvent(eventName, properties = {}) {
-  if (!initialized) {
-    console.warn('[PostHog] Not initialized, skipping event:', eventName);
+  // Only skip on server-side or if explicitly not initialized
+  if (typeof window === 'undefined' || !initialized) {
     return;
   }
 
-  posthog.capture(eventName, {
-    ...properties,
-    timestamp: new Date().toISOString()
+  try {
+    posthog.capture(eventName, {
+      ...properties,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    // Silently fail - don't break the app for analytics
+  }
+}
+
+/**
+ * Get device type from viewport width
+ */
+const getDeviceType = () => {
+  if (typeof window === 'undefined') return 'unknown';
+  const width = window.innerWidth;
+  if (width < 768) return 'mobile';
+  if (width < 1024) return 'tablet';
+  return 'desktop';
+};
+
+/**
+ * Track scroll depth milestone (25%, 50%, 75%, 90%)
+ */
+export function trackScrollDepth(depth, timeToReach = 0) {
+  trackEvent('scroll_depth_milestone', {
+    depth,
+    page_path: window.location.pathname,
+    page_type: getPageType(),
+    time_to_reach_seconds: Math.round(timeToReach / 1000),
+    device_type: getDeviceType()
   });
+}
+
+/**
+ * Track element click (CTA, product card, comparison)
+ */
+export function trackElementClick(elementType, properties = {}) {
+  trackEvent('element_clicked', {
+    element_type: elementType,
+    page_path: window.location.pathname,
+    page_type: getPageType(),
+    device_type: getDeviceType(),
+    ...properties
+  });
+}
+
+/**
+ * Enrich pageview with content metadata
+ */
+export function enrichPageview(properties = {}) {
+  if (typeof window === 'undefined' || !initialized) return;
+
+  try {
+    // Set as super properties so they attach to all future events
+    posthog.register({
+      page_type: getPageType(),
+      device_type: getDeviceType(),
+      ...properties
+    });
+  } catch (error) {
+    // Silently fail
+  }
+}
+
+/**
+ * Determine page type from URL
+ */
+function getPageType() {
+  if (typeof window === 'undefined') return 'unknown';
+  const path = window.location.pathname;
+
+  if (path === '/') return 'home';
+  if (path.startsWith('/never-hungover/')) return 'blog';
+  if (path === '/never-hungover') return 'blog_listing';
+  if (path === '/reviews') return 'reviews';
+  if (path === '/compare') return 'compare';
+  if (path === '/guide') return 'guide';
+  if (path === '/research') return 'research';
+  if (path.includes('calculator')) return 'calculator';
+  if (path === '/about') return 'about';
+  return 'other';
 }
 
 /**
@@ -82,7 +161,10 @@ export function trackAffiliateClick(properties) {
     page_path: properties.pagePath,
     page_title: properties.pageTitle,
     scroll_depth: properties.scrollDepth,
-    referrer: document.referrer || 'direct'
+    anchor_text: properties.anchorText,
+    link_position: properties.linkPosition,
+    referrer: document.referrer || 'direct',
+    device_type: getDeviceType()
   });
 }
 

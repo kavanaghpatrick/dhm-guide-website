@@ -86,6 +86,30 @@ const isAffiliateLink = (href) => {
 };
 
 /**
+ * Detect link position in content (for A/B testing CTA placement)
+ */
+const detectLinkPosition = (link) => {
+  if (!link) return 'unknown';
+
+  // Get vertical position as rough indicator
+  const rect = link.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+  const scrollY = window.scrollY;
+  const absoluteTop = rect.top + scrollY;
+  const pageHeight = document.documentElement.scrollHeight;
+
+  // Calculate position as percentage of page
+  const positionPercent = Math.round((absoluteTop / pageHeight) * 100);
+
+  // Categorize into sections
+  if (positionPercent < 15) return 'top';
+  if (positionPercent < 40) return 'upper_middle';
+  if (positionPercent < 60) return 'middle';
+  if (positionPercent < 85) return 'lower_middle';
+  return 'bottom';
+};
+
+/**
  * Hook to automatically track affiliate link clicks
  *
  * @param {Object} options - Configuration options
@@ -113,6 +137,8 @@ export function useAffiliateTracking(options = {}) {
       pagePath: window.location.pathname,
       pageTitle: document.title,
       scrollDepth: getScrollDepth(),
+      anchorText: link.textContent?.trim().substring(0, 100) || 'unknown',
+      linkPosition: detectLinkPosition(link),
       timestamp: Date.now()
     };
 

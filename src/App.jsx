@@ -4,6 +4,8 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 import { useRouter } from './hooks/useRouter'
 import { initPostHog } from './lib/posthog'
 import { useAffiliateTracking } from './hooks/useAffiliateTracking'
+import { useScrollTracking } from './hooks/useScrollTracking'
+import { useElementTracking } from './hooks/useElementTracking'
 import './App.css'
 
 // Lazy load all page components - mapped to route paths
@@ -42,6 +44,17 @@ function App() {
 
   // Enable automatic affiliate link tracking
   useAffiliateTracking({ enabled: true });
+
+  // Enable scroll depth tracking (25%, 50%, 75%, 90%)
+  const { resetMilestones } = useScrollTracking({ enabled: true });
+
+  // Enable element click tracking (CTAs, product cards, comparisons)
+  useElementTracking({ enabled: true });
+
+  // Reset scroll milestones on route change
+  useEffect(() => {
+    resetMilestones();
+  }, [currentPath, resetMilestones]);
 
   // Replace switch statement with route registry lookup
   const renderPage = () => {

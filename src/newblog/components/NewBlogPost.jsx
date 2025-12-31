@@ -16,6 +16,7 @@ import {
 } from '../utils/postLoader';
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 import { applyRedirect } from '../../utils/redirects.js';
+import { usePageTracking } from '../../hooks/usePageTracking';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
 import { Link as CustomLink } from '../../components/CustomLink';
@@ -310,6 +311,15 @@ const NewBlogPost = () => {
     tags: post.tags,
     content: post.content
   }) : null);
+
+  // Enrich pageview with blog post metadata
+  usePageTracking(post ? {
+    postSlug: post.slug,
+    postCategory: post.tags?.[0] || 'uncategorized',
+    tags: post.tags,
+    wordCount: post.content?.split(/\s+/).length || 0,
+    hasAffiliateLinks: post.content?.includes('amzn.to') || post.content?.includes('amazon.com')
+  } : {});
 
   // Navigation handler
   const handleNavigation = (href) => {
