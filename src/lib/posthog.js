@@ -6,8 +6,8 @@
  */
 import posthog from 'posthog-js';
 
-// PostHog configuration - use environment variable for security
-const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_PLACEHOLDER';
+// PostHog configuration - use environment variable or fallback to direct key
+const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
 const POSTHOG_HOST = '/ingest'; // Proxied through Vercel
 
 let initialized = false;
