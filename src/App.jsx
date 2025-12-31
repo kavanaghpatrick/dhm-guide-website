@@ -6,6 +6,7 @@ import { initPostHog } from './lib/posthog'
 import { useAffiliateTracking } from './hooks/useAffiliateTracking'
 import { useScrollTracking } from './hooks/useScrollTracking'
 import { useElementTracking } from './hooks/useElementTracking'
+import { useEngagementTracking } from './hooks/useEngagementTracking'
 import './App.css'
 
 // Lazy load all page components - mapped to route paths
@@ -50,6 +51,9 @@ function App() {
 
   // Enable element click tracking (CTAs, product cards, comparisons)
   useElementTracking({ enabled: true });
+
+  // Enable deep engagement tracking (time on page, rage clicks, copy, tab visibility)
+  useEngagementTracking({ enabled: true });
 
   // Reset scroll milestones on route change
   useEffect(() => {

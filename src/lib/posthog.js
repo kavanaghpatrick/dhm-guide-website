@@ -2,7 +2,7 @@
  * PostHog Analytics Initialization
  *
  * Proxied through /ingest to bypass ad blockers (~40% of tech-savvy users).
- * Privacy-first configuration with session replay disabled by default.
+ * MAXIMUM DATA COLLECTION configuration for conversion optimization.
  */
 import posthog from 'posthog-js';
 
@@ -30,20 +30,66 @@ export function initPostHog() {
       api_host: POSTHOG_HOST,
       ui_host: 'https://us.posthog.com',
 
-      // Auto-capture settings
+      // ===== AUTO-CAPTURE (Maximum) =====
       capture_pageview: true,
       capture_pageleave: true,
-      autocapture: true,
+      autocapture: {
+        dom_event_allowlist: ['click', 'change', 'submit', 'focus', 'blur'],
+        element_allowlist: ['a', 'button', 'form', 'input', 'select', 'textarea', 'label'],
+        css_selector_allowlist: ['[data-track]', '[data-product]', '.cta', '.product-card'],
+      },
+      capture_dead_clicks: true, // Detect clicks that don't do anything (broken UI)
 
-      // Privacy-first settings
-      person_profiles: 'identified_only', // Don't auto-create person profiles
-      disable_session_recording: true, // Enable manually after testing
+      // ===== SESSION RECORDING (Full) =====
+      disable_session_recording: false, // ENABLED - watch user sessions
+      session_recording: {
+        maskAllInputs: false, // Don't mask inputs (no sensitive data on this site)
+        maskTextSelector: null, // Don't mask any text
+        recordCrossOriginIframes: false,
+        // Sample 100% of sessions for now (adjust if volume too high)
+      },
+
+      // ===== PERSON PROFILES (Track Everyone) =====
+      person_profiles: 'always', // Create profiles for ALL users, even anonymous
+
+      // ===== HEATMAPS =====
+      enable_heatmaps: true, // Click heatmaps
+
+      // ===== WEB VITALS (Performance) =====
+      capture_performance: true, // Core Web Vitals (LCP, FID, CLS)
+
+      // ===== EXCEPTION TRACKING =====
+      capture_exceptions: true, // JavaScript errors
+
+      // ===== PERSISTENCE =====
       persistence: 'localStorage+cookie',
+      cross_subdomain_cookie: true,
+
+      // ===== SCROLL DEPTH (Built-in) =====
+      scroll_root_selector: ['body', 'main', 'article'],
+
+      // ===== PROPERTY COLLECTION =====
+      property_denylist: [], // Collect everything
+      sanitize_properties: null, // No sanitization
 
       // Performance settings
       loaded: (posthog) => {
-        console.log('[PostHog] Loaded successfully');
+        console.log('[PostHog] Loaded with MAXIMUM data collection');
         initialized = true;
+
+        // Set initial user properties
+        posthog.register({
+          initial_referrer: document.referrer || 'direct',
+          initial_landing_page: window.location.pathname,
+          initial_utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+          initial_utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+          initial_utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+        });
+
+        // Identify returning users by device
+        const isReturning = localStorage.getItem('phg_returning') === 'true';
+        posthog.register({ is_returning_user: isReturning });
+        localStorage.setItem('phg_returning', 'true');
       },
 
       // Error handling
