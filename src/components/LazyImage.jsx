@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const LazyImage = ({ 
-  src, 
-  alt, 
+const LazyImage = ({
+  src,
+  alt,
   className = '',
+  aspectRatio = '16/9', // Default aspect ratio to prevent CLS
   threshold = 0.1,
   rootMargin = '50px',
   placeholder = 'blur',
-  ...props 
+  ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -55,12 +56,12 @@ const LazyImage = ({
   const showBackground = !isLoaded && !hasError;
 
   return (
-    <div 
+    <div
       ref={imgRef}
-      className="relative w-full h-full"
-      style={{ 
+      className="relative w-full"
+      style={{
         backgroundColor: showBackground ? '#f3f4f6' : 'transparent',
-        minHeight: '200px' // Ensure the container has height for intersection observer
+        aspectRatio: aspectRatio, // Use aspect-ratio instead of minHeight to prevent CLS
       }}
     >
       {/* Debug info (remove in production) */}
@@ -74,11 +75,9 @@ const LazyImage = ({
         <img
           src={src}
           alt={alt}
-          className={`${className} transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`${className} w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={handleLoad}
           onError={handleError}
-          // Remove native lazy loading to avoid conflicts
-          // loading="lazy"
           {...props}
         />
       )}
