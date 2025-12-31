@@ -1,7 +1,9 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import Layout from './components/layout/Layout.jsx'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { useRouter } from './hooks/useRouter'
+import { initPostHog } from './lib/posthog'
+import { useAffiliateTracking } from './hooks/useAffiliateTracking'
 import './App.css'
 
 // Lazy load all page components - mapped to route paths
@@ -27,6 +29,19 @@ const PageLoader = () => (
 
 function App() {
   const { currentPath, getRouteByPath } = useRouter()
+
+  // Initialize PostHog analytics (deferred for performance)
+  useEffect(() => {
+    // Defer initialization until after page load
+    if (document.readyState === 'complete') {
+      initPostHog();
+    } else {
+      window.addEventListener('load', initPostHog, { once: true });
+    }
+  }, []);
+
+  // Enable automatic affiliate link tracking
+  useAffiliateTracking({ enabled: true });
 
   // Replace switch statement with route registry lookup
   const renderPage = () => {

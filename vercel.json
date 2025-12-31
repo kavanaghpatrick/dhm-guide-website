@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/ingest/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/((?!api/).*)/",
@@ -27,6 +35,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/ingest/static/:path*",
+      "destination": "https://us-assets.i.posthog.com/static/:path*"
+    },
+    {
+      "source": "/ingest/:path*",
+      "destination": "https://us.i.posthog.com/:path*"
+    },
     {
       "source": "/((?!never-hungover/).*)",
       "destination": "/index.html"
