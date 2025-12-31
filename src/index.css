@@ -47,14 +47,31 @@ a,
   cursor: pointer;
 }
 
-/* Ensure minimum touch target size (44px recommended) */
-button,
-a {
+/* Touch target utility class - opt-in only (fixes #92)
+   The previous global rule broke inline links by forcing 44px min-size.
+   Now use .touch-target class or nav-specific selectors for touch targets. */
+.touch-target,
+nav a,
+nav li a,
+nav button,
+header button,
+footer button {
   min-height: 44px;
   min-width: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Ensure inline links in content remain inline (not forced to 44px boxes) */
+p a,
+li a:not(nav li a),
+.prose a:not(.touch-target),
+.enhanced-typography a,
+article a:not(.touch-target) {
+  display: inline;
+  min-height: unset;
+  min-width: unset;
 }
 
 /* Remove hover effects on touch devices to prevent sticky states */
