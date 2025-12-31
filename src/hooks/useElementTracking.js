@@ -28,6 +28,41 @@ const getScrollDepth = () => {
 };
 
 /**
+ * Check if URL is an internal link
+ */
+const isInternalLink = (href) => {
+  if (!href) return false;
+  // Internal if starts with / (but not //) or matches our domain
+  if (href.startsWith('/') && !href.startsWith('//')) return true;
+  if (href.startsWith('#')) return false; // Anchor links
+  try {
+    const url = new URL(href, window.location.origin);
+    return url.hostname === window.location.hostname;
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Categorize internal link by destination
+ */
+const categorizeInternalLink = (href) => {
+  if (!href) return 'unknown';
+  const path = href.startsWith('/') ? href : new URL(href).pathname;
+
+  if (path === '/') return 'home';
+  if (path.startsWith('/never-hungover/')) return 'blog_post';
+  if (path === '/never-hungover') return 'blog_listing';
+  if (path === '/reviews') return 'reviews';
+  if (path === '/compare') return 'compare';
+  if (path === '/guide') return 'guide';
+  if (path === '/research') return 'research';
+  if (path.includes('calculator')) return 'calculator';
+  if (path === '/about') return 'about';
+  return 'other';
+};
+
+/**
  * Detect element type from DOM
  */
 const detectElementType = (element) => {
@@ -42,6 +77,12 @@ const detectElementType = (element) => {
     if (element.matches?.(selector) || element.closest?.(selector)) {
       return type;
     }
+  }
+
+  // Check if it's an internal link (catch-all for links not matched above)
+  const anchor = element.tagName === 'A' ? element : element.closest('a');
+  if (anchor && isInternalLink(anchor.href)) {
+    return 'internal_link';
   }
 
   return null;
@@ -76,6 +117,27 @@ const getElementMetadata = (element, elementType) => {
 
     case 'calculator':
       metadata.field_name = element.name || element.id || '';
+      break;
+
+    case 'internal_link':
+      const anchor = element.tagName === 'A' ? element : element.closest('a');
+      if (anchor) {
+        metadata.link_url = anchor.href;
+        metadata.link_destination = categorizeInternalLink(anchor.href);
+        metadata.link_text = anchor.textContent?.trim().substring(0, 100) || '';
+        // Detect link context
+        if (anchor.closest('.related-posts, [class*="related"]')) {
+          metadata.link_context = 'related_posts';
+        } else if (anchor.closest('footer')) {
+          metadata.link_context = 'footer';
+        } else if (anchor.closest('article, .prose, .content, .blog-content')) {
+          metadata.link_context = 'article_content';
+        } else if (anchor.closest('.toc, [class*="table-of-contents"]')) {
+          metadata.link_context = 'toc';
+        } else {
+          metadata.link_context = 'other';
+        }
+      }
       break;
   }
 
