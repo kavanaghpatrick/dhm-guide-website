@@ -37,7 +37,8 @@ export function useEngagementTracking(options = {}) {
       if (totalTime >= threshold && !timeThresholdsFired.current.has(threshold)) {
         timeThresholdsFired.current.add(threshold);
         trackEvent('time_on_page_milestone', {
-          seconds: threshold,
+          milestone_seconds: threshold,  // Primary property name (consistent with docs)
+          seconds: threshold,            // Keep for backward compatibility
           active_seconds: Math.floor(activeTime.current / 1000),
           page_path: window.location.pathname,
           engagement_ratio: Math.round((activeTime.current / (Date.now() - pageLoadTime.current)) * 100)

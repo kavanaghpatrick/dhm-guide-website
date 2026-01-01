@@ -466,6 +466,57 @@ git push origin branch-name
 
 **Key insight:** Prerendering adds a layer between code and production. Your browser shows client-side updates, but crawlers see prerendered HTML.
 
+### Pattern #12: Batch Small Changes with Backward Compatibility (Issues #105-109, #125)
+**What we learned:** PostHog analytics revealed 6 quick wins: button colors, CTA copy, touch targets, active states, table links, tracking properties. All 6 implemented in ~75 minutes with zero critical issues from Grok review.
+
+**The Strategy:**
+1. Group related small changes into single implementation pass
+2. Keep backward compatibility when changing tracking properties (add new name, keep old)
+3. Use Tailwind utility changes for UI tweaks - safer than custom CSS
+4. Follow existing patterns (CVA for button variants, data attributes for tracking)
+
+**Changes Made:**
+- Button colors: `from-green-600` → `from-orange-500` (contrast improvement)
+- CTA copy: "Buy on Amazon" → "Check Price on Amazon" (lower commitment)
+- Touch targets: 44px → 48px (accessibility improvement)
+- Active states: Added `opacity: 0.9` to existing `scale(0.97)` (feedback)
+- Table links: Added "Action" column with orange "Check Price" buttons
+- Tracking: Added `depth_percentage` and `milestone_seconds` while keeping old names
+
+**Application:**
+- Analytics data identifies specific, measurable improvements
+- Batch small changes together for efficient implementation
+- Always maintain backward compatibility for analytics (dashboards won't break)
+- Grok review catches 0 critical issues = low-risk changes
+
+**Key insight:** PostHog data → specific hypothesis → minimal code change → verify build → Grok review. This loop takes ~15 minutes per change when batched. Expected impact: +21% affiliate CTR from color, +10-20% from copy, +27% dead click reduction.
+
+### Pattern #13: External AI Validation Catches Over-Optimistic Estimates (Issues #110-115)
+**What we learned:** Initial plan projected 40-60% bounce reduction from above-fold changes. Both Grok and Gemini flagged this as "wildly inflated" - realistic target is 10-20%. External validation also identified:
+- CLS risk from moving comparison table (cut from plan)
+- Redundant features (#115 quick-pick CTA cut - redundant with comparison table)
+- Screen squeeze risk on mobile from too many additions
+
+**The 80/20 Filter Applied:**
+- Original plan: 4 issues, ~80 min, inflated impact estimates
+- Filtered plan: 2 issues (#110, #114), ~40 min, realistic 10-20% impact
+- Cut: #113 (complex sticky CTA), #115 (redundant quick-pick)
+- Simplified: Merged trust signals into single coherent addition
+
+**Conflicting AI Advice Resolution:**
+- Grok said: Cut #113 (sticky CTA), keep #115
+- Gemini said: Cut #115 (quick-pick), keep #113
+- Resolution: Cut BOTH complex features, focus on simple trust signals
+
+**Application:**
+- Always get Grok + Gemini reviews before implementing large plans
+- Divide impact estimates by 3-4 for realistic expectations
+- When AIs disagree, cut both features and find simpler solution
+- CLS warnings are serious - don't move large components without testing
+- Trust signals using existing data = low risk, high value
+
+**Key insight:** External AI review is most valuable for catching inflated expectations and identifying cut candidates. Original plan would have taken 80+ min with questionable ROI. Filtered plan took 40 min with clear, achievable goals.
+
 ---
 
 ## 🔄 Continuous Improvement

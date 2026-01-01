@@ -532,6 +532,7 @@ export default function Reviews() {
                     <th className="py-3 px-4 text-center font-semibold">Rating</th>
                     <th className="py-3 px-4 text-center font-semibold">Reviews</th>
                     <th className="py-3 px-4 text-center font-semibold">Score</th>
+                    <th className="py-3 px-4 text-center font-semibold">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -560,6 +561,18 @@ export default function Reviews() {
                       <td className="py-3 px-4 text-center text-gray-700">{product.reviews.toLocaleString()}</td>
                       <td className="py-3 px-4 text-center">
                         <span className="font-bold text-green-700">{product.score}/10</span>
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          data-product-name={product.name}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-colors whitespace-nowrap"
+                        >
+                          Check Price
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
                       </td>
                     </tr>
                   ))}
@@ -693,10 +706,10 @@ export default function Reviews() {
                       <Button 
                         asChild 
                         size="lg"
-                        className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
+                        className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
                         <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
-                          <span className="flex items-center">🛒 Buy on Amazon</span>
+                          <span className="flex items-center">Check Price on Amazon</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
                           </span>
@@ -727,7 +740,18 @@ export default function Reviews() {
                         )}
                       </Button>
                     </div>
-                    <p className="text-xs text-gray-600 mt-2 text-center">
+                    {/* Trust Signals Near CTA */}
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2">
+                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                      <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
+                      {product.monthlyBuyers && (
+                        <>
+                          <span aria-hidden="true">•</span>
+                          <span>{product.monthlyBuyers} monthly buyers</span>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1 text-center">
                       As an Amazon Associate I earn from qualifying purchases
                     </p>
                   </CardContent>

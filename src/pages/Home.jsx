@@ -120,7 +120,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section - Before/After Transformation */}
-      <section className="pt-16 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+      <section className="pt-8 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             
@@ -177,10 +177,22 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 mb-6 leading-relaxed">
                 The UCLA-discovered supplement that prevents hangovers by blocking alcohol damage before it starts. <span className="font-semibold text-green-700">Proven 70% effective</span> in clinical studies.
               </p>
-              
+
+              {/* Trust Indicators - Above Fold */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-sm text-gray-600 mb-6">
+                <span className="flex items-center gap-1">
+                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                  4.4 (1,000+ reviews)
+                </span>
+                <span className="text-gray-400" aria-hidden="true">•</span>
+                <span>70% proven effective</span>
+                <span className="text-gray-400" aria-hidden="true">•</span>
+                <span>350K+ customers</span>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
                 <Button 
                   asChild
@@ -808,19 +820,24 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <Button 
-                      asChild 
-                      className="w-full bg-green-700 hover:bg-green-800 text-white"
+                    <Button
+                      asChild
+                      className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                     >
                       <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center">
-                        <span>Buy on Amazon</span>
+                        <span>Check Price on Amazon</span>
                         <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
                           Free Shipping
                         </span>
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </a>
                     </Button>
-                    <p className="text-xs text-gray-600 mt-2 text-center">
+                    {/* Trust Signals Near CTA */}
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2">
+                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                      <span>{product.rating} ({product.reviews?.toLocaleString() || '500+'} reviews)</span>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1 text-center">
                       As an Amazon Associate I earn from qualifying purchases
                     </p>
                   </CardContent>

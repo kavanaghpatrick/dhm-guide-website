@@ -13,7 +13,10 @@ const ELEMENT_SELECTORS = {
   product_card: '[data-track="product"], .product-card, [class*="product-card"]',
   comparison: '[data-track="comparison"], .comparison-toggle, [class*="compare"]',
   calculator: '[data-track="calculator"], .calculator-input, .calculator-button',
-  nav: '[data-track="nav"], nav a, .nav-link'
+  nav: '[data-track="nav"], nav a, .nav-link',
+  faq: '[data-track="faq"]',
+  share: '[data-track="share"]',
+  mobile_menu: '[data-track="mobile-menu"]'
 };
 
 /**
@@ -117,6 +120,34 @@ const getElementMetadata = (element, elementType) => {
 
     case 'calculator':
       metadata.field_name = element.name || element.id || '';
+      break;
+
+    case 'faq':
+      // Get data attributes first (most reliable)
+      metadata.faq_question = element.dataset?.faqQuestion ||
+        element.closest('[data-faq-question]')?.dataset?.faqQuestion ||
+        element.textContent?.trim().substring(0, 150) || '';
+      metadata.faq_category = element.dataset?.faqCategory ||
+        element.closest('[data-faq-category]')?.dataset?.faqCategory || '';
+      // Get accordion state if available
+      const trigger = element.closest('[data-state]') || element;
+      metadata.faq_state = trigger.getAttribute('data-state') || 'unknown';
+      // Fallback category from parent card
+      if (!metadata.faq_category) {
+        const faqCard = element.closest('[id^="faq-"]');
+        if (faqCard) {
+          metadata.faq_category = faqCard.querySelector('h2, [class*="CardTitle"]')?.textContent?.trim() || '';
+        }
+      }
+      break;
+
+    case 'share':
+      metadata.share_url = window.location.href;
+      metadata.share_title = document.title;
+      break;
+
+    case 'mobile_menu':
+      metadata.menu_action = element.getAttribute('aria-expanded') === 'true' ? 'close' : 'open';
       break;
 
     case 'internal_link':

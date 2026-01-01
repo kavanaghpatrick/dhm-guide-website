@@ -700,6 +700,7 @@ const NewBlogPost = () => {
             {isClient && (
               <button
                 onClick={sharePost}
+                data-track="share"
                 className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors"
               >
                 <Share2 className="w-4 h-4" />

@@ -138,7 +138,8 @@ const getDeviceType = () => {
  */
 export function trackScrollDepth(depth, timeToReach = 0) {
   trackEvent('scroll_depth_milestone', {
-    depth,
+    depth_percentage: depth,  // Primary property name (consistent with docs)
+    depth,                     // Keep for backward compatibility
     page_path: window.location.pathname,
     page_type: getPageType(),
     time_to_reach_seconds: Math.round(timeToReach / 1000),

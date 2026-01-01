@@ -323,6 +323,8 @@ const FAQSection = () => {
                 key={index}
                 onClick={() => document.getElementById(`faq-${index}`)?.scrollIntoView({ behavior: 'smooth' })}
                 className="p-4 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all group"
+                data-track="faq"
+                data-faq-category={cat.category}
               >
                 <div className={`text-${cat.color}-600 mb-2 group-hover:scale-110 transition-transform`}>
                   {cat.icon}
@@ -350,7 +352,11 @@ const FAQSection = () => {
                   <Accordion type="single" collapsible className="w-full">
                     {category.questions.map((item, index) => (
                       <AccordionItem key={index} value={`item-${categoryIndex}-${index}`} className="border-b last:border-0">
-                        <AccordionTrigger className="px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                        <AccordionTrigger
+                        className="px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                        data-track="faq"
+                        data-faq-question={item.question}
+                      >
                           <span className="text-lg font-medium text-gray-900 pr-4">
                             {item.question}
                           </span>
