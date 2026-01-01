@@ -139,6 +139,7 @@ export function useAffiliateTracking(options = {}) {
       scrollDepth: getScrollDepth(),
       anchorText: link.textContent?.trim().substring(0, 100) || 'unknown',
       linkPosition: detectLinkPosition(link),
+      ratingsVersion: link.dataset.ratingsVersion || null,
       timestamp: Date.now()
     };
 
@@ -156,7 +157,8 @@ export function useAffiliateTracking(options = {}) {
         affiliate_url: trackingData.url,
         affiliate_product: trackingData.productName,
         affiliate_placement: trackingData.placement,
-        page_path: trackingData.pagePath
+        page_path: trackingData.pagePath,
+        ratings_version: trackingData.ratingsVersion
       });
     }
 

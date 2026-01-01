@@ -66,9 +66,9 @@ export default function Reviews() {
       name: "No Days Wasted DHM Detox",
       brand: "No Days Wasted",
       rating: 4.3,
-      reviews: 201,
-      price: "$26.99",
-      pricePerServing: "$1.80",
+      reviews: 359,
+      price: "$24.64",
+      pricePerServing: "$1.64",
       servings: 15,
       dhm: "1000mg",
       purity: "98%+",
@@ -97,8 +97,8 @@ export default function Reviews() {
       name: "Double Wood Supplements DHM",
       brand: "Double Wood",
       rating: 4.4,
-      reviews: 552,
-      price: "$19.75",
+      reviews: 1145,
+      price: "$19.95",
       pricePerServing: "$0.66",
       servings: 30,
       dhm: "1000mg",
@@ -112,7 +112,7 @@ export default function Reviews() {
         "Most powerful DHM supplement with 1,000mg per tablet",
         "Enhanced with essential electrolytes for hydration",
         "Save up to 15% with Subscribe & Save",
-        "552+ verified customer reviews",
+        "1,145+ verified customer reviews",
         "Third-party tested for purity"
       ],
       cons: [
@@ -129,7 +129,7 @@ export default function Reviews() {
       name: "Toniiq Ease",
       brand: "Toniiq",
       rating: 4.3,
-      reviews: 1681,
+      reviews: 1705,
       price: "$24.97",
       pricePerServing: "$0.62",
       servings: 40,
@@ -193,8 +193,8 @@ export default function Reviews() {
       id: 5,
       name: "Cheers Restore",
       brand: "Cheers®",
-      rating: 3.9,
-      reviews: 7419,
+      rating: 4.0,
+      reviews: 7972,
       price: "$34.99",
       pricePerServing: "$2.92",
       servings: 12,
@@ -256,7 +256,7 @@ export default function Reviews() {
       id: 7,
       name: "Good Morning Hangover Pills",
       brand: "Good Health Co",
-      rating: 4.2,
+      rating: 4.4,
       reviews: 124,
       price: "$29.95",
       pricePerServing: "$1.00",
@@ -287,11 +287,11 @@ export default function Reviews() {
     {
       id: 8,
       name: "DHM1000",
-      brand: "Double Wood Supplements",
-      rating: 4.3,
-      reviews: 496,
-      price: "$29.95",
-      pricePerServing: "$1.00",
+      brand: "Dycetin",
+      rating: 4.5,
+      reviews: 613,
+      price: "$23.95",
+      pricePerServing: "$0.80",
       servings: 30,
       dhm: "1000mg",
       purity: "High potency + electrolytes",
@@ -302,13 +302,13 @@ export default function Reviews() {
       pros: [
         "Maximum 1000mg DHM potency per serving",
         "Enhanced with electrolytes for hydration support",
-        "496+ verified customer reviews",
+        "613+ verified customer reviews",
         "Money-back satisfaction guarantee",
         "GMP certified and Non-GMO ingredients",
         "Prime 1-2 day shipping available"
       ],
       cons: [
-        "Higher price point than basic DHM supplements",
+        "Moderate price point for premium formula",
         "Not third-party tested for purity verification",
         "Single-ingredient focus without additional liver support"
       ],
@@ -320,10 +320,10 @@ export default function Reviews() {
       id: 9,
       name: "Fuller Health After Party",
       brand: "Fuller Health",
-      rating: 4.0,
-      reviews: 92,
-      price: "$49.95",
-      pricePerServing: "$1.67",
+      rating: 4.3,
+      reviews: 93,
+      price: "$44.99",
+      pricePerServing: "$1.50",
       servings: 30,
       dhm: "650mg",
       purity: "Pure DHM + GABA support",
@@ -340,8 +340,8 @@ export default function Reviews() {
         "Unique GABA receptor support approach"
       ],
       cons: [
-        "Most expensive option at $1.67 per serving",
-        "Limited customer reviews (only 92)",
+        "Premium pricing at $1.50 per serving",
+        "Limited customer reviews (93)",
         "Standard shipping only (3-5 days)"
       ],
       bestFor: "Users seeking premium purity with celebrity endorsement",
@@ -568,6 +568,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           data-product-name={product.name}
+                          data-ratings-version="2026-01-01"
                           className="inline-flex items-center gap-1 px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-colors whitespace-nowrap"
                         >
                           Check Price
@@ -708,7 +709,7 @@ export default function Reviews() {
                         size="lg"
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
+                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
                           <span className="flex items-center">Check Price on Amazon</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
