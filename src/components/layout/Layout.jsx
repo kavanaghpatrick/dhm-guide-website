@@ -5,6 +5,7 @@ import { Menu, X, Leaf } from 'lucide-react'
 import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 import StickyMobileCTA from '@/components/StickyMobileCTA'
+import { useFeatureFlag } from '@/hooks/useFeatureFlag'
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -12,6 +13,21 @@ function Layout({ children }) {
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
   const { headerRef, headerHeight } = useHeaderHeight()
+
+  // A/B Test #134: Navigation CTA Copy
+  const navCtaCopyVariant = useFeatureFlag('nav-cta-copy-v1', 'control')
+  const getNavCtaCopy = () => {
+    switch (navCtaCopyVariant) {
+      case 'see-top-picks':
+        return 'See Top Picks'
+      case 'find-your-dhm':
+        return 'Find Your DHM'
+      case 'shop-dhm':
+        return 'Shop DHM'
+      default:
+        return 'Best Supplements'
+    }
+  }
 
   // Get navigation items from centralized router
   const navItems = getNavItems().map(route => ({
@@ -111,7 +127,7 @@ function Layout({ children }) {
                     handleNavigation('/reviews');
                   }}
                 >
-                  Best Supplements
+                  {getNavCtaCopy()}
                 </a>
               </Button>
             </div>
@@ -171,7 +187,7 @@ function Layout({ children }) {
                       handleNavigation('/reviews');
                     }}
                   >
-                    Best Supplements
+                    {getNavCtaCopy()}
                   </a>
                 </Button>
               </div>

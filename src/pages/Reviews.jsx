@@ -53,6 +53,30 @@ export default function Reviews() {
     }
   }
 
+  // A/B Test #131: Price-Forward CTAs
+  const priceForwardVariant = useFeatureFlag('price-forward-cta-v1', 'control')
+  const getPriceForwardCta = (price, isTable = false) => {
+    if (priceForwardVariant === 'show-price') {
+      return isTable ? `${price}` : `${price} on Amazon`
+    }
+    return null // Use default CTA copy
+  }
+
+  // A/B Test #132: Visual Hierarchy for #1 Product
+  const visualHierarchyVariant = useFeatureFlag('visual-hierarchy-v1', 'control')
+
+  // A/B Test #133: Comparison Table CTA Size
+  const tableCTASizeVariant = useFeatureFlag('table-cta-size-v1', 'control')
+  const getTableCtaClasses = () => {
+    if (tableCTASizeVariant === 'large') {
+      return "inline-flex items-center gap-1 px-5 py-3 min-h-[52px] bg-orange-500 hover:bg-orange-600 text-white text-base font-semibold rounded-lg transition-colors whitespace-nowrap"
+    }
+    if (tableCTASizeVariant === 'full-width-mobile') {
+      return "inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap justify-center"
+    }
+    return "inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
+  }
+
   const handleComparisonToggle = (product) => {
     setSelectedForComparison(prev => {
       const isSelected = prev.find(p => p.id === product.id)
@@ -625,7 +649,7 @@ export default function Reviews() {
                       key={product.id}
                       className={`border-b border-gray-200 hover:bg-green-50 transition-colors ${
                         index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                      }`}
+                      } ${index === 0 && visualHierarchyVariant === 'highlight-top' ? 'bg-green-50 border-l-4 border-l-green-500' : ''}`}
                     >
                       <td className="py-3 px-4">
                         <div>
@@ -653,9 +677,9 @@ export default function Reviews() {
                           rel="nofollow sponsored noopener noreferrer"
                           data-product-name={product.name}
                           data-ratings-version="2026-01-01"
-                          className="inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
+                          className={`${getTableCtaClasses()} ${index === 0 && visualHierarchyVariant === 'highlight-top' ? 'ring-2 ring-green-400 ring-offset-1 shadow-lg shadow-green-500/20' : ''}`}
                         >
-                          {getCtaCopy(true)}
+                          {getPriceForwardCta(product.price, true) || getCtaCopy(true)}
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </td>
@@ -794,7 +818,7 @@ export default function Reviews() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
                         <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
-                          <span className="flex items-center">{getCtaCopy()}</span>
+                          <span className="flex items-center">{getPriceForwardCta(product.price) || getCtaCopy()}</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
                           </span>
