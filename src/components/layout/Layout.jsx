@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf } from 'lucide-react'
 import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
+import StickyMobileCTA from '@/components/StickyMobileCTA'
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -183,6 +184,9 @@ function Layout({ children }) {
       <main style={{ paddingTop: `${headerHeight}px` }} className="transition-[padding] duration-300">
         {children}
       </main>
+
+      {/* Sticky Mobile CTA - A/B Test #126 */}
+      <StickyMobileCTA />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
