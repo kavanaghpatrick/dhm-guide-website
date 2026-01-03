@@ -247,4 +247,79 @@ export function hasOptedOut() {
   return posthog.has_opted_out_capturing();
 }
 
+// ===== FEATURE FLAGS & A/B TESTING =====
+
+/**
+ * Check if a feature flag is enabled
+ * Use this for A/B tests and feature rollouts
+ *
+ * @param {string} flagKey - The feature flag key from PostHog
+ * @returns {boolean} - Whether the flag is enabled for this user
+ *
+ * Example usage:
+ *   if (isFeatureEnabled('new-cta-design')) {
+ *     return <NewCTADesign />;
+ *   }
+ *   return <OldCTADesign />;
+ */
+export function isFeatureEnabled(flagKey) {
+  if (!initialized) return false;
+  try {
+    return posthog.isFeatureEnabled(flagKey);
+  } catch (error) {
+    console.warn('[PostHog] Feature flag check failed:', error);
+    return false;
+  }
+}
+
+/**
+ * Get feature flag value (for multivariate tests)
+ * Returns the variant string for A/B/n tests
+ *
+ * @param {string} flagKey - The feature flag key
+ * @returns {string|boolean|undefined} - The flag value/variant
+ *
+ * Example usage:
+ *   const variant = getFeatureFlag('cta-experiment');
+ *   if (variant === 'variant-a') return <CTAVariantA />;
+ *   if (variant === 'variant-b') return <CTAVariantB />;
+ *   return <CTAControl />;
+ */
+export function getFeatureFlag(flagKey) {
+  if (!initialized) return undefined;
+  try {
+    return posthog.getFeatureFlag(flagKey);
+  } catch (error) {
+    console.warn('[PostHog] Feature flag retrieval failed:', error);
+    return undefined;
+  }
+}
+
+/**
+ * Wait for feature flags to load (useful for SSR/initial render)
+ * PostHog fetches flags async, so use this when flags are critical
+ *
+ * @param {function} callback - Called when flags are ready
+ */
+export function onFeatureFlagsLoaded(callback) {
+  if (!initialized) return;
+  try {
+    posthog.onFeatureFlags(callback);
+  } catch (error) {
+    console.warn('[PostHog] Feature flags callback failed:', error);
+  }
+}
+
+/**
+ * Manually reload feature flags (after user identification changes)
+ */
+export function reloadFeatureFlags() {
+  if (!initialized) return;
+  try {
+    posthog.reloadFeatureFlags();
+  } catch (error) {
+    console.warn('[PostHog] Feature flag reload failed:', error);
+  }
+}
+
 export default posthog;
