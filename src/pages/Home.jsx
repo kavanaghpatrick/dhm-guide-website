@@ -23,12 +23,12 @@ import gaba760w from '../assets/04_gaba_receptor_mechanism-760w.webp'
 import gaba1536w from '../assets/04_gaba_receptor_mechanism-1536w.webp'
 
 import LazyImage from '../components/LazyImage.jsx'
-import { 
-  ChevronDown, 
-  Beaker, 
-  Shield, 
-  Zap, 
-  Star, 
+import {
+  ChevronDown,
+  Beaker,
+  Shield,
+  Zap,
+  Star,
   ArrowRight,
   Leaf,
   Brain,
@@ -37,10 +37,15 @@ import {
   ExternalLink,
   Award
 } from 'lucide-react'
+import { useFeatureFlag } from '../hooks/useFeatureFlag'
+import { trackElementClick } from '../lib/posthog'
 
 export default function Home() {
   // SEO optimization for homepage
   useSEO(generatePageSEO('home'));
+
+  // A/B Test #128: Homepage above-fold mobile CTA
+  const mobileCtaVariant = useFeatureFlag('homepage-mobile-cta-v1', 'control')
 
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
@@ -122,6 +127,33 @@ export default function Home() {
       {/* Hero Section - Before/After Transformation */}
       <section className="pt-8 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto">
+          {/* A/B Test #128: Mobile Above-Fold CTA - Shows BEFORE the grid on mobile */}
+          {(mobileCtaVariant === 'simple-cta' || mobileCtaVariant === 'urgency-cta') && (
+            <div className="lg:hidden mb-8 text-center">
+              <h2 className="text-3xl font-bold mb-3 text-gray-900">
+                Never Wake Up <span className="text-green-700">Hungover Again</span>
+              </h2>
+              <p className="text-gray-600 mb-4">UCLA-discovered. 70% effective. 350K+ customers.</p>
+              {mobileCtaVariant === 'urgency-cta' && (
+                <Badge className="mb-3 bg-orange-100 text-orange-800 motion-safe:animate-pulse inline-flex">
+                  🔥 1,247 people bought DHM this week
+                </Badge>
+              )}
+              <Link
+                to="/reviews"
+                onClick={() => trackElementClick('homepage-mobile-cta', {
+                  variant: mobileCtaVariant,
+                  placement: 'above-fold-mobile-top'
+                })}
+                className="inline-flex items-center justify-center gap-2 w-full max-w-sm mx-auto bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all min-h-[56px] text-lg"
+              >
+                See Top-Rated Supplements
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-sm text-gray-500 mt-2">Free shipping • 10+ products tested</p>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             
             {/* Before/After Image - Left Column */}
