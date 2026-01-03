@@ -101,16 +101,16 @@ function Layout({ children }) {
                 className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
               >
                 <a
-                  href="/guide"
+                  href="/reviews"
                   onClick={(e) => {
                     // Allow Ctrl/Cmd+click for "open in new tab"
                     if (e.metaKey || e.ctrlKey) return;
 
                     e.preventDefault();
-                    handleNavigation('/guide');
+                    handleNavigation('/reviews');
                   }}
                 >
-                  Get Started
+                  Best Supplements
                 </a>
               </Button>
             </div>
@@ -161,16 +161,16 @@ function Layout({ children }) {
                   className="mt-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
                 >
                   <a
-                    href="/guide"
+                    href="/reviews"
                     onClick={(e) => {
                       // Allow Ctrl/Cmd+click for "open in new tab"
                       if (e.metaKey || e.ctrlKey) return;
 
                       e.preventDefault();
-                      handleNavigation('/guide');
+                      handleNavigation('/reviews');
                     }}
                   >
-                    Get Started
+                    Best Supplements
                   </a>
                 </Button>
               </div>

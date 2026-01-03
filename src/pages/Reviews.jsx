@@ -570,7 +570,7 @@ export default function Reviews() {
                           rel="nofollow sponsored noopener noreferrer"
                           data-product-name={product.name}
                           data-ratings-version="2026-01-01"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-colors whitespace-nowrap"
+                          className="inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
                         >
                           Check Price
                           <ExternalLink className="w-3 h-3" />

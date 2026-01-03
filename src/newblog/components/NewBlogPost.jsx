@@ -20,6 +20,7 @@ import { usePageTracking } from '../../hooks/usePageTracking';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
 import { Link as CustomLink } from '../../components/CustomLink';
+import ReviewsCTA from '../../components/ReviewsCTA';
 import { motion } from 'framer-motion';
 
 // Helper function to create enhanced components for special content patterns
@@ -1361,6 +1362,9 @@ const NewBlogPost = () => {
               </div>
             </div>
           )}
+
+          {/* Reviews CTA - drives traffic to affiliate page */}
+          <ReviewsCTA />
 
           {/* Performance Info */}
           <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-4 text-sm">
