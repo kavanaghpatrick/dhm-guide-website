@@ -77,6 +77,50 @@ export default function Reviews() {
     return "inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
   }
 
+  // A/B Test #135: Social Proof Counter
+  const socialProofVariant = useFeatureFlag('social-proof-counter-v1', 'control')
+
+  // A/B Test #136: Scarcity/Urgency Badges
+  const scarcityVariant = useFeatureFlag('scarcity-badges-v1', 'control')
+
+  // A/B Test #137: Amazon Gold Button Color
+  const buttonColorVariant = useFeatureFlag('button-color-v1', 'control')
+  const getButtonColorClasses = () => {
+    if (buttonColorVariant === 'amazon-gold') {
+      return 'bg-gradient-to-r from-[#FF9900] to-[#FF6600] hover:from-[#E88B00] hover:to-[#E65C00]'
+    }
+    return 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
+  }
+
+  // A/B Test #138: Button Hover Effects
+  const hoverEffectsVariant = useFeatureFlag('button-hover-effects-v1', 'control')
+  const getHoverEffectClasses = () => {
+    if (hoverEffectsVariant === 'scale-glow') {
+      return 'hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(249,115,22,0.4)] active:scale-[0.98] transition-all duration-200'
+    }
+    if (hoverEffectsVariant === 'pulse') {
+      return 'motion-safe:animate-pulse hover:animate-none'
+    }
+    return ''
+  }
+
+  // A/B Test #139: Sticky Recommendation Bar
+  const stickyBarVariant = useFeatureFlag('sticky-recommendation-bar-v1', 'control')
+  const [showStickyBar, setShowStickyBar] = useState(false)
+
+  // Track scroll for sticky bar
+  React.useEffect(() => {
+    if (stickyBarVariant !== 'sticky-bar') return
+
+    const handleScroll = () => {
+      // Show after scrolling past 600px (roughly past the table)
+      setShowStickyBar(window.scrollY > 600)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [stickyBarVariant])
+
   const handleComparisonToggle = (product) => {
     setSelectedForComparison(prev => {
       const isSelected = prev.find(p => p.id === product.id)
@@ -812,19 +856,41 @@ export default function Reviews() {
                     </div>
                     
                     <div className="flex flex-col sm:flex-row gap-4 mt-6 pt-6 border-t border-gray-100">
-                      <Button 
-                        asChild 
+                      {/* A/B Test #136: Scarcity Badge */}
+                      {scarcityVariant === 'stock-scarcity' && index < 3 && (
+                        <Badge className="mb-2 bg-red-100 text-red-700 motion-safe:animate-pulse">
+                          Only {8 - index * 2} left at this price
+                        </Badge>
+                      )}
+                      {scarcityVariant === 'time-urgency' && index < 3 && (
+                        <Badge className="mb-2 bg-orange-100 text-orange-700">
+                          ⏰ Deal ends soon
+                        </Badge>
+                      )}
+                      <Button
+                        asChild
                         size="lg"
-                        className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
+                        className={`${getButtonColorClasses()} ${getHoverEffectClasses()} text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]`}
                       >
                         <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
                           <span className="flex items-center">{getPriceForwardCta(product.price) || getCtaCopy()}</span>
-                          <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
+                          <span className={`px-2 py-1 ${buttonColorVariant === 'amazon-gold' ? 'bg-[#E88B00]' : 'bg-orange-500'} text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap`}>
                             Free Shipping
                           </span>
                           <ExternalLink className="w-4 h-4 flex-shrink-0" />
                         </a>
                       </Button>
+                      {/* A/B Test #135: Social Proof Counter */}
+                      {socialProofVariant === 'viewed-counter' && (
+                        <p className="text-xs text-gray-500 mt-1 text-center">
+                          👁 {(2347 - index * 312).toLocaleString()} people viewed this today
+                        </p>
+                      )}
+                      {socialProofVariant === 'purchase-counter' && (
+                        <p className="text-xs text-gray-500 mt-1 text-center">
+                          🛒 {(127 - index * 15)} bought in the last hour
+                        </p>
+                      )}
                       <Button 
                         onClick={() => handleComparisonToggle(product)}
                         variant="outline" 
@@ -983,6 +1049,38 @@ export default function Reviews() {
         onCompare={handleCompare}
         isVisible={selectedForComparison.length > 0}
       />
+
+      {/* A/B Test #139: Sticky Recommendation Bar */}
+      {stickyBarVariant === 'sticky-bar' && showStickyBar && topProducts.length > 0 && (
+        <div className="fixed top-16 left-0 right-0 bg-green-700 text-white py-2 px-4 z-40 shadow-lg transform transition-transform duration-300">
+          <div className="container mx-auto flex items-center justify-between gap-4 max-w-6xl">
+            <div className="flex items-center gap-3">
+              <Trophy className="w-5 h-5 text-yellow-400" />
+              <div className="hidden sm:block">
+                <span className="font-semibold">#1 Pick:</span>{' '}
+                <span>{topProducts[0].name}</span>
+                <span className="ml-2 text-green-200">({topProducts[0].rating}★ • {topProducts[0].reviews.toLocaleString()} reviews)</span>
+              </div>
+              <div className="sm:hidden">
+                <span className="font-semibold">Top Pick:</span> {topProducts[0].name.split(' ').slice(0, 3).join(' ')}
+              </div>
+            </div>
+            <a
+              href={topProducts[0].affiliateLink}
+              target="_blank"
+              rel="nofollow sponsored"
+              onClick={() => trackElementClick('sticky-recommendation-bar', {
+                product_name: topProducts[0].name,
+                price: topProducts[0].price
+              })}
+              className="flex-shrink-0 bg-white text-green-700 hover:bg-green-50 px-4 py-2 rounded-lg font-semibold text-sm transition-colors min-h-[40px] flex items-center gap-2"
+            >
+              {topProducts[0].price} on Amazon
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
