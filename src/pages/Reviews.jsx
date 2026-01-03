@@ -38,6 +38,21 @@ export default function Reviews() {
   // A/B Test #127: Above-fold hero product card
   const heroProductVariant = useFeatureFlag('reviews-hero-product-v1', 'control')
 
+  // A/B Test #130: CTA Copy Variations
+  const ctaCopyVariant = useFeatureFlag('cta-copy-v1', 'control')
+  const getCtaCopy = (isTable = false) => {
+    switch (ctaCopyVariant) {
+      case 'todays-price':
+        return "See Today's Price"
+      case 'get-pick':
+        return isTable ? "Get It Now" : "Get #1 Pick"
+      case 'buy-now':
+        return "Buy Now"
+      default:
+        return isTable ? "Check Price" : "Check Price on Amazon"
+    }
+  }
+
   const handleComparisonToggle = (product) => {
     setSelectedForComparison(prev => {
       const isSelected = prev.find(p => p.id === product.id)
@@ -524,7 +539,7 @@ export default function Reviews() {
                 })}
                 className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg min-h-[48px]"
               >
-                Check Price on Amazon
+                {getCtaCopy()}
                 <ExternalLink className="w-4 h-4" />
               </a>
 
@@ -640,7 +655,7 @@ export default function Reviews() {
                           data-ratings-version="2026-01-01"
                           className="inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
                         >
-                          Check Price
+                          {getCtaCopy(true)}
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </td>
@@ -779,7 +794,7 @@ export default function Reviews() {
                         className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]"
                       >
                         <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
-                          <span className="flex items-center">Check Price on Amazon</span>
+                          <span className="flex items-center">{getCtaCopy()}</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
                           </span>
