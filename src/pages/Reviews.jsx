@@ -22,15 +22,21 @@ import {
   ExternalLink,
   Plus,
   Check,
-  BarChart3
+  BarChart3,
+  Trophy
 } from 'lucide-react'
+import { useFeatureFlag } from '../hooks/useFeatureFlag'
+import { trackElementClick } from '../lib/posthog'
 
 export default function Reviews() {
   useSEO(generatePageSEO('reviews'));
-  
+
   const [sortBy, setSortBy] = useState('rating')
   const [filterBy, setFilterBy] = useState('all')
   const [selectedForComparison, setSelectedForComparison] = useState([])
+
+  // A/B Test #127: Above-fold hero product card
+  const heroProductVariant = useFeatureFlag('reviews-hero-product-v1', 'control')
 
   const handleComparisonToggle = (product) => {
     setSelectedForComparison(prev => {
@@ -470,6 +476,68 @@ export default function Reviews() {
           </motion.div>
         </div>
       </section>
+
+      {/* A/B Test #127: Above-Fold Hero Product Card */}
+      {heroProductVariant === 'hero-card' && topProducts?.length > 0 && (
+        <section className="py-4 px-4">
+          <div className="container mx-auto max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-xl p-5 shadow-lg"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Badge className="bg-yellow-500 text-white border-0">
+                  <Trophy className="w-3 h-3 mr-1" />
+                  Editor's Choice
+                </Badge>
+                <span className="text-sm text-gray-600">Top Rated for 2025</span>
+              </div>
+
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                {topProducts[0].name}
+              </h3>
+
+              <div className="flex flex-wrap items-center gap-4 mb-4">
+                <span className="text-2xl font-bold text-green-700">
+                  {topProducts[0].price}
+                </span>
+                <div className="flex items-center gap-1">
+                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  <span className="font-medium">{topProducts[0].rating}</span>
+                  <span className="text-gray-500">({topProducts[0].reviews.toLocaleString()} reviews)</span>
+                </div>
+                <Badge className="bg-green-100 text-green-700 border-0">
+                  {topProducts[0].dhm} DHM
+                </Badge>
+              </div>
+
+              <a
+                href={topProducts[0].affiliateLink}
+                target="_blank"
+                rel="nofollow sponsored"
+                onClick={() => trackElementClick('hero-product-card', {
+                  product_name: topProducts[0].name,
+                  placement: 'above-fold-hero',
+                  price: topProducts[0].price
+                })}
+                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg min-h-[48px]"
+              >
+                Check Price on Amazon
+                <ExternalLink className="w-4 h-4" />
+              </a>
+
+              <a
+                href="#comparison-table"
+                className="block text-center text-sm text-green-700 hover:text-green-800 hover:underline mt-3"
+              >
+                Or compare all {topProducts.length} products below ↓
+              </a>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Filter and Sort Section */}
       <section className="py-4 md:py-6 px-4 bg-white">
