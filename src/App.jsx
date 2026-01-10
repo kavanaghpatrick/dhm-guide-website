@@ -23,6 +23,9 @@ const pageComponents = {
   '/never-hungover/:slug': lazy(() => import('./newblog/components/NewBlogPost.jsx')),
 }
 
+// 404 Not Found component (loaded separately to avoid adding to route registry)
+const NotFoundComponent = lazy(() => import('./pages/NotFound.jsx'))
+
 // Loading component for suspense fallback
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -66,14 +69,18 @@ function App() {
     const route = getRouteByPath(currentPath)
 
     if (!route) {
-      // Fallback to home if no route matches
-      const HomeComponent = pageComponents['/']
-      return <HomeComponent />
+      // Show 404 page for unrecognized routes
+      return <NotFoundComponent />
     }
 
     // Use path for exact routes, use route.path for dynamic routes
     const ComponentPath = route.isDynamic ? route.path : currentPath
-    const Component = pageComponents[ComponentPath] || pageComponents['/']
+    const Component = pageComponents[ComponentPath]
+
+    // If component not found in registry, show 404
+    if (!Component) {
+      return <NotFoundComponent />
+    }
 
     return <Component />
   }
