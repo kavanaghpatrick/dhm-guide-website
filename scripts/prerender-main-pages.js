@@ -18,8 +18,8 @@ const pages = [
   },
   {
     route: '/reviews',
-    title: 'Best DHM Supplements 2025: Top 7 Tested & Ranked',
-    description: 'We tested 7 DHM supplements. See which won for effectiveness, value, and speed. Interactive comparison tool included.',
+    title: '7 Best DHM Hangover Supplements (2025) [Lab Tested + Ranked]',
+    description: 'We lab-tested 7 DHM supplements for purity, dosage, and effectiveness. See which hangover pill actually works and which ones waste your money. Rankings inside.',
     ogImage: '/reviews-og.jpg'
   },
   {
@@ -88,8 +88,8 @@ const pages = [
   },
   {
     route: '/compare',
-    title: 'Compare DHM Supplements | Side-by-Side Product Analysis',
-    description: 'Compare top DHM supplements side-by-side. Analyze purity, dosage, price per serving, third-party testing, and user ratings to find the best hangover prevention supplement for you.',
+    title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2025]',
+    description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
     ogImage: '/compare-og.jpg'
   }
 ];

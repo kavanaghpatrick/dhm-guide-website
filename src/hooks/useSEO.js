@@ -161,8 +161,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: 'Best DHM Supplements 2025: Top 7 Tested & Ranked',
-        description: 'We tested 7 DHM supplements. See which won for effectiveness, value, and speed. Interactive comparison tool included.',
+        title: '7 Best DHM Hangover Supplements (2025) [Lab Tested + Ranked]',
+        description: 'We lab-tested 7 DHM supplements for purity, dosage, and effectiveness. See which hangover pill actually works and which ones waste your money. Rankings inside.',
         keywords: 'best dhm supplements, dhm supplement reviews, best dhm for hangovers, dhm pills, dhm supplement comparison',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
@@ -206,8 +206,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'compare':
       return {
-        title: 'Compare Hangover Pills: Find Your Perfect Supplement',
-        description: 'Compare top DHM supplements side-by-side. Unbiased analysis of ingredients, pricing, effectiveness. Save 40% with expert recommendations.',
+        title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2025]',
+        description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
         keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
         ogImage: `${baseUrl}/dhm-comparison-featured.webp`,
