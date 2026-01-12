@@ -11,6 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import jsdom from 'jsdom';
 import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
+import { generateHowToSchema } from '../src/utils/structuredDataHelpers.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -156,12 +157,103 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   document.head.appendChild(scriptTag);
 
   // Add FAQ schema if available for this post
-  const faqSchema = generateFAQSchema(post.slug);
+  // Priority: 1) post.faq array in JSON, 2) hardcoded faqData by slug
+  let faqSchema = null;
+
+  if (post.faq && Array.isArray(post.faq) && post.faq.length > 0) {
+    // Generate FAQ schema from post JSON data
+    faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': post.faq.map(faq => ({
+        '@type': 'Question',
+        'name': escapeHtml(faq.question),
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': escapeHtml(faq.answer)
+        }
+      }))
+    };
+  } else {
+    // Fall back to hardcoded FAQ data
+    faqSchema = generateFAQSchema(post.slug);
+  }
+
   if (faqSchema) {
     const faqScript = document.createElement('script');
     faqScript.type = 'application/ld+json';
     faqScript.textContent = JSON.stringify(faqSchema);
     document.head.appendChild(faqScript);
+  }
+
+  // Add Review schema if available for this post
+  if (post.review) {
+    const reviewSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Review',
+      'itemReviewed': {
+        '@type': 'Product',
+        'name': escapeHtml(post.review.itemReviewed?.name || ''),
+        'brand': {
+          '@type': 'Brand',
+          'name': escapeHtml(post.review.itemReviewed?.brand || '')
+        }
+      },
+      'reviewRating': {
+        '@type': 'Rating',
+        'ratingValue': String(post.review.reviewRating?.ratingValue || ''),
+        'bestRating': String(post.review.reviewRating?.bestRating || '5')
+      },
+      'author': {
+        '@type': 'Person',
+        'name': escapeHtml(post.review.author || 'DHM Guide Team')
+      }
+    };
+
+    // Add positiveNotes (pros) if available
+    if (post.review.pros && Array.isArray(post.review.pros) && post.review.pros.length > 0) {
+      reviewSchema.positiveNotes = {
+        '@type': 'ItemList',
+        'itemListElement': post.review.pros.map((pro, index) => ({
+          '@type': 'ListItem',
+          'position': index + 1,
+          'name': escapeHtml(pro)
+        }))
+      };
+    }
+
+    // Add negativeNotes (cons) if available
+    if (post.review.cons && Array.isArray(post.review.cons) && post.review.cons.length > 0) {
+      reviewSchema.negativeNotes = {
+        '@type': 'ItemList',
+        'itemListElement': post.review.cons.map((con, index) => ({
+          '@type': 'ListItem',
+          'position': index + 1,
+          'name': escapeHtml(con)
+        }))
+      };
+    }
+
+    const reviewScript = document.createElement('script');
+    reviewScript.type = 'application/ld+json';
+    reviewScript.textContent = JSON.stringify(reviewSchema);
+    document.head.appendChild(reviewScript);
+  }
+
+  // Add HowTo schema if available for this post
+  if (post.howTo) {
+    const howToSchema = generateHowToSchema({
+      name: post.howTo.name,
+      description: post.howTo.description,
+      image: post.image ? `https://www.dhmguide.com${escapeHtml(post.image)}` : undefined,
+      totalTime: post.howTo.totalTime,
+      steps: post.howTo.steps,
+      supply: post.howTo.supply || []
+    });
+    const howToScript = document.createElement('script');
+    howToScript.type = 'application/ld+json';
+    howToScript.textContent = JSON.stringify(howToSchema);
+    document.head.appendChild(howToScript);
   }
 
   // Extract and escape first paragraph
