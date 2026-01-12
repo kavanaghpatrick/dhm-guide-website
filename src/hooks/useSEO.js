@@ -184,8 +184,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'Does DHM Work? 11 Studies Show 70% Reduction (UCLA-Backed)',
-        description: '11 clinical studies from UCLA, USC, and international research show DHM reduces hangover severity by 70%. Complete peer-reviewed analysis.',
+        title: 'DHM: 11 Clinical Studies Show 70% Results (UCLA, USC)',
+        description: 'Does DHM actually work? 11 clinical trials say yes. UCLA and USC research shows 70% hangover reduction. See the proof from 600+ study participants.',
         keywords: 'does dhm work, dhm clinical studies, dhm research, ucla dhm study, dhm effectiveness, dhm hangover studies',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
