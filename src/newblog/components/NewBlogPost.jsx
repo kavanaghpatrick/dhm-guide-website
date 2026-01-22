@@ -1381,6 +1381,36 @@ const NewBlogPost = () => {
                         {firstHalf}
                       </ReactMarkdown>
 
+                      {/* Mid-Article Related Content (#185) - Show 2 related posts to reduce bounce */}
+                      {secondHalf && relatedPosts.length >= 2 && (
+                        <div className="my-8 not-prose">
+                          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                            <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                              <span className="text-green-600">📚</span> You might also like
+                            </h4>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                              {relatedPosts.slice(0, 2).map((relatedPost) => (
+                                <CustomLink
+                                  key={relatedPost.slug}
+                                  to={`/never-hungover/${relatedPost.slug}`}
+                                  className="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all group"
+                                  data-track="mid-article-related"
+                                  data-post-slug={relatedPost.slug}
+                                >
+                                  <div className="flex-1 min-w-0">
+                                    <h5 className="font-medium text-gray-900 text-sm line-clamp-2 group-hover:text-green-700 transition-colors">
+                                      {relatedPost.title}
+                                    </h5>
+                                    <p className="text-xs text-gray-500 mt-1">{relatedPost.readTime} min read</p>
+                                  </div>
+                                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-green-600 flex-shrink-0 mt-1" />
+                                </CustomLink>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       {/* A/B Test #129: Mid-Content CTA */}
                       {showMidCta && secondHalf && (
                         <div className="my-8 not-prose">

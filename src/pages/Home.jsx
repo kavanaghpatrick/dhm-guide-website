@@ -439,7 +439,7 @@ export default function Home() {
                   <img
                     src={liver760w}
                     srcSet={`${liver380w} 380w, ${liver760w} 760w, ${liver1536w} 1536w`}
-                    sizes="(max-width: 380px) 380px, (max-width: 760px) 760px, 1536px"
+                    sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 64px), 760px"
                     alt="DHM Liver Protection Mechanism - Shows how DHM enhances alcohol metabolism through ADH and ALDH enzymes"
                     width={1536}
                     height={1024}
@@ -466,7 +466,7 @@ export default function Home() {
                   <img
                     src={gaba760w}
                     srcSet={`${gaba380w} 380w, ${gaba760w} 760w, ${gaba1536w} 1536w`}
-                    sizes="(max-width: 380px) 380px, (max-width: 760px) 760px, 1536px"
+                    sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 64px), 760px"
                     alt="DHM GABA Receptor Mechanism - Shows how DHM restores normal brain function by protecting GABA receptors"
                     width={1536}
                     height={1024}
