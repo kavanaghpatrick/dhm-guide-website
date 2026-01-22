@@ -560,7 +560,47 @@ export default function Reviews() {
         </div>
       </section>
 
-      {/* A/B Test #127: Above-Fold Hero Product Card */}
+      {/* Quick Pick CTA - Always visible above fold (Issue #181) */}
+      {heroProductVariant !== 'hero-card' && topProducts?.length > 0 && (
+        <section className="py-3 px-4">
+          <div className="container mx-auto max-w-3xl">
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <Trophy className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-gray-900">#1 Editor's Pick:</span>
+                    <span className="text-gray-700">{topProducts[0].name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                    <span>{topProducts[0].rating} ({topProducts[0].reviews.toLocaleString()} reviews)</span>
+                    <span className="text-green-600 font-medium">{topProducts[0].price}</span>
+                  </div>
+                </div>
+              </div>
+              <a
+                href={topProducts[0].affiliateLink}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                onClick={() => trackElementClick('quick-pick-cta', {
+                  product_name: topProducts[0].name,
+                  placement: 'above-fold-quick-pick',
+                  price: topProducts[0].price
+                })}
+                className={`flex-shrink-0 ${getButtonColorClasses()} text-white font-semibold py-2.5 px-5 rounded-lg flex items-center gap-2 transition-all shadow-sm hover:shadow-md min-h-[44px] ${getHoverEffectClasses()}`}
+              >
+                {getCtaCopy()}
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* A/B Test #127: Above-Fold Hero Product Card (More aggressive variant) */}
       {heroProductVariant === 'hero-card' && topProducts?.length > 0 && (
         <section className="py-4 px-4">
           <div className="container mx-auto max-w-2xl">
@@ -599,7 +639,7 @@ export default function Reviews() {
               <a
                 href={topProducts[0].affiliateLink}
                 target="_blank"
-                rel="nofollow sponsored"
+                rel="nofollow sponsored noopener noreferrer"
                 onClick={() => trackElementClick('hero-product-card', {
                   product_name: topProducts[0].name,
                   placement: 'above-fold-hero',
@@ -1068,7 +1108,7 @@ export default function Reviews() {
             <a
               href={topProducts[0].affiliateLink}
               target="_blank"
-              rel="nofollow sponsored"
+              rel="nofollow sponsored noopener noreferrer"
               onClick={() => trackElementClick('sticky-recommendation-bar', {
                 product_name: topProducts[0].name,
                 price: topProducts[0].price

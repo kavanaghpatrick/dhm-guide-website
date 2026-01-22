@@ -709,21 +709,22 @@ export default function DosageCalculatorEnhanced() {
     setEmail(capturedEmail)
     setEmailCaptured(true)
     setShowExitIntent(false)
-    
-    // Track email capture
+
+    // Track email capture attempt (even without ESP integration)
     const source = showExitIntent ? 'exit_intent' : 'inline'
     engagementTracker.trackEmailCapture(source)
-    
-    // Here you would integrate with your email service
-    console.log('Email captured:', capturedEmail)
-    
+
+    // Log for future ESP integration
+    console.log('Email capture attempt:', capturedEmail, 'source:', source)
+
     // Haptic feedback
     if (isMobile) {
       hapticFeedback('success')
     }
-    
-    // Show success message
-    alert('Thank you! Check your email for your personalized DHM guide.')
+
+    // TODO: Integrate with Formspree or ConvertKit (Issue #180)
+    // For now, show honest message - email system coming soon
+    alert('Thanks for your interest! Our email system is being set up. Bookmark this page to return for your personalized DHM guide.')
   }
 
   const scrollToCalculator = () => {
