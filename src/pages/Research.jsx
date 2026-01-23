@@ -840,22 +840,28 @@ export default function Research() {
               DHM supplements can help you wake up feeling amazing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Find Your Perfect Supplement"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">
                   Find Your Perfect Supplement
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Get Started Today"
+                data-cta-destination="/guide"
               >
                 <Link to="/guide">Get Started Today</Link>
               </Button>

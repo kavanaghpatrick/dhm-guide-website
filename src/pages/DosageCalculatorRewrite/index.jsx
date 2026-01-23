@@ -7,6 +7,7 @@ import { useSEO } from '@/hooks/useSEO'
 import { useMobileOptimization } from '@/hooks/useMobileOptimization'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 import engagementTracker from '@/utils/engagement-tracker'
+import { trackEvent } from '@/lib/posthog'
 import { Link } from '@/components/CustomLink'
 import { Button } from '@/components/ui/button'
 import RelatedCalculators from '@/components/RelatedCalculators'
@@ -38,10 +39,19 @@ export default function DosageCalculatorRewrite() {
   const handleCalculate = (formData) => {
     hapticFeedback('medium')
     engagementTracker.trackEvent('calculator_submit', formData)
-    
+
     const calculatedResults = calculateDosage(formData)
     setResults(calculatedResults)
-    
+
+    // Track results viewed with PostHog
+    trackEvent('calculator_results_viewed', {
+      recommended_dose: calculatedResults.preDrinking,
+      weight: formData.weight,
+      weight_unit: formData.weightUnit || 'kg',
+      drinks: formData.drinkCount,
+      page_path: window.location.pathname
+    })
+
     // Scroll to results
     setTimeout(() => {
       const resultsElement = document.getElementById('calculator-results')

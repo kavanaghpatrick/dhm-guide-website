@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Calculator } from 'lucide-react'
+import { trackEvent } from '../../lib/posthog'
 
 import { formSchema } from './utils'
 
@@ -26,6 +27,17 @@ export default function CalculatorForm({ onCalculate, isMobile }) {
   })
 
   const handleSubmit = (data) => {
+    // Track form submission with PostHog
+    trackEvent('calculator_form_submitted', {
+      weight: data.weight,
+      weight_unit: data.weightUnit || 'kg',
+      drinks_planned: data.drinkCount,
+      drinking_duration: data.duration,
+      gender: data.gender,
+      frequency: data.frequency,
+      page_path: window.location.pathname
+    })
+
     onCalculate(data)
   }
 

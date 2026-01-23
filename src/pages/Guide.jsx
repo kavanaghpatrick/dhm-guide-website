@@ -184,11 +184,14 @@ export default function Guide() {
             {/* Quick Action */}
             <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-green-700 rounded-xl text-white">
               <p className="text-lg font-semibold mb-3">⚡ Ready to start tonight?</p>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg font-bold"
+                data-track="cta"
+                data-cta-text="Find Your DHM Supplement"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">
                   Find Your DHM Supplement →
@@ -297,18 +300,24 @@ export default function Guide() {
                 Based on 11 clinical studies showing 70% faster alcohol recovery
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button 
+                <Button
                   asChild
                   className="bg-green-600 hover:bg-green-700 text-white"
+                  data-track="cta"
+                  data-cta-text="Compare DHM Supplements"
+                  data-cta-destination="/reviews"
                 >
                   <Link to="/reviews">
                     Compare DHM Supplements →
                   </Link>
                 </Button>
-                <Button 
+                <Button
                   asChild
                   variant="outline"
                   className="border-green-600 text-green-700 hover:bg-green-50"
+                  data-track="cta"
+                  data-cta-text="Calculate Your Dosage"
+                  data-cta-destination="/dhm-dosage-calculator"
                 >
                   <Link to="/dhm-dosage-calculator">
                     Calculate Your Dosage →
@@ -456,11 +465,14 @@ export default function Guide() {
             <div className="mt-12 p-6 bg-gradient-to-r from-green-600 to-green-700 rounded-xl text-white text-center">
               <h4 className="text-xl font-bold mb-3">Ready to try your scenario?</h4>
               <p className="mb-4">Start with our top-rated DHM supplements</p>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg font-bold"
+                data-track="cta"
+                data-cta-text="Find Your DHM Supplement"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">
                   Find Your DHM Supplement →
@@ -562,9 +574,12 @@ export default function Guide() {
               <h4 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h4>
               <p className="text-gray-700 mb-4">Explore our comprehensive guides and research</p>
               <div className="space-x-4">
-                <Button 
+                <Button
                   asChild
                   className="bg-green-600 hover:bg-green-700 text-white"
+                  data-track="cta"
+                  data-cta-text="See the Science Behind DHM"
+                  data-cta-destination="/research"
                 >
                   <Link to="/research">
                     See the Science Behind DHM →
@@ -635,10 +650,13 @@ export default function Guide() {
               <p className="text-gray-700 mb-6">
                 Based on 11 clinical studies and 1,000+ years of safe traditional use. Learn more about <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-300 hover:text-white font-semibold">DHM's traditional origins</Link> and <Link to="/never-hungover/mindful-drinking-wellness-warrior-dhm-2025" className="text-green-300 hover:text-white font-semibold">mindful drinking strategies</Link>.
               </p>
-              <Button 
+              <Button
                 asChild
                 size="lg"
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg font-bold"
+                data-track="cta"
+                data-cta-text="Find Your DHM Supplement"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">
                   Find Your DHM Supplement →
@@ -680,11 +698,14 @@ export default function Guide() {
               </div>
             </div>
 
-            <Button 
+            <Button
               asChild
-              size="lg" 
+              size="lg"
               variant="secondary"
               className="bg-white text-green-700 hover:bg-gray-100 px-12 py-4 text-xl font-bold"
+              data-track="cta"
+              data-cta-text="Find Your DHM Supplement"
+              data-cta-destination="/reviews"
             >
               <Link to="/reviews">
                 🚀 Find Your DHM Supplement

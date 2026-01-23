@@ -385,12 +385,18 @@ const FAQSection = () => {
                 <a
                   href="/guide"
                   className="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+                  data-track="cta"
+                  data-cta-text="Read Complete Guide"
+                  data-cta-destination="/guide"
                 >
                   Read Complete Guide
                 </a>
                 <a
                   href="/dhm-dosage-calculator"
                   className="inline-flex items-center justify-center px-6 py-3 bg-blue-800 text-white font-semibold rounded-lg hover:bg-blue-900 transition-colors"
+                  data-track="cta"
+                  data-cta-text="Calculate Your Dosage"
+                  data-cta-destination="/dhm-dosage-calculator"
                 >
                   Calculate Your Dosage
                 </a>

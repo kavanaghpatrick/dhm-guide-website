@@ -230,21 +230,27 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
-                <Button 
+                <Button
                   asChild
-                  size="lg" 
+                  size="lg"
                   className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  data-track="cta"
+                  data-cta-text="Stop Your Next Hangover"
+                  data-cta-destination="/guide"
                 >
                   <Link to="/guide">
                     🚀 Stop Your Next Hangover
                     <ArrowRight className="ml-3 w-6 h-6" />
                   </Link>
                 </Button>
-                <Button 
+                <Button
                   asChild
-                  variant="outline" 
+                  variant="outline"
                   size="lg"
                   className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-10 py-5 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                  data-track="cta"
+                  data-cta-text="Find Best Supplements"
+                  data-cta-destination="/reviews"
                 >
                   <Link to="/reviews">🛡️ Find Best Supplements</Link>
                 </Button>
@@ -561,10 +567,13 @@ export default function Home() {
             <p className="text-xl mb-8 opacity-90">
               DHM works on both liver and brain pathways to provide comprehensive hangover prevention and health protection.
             </p>
-            <Button 
+            <Button
               asChild
-              size="lg" 
+              size="lg"
               className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+              data-track="cta"
+              data-cta-text="Explore All Research"
+              data-cta-destination="/research"
             >
               <Link to="/research">
                 Explore All Research
@@ -639,12 +648,15 @@ export default function Home() {
                 </div>
 
                 <div className="flex justify-center items-center">
-                  <Button 
+                  <Button
                     asChild
-                    size="lg" 
+                    size="lg"
                     className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    data-track="cta"
+                    data-cta-text="Our Heritage Story"
+                    data-cta-destination="/about"
                   >
-                    <Link 
+                    <Link
                       to="/about"
                     >
                       Our Heritage Story
@@ -815,6 +827,9 @@ export default function Home() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02 }}
                 className="cursor-pointer"
+                data-track="product"
+                data-product-name={product.name}
+                data-product-position={index + 1}
               >
                 <Card className="h-full bg-white border-green-100 hover:shadow-lg transition-all duration-300">
                   <CardHeader>
@@ -867,7 +882,7 @@ export default function Home() {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" className="bg-green-700 hover:bg-green-800 text-white">
+            <Button asChild size="lg" className="bg-green-700 hover:bg-green-800 text-white" data-track="cta" data-cta-text="View All Reviews" data-cta-destination="/reviews">
               <Link to="/reviews">
                 View All Reviews
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -902,19 +917,25 @@ export default function Home() {
               350,000+ customers have made the switch. Your next great morning starts here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg font-semibold"
+                data-track="cta"
+                data-cta-text="Find Your DHM Supplement"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">Find Your DHM Supplement</Link>
               </Button>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Calculate Your Dosage"
+                data-cta-destination="/dhm-dosage-calculator"
               >
                 <Link to="/dhm-dosage-calculator">Calculate Your Dosage</Link>
               </Button>

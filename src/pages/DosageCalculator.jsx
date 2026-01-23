@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Slider } from '@/components/ui/slider.jsx'
 import { useSEO } from '../hooks/useSEO.js'
+import { trackEvent } from '../lib/posthog'
 import { 
   Calculator,
   Info,
@@ -254,6 +255,19 @@ export default function DosageCalculator() {
   }, [purpose])
 
   const handleCalculate = () => {
+    // Track form submission
+    trackEvent('calculator_form_submitted', {
+      weight: weight,
+      weight_unit: weightUnit,
+      drinks_planned: drinks,
+      drinking_duration: drinkingDuration,
+      tolerance: tolerance,
+      purpose: purpose,
+      alcohol_type: alcoholType,
+      food_intake: foodIntake,
+      page_path: window.location.pathname
+    })
+
     setShowResults(true)
     // Generate shareable URL with parameters
     const params = new URLSearchParams({
@@ -267,7 +281,17 @@ export default function DosageCalculator() {
       fi: foodIntake
     })
     setShareableUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`)
-    
+
+    // Track results viewed with calculated dose
+    trackEvent('calculator_results_viewed', {
+      recommended_dose: calculateDosage,
+      weight: weight,
+      weight_unit: weightUnit,
+      drinks: drinks,
+      purpose: purpose,
+      page_path: window.location.pathname
+    })
+
     // Scroll to results
     setTimeout(() => {
       document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' })

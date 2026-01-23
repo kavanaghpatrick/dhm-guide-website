@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress.jsx'
 import { useSEO } from '../hooks/useSEO.js'
 import { useMobileOptimization } from '../hooks/useMobileOptimization.js'
 import engagementTracker from '../utils/engagement-tracker.js'
+import { trackEvent } from '../lib/posthog'
 import RelatedCalculators from '../components/RelatedCalculators.jsx'
 import { 
   Calculator,
@@ -664,15 +665,26 @@ export default function DosageCalculatorEnhanced() {
   const handleCalculate = () => {
     setIsCalculating(true)
     setHasInteracted(true)
-    
+
+    // Track form submission with PostHog
+    trackEvent('calculator_form_submitted', {
+      weight: weight,
+      weight_unit: weightUnit,
+      drinks_planned: drinks,
+      drinking_duration: drinkingDuration,
+      tolerance: tolerance,
+      purpose: purpose,
+      page_path: window.location.pathname
+    })
+
     // Track calculator start
     engagementTracker.trackCalculatorStart()
-    
+
     // Haptic feedback
     if (isMobile) {
       hapticFeedback('medium')
     }
-    
+
     // Simulate calculation with loading state
     setTimeout(() => {
       setShowResults(true)
@@ -684,15 +696,25 @@ export default function DosageCalculatorEnhanced() {
       } catch (error) {
         console.log('Unable to save dosage to localStorage:', error)
       }
-      
+
       // Track calculator completion
       engagementTracker.trackCalculatorCompletion(calculateDosage)
-      
+
+      // Track results viewed with PostHog
+      trackEvent('calculator_results_viewed', {
+        recommended_dose: calculateDosage,
+        weight: weight,
+        weight_unit: weightUnit,
+        drinks: drinks,
+        purpose: purpose,
+        page_path: window.location.pathname
+      })
+
       // Success haptic feedback
       if (isMobile) {
         hapticFeedback('success')
       }
-      
+
       // Scroll to results
       setTimeout(() => {
         const resultsElement = document.getElementById('results')

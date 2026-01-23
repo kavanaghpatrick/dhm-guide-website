@@ -771,6 +771,9 @@ export default function Reviews() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                data-track="product"
+                data-product-name={product.name}
+                data-product-position={index + 1}
               >
                 <Card className="bg-white border-green-100 hover:shadow-lg transition-all duration-300">
                   <CardHeader>
@@ -1042,6 +1045,9 @@ export default function Reviews() {
                 size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Read Buying Guide"
+                data-cta-destination="/guide"
               >
                 <Link to="/guide">
                   Read Buying Guide
@@ -1053,6 +1059,9 @@ export default function Reviews() {
                 size="lg"
                 variant="outline"
                 className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="See Research Data"
+                data-cta-destination="/research"
               >
                 <Link to="/research">See Research Data</Link>
               </Button>

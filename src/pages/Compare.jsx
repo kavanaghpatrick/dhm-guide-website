@@ -489,7 +489,7 @@ export default function Compare() {
             <p className="text-gray-600 mb-6">Choose up to 4 hangover prevention supplements for detailed comparison. Top 3 products are pre-selected.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allProducts.map((product) => (
+              {allProducts.map((product, index) => (
                 <div
                   key={product.id}
                   className={`p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
@@ -498,6 +498,9 @@ export default function Compare() {
                       : 'border-gray-200 hover:border-green-300'
                   }`}
                   onClick={() => handleProductToggle(product.id)}
+                  data-track="product"
+                  data-product-name={product.name}
+                  data-product-position={index + 1}
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -826,7 +829,13 @@ export default function Compare() {
                       const isHighestDHM = getWinner('dhm')?.id === product.id
                       
                       return (
-                        <Card key={product.id} className={`${isTopChoice ? 'ring-2 ring-green-500 bg-green-50' : ''}`}>
+                        <Card
+                          key={product.id}
+                          className={`${isTopChoice ? 'ring-2 ring-green-500 bg-green-50' : ''}`}
+                          data-track="product"
+                          data-product-name={product.name}
+                          data-product-position={index + 1}
+                        >
                           <CardHeader className="pb-4">
                             <div className="flex items-center justify-between">
                               <div>
@@ -1087,22 +1096,28 @@ export default function Compare() {
               </div>
 
               <div className="mt-12">
-                <Button 
+                <Button
                   asChild
-                  size="lg" 
+                  size="lg"
                   variant="secondary"
                   className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg mr-4"
+                  data-track="cta"
+                  data-cta-text="Read Full Product Analysis"
+                  data-cta-destination="/reviews"
                 >
                   <Link to="/reviews">
                     Read Full Product Analysis
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button 
+                <Button
                   asChild
-                  size="lg" 
+                  size="lg"
                   variant="outline"
                   className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-3 text-lg"
+                  data-track="cta"
+                  data-cta-text="Read Buying Guide"
+                  data-cta-destination="/guide"
                 >
                   <Link to="/guide">Read Buying Guide</Link>
                 </Button>

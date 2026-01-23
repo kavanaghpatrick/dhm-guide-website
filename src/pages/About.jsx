@@ -136,21 +136,27 @@ export default function About() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Explore Our Research"
+                data-cta-destination="/guide"
               >
                 <Link to="/guide">
                   Explore Our Research
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button 
+              <Button
                 asChild
-                variant="outline" 
+                variant="outline"
                 size="lg"
                 className="border-green-700 text-green-700 hover:bg-green-50 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="See Tested Products"
+                data-cta-destination="/reviews"
               >
                 <Link to="/reviews">See Tested Products</Link>
               </Button>
@@ -473,17 +479,23 @@ export default function About() {
                 size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Contact Us"
+                data-cta-destination="mailto:hello@dhmguide.com"
               >
                 <a href="mailto:hello@dhmguide.com">
                   <Mail className="w-5 h-5 mr-2" />
                   Contact Us
                 </a>
               </Button>
-              <Button 
+              <Button
                 asChild
-                size="lg" 
+                size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                data-track="cta"
+                data-cta-text="Discover the Science"
+                data-cta-destination="/research"
               >
                 <Link to="/research">
                   Discover the Science

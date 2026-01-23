@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
 import { motion } from 'framer-motion'
+import { trackElementClick } from '../lib/posthog'
 import { 
   CheckCircle, 
   XCircle, 
@@ -204,7 +205,13 @@ const CompetitorComparison = () => {
             <div className="flex flex-wrap justify-center gap-2">
               <Button
                 variant={selectedComparison === 'all' ? 'default' : 'outline'}
-                onClick={() => setSelectedComparison('all')}
+                onClick={() => {
+                  setSelectedComparison('all')
+                  trackElementClick('comparison_filter', {
+                    filter: 'all',
+                    filter_label: 'Compare All'
+                  })
+                }}
                 className="mb-2"
               >
                 Compare All
@@ -213,7 +220,13 @@ const CompetitorComparison = () => {
                 <Button
                   key={comp.name}
                   variant={selectedComparison === comp.name ? 'default' : 'outline'}
-                  onClick={() => setSelectedComparison(comp.name)}
+                  onClick={() => {
+                    setSelectedComparison(comp.name)
+                    trackElementClick('comparison_filter', {
+                      filter: comp.name,
+                      filter_label: `DHM vs ${comp.name.split(' ')[0]}`
+                    })
+                  }}
                   className="mb-2"
                 >
                   DHM vs {comp.name.split(' ')[0]}
@@ -451,9 +464,30 @@ const CompetitorComparison = () => {
             <CardContent>
               <Tabs defaultValue="studies" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="studies">Clinical Studies</TabsTrigger>
-                  <TabsTrigger value="mechanisms">Mechanisms</TabsTrigger>
-                  <TabsTrigger value="outcomes">Outcomes</TabsTrigger>
+                  <TabsTrigger
+                    value="studies"
+                    data-track="comparison-tab"
+                    data-tab-name="Clinical Studies"
+                    onClick={() => trackElementClick('comparison_tab', { tab_name: 'Clinical Studies' })}
+                  >
+                    Clinical Studies
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="mechanisms"
+                    data-track="comparison-tab"
+                    data-tab-name="Mechanisms"
+                    onClick={() => trackElementClick('comparison_tab', { tab_name: 'Mechanisms' })}
+                  >
+                    Mechanisms
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="outcomes"
+                    data-track="comparison-tab"
+                    data-tab-name="Outcomes"
+                    onClick={() => trackElementClick('comparison_tab', { tab_name: 'Outcomes' })}
+                  >
+                    Outcomes
+                  </TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="studies" className="mt-6">
@@ -534,6 +568,8 @@ const CompetitorComparison = () => {
                   size="lg"
                   variant="secondary"
                   className="bg-white text-blue-700 hover:bg-gray-100"
+                  data-track="cta"
+                  data-cta-destination="/dhm-dosage-calculator"
                 >
                   <a href="/dhm-dosage-calculator">
                     Calculate Your Dosage
@@ -545,6 +581,8 @@ const CompetitorComparison = () => {
                   size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-blue-700"
+                  data-track="cta"
+                  data-cta-destination="/reviews"
                 >
                   <a href="/reviews">
                     Compare DHM Products

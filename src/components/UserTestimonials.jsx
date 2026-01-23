@@ -391,6 +391,9 @@ const UserTestimonials = () => {
                   size="lg"
                   variant="secondary"
                   className="bg-white text-purple-700 hover:bg-gray-100"
+                  data-track="cta"
+                  data-cta-text="Calculate Your Dosage"
+                  data-cta-destination="/dhm-dosage-calculator"
                 >
                   <a href="/dhm-dosage-calculator">
                     Calculate Your Dosage
@@ -401,6 +404,9 @@ const UserTestimonials = () => {
                   size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-purple-700"
+                  data-track="cta"
+                  data-cta-text="Find Your DHM Product"
+                  data-cta-destination="/reviews"
                 >
                   <a href="/reviews">
                     Find Your DHM Product
