@@ -36,16 +36,19 @@ export default function Reviews() {
   const [selectedForComparison, setSelectedForComparison] = useState([])
 
   // A/B Test #127: Above-fold hero product card
-  const heroProductVariant = useFeatureFlag('reviews-hero-product-v1', 'control')
+  // DISABLED: hero-card variant was -77.7% conversion (p=0.0145, statistically significant)
+  // Always use control (quick pick bar) until we design a better hero card
+  const heroProductVariant = 'control' // useFeatureFlag('reviews-hero-product-v1', 'control')
 
   // A/B Test #130: CTA Copy Variations
+  // NOTE: 'get-pick' variant removed - was -60% vs control (statistically significant underperformer)
   const ctaCopyVariant = useFeatureFlag('cta-copy-v1', 'control')
   const getCtaCopy = (isTable = false) => {
     switch (ctaCopyVariant) {
       case 'todays-price':
         return "See Today's Price"
       case 'get-pick':
-        return isTable ? "Get It Now" : "Get #1 Pick"
+        // Disabled - was -60% vs control. Fall through to default.
       case 'buy-now':
         return "Buy Now"
       default:
@@ -716,19 +719,41 @@ export default function Reviews() {
                       } ${index === 0 && visualHierarchyVariant === 'highlight-top' ? 'bg-green-50 border-l-4 border-l-green-500' : ''}`}
                     >
                       <td className="py-3 px-4">
-                        <div>
-                          <div className="font-semibold text-gray-900">{product.name}</div>
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="block hover:text-green-700 transition-colors"
+                          data-product-name={product.name}
+                        >
+                          <div className="font-semibold text-gray-900 hover:text-green-700 hover:underline">{product.name}</div>
                           <div className="text-sm text-gray-600">{product.brand}</div>
-                        </div>
+                        </a>
                       </td>
                       <td className="py-3 px-4 text-center font-medium text-green-700">{product.dhm}</td>
-                      <td className="py-3 px-4 text-center font-semibold text-gray-900">{product.price}</td>
+                      <td className="py-3 px-4 text-center">
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="font-semibold text-gray-900 hover:text-green-700 hover:underline"
+                          data-product-name={product.name}
+                        >
+                          {product.price}
+                        </a>
+                      </td>
                       <td className="py-3 px-4 text-center text-gray-700">{product.pricePerServing}</td>
                       <td className="py-3 px-4 text-center">
-                        <div className="flex items-center justify-center space-x-1">
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="flex items-center justify-center space-x-1 hover:text-green-700"
+                          data-product-name={product.name}
+                        >
                           <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          <span className="font-medium">{product.rating}</span>
-                        </div>
+                          <span className="font-medium hover:underline">{product.rating}</span>
+                        </a>
                       </td>
                       <td className="py-3 px-4 text-center text-gray-700">{product.reviews.toLocaleString()}</td>
                       <td className="py-3 px-4 text-center">
@@ -785,15 +810,29 @@ export default function Reviews() {
                             {product.badge}
                           </Badge>
                         </div>
-                        <CardTitle className="text-2xl text-gray-900 mb-2">{product.name}</CardTitle>
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="block"
+                          data-product-name={product.name}
+                        >
+                          <CardTitle className="text-2xl text-gray-900 mb-2 hover:text-green-700 hover:underline transition-colors">{product.name}</CardTitle>
+                        </a>
                         <CardDescription className="text-lg text-gray-600">{product.brand}</CardDescription>
-                        
+
                         <div className="flex items-center space-x-4 mt-3">
-                          <div className="flex items-center space-x-1">
+                          <a
+                            href={product.affiliateLink}
+                            target="_blank"
+                            rel="nofollow sponsored noopener noreferrer"
+                            className="flex items-center space-x-1 hover:text-green-700 transition-colors"
+                            data-product-name={product.name}
+                          >
                             <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                            <span className="font-medium">{product.rating}</span>
-                            <span className="text-gray-500">({product.reviews} reviews)</span>
-                          </div>
+                            <span className="font-medium hover:underline">{product.rating}</span>
+                            <span className="text-gray-500 hover:text-green-600">({product.reviews} reviews)</span>
+                          </a>
                           <div className="text-sm text-gray-600">
                             Score: <span className="font-bold text-green-700">{product.score}/10</span>
                           </div>
@@ -801,7 +840,15 @@ export default function Reviews() {
                       </div>
                       
                       <div className="text-right">
-                        <div className="text-3xl font-bold text-green-700 mb-1">{product.price}</div>
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="block"
+                          data-product-name={product.name}
+                        >
+                          <div className="text-3xl font-bold text-green-700 mb-1 hover:text-green-800 hover:underline transition-colors">{product.price}</div>
+                        </a>
                         <div className="text-sm text-gray-600">{product.pricePerServing} per serving</div>
                         <div className="text-sm text-gray-500">{product.servings} servings</div>
                       </div>
