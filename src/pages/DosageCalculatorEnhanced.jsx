@@ -1916,7 +1916,7 @@ Save this for future reference!
                       <p className="text-sm text-gray-600 mb-2">{study.citation}</p>
                       <p className="text-gray-700 text-sm">{study.finding}</p>
                       <Link to="/research" className="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 inline-block">
-                        View Full Study Details →
+                        Read the Research →
                       </Link>
                     </CardContent>
                   </Card>
@@ -1930,7 +1930,7 @@ Save this for future reference!
               <Button asChild className="bg-blue-600 hover:bg-blue-700">
                 <Link to="/research">
                   <FileText className="w-4 h-4 mr-2" />
-                  View All Research Studies
+                  Explore Clinical Evidence
                 </Link>
               </Button>
             </div>

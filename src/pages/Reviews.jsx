@@ -167,18 +167,16 @@ export default function Reviews() {
       score: 9.5,
       affiliateLink: "https://amzn.to/3HSHjgu",
       pros: [
-        "1K+ bought this month - join 350,000+ satisfied customers",
-        "Science-backed formula with 1000mg DHM + 200mg L-Cysteine per serving",
-        "Plant-powered with essential electrolytes and B-vitamins",
-        "Convenient 15-serving jar - perfect for nights out",
-        "Research from Journal of Neuroscience on Japanese Raisin Tree Extract",
-        "GMP certified manufacturing"
+        "1K+ bought this month (350,000+ total)",
+        "1000mg DHM + L-Cysteine - strongest tested",
+        "Wake up sharp, not groggy",
+        "GMP certified, 98%+ purity"
       ],
       cons: [
         "Higher price point",
         "Only 15 servings per package"
       ],
-      bestFor: "Users seeking maximum effectiveness and willing to pay premium prices for quality",
+      bestFor: "Weekend warriors who want the best",
       ingredients: ["DHM 1000mg", "L-Cysteine 200mg", "Milk Thistle", "Prickly Pear", "B-Complex", "Electrolytes"],
       category: "premium"
     },
@@ -199,18 +197,16 @@ export default function Reviews() {
       affiliateLink: "https://amzn.to/44sczuq",
       pros: [
         "Amazon's Choice - 2K+ bought this month",
-        "Most powerful DHM supplement with 1,000mg per tablet",
-        "Enhanced with essential electrolytes for hydration",
-        "Save up to 15% with Subscribe & Save",
-        "1,145+ verified customer reviews",
-        "Third-party tested for purity"
+        "1000mg DHM per tablet - max potency",
+        "Just $0.66/serving - best value tested",
+        "Third-party tested, 98% purity"
       ],
       cons: [
         "No additional supportive ingredients",
         "Basic packaging",
         "Single ingredient formula"
       ],
-      bestFor: "Budget-conscious users who want pure DHM without extras",
+      bestFor: "Value hunters who want pure DHM",
       ingredients: ["DHM 1000mg", "Electrolytes", "Essential Minerals"],
       category: "budget"
     },
@@ -231,19 +227,16 @@ export default function Reviews() {
       affiliateLink: "https://amzn.to/44E95Gi",
       pros: [
         "Amazon's Choice - 500+ bought this month",
-        "50x Super Concentrated Extract with 1800mg per serving",
-        "Triple-action formula: DHM + Reishi + Milk Thistle",
-        "98% pure DHM with third-party testing",
-        "40 servings per bottle - excellent value",
-        "Take before and after drinking for maximum support",
-        "GMP-certified manufacturing in USA"
+        "Triple-action: DHM + Reishi + Milk Thistle",
+        "40 servings at $0.62 each - great value",
+        "Feel better the morning after"
       ],
       cons: [
         "Complex formula may not suit everyone",
         "Larger capsule size due to multiple ingredients",
         "Requires 3 capsules per serving"
       ],
-      bestFor: "Users wanting comprehensive liver support with DHM plus additional beneficial ingredients",
+      bestFor: "Health-conscious drinkers who protect their liver",
       ingredients: ["DHM 300mg (98%)", "Red Duanwood Reishi", "Milk Thistle (80% Silymarin)"],
       category: "comprehensive"
     },
@@ -263,19 +256,17 @@ export default function Reviews() {
       score: 8.8,
       affiliateLink: "https://amzn.to/44znXFU",
       pros: [
-        "Highest DHM content per capsule (1000mg)",
-        "Excellent value - 30 servings for under $20",
-        "98%+ pure DHM extract",
-        "Simple, clean formulation",
-        "Third-party tested for purity",
-        "Made in USA in FDA-registered facility"
+        "1000mg DHM per capsule - max strength",
+        "Under $20 for 30 servings",
+        "98%+ pure, third-party tested",
+        "Made in USA, FDA-registered facility"
       ],
       cons: [
         "Newer brand with fewer reviews",
         "No additional supportive ingredients",
         "Basic packaging"
       ],
-      bestFor: "Users wanting maximum DHM potency at an affordable price",
+      bestFor: "Bulk buyers who want maximum value",
       ingredients: ["DHM 1000mg"],
       category: "budget"
     },
@@ -295,18 +286,17 @@ export default function Reviews() {
       score: 8.6,
       affiliateLink: "https://amzn.to/3T8cO8H",
       pros: [
+        "As Seen on Shark Tank - trusted brand",
         "Patented DHM + Cysteine formula",
-        "Most DHM + Cysteine per dose on market",
-        "No proprietary blends - full transparency",
         "25+ million better mornings delivered",
-        "Academic research backing"
+        "No proprietary blends - full transparency"
       ],
       cons: [
         "Higher price per serving",
         "Only 12 doses per package",
         "Mixed experiences with effectiveness"
       ],
-      bestFor: "Users wanting maximum DHM content with proven formula",
+      bestFor: "Social drinkers who want a trusted brand",
       ingredients: ["DHM", "L-Cysteine", "Prickly Pear", "B-Vitamins", "Ginger", "Vine Tea"],
       category: "premium"
     },
@@ -326,19 +316,17 @@ export default function Reviews() {
       score: 8.4,
       affiliateLink: "https://amzn.to/4kjCRVw",
       pros: [
-        "Comprehensive formula with 18 amino acids and full B-vitamin complex",
-        "Two-stage hangover protocol (take before and after drinking)",
         "7,200+ verified customer reviews",
+        "18 amino acids + full B-vitamin complex",
         "Money-back satisfaction guarantee",
-        "GMP certified, Non-GMO, and Gluten-Free",
-        "Fast-acting with Prime 1-2 day shipping"
+        "Feel refreshed, not drained next day"
       ],
       cons: [
         "Higher cost per serving at $4.50",
         "Only 4 servings per package",
         "Complex ingredient list may not suit sensitive users"
       ],
-      bestFor: "Users wanting a comprehensive two-stage hangover prevention protocol",
+      bestFor: "Party people who need serious protection",
       ingredients: ["DHM 300mg", "Milk Thistle", "B-Vitamins (B1,B2,B6,B9,B12)", "18 Amino Acids", "Vitamin C", "Apple Cider Vinegar", "Electrolytes"],
       category: "comprehensive"
     },
@@ -358,19 +346,17 @@ export default function Reviews() {
       score: 8.2,
       affiliateLink: "https://amzn.to/44nKqo9",
       pros: [
-        "Convenient single-pill dosing - no complicated protocols",
-        "Contains 80% Silymarin Milk Thistle for liver protection",
-        "88.89% effectiveness rating from verified users",
-        "Prime overnight shipping available",
-        "GMP certified and Non-GMO ingredients",
-        "Good value at $1.00 per serving"
+        "One pill - no complicated protocols",
+        "88.89% user effectiveness rating",
+        "Just $1.00/serving - great value",
+        "Bounce back faster after drinking"
       ],
       cons: [
         "Newer brand with fewer customer reviews",
         "DHM content not precisely specified",
         "No money-back guarantee offered"
       ],
-      bestFor: "Users seeking single-pill convenience with proven effectiveness",
+      bestFor: "Travelers needing portable protection",
       ingredients: ["DHM + Milk Thistle Blend", "Electrolytes", "B-Vitamins", "Vitamin C", "Vitamin E", "L-Cysteine", "White Willow Bark"],
       category: "convenience"
     },
@@ -390,19 +376,17 @@ export default function Reviews() {
       score: 8.6,
       affiliateLink: "https://amzn.to/44nvh65",
       pros: [
-        "Maximum 1000mg DHM potency per serving",
-        "Enhanced with electrolytes for hydration support",
-        "613+ verified customer reviews",
-        "Money-back satisfaction guarantee",
-        "GMP certified and Non-GMO ingredients",
-        "Prime 1-2 day shipping available"
+        "1000mg DHM - maximum potency",
+        "Enhanced with electrolytes for hydration",
+        "Money-back guarantee included",
+        "Stay productive the next morning"
       ],
       cons: [
         "Moderate price point for premium formula",
         "Not third-party tested for purity verification",
         "Single-ingredient focus without additional liver support"
       ],
-      bestFor: "Users seeking maximum DHM potency with electrolyte enhancement",
+      bestFor: "High-performers who want max potency",
       ingredients: ["DHM 1000mg", "Electrolytes (Sodium, Potassium, Magnesium)"],
       category: "premium"
     },
@@ -422,19 +406,17 @@ export default function Reviews() {
       score: 7.8,
       affiliateLink: "https://amzn.to/4eBbyEP",
       pros: [
-        "Celebrity endorsement and premium positioning",
-        "Pure DHM formula with GABA support mechanisms",
-        "Organic and pure ingredient sourcing",
-        "Money-back satisfaction guarantee",
-        "Focus on premium purity standards",
-        "Unique GABA receptor support approach"
+        "Celebrity endorsed - premium brand",
+        "650mg DHM + GABA receptor support",
+        "Organic, pure ingredient sourcing",
+        "Money-back guarantee included"
       ],
       cons: [
         "Premium pricing at $1.50 per serving",
         "Limited customer reviews (93)",
         "Standard shipping only (3-5 days)"
       ],
-      bestFor: "Users seeking premium purity with celebrity endorsement",
+      bestFor: "Trendsetters who appreciate celebrity picks",
       ingredients: ["DHM 650mg", "GABA Support Mechanism"],
       category: "premium"
     },
@@ -454,19 +436,17 @@ export default function Reviews() {
       score: 8.8,
       affiliateLink: "https://amzn.to/4l1ZoqN",
       pros: [
-        "Highest customer rating at 4.5/5 stars",
+        "Highest rated - 4.5/5 stars",
         "1,129+ verified customer reviews",
-        "Third-party tested for purity and potency",
-        "Comprehensive certifications (GMP, Non-GMO, Gluten-Free)",
-        "Excellent value at $0.90 per serving",
-        "Pure DHM without unnecessary additives"
+        "Third-party tested, GMP certified",
+        "50 servings at $0.90 each - bulk value"
       ],
       cons: [
         "Lower DHM content at 300mg per serving",
         "Higher overall package price",
         "May require multiple doses for some users"
       ],
-      bestFor: "Users prioritizing quality assurance and highest customer ratings",
+      bestFor: "Research-driven buyers who trust reviews",
       ingredients: ["DHM 300mg"],
       category: "premium"
     }
@@ -541,19 +521,19 @@ export default function Reviews() {
               Expert reviews of hangover prevention supplements that actually work - stop hangovers before they start.
             </p>
 
-            {/* Quick Stats - Hidden on mobile to save space */}
-            <div className="hidden md:grid grid-cols-3 gap-6 mt-8">
+            {/* Quick Stats - Now visible on mobile (Issue #224) */}
+            <div className="grid grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-700 mb-1">20+</div>
-                <div className="text-gray-600 text-sm">Brands Tested</div>
+                <div className="text-xl md:text-2xl font-bold text-green-700 mb-1">20+</div>
+                <div className="text-gray-600 text-xs md:text-sm">Brands Tested</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-700 mb-1">5000+</div>
-                <div className="text-gray-600 text-sm">Reviews Analyzed</div>
+                <div className="text-xl md:text-2xl font-bold text-green-700 mb-1">5000+</div>
+                <div className="text-gray-600 text-xs md:text-sm">Reviews Analyzed</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-700 mb-1">6</div>
-                <div className="text-gray-600 text-sm">Months Testing</div>
+                <div className="text-xl md:text-2xl font-bold text-green-700 mb-1">6</div>
+                <div className="text-gray-600 text-xs md:text-sm">Months Testing</div>
               </div>
             </div>
           </motion.div>

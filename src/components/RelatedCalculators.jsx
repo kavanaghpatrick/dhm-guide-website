@@ -160,7 +160,7 @@ const RelatedCalculators = ({ currentCalculator = 'dhm-dosage' }) => {
           className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
         >
           <TrendingUp className="w-5 h-5" />
-          <span>View All Calculators</span>
+          <span>Explore All Tools</span>
           <ArrowRight className="w-4 h-4" />
         </motion.button>
       </div>

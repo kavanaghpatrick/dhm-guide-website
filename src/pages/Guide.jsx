@@ -567,7 +567,7 @@ export default function Guide() {
                   className="bg-green-600 hover:bg-green-700 text-white"
                 >
                   <Link to="/research">
-                    View Research Studies →
+                    See the Science Behind DHM →
                   </Link>
                 </Button>
                 <Link 

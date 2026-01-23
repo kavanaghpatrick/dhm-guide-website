@@ -1064,7 +1064,7 @@ export default function Compare() {
                   className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg mr-4"
                 >
                   <Link to="/reviews">
-                    View Detailed Reviews
+                    Read Full Product Analysis
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
@@ -1140,7 +1140,7 @@ export default function Compare() {
               to="/never-hungover?tag=comparison"
               className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold"
             >
-              View all comparison guides <ArrowRight className="w-4 h-4" />
+              Explore More Comparisons <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

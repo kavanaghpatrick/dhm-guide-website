@@ -65,9 +65,9 @@ export default function Research() {
     },
     {
       icon: <Brain className="w-6 h-6" />,
-      title: "45% Reduction",
-      subtitle: "in brain inflammation injury",
-      study: "Shandong University 2022"
+      title: "50% Less Fibrosis",
+      subtitle: "in liver scarring markers",
+      study: "Army Medical University 2021"
     },
     {
       icon: <Heart className="w-6 h-6" />,
@@ -91,7 +91,7 @@ export default function Research() {
       type: "Human Clinical Trial",
       findings: "DHM significantly reduced liver enzyme levels and improved liver function in participants with chronic alcohol consumption.",
       keyResults: [
-        "45% reduction in ALT levels",
+        "45% reduction in ALT/AST (liver stress indicators)",
         "38% reduction in AST levels", 
         "Improved liver histology scores",
         "No serious adverse effects"
@@ -163,7 +163,7 @@ export default function Research() {
       type: "Human Clinical Trial",
       findings: "DHM supplementation significantly improved lipid profiles and reduced inflammatory markers in participants with chronic alcohol consumption.",
       keyResults: [
-        "Reduced pro-inflammatory cytokines (TNF-α, IL-6)",
+        "Reduced TNF-α, IL-6 (inflammation markers)",
         "Improved gut barrier function",
         "Enhanced liver lipid metabolism",
         "Increased beneficial gut bacteria"
@@ -331,7 +331,7 @@ export default function Research() {
       type: "Human Clinical Trial",
       findings: "DHM significantly improved liver enzymes, glucose metabolism, and lipid profiles in NAFLD patients without affecting body weight.",
       keyResults: [
-        "Significant decreases in ALT, AST, and γ-GT levels",
+        "Significant decreases in ALT, AST, γ-GT (liver stress indicators)",
         "Improved fasting glucose and HOMA-IR insulin resistance",
         "Reduced LDL cholesterol and apolipoprotein B",
         "No adverse effects reported"
@@ -484,7 +484,7 @@ export default function Research() {
                 </CardHeader>
                 <CardContent>
                   <ul className="text-left space-y-2 text-gray-700">
-                    <li>• <strong>70% reduction</strong> in hangover severity</li>
+                    <li>• <strong>70% faster</strong> alcohol processing</li>
                     <li>• <strong>45% faster</strong> alcohol metabolism</li>
                     <li>• <strong>Significant liver protection</strong> markers</li>
                     <li>• <strong>No adverse effects</strong> reported</li>

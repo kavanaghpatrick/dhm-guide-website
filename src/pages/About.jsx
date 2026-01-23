@@ -152,7 +152,7 @@ export default function About() {
                 size="lg"
                 className="border-green-700 text-green-700 hover:bg-green-50 px-8 py-3 text-lg"
               >
-                <Link to="/reviews">View Product Reviews</Link>
+                <Link to="/reviews">See Tested Products</Link>
               </Button>
             </div>
           </motion.div>
@@ -486,7 +486,7 @@ export default function About() {
                 className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
               >
                 <Link to="/research">
-                  View Our Research
+                  Discover the Science
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>

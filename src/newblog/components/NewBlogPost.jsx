@@ -97,7 +97,7 @@ const createEnhancedComponents = () => {
           <CardContent>
             <p className="text-gray-700">{details}</p>
             <Button variant="outline" size="sm" className="mt-4">
-              Learn More →
+              See Full Details →
             </Button>
           </CardContent>
         </Card>
@@ -1112,7 +1112,7 @@ const NewBlogPost = () => {
                               <CardContent>
                                 <p className="text-gray-700">{details.trim()}</p>
                                 <Button variant="outline" size="sm" className="mt-4">
-                                  Learn More →
+                                  See Full Details →
                                 </Button>
                               </CardContent>
                             </Card>

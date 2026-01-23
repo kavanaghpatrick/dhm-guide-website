@@ -408,12 +408,12 @@ export default function Home() {
                         <div>
                           <h5 className="font-semibold text-red-700">UCLA Study (2012)</h5>
                           <p className="text-gray-600 mb-2">DHM enhanced alcohol metabolism and reduced liver damage markers in controlled studies.</p>
-                          <a href="https://pubmed.ncbi.nlm.nih.gov/22219299/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">View PubMed →</a>
+                          <a href="https://pubmed.ncbi.nlm.nih.gov/22219299/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">Read on PubMed →</a>
                         </div>
                         <div>
                           <h5 className="font-semibold text-red-700">Journal of Hepatology (2020) - USC</h5>
                           <p className="text-gray-600 mb-2">45% reduction in liver enzyme damage and improved liver function in chronic alcohol users.</p>
-                          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">View Study →</a>
+                          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700">Read Study →</a>
                         </div>
                       </div>
                     </div>
@@ -539,12 +539,12 @@ export default function Home() {
                         <div>
                           <h5 className="font-semibold text-green-700">Drug Design & Therapy (2022) - Harbin Medical</h5>
                           <p className="text-gray-600 mb-2">DHM reduced brain inflammation by 45% and provided significant neuroprotection against alcohol damage.</p>
-                          <a href="https://pubmed.ncbi.nlm.nih.gov/36510616/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">View Study →</a>
+                          <a href="https://pubmed.ncbi.nlm.nih.gov/36510616/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">Read Study →</a>
                         </div>
                         <div>
                           <h5 className="font-semibold text-green-700">Frontiers in Nutrition (2023) - UConn</h5>
                           <p className="text-gray-600 mb-2">DHM improved gut-brain axis function and reduced inflammatory markers in alcohol users.</p>
-                          <a href="https://pubmed.ncbi.nlm.nih.gov/37645104/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">View PubMed →</a>
+                          <a href="https://pubmed.ncbi.nlm.nih.gov/37645104/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">Read on PubMed →</a>
                         </div>
                       </div>
                     </div>

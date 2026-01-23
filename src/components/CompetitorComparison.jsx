@@ -547,7 +547,7 @@ const CompetitorComparison = () => {
                   className="border-white text-white hover:bg-white hover:text-blue-700"
                 >
                   <a href="/reviews">
-                    View DHM Reviews
+                    Compare DHM Products
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </a>
                 </Button>
