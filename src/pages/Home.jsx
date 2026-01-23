@@ -8,7 +8,6 @@ import { Badge } from '@/components/ui/badge.jsx'
 import FAQSection from '../components/FAQSection.jsx'
 import CompetitorComparison from '../components/CompetitorComparison.jsx'
 import UserTestimonials from '../components/UserTestimonials.jsx'
-import TrustBadges from '../components/TrustBadges.jsx'
 // Inline placeholder to avoid JSON import issues
 const lcpPlaceholder = {
   base64: "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAgCdASoUAA0APzmEulO/qKWisAgD8CcJZQCdAC5JAAD+w93fB761v0e6gClroICuMghCtMAAAA==",
@@ -271,9 +270,6 @@ export default function Home() {
 
         </div>
       </section>
-
-      {/* Trust Badges - Above Fold Social Proof */}
-      <TrustBadges />
 
       {/* Science Preview Bridge Section */}
       <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-green-50">
