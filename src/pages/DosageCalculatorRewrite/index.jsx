@@ -159,7 +159,7 @@ export default function DosageCalculatorRewrite() {
             </Link>
             <Link href="/guide">
               <Button variant="outline" className="px-8 py-3 text-lg">
-                Learn More About DHM
+                Master DHM Science
               </Button>
             </Link>
           </div>

@@ -13,7 +13,7 @@ const FAQSection = () => {
       questions: [
         {
           question: "How much DHM should I take?",
-          answer: "The optimal DHM dosage is 5mg per kg of body weight. For most adults, this translates to 300-600mg. A 150lb (68kg) person should take approximately 340mg. Use our dosage calculator for a personalized recommendation based on your weight, alcohol consumption, and other factors.",
+          answer: <>The optimal DHM dosage is 5mg per kg of body weight. For most adults, this translates to 300-600mg. A 150lb (68kg) person should take approximately 340mg. Use our <a href="/dhm-dosage-calculator" className="text-blue-600 hover:text-blue-800 font-medium underline">dosage calculator</a> for a personalized recommendation based on your weight, alcohol consumption, and other factors.</>,
           schema: {
             "@type": "Question",
             "name": "How much DHM should I take?",
@@ -68,7 +68,7 @@ const FAQSection = () => {
       questions: [
         {
           question: "Does DHM work for everyone?",
-          answer: "DHM effectiveness varies by individual, but clinical studies show positive results for most people. A 2024 randomized controlled trial found significant reductions in hangover symptoms for 73% of participants. Factors affecting effectiveness include genetics, liver health, dosage accuracy, and alcohol consumption patterns.",
+          answer: <>DHM effectiveness varies by individual, but clinical studies show positive results for most people. A 2024 randomized controlled trial found significant reductions in hangover symptoms for 73% of participants. Factors affecting effectiveness include genetics, liver health, dosage accuracy, and alcohol consumption patterns. See our <a href="/reviews" className="text-blue-600 hover:text-blue-800 font-medium underline">tested products</a> that meet quality standards.</>,
           schema: {
             "@type": "Question",
             "name": "Does DHM work for everyone?",
@@ -92,7 +92,7 @@ const FAQSection = () => {
         },
         {
           question: "Why didn't DHM work for me?",
-          answer: "Common reasons DHM may not work include: insufficient dosage (less than 5mg/kg body weight), poor timing (taking too late), low-quality supplements, excessive alcohol consumption, dehydration, or individual genetic variations. Try adjusting your dosage and timing, ensure adequate hydration, and choose high-quality DHM supplements.",
+          answer: <>Common reasons DHM may not work include: insufficient dosage (less than 5mg/kg body weight), poor timing (taking too late), low-quality supplements, excessive alcohol consumption, dehydration, or individual genetic variations. Try adjusting your dosage and timing, ensure adequate hydration, and choose <a href="/reviews" className="text-blue-600 hover:text-blue-800 font-medium underline">high-quality DHM supplements</a>.</>,
           schema: {
             "@type": "Question",
             "name": "Why didn't DHM work for me?",
@@ -135,7 +135,7 @@ const FAQSection = () => {
         },
         {
           question: "Is DHM safe for long-term use?",
-          answer: "Current research shows DHM is well-tolerated for regular use when drinking. Studies up to 3 months show no adverse effects. DHM has been used in traditional Asian medicine for centuries. However, long-term studies beyond 3 months are limited. Always consult healthcare providers for extended use.",
+          answer: <>Current research shows DHM is well-tolerated for regular use when drinking. Studies up to 3 months show no adverse effects. DHM has been used in traditional Asian medicine for centuries. However, long-term studies beyond 3 months are limited. Read the <a href="/research" className="text-blue-600 hover:text-blue-800 font-medium underline">clinical research</a> on DHM safety. Always consult healthcare providers for extended use.</>,
           schema: {
             "@type": "Question",
             "name": "Is DHM safe for long-term use?",
@@ -147,7 +147,7 @@ const FAQSection = () => {
         },
         {
           question: "What are DHM side effects?",
-          answer: "DHM has minimal side effects. Clinical trials report no serious adverse events. Rare mild effects include slight drowsiness (2% of users), mild stomach upset if taken without food (3%), and headache (1%). These effects are typically less severe than hangover symptoms themselves.",
+          answer: <>DHM has minimal side effects. Clinical trials report no serious adverse events. Rare mild effects include slight drowsiness (2% of users), mild stomach upset if taken without food (3%), and headache (1%). These effects are typically less severe than hangover symptoms themselves. Explore the <a href="/research" className="text-blue-600 hover:text-blue-800 font-medium underline">clinical research</a> for detailed safety data.</>,
           schema: {
             "@type": "Question",
             "name": "What are DHM side effects?",
@@ -257,7 +257,7 @@ const FAQSection = () => {
         },
         {
           question: "What's the maximum DHM dosage?",
-          answer: "The maximum recommended DHM dosage is 1200mg in a 24-hour period. Higher doses haven't shown additional benefits and may increase the risk of side effects. Most people need 300-600mg for effective hangover prevention. Use our dosage calculator for personalized recommendations.",
+          answer: <>The maximum recommended DHM dosage is 1200mg in a 24-hour period. Higher doses haven't shown additional benefits and may increase the risk of side effects. Most people need 300-600mg for effective hangover prevention. Use our <a href="/dhm-dosage-calculator" className="text-blue-600 hover:text-blue-800 font-medium underline">dosage calculator</a> for personalized recommendations.</>,
           schema: {
             "@type": "Question",
             "name": "What's the maximum DHM dosage?",

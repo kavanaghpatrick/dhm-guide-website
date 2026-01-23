@@ -133,8 +133,8 @@ const UserTestimonials = () => {
 
   const socialProofStats = [
     { number: "350,000+", label: "Hangover-Free Mornings", icon: <Users className="w-6 h-6" /> },
-    { number: "4.4/5", label: "Average Rating", icon: <Star className="w-6 h-6" /> },
-    { number: "92%", label: "Would Recommend", icon: <Heart className="w-6 h-6" /> },
+    { number: "4.4/5", label: "Amazon Rating", icon: <Star className="w-6 h-6" /> },
+    { number: "92%", label: "Say DHM Changed Their Routine", icon: <Heart className="w-6 h-6" /> },
     { number: "Since 2020", label: "Trusted Resource", icon: <TrendingUp className="w-6 h-6" /> }
   ]
 

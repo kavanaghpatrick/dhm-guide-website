@@ -1974,7 +1974,7 @@ Save this for future reference!
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-blue-700 px-8 py-3 text-lg"
                 >
-                  <Link to="/guide">Learn More About DHM</Link>
+                  <Link to="/guide">Master DHM Science</Link>
                 </Button>
               </motion.div>
             </div>

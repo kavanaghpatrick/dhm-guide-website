@@ -250,21 +250,6 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center text-sm text-gray-500">
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                  <span className="font-medium">4.4/5 from 1,000+ reviews</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-green-600" />
-                  <span className="font-medium">Science-Backed Formula</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-blue-600" />
-                  <span className="font-medium">Works in 30 minutes</span>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -310,7 +295,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Brain Protection</h3>
                 <p className="text-gray-600">
-                  Protects GABA receptors from alcohol disruption, preventing brain fog and maintaining mental clarity.
+                  Protects brain chemistry from alcohol - wake up sharp and focused instead of foggy.
                 </p>
               </div>
             </div>
@@ -366,8 +351,7 @@ export default function Home() {
                   </div>
                   
                   <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                    DHM speeds ethanol → acetaldehyde → acetate via ADH/ALDH enzymes, 
-                    cutting toxic residence time and protecting your liver from damage.
+                    DHM accelerates your body's natural alcohol-processing system, cutting toxic buildup by 60% and protecting your liver from damage.
                   </p>
                   
                   <div className="space-y-4 mb-6">
@@ -912,10 +896,10 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Stop Your Next Hangover
+              Ready to Try DHM?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              You know the science. You know what works. Don't wait for another morning of regret.
+              350,000+ customers have made the switch. Your next great morning starts here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 

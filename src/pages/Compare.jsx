@@ -785,7 +785,7 @@ export default function Compare() {
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             <div className="flex items-center">
                               <ShoppingCart className="w-5 h-5 mr-2 text-green-600" />
-                              Purchase
+                              Get It Now
                             </div>
                           </td>
                           {selectedProductsData.map((product) => (
@@ -1038,21 +1038,51 @@ export default function Compare() {
                   <Award className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2">Best Overall</h3>
                   <p className="text-lg">{getWinner('effectiveness')?.name}</p>
-                  <p className="text-sm opacity-80">Highest effectiveness score</p>
+                  <p className="text-sm opacity-80 mb-4">Highest effectiveness score</p>
+                  {getWinner('effectiveness')?.affiliateLink && (
+                    <a
+                      href={getWinner('effectiveness')?.affiliateLink}
+                      target="_blank"
+                      rel="nofollow sponsored noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Check Price on Amazon <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
-                
+
                 <div className="bg-white/10 rounded-lg p-6">
                   <DollarSign className="w-12 h-12 text-green-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2">Best Value</h3>
                   <p className="text-lg">{getWinner('dhmPerDollar')?.name}</p>
-                  <p className="text-sm opacity-80">Most DHM per dollar</p>
+                  <p className="text-sm opacity-80 mb-4">Most DHM per dollar</p>
+                  {getWinner('dhmPerDollar')?.affiliateLink && (
+                    <a
+                      href={getWinner('dhmPerDollar')?.affiliateLink}
+                      target="_blank"
+                      rel="nofollow sponsored noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Check Price on Amazon <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
-                
+
                 <div className="bg-white/10 rounded-lg p-6">
                   <Users className="w-12 h-12 text-blue-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2">Most Popular</h3>
                   <p className="text-lg">{getWinner('reviews')?.name}</p>
-                  <p className="text-sm opacity-80">Most customer reviews</p>
+                  <p className="text-sm opacity-80 mb-4">Most customer reviews</p>
+                  {getWinner('reviews')?.affiliateLink && (
+                    <a
+                      href={getWinner('reviews')?.affiliateLink}
+                      target="_blank"
+                      rel="nofollow sponsored noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Check Price on Amazon <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -1093,7 +1123,7 @@ export default function Compare() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              In-Depth Comparison Guides
+              Quick Head-to-Head Matchups
             </h2>
             <p className="text-lg text-gray-600">
               Detailed head-to-head analysis of popular DHM supplements
@@ -1210,9 +1240,21 @@ export default function Compare() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700">
-                  We update prices and customer ratings weekly to ensure accuracy. However, Amazon prices can 
-                  change frequently, so always check the current price on the product page before purchasing. 
+                  We update prices and customer ratings weekly to ensure accuracy. However, Amazon prices can
+                  change frequently, so always check the current price on the product page before purchasing.
                   Our affiliate links always redirect to the most current pricing.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle className="text-lg text-gray-900">Which DHM supplement should I buy?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">
+                  For most people, we recommend No Days Wasted for its proven formula. Budget-conscious?
+                  Double Wood offers pure DHM at the best price.
                 </p>
               </CardContent>
             </Card>

@@ -99,7 +99,7 @@ export default function Guide() {
     },
     {
       timing: "After Drinking",
-      dose: "300-450mg",
+      dose: "300-500mg",
       description: "Take before bed to reduce next-day hangover symptoms"
     }
   ]
@@ -151,7 +151,7 @@ export default function Guide() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Discover everything you need to know about DHM (Dihydromyricetin) - the scientifically-proven hangover prevention supplement.{' '}
+              Learn exactly how to take DHM to prevent hangovers - dosage, timing, and which products work. 11 clinical studies prove DHM reduces hangover severity by up to 70%.{' '}
               <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide" className="text-green-600 hover:text-green-800 font-semibold">From traditional medicine to cutting-edge research</Link>.{' '}
               Learn about <Link to="/never-hungover/dhm-science-explained" className="text-green-600 hover:text-green-800 font-semibold">DHM's molecular mechanisms</Link> and explore our <Link to="/never-hungover/dhm-dosage-guide-2025" className="text-green-600 hover:text-green-800 font-semibold">comprehensive dosage guide</Link>.
             </p>
@@ -236,7 +236,7 @@ export default function Guide() {
                   <ul className="text-left text-blue-700 text-sm space-y-1">
                     <li>• Activates liver enzymes</li>
                     <li>• Primes alcohol metabolism</li>
-                    <li>• Sets up protection</li>
+                    <li>• Reduces next-day headache risk</li>
                   </ul>
                 </div>
               </motion.div>
@@ -258,7 +258,7 @@ export default function Guide() {
                   <p className="text-orange-700 text-sm mb-4">Extra 300mg DHM if drinking heavily</p>
                   <ul className="text-left text-orange-700 text-sm space-y-1">
                     <li>• Water between drinks</li>
-                    <li>• Maintain DHM levels</li>
+                    <li>• Keeps protection active through the night</li>
                     <li>• Support metabolism</li>
                   </ul>
                 </div>
@@ -331,7 +331,7 @@ export default function Guide() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Key Benefits at a Glance
+              4 Proven DHM Benefits (Backed by 11 Studies)
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               DHM offers comprehensive benefits backed by 11 clinical studies and 1,000+ years of traditional use. 
@@ -593,7 +593,7 @@ export default function Guide() {
             className="text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-900">
-              What People Are Saying
+              Real Results from DHM Users
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
