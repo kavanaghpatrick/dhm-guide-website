@@ -138,7 +138,7 @@ export default function CalculatorResults({ results, onReset, onShare }) {
           <p className="text-sm text-blue-900">
             <strong>How it works:</strong> DHM protects your GABA-A receptors from alcohol 
             disruption and enhances alcohol-metabolizing enzymes (ADH and ALDH), reducing 
-            acetaldehyde buildup by up to 87%.
+            acetaldehyde buildup by up to 70%.
           </p>
         </CardContent>
       </Card>

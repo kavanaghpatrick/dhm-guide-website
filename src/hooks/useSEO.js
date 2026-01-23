@@ -124,8 +124,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
   switch (pageType) {
     case 'home':
       return {
-        title: 'DHM Guide: Science-Backed Hangover Prevention That Actually Works',
-        description: 'Discover the UCLA-proven supplement that prevents hangovers in 70% of cases. Expert reviews, dosage guides, and 11 clinical studies. Never wake up hungover again.',
+        title: 'DHM Guide: Prevent Hangovers with Science-Backed Supplements',
+        description: 'UCLA-proven hangover prevention. DHM blocks 70% of symptoms in clinical trials. Expert reviews, dosage guides, and 11 studies. Never wake up hungover.',
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.webp`,
@@ -135,8 +135,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'guide':
       return {
-        title: 'The Complete DHM Guide: Never Wake Up Hungover Again',
-        description: 'Complete 2025 DHM guide: Achieve 85% hangover reduction with proper dosing, timing, and supplements. Expert tips backed by clinical science.',
+        title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
+        description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
         keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
         ogImage: `${baseUrl}/dhm-guide-featured.webp`,
@@ -144,8 +144,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Complete DHM Guide 2025: Science-Backed Hangover Prevention",
-            "description": "Master DHM (Dihydromyricetin) with our comprehensive 2025 guide. Clinical research, dosage protocols, safety data, and expert recommendations.",
+            "headline": "Complete DHM Guide 2026: Science-Backed Hangover Prevention",
+            "description": "Master DHM (Dihydromyricetin) with our comprehensive 2026 guide. Clinical research, dosage protocols, safety data, and expert recommendations.",
             "author": {
               "@type": "Organization",
               "name": "DHM Guide"
@@ -165,7 +165,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: '7 Best DHM Hangover Supplements (2025) [Lab Tested + Ranked]',
+        title: '7 Best DHM Hangover Supplements (2026) [Lab Tested + Ranked]',
         description: 'We lab-tested 7 DHM supplements for purity, dosage, and effectiveness. See which hangover pill actually works and which ones waste your money. Rankings inside.',
         keywords: 'best dhm supplements, dhm supplement reviews, best dhm for hangovers, dhm pills, dhm supplement comparison',
         canonicalUrl: `${baseUrl}/reviews`,
@@ -216,7 +216,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'compare':
       return {
-        title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2025]',
+        title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
         description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
         keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
@@ -275,8 +275,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'about':
       return {
-        title: 'About DHM Guide: Hangover Prevention Experts',
-        description: 'Trusted DHM authority since 2020. Expert team analyzes clinical research, tests supplements, provides unbiased hangover prevention guidance.',
+        title: 'About DHM Guide | Hangover Prevention Resource',
+        description: 'DHM Guide: Your resource for science-backed hangover prevention since 2020. We analyze clinical research and test supplements to provide unbiased guidance.',
         keywords: 'hangover prevention experts, stop hangovers team, hangover cure specialists, hangover prevention research team',
         canonicalUrl: `${baseUrl}/about`,
         ogImage: `${baseUrl}/about-featured.webp`,

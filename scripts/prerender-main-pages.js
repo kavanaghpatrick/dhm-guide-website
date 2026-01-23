@@ -6,19 +6,19 @@ import { JSDOM } from 'jsdom';
 const pages = [
   {
     route: '/',
-    title: 'DHM Guide: Prevent 87% of Hangovers with Science-Backed Supplements | 11 Clinical Studies',
-    description: '✅ Clinically proven to prevent 87% of hangovers. UCLA research + 11 studies confirm DHM effectiveness. Independent reviews, dosage guides & 500+ success stories. Never wake up hungover again.',
+    title: 'DHM Guide: Prevent Hangovers with Science-Backed Supplements',
+    description: 'UCLA-proven hangover prevention. DHM blocks 70% of symptoms in clinical trials. Expert reviews, dosage guides, and 11 studies. Never wake up hungover.',
     ogImage: '/og-image.jpg'
   },
   {
     route: '/guide',
-    title: 'Complete DHM Guide 2025 | Science-Backed Hangover Prevention',
-    description: 'Evidence-based guide to DHM (Dihydromyricetin) supplements. Learn about mechanism of action, optimal dosage, clinical research, and safety profile for hangover prevention.',
+    title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
+    description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
     ogImage: '/guide-og.jpg'
   },
   {
     route: '/reviews',
-    title: '7 Best DHM Hangover Supplements (2025) [Lab Tested + Ranked]',
+    title: '7 Best DHM Hangover Supplements (2026) [Lab Tested + Ranked]',
     description: 'We lab-tested 7 DHM supplements for purity, dosage, and effectiveness. See which hangover pill actually works and which ones waste your money. Rankings inside.',
     ogImage: '/reviews-og.jpg'
   },
@@ -76,19 +76,19 @@ const pages = [
   },
   {
     route: '/about',
-    title: 'About DHM Guide | Evidence-Based Hangover Prevention Resource',
-    description: 'Learn about DHM Guide: your trusted resource for science-backed hangover prevention information. Our mission, methodology, and commitment to evidence-based health information.',
+    title: 'About DHM Guide | Hangover Prevention Resource',
+    description: 'DHM Guide: Your resource for science-backed hangover prevention since 2020. We analyze clinical research and test supplements to provide unbiased guidance.',
     ogImage: '/about-og.jpg'
   },
   {
     route: '/dhm-dosage-calculator',
-    title: 'DHM Dosage Calculator | Personalized Hangover Prevention Guide',
-    description: 'Calculate your optimal DHM dosage based on weight, drinks consumed, and alcohol tolerance. Science-backed recommendations for maximum hangover prevention effectiveness.',
+    title: 'DHM Dosage Calculator | Personalized Prevention',
+    description: 'Calculate your optimal DHM dosage based on weight and drinking habits. Science-backed recommendations for effective hangover prevention.',
     ogImage: '/calculator-og.jpg'
   },
   {
     route: '/compare',
-    title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2025]',
+    title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
     description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
     ogImage: '/compare-og.jpg'
   }

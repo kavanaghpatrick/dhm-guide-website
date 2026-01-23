@@ -317,7 +317,7 @@ const SocialProofTicker = () => {
     { name: "Sarah M.", message: "No hangover after my birthday party!", rating: 5 },
     { name: "Mike D.", message: "This calculator saved my weekends", rating: 5 },
     { name: "Emma L.", message: "Finally found my perfect dosage", rating: 5 },
-    { name: "John K.", message: "87% less hangover symptoms!", rating: 5 },
+    { name: "John K.", message: "70% faster recovery with DHM!", rating: 5 },
     { name: "Lisa R.", message: "Game changer for wine nights", rating: 5 }
   ]
 
@@ -783,7 +783,7 @@ export default function DosageCalculatorEnhanced() {
               <span className="font-semibold text-purple-800">Join 15,000+ hangover-free users</span>
               <Badge className="bg-green-500 text-white">
                 <Sparkles className="w-3 h-3 mr-1" />
-                87% success rate
+                70% faster recovery
               </Badge>
             </motion.div>
             
@@ -808,8 +808,8 @@ export default function DosageCalculatorEnhanced() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white rounded-lg p-4 shadow-sm border cursor-pointer"
               >
-                <div className="text-2xl font-bold text-green-600">87%</div>
-                <div className="text-sm text-gray-600">Prevent hangovers</div>
+                <div className="text-2xl font-bold text-green-600">70%</div>
+                <div className="text-sm text-gray-600">Faster recovery</div>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -1550,7 +1550,7 @@ export default function DosageCalculatorEnhanced() {
                           <div className="flex items-center justify-center space-x-4 mt-2">
                             <Badge className="bg-white/50 text-purple-700">
                               <Star className="w-3 h-3 mr-1" />
-                              4.8/5 rating
+                              4.4/5 rating
                             </Badge>
                             <Badge className="bg-white/50 text-purple-700">
                               <Users className="w-3 h-3 mr-1" />

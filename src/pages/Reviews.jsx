@@ -530,11 +530,11 @@ export default function Reviews() {
           >
             <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
               <Award className="w-4 h-4 mr-2" />
-              2025 Reviews
+              2026 Lab-Tested Reviews
             </Badge>
-            
+
             <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Best Hangover Prevention Pills 2025
+              Best DHM Supplements (January 2026)
             </h1>
             
             <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
@@ -615,7 +615,7 @@ export default function Reviews() {
                   <Trophy className="w-3 h-3 mr-1" />
                   Editor's Choice
                 </Badge>
-                <span className="text-sm text-gray-600">Top Rated for 2025</span>
+                <span className="text-sm text-gray-600">Top Rated for 2026</span>
               </div>
 
               <h3 className="text-xl font-bold text-gray-900 mb-2">

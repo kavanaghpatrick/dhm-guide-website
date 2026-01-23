@@ -28,8 +28,8 @@ import {
 export default function DosageCalculator() {
   // SEO configuration with enhanced schema markup
   useSEO({
-    title: 'DHM Dosage Calculator 2025: How Much DHM Should I Take | Personalized Hangover Prevention',
-    description: 'Calculate your optimal DHM dosage for hangover prevention. Get personalized dihydromyricetin recommendations based on body weight, alcohol consumption, and timing. Free anti-hangover supplement calculator determines exact mg needed.',
+    title: 'DHM Dosage Calculator | Personalized Prevention',
+    description: 'Calculate your optimal DHM dosage based on weight and drinking habits. Science-backed recommendations for effective hangover prevention.',
     keywords: 'DHM dosage calculator, how much DHM should I take, dihydromyricetin dosage, hangover prevention calculator, anti hangover supplement dosage, DHM dosage by weight, hangover pill calculator, prevent hangover dosage, DHM supplement calculator, dihydromyricetin calculator, hangover prevention dosage, DHM mg calculator, DHM side effects, DHM dosage chart',
     canonicalUrl: 'https://www.dhmguide.com/dhm-dosage-calculator',
     structuredData: [

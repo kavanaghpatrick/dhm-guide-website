@@ -6,17 +6,15 @@ import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import missionVisual from '../assets/dhm_mission_visual.webp'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { 
-  Users, 
-  Target, 
-  Award, 
-  BookOpen, 
-  Microscope, 
+import {
+  Users,
+  Target,
+  BookOpen,
+  Microscope,
   Shield,
   ArrowRight,
   CheckCircle,
   Heart,
-  Lightbulb,
   Globe,
   Mail
 } from 'lucide-react'
@@ -32,8 +30,8 @@ export default function About() {
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "Unbiased Reviews",
-      description: "Independent testing and analysis with no affiliate bias or sponsored content."
+      title: "Transparent Reviews",
+      description: "We earn affiliate commissions on purchases. This never influences our ratings."
     },
     {
       icon: <Heart className="w-8 h-8" />,
@@ -49,24 +47,20 @@ export default function About() {
 
   const expertise = [
     {
-      area: "Biochemistry & Pharmacology",
-      description: "Deep understanding of DHM's molecular mechanisms and interactions",
-      years: "10+ years"
+      area: "Research Standards",
+      description: "We only cite peer-reviewed studies indexed in PubMed"
     },
     {
-      area: "Clinical Research Analysis",
-      description: "Systematic review and interpretation of peer-reviewed studies",
-      years: "8+ years"
+      area: "Supplement Testing",
+      description: "Products evaluated for purity, dosage accuracy, and value"
     },
     {
-      area: "Supplement Industry",
-      description: "Comprehensive knowledge of manufacturing, quality, and regulations",
-      years: "12+ years"
+      area: "Transparent Analysis",
+      description: "All recommendations include source citations"
     },
     {
-      area: "Traditional Medicine",
-      description: "Historical context and traditional uses of DHM-containing plants",
-      years: "6+ years"
+      area: "User Experience",
+      description: "Real-world feedback collected and analyzed systematically"
     }
   ]
 
@@ -82,14 +76,14 @@ export default function About() {
       description: "Independent testing of leading DHM supplements"
     },
     {
-      icon: <Award className="w-6 h-6" />,
-      title: "Industry Recognition",
-      description: "Cited by researchers and health professionals"
+      icon: <Microscope className="w-6 h-6" />,
+      title: "11 Clinical Studies Reviewed",
+      description: "In-depth analysis of peer-reviewed DHM trials"
     },
     {
       icon: <Target className="w-6 h-6" />,
-      title: "100K+ Users Helped",
-      description: "Trusted resource for DHM information worldwide"
+      title: "Transparent Methodology",
+      description: "Clear criteria for all product evaluations"
     }
   ]
 
@@ -111,8 +105,8 @@ export default function About() {
     },
     {
       step: "4",
-      title: "Expert Review",
-      description: "Validation by biochemists, pharmacologists, and healthcare professionals."
+      title: "Editorial Review",
+      description: "Cross-referencing findings against published research and existing supplement databases."
     }
   ]
 
@@ -129,11 +123,11 @@ export default function About() {
           >
             <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200">
               <Users className="w-4 h-4 mr-2" />
-              Hangover Prevention Experts
+              DHM Guide Team
             </Badge>
-            
+
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Your Trusted Hangover Prevention Experts
+              Your Trusted DHM Research Resource
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
@@ -203,7 +197,7 @@ export default function About() {
                   <div className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
                     <p className="text-gray-600">
-                      <span className="font-semibold text-gray-900">Independent:</span> Unbiased analysis with no affiliate influence
+                      <span className="font-semibold text-gray-900">Transparent:</span> Affiliate relationships disclosed; ratings never influenced by commissions
                     </p>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -344,9 +338,9 @@ export default function About() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center">
-              Our Expertise
+              Our Research Standards
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {expertise.map((area, index) => (
                 <motion.div
@@ -358,10 +352,7 @@ export default function About() {
                 >
                   <Card className="h-full bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                     <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg text-green-800">{area.area}</CardTitle>
-                        <Badge className="bg-green-600 text-white">{area.years}</Badge>
-                      </div>
+                      <CardTitle className="text-lg text-green-800">{area.area}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <CardDescription className="text-green-700">
@@ -477,13 +468,16 @@ export default function About() {
               We'd love to hear from you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                asChild
+                size="lg"
                 variant="secondary"
                 className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
               >
-                <Mail className="w-5 h-5 mr-2" />
-                Contact Us
+                <a href="mailto:hello@dhmguide.com">
+                  <Mail className="w-5 h-5 mr-2" />
+                  Contact Us
+                </a>
               </Button>
               <Button 
                 asChild
