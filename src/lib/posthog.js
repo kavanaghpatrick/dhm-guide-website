@@ -158,6 +158,58 @@ export function trackElementClick(elementType, properties = {}) {
     device_type: getDeviceType(),
     ...properties
   });
+
+  // Track CTA clicks as funnel step
+  if (elementType === 'cta') {
+    trackFunnelStep('cta_click', {
+      cta_destination: properties.cta_destination || ''
+    });
+  }
+}
+
+/**
+ * Get traffic source from referrer or UTM params
+ */
+const getTrafficSource = () => {
+  if (typeof window === 'undefined') return 'unknown';
+
+  const params = new URLSearchParams(window.location.search);
+  const utmSource = params.get('utm_source');
+  if (utmSource) return utmSource;
+
+  const referrer = document.referrer;
+  if (!referrer) return 'direct';
+
+  try {
+    const url = new URL(referrer);
+    const hostname = url.hostname.toLowerCase();
+
+    if (hostname.includes('google')) return 'google';
+    if (hostname.includes('bing')) return 'bing';
+    if (hostname.includes('facebook') || hostname.includes('fb.com')) return 'facebook';
+    if (hostname.includes('twitter') || hostname.includes('t.co')) return 'twitter';
+    if (hostname.includes('reddit')) return 'reddit';
+    if (hostname.includes('linkedin')) return 'linkedin';
+
+    return hostname;
+  } catch {
+    return 'unknown';
+  }
+};
+
+/**
+ * Track conversion funnel step
+ * Used to build funnel visualizations in PostHog
+ */
+export function trackFunnelStep(step, properties = {}) {
+  trackEvent('funnel_step', {
+    step,
+    page_path: window.location.pathname,
+    page_type: getPageType(),
+    device_type: getDeviceType(),
+    traffic_source: getTrafficSource(),
+    ...properties
+  });
 }
 
 /**

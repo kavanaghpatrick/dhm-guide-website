@@ -227,6 +227,109 @@ export const extractProductDataFromContent = (content, metadata) => {
 };
 
 /**
+ * Generate BreadcrumbList schema for navigation hierarchy
+ *
+ * @param {Object} options - Configuration options
+ * @param {string} options.path - Current page path (e.g., '/never-hungover/dhm-vs-nac')
+ * @param {string} [options.pageTitle] - Title of the current page (for blog posts)
+ * @returns {Object} BreadcrumbList schema
+ */
+export const generateBreadcrumbSchema = ({ path, pageTitle }) => {
+  const baseUrl = 'https://www.dhmguide.com';
+  const items = [];
+
+  // Always start with Home
+  items.push({
+    '@type': 'ListItem',
+    position: 1,
+    name: 'Home',
+    item: baseUrl
+  });
+
+  // Handle different page types based on path
+  const pathSegments = path.split('/').filter(Boolean);
+
+  if (pathSegments.length === 0) {
+    // Home page - just return home breadcrumb without item on last element
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home'
+      }]
+    };
+  }
+
+  // Map path segments to readable names
+  const segmentNames = {
+    'guide': 'DHM Guide',
+    'reviews': 'Reviews',
+    'research': 'Research',
+    'compare': 'Compare',
+    'about': 'About',
+    'never-hungover': 'Blog',
+    'dhm-dosage-calculator': 'Dosage Calculator'
+  };
+
+  // Build breadcrumb trail
+  let currentPath = '';
+  pathSegments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    const isLastSegment = index === pathSegments.length - 1;
+
+    // Determine the display name
+    let displayName;
+    if (isLastSegment && pageTitle) {
+      // Use provided page title for the last segment (blog posts)
+      displayName = pageTitle;
+    } else {
+      // Use mapped name or format slug as title
+      displayName = segmentNames[segment] || formatSlugAsTitle(segment);
+    }
+
+    const breadcrumbItem = {
+      '@type': 'ListItem',
+      position: items.length + 1,
+      name: displayName
+    };
+
+    // Only include 'item' URL if not the last breadcrumb (per Google guidelines)
+    if (!isLastSegment) {
+      breadcrumbItem.item = `${baseUrl}${currentPath}`;
+    }
+
+    items.push(breadcrumbItem);
+  });
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items
+  };
+};
+
+/**
+ * Format a URL slug as a readable title
+ * E.g., 'dhm-vs-nac' -> 'DHM vs NAC'
+ */
+const formatSlugAsTitle = (slug) => {
+  // Common abbreviations that should be uppercase
+  const uppercaseWords = ['dhm', 'nac', 'ucla', 'usc', 'faq', 'vs', 'dna', 'rna'];
+
+  return slug
+    .split('-')
+    .map(word => {
+      if (uppercaseWords.includes(word.toLowerCase())) {
+        return word.toUpperCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(' ');
+};
+
+/**
  * Validate structured data has required fields
  */
 export const validateStructuredData = (schema, type) => {

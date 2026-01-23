@@ -5,7 +5,7 @@
  * for conversion optimization analysis.
  */
 import { useEffect, useCallback } from 'react';
-import { trackAffiliateClick } from '../lib/posthog';
+import { trackAffiliateClick, trackFunnelStep } from '../lib/posthog';
 
 // Stricter URL matching pattern for affiliate links
 // Covers common Amazon TLDs and shortlinks
@@ -146,6 +146,12 @@ export function useAffiliateTracking(options = {}) {
     // Track to PostHog
     try {
       trackAffiliateClick(trackingData);
+
+      // Also track as funnel step (final conversion step)
+      trackFunnelStep('affiliate_click', {
+        product_name: trackingData.productName,
+        placement: trackingData.placement
+      });
     } catch (error) {
       console.warn('[AffiliateTracking] Failed to track:', error);
     }

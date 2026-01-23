@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { generateEnhancedBlogSchema } from '../utils/productSchemaGenerator.js';
+import { generateBreadcrumbSchema } from '../utils/structuredDataHelpers.js';
 
 /**
  * Extract the first image URL from markdown content
@@ -128,8 +129,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.webp`,
-        twitterImage: `${baseUrl}/twitter-image.webp`
-        // No structuredData - homepage uses index.html schemas
+        twitterImage: `${baseUrl}/twitter-image.webp`,
+        structuredData: generateBreadcrumbSchema({ path: '/' })
       };
 
     case 'guide':
@@ -139,24 +140,27 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
         ogImage: `${baseUrl}/dhm-guide-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": "Complete DHM Guide 2025: Science-Backed Hangover Prevention",
-          "description": "Master DHM (Dihydromyricetin) with our comprehensive 2025 guide. Clinical research, dosage protocols, safety data, and expert recommendations.",
-          "author": {
-            "@type": "Organization",
-            "name": "DHM Guide"
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Complete DHM Guide 2025: Science-Backed Hangover Prevention",
+            "description": "Master DHM (Dihydromyricetin) with our comprehensive 2025 guide. Clinical research, dosage protocols, safety data, and expert recommendations.",
+            "author": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/guide`
+            }
           },
-          "publisher": {
-            "@type": "Organization",
-            "name": "DHM Guide"
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": `${baseUrl}/guide`
-          }
-        }
+          generateBreadcrumbSchema({ path: '/guide' })
+        ]
       };
 
     case 'reviews':
@@ -166,20 +170,23 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'best dhm supplements, dhm supplement reviews, best dhm for hangovers, dhm pills, dhm supplement comparison',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": "Best Hangover Pills: Lab-Tested Supplements That Work",
-          "description": "Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness.",
-          "author": {
-            "@type": "Organization",
-            "name": "DHM Guide"
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Best Hangover Pills: Lab-Tested Supplements That Work",
+            "description": "Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness.",
+            "author": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            }
           },
-          "publisher": {
-            "@type": "Organization",
-            "name": "DHM Guide"
-          }
-        }
+          generateBreadcrumbSchema({ path: '/reviews' })
+        ]
       };
 
     case 'research':
@@ -189,19 +196,22 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'does dhm work, dhm clinical studies, dhm research, ucla dhm study, dhm effectiveness, dhm hangover studies',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Dataset",
-          "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
-          "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
-          "creator": {
-            "@type": "Organization",
-            "name": "DHM Guide"
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
+            "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
+            "creator": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            },
+            "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
           },
-          "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
-        }
-        // Note: FAQ schema is added by prerender script (scripts/prerender-main-pages.js)
-        // to avoid duplicate schema markup that causes Google Search Console errors
+          // Note: FAQ schema is added by prerender script (scripts/prerender-main-pages.js)
+          // to avoid duplicate schema markup that causes Google Search Console errors
+          generateBreadcrumbSchema({ path: '/research' })
+        ]
       };
 
     case 'compare':
@@ -211,13 +221,16 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
         ogImage: `${baseUrl}/dhm-comparison-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "DHM Supplement Comparison Tool",
-          "description": "Interactive tool to compare DHM supplements",
-          "applicationCategory": "HealthApplication"
-        }
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "DHM Supplement Comparison Tool",
+            "description": "Interactive tool to compare DHM supplements",
+            "applicationCategory": "HealthApplication"
+          },
+          generateBreadcrumbSchema({ path: '/compare' })
+        ]
       };
 
     case 'blog':
@@ -227,12 +240,15 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'DHM blog, hangover prevention blog, dihydromyricetin news, health optimization, supplement research',
         canonicalUrl: `${baseUrl}/never-hungover`,
         ogImage: `${baseUrl}/blog-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Blog",
-          "name": "DHM Guide Blog",
-          "description": "Latest research and insights on DHM and hangover prevention"
-        }
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "DHM Guide Blog",
+            "description": "Latest research and insights on DHM and hangover prevention"
+          },
+          generateBreadcrumbSchema({ path: '/never-hungover' })
+        ]
       };
 
     case 'never-hungover':
@@ -242,16 +258,19 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'never hungover, hangover prevention, how to never get hungover, DHM hangover prevention, hangover-free lifestyle, prevent hangovers completely',
         canonicalUrl: `${baseUrl}/never-hungover`,
         ogImage: `${baseUrl}/never-hungover-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "Blog",
-          "name": "Never Hungover - DHM Guide",
-          "description": "Master the science of hangover prevention and never wake up hungover again",
-          "publisher": {
-            "@type": "Organization",
-            "name": "DHM Guide"
-          }
-        }
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "Never Hungover - DHM Guide",
+            "description": "Master the science of hangover prevention and never wake up hungover again",
+            "publisher": {
+              "@type": "Organization",
+              "name": "DHM Guide"
+            }
+          },
+          generateBreadcrumbSchema({ path: '/never-hungover' })
+        ]
       };
 
     case 'about':
@@ -261,22 +280,25 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         keywords: 'hangover prevention experts, stop hangovers team, hangover cure specialists, hangover prevention research team',
         canonicalUrl: `${baseUrl}/about`,
         ogImage: `${baseUrl}/about-featured.webp`,
-        structuredData: {
-          "@context": "https://schema.org",
-          "@type": "AboutPage",
-          "name": "About DHM Guide",
-          "description": "Your trusted resource for science-backed hangover prevention information"
-        }
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About DHM Guide",
+            "description": "Your trusted resource for science-backed hangover prevention information"
+          },
+          generateBreadcrumbSchema({ path: '/about' })
+        ]
       };
 
     case 'blog-post': {
       const { title, excerpt, slug, author, date, image, tags, content } = pageData;
       const blogPostUrl = `${baseUrl}/never-hungover/${slug}`;
-      
+
       // Extract image from content if not explicitly provided
       const extractedImage = image || extractImageFromMarkdown(content);
       const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.webp`;
-      
+
       // Safely handle date conversion
       let dateString = '2024-01-01T00:00:00Z'; // Default fallback
       if (date instanceof Date && !isNaN(date.getTime())) {
@@ -286,7 +308,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           console.error('Error converting date to ISO string:', error);
         }
       }
-      
+
       // Generate enhanced schemas for product reviews
       const enhancedSchemas = generateEnhancedBlogSchema({
         slug,
@@ -297,7 +319,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         tags,
         content
       });
-      
+
       // Use enhanced schemas if available, otherwise fall back to default
       const structuredDataArray = enhancedSchemas && enhancedSchemas.length > 0 ? enhancedSchemas : [{
         "@context": "https://schema.org",
@@ -326,7 +348,14 @@ export const generatePageSEO = (pageType, pageData = {}) => {
         "articleSection": "Health & Wellness",
         "keywords": tags ? tags : ["DHM", "Dihydromyricetin", "Hangover Prevention"]
       }];
-      
+
+      // Add breadcrumb schema for blog posts
+      const breadcrumbSchema = generateBreadcrumbSchema({
+        path: `/never-hungover/${slug}`,
+        pageTitle: title
+      });
+      structuredDataArray.push(breadcrumbSchema);
+
       return {
         title: `${title} | DHM Guide`,
         description: excerpt,
