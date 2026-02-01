@@ -188,3 +188,14 @@ temp/
 !public/*.webp
 !public/images/*.webp
 
+# Analysis screenshots and temp files
+*-screenshots/
+screenshots/
+scripts/screenshots/
+scripts/*-screenshots/
+scripts/*.png
+*.zip
+
+# Playwright test artifacts
+tests/screenshots/
+
