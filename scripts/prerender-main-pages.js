@@ -18,14 +18,14 @@ const pages = [
   },
   {
     route: '/reviews',
-    title: '7 Best DHM Hangover Supplements (2026) [Lab Tested + Ranked]',
-    description: 'We lab-tested 7 DHM supplements for purity, dosage, and effectiveness. See which hangover pill actually works and which ones waste your money. Rankings inside.',
+    title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
+    description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
     ogImage: '/reviews-og.jpg'
   },
   {
     route: '/research',
-    title: 'DHM: 11 Clinical Studies Show 70% Results (UCLA, USC)',
-    description: 'Does DHM actually work? 11 clinical trials say yes. UCLA and USC research shows 70% hangover reduction. See the proof from 600+ study participants.',
+    title: 'Does DHM Work? 11 Studies Prove 70% Hangover Reduction',
+    description: 'UCLA and USC clinical trials prove DHM reduces hangovers 70%. See evidence from 11 peer-reviewed studies and 600+ participants.',
     ogImage: '/research-og.jpg',
     faqSchema: {
       "@context": "https://schema.org",
