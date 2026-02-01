@@ -5,7 +5,6 @@ const postModules = {
   "activated-charcoal-hangover": () => import("./posts/activated-charcoal-hangover.json"),
   "adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives": () => import("./posts/adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives.json"),
   "advanced-liver-detox-science-vs-marketing-myths-2025": () => import("./posts/advanced-liver-detox-science-vs-marketing-myths-2025.json"),
-  "ai-powered-alcohol-health-optimization-machine-learning-guide-2025": () => import("./posts/ai-powered-alcohol-health-optimization-machine-learning-guide-2025.json"),
   "alcohol-aging-longevity-2025": () => import("./posts/alcohol-aging-longevity-2025.json"),
   "alcohol-and-anxiety-breaking-the-cycle-naturally-2025": () => import("./posts/alcohol-and-anxiety-breaking-the-cycle-naturally-2025.json"),
   "alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025": () => import("./posts/alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025.json"),
@@ -31,12 +30,10 @@ const postModules = {
   "alcohol-ketogenic-diet-ketosis-impact-analysis-2025": () => import("./posts/alcohol-ketogenic-diet-ketosis-impact-analysis-2025.json"),
   "alcohol-kidney-disease-renal-function-impact-2025": () => import("./posts/alcohol-kidney-disease-renal-function-impact-2025.json"),
   "alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025": () => import("./posts/alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025.json"),
-  "alcohol-mitochondrial-function-cellular-energy-recovery-2025": () => import("./posts/alcohol-mitochondrial-function-cellular-energy-recovery-2025.json"),
   "alcohol-pharmacokinetics-advanced-absorption-science-2025": () => import("./posts/alcohol-pharmacokinetics-advanced-absorption-science-2025.json"),
   "alcohol-protein-synthesis-muscle-recovery-impact-guide-2025": () => import("./posts/alcohol-protein-synthesis-muscle-recovery-impact-guide-2025.json"),
   "alcohol-recovery-nutrition-complete-healing-protocol-2025": () => import("./posts/alcohol-recovery-nutrition-complete-healing-protocol-2025.json"),
   "alcohol-skin-health-anti-aging-impact-analysis-2025": () => import("./posts/alcohol-skin-health-anti-aging-impact-analysis-2025.json"),
-  "alcohol-stem-cell-regenerative-health-2025": () => import("./posts/alcohol-stem-cell-regenerative-health-2025.json"),
   "alcohol-thyroid-hormonal-disruption-2025": () => import("./posts/alcohol-thyroid-hormonal-disruption-2025.json"),
   "alcohol-weight-loss-metabolic-guide-2025": () => import("./posts/alcohol-weight-loss-metabolic-guide-2025.json"),
   "alcohol-work-performance-professional-impact-guide-2025": () => import("./posts/alcohol-work-performance-professional-impact-guide-2025.json"),
@@ -78,7 +75,6 @@ const postModules = {
   "dhm-safety-complete-guide-2025": () => import("./posts/dhm-safety-complete-guide-2025.json"),
   "dhm-science-explained": () => import("./posts/dhm-science-explained.json"),
   "dhm-supplement-stack-guide-complete-combinations": () => import("./posts/dhm-supplement-stack-guide-complete-combinations.json"),
-  "dhm-supplements-comparison-center-2025": () => import("./posts/dhm-supplements-comparison-center-2025.json"),
   "dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025": () => import("./posts/dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025.json"),
   "dhm-vs-prickly-pear-hangovers": () => import("./posts/dhm-vs-prickly-pear-hangovers.json"),
   "dhm-vs-zbiotics": () => import("./posts/dhm-vs-zbiotics.json"),
@@ -194,7 +190,7 @@ const postModules = {
   "wine-hangover-guide": () => import("./posts/wine-hangover-guide.json"),
   "work-life-balance-dhm-2025": () => import("./posts/work-life-balance-dhm-2025.json"),
   "workplace-wellness-alcohol-hidden-impact-professional-performance": () => import("./posts/workplace-wellness-alcohol-hidden-impact-professional-performance.json"),
-  "zebra-striping-drinking-trend-2025": () => import("./posts/zebra-striping-drinking-trend-2025.json"),
+  "zebra-striping-drinking-trend-2025": () => import("./posts/zebra-striping-drinking-trend-2025.json")
 };
 
 export default postModules;
