@@ -682,7 +682,17 @@ export default function Reviews() {
                           {product.price}
                         </a>
                       </td>
-                      <td className="py-3 px-4 text-center text-gray-700">{product.pricePerServing}</td>
+                      <td className="py-3 px-4 text-center">
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="text-gray-700 hover:text-green-700 hover:underline"
+                          data-product-name={product.name}
+                        >
+                          {product.pricePerServing}
+                        </a>
+                      </td>
                       <td className="py-3 px-4 text-center">
                         <a
                           href={product.affiliateLink}
@@ -697,7 +707,15 @@ export default function Reviews() {
                       </td>
                       <td className="py-3 px-4 text-center text-gray-700">{product.reviews.toLocaleString()}</td>
                       <td className="py-3 px-4 text-center">
-                        <span className="font-bold text-green-700">{product.score}/10</span>
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="font-bold text-green-700 hover:text-green-800 hover:underline"
+                          data-product-name={product.name}
+                        >
+                          {product.score}/10
+                        </a>
                       </td>
                       <td className="py-3 px-4 text-center">
                         <a
@@ -819,7 +837,7 @@ export default function Reviews() {
                           <h5 className="font-medium text-gray-900 mb-2">Ingredients:</h5>
                           <div className="flex flex-wrap gap-1">
                             {product.ingredients.map((ingredient, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
+                              <Badge key={idx} variant="outline" className="text-xs cursor-default select-text" title="Ingredient">
                                 {ingredient}
                               </Badge>
                             ))}
@@ -858,10 +876,16 @@ export default function Reviews() {
                           </div>
                         </div>
                         
-                        <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                          <h5 className="font-medium text-blue-800 mb-2">Best For:</h5>
-                          <p className="text-blue-700 text-sm">{product.bestFor}</p>
-                        </div>
+                        <a
+                          href={product.affiliateLink}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          className="mt-4 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg block transition-colors group"
+                          data-product-name={product.name}
+                        >
+                          <h5 className="font-medium text-blue-800 mb-2 group-hover:text-blue-900">Best For:</h5>
+                          <p className="text-blue-700 text-sm group-hover:text-blue-800">{product.bestFor}</p>
+                        </a>
                       </div>
                     </div>
                     
