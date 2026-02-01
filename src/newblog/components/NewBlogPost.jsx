@@ -22,8 +22,6 @@ import ImageLightbox from './ImageLightbox';
 import { Link as CustomLink } from '../../components/CustomLink';
 import ReviewsCTA from '../../components/ReviewsCTA';
 import { motion } from 'framer-motion';
-import { useFeatureFlag } from '../../hooks/useFeatureFlag';
-import { trackElementClick } from '../../lib/posthog';
 
 // Helper function to create enhanced components for special content patterns
 const createEnhancedComponents = () => {
@@ -169,40 +167,6 @@ const extractKeyTakeaways = (content) => {
   return [];
 };
 
-// Helper function to split content at approximately 60% for mid-content CTA
-const splitContentForMidCTA = (content) => {
-  if (!content || typeof content !== 'string') {
-    return { firstHalf: content || '', secondHalf: '' };
-  }
-
-  const lines = content.split('\n');
-  const targetLine = Math.floor(lines.length * 0.6);
-
-  // Find the nearest heading (##) to split at, starting from target
-  let splitIndex = targetLine;
-  for (let i = targetLine; i < lines.length; i++) {
-    if (lines[i].startsWith('## ')) {
-      splitIndex = i;
-      break;
-    }
-  }
-
-  // If no heading found after target, look before
-  if (splitIndex === targetLine) {
-    for (let i = targetLine - 1; i >= Math.floor(lines.length * 0.4); i--) {
-      if (lines[i].startsWith('## ')) {
-        splitIndex = i;
-        break;
-      }
-    }
-  }
-
-  return {
-    firstHalf: lines.slice(0, splitIndex).join('\n'),
-    secondHalf: lines.slice(splitIndex).join('\n')
-  };
-};
-
 // Helper function to render content based on format
 const renderContent = (post) => {
   // Handle array-based content structure (new posts)
@@ -251,24 +215,11 @@ const NewBlogPost = () => {
   const [keyTakeaways, setKeyTakeaways] = useState([]);
   const contentRef = useRef(null);
 
-  // A/B Test #129: Mid-content CTA in blog posts
-  const midContentCtaVariant = useFeatureFlag('blog-mid-content-cta-v1', 'control');
-
-  // Memoize content splitting to prevent recalculation on every scroll-triggered render
-  const { firstHalf, secondHalf, showMidCta } = useMemo(() => {
-    if (!post?.content) {
-      return { firstHalf: '', secondHalf: '', showMidCta: false };
-    }
-    const showCta = midContentCtaVariant === 'compact-card' || midContentCtaVariant === 'text-cta';
-    const fullContent = renderContent(post);
-
-    if (!showCta) {
-      return { firstHalf: fullContent, secondHalf: '', showMidCta: false };
-    }
-
-    const split = splitContentForMidCTA(fullContent);
-    return { ...split, showMidCta: true };
-  }, [post?.content, midContentCtaVariant]);
+  // Memoize full content rendering
+  const fullContent = useMemo(() => {
+    if (!post?.content) return '';
+    return renderContent(post);
+  }, [post?.content]);
 
   // Extract slug from URL
   const extractSlug = () => {
@@ -917,9 +868,7 @@ const NewBlogPost = () => {
               {/* Main Content - Constrained Width */}
               <div className="max-w-3xl mx-auto">
                 <div ref={contentRef} className="prose prose-lg prose-green max-w-none enhanced-typography">
-                {/* A/B Test #129: Content rendering with optional mid-content CTA */}
                 {(() => {
-                  // Use memoized content split values
                   // Shared components config for ReactMarkdown
                   const markdownComponents = {
                     h1: ({children}) => {
@@ -1375,99 +1324,9 @@ const NewBlogPost = () => {
                   };
 
                   return (
-                    <>
-                      {/* First half of content */}
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                        {firstHalf}
-                      </ReactMarkdown>
-
-                      {/* Mid-Article Related Content (#185) - Show 2 related posts to reduce bounce */}
-                      {secondHalf && relatedPosts.length >= 2 && (
-                        <div className="my-8 not-prose">
-                          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-                            <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                              <span className="text-green-600">📚</span> You might also like
-                            </h4>
-                            <div className="grid sm:grid-cols-2 gap-4">
-                              {relatedPosts.slice(0, 2).map((relatedPost) => (
-                                <CustomLink
-                                  key={relatedPost.slug}
-                                  to={`/never-hungover/${relatedPost.slug}`}
-                                  className="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all group"
-                                  data-track="mid-article-related"
-                                  data-post-slug={relatedPost.slug}
-                                >
-                                  <div className="flex-1 min-w-0">
-                                    <h5 className="font-medium text-gray-900 text-sm line-clamp-2 group-hover:text-green-700 transition-colors">
-                                      {relatedPost.title}
-                                    </h5>
-                                    <p className="text-xs text-gray-500 mt-1">{relatedPost.readTime} min read</p>
-                                  </div>
-                                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-green-600 flex-shrink-0 mt-1" />
-                                </CustomLink>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* A/B Test #129: Mid-Content CTA */}
-                      {showMidCta && secondHalf && (
-                        <div className="my-8 not-prose">
-                          {midContentCtaVariant === 'compact-card' ? (
-                            <div
-                              className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl"
-                              onClick={() => trackElementClick('blog-mid-content-cta', {
-                                variant: midContentCtaVariant,
-                                postSlug: post?.slug,
-                                placement: 'mid-content-60pct'
-                              })}
-                            >
-                              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                                <div>
-                                  <h4 className="font-semibold text-gray-900 text-lg">Ready to try DHM?</h4>
-                                  <p className="text-sm text-gray-600 mt-1">We've independently tested 10+ supplements to find the best.</p>
-                                </div>
-                                <CustomLink
-                                  to="/reviews"
-                                  className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors whitespace-nowrap min-h-[44px]"
-                                >
-                                  See Top Picks
-                                  <ArrowLeft className="w-4 h-4 rotate-180" />
-                                </CustomLink>
-                              </div>
-                            </div>
-                          ) : (
-                            /* text-cta variant */
-                            <div
-                              className="text-center py-6 border-y border-gray-200"
-                              onClick={() => trackElementClick('blog-mid-content-cta', {
-                                variant: midContentCtaVariant,
-                                postSlug: post?.slug,
-                                placement: 'mid-content-60pct'
-                              })}
-                            >
-                              <p className="text-gray-700 mb-3">
-                                <strong>Looking for the best DHM supplement?</strong> We've tested them all.
-                              </p>
-                              <CustomLink
-                                to="/reviews"
-                                className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold underline decoration-2 underline-offset-4"
-                              >
-                                See our top picks →
-                              </CustomLink>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Second half of content */}
-                      {secondHalf && (
-                        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                          {secondHalf}
-                        </ReactMarkdown>
-                      )}
-                    </>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                      {fullContent}
+                    </ReactMarkdown>
                   );
                 })()}
                 </div>
