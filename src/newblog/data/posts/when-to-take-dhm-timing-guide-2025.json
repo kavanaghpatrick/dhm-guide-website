@@ -20,7 +20,11 @@
     "name": "How to Time DHM for Maximum Hangover Prevention",
     "description": "Step-by-step timing guide for taking DHM before, during, and after drinking to achieve optimal hangover prevention results.",
     "totalTime": "PT10M",
-    "supply": ["DHM supplement (300-600mg)", "Water", "Phone timer or reminder app"],
+    "supply": [
+      "DHM supplement (300-600mg)",
+      "Water",
+      "Phone timer or reminder app"
+    ],
     "steps": [
       {
         "name": "Set a reminder 60 minutes before drinking",
@@ -65,5 +69,10 @@
       "question": "What is the best time to take DHM before bed?",
       "answer": "Take DHM within 30 minutes of finishing your last drink, before going to sleep. Combine with 16-24oz of water and electrolytes. This helps with overnight recovery by supporting continued alcohol metabolism during sleep."
     }
+  ],
+  "relatedPosts": [
+    "dhm-dosage-guide-2025",
+    "dhm-randomized-controlled-trials-2024",
+    "alcohol-pharmacokinetics-advanced-absorption-science-2025"
   ]
 }
