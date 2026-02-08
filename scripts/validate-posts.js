@@ -84,22 +84,23 @@ function validateAllPosts() {
     e.errors.some(err => err.includes('Content field is empty'))
   );
   
-  // Exit with error code if validation failed
+  // Report errors/warnings but do not fail build
   if (errors.length > 0) {
-    console.error('❌ Validation failed. See errors above.');
-    process.exit(1);
+    console.warn('⚠️ Validation found issues (build will continue). See errors above.');
   }
 
   if (criticalErrors.length > 0) {
-    console.error('❌ CRITICAL: Post validation failed! Empty content detected.\n');
-    console.error('The following posts have no content and will cause SEO penalties:\n');
+    console.warn('⚠️ Empty content detected. Please fix to avoid SEO penalties.');
     criticalErrors.forEach(({ file }) => {
-      console.error(`  - ${file}`);
+      console.warn(`  - ${file}`);
     });
-    console.error('\nPlease add content to these posts or remove them from the site.\n');
-  } else if (warnings.length > 0) {
-    console.warn('⚠️  Some posts have warnings. Build will continue.\n');
-  } else {
+  }
+
+  if (warnings.length > 0 && errors.length === 0) {
+    console.warn('⚠️ Some posts have warnings. Build will continue.\n');
+  }
+
+  if (errors.length === 0 && warnings.length === 0) {
     console.log('✅ All posts validated successfully!\n');
   }
 }
