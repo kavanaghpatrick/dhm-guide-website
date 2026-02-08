@@ -2,12 +2,12 @@
  * PostHog Analytics Initialization
  *
  * Proxied through /ingest to bypass ad blockers (~40% of tech-savvy users).
- * MAXIMUM DATA COLLECTION configuration for conversion optimization.
+ * Privacy-safe configuration with masking + sampling.
  */
 import posthog from 'posthog-js';
 
-// PostHog configuration - use environment variable or fallback to direct key
-const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
+// Require explicit key from env (no fallback)
+const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
 const POSTHOG_HOST = '/ingest'; // Proxied through Vercel
 
 let initialized = false;
@@ -18,6 +18,12 @@ let initialized = false;
  */
 export function initPostHog() {
   if (initialized || typeof window === 'undefined') return;
+
+  // Require key
+  if (!POSTHOG_KEY) {
+    console.warn('[PostHog] Missing VITE_POSTHOG_KEY - skipping init');
+    return;
+  }
 
   // Don't initialize in development unless explicitly enabled
   if (import.meta.env.DEV && !import.meta.env.VITE_POSTHOG_DEV) {
@@ -30,51 +36,52 @@ export function initPostHog() {
       api_host: POSTHOG_HOST,
       ui_host: 'https://us.posthog.com',
 
-      // ===== AUTO-CAPTURE (Maximum) =====
+      // ===== AUTO-CAPTURE (Masked) =====
       capture_pageview: true,
       capture_pageleave: true,
       autocapture: {
         dom_event_allowlist: ['click', 'change', 'submit', 'focus', 'blur'],
         element_allowlist: ['a', 'button', 'form', 'input', 'select', 'textarea', 'label'],
         css_selector_allowlist: ['[data-track]', '[data-product]', '.cta', '.product-card'],
+        maskTextSelector: 'input, textarea, select, [data-sensitive], [data-mask]'
       },
       capture_dead_clicks: true, // Detect clicks that don't do anything (broken UI)
 
-      // ===== SESSION RECORDING (Full) =====
-      disable_session_recording: false, // ENABLED - watch user sessions
+      // ===== SESSION RECORDING (Sampled + Masked) =====
+      disable_session_recording: false,
       session_recording: {
-        maskAllInputs: false, // Don't mask inputs (no sensitive data on this site)
-        maskTextSelector: null, // Don't mask any text
+        maskAllInputs: true,
+        maskTextSelector: 'input, textarea, select, [data-sensitive], [data-mask]',
         recordCrossOriginIframes: false,
-        // Sample 100% of sessions for now (adjust if volume too high)
+        sample_rate: 0.1 // Record 10% of sessions
       },
 
-      // ===== PERSON PROFILES (Track Everyone) =====
-      person_profiles: 'always', // Create profiles for ALL users, even anonymous
+      // ===== PERSON PROFILES =====
+      person_profiles: 'always',
 
       // ===== HEATMAPS =====
-      enable_heatmaps: true, // Click heatmaps
+      enable_heatmaps: true,
 
-      // ===== WEB VITALS (Performance) =====
-      capture_performance: true, // Core Web Vitals (LCP, FID, CLS)
+      // ===== WEB VITALS =====
+      capture_performance: true,
 
       // ===== EXCEPTION TRACKING =====
-      capture_exceptions: true, // JavaScript errors
+      capture_exceptions: true,
 
       // ===== PERSISTENCE =====
       persistence: 'localStorage+cookie',
       cross_subdomain_cookie: true,
 
-      // ===== SCROLL DEPTH (Built-in) =====
+      // ===== SCROLL DEPTH =====
       scroll_root_selector: ['body', 'main', 'article'],
 
       // ===== PROPERTY COLLECTION =====
-      property_denylist: [], // Collect everything
-      sanitize_properties: null, // No sanitization
+      property_denylist: [],
+      sanitize_properties: null,
 
       // Performance settings
       loaded: (posthog) => {
-        console.log('[PostHog] Loaded with MAXIMUM data collection');
+        console.log('[PostHog] Loaded with privacy-safe config');
         initialized = true;
 
         // Set initial user properties

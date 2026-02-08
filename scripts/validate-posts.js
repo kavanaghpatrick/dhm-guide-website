@@ -84,7 +84,12 @@ function validateAllPosts() {
     e.errors.some(err => err.includes('Content field is empty'))
   );
   
-  // Exit with error code if critical validation failed
+  // Exit with error code if validation failed
+  if (errors.length > 0) {
+    console.error('❌ Validation failed. See errors above.');
+    process.exit(1);
+  }
+
   if (criticalErrors.length > 0) {
     console.error('❌ CRITICAL: Post validation failed! Empty content detected.\n');
     console.error('The following posts have no content and will cause SEO penalties:\n');
@@ -92,14 +97,8 @@ function validateAllPosts() {
       console.error(`  - ${file}`);
     });
     console.error('\nPlease add content to these posts or remove them from the site.\n');
-    
-    // For now, just warn but don't block build - remove this to enforce
-    console.warn('⚠️  WARNING: Continuing build despite empty content posts.\n');
-    console.warn('This WILL cause thin content penalties from Google!\n');
-    // Uncomment the line below to enforce validation
-    // process.exit(1);
-  } else if (errors.length > 0) {
-    console.warn('⚠️  Some posts have non-critical errors. Build will continue.\n');
+  } else if (warnings.length > 0) {
+    console.warn('⚠️  Some posts have warnings. Build will continue.\n');
   } else {
     console.log('✅ All posts validated successfully!\n');
   }
@@ -143,7 +142,12 @@ function validatePost(post, filename) {
   // Validate slug matches filename
   const expectedSlug = filename.replace('.json', '');
   if (post.slug && post.slug !== expectedSlug) {
-    warnings.push(`Slug mismatch: "${post.slug}" doesn't match filename "${expectedSlug}"`);
+    errors.push(`Slug mismatch: "${post.slug}" doesn't match filename "${expectedSlug}"`);
+  }
+  
+  // Image alt text
+  if (post.image && (!post.alt_text || post.alt_text.trim() === '')) {
+    errors.push('Missing alt_text for image');
   }
   
   // Check for duplicate content warning

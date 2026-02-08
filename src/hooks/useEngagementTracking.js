@@ -17,6 +17,9 @@ import { trackEvent } from '../lib/posthog';
 export function useEngagementTracking(options = {}) {
   const { enabled = true } = options;
 
+  // Sample heavy engagement tracking to reduce overhead
+  const shouldTrack = useRef(Math.random() < 0.1); // 10% sampling
+
   const pageLoadTime = useRef(Date.now());
   const activeTime = useRef(0);
   const lastActiveTimestamp = useRef(Date.now());
@@ -29,7 +32,7 @@ export function useEngagementTracking(options = {}) {
 
   // Track time on page milestones
   const checkTimeThresholds = useCallback(() => {
-    if (!enabled) return;
+    if (!enabled || !shouldTrack.current) return;
 
     const totalTime = Math.floor((Date.now() - pageLoadTime.current) / 1000);
 
@@ -49,7 +52,7 @@ export function useEngagementTracking(options = {}) {
 
   // Track rage clicks (3+ clicks in 1 second on same area)
   const detectRageClick = useCallback((event) => {
-    if (!enabled) return;
+    if (!enabled || !shouldTrack.current) return;
 
     const now = Date.now();
     const click = {
@@ -87,7 +90,7 @@ export function useEngagementTracking(options = {}) {
 
   // Track text selection/copy
   const handleCopy = useCallback(() => {
-    if (!enabled) return;
+    if (!enabled || !shouldTrack.current) return;
 
     const selection = window.getSelection();
     const selectedText = selection?.toString().trim();
@@ -103,7 +106,7 @@ export function useEngagementTracking(options = {}) {
 
   // Track tab visibility changes
   const handleVisibilityChange = useCallback(() => {
-    if (!enabled) return;
+    if (!enabled || !shouldTrack.current) return;
 
     const wasVisible = isVisible.current;
     isVisible.current = document.visibilityState === 'visible';
@@ -128,7 +131,7 @@ export function useEngagementTracking(options = {}) {
 
   // Track form field focus (for calculator, etc.)
   const handleFormFocus = useCallback((event) => {
-    if (!enabled) return;
+    if (!enabled || !shouldTrack.current) return;
     if (!['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) return;
 
     trackEvent('form_field_focused', {
@@ -139,7 +142,7 @@ export function useEngagementTracking(options = {}) {
   }, [enabled]);
 
   useEffect(() => {
-    if (!enabled || typeof window === 'undefined') return;
+    if (!enabled || !shouldTrack.current || typeof window === 'undefined') return;
 
     // Reset on mount
     pageLoadTime.current = Date.now();
