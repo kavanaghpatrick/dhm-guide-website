@@ -1970,11 +1970,10 @@ Save this for future reference!
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Try DHM?
+              Ready to Find Your DHM?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Now that you know your optimal dosage, find the perfect DHM supplement 
-              for your needs from our reviewed and tested products.
+              Keep this page pure education. When you’re ready, explore our independent reviews or compare products side-by-side.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -1985,7 +1984,7 @@ Save this for future reference!
                   className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-3 text-lg"
                 >
                   <Link to="/reviews">
-                    Find DHM Supplements
+                    See Top-Rated DHM Supplements
                   </Link>
                 </Button>
               </motion.div>
@@ -1996,10 +1995,13 @@ Save this for future reference!
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-blue-700 px-8 py-3 text-lg"
                 >
-                  <Link to="/guide">Master DHM Science</Link>
+                  <Link to="/compare">Compare Products</Link>
                 </Button>
               </motion.div>
             </div>
+            <p className="text-sm text-white/80 mt-6">
+              As an Amazon Associate, we earn from qualifying purchases. This does not affect our recommendations.
+            </p>
           </motion.div>
         </div>
       </section>
