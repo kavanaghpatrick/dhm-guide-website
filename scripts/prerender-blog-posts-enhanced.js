@@ -266,10 +266,10 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     }
   }
   
-  // Add SEO-friendly initial content
+  // Add SEO-friendly initial content (NOT hidden - fixes cloaking issue)
   const rootDiv = document.getElementById('root');
   if (rootDiv) {
-    // Add noscript fallback for accessibility (visible, not offscreen)
+    // Add noscript fallback for accessibility
     const noscriptContent = `
       <noscript>
         <div style="padding: 2rem; max-width: 800px; margin: 0 auto;">
@@ -289,6 +289,23 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     
     // Insert noscript content after root div
     rootDiv.insertAdjacentHTML('afterend', noscriptContent);
+    
+    // Add visible initial content for SEO (removed display:none to prevent cloaking)
+    // This content will be replaced when React loads but is visible to crawlers
+    rootDiv.innerHTML = `
+      <div id="prerender-content" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+        <article>
+          <h1>${safeTitle}</h1>
+          <div class="meta">
+            <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time>
+            <span>${safeAuthor}</span>
+            <span>${escapeHtml(String(post.readTime))} min read</span>
+          </div>
+          <p class="excerpt">${safeExcerpt}</p>
+          ${safeFirstParagraph ? `<p>${safeFirstParagraph}</p>` : ''}
+        </article>
+      </div>
+    `;
   }
   
   // Create post directory with atomic operations

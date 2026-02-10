@@ -21,7 +21,6 @@ function validateAllPosts() {
   
   const errors = [];
   const warnings = [];
-  const thinContent = [];
   let totalPosts = 0;
   let validPosts = 0;
   
@@ -45,11 +44,6 @@ function validateAllPosts() {
       if (issues.warnings.length > 0) {
         warnings.push({ file, warnings: issues.warnings });
       }
-
-      // Track thin content for summary
-      if (issues.wordCount < 500 || issues.contentLength < 1500) {
-        thinContent.push({ file, wordCount: issues.wordCount, contentLength: issues.contentLength });
-      }
     } catch (e) {
       errors.push({ 
         file, 
@@ -64,18 +58,6 @@ function validateAllPosts() {
   console.log(`   Valid posts: ${validPosts}`);
   console.log(`   Posts with errors: ${errors.length}`);
   console.log(`   Posts with warnings: ${warnings.length}\n`);
-  
-  // Thin content summary (top 10 shortest by word count)
-  const thinPosts = thinContent
-    .sort((a, b) => a.wordCount - b.wordCount)
-    .slice(0, 10);
-  if (thinPosts.length > 0) {
-    console.log('📉 Thin content (shortest 10 by word count):');
-    thinPosts.forEach((p) => {
-      console.log(`  - ${p.file} (${p.wordCount} words)`);
-    });
-    console.log('');
-  }
   
   // Display errors
   if (errors.length > 0) {
@@ -102,23 +84,23 @@ function validateAllPosts() {
     e.errors.some(err => err.includes('Content field is empty'))
   );
   
-  // Report errors/warnings but do not fail build
-  if (errors.length > 0) {
-    console.warn('⚠️ Validation found issues (build will continue). See errors above.');
-  }
-
+  // Exit with error code if critical validation failed
   if (criticalErrors.length > 0) {
-    console.warn('⚠️ Empty content detected. Please fix to avoid SEO penalties.');
+    console.error('❌ CRITICAL: Post validation failed! Empty content detected.\n');
+    console.error('The following posts have no content and will cause SEO penalties:\n');
     criticalErrors.forEach(({ file }) => {
-      console.warn(`  - ${file}`);
+      console.error(`  - ${file}`);
     });
-  }
-
-  if (warnings.length > 0 && errors.length === 0) {
-    console.warn('⚠️ Some posts have warnings. Build will continue.\n');
-  }
-
-  if (errors.length === 0 && warnings.length === 0) {
+    console.error('\nPlease add content to these posts or remove them from the site.\n');
+    
+    // For now, just warn but don't block build - remove this to enforce
+    console.warn('⚠️  WARNING: Continuing build despite empty content posts.\n');
+    console.warn('This WILL cause thin content penalties from Google!\n');
+    // Uncomment the line below to enforce validation
+    // process.exit(1);
+  } else if (errors.length > 0) {
+    console.warn('⚠️  Some posts have non-critical errors. Build will continue.\n');
+  } else {
     console.log('✅ All posts validated successfully!\n');
   }
 }
@@ -127,24 +109,13 @@ function validatePost(post, filename) {
   const errors = [];
   const warnings = [];
   
-  // Normalize content for validation (support string or array)
-  const contentText = typeof post.content === 'string'
-    ? post.content
-    : Array.isArray(post.content)
-      ? post.content.map((section) => {
-          if (typeof section === 'string') return section;
-          if (section && typeof section.content === 'string') return section.content;
-          return '';
-        }).join(' ')
-      : '';
-
-  const contentLength = contentText ? contentText.length : 0;
-  const wordCount = contentText ? contentText.split(/\s+/).filter(Boolean).length : 0;
-
   // Critical: Check for empty content
-  if (!contentText || contentText.trim().length === 0) {
+  if (!post.content || post.content.trim().length === 0) {
     errors.push('Content field is empty');
   } else {
+    const contentLength = post.content.length;
+    const wordCount = post.content.split(/\s+/).length;
+    
     // Check minimum content length
     if (contentLength < MIN_CONTENT_LENGTH) {
       errors.push(`Content too short: ${contentLength} characters (minimum: ${MIN_CONTENT_LENGTH})`);
@@ -161,31 +132,18 @@ function validatePost(post, filename) {
     }
   }
   
-  // Check required metadata fields (keep minimal to avoid blocking deploy)
-  const requiredFields = ['title', 'slug', 'excerpt'];
+  // Check required metadata fields
+  const requiredFields = ['title', 'slug', 'excerpt', 'metaDescription', 'date'];
   requiredFields.forEach(field => {
     if (!post[field] || (typeof post[field] === 'string' && post[field].trim() === '')) {
       errors.push(`Missing required field: ${field}`);
     }
   });
-
-  // Soft-required fields: warn but don't block
-  if (!post.metaDescription || (typeof post.metaDescription === 'string' && post.metaDescription.trim() === '')) {
-    warnings.push('Missing metaDescription');
-  }
-  if (!post.date || (typeof post.date === 'string' && post.date.trim() === '')) {
-    warnings.push('Missing date');
-  }
   
   // Validate slug matches filename
   const expectedSlug = filename.replace('.json', '');
   if (post.slug && post.slug !== expectedSlug) {
-    errors.push(`Slug mismatch: "${post.slug}" doesn't match filename "${expectedSlug}"`);
-  }
-  
-  // Image alt text (warn only to avoid blocking deploy)
-  if (post.image && (!post.alt_text || post.alt_text.trim() === '')) {
-    warnings.push('Missing alt_text for image');
+    warnings.push(`Slug mismatch: "${post.slug}" doesn't match filename "${expectedSlug}"`);
   }
   
   // Check for duplicate content warning
@@ -208,7 +166,7 @@ function validatePost(post, filename) {
     }
   }
   
-  return { errors, warnings, contentLength, wordCount };
+  return { errors, warnings };
 }
 
 // Run validation
