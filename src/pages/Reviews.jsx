@@ -50,6 +50,10 @@ export default function Reviews() {
   // A/B Test #255: Scarcity badges - time urgency on product cards
   const scarcityVariant = useFeatureFlag('scarcity-badges-v1', 'control')
 
+  // A/B Test #258: Make product card badges and trust signals clickable
+  const clickableCardsVariant = useFeatureFlag('reviews-clickable-cards-v1', 'control')
+  const isClickableCards = clickableCardsVariant === 'test'
+
   // A/B Test #139: Sticky Recommendation Bar - KEEPING this test
   const stickyBarVariant = useFeatureFlag('sticky-recommendation-bar-v1', 'control')
   const [showStickyBar, setShowStickyBar] = useState(false)
@@ -777,9 +781,25 @@ export default function Reviews() {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-2xl font-bold text-gray-400">#{index + 1}</span>
-                          <Badge className={getBadgeColor(product.badgeColor)}>
-                            {product.badge}
-                          </Badge>
+                          {isClickableCards ? (
+                            <a
+                              href={product.affiliateLink}
+                              target="_blank"
+                              rel="nofollow sponsored noopener noreferrer"
+                              data-placement="product_card_badge"
+                              data-product-name={product.name}
+                              aria-label={`${product.badge} - ${product.name} on Amazon`}
+                              className="inline-flex"
+                            >
+                              <Badge className={`${getBadgeColor(product.badgeColor)} hover:opacity-80 transition-opacity cursor-pointer`}>
+                                {product.badge}
+                              </Badge>
+                            </a>
+                          ) : (
+                            <Badge className={getBadgeColor(product.badgeColor)}>
+                              {product.badge}
+                            </Badge>
+                          )}
                           {/* A/B Test #255: scarcity-badges-v1 time-urgency variant */}
                           {scarcityVariant === 'time-urgency' && product.reviews > 100 && (
                             <span className="text-xs text-orange-600 font-medium">
@@ -951,16 +971,36 @@ export default function Reviews() {
                       </Button>
                     </div>
                     {/* Trust Signals Near CTA */}
-                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2">
-                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
-                      <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
-                      {product.monthlyBuyers && (
-                        <>
-                          <span aria-hidden="true">•</span>
-                          <span>{product.monthlyBuyers} monthly buyers</span>
-                        </>
-                      )}
-                    </div>
+                    {isClickableCards ? (
+                      <a
+                        href={product.affiliateLink}
+                        target="_blank"
+                        rel="nofollow sponsored noopener noreferrer"
+                        data-placement="product_card_trust"
+                        data-product-name={product.name}
+                        className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2 hover:text-green-700 transition-colors"
+                      >
+                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
+                        {product.monthlyBuyers && (
+                          <>
+                            <span aria-hidden="true">•</span>
+                            <span>{product.monthlyBuyers} monthly buyers</span>
+                          </>
+                        )}
+                      </a>
+                    ) : (
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2">
+                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
+                        {product.monthlyBuyers && (
+                          <>
+                            <span aria-hidden="true">•</span>
+                            <span>{product.monthlyBuyers} monthly buyers</span>
+                          </>
+                        )}
+                      </div>
+                    )}
                     <p className="text-xs text-gray-600 mt-1 text-center">
                       As an Amazon Associate I earn from qualifying purchases
                     </p>
