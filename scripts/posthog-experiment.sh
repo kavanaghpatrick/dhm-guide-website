@@ -4,11 +4,11 @@
 
 set -e
 
-API_KEY="${POSTHOG_PERSONAL_API_KEY}"
+API_KEY="${POSTHOG_PERSONAL_API_KEY:-$POSTHOG_API_KEY}"
 BASE_URL="https://us.posthog.com"
 
 if [ -z "$API_KEY" ]; then
-  echo "Error: POSTHOG_PERSONAL_API_KEY not set"
+  echo "Error: Set POSTHOG_PERSONAL_API_KEY or POSTHOG_API_KEY"
   exit 1
 fi
 
@@ -319,6 +319,81 @@ else:
 PYEOF
     ;;
 
+  # Reset all experiment flags to 100% control
+  # Usage: ./posthog-experiment.sh reset-all
+  reset-all)
+    echo "Resetting all experiment flags to 100% control..."
+    echo ""
+
+    # Get all feature flags
+    FLAGS=$(curl -s -H "Authorization: Bearer $API_KEY" \
+      "$BASE_URL/api/projects/$PROJECT_ID/feature_flags/?limit=100" | \
+      jq -r '.results[] | select(.filters.multivariate != null) | "\(.id) \(.key)"')
+
+    if [ -z "$FLAGS" ]; then
+      echo "No multivariate flags found."
+      exit 0
+    fi
+
+    echo "$FLAGS" | while read FLAG_ID FLAG_KEY; do
+      echo "  Setting $FLAG_KEY (id:$FLAG_ID) -> 100% control"
+      curl -s -X PATCH "$BASE_URL/api/projects/$PROJECT_ID/feature_flags/$FLAG_ID/" \
+        -H "Authorization: Bearer $API_KEY" \
+        -H "Content-Type: application/json" \
+        -d '{"filters":{"groups":[{"properties":[],"rollout_percentage":100}],"multivariate":{"variants":[{"key":"control","rollout_percentage":100}]}}}' > /dev/null
+    done
+
+    echo ""
+    echo "All flags reset to 100% control."
+    ;;
+
+  # Activate a single flag for 50/50 testing
+  # Usage: ./posthog-experiment.sh activate <flag-key> <variant-name>
+  activate)
+    FLAG_KEY="$2"
+    VARIANT_NAME="${3:-test}"
+
+    if [ -z "$FLAG_KEY" ]; then
+      echo "Usage: ./posthog-experiment.sh activate <flag-key> [variant-name]"
+      echo ""
+      echo "Example: ./posthog-experiment.sh activate mobile-sticky-cta-v1 sticky-bar"
+      exit 1
+    fi
+
+    # Find the flag ID by key
+    FLAG_ID=$(curl -s -H "Authorization: Bearer $API_KEY" \
+      "$BASE_URL/api/projects/$PROJECT_ID/feature_flags/?limit=100" | \
+      jq -r ".results[] | select(.key == \"$FLAG_KEY\") | .id")
+
+    if [ -z "$FLAG_ID" ] || [ "$FLAG_ID" = "null" ]; then
+      echo "Error: Flag '$FLAG_KEY' not found"
+      exit 1
+    fi
+
+    echo "Activating $FLAG_KEY (id:$FLAG_ID) -> 50% control / 50% $VARIANT_NAME"
+
+    curl -s -X PATCH "$BASE_URL/api/projects/$PROJECT_ID/feature_flags/$FLAG_ID/" \
+      -H "Authorization: Bearer $API_KEY" \
+      -H "Content-Type: application/json" \
+      -d "$(cat <<EOF
+{
+  "filters": {
+    "groups": [{"properties": [], "rollout_percentage": 100}],
+    "multivariate": {
+      "variants": [
+        {"key": "control", "rollout_percentage": 50},
+        {"key": "$VARIANT_NAME", "rollout_percentage": 50}
+      ]
+    }
+  }
+}
+EOF
+)" | jq '{id, key, filters}'
+
+    echo ""
+    echo "Flag $FLAG_KEY is now 50/50 (control vs $VARIANT_NAME)"
+    ;;
+
   *)
     echo "PostHog Experiments API"
     echo ""
@@ -337,6 +412,8 @@ PYEOF
     echo "  stop <id>                         Stop experiment"
     echo "  split <id> <ctrl%> <test%>        Update traffic split"
     echo "  delete <id>                       Delete experiment"
+    echo "  reset-all                         Set ALL flags to 100% control"
+    echo "  activate <flag> [variant]         Set flag to 50/50 split"
     echo ""
     echo "Examples:"
     echo "  ./posthog-experiment.sh pageviews /reviews 7"

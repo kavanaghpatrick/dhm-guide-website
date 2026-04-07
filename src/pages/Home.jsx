@@ -38,6 +38,8 @@ import {
   Award
 } from 'lucide-react'
 import { useFunnelTracking } from '../hooks/useFunnelTracking'
+import { useFeatureFlag } from '../hooks/useFeatureFlag'
+import { trackElementClick } from '../lib/posthog'
 
 export default function Home() {
   // SEO optimization for homepage
@@ -45,6 +47,11 @@ export default function Home() {
 
   // Conversion funnel tracking
   const { trackStep } = useFunnelTracking();
+
+  // A/B Test #255: Homepage mobile CTA - simple single button vs dual buttons
+  const homepageCtaVariant = useFeatureFlag('homepage-mobile-cta-v1', 'control')
+  // A/B Test #255: Scarcity badges - time urgency on product cards
+  const scarcityVariant = useFeatureFlag('scarcity-badges-v1', 'control')
 
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 300], [0, -50])
@@ -198,30 +205,50 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                  data-track="cta"
-                  data-cta-text="Stop Your Next Hangover"
-                  data-cta-destination="/guide"
-                >
-                  <Link to="/guide">
-                    🚀 Stop Your Next Hangover
-                    <ArrowRight className="ml-3 w-6 h-6" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-10 py-5 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
-                  data-track="cta"
-                  data-cta-text="Find Best Supplements"
-                  data-cta-destination="/reviews"
-                >
-                  <Link to="/reviews">🛡️ Find Best Supplements</Link>
-                </Button>
+                {/* A/B Test #255: simple-cta variant shows single focused CTA on mobile */}
+                {homepageCtaVariant === 'simple-cta' ? (
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                    data-track="cta"
+                    data-cta-text="See Top DHM Picks"
+                    data-cta-destination="/reviews"
+                    data-cta-variant="simple-cta"
+                  >
+                    <Link to="/reviews">
+                      See Top DHM Picks
+                      <ArrowRight className="ml-3 w-6 h-6" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      asChild
+                      size="lg"
+                      className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-10 py-5 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                      data-track="cta"
+                      data-cta-text="Stop Your Next Hangover"
+                      data-cta-destination="/guide"
+                    >
+                      <Link to="/guide">
+                        🚀 Stop Your Next Hangover
+                        <ArrowRight className="ml-3 w-6 h-6" />
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="border-2 border-green-700 text-green-700 hover:bg-green-50 px-10 py-5 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                      data-track="cta"
+                      data-cta-text="Find Best Supplements"
+                      data-cta-destination="/reviews"
+                    >
+                      <Link to="/reviews">🛡️ Find Best Supplements</Link>
+                    </Button>
+                  </>
+                )}
               </div>
 
             </div>
@@ -802,7 +829,15 @@ export default function Home() {
                 <Card className="h-full bg-white border-green-100 hover:shadow-lg transition-all duration-300">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <Badge className="bg-green-100 text-green-800">{product.badge}</Badge>
+                      <div>
+                        <Badge className="bg-green-100 text-green-800">{product.badge}</Badge>
+                        {/* A/B Test #255: scarcity-badges-v1 time-urgency variant */}
+                        {scarcityVariant === 'time-urgency' && (
+                          <p className="text-xs text-orange-600 font-medium mt-1">
+                            {index === 0 ? '1K+ bought this month' : index === 1 ? '2K+ bought monthly' : 'Trending now'}
+                          </p>
+                        )}
+                      </div>
                       <div className="flex items-center space-x-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                         <span className="text-sm font-medium">{product.rating}</span>
