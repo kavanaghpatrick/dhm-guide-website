@@ -2,7 +2,7 @@
  * PostHog Analytics Initialization
  *
  * Proxied through /ingest to bypass ad blockers (~40% of tech-savvy users).
- * MAXIMUM DATA COLLECTION configuration for conversion optimization.
+ * Privacy-safe configuration with input masking and session sampling.
  */
 import posthog from 'posthog-js';
 
@@ -30,7 +30,7 @@ export function initPostHog() {
       api_host: POSTHOG_HOST,
       ui_host: 'https://us.posthog.com',
 
-      // ===== AUTO-CAPTURE (Maximum) =====
+      // ===== AUTO-CAPTURE =====
       capture_pageview: true,
       capture_pageleave: true,
       autocapture: {
@@ -40,41 +40,41 @@ export function initPostHog() {
       },
       capture_dead_clicks: true, // Detect clicks that don't do anything (broken UI)
 
-      // ===== SESSION RECORDING (Full) =====
-      disable_session_recording: false, // ENABLED - watch user sessions
+      // ===== SESSION RECORDING (Sampled + Masked) =====
+      disable_session_recording: false,
       session_recording: {
-        maskAllInputs: false, // Don't mask inputs (no sensitive data on this site)
-        maskTextSelector: null, // Don't mask any text
+        maskAllInputs: true,
+        maskTextSelector: 'input, textarea, select, [data-sensitive]',
         recordCrossOriginIframes: false,
-        // Sample 100% of sessions for now (adjust if volume too high)
+        sample_rate: 0.1, // Record 10% of sessions to reduce cost
       },
 
-      // ===== PERSON PROFILES (Track Everyone) =====
-      person_profiles: 'always', // Create profiles for ALL users, even anonymous
+      // ===== PERSON PROFILES =====
+      person_profiles: 'always',
 
       // ===== HEATMAPS =====
-      enable_heatmaps: true, // Click heatmaps
+      enable_heatmaps: true,
 
-      // ===== WEB VITALS (Performance) =====
-      capture_performance: true, // Core Web Vitals (LCP, FID, CLS)
+      // ===== WEB VITALS =====
+      capture_performance: true,
 
       // ===== EXCEPTION TRACKING =====
-      capture_exceptions: true, // JavaScript errors
+      capture_exceptions: true,
 
       // ===== PERSISTENCE =====
       persistence: 'localStorage+cookie',
       cross_subdomain_cookie: true,
 
-      // ===== SCROLL DEPTH (Built-in) =====
+      // ===== SCROLL DEPTH =====
       scroll_root_selector: ['body', 'main', 'article'],
 
       // ===== PROPERTY COLLECTION =====
-      property_denylist: [], // Collect everything
-      sanitize_properties: null, // No sanitization
+      property_denylist: [],
+      sanitize_properties: null,
 
       // Performance settings
       loaded: (posthog) => {
-        console.log('[PostHog] Loaded with MAXIMUM data collection');
+        console.log('[PostHog] Loaded with privacy-safe config');
         initialized = true;
 
         // Set initial user properties

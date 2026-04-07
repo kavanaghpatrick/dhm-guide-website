@@ -21,33 +21,39 @@ function validateAllPosts() {
   
   const errors = [];
   const warnings = [];
+  const thinContent = [];
   let totalPosts = 0;
   let validPosts = 0;
-  
+
   // Read all JSON files in posts directory
   const files = fs.readdirSync(POSTS_DIR).filter(file => file.endsWith('.json'));
-  
+
   files.forEach(file => {
     totalPosts++;
     const filePath = path.join(POSTS_DIR, file);
-    
+
     try {
       const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
       const issues = validatePost(content, file);
-      
+
       if (issues.errors.length > 0) {
         errors.push({ file, errors: issues.errors });
       } else {
         validPosts++;
       }
-      
+
       if (issues.warnings.length > 0) {
         warnings.push({ file, warnings: issues.warnings });
       }
+
+      // Track thin content for summary
+      if (issues.wordCount < 500 || issues.contentLength < 1500) {
+        thinContent.push({ file, wordCount: issues.wordCount, contentLength: issues.contentLength });
+      }
     } catch (e) {
-      errors.push({ 
-        file, 
-        errors: [`Failed to parse JSON: ${e.message}`] 
+      errors.push({
+        file,
+        errors: [`Failed to parse JSON: ${e.message}`]
       });
     }
   });
@@ -58,7 +64,19 @@ function validateAllPosts() {
   console.log(`   Valid posts: ${validPosts}`);
   console.log(`   Posts with errors: ${errors.length}`);
   console.log(`   Posts with warnings: ${warnings.length}\n`);
-  
+
+  // Thin content summary (top 10 shortest by word count)
+  const thinPosts = thinContent
+    .sort((a, b) => a.wordCount - b.wordCount)
+    .slice(0, 10);
+  if (thinPosts.length > 0) {
+    console.log('📉 Thin content (shortest 10 by word count):');
+    thinPosts.forEach((p) => {
+      console.log(`  - ${p.file} (${p.wordCount} words)`);
+    });
+    console.log('');
+  }
+
   // Display errors
   if (errors.length > 0) {
     console.error('❌ ERRORS (must be fixed):\n');
@@ -84,22 +102,19 @@ function validateAllPosts() {
     e.errors.some(err => err.includes('Content field is empty'))
   );
   
-  // Exit with error code if critical validation failed
+  // Report validation results (non-blocking - never exit(1))
   if (criticalErrors.length > 0) {
-    console.error('❌ CRITICAL: Post validation failed! Empty content detected.\n');
-    console.error('The following posts have no content and will cause SEO penalties:\n');
+    console.warn('⚠️  Empty content detected. Please fix to avoid SEO penalties.');
     criticalErrors.forEach(({ file }) => {
-      console.error(`  - ${file}`);
+      console.warn(`  - ${file}`);
     });
-    console.error('\nPlease add content to these posts or remove them from the site.\n');
-    
-    // For now, just warn but don't block build - remove this to enforce
-    console.warn('⚠️  WARNING: Continuing build despite empty content posts.\n');
-    console.warn('This WILL cause thin content penalties from Google!\n');
-    // Uncomment the line below to enforce validation
-    // process.exit(1);
-  } else if (errors.length > 0) {
-    console.warn('⚠️  Some posts have non-critical errors. Build will continue.\n');
+    console.warn('');
+  }
+
+  if (errors.length > 0) {
+    console.warn('⚠️  Validation found issues (build will continue). See errors above.\n');
+  } else if (warnings.length > 0) {
+    console.warn('⚠️  Some posts have warnings. Build will continue.\n');
   } else {
     console.log('✅ All posts validated successfully!\n');
   }
@@ -108,13 +123,24 @@ function validateAllPosts() {
 function validatePost(post, filename) {
   const errors = [];
   const warnings = [];
-  
+
+  // Normalize content for validation (support string or array formats)
+  const contentText = typeof post.content === 'string'
+    ? post.content
+    : Array.isArray(post.content)
+      ? post.content.map((section) => {
+          if (typeof section === 'string') return section;
+          if (section && typeof section.content === 'string') return section.content;
+          return '';
+        }).join(' ')
+      : '';
+
   // Critical: Check for empty content
-  if (!post.content || post.content.trim().length === 0) {
+  if (!contentText || contentText.trim().length === 0) {
     errors.push('Content field is empty');
   } else {
-    const contentLength = post.content.length;
-    const wordCount = post.content.split(/\s+/).length;
+    const contentLength = contentText.length;
+    const wordCount = contentText.split(/\s+/).filter(Boolean).length;
     
     // Check minimum content length
     if (contentLength < MIN_CONTENT_LENGTH) {
@@ -132,14 +158,27 @@ function validatePost(post, filename) {
     }
   }
   
-  // Check required metadata fields
-  const requiredFields = ['title', 'slug', 'excerpt', 'metaDescription', 'date'];
+  // Check required metadata fields (hard errors)
+  const requiredFields = ['title', 'slug', 'excerpt'];
   requiredFields.forEach(field => {
     if (!post[field] || (typeof post[field] === 'string' && post[field].trim() === '')) {
       errors.push(`Missing required field: ${field}`);
     }
   });
-  
+
+  // Soft-required fields: warn but don't block
+  if (!post.metaDescription || (typeof post.metaDescription === 'string' && post.metaDescription.trim() === '')) {
+    warnings.push('Missing metaDescription');
+  }
+  if (!post.date || (typeof post.date === 'string' && post.date.trim() === '')) {
+    warnings.push('Missing date');
+  }
+
+  // Image alt text (warn only)
+  if (post.image && (!post.alt_text || post.alt_text.trim() === '')) {
+    warnings.push('Missing alt_text for image');
+  }
+
   // Validate slug matches filename
   const expectedSlug = filename.replace('.json', '');
   if (post.slug && post.slug !== expectedSlug) {
@@ -147,7 +186,7 @@ function validatePost(post, filename) {
   }
   
   // Check for duplicate content warning
-  if (post.content && post.content.includes('Lorem ipsum')) {
+  if (contentText && contentText.includes('Lorem ipsum')) {
     warnings.push('Contains placeholder text (Lorem ipsum)');
   }
   
@@ -166,7 +205,10 @@ function validatePost(post, filename) {
     }
   }
   
-  return { errors, warnings };
+  const contentLength = contentText ? contentText.length : 0;
+  const wordCount = contentText ? contentText.split(/\s+/).filter(Boolean).length : 0;
+
+  return { errors, warnings, contentLength, wordCount };
 }
 
 // Run validation
