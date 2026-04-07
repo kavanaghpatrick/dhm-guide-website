@@ -47,6 +47,9 @@ export default function Reviews() {
   // Button Colors: Hardcoded to orange gradient (control)
   const buttonColorClasses = 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
 
+  // A/B Test #255: Scarcity badges - time urgency on product cards
+  const scarcityVariant = useFeatureFlag('scarcity-badges-v1', 'control')
+
   // A/B Test #139: Sticky Recommendation Bar - KEEPING this test
   const stickyBarVariant = useFeatureFlag('sticky-recommendation-bar-v1', 'control')
   const [showStickyBar, setShowStickyBar] = useState(false)
@@ -777,6 +780,12 @@ export default function Reviews() {
                           <Badge className={getBadgeColor(product.badgeColor)}>
                             {product.badge}
                           </Badge>
+                          {/* A/B Test #255: scarcity-badges-v1 time-urgency variant */}
+                          {scarcityVariant === 'time-urgency' && product.reviews > 100 && (
+                            <span className="text-xs text-orange-600 font-medium">
+                              {product.reviews > 500 ? `${Math.round(product.reviews / 10)}+ bought this month` : 'Selling fast'}
+                            </span>
+                          )}
                         </div>
                         <a
                           href={product.affiliateLink}
