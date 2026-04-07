@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from './CustomLink.jsx';
 import { ArrowRight, Star, Shield, Award } from 'lucide-react';
+import { trackElementClick } from '../lib/posthog';
 
 /**
  * ReviewsCTA - Conversion component to drive traffic from blog posts to /reviews
@@ -9,8 +10,25 @@ import { ArrowRight, Star, Shield, Award } from 'lucide-react';
  * - 88.6% of blog posts have no /reviews link
  * - In-content CTAs have 121% higher CTR than sidebar
  * - Soft CTAs ("See Our Top Picks") outperform "Buy Now"
+ *
+ * Props:
+ * - variant: 'default' | 'compact' (visual style)
+ * - placement: string (tracking context, e.g. 'end_of_post_cta')
+ * - postSlug: string (current post slug for tracking)
+ * - experiment: string (experiment name for tracking)
  */
-export default function ReviewsCTA({ variant = 'default' }) {
+export default function ReviewsCTA({ variant = 'default', placement, postSlug, experiment }) {
+  const handleClick = () => {
+    if (placement) {
+      trackElementClick('cta', {
+        placement,
+        destination: '/reviews',
+        ...(experiment && { experiment }),
+        ...(postSlug && { post_slug: postSlug }),
+      });
+    }
+  };
+
   if (variant === 'compact') {
     return (
       <div className="my-8 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg">
@@ -21,6 +39,8 @@ export default function ReviewsCTA({ variant = 'default' }) {
           </div>
           <Link
             to="/reviews"
+            data-track="cta"
+            onClick={handleClick}
             className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors whitespace-nowrap min-h-[44px]"
           >
             See Top Picks
@@ -30,6 +50,11 @@ export default function ReviewsCTA({ variant = 'default' }) {
       </div>
     );
   }
+
+  // Experiment-specific CTA text for end-of-post placement
+  const ctaText = placement === 'end_of_post_cta'
+    ? 'See Our Top-Rated DHM Supplements'
+    : 'Compare DHM Products';
 
   return (
     <div className="my-10 p-6 md:p-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border border-green-200 rounded-2xl shadow-sm">
@@ -64,9 +89,11 @@ export default function ReviewsCTA({ variant = 'default' }) {
 
           <Link
             to="/reviews"
+            data-track="cta"
+            onClick={handleClick}
             className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg min-h-[48px]"
           >
-            Compare DHM Products
+            {ctaText}
             <ArrowRight className="w-5 h-5" />
           </Link>
 
