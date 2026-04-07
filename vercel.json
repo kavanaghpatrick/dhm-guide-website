@@ -24,6 +24,11 @@
       "permanent": true
     },
     {
+      "source": "/never-hangover/:path*",
+      "destination": "/never-hungover/:path*",
+      "permanent": true
+    },
+    {
       "source": "/never-hungover/quantum-health-monitoring-alcohol-guide-2025",
       "destination": "/never-hungover",
       "permanent": true
