@@ -827,7 +827,7 @@ export default function Home() {
                       asChild
                       className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                     >
-                      <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center">
+                      <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-placement="home_product_card" data-product-name={product.name} className="flex items-center justify-center">
                         <span>Check Price on Amazon</span>
                         <span className="ml-2 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
                           Free Shipping

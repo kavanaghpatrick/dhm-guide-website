@@ -797,7 +797,7 @@ export default function Compare() {
                                 asChild
                                 className="bg-orange-500 hover:bg-orange-600 text-white w-full min-h-[48px]"
                               >
-                                <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center gap-2 px-3">
+                                <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-placement="compare_table" data-product-name={product.name} className="flex items-center justify-center gap-2 px-3">
                                   <span>Check Price on Amazon</span>
                                   <span className="px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full whitespace-nowrap">
                                     Free Shipping
@@ -1000,7 +1000,7 @@ export default function Compare() {
                                 size="lg"
                                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white w-full shadow-lg hover:shadow-xl transition-all duration-200 min-h-[48px]"
                               >
-                                <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" className="flex items-center justify-center gap-2 px-4">
+                                <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-placement="compare_table" data-product-name={product.name} className="flex items-center justify-center gap-2 px-4">
                                   <span className="flex items-center">Check Price on Amazon</span>
                                   <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                                     Free Shipping
@@ -1053,6 +1053,8 @@ export default function Compare() {
                       href={getWinner('effectiveness')?.affiliateLink}
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
+                      data-placement="compare_table"
+                      data-product-name={getWinner('effectiveness')?.name}
                       className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                     >
                       Check Price on Amazon <ExternalLink className="w-4 h-4" />
@@ -1070,6 +1072,8 @@ export default function Compare() {
                       href={getWinner('dhmPerDollar')?.affiliateLink}
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
+                      data-placement="compare_table"
+                      data-product-name={getWinner('dhmPerDollar')?.name}
                       className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                     >
                       Check Price on Amazon <ExternalLink className="w-4 h-4" />
@@ -1087,6 +1091,8 @@ export default function Compare() {
                       href={getWinner('reviews')?.affiliateLink}
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
+                      data-placement="compare_table"
+                      data-product-name={getWinner('reviews')?.name}
                       className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                     >
                       Check Price on Amazon <ExternalLink className="w-4 h-4" />
