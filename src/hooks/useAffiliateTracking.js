@@ -43,8 +43,8 @@ const detectPlacement = (link) => {
   // Check data attributes
   if (link.dataset.placement) return link.dataset.placement;
 
-  // Default to content
-  return 'content';
+  // Default to unknown so untagged links are visible in analytics
+  return 'unknown_placement';
 };
 
 /**

@@ -508,6 +508,8 @@ export default function Reviews() {
                 href={topProducts[0].affiliateLink}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
+                data-placement="hero"
+                data-product-name={topProducts[0].name}
                 onClick={() => trackElementClick('quick-pick-cta', {
                   product_name: topProducts[0].name,
                   placement: 'above-fold-quick-pick',
@@ -563,6 +565,8 @@ export default function Reviews() {
                 href={topProducts[0].affiliateLink}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
+                data-placement="hero"
+                data-product-name={topProducts[0].name}
                 onClick={() => trackElementClick('hero-product-card', {
                   product_name: topProducts[0].name,
                   placement: 'above-fold-hero',
@@ -664,6 +668,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="block hover:text-green-700 transition-colors"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                         >
                           <div className="font-semibold text-gray-900 hover:text-green-700 hover:underline">{product.name}</div>
@@ -677,6 +682,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="font-semibold text-gray-900 hover:text-green-700 hover:underline"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                         >
                           {product.price}
@@ -688,6 +694,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="text-gray-700 hover:text-green-700 hover:underline"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                         >
                           {product.pricePerServing}
@@ -699,6 +706,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="flex items-center justify-center space-x-1 hover:text-green-700"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                         >
                           <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -712,6 +720,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="font-bold text-green-700 hover:text-green-800 hover:underline"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                         >
                           {product.score}/10
@@ -722,6 +731,7 @@ export default function Reviews() {
                           href={product.affiliateLink}
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
+                          data-placement="comparison_table"
                           data-product-name={product.name}
                           data-ratings-version="2026-01-01"
                           className={tableCtaClasses}
@@ -773,6 +783,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="block"
+                          data-placement="product_card"
                           data-product-name={product.name}
                         >
                           <CardTitle className="text-2xl text-gray-900 mb-2 hover:text-green-700 hover:underline transition-colors">{product.name}</CardTitle>
@@ -785,6 +796,7 @@ export default function Reviews() {
                             target="_blank"
                             rel="nofollow sponsored noopener noreferrer"
                             className="flex items-center space-x-1 hover:text-green-700 transition-colors"
+                            data-placement="product_card"
                             data-product-name={product.name}
                           >
                             <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -803,6 +815,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="block"
+                          data-placement="product_card"
                           data-product-name={product.name}
                         >
                           <div className="text-3xl font-bold text-green-700 mb-1 hover:text-green-800 hover:underline transition-colors">{product.price}</div>
@@ -881,6 +894,7 @@ export default function Reviews() {
                           target="_blank"
                           rel="nofollow sponsored noopener noreferrer"
                           className="mt-4 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg block transition-colors group"
+                          data-placement="product_card"
                           data-product-name={product.name}
                         >
                           <h5 className="font-medium text-blue-800 mb-2 group-hover:text-blue-900">Best For:</h5>
@@ -895,7 +909,7 @@ export default function Reviews() {
                         size="lg"
                         className={`${buttonColorClasses} text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]`}
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
+                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-placement="product_card" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
                           <span className="flex items-center">{getCtaCopy()}</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
@@ -1087,6 +1101,8 @@ export default function Reviews() {
               href={topProducts[0].affiliateLink}
               target="_blank"
               rel="nofollow sponsored noopener noreferrer"
+              data-placement="sticky_bar"
+              data-product-name={topProducts[0].name}
               onClick={() => trackElementClick('sticky-recommendation-bar', {
                 product_name: topProducts[0].name,
                 price: topProducts[0].price

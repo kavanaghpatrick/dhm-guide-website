@@ -180,6 +180,8 @@ export default function MobileComparisonWidget({
                       href={selectedProducts[0].affiliateLink}
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
+                      data-placement="comparison_widget"
+                      data-product-name={selectedProducts[0].brand}
                       className="flex items-center justify-center"
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
