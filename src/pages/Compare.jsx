@@ -259,7 +259,7 @@ export default function Compare() {
     {
       id: 8,
       name: "DHM1000",
-      brand: "Double Wood Supplements",
+      brand: "Dycetin",
       image: "/dhm1000-review-hero.webp",
       rating: 4.3,
       reviews: 496,

@@ -20,20 +20,8 @@ import { usePageTracking } from '../../hooks/usePageTracking';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
 import { Link as CustomLink } from '../../components/CustomLink';
-import ReviewsCTA from '../../components/ReviewsCTA';
-import { useFeatureFlag } from '../../hooks/useFeatureFlag';
 import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
-
-// Target slugs for content-to-reviews CTA experiment (#259)
-// 5 high-traffic posts with zero affiliate clicks (915 PV / 90 days)
-const REVIEWS_CTA_TARGET_SLUGS = [
-  'hangover-supplements-complete-guide-what-actually-works-2025',
-  'dhm-randomized-controlled-trials-2024',
-  'dhm-vs-zbiotics',
-  'when-to-take-dhm-timing-guide-2025',
-  'nac-vs-dhm-which-antioxidant-better-liver-protection-2025',
-];
 
 // Slugs whose markdown bodies already contain in-content /reviews CTAs.
 // Skip the auto-injected template CTA on these to avoid duplication.
@@ -294,9 +282,6 @@ const NewBlogPost = () => {
   const [currentSlug, setCurrentSlug] = useState('');
   const [keyTakeaways, setKeyTakeaways] = useState([]);
   const contentRef = useRef(null);
-
-  // Feature flag for reviews CTA experiment (#259)
-  const reviewsCtaVariant = useFeatureFlag('content-to-reviews-cta-v1', 'control');
 
   // Memoize full content rendering
   const fullContent = useMemo(() => {
@@ -1487,20 +1472,6 @@ const NewBlogPost = () => {
                 ))}
               </div>
             </div>
-          )}
-
-          {/* Reviews CTA - drives traffic to affiliate page */}
-          {/* Experiment #259: For target slugs, gate behind feature flag */}
-          {REVIEWS_CTA_TARGET_SLUGS.includes(post.slug) ? (
-            reviewsCtaVariant === 'test' && (
-              <ReviewsCTA
-                placement="end_of_post_cta"
-                postSlug={post.slug}
-                experiment="content-to-reviews-cta-v1"
-              />
-            )
-          ) : (
-            <ReviewsCTA />
           )}
 
           {/* Performance Info */}
