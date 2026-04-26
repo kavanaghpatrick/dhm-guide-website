@@ -928,6 +928,14 @@ const NewBlogPost = () => {
             )}
             
             <div className="p-8 md:p-12">
+              {/* Quick Answer callout — positioned in the first ~100 words for AI engine extraction (Perplexity, ChatGPT, Gemini). Issue #292. */}
+              {post.quickAnswer && (
+                <div className="max-w-3xl mx-auto mb-8 p-5 bg-blue-50 border-l-4 border-blue-600 rounded-r-lg">
+                  <p className="text-sm font-bold uppercase tracking-wide text-blue-700 mb-1">Quick Answer</p>
+                  <p className="text-base md:text-lg text-gray-900 leading-relaxed m-0">{post.quickAnswer}</p>
+                </div>
+              )}
+
               {/* Key Takeaways Component */}
               {keyTakeaways.length > 0 && (
                 <KeyTakeaways takeaways={keyTakeaways} />
