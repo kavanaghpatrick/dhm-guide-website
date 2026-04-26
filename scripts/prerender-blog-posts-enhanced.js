@@ -13,7 +13,7 @@ import jsdom from 'jsdom';
 import { micromark } from 'micromark';
 import { gfm, gfmHtml } from 'micromark-extension-gfm';
 import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
-import { generateHowToSchema } from '../src/utils/structuredDataHelpers.js';
+import { generateHowToSchema, generateBreadcrumbSchema } from '../src/utils/structuredDataHelpers.js';
 import { getDateModified } from './lib/get-date-modified.js';
 
 const { JSDOM } = jsdom;
@@ -158,6 +158,17 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   scriptTag.type = 'application/ld+json';
   scriptTag.textContent = JSON.stringify(structuredData);
   document.head.appendChild(scriptTag);
+
+  // Add BreadcrumbList schema (Home → Never Hungover → <post title>)
+  // Eligible for Google breadcrumb rich result; uses safeTitle (escaped).
+  const breadcrumbSchema = generateBreadcrumbSchema({
+    path: `/never-hungover/${post.slug}`,
+    pageTitle: safeTitle
+  });
+  const breadcrumbScript = document.createElement('script');
+  breadcrumbScript.type = 'application/ld+json';
+  breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+  document.head.appendChild(breadcrumbScript);
 
   // Add FAQ schema if available for this post
   // Priority: 1) post.faq array in JSON, 2) hardcoded faqData by slug

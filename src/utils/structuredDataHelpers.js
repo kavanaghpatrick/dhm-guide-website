@@ -269,7 +269,7 @@ export const generateBreadcrumbSchema = ({ path, pageTitle }) => {
     'research': 'Research',
     'compare': 'Compare',
     'about': 'About',
-    'never-hungover': 'Blog',
+    'never-hungover': 'Never Hungover',
     'dhm-dosage-calculator': 'Dosage Calculator'
   };
 

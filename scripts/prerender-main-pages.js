@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { JSDOM } from 'jsdom';
+import { generateBreadcrumbSchema } from '../src/utils/structuredDataHelpers.js';
 
 // Main pages to prerender with their unique meta data
 const pages = [
@@ -178,6 +179,15 @@ async function prerenderMainPages() {
         faqScript.textContent = JSON.stringify(page.faqSchema);
         document.head.appendChild(faqScript);
       }
+
+      // Add BreadcrumbList schema (eligible for Google breadcrumb rich result).
+      // Helper handles the home page case (single Home item) and named segments
+      // ('reviews' → 'Reviews', 'guide' → 'DHM Guide', etc.).
+      const breadcrumbSchema = generateBreadcrumbSchema({ path: page.route });
+      const breadcrumbScript = document.createElement('script');
+      breadcrumbScript.setAttribute('type', 'application/ld+json');
+      breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+      document.head.appendChild(breadcrumbScript);
 
       // Determine output directory and file path
       const outputDir = page.route === '/' ? distDir : path.join(distDir, page.route);
