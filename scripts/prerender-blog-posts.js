@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import jsdom from 'jsdom';
+import { getDateModified } from './lib/get-date-modified.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -32,6 +33,7 @@ for (const file of files) {
       const content = fs.readFileSync(filePath, 'utf-8');
       const post = JSON.parse(content);
       if (post.slug && post.title) {
+        post._sourcePath = filePath;
         posts.push(post);
       }
     } catch (error) {
@@ -119,7 +121,7 @@ posts.forEach((post, index) => {
       "name": post.author || "DHM Guide Team"
     },
     "datePublished": post.date,
-    "dateModified": post.date,
+    "dateModified": getDateModified(post, post._sourcePath),
     "publisher": {
       "@type": "Organization",
       "name": "DHM Guide",

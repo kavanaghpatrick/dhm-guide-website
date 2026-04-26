@@ -14,6 +14,7 @@ import { micromark } from 'micromark';
 import { gfm, gfmHtml } from 'micromark-extension-gfm';
 import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
 import { generateHowToSchema } from '../src/utils/structuredDataHelpers.js';
+import { getDateModified } from './lib/get-date-modified.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -137,7 +138,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
       "name": safeAuthor
     },
     "datePublished": post.date,
-    "dateModified": post.date,
+    "dateModified": getDateModified(post, post._sourcePath),
     "publisher": {
       "@type": "Organization",
       "name": "DHM Guide",
@@ -366,6 +367,8 @@ async function main() {
         
         // Validate required fields
         if (post.slug && post.title) {
+          // Attach source path so getDateModified() can resolve git commit history
+          post._sourcePath = filePath;
           posts.push(post);
         } else {
           console.warn(`⚠️  Skipping ${file}: missing required fields (slug or title)`);
