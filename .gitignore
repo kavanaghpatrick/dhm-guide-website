@@ -202,9 +202,14 @@ tests/screenshots/
 
 # Local tooling
 .claude/
+.vercel/
 
 # Spec internal state (per ralph-specum)
 specs/.current-spec
 specs/.current-epic
+specs/.index/
 **/.progress.md
 **/.ralph-state.json
+
+# Generated audit outputs (re-run scripts/audit-unused-public-assets.mjs to regenerate)
+audit/
