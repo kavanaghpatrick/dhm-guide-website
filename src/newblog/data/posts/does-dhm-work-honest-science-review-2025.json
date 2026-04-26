@@ -20,5 +20,27 @@
     "dhm-product-forms-absorption-comparison-2025",
     "dhm-randomized-controlled-trials",
     "double-wood-dhm-review-analysis"
+  ],
+  "faq": [
+    {
+      "question": "Does DHM work for everyone?",
+      "answer": "No supplement works for 100% of people. DHM shows effectiveness in approximately 85% of users based on current data."
+    },
+    {
+      "question": "How quickly does DHM work?",
+      "answer": "Peak blood levels occur 30-45 minutes after ingestion. Effects on alcohol metabolism begin immediately."
+    },
+    {
+      "question": "Does dihydromyricetin work better than other hangover supplements?",
+      "answer": "Clinical evidence for DHM is stronger than most alternatives, with more peer-reviewed studies supporting its use."
+    },
+    {
+      "question": "Can DHM effectiveness decrease over time?",
+      "answer": "No tolerance has been observed in studies lasting up to 12 months."
+    },
+    {
+      "question": "Does DHM work if I'm already drunk?",
+      "answer": "While less effective than preventive use, DHM can still help with recovery when taken after drinking."
+    }
   ]
 }

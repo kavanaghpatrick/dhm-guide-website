@@ -20,5 +20,31 @@
     "dhm-supplement-stack-guide-complete-combinations",
     "dhm-vs-prickly-pear-hangovers",
     "dhm-vs-zbiotics"
+  ],
+  "faq": [
+    {
+      "question": "Does activated charcoal help hangovers at all?",
+      "answer": "No, activated charcoal does not help hangovers. It doesn't effectively bind to alcohol, can't affect alcohol already absorbed, and doesn't address any of the mechanisms that cause hangover symptoms."
+    },
+    {
+      "question": "When should I take activated charcoal for drinking?",
+      "answer": "You shouldn't take activated charcoal for drinking. It's ineffective for preventing intoxication or hangovers and may interfere with nutrients or medications you need."
+    },
+    {
+      "question": "Can charcoal pills reduce blood alcohol levels?",
+      "answer": "No, studies show activated charcoal has minimal to no effect on blood alcohol levels, even when taken simultaneously with alcohol."
+    },
+    {
+      "question": "Is it safe to take activated charcoal with alcohol?",
+      "answer": "While generally safe, regular use can cause constipation, nutrient depletion, and medication interference. It's pointless for hangover prevention, so the risks outweigh any placebo benefits."
+    },
+    {
+      "question": "What's better than activated charcoal for hangovers?",
+      "answer": "DHM, milk thistle, B vitamins, and proper hydration are all scientifically supported options that actually address hangover mechanisms, unlike activated charcoal."
+    },
+    {
+      "question": "Why do some people swear by activated charcoal?",
+      "answer": "Placebo effect, confirmation bias, and often drinking less or hydrating more when taking the pills. The perceived benefit isn't from the charcoal itself."
+    }
   ]
 }

@@ -49,5 +49,27 @@
     "flyby-vs-dhm1000-complete-comparison-2025",
     "flyby-vs-good-morning-pills-complete-comparison-2025"
   ],
-  "alt_text": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison"
+  "alt_text": "Flyby Recovery vs Fuller Health After Party supplement bottles comparison",
+  "faq": [
+    {
+      "question": "Can I take both Flyby and Fuller Health together?",
+      "answer": "It's not recommended to combine multiple DHM supplements as this could lead to excessive dosing. Choose one formula and follow its recommended protocol."
+    },
+    {
+      "question": "Which formula works faster?",
+      "answer": "Flyby's two-stage protocol begins working before drinking, potentially offering faster protection. Fuller Health's single-dose approach may take 30-45 minutes to reach full effect."
+    },
+    {
+      "question": "Is NAC in Fuller Health worth the switch from Flyby?",
+      "answer": "NAC provides additional antioxidant support that some users find beneficial. If you're happy with Flyby's results, there may be no need to switch. Consider Fuller Health if you want maximum ingredient coverage."
+    },
+    {
+      "question": "Do these formulas prevent hangovers completely?",
+      "answer": "No supplement can guarantee hangover prevention. Both formulas support your body's natural recovery processes but work best combined with moderate drinking and proper hydration."
+    },
+    {
+      "question": "Which has better customer service?",
+      "answer": "Flyby's larger customer base and Amazon availability typically mean faster support responses. Fuller Health offers personalized service but may have longer response times."
+    }
+  ]
 }

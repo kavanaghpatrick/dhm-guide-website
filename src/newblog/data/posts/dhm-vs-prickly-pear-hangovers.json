@@ -20,5 +20,27 @@
     "activated-charcoal-hangover",
     "dhm-supplement-stack-guide-complete-combinations",
     "dhm-vs-zbiotics"
+  ],
+  "faq": [
+    {
+      "question": "Can I take DHM and prickly pear together?",
+      "answer": "Yes, DHM and prickly pear can be safely combined as they work through different mechanisms. Take prickly pear 5 hours before drinking and DHM closer to or during alcohol consumption for optimal results."
+    },
+    {
+      "question": "Which is better for preventing hangovers: DHM or prickly pear?",
+      "answer": "Both are effective but work differently. DHM is generally better for headaches, brain fog, and anxiety, while prickly pear excels at reducing nausea and inflammation. Your choice depends on your primary symptoms."
+    },
+    {
+      "question": "Do I need to take these supplements every time I drink?",
+      "answer": "For best results, yes. Both supplements work by preparing your body for alcohol metabolism or reducing inflammation from drinking. Occasional use is fine but consistent use provides better protection."
+    },
+    {
+      "question": "Are there any risks to long-term use of DHM or prickly pear?",
+      "answer": "Both supplements have excellent long-term safety profiles. No significant risks have been identified with regular use at recommended dosages. However, they shouldn't be used as an excuse for excessive drinking."
+    },
+    {
+      "question": "Can these supplements cure an existing hangover?",
+      "answer": "While both can help reduce hangover severity when taken after drinking, they work best as preventive measures. DHM may offer more benefit for existing hangovers due to its metabolism-enhancing effects."
+    }
   ]
 }
