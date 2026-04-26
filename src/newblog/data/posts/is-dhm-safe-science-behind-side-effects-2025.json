@@ -24,5 +24,27 @@
     "ultimate-dhm-safety-guide-hub-2025",
     "dhm-medication-interactions-safety-guide-2025",
     "dhm-safety-complete-guide-2025"
+  ],
+  "faq": [
+    {
+      "question": "Can DHM damage your liver?",
+      "answer": "No, DHM actually protects the liver. Multiple studies show hepatoprotective effects and improved liver enzyme levels."
+    },
+    {
+      "question": "Are there any serious DHM side effects?",
+      "answer": "No serious side effects have been reported in clinical studies or post-market surveillance at recommended doses."
+    },
+    {
+      "question": "Is dihydromyricetin safe with medications?",
+      "answer": "DHM has minimal drug interactions, but always consult your healthcare provider, especially if taking sedatives or blood thinners."
+    },
+    {
+      "question": "How long can you safely take DHM?",
+      "answer": "Based on traditional use and available studies, DHM appears safe for long-term use. Some people have taken it daily for years without issues."
+    },
+    {
+      "question": "Is DHM safe for athletes?",
+      "answer": "Yes, DHM is not a banned substance and may actually support recovery. It's safe for competitive athletes."
+    }
   ]
 }

@@ -20,5 +20,27 @@
     "alcohol-diabetes-blood-sugar-management-guide-2025",
     "alcohol-protein-synthesis-muscle-recovery-impact-guide-2025",
     "how-to-get-over-hangover"
+  ],
+  "faq": [
+    {
+      "question": "How quickly should I expect to feel better with this emergency protocol?",
+      "answer": "Most people experience significant improvement within 2-3 hours, with 75% symptom reduction by the 4-hour mark. Complete recovery typically occurs within 6-8 hours compared to 24+ hours without intervention."
+    },
+    {
+      "question": "Can I use this emergency protocol regularly?",
+      "answer": "This protocol is designed for occasional severe hangovers, not regular use. The high DHM doses should not exceed once per week. For regular drinking, use our [standard prevention protocols](/guide)."
+    },
+    {
+      "question": "What if I can't keep the DHM down due to nausea?",
+      "answer": "Try taking DHM with a small amount of bland food like crackers. If vomiting persists, focus on hydration first and try DHM again once nausea subsides. Severe persistent vomiting may require medical attention."
+    },
+    {
+      "question": "Is this protocol safe with other medications?",
+      "answer": "DHM has no known serious drug interactions, but consult your healthcare provider if you take prescription medications regularly. Avoid combining with other liver-processed supplements during emergency recovery."
+    },
+    {
+      "question": "Can I drink coffee during the emergency protocol?",
+      "answer": "Avoid caffeine for the first 2-3 hours as it can worsen dehydration and anxiety. Once symptoms improve by 50%, small amounts of caffeine may help with alertness."
+    }
   ]
 }

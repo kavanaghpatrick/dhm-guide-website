@@ -21,5 +21,27 @@
     "tequila-hangover-truth",
     "alcohol-pharmacokinetics-advanced-absorption-science-2025",
     "at-home-alcohol-testing-monitoring-safety-guide-2025"
+  ],
+  "faq": [
+    {
+      "question": "Why does red wine give me an instant headache?",
+      "answer": "Immediate headaches from red wine are often caused by histamines, tyramine, or tannins rather than alcohol itself. These compounds can trigger vascular changes and headaches in sensitive individuals."
+    },
+    {
+      "question": "Is organic wine less likely to cause hangovers?",
+      "answer": "Organic wines may cause milder hangovers for some people because they typically contain fewer additives and sulfites. However, they still contain alcohol and natural congeners."
+    },
+    {
+      "question": "Why do I get worse hangovers from wine as I age?",
+      "answer": "As we age, our bodies produce less of the enzymes needed to metabolize alcohol efficiently. Additionally, overall liver function and hydration levels typically decrease with age."
+    },
+    {
+      "question": "Can mixing red and white wine make hangovers worse?",
+      "answer": "While mixing wines doesn't chemically create worse hangovers, it often leads to drinking more overall and consuming a wider variety of congeners, potentially intensifying symptoms. This is similar to mixing different spirits - our [whiskey vs vodka comparison](/never-hungover/whiskey-vs-vodka-hangover) explains why mixing clear and dark liquors is particularly problematic."
+    },
+    {
+      "question": "How long does a wine hangover typically last?",
+      "answer": "Wine hangovers typically last 8-24 hours, though severe cases can persist up to 72 hours. The duration depends on the amount consumed, individual metabolism, and hydration status."
+    }
   ]
 }

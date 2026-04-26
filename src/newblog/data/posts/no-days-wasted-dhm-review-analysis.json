@@ -46,5 +46,27 @@
     "double-wood-dhm-review-analysis",
     "nusapure-dhm-review-analysis",
     "toniiq-ease-dhm-review-analysis"
+  ],
+  "faq": [
+    {
+      "question": "Is it worth 3x the cost of basic DHM supplements?",
+      "answer": "73% of customers say yes for special occasions, but most use cheaper alternatives for regular drinking."
+    },
+    {
+      "question": "How does the L-Cysteine addition help?",
+      "answer": "Customers report faster alcohol processing and reduced impairment duration compared to DHM-only supplements."
+    },
+    {
+      "question": "Can I split the dose for lighter drinking?",
+      "answer": "Some customers use half doses for 2-3 drinks with good results, extending the package to 30 uses."
+    },
+    {
+      "question": "Why is it frequently out of stock?",
+      "answer": "High demand and smaller production runs due to premium ingredients create availability challenges."
+    },
+    {
+      "question": "Is the premium formula necessary for wine?",
+      "answer": "Wine enthusiasts particularly appreciate the enhanced formula for tastings and multiple-glass occasions."
+    }
   ]
 }

@@ -23,5 +23,67 @@
     "dhm-women-hormonal-considerations-safety-2025",
     "is-dhm-safe-science-behind-side-effects-2025",
     "ultimate-dhm-safety-guide-hub-2025"
+  ],
+  "faq": [
+    {
+      "question": "1. Is DHM safe to take?",
+      "answer": "**Answer**: Yes, DHM has been shown to be safe in clinical trials with zero adverse events reported in 140 participants across two published studies. However, it's not safe for everyone - pregnant women, children under 18, and people taking certain medications should avoid it. Always consult a healthcare provider before starting any new supplement. **Evidence**: PMID 26032587, PMID 30089792 ---"
+    },
+    {
+      "question": "2. Can DHM damage my liver?",
+      "answer": "**Answer**: No. DHM is classified by the National Institutes of Health (NIH) as unlikely to cause liver injury, and no cases of liver damage have been reported in clinical trials or real-world use. In fact, DHM demonstrates *protective* effects on the liver - clinical research shows it may help improve liver function in people with non-alcoholic fatty liver disease (NAFLD). **Evidence**: NIH LiverTox Classification E (NBK594407), PMID 26032587 showing improved liver enzymes ---"
+    },
+    {
+      "question": "3. What's the maximum safe dose of DHM?",
+      "answer": "**Answer**: The maximum safe dose tested in human clinical trials is **970 mg/day** for up to one month, with zero adverse events reported. However, most people only need 300-600 mg per drinking occasion. **Never exceed 1,000 mg in a single day**, and limit use to 2-3 times per week for optimal safety. **Evidence**: PMID 30089792 (Type 2 Diabetes trial, 970 mg/day, no adverse effects) ---"
+    },
+    {
+      "question": "4. Can I take DHM with my medications?",
+      "answer": "**Answer**: It depends on which medications you take. DHM can potentially interact with drugs metabolized by CYP3A4, CYP2E1, and CYP2D6 liver enzymes. Particularly concerning are blood thinners, diabetes medications, chemotherapy, immunosuppressants, and benzodiazepines. **Always consult your physician before combining DHM with any prescription medication**. **Evidence**: PMID 28614988 (CYP enzyme inhibition study) ---"
+    },
+    {
+      "question": "5. Is DHM safe during pregnancy?",
+      "answer": "**Answer**: **No - avoid DHM during pregnancy**. There is no safety data available for DHM use during pregnancy or breastfeeding. The potential risks to fetal development are unknown, and no animal reproductive toxicology studies have been conducted. If you're pregnant, planning to become pregnant, or breastfeeding, do not use DHM. **Evidence**: Absence of safety data = contraindication for pregnancy ---"
+    },
+    {
+      "question": "6. Are there any side effects from DHM?",
+      "answer": "**Answer**: Clinical trials reported zero side effects at doses up to 970 mg/day. However, in real-world use, some people (<5%) report rare mild gastrointestinal symptoms like nausea or stomach discomfort, especially when taken on an empty stomach. These can usually be avoided by taking DHM with a light snack. **Evidence**: PMID 26032587, PMID 30089792 (zero adverse events in clinical trials) ---"
+    },
+    {
+      "question": "7. How long can I safely take DHM?",
+      "answer": "**Answer**: Current safety data is limited to 3 months of continuous daily use. The longest published human trial was 12 weeks (3 months) with no safety concerns. For occasional use (2-3 times per week before drinking), this is well within tested safety parameters. For longer-term regular use, consult a healthcare provider for periodic monitoring. **Evidence**: PMID 26032587 (longest trial: 3 months, 300 mg/day, zero adverse events) ---"
+    },
+    {
+      "question": "8. Is DHM FDA approved?",
+      "answer": "**Answer**: No. DHM is classified as a **dietary supplement ingredient**, not an approved drug. The FDA does not approve dietary supplements; instead, manufacturers are responsible for ensuring safety before marketing. However, DHM *is* approved as a Natural Health Product in Canada (NPN 80122969), which requires government safety review. **Evidence**: FDA regulatory status, Health Canada NPN 80122969 ---"
+    },
+    {
+      "question": "9. When should I stop DHM before surgery?",
+      "answer": "**Answer**: **Stop DHM at least 14 days before any scheduled surgery**. DHM has potential antiplatelet effects that could increase bleeding risk during and after surgery. Always inform your surgeon and anesthesiologist that you've been taking DHM. After surgery, wait for wound healing and medical clearance before resuming. **Evidence**: Antiplatelet effects shown in preclinical studies (PMID 33711433) ---"
+    },
+    {
+      "question": "10. Can DHM affect my kidney function?",
+      "answer": "**Answer**: No. Zero cases of kidney injury have been reported in clinical trials or real-world DHM use. In fact, animal studies show DHM has *protective* effects on kidneys, potentially preventing damage from certain drugs and ischemic injury. However, people with severe kidney disease should consult a nephrologist before use due to potential medication interactions. **Evidence**: Zero adverse renal events in clinical trials; renoprotective effects in animal models ---"
+    },
+    {
+      "question": "11. Is DHM safe for children or teenagers?",
+      "answer": "**Answer**: **No - DHM is not recommended for anyone under 18**. There are no pediatric safety studies available, and the effects on developing brains and livers are unknown. Additionally, alcohol consumption is not recommended for minors regardless of DHM use. **Evidence**: Absence of pediatric safety data = contraindication ---"
+    },
+    {
+      "question": "12. What should I do if I experience side effects from DHM?",
+      "answer": "**Answer**: If you experience any concerning symptoms after taking DHM, **stop use immediately and consult a healthcare provider**. For mild stomach upset, try taking DHM with food. For any serious symptoms (unusual bleeding, severe pain, allergic reaction signs), seek immediate medical attention. You should also report adverse events to FDA MedWatch (1-800-FDA-1088). **Evidence**: Standard medical practice for supplement adverse events ---"
+    },
+    {
+      "question": "13. Can DHM be taken with alcohol? Is that safe?",
+      "answer": "**Answer**: **Yes - DHM is specifically designed for use with alcohol**. Unlike the dangerous combination of alcohol with other substances, DHM's *primary studied use* is for alcohol-related protection. Clinical and animal research shows DHM reduces alcohol intoxication symptoms, protects the liver from alcohol damage, and helps prevent hangovers. However, DHM doesn't eliminate all risks of alcohol - you should still drink responsibly. **Evidence**: Multiple studies on DHM + alcohol interaction (PMID 22219299, PMID 23063506) ---"
+    },
+    {
+      "question": "14. Is DHM safe for long-term daily use?",
+      "answer": "**Answer**: DHM is **not recommended for daily long-term use**. It's designed for occasional use (2-3 times per week) before drinking events, not as a daily supplement. The longest safety study was 3 months of daily use. Long-term effects beyond 6-12 months are unknown. If you're considering regular daily use for medical reasons, consult a healthcare provider for monitoring. **Evidence**: Longest trial 3 months; no long-term (>1 year) human data available ---"
+    },
+    {
+      "question": "15. How does DHM safety compare to other hangover supplements?",
+      "answer": "**Answer**: DHM has a **superior or comparable safety profile** to other well-studied supplements. Its safety margin (>1,000x therapeutic dose) exceeds most botanicals, including quercetin (~100x), resveratrol (~50-100x), and curcumin (~100x). DHM's LD50 (>22 g/kg) means it's actually safer than caffeine and comparable to milk thistle. With zero adverse events in clinical trials, DHM ranks among the safest hangover prevention supplements based on available evidence. **Evidence**: Comparative toxicology data from multiple supplement studies ---"
+    }
   ]
 }

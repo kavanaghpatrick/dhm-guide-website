@@ -23,5 +23,47 @@
     "alcohol-weight-loss-metabolic-guide-2025",
     "non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025",
     "advanced-liver-detox-science-vs-marketing-myths-2025"
+  ],
+  "faq": [
+    {
+      "question": "What is the difference between fatty liver and NASH?",
+      "answer": "Fatty liver (hepatic steatosis) involves fat accumulation in liver cells without significant inflammation. NASH (nonalcoholic steatohepatitis) includes fat accumulation plus inflammation and liver cell damage, making it a more serious condition that can progress to cirrhosis."
+    },
+    {
+      "question": "Can fatty liver disease be reversed?",
+      "answer": "Yes, fatty liver disease can often be improved or reversed, especially in the early stages. The key is making sustained lifestyle changes including weight loss, improved diet, regular exercise, and management of underlying conditions like diabetes."
+    },
+    {
+      "question": "How much weight loss is needed to improve fatty liver disease?",
+      "answer": "Studies show that losing 7-10% of body weight can significantly improve liver health and reduce liver fat content. Even smaller amounts of weight loss (3-5%) can provide some benefits."
+    },
+    {
+      "question": "Is fatty liver disease dangerous?",
+      "answer": "Simple fatty liver is generally not dangerous and may not progress. However, NASH can advance to cirrhosis, liver failure, and liver cancer if left untreated. Early intervention is important to prevent progression."
+    },
+    {
+      "question": "What foods should I avoid with fatty liver disease?",
+      "answer": "Limit or avoid: - Sugary drinks and foods high in added sugars - Processed and fried foods - Foods high in saturated and trans fats - Excessive alcohol (even small amounts) - Large portion sizes"
+    },
+    {
+      "question": "Can I drink alcohol if I have fatty liver disease?",
+      "answer": "Most medical experts recommend avoiding alcohol completely, even for nonalcoholic fatty liver disease. Alcohol can worsen liver inflammation and interfere with the liver's ability to heal."
+    },
+    {
+      "question": "How often should I have my liver checked?",
+      "answer": "This depends on your specific situation, but typically every 3-6 months initially, then annually once stable. Your healthcare provider will determine the appropriate monitoring schedule based on your condition severity and response to treatment."
+    },
+    {
+      "question": "Are there medications for fatty liver disease?",
+      "answer": "Currently, there are no FDA-approved medications specifically for fatty liver disease. Treatment focuses on managing underlying conditions (diabetes, high cholesterol) and lifestyle modifications. Some medications are being studied in clinical trials."
+    },
+    {
+      "question": "Can supplements help with fatty liver disease?",
+      "answer": "Some supplements like vitamin E may help in specific cases, but should only be used under medical supervision. DHM and other natural compounds are being researched, but lifestyle changes remain the most important intervention."
+    },
+    {
+      "question": "Will I need a liver transplant?",
+      "answer": "The vast majority of people with fatty liver disease will never need a liver transplant. Transplantation is only considered in cases of end-stage liver failure, which can be prevented through early intervention and proper management. ---"
+    }
   ]
 }
