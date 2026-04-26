@@ -54,7 +54,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (189 total) -->
+  <!-- Blog Posts (190 total) -->
   <url>
     <loc>https://www.dhmguide.com/never-hungover/activated-charcoal-hangover</loc>
     <lastmod>2026-04-26</lastmod>
@@ -771,6 +771,12 @@
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover/hangover-supplements-complete-guide-what-actually-works-2025</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/hangxiety-complete-guide-2026-supplements-research</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
