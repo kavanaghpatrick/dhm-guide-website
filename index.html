@@ -133,40 +133,9 @@
 
     <!-- Note: FAQ schema is added by FAQSection component on homepage -->
     <!-- Other pages add FAQ schema via prerender scripts to avoid duplicates -->
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "The Complete Guide to DHM (Dihydromyricetin) for Hangover Prevention",
-      "description": "Comprehensive guide covering DHM's mechanism of action, clinical studies, safety profile, and product reviews",
-      "author": {
-        "@type": "Organization",
-        "name": "DHM Guide"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "DHM Guide",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://www.dhmguide.com/logo.png"
-        }
-      },
-      "datePublished": "2025-01-01",
-      "dateModified": "2025-06-28",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://www.dhmguide.com"
-      },
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://www.dhmguide.com/dhm-guide-featured.jpg"
-      },
-      "articleSection": "Health & Wellness",
-      "keywords": ["DHM", "Dihydromyricetin", "Hangover Prevention", "Liver Protection", "Natural Supplements"]
-    }
-    </script>
-    
+    <!-- Note: Article JSON-LD is emitted per-post by scripts/prerender-blog-posts-enhanced.js -->
+    <!-- (issue #290: removed duplicate site-wide Article schema that triggered GSC warnings) -->
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
