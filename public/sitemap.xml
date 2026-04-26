@@ -54,7 +54,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (192 total) -->
+  <!-- Blog Posts (193 total) -->
   <url>
     <loc>https://www.dhmguide.com/never-hungover/activated-charcoal-hangover</loc>
     <lastmod>2026-04-26</lastmod>
@@ -987,6 +987,12 @@
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover/organic-natural-hangover-prevention-clean-living-2025</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/ozempic-glp1-alcohol-hangover-2026-research-guide</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

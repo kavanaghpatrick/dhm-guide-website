@@ -158,6 +158,7 @@ const postModules = {
   "nootropics-vs-alcohol-cognitive-enhancement": () => import("./posts/nootropics-vs-alcohol-cognitive-enhancement.json"),
   "nusapure-dhm-review-analysis": () => import("./posts/nusapure-dhm-review-analysis.json"),
   "organic-natural-hangover-prevention-clean-living-2025": () => import("./posts/organic-natural-hangover-prevention-clean-living-2025.json"),
+  "ozempic-glp1-alcohol-hangover-2026-research-guide": () => import("./posts/ozempic-glp1-alcohol-hangover-2026-research-guide.json"),
   "peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025": () => import("./posts/peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025.json"),
   "pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025": () => import("./posts/pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025.json"),
   "pre-game-party-strategy-dhm-2025": () => import("./posts/pre-game-party-strategy-dhm-2025.json"),
