@@ -317,6 +317,13 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
         })
       : '';
 
+    // Quick Answer callout (issue #292) — placed before main content so AI
+    // crawlers (Perplexity, ChatGPT, Gemini) extract the definitive answer
+    // from the first ~100 words. Mirrors NewBlogPost.jsx render logic.
+    const quickAnswerHtml = post.quickAnswer
+      ? `<aside class="quick-answer" style="border-left:4px solid #2563eb;background:#eff6ff;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 0.5rem 0.5rem 0;"><p style="font-size:0.875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#1d4ed8;margin:0 0 0.25rem 0;">Quick Answer</p><p style="margin:0;font-size:1.0625rem;line-height:1.6;color:#111827;">${escapeHtml(post.quickAnswer)}</p></aside>`
+      : '';
+
     rootDiv.innerHTML = `
       <div id="prerender-content">
         <article>
@@ -327,6 +334,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
             <span>${escapeHtml(String(post.readTime))} min read</span>
           </div>
           <p class="excerpt">${safeExcerpt}</p>
+          ${quickAnswerHtml}
           ${fullContentHtml}
         </article>
       </div>
