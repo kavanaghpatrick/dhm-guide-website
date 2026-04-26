@@ -448,7 +448,7 @@ export default function Reviews() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 flex flex-col">
       {/* Hero Section */}
       <section className="pt-6 pb-8 md:pb-12 px-4">
         <div className="container mx-auto">
@@ -631,8 +631,11 @@ export default function Reviews() {
         </div>
       </section>
 
-      {/* Quick Comparison Table */}
-      <section className="py-8 px-4 bg-gray-50">
+      {/* Quick Comparison Table - order-first on mobile to front-load above hero (Issue: mobile CR 2.9x desktop, but lower scroll depth) */}
+      <section
+        id="comparison-table"
+        className="order-first md:order-none py-8 px-4 bg-gray-50 min-h-[520px] md:min-h-0"
+      >
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

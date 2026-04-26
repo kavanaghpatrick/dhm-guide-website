@@ -434,7 +434,7 @@ export default function Compare() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 flex flex-col">
       {/* Hero Section */}
       <section className="pt-8 pb-16 px-4">
         <div className="container mx-auto">
@@ -529,9 +529,9 @@ export default function Compare() {
         </div>
       </section>
 
-      {/* Comparison Table Section */}
+      {/* Comparison Table Section - order-first on mobile to front-load above hero (Issue: mobile CR 2.9x desktop, but lower scroll depth) */}
       {selectedProductsData.length > 0 && (
-        <section className="py-8 px-4">
+        <section className="order-first md:order-none py-8 px-4 min-h-[600px] md:min-h-0">
           <div className="container mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
