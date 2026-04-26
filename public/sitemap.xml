@@ -54,7 +54,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (193 total) -->
+  <!-- Blog Posts (197 total) -->
   <url>
     <loc>https://www.dhmguide.com/never-hungover/activated-charcoal-hangover</loc>
     <lastmod>2026-04-26</lastmod>
@@ -357,6 +357,12 @@
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover/cannabis-vs-alcohol-complete-health-comparison-for-wellness-minded-adults</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/champagne-hangover-why-it-happens-prevention-guide</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -782,6 +788,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/hard-seltzer-hangover-why-it-happens-prevention-guide</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/healthcare-workers-alcohol-safety-2025-professional-monitoring-guide</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1166,6 +1178,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.dhmguide.com/never-hungover/vodka-hangover-why-it-happens-prevention-guide</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.dhmguide.com/never-hungover/wearable-alcohol-monitoring-technology-smart-devices-revolution-2025</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1185,6 +1203,12 @@
   </url>
   <url>
     <loc>https://www.dhmguide.com/never-hungover/when-to-take-dhm-timing-guide-2025</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/whiskey-hangover-why-it-happens-prevention-guide</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
