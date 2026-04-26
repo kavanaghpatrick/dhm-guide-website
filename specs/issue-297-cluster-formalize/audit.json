@@ -1,0 +1,447 @@
+{
+  "mode": "apply",
+  "clusters": [
+    {
+      "name": "dhm-master",
+      "pillar": "dhm-dosage-guide-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 7,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 4,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "dhm-science-explained",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "is-dhm-safe-science-behind-side-effects-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "dhm-supplement-stack-guide-complete-combinations",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "when-to-take-dhm-timing-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "can-you-take-dhm-every-day-long-term-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "dhm-availability-worldwide-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "antioxidant-anti-aging-dhm-powerhouse-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "dhm-dosage-guide-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    },
+    {
+      "name": "liver-health",
+      "pillar": "advanced-liver-detox-science-vs-marketing-myths-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 7,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 3,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "fatty-liver-disease-diet-complete-nutrition-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "liver-health-complete-guide-optimal-liver-function-protection-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "liver-health-alcohol-supplements-dhm-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-recovery-nutrition-complete-healing-protocol-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "advanced-liver-detox-science-vs-marketing-myths-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    },
+    {
+      "name": "health-impact",
+      "pillar": "alcohol-aging-longevity-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 10,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 3,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "alcohol-and-cognitive-decline-2025-brain-research-reveals-hidden-risks",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-heart-health-complete-cardiovascular-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-immune-system-complete-health-impact-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-inflammation-complete-health-impact-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-bone-health-complete-skeletal-impact-analysis",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-brain-health-long-term-impact-analysis-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-eye-health-complete-vision-impact-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-thyroid-hormonal-disruption-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-autoimmune-diseases-inflammatory-response-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-digestive-health-gi-impact-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "alcohol-aging-longevity-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    },
+    {
+      "name": "alcohol-science",
+      "pillar": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 7,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 2,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "altitude-alcohol-high-elevation-drinking-safety-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "athletes-alcohol-sport-specific-performance-guide-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-metabolic-flexibility-energy-system-optimization-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-and-rem-sleep-complete-scientific-analysis-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-intermittent-fasting-metabolic-interaction-guide",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "biohacking-alcohol-tolerance-science-based-strategies-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    },
+    {
+      "name": "hangover-prevention",
+      "pillar": "functional-medicine-hangover-prevention-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 8,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 3,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "hangover-supplements-complete-guide-what-actually-works-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "good-morning-hangover-pills-review-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "activated-charcoal-hangover",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "alcohol-headache-why-it-happens-how-to-prevent-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "hangover-nausea-complete-guide-fast-stomach-relief-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "emergency-hangover-protocol-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "organic-natural-hangover-prevention-clean-living-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "viral-hangover-cures-tested-science-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "functional-medicine-hangover-prevention-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    },
+    {
+      "name": "product-reviews",
+      "pillar": "double-wood-vs-no-days-wasted-dhm-comparison-2025",
+      "spoke_to_pillar_inline_added": 0,
+      "spoke_to_pillar_inline_already": 8,
+      "pillar_to_spoke_links_added_via_section": 0,
+      "pillar_to_spoke_links_already_organic": 2,
+      "sibling_relatedPosts_entries_added": 0,
+      "pillar_in_relatedPosts_added": 0,
+      "missing_spokes": [],
+      "details": [
+        {
+          "spoke": "double-wood-dhm-review-analysis",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "no-days-wasted-dhm-review-analysis",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "flyby-vs-double-wood-complete-comparison-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "flyby-recovery-review-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "double-wood-vs-fuller-health-after-party-comparison-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "double-wood-dhm-vs-dhm1000-comparison-2025",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "dhm-vs-prickly-pear-hangovers",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "spoke": "dhm-vs-zbiotics",
+          "actions": [
+            "pillar_link_already_present",
+            "relatedPosts already complete"
+          ]
+        },
+        {
+          "pillar": "double-wood-vs-no-days-wasted-dhm-comparison-2025",
+          "action": "pillar_already_complete"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "spoke_to_pillar_inline_added": 0,
+    "spoke_to_pillar_inline_already": 47,
+    "pillar_to_spoke_links_added_via_section": 0,
+    "pillar_to_spoke_links_already": 17,
+    "sibling_relatedPosts_entries_added": 0,
+    "pillar_in_relatedPosts_added": 0,
+    "relatedPosts_entries_added_total": 0,
+    "files_modified": 0,
+    "missing_spokes": 0
+  }
+}
