@@ -19,6 +19,7 @@ import { applyRedirect } from '../../utils/redirects.js';
 import { usePageTracking } from '../../hooks/usePageTracking';
 import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
+import Picture from '../../components/Picture';
 import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
@@ -915,14 +916,17 @@ const NewBlogPost = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="bg-white rounded-xl shadow-lg overflow-hidden">
-            {/* Hero Image - uses aspect-video for consistent ratio and no CLS */}
+            {/* Hero Image - aspect-video + width/height attrs prevent CLS (Issue #293) */}
             {post.image && (
               <div className="w-full">
-                <img
+                <Picture
                   src={post.image}
                   alt={`${post.title} - DHM Guide`}
                   className="w-full aspect-video object-cover"
-                  loading="eager"
+                  width={1600}
+                  height={900}
+                  priority
+                  fetchpriority="high"
                 />
               </div>
             )}
