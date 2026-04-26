@@ -8,8 +8,8 @@ import { useEffect, useCallback } from 'react';
 import { trackAffiliateClick, trackFunnelStep } from '../lib/posthog';
 
 // Stricter URL matching pattern for affiliate links
-// Covers common Amazon TLDs and shortlinks
-const AFFILIATE_URL_PATTERN = /^(https?:\/\/)?(www\.)?(amazon\.[a-z.]{2,6}|amzn\.to)\/.*/i;
+// Covers common Amazon TLDs, shortlinks, and Fuller Health (direct-to-consumer affiliate)
+const AFFILIATE_URL_PATTERN = /^(https?:\/\/)?(www\.)?(?:amazon\.[a-z.]{2,6}|amzn\.to|fullerhealth\.com)\/.*/i;
 
 /**
  * Get current scroll depth as percentage
