@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf, ChevronDown } from 'lucide-react'
@@ -38,16 +39,29 @@ function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isTopicsOpen, setIsTopicsOpen] = useState(false)
   const [expandedClusterMobile, setExpandedClusterMobile] = useState(null)
+  // Mount flag — createPortal needs document.body, which doesn't exist
+  // on the server during SSR / prerender. Render dropdown only after mount.
+  const [mounted, setMounted] = useState(false)
   const topicsRef = useRef(null)
+  const dropdownRef = useRef(null)
   const { currentPath, navigate, isActive, getNavItems, getFooterItems } = useRouter()
   const { headerRef, headerHeight } = useHeaderHeight()
 
-  // Close topics dropdown on Escape or outside click
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Close topics dropdown on Escape or outside click.
+  // Outside-click must check BOTH the trigger (topicsRef) and the portaled
+  // dropdown (dropdownRef) — the dropdown lives in document.body now, so
+  // it's not a descendant of the trigger anymore.
   useEffect(() => {
     if (!isTopicsOpen) return
     const onKey = (e) => { if (e.key === 'Escape') setIsTopicsOpen(false) }
     const onClick = (e) => {
-      if (topicsRef.current && !topicsRef.current.contains(e.target)) {
+      const inTrigger = topicsRef.current && topicsRef.current.contains(e.target)
+      const inDropdown = dropdownRef.current && dropdownRef.current.contains(e.target)
+      if (!inTrigger && !inDropdown) {
         setIsTopicsOpen(false)
       }
     }
@@ -155,81 +169,11 @@ function Layout({ children }) {
                           />
                         )}
                       </button>
-                      {isTopicsOpen && (
-                        <div
-                          id="topics-mega-menu"
-                          role="region"
-                          aria-label="Topics"
-                          // position:fixed escapes any ancestor stacking context
-                          // (defense in depth — the header's stacking context was
-                          // the original cause of the overlap bug; using fixed makes
-                          // the dropdown immune to any future ancestor that creates
-                          // one — opacity, transform, filter, will-change, etc.)
-                          style={{ top: headerHeight + 8 }}
-                          className="fixed left-1/2 -translate-x-1/2 w-screen max-w-4xl bg-white rounded-xl shadow-2xl border border-gray-100 p-6 z-50"
-                        >
-                          <div className="grid grid-cols-3 gap-x-6 gap-y-5">
-                            {clusterConfig.clusters.map((cluster) => {
-                              const pillarHref = `/never-hungover/${cluster.pillar}`
-                              return (
-                                <div key={cluster.name}>
-                                  <a
-                                    href={pillarHref}
-                                    onClick={(e) => {
-                                      if (e.metaKey || e.ctrlKey) return
-                                      e.preventDefault()
-                                      setIsTopicsOpen(false)
-                                      handleNavigation(pillarHref)
-                                    }}
-                                    data-track="nav-topics-cluster"
-                                    data-cluster={cluster.name}
-                                    className="block text-sm font-bold text-green-700 hover:text-green-900 mb-2 leading-tight"
-                                  >
-                                    {clusterLabel(cluster.name)} →
-                                  </a>
-                                  <ul className="space-y-1.5">
-                                    {cluster.spokes.slice(0, SPOKES_PER_CLUSTER).map((spoke) => {
-                                      const href = `/never-hungover/${spoke}`
-                                      return (
-                                        <li key={spoke}>
-                                          <a
-                                            href={href}
-                                            onClick={(e) => {
-                                              if (e.metaKey || e.ctrlKey) return
-                                              e.preventDefault()
-                                              setIsTopicsOpen(false)
-                                              handleNavigation(href)
-                                            }}
-                                            data-track="nav-topics-spoke"
-                                            data-cluster={cluster.name}
-                                            className="block text-xs text-gray-600 hover:text-green-600 leading-snug"
-                                          >
-                                            {slugToSpokeTitle(spoke)}
-                                          </a>
-                                        </li>
-                                      )
-                                    })}
-                                  </ul>
-                                </div>
-                              )
-                            })}
-                          </div>
-                          <div className="mt-5 pt-4 border-t border-gray-100">
-                            <a
-                              href="/never-hungover"
-                              onClick={(e) => {
-                                if (e.metaKey || e.ctrlKey) return
-                                e.preventDefault()
-                                setIsTopicsOpen(false)
-                                handleNavigation('/never-hungover')
-                              }}
-                              className="text-sm font-medium text-green-600 hover:text-green-800"
-                            >
-                              View all articles →
-                            </a>
-                          </div>
-                        </div>
-                      )}
+                      {/* Dropdown panel is portaled to document.body — see below.
+                          This breaks it out of the header's DOM subtree (and any
+                          stacking context the header creates from backdrop-filter,
+                          opacity, transform, etc.). The trigger button stays here
+                          inside the header for accessibility & layout. */}
                     </div>
                   )
                 }
@@ -431,6 +375,91 @@ function Layout({ children }) {
           )}
         </div>
       </header>
+
+      {/* Topics mega-menu dropdown — portaled to document.body so it escapes
+          the header's stacking context entirely. The header has position:fixed
+          + backdrop-filter (and possibly future transforms/filters), each of
+          which create a stacking context that traps z-index of descendants.
+          By rendering into document.body, the dropdown sits at the document
+          root's stacking context where its z-50 stacks above all page chrome.
+          Hover semantics are preserved by adding onMouseEnter/onMouseLeave
+          here that flip the same isTopicsOpen state — so cursor moving from
+          trigger → dropdown keeps it open even though they're no longer
+          parent/child in the DOM tree. */}
+      {mounted && isTopicsOpen && createPortal(
+        <div
+          ref={dropdownRef}
+          id="topics-mega-menu"
+          role="region"
+          aria-label="Topics"
+          onMouseEnter={() => setIsTopicsOpen(true)}
+          onMouseLeave={() => setIsTopicsOpen(false)}
+          style={{ top: headerHeight + 8 }}
+          className="fixed left-1/2 -translate-x-1/2 w-screen max-w-4xl bg-white rounded-xl shadow-2xl border border-gray-100 p-6 z-50"
+        >
+          <div className="grid grid-cols-3 gap-x-6 gap-y-5">
+            {clusterConfig.clusters.map((cluster) => {
+              const pillarHref = `/never-hungover/${cluster.pillar}`
+              return (
+                <div key={cluster.name}>
+                  <a
+                    href={pillarHref}
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey) return
+                      e.preventDefault()
+                      setIsTopicsOpen(false)
+                      handleNavigation(pillarHref)
+                    }}
+                    data-track="nav-topics-cluster"
+                    data-cluster={cluster.name}
+                    className="block text-sm font-bold text-green-700 hover:text-green-900 mb-2 leading-tight"
+                  >
+                    {clusterLabel(cluster.name)} →
+                  </a>
+                  <ul className="space-y-1.5">
+                    {cluster.spokes.slice(0, SPOKES_PER_CLUSTER).map((spoke) => {
+                      const href = `/never-hungover/${spoke}`
+                      return (
+                        <li key={spoke}>
+                          <a
+                            href={href}
+                            onClick={(e) => {
+                              if (e.metaKey || e.ctrlKey) return
+                              e.preventDefault()
+                              setIsTopicsOpen(false)
+                              handleNavigation(href)
+                            }}
+                            data-track="nav-topics-spoke"
+                            data-cluster={cluster.name}
+                            className="block text-xs text-gray-600 hover:text-green-600 leading-snug"
+                          >
+                            {slugToSpokeTitle(spoke)}
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+          <div className="mt-5 pt-4 border-t border-gray-100">
+            <a
+              href="/never-hungover"
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey) return
+                e.preventDefault()
+                setIsTopicsOpen(false)
+                handleNavigation('/never-hungover')
+              }}
+              className="text-sm font-medium text-green-600 hover:text-green-800"
+            >
+              View all articles →
+            </a>
+          </div>
+        </div>,
+        document.body
+      )}
 
       {/* Main Content */}
       <main style={{ paddingTop: `${headerHeight}px` }} className="transition-[padding] duration-300">
