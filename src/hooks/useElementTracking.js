@@ -16,7 +16,7 @@ const ELEMENT_SELECTORS = {
   nav: '[data-track="nav"], nav a, .nav-link',
   faq: '[data-track="faq"]',
   share: '[data-track="share"]',
-  mobile_menu: '[data-track="mobile-menu"]'
+  mobile_menu: '[data-track="mobile_menu"]'
 };
 
 /**
