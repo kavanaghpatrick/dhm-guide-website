@@ -1190,7 +1190,10 @@ const NewBlogPost = () => {
                       const isExternal = href?.startsWith('http');
                       const isHashLink = href?.startsWith('#');
                       const isInternal = href && !isExternal && !isHashLink && href !== '#';
-                      
+                      // Detect Amazon affiliate links so the global useAffiliateTracking
+                      // hook gets proper placement metadata + Google compliance attrs.
+                      const isAffiliate = isExternal && /(?:^|\/\/|\.)(amazon\.[a-z.]{2,6}|amzn\.to)\//i.test(href || '');
+
                       // Handle hash links (TOC links)
                       if (isHashLink && isClient) {
                         return (
@@ -1215,7 +1218,7 @@ const NewBlogPost = () => {
                           </span>
                         );
                       }
-                      
+
                       if (isInternal && isClient) {
                         return (
                           <CustomLink
@@ -1226,13 +1229,14 @@ const NewBlogPost = () => {
                           </CustomLink>
                         );
                       }
-                      
+
                       return (
-                        <a 
-                          href={href} 
+                        <a
+                          href={href}
                           className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
                           target={isExternal ? '_blank' : undefined}
-                          rel={isExternal ? 'noopener noreferrer' : undefined}
+                          rel={isAffiliate ? 'nofollow sponsored noopener noreferrer' : (isExternal ? 'noopener noreferrer' : undefined)}
+                          data-placement={isAffiliate ? 'blog_content_inline' : undefined}
                         >
                           {children}
                           {isExternal && <ExternalLink className="w-3 h-3" />}
