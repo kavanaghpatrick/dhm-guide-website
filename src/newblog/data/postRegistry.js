@@ -122,6 +122,7 @@ const postModules = {
   "hangover-headache-fast-relief-methods-2025": () => import("./posts/hangover-headache-fast-relief-methods-2025.json"),
   "hangover-nausea-complete-guide-fast-stomach-relief-2025": () => import("./posts/hangover-nausea-complete-guide-fast-stomach-relief-2025.json"),
   "hangover-supplements-complete-guide-what-actually-works-2025": () => import("./posts/hangover-supplements-complete-guide-what-actually-works-2025.json"),
+  "hangxiety-complete-guide-2026-supplements-research": () => import("./posts/hangxiety-complete-guide-2026-supplements-research.json"),
   "healthcare-workers-alcohol-safety-2025-professional-monitoring-guide": () => import("./posts/healthcare-workers-alcohol-safety-2025-professional-monitoring-guide.json"),
   "heavy-drinking-maximum-protection-dhm-2025": () => import("./posts/heavy-drinking-maximum-protection-dhm-2025.json"),
   "holiday-drinking-survival-guide-health-first-approach": () => import("./posts/holiday-drinking-survival-guide-health-first-approach.json"),
