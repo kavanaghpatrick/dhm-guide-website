@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf, ChevronDown } from 'lucide-react'
 import { useRouter } from '@/hooks/useRouter'
@@ -40,8 +40,6 @@ function Layout({ children }) {
   const [expandedClusterMobile, setExpandedClusterMobile] = useState(null)
   const topicsRef = useRef(null)
   const { currentPath, navigate, isActive, getNavItems, getFooterItems } = useRouter()
-  const { scrollY } = useScroll()
-  const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
   const { headerRef, headerHeight } = useHeaderHeight()
 
   // Close topics dropdown on Escape or outside click
@@ -83,10 +81,14 @@ function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-      {/* Header */}
-      <motion.header 
+      {/* Header. NB: do NOT add opacity/transform/will-change/filter here without
+          also escaping the Topics dropdown (#161) to position:fixed — this header is
+          a stacking-context-creating ancestor of that dropdown. The previous
+          `style={{ opacity: headerOpacity }}` from useTransform trapped the
+          dropdown's z-50 inside the header's local stacking context and caused
+          page content to render above the dropdown. (issue: mega-menu overlap) */}
+      <header
         ref={headerRef}
-        style={{ opacity: headerOpacity }}
         className="fixed top-0 left-0 right-0 z-header bg-white/80 backdrop-blur-md border-b border-green-100"
       >
         <div className="container mx-auto px-4 py-4">
@@ -158,7 +160,13 @@ function Layout({ children }) {
                           id="topics-mega-menu"
                           role="region"
                           aria-label="Topics"
-                          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-screen max-w-4xl bg-white rounded-xl shadow-2xl border border-gray-100 p-6 z-50"
+                          // position:fixed escapes any ancestor stacking context
+                          // (defense in depth — the header's stacking context was
+                          // the original cause of the overlap bug; using fixed makes
+                          // the dropdown immune to any future ancestor that creates
+                          // one — opacity, transform, filter, will-change, etc.)
+                          style={{ top: headerHeight + 8 }}
+                          className="fixed left-1/2 -translate-x-1/2 w-screen max-w-4xl bg-white rounded-xl shadow-2xl border border-gray-100 p-6 z-50"
                         >
                           <div className="grid grid-cols-3 gap-x-6 gap-y-5">
                             {clusterConfig.clusters.map((cluster) => {
@@ -422,7 +430,7 @@ function Layout({ children }) {
             </motion.nav>
           )}
         </div>
-      </motion.header>
+      </header>
 
       {/* Main Content */}
       <main style={{ paddingTop: `${headerHeight}px` }} className="transition-[padding] duration-300">
