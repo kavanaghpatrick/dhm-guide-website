@@ -188,6 +188,7 @@ const postModules = {
   "viral-hangover-cures-tested-science-2025": () => import("./posts/viral-hangover-cures-tested-science-2025.json"),
   "wearable-alcohol-monitoring-technology-smart-devices-revolution-2025": () => import("./posts/wearable-alcohol-monitoring-technology-smart-devices-revolution-2025.json"),
   "wearable-technology-and-alcohol-2025-guide-to-smart-health-monitoring": () => import("./posts/wearable-technology-and-alcohol-2025-guide-to-smart-health-monitoring.json"),
+  "what-to-eat-before-drinking-alcohol-evidence-based-guide": () => import("./posts/what-to-eat-before-drinking-alcohol-evidence-based-guide.json"),
   "when-to-take-dhm-timing-guide-2025": () => import("./posts/when-to-take-dhm-timing-guide-2025.json"),
   "wine-hangover-guide": () => import("./posts/wine-hangover-guide.json"),
   "work-life-balance-dhm-2025": () => import("./posts/work-life-balance-dhm-2025.json"),
