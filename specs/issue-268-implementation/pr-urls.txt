@@ -1,0 +1,12 @@
+B|fix/time-on-page-milestone|https://github.com/kavanaghpatrick/dhm-guide-website/pull/269
+C|fix/flyby-comparison-pages|https://github.com/kavanaghpatrick/dhm-guide-website/pull/270
+R3|fix/canonical-script-404|https://github.com/kavanaghpatrick/dhm-guide-website/pull/271
+R5|fix/comparison-posts-schema-audit|https://github.com/kavanaghpatrick/dhm-guide-website/pull/272
+R2|fix/widget-attribution-and-mobile-menu|https://github.com/kavanaghpatrick/dhm-guide-website/pull/273
+R1|fix/affiliate-regex-and-urls|https://github.com/kavanaghpatrick/dhm-guide-website/pull/274
+E|fix/affiliate-button-audit|https://github.com/kavanaghpatrick/dhm-guide-website/pull/275
+R9|fix/nac-vs-dhm-dead-clicks|https://github.com/kavanaghpatrick/dhm-guide-website/pull/276
+R6|feat/template-reviews-cta|https://github.com/kavanaghpatrick/dhm-guide-website/pull/277
+R7|feat/mobile-comparison-above-fold|https://github.com/kavanaghpatrick/dhm-guide-website/pull/278
+R4|test/affiliate-regression|https://github.com/kavanaghpatrick/dhm-guide-website/pull/279
+R10|chore/hygiene-and-utm|https://github.com/kavanaghpatrick/dhm-guide-website/pull/280
