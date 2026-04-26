@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react'
 import Layout from './components/layout/Layout.jsx'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { Toaster } from 'sonner'
 import { useRouter } from './hooks/useRouter'
 import { initPostHog } from './lib/posthog'
 import { useAffiliateTracking } from './hooks/useAffiliateTracking'
@@ -91,6 +92,7 @@ function App() {
         {renderPage()}
       </Suspense>
       <SpeedInsights />
+      <Toaster position="top-center" richColors />
     </Layout>
   )
 }
