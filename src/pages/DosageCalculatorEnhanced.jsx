@@ -10,6 +10,7 @@ import { useSEO } from '../hooks/useSEO.js'
 import { useMobileOptimization } from '../hooks/useMobileOptimization.js'
 import engagementTracker from '../utils/engagement-tracker.js'
 import { trackEvent } from '../lib/posthog'
+import { toast } from 'sonner'
 import RelatedCalculators from '../components/RelatedCalculators.jsx'
 import { 
   Calculator,
@@ -729,24 +730,66 @@ export default function DosageCalculatorEnhanced() {
 
   const handleEmailCapture = async (capturedEmail) => {
     setEmail(capturedEmail)
-    setEmailCaptured(true)
-    setShowExitIntent(false)
-
-    // Track email capture attempt (even without ESP integration)
+    // Capture source BEFORE we close the popup, since showExitIntent flips below.
     const source = showExitIntent ? 'exit_intent' : 'inline'
+
+    // Existing PostHog event for "user attempted to subscribe" — keep firing regardless of ESP outcome.
     engagementTracker.trackEmailCapture(source)
 
-    // Log for future ESP integration
-    console.log('Email capture attempt:', capturedEmail, 'source:', source)
+    try {
+      const res = await fetch('/api/newsletter-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: capturedEmail, source }),
+      })
 
-    // Haptic feedback
-    if (isMobile) {
-      hapticFeedback('success')
+      let payload = null
+      try { payload = await res.json() } catch { payload = null }
+
+      if (res.ok && payload && payload.ok) {
+        setEmailCaptured(true)
+        setShowExitIntent(false)
+        if (isMobile) hapticFeedback('success')
+
+        trackEvent('newsletter_subscribe_succeeded', {
+          source,
+          esp: 'buttondown',
+          status: payload.status || 'subscribed',
+          page_path: window.location.pathname,
+        })
+
+        toast.success('Subscribed — check your inbox for your DHM guide.')
+        return
+      }
+
+      // Failure path: keep form open so user can retry.
+      const status = res.status
+      const errorMessage = (payload && payload.error) || 'Subscription failed'
+
+      trackEvent('newsletter_subscribe_failed', {
+        source,
+        esp: 'buttondown',
+        status,
+        error: errorMessage,
+        page_path: window.location.pathname,
+      })
+
+      if (status === 400) {
+        toast.error('That email looks invalid — please check and try again.')
+      } else {
+        toast.error("Couldn't reach our newsletter service — please try again in a minute.")
+      }
+    } catch (err) {
+      console.error('newsletter subscribe failed:', err)
+      trackEvent('newsletter_subscribe_failed', {
+        source,
+        esp: 'buttondown',
+        status: 0,
+        error: 'network',
+        page_path: window.location.pathname,
+      })
+      toast.error("Couldn't reach our newsletter service — please try again in a minute.")
     }
-
-    // TODO: Integrate with Formspree or ConvertKit (Issue #180)
-    // For now, show honest message - email system coming soon
-    alert('Thanks for your interest! Our email system is being set up. Bookmark this page to return for your personalized DHM guide.')
   }
 
   const scrollToCalculator = () => {
