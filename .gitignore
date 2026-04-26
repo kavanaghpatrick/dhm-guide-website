@@ -199,3 +199,12 @@ scripts/*.png
 # Playwright test artifacts
 tests/screenshots/
 
+
+# Local tooling
+.claude/
+
+# Spec internal state (per ralph-specum)
+specs/.current-spec
+specs/.current-epic
+**/.progress.md
+**/.ralph-state.json
