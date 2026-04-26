@@ -22,6 +22,7 @@ import ImageLightbox from './ImageLightbox';
 import { Link as CustomLink } from '../../components/CustomLink';
 import ReviewsCTA from '../../components/ReviewsCTA';
 import { useFeatureFlag } from '../../hooks/useFeatureFlag';
+import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
 
 // Target slugs for content-to-reviews CTA experiment (#259)
@@ -33,6 +34,74 @@ const REVIEWS_CTA_TARGET_SLUGS = [
   'when-to-take-dhm-timing-guide-2025',
   'nac-vs-dhm-which-antioxidant-better-liver-protection-2025',
 ];
+
+// Slugs whose markdown bodies already contain in-content /reviews CTAs.
+// Skip the auto-injected template CTA on these to avoid duplication.
+const REVIEWS_CTA_SKIP_SLUGS = new Set([
+  'dhm-dosage-guide-2025',
+]);
+
+// Posts shorter than this (rendered markdown chars) skip the mid-content CTA.
+const TEMPLATE_CTA_MIN_CONTENT_LENGTH = 500;
+
+/**
+ * Inline /reviews CTA injected automatically into every blog post body.
+ * Mirrors the soft, on-brand style of the working /reviews link in
+ * dhm-dosage-guide-2025 (9.5% element-CTR). Distinct (left border + light
+ * gradient) but not flashy. Click is captured by PostHog via [data-track="cta"]
+ * (autocapture allowlist) plus an explicit element_clicked event with
+ * placement metadata for funnel analysis.
+ */
+const InlineReviewsCTA = ({ placement, postSlug }) => {
+  const handleClick = () => {
+    trackElementClick('cta', {
+      placement,
+      destination: '/reviews',
+      post_slug: postSlug,
+      element_name: 'blog_template_reviews_cta',
+    });
+  };
+
+  return (
+    <div className="my-8 p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 rounded-r-lg not-prose">
+      <p className="text-base md:text-lg font-semibold text-gray-900 mb-1">
+        Looking for the best DHM supplement?
+      </p>
+      <p className="text-sm text-gray-700 mb-3">
+        We've independently tested 10+ products for purity, absorption, and value.
+      </p>
+      <CustomLink
+        to="/reviews"
+        data-track="cta"
+        data-element-name="blog_template_reviews_cta"
+        data-placement={placement}
+        onClick={handleClick}
+        className="inline-flex items-center gap-1 text-green-700 hover:text-green-800 font-semibold underline underline-offset-2 min-h-[44px]"
+      >
+        See our top-rated picks
+        <ChevronRight className="w-4 h-4" />
+      </CustomLink>
+    </div>
+  );
+};
+
+/**
+ * Split a markdown string at approximately the target percentage, snapping
+ * to the nearest paragraph break (double newline) so we never split mid-
+ * paragraph, mid-table, or mid-list. Returns [before, after].
+ *
+ * If no clean break exists at/after the target (or the break is too close
+ * to the end), returns [content, ''] - mid-content CTA is then skipped and
+ * only the end-of-content CTA renders.
+ */
+const splitContentAtRatio = (content, ratio = 0.3) => {
+  if (!content || typeof content !== 'string') return [content || '', ''];
+  const target = Math.floor(content.length * ratio);
+  const breakIdx = content.indexOf('\n\n', target);
+  if (breakIdx === -1) return [content, ''];
+  if (breakIdx / content.length > 0.85) return [content, ''];
+  return [content.slice(0, breakIdx), content.slice(breakIdx + 2)];
+};
 
 // Helper function to create enhanced components for special content patterns
 const createEnhancedComponents = () => {
@@ -1341,10 +1410,39 @@ const NewBlogPost = () => {
                     ),
                   };
 
+                  // Auto-inject template-level /reviews CTA at ~30% and end of body.
+                  // Skip if: post opts out (post.skipReviewsCta), slug is in skip list
+                  // (already has in-content /reviews CTAs), or body is too short.
+                  const showTemplateCta =
+                    !post.skipReviewsCta &&
+                    !REVIEWS_CTA_SKIP_SLUGS.has(post.slug) &&
+                    typeof fullContent === 'string' &&
+                    fullContent.length >= TEMPLATE_CTA_MIN_CONTENT_LENGTH;
+
+                  if (!showTemplateCta) {
+                    return (
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                        {fullContent}
+                      </ReactMarkdown>
+                    );
+                  }
+
+                  const [contentBefore, contentAfter] = splitContentAtRatio(fullContent, 0.3);
                   return (
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                      {fullContent}
-                    </ReactMarkdown>
+                    <>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                        {contentBefore}
+                      </ReactMarkdown>
+                      {contentAfter && (
+                        <>
+                          <InlineReviewsCTA placement="blog_template_mid" postSlug={post.slug} />
+                          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                            {contentAfter}
+                          </ReactMarkdown>
+                        </>
+                      )}
+                      <InlineReviewsCTA placement="blog_template_end" postSlug={post.slug} />
+                    </>
                   );
                 })()}
                 </div>
