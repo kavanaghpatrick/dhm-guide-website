@@ -140,6 +140,7 @@ const postModules = {
   "liver-inflammation-causes-symptoms-natural-treatment-2025": () => import("./posts/liver-inflammation-causes-symptoms-natural-treatment-2025.json"),
   "longevity-biohacking-dhm-liver-protection": () => import("./posts/longevity-biohacking-dhm-liver-protection.json"),
   "longevity-science-how-alcohol-accelerates-aging-at-the-cellular-level": () => import("./posts/longevity-science-how-alcohol-accelerates-aging-at-the-cellular-level.json"),
+  "magnesium-hangover-hangxiety-glycinate-vs-citrate-2026": () => import("./posts/magnesium-hangover-hangxiety-glycinate-vs-citrate-2026.json"),
   "mindful-drinking-wellness-warrior-dhm-2025": () => import("./posts/mindful-drinking-wellness-warrior-dhm-2025.json"),
   "music-festival-survival-dhm-2025": () => import("./posts/music-festival-survival-dhm-2025.json"),
   "nac-vs-dhm-which-antioxidant-better-liver-protection-2025": () => import("./posts/nac-vs-dhm-which-antioxidant-better-liver-protection-2025.json"),
