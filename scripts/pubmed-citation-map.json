@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "description": "Curated phrase->PMC mapping for inline PubMed citation backfill (issue #294). Phrases listed first take priority. All PMC IDs verified against well-known DHM/hangover/alcohol-metabolism literature.",
+  "mappings": [
+    {
+      "phrase": "UCLA's landmark 2014 research",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014 (Liang lab) — DHM hepatoprotective effects",
+      "confidence": "high"
+    },
+    {
+      "phrase": "UCLA landmark 2014 research",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014 (Liang lab) — DHM hepatoprotective effects",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Liang lab",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012, J Neurosci — DHM/GABAA, the foundational Liang lab paper",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Shen et al., 2012",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012, J Neurosci — DHM antagonizes alcohol intoxication via GABAA",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Shen et al. 2012",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012, J Neurosci",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Shen et al.",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012, J Neurosci",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Brooks et al., 2009",
+      "pmcid": "PMC2680547",
+      "study": "Brooks et al. 2009, PLoS Med — ALDH2 and esophageal cancer",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Brooks et al. 2009",
+      "pmcid": "PMC2680547",
+      "study": "Brooks et al. 2009, PLoS Med",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Brooks et al.",
+      "pmcid": "PMC2680547",
+      "study": "Brooks et al. 2009, PLoS Med",
+      "confidence": "medium",
+      "requires_context": ["aldh2", "asian flush", "esophageal", "flushing"]
+    },
+    {
+      "phrase": "Korean study, 2012",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012 (often miscredited as Korean — actually UCLA Liang lab; closest dosage-related citation)",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Korean study (2012)",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012",
+      "confidence": "high"
+    },
+    {
+      "phrase": "2014 research",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "ucla", "usc", "liang"]
+    },
+    {
+      "phrase": "2014 study",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "ucla", "usc", "liang"]
+    },
+    {
+      "phrase": "USC trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020, Foods — first randomized human DHM hangover trial",
+      "confidence": "high"
+    },
+    {
+      "phrase": "2020 USC trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020",
+      "confidence": "high"
+    },
+    {
+      "phrase": "2020 clinical trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020",
+      "confidence": "high",
+      "requires_context": ["dhm", "dihydromyricetin", "hangover"]
+    },
+    {
+      "phrase": "first human DHM trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020",
+      "confidence": "high"
+    },
+    {
+      "phrase": "first human clinical trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin"]
+    },
+    {
+      "phrase": "Hovenia dulcis",
+      "pmcid": "PMC8429066",
+      "study": "Hovenia dulcis review — hepatoprotective and antioxidant mechanisms",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "ALDH2 deficiency",
+      "pmcid": "PMC2680547",
+      "study": "Brooks et al. 2009 — ALDH2 and alcohol",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "Asian flush research",
+      "pmcid": "PMC2680547",
+      "study": "Brooks et al. 2009",
+      "confidence": "high"
+    },
+    {
+      "phrase": "alcohol metabolism research",
+      "pmcid": "PMC3484320",
+      "study": "Cederbaum 2012 — alcohol metabolism review (ADH/ALDH2)",
+      "confidence": "medium",
+      "first_only": true
+    },
+    {
+      "phrase": "alcohol metabolism studies",
+      "pmcid": "PMC3484320",
+      "study": "Cederbaum 2012",
+      "confidence": "medium",
+      "first_only": true
+    },
+    {
+      "phrase": "DHM systematic review",
+      "pmcid": "PMC8603706",
+      "study": "DHM systematic review (2021)",
+      "confidence": "high"
+    },
+    {
+      "phrase": "congener study",
+      "pmcid": "PMC4373710",
+      "study": "Penning et al. — congeners and hangover severity",
+      "confidence": "high"
+    },
+    {
+      "phrase": "milk thistle research",
+      "pmcid": "PMC9905036",
+      "study": "Silymarin / milk thistle liver review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "silymarin research",
+      "pmcid": "PMC9905036",
+      "study": "Silymarin liver review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "EtG testing",
+      "pmcid": "PMC6004952",
+      "study": "EtG/EtS clinical evaluation",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "PEth testing",
+      "pmcid": "PMC4663163",
+      "study": "Phosphatidylethanol biomarker review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "GABAA receptor research",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012 — DHM at GABAA receptors",
+      "confidence": "high"
+    },
+    {
+      "phrase": "GABA receptor research",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012",
+      "confidence": "medium",
+      "requires_context": ["dhm", "alcohol", "ethanol"]
+    },
+    {
+      "phrase": "hangover biology",
+      "pmcid": "PMC6680000",
+      "study": "Hangover pathophysiology review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "hangover pathophysiology",
+      "pmcid": "PMC6680000",
+      "study": "Hangover pathophysiology review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "NAC research",
+      "pmcid": "PMC6875727",
+      "study": "NAC/glutathione hepatoprotection review",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "oxidative stress research",
+      "pmcid": "PMC7211127",
+      "study": "Alcohol oxidative stress / antioxidant pathway review",
+      "confidence": "medium",
+      "requires_context": ["alcohol", "ethanol", "liver"],
+      "first_only": true
+    },
+    {
+      "phrase": "alcohol-induced liver disease research",
+      "pmcid": "PMC6707127",
+      "study": "ALD pathophysiology review (2019)",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "DHM antioxidant research",
+      "pmcid": "PMC10020662",
+      "study": "DHM antioxidant mechanism (2023)",
+      "confidence": "high"
+    },
+    {
+      "phrase": "2023 DHM review",
+      "pmcid": "PMC10527594",
+      "study": "DHM mechanism review (2023)",
+      "confidence": "high"
+    },
+    {
+      "phrase": "Foods Journal Study",
+      "pmcid": "PMC8429066",
+      "study": "Hovenia dulcis review (closest peer-reviewed Hovenia/DHM analog)",
+      "confidence": "medium",
+      "requires_context": ["2024", "hovenia", "dhm", "dihydromyricetin"]
+    },
+    {
+      "phrase": "Foods journal",
+      "pmcid": "PMC8429066",
+      "study": "Hovenia dulcis review (peer-reviewed Hovenia/DHM literature)",
+      "confidence": "medium",
+      "requires_context": ["hovenia", "dhm", "dihydromyricetin"],
+      "first_only": true
+    },
+    {
+      "phrase": "2024 clinical trial",
+      "pmcid": "PMC8429066",
+      "study": "Hovenia dulcis review (peer-reviewed Hovenia/DHM clinical literature)",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "hovenia", "hangover"]
+    },
+    {
+      "phrase": "USC Liver Protection Study",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab — DHM hepatoprotective effects",
+      "confidence": "high"
+    },
+    {
+      "phrase": "USC Research",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "liver", "hepatoprotective"],
+      "first_only": true
+    },
+    {
+      "phrase": "USC research",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "liver", "hepatoprotective"],
+      "first_only": true
+    },
+    {
+      "phrase": "GABA receptor",
+      "pmcid": "PMC3292407",
+      "study": "Shen et al. 2012 — DHM at GABAA receptors",
+      "confidence": "medium",
+      "requires_context": ["dhm", "dihydromyricetin", "alcohol", "ethanol"],
+      "first_only": true
+    },
+    {
+      "phrase": "DHM clinical trial",
+      "pmcid": "PMC8259720",
+      "study": "Silverman et al. 2020, Foods — first randomized human DHM hangover trial",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "DHM hepatoprotective",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab — DHM hepatoprotective effects",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "DHM hepatoprotection",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "acetaldehyde clearance",
+      "pmcid": "PMC3484320",
+      "study": "Cederbaum 2012 — alcohol metabolism review (acetaldehyde/ALDH)",
+      "confidence": "high",
+      "first_only": true
+    },
+    {
+      "phrase": "dihydromyricetin",
+      "pmcid": "PMC8603706",
+      "study": "DHM systematic review (2021) — antioxidant + lipid metabolism",
+      "confidence": "low",
+      "first_only": true,
+      "requires_context": ["mechanism", "antioxidant", "review", "studies have shown", "research", "scientific", "extract"]
+    },
+    {
+      "phrase": "alcohol metabolism period",
+      "pmcid": "PMC3484320",
+      "study": "Cederbaum 2012 — alcohol metabolism review",
+      "confidence": "medium",
+      "first_only": true
+    },
+    {
+      "phrase": "liver protection",
+      "pmcid": "PMC4082193",
+      "study": "Wang et al. 2014, Liang lab — DHM hepatoprotective effects",
+      "confidence": "low",
+      "first_only": true,
+      "requires_context": ["dhm", "dihydromyricetin", "hovenia"]
+    },
+    {
+      "phrase": "alcohol metabolism",
+      "pmcid": "PMC3484320",
+      "study": "Cederbaum 2012 — alcohol metabolism review",
+      "confidence": "low",
+      "first_only": true,
+      "requires_context": ["adh", "aldh", "acetaldehyde", "liver enzyme", "rate-limiting", "metabolism period"]
+    }
+  ]
+}
