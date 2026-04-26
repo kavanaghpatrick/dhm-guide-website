@@ -21,7 +21,7 @@ export { default as post17 } from './dhm1000-review-2025.json';
 export { default as post18 } from './fuller-health-after-party-review-2025.json';
 export { default as post19 } from './dhm-depot-review-2025.json';
 export { default as post20 } from './flyby-recovery-review-2025.json';
-export { default as post21 } from './dhm-randomized-controlled-trials-2024.json';
+export { default as post21 } from './dhm-randomized-controlled-trials.json';
 export { default as post22 } from './emergency-hangover-protocol-2025.json';
 export { default as post23 } from './when-to-take-dhm-timing-guide-2025.json';
 export { default as post24 } from './liver-health-alcohol-supplements-dhm-2025.json';
