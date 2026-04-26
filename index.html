@@ -265,8 +265,10 @@
   </head>
   <body>
     <div id="root">
-      <!-- Initial content for crawlers while React loads -->
-      <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+      <!-- Initial content for crawlers while React loads.
+           Issue #284: removed off-screen positioning (cloaking pattern).
+           React's createRoot replaces this on mount; visible briefly is fine. -->
+      <div>
         <h1>DHM Guide: Science-Backed Hangover Prevention</h1>
         <p>Discover how DHM (Dihydromyricetin) prevents hangovers with clinically-proven effectiveness. Based on 11+ scientific studies and UCLA research.</p>
         <p>Learn about proper DHM dosage, timing, and the best supplements for hangover prevention.</p>

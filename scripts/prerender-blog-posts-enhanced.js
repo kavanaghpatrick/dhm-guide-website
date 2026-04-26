@@ -10,6 +10,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import jsdom from 'jsdom';
+import { micromark } from 'micromark';
+import { gfm, gfmHtml } from 'micromark-extension-gfm';
 import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
 import { generateHowToSchema } from '../src/utils/structuredDataHelpers.js';
 
@@ -290,10 +292,21 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     // Insert noscript content after root div
     rootDiv.insertAdjacentHTML('afterend', noscriptContent);
     
-    // Add visible initial content for SEO (removed display:none to prevent cloaking)
-    // This content will be replaced when React loads but is visible to crawlers
+    // Render full article body via micromark (issue #284: was a 100-word stub
+    // hidden off-screen — that pattern triggered Google cloaking penalty risk
+    // and starved AI crawlers of content). React's createRoot replaces this
+    // on hydration, so no mismatch concerns; crawlers see full text first.
+    const contentStr = typeof post.content === 'string' ? post.content : '';
+    const fullContentHtml = contentStr
+      ? micromark(contentStr, {
+          allowDangerousHtml: true,
+          extensions: [gfm()],
+          htmlExtensions: [gfmHtml()]
+        })
+      : '';
+
     rootDiv.innerHTML = `
-      <div id="prerender-content" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+      <div id="prerender-content">
         <article>
           <h1>${safeTitle}</h1>
           <div class="meta">
@@ -302,7 +315,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
             <span>${escapeHtml(String(post.readTime))} min read</span>
           </div>
           <p class="excerpt">${safeExcerpt}</p>
-          ${safeFirstParagraph ? `<p>${safeFirstParagraph}</p>` : ''}
+          ${fullContentHtml}
         </article>
       </div>
     `;
