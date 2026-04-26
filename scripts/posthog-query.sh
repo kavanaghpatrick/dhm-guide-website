@@ -2,7 +2,7 @@
 # PostHog Query Helper for DHM Guide
 # Usage: ./scripts/posthog-query.sh [command]
 
-API_KEY="${POSTHOG_PERSONAL_API_KEY:-phx_V9NkxY2istxJLQ0HZEin1qB57DwULWhUShGSHGMz8oFM92c}"
+API_KEY="${POSTHOG_PERSONAL_API_KEY:?Set POSTHOG_PERSONAL_API_KEY in your environment (~/.zshrc) — see docs/posthog-analysis-2026-04-25/r10-hygiene.md}"
 BASE_URL="https://us.posthog.com/api/projects/@current"
 
 case "$1" in
@@ -51,8 +51,26 @@ for e in d.get('results',[]):
     ;;
 
   funnel)
-    echo "=== Conversion Funnel (Pageview → Scroll 50% → Affiliate Click) ==="
+    echo "=== Conversion Funnel (Pageview -> Scroll 50% -> Affiliate Click) ==="
     echo "Coming soon - requires funnel query setup in PostHog dashboard"
+    ;;
+
+  dead-clicks-raw)
+    echo "=== Dead Clicks (Raw, Last 7 Days) ==="
+    curl -s -X POST "$BASE_URL/query" \
+      -H "Authorization: Bearer $API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"query": {"kind": "HogQLQuery", "query": "SELECT count() AS c FROM events WHERE event = '"'"'$dead_click'"'"' AND timestamp > now() - INTERVAL 7 DAY"}}' \
+      | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f'count: {r[0]}') for r in d.get('results',[])]"
+    ;;
+
+  dead-clicks-real)
+    echo "=== Dead Clicks (Real / Filtered, Last 7 Days) ==="
+    curl -s -X POST "$BASE_URL/query" \
+      -H "Authorization: Bearer $API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"query": {"kind": "HogQLQuery", "query": "SELECT count() AS c FROM events WHERE event = '"'"'$dead_click'"'"' AND coalesce(properties.$external_click_url, '"'"''"'"') NOT LIKE '"'"'%amzn%'"'"' AND coalesce(properties.$external_click_url, '"'"''"'"') NOT LIKE '"'"'%amazon%'"'"' AND coalesce(properties.$external_click_url, '"'"''"'"') NOT LIKE '"'"'%fullerhealth%'"'"' AND timestamp > now() - INTERVAL 7 DAY"}}' \
+      | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f'count: {r[0]}') for r in d.get('results',[])]"
     ;;
 
   *)
@@ -60,10 +78,12 @@ for e in d.get('results',[]):
     echo "Usage: $0 [command]"
     echo ""
     echo "Commands:"
-    echo "  events     - Show event counts by type"
-    echo "  scroll     - Show scroll depth events"
-    echo "  affiliate  - Show affiliate link clicks"
-    echo "  pageviews  - Show pageviews by path"
-    echo "  funnel     - Show conversion funnel (TBD)"
+    echo "  events            - Show event counts by type"
+    echo "  scroll            - Show scroll depth events"
+    echo "  affiliate         - Show affiliate link clicks"
+    echo "  pageviews         - Show pageviews by path"
+    echo "  funnel            - Show conversion funnel (TBD)"
+    echo "  dead-clicks-raw   - Total \$dead_click count (unfiltered, includes affiliate false-positives)"
+    echo "  dead-clicks-real  - \$dead_click count filtered to exclude Amazon/Fuller affiliate false-positives"
     ;;
 esac
