@@ -37,6 +37,11 @@
       "source": "/never-hungover/smart-sleep-tech-alcohol-circadian-optimization-guide-2025",
       "destination": "/never-hungover/smart-sleep-technology-and-alcohol-circadian-optimization-guide-2025",
       "permanent": true
+    },
+    {
+      "source": "/never-hungover/dhm-randomized-controlled-trials-2024",
+      "destination": "/never-hungover/dhm-randomized-controlled-trials",
+      "permanent": true
     }
   ],
   "rewrites": [
