@@ -1,0 +1,214 @@
+{
+  "$comment": "Sentinel-based hub->orphan link injection plan for #296. Each row: source_hub (post containing sentinel), target_orphan (link destination), sentinel_phrase (exact unique substring in hub.content), rewrite (sentinel + injected markdown link). Idempotency: skip if /never-hungover/<orphan> already in hub. Skipped rows have skip:true with reason. 28 active + 2 skipped (no clean natural sentinel) per S3 plan; 28 hub->orphan injections target 28 distinct orphans.",
+  "version": 1,
+  "rows": [
+    {
+      "source_hub": "alcohol-aging-longevity-2025",
+      "target_orphan": "alcohol-eye-health-complete-vision-impact-guide-2025",
+      "anchor_text": "alcohol's effect on eye health and vision",
+      "sentinel_phrase": "The pancreas can suffer from alcohol-induced pancreatitis, a painful inflammation that impairs its ability to produce digestive enzymes and hormones like insulin.",
+      "rewrite": "The pancreas can suffer from alcohol-induced pancreatitis, a painful inflammation that impairs its ability to produce digestive enzymes and hormones like insulin. Even the eyes are not spared — chronic drinking accelerates dry eye, cataracts, and macular degeneration ([alcohol's effect on eye health and vision](/never-hungover/alcohol-eye-health-complete-vision-impact-guide-2025))."
+    },
+    {
+      "source_hub": "alcohol-aging-longevity-2025",
+      "target_orphan": "alcohol-brain-health-long-term-impact-analysis-2025",
+      "anchor_text": "long-term cognitive decline from alcohol",
+      "sentinel_phrase": "Chronic heavy drinking can cause neurodegeneration, leading to brain shrinkage, cognitive decline, memory impairment, and an increased risk of dementia.",
+      "rewrite": "Chronic heavy drinking can cause neurodegeneration, leading to brain shrinkage, cognitive decline, memory impairment, and an increased risk of dementia. See our deep dive on [long-term cognitive decline from alcohol](/never-hungover/alcohol-brain-health-long-term-impact-analysis-2025) for the full mechanistic breakdown."
+    },
+    {
+      "source_hub": "alcohol-aging-longevity-2025",
+      "target_orphan": "alcohol-thyroid-hormonal-disruption-2025",
+      "anchor_text": "thyroid and hormonal disruption",
+      "sentinel_phrase": "The mechanisms involve DNA damage, oxidative stress, and altered hormone levels.",
+      "rewrite": "The mechanisms involve DNA damage, oxidative stress, and altered hormone levels — the latter explored in detail in our guide to [thyroid and hormonal disruption](/never-hungover/alcohol-thyroid-hormonal-disruption-2025) caused by chronic alcohol exposure."
+    },
+    {
+      "source_hub": "alcohol-aging-longevity-2025",
+      "target_orphan": "alcohol-and-metabolic-flexibility-energy-system-optimization-2025",
+      "anchor_text": "metabolic flexibility and aging",
+      "sentinel_phrase": "Physical activity improves circulation, reduces inflammation, boosts cellular repair mechanisms, and enhances overall cellular health, including mitochondrial function.",
+      "rewrite": "Physical activity improves circulation, reduces inflammation, boosts cellular repair mechanisms, and enhances overall cellular health, including mitochondrial function. Together these adaptations restore [metabolic flexibility and aging](/never-hungover/alcohol-and-metabolic-flexibility-energy-system-optimization-2025) resilience that alcohol systematically erodes."
+    },
+    {
+      "skip": true,
+      "source_hub": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+      "target_orphan": "altitude-alcohol-high-elevation-drinking-safety-2025",
+      "skip_reason": "Hub has no altitude/elevation/cabin content. Forcing a link would read awkwardly. Defer to cluster-formalize (#297) which adds spoke->pillar reciprocity."
+    },
+    {
+      "source_hub": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+      "target_orphan": "alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025",
+      "anchor_text": "genetic testing for alcohol metabolism",
+      "sentinel_phrase": "Unlike ADH, the MEOS pathway is inducible, meaning its activity increases with chronic alcohol exposure.",
+      "rewrite": "Unlike ADH, the MEOS pathway is inducible, meaning its activity increases with chronic alcohol exposure. Personal variability in ADH and ALDH alleles is also why [genetic testing for alcohol metabolism](/never-hungover/alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025) reveals such different tolerance profiles between individuals."
+    },
+    {
+      "source_hub": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+      "target_orphan": "athletes-alcohol-sport-specific-performance-guide-2025",
+      "anchor_text": "athletes and alcohol performance",
+      "sentinel_phrase": "Understanding these mechanisms, particularly alcohol pharmacokinetics--the study of how the body absorbs, distributes, metabolizes, and eliminates alcohol--is not merely an academic exercise.",
+      "rewrite": "Understanding these mechanisms, particularly alcohol pharmacokinetics--the study of how the body absorbs, distributes, metabolizes, and eliminates alcohol--is not merely an academic exercise. It has direct, measurable effects on physical output: see [athletes and alcohol performance](/never-hungover/athletes-alcohol-sport-specific-performance-guide-2025) for sport-specific recovery and training-day guidance."
+    },
+    {
+      "source_hub": "advanced-liver-detox-science-vs-marketing-myths-2025",
+      "target_orphan": "alcohol-recovery-nutrition-complete-healing-protocol-2025",
+      "anchor_text": "post-drinking nutritional recovery",
+      "sentinel_phrase": "The truth is, for healthy individuals, the liver is perfectly capable of handling the body's detoxification needs without external intervention from specialized 'cleanses' or 'detox' diets.",
+      "rewrite": "The truth is, for healthy individuals, the liver is perfectly capable of handling the body's detoxification needs without external intervention from specialized 'cleanses' or 'detox' diets. What does help is targeted [post-drinking nutritional recovery](/never-hungover/alcohol-recovery-nutrition-complete-healing-protocol-2025) — replenishing depleted micronutrients and supporting the metabolic pathways that already work."
+    },
+    {
+      "source_hub": "advanced-liver-detox-science-vs-marketing-myths-2025",
+      "target_orphan": "liver-health-alcohol-supplements-dhm-2025",
+      "anchor_text": "DHM and liver-protective supplements",
+      "sentinel_phrase": "One such compound is Dihydromyricetin (DHM), a flavonoid primarily extracted from the plant *Hovenia dulcis* (Japanese Raisin Tree).",
+      "rewrite": "One such compound is Dihydromyricetin (DHM), a flavonoid primarily extracted from the plant *Hovenia dulcis* (Japanese Raisin Tree). For the full evidence stack on [DHM and liver-protective supplements](/never-hungover/liver-health-alcohol-supplements-dhm-2025), including comparative outcomes, see our dedicated review."
+    },
+    {
+      "source_hub": "advanced-liver-detox-science-vs-marketing-myths-2025",
+      "target_orphan": "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+      "anchor_text": "NAC versus DHM for liver protection",
+      "sentinel_phrase": "Oxidative stress, an imbalance between free radicals and antioxidants in the body, plays a significant role in the progression of various liver diseases.",
+      "rewrite": "Oxidative stress, an imbalance between free radicals and antioxidants in the body, plays a significant role in the progression of various liver diseases. Two of the most-studied antioxidant interventions are NAC and DHM — read [NAC versus DHM for liver protection](/never-hungover/nac-vs-dhm-which-antioxidant-better-liver-protection-2025) for a side-by-side mechanism comparison."
+    },
+    {
+      "source_hub": "dhm-dosage-guide-2025",
+      "target_orphan": "can-you-take-dhm-every-day-long-term-guide-2025",
+      "anchor_text": "daily DHM long-term use",
+      "sentinel_phrase": "**📅 Can you take DHM daily?** No - DHM is for occasional use (2-3 times per week max).",
+      "rewrite": "**📅 Can you take DHM daily?** No - DHM is for occasional use (2-3 times per week max). For the full safety review, see our guide to [daily DHM long-term use](/never-hungover/can-you-take-dhm-every-day-long-term-guide-2025)."
+    },
+    {
+      "source_hub": "dhm-dosage-guide-2025",
+      "target_orphan": "when-to-take-dhm-timing-guide-2025",
+      "anchor_text": "DHM timing and dosing schedule",
+      "sentinel_phrase": "For all-day drinking events, split your dose: half before starting, half midway through.",
+      "rewrite": "For all-day drinking events, split your dose: half before starting, half midway through. For more split-dose and pre-event variations, see our complete [DHM timing and dosing schedule](/never-hungover/when-to-take-dhm-timing-guide-2025)."
+    },
+    {
+      "source_hub": "dhm-dosage-guide-2025",
+      "target_orphan": "heavy-drinking-maximum-protection-dhm-2025",
+      "anchor_text": "maximum DHM protocol for heavy drinking",
+      "sentinel_phrase": "For heavy drinking sessions (7+ drinks), use the full 600mg dose.",
+      "rewrite": "For heavy drinking sessions (7+ drinks), use the full 600mg dose. For binge-drinking and stacked-protection scenarios, see our [maximum DHM protocol for heavy drinking](/never-hungover/heavy-drinking-maximum-protection-dhm-2025) breakdown."
+    },
+    {
+      "source_hub": "dhm-dosage-guide-2025",
+      "target_orphan": "broke-college-student-budget-dhm-2025",
+      "anchor_text": "budget DHM dosing on a student wallet",
+      "sentinel_phrase": "Now that you know your optimal dosage, find a quality DHM supplement that matches your needs.",
+      "rewrite": "Now that you know your optimal dosage, find a quality DHM supplement that matches your needs. On a tight budget? See our [budget DHM dosing on a student wallet](/never-hungover/broke-college-student-budget-dhm-2025) cost-per-use guide."
+    },
+    {
+      "source_hub": "functional-medicine-hangover-prevention-2025",
+      "target_orphan": "alcohol-headache-why-it-happens-how-to-prevent-2025",
+      "anchor_text": "the science of alcohol headaches",
+      "sentinel_phrase": "These imbalances can contribute to headaches, dizziness, fatigue, and muscle weakness.",
+      "rewrite": "These imbalances can contribute to headaches, dizziness, fatigue, and muscle weakness. For a deeper look at [the science of alcohol headaches](/never-hungover/alcohol-headache-why-it-happens-how-to-prevent-2025), including vasodilation and congener pathways, read our dedicated guide."
+    },
+    {
+      "source_hub": "functional-medicine-hangover-prevention-2025",
+      "target_orphan": "hangover-nausea-complete-guide-fast-stomach-relief-2025",
+      "anchor_text": "fast nausea relief protocol",
+      "sentinel_phrase": "This fluid loss, coupled with sweating and vomiting, can result in dehydration and an imbalance of essential electrolytes like sodium, potassium, and magnesium.",
+      "rewrite": "This fluid loss, coupled with sweating and vomiting, can result in dehydration and an imbalance of essential electrolytes like sodium, potassium, and magnesium. If you're already nauseated, jump to our [fast nausea relief protocol](/never-hungover/hangover-nausea-complete-guide-fast-stomach-relief-2025) for symptom-specific steps."
+    },
+    {
+      "source_hub": "functional-medicine-hangover-prevention-2025",
+      "target_orphan": "emergency-hangover-protocol-2025",
+      "anchor_text": "emergency hangover protocol",
+      "sentinel_phrase": "For example, individuals with less efficient ALDH2 enzymes will experience a more rapid and severe buildup of toxic acetaldehyde, leading to more pronounced hangover symptoms.",
+      "rewrite": "For example, individuals with less efficient ALDH2 enzymes will experience a more rapid and severe buildup of toxic acetaldehyde, leading to more pronounced hangover symptoms. When symptoms are severe enough to disrupt the day, our [emergency hangover protocol](/never-hungover/emergency-hangover-protocol-2025) walks through a 90-minute recovery sequence."
+    },
+    {
+      "source_hub": "activated-charcoal-hangover",
+      "target_orphan": "organic-natural-hangover-prevention-clean-living-2025",
+      "anchor_text": "evidence-based natural hangover prevention",
+      "sentinel_phrase": "Unlike activated charcoal's passive and ineffective attempt to bind alcohol in the gut, DHM actively enhances your body's natural ability to process alcohol and protect against its effects.",
+      "rewrite": "Unlike activated charcoal's passive and ineffective attempt to bind alcohol in the gut, DHM actively enhances your body's natural ability to process alcohol and protect against its effects. For the broader 'natural-living' angle, see our [evidence-based natural hangover prevention](/never-hungover/organic-natural-hangover-prevention-clean-living-2025) guide."
+    },
+    {
+      "source_hub": "activated-charcoal-hangover",
+      "target_orphan": "biohacking-alcohol-tolerance-science-based-strategies-2025",
+      "anchor_text": "biohacking alcohol tolerance",
+      "sentinel_phrase": "Combine these with common-sense strategies like hydration, proper nutrition, and moderation for the best results.",
+      "rewrite": "Combine these with common-sense strategies like hydration, proper nutrition, and moderation for the best results. For more advanced optimization, see our [biohacking alcohol tolerance](/never-hungover/biohacking-alcohol-tolerance-science-based-strategies-2025) science-based strategy stack."
+    },
+    {
+      "source_hub": "double-wood-vs-no-days-wasted-dhm-comparison-2025",
+      "target_orphan": "flyby-vs-double-wood-complete-comparison-2025",
+      "anchor_text": "Flyby vs Double Wood comparison",
+      "sentinel_phrase": "## Real Performance Comparison",
+      "rewrite": "## Real Performance Comparison\n\n*Considering Flyby Recovery as a third option? See our [Flyby vs Double Wood comparison](/never-hungover/flyby-vs-double-wood-complete-comparison-2025) before deciding.*\n"
+    },
+    {
+      "source_hub": "double-wood-vs-no-days-wasted-dhm-comparison-2025",
+      "target_orphan": "double-wood-dhm-review-analysis",
+      "anchor_text": "in-depth Double Wood DHM review",
+      "sentinel_phrase": "Double Wood proved that pure DHM at the right dose handles 90% of hangover scenarios.",
+      "rewrite": "Double Wood proved that pure DHM at the right dose handles 90% of hangover scenarios. For our standalone [in-depth Double Wood DHM review](/never-hungover/double-wood-dhm-review-analysis), including 6-month testing notes and customer-review breakdown, head here."
+    },
+    {
+      "source_hub": "is-dhm-safe-science-behind-side-effects-2025",
+      "target_orphan": "antioxidant-anti-aging-dhm-powerhouse-2025",
+      "anchor_text": "DHM as antioxidant powerhouse",
+      "sentinel_phrase": "The liver-protective properties may be particularly beneficial for older adults.",
+      "rewrite": "The liver-protective properties may be particularly beneficial for older adults. Beyond liver support, the molecule shows broader free-radical scavenging effects — see [DHM as antioxidant powerhouse](/never-hungover/antioxidant-anti-aging-dhm-powerhouse-2025) for the anti-aging mechanism review."
+    },
+    {
+      "source_hub": "is-dhm-safe-science-behind-side-effects-2025",
+      "target_orphan": "longevity-biohacking-dhm-liver-protection",
+      "anchor_text": "DHM longevity biohacking",
+      "sentinel_phrase": "No tolerance or dependence develops, and long-term studies show no adverse effects.",
+      "rewrite": "No tolerance or dependence develops, and long-term studies show no adverse effects. This long-term safety profile is part of why DHM has gained traction in [DHM longevity biohacking](/never-hungover/longevity-biohacking-dhm-liver-protection) protocols."
+    },
+    {
+      "skip": true,
+      "source_hub": "dhm-science-explained",
+      "target_orphan": "dhm-availability-worldwide-guide-2025",
+      "skip_reason": "Hub has no buy/availability/global content. Defer to cluster-formalize (#297) which adds spoke->pillar reciprocity for DHM master cluster."
+    },
+    {
+      "source_hub": "dhm-science-explained",
+      "target_orphan": "sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025",
+      "anchor_text": "DHM for sleep and GABA modulation",
+      "sentinel_phrase": "**Substantially better sleep quality** throughout the night",
+      "rewrite": "**Substantially better sleep quality** throughout the night — the same GABA-receptor mechanism is why people use [DHM for sleep and GABA modulation](/never-hungover/sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025) outside of drinking nights"
+    },
+    {
+      "source_hub": "dhm-science-explained",
+      "target_orphan": "natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025",
+      "anchor_text": "GABA, DHM, and natural anxiety relief",
+      "sentinel_phrase": "The molecular mechanisms we've explored--enhanced liver metabolism and GABA receptor protection--explain why DHM consistently delivers results where other remedies fail.",
+      "rewrite": "The molecular mechanisms we've explored--enhanced liver metabolism and GABA receptor protection--explain why DHM consistently delivers results where other remedies fail. The same GABA pathway is the basis for [GABA, DHM, and natural anxiety relief](/never-hungover/natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025) protocols."
+    },
+    {
+      "source_hub": "at-home-alcohol-testing-monitoring-safety-guide-2025",
+      "target_orphan": "pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025",
+      "anchor_text": "pilots, BAC, and aviation safety",
+      "sentinel_phrase": "Healthcare professionals can use the data from at-home monitoring to tailor treatment plans, provide targeted interventions, and offer ongoing support.",
+      "rewrite": "Healthcare professionals can use the data from at-home monitoring to tailor treatment plans, provide targeted interventions, and offer ongoing support. Safety-critical occupations face even tighter requirements — read our guide to [pilots, BAC, and aviation safety](/never-hungover/pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025) for the FAA standard and bottle-to-throttle math."
+    },
+    {
+      "source_hub": "at-home-alcohol-testing-monitoring-safety-guide-2025",
+      "target_orphan": "business-travel-alcohol-executive-health-guide-2025",
+      "anchor_text": "executive business-travel alcohol monitoring",
+      "sentinel_phrase": "They are generally more expensive but provide professional-grade results.",
+      "rewrite": "They are generally more expensive but provide professional-grade results. If you're managing client dinners or red-eye flights, our [executive business-travel alcohol monitoring](/never-hungover/business-travel-alcohol-executive-health-guide-2025) guide covers travel-friendly device choices."
+    },
+    {
+      "source_hub": "alcohol-and-inflammation-complete-health-impact-guide-2025",
+      "target_orphan": "alcohol-autoimmune-diseases-inflammatory-response-2025",
+      "anchor_text": "autoimmune disease and alcohol inflammation",
+      "sentinel_phrase": "It's the immune system's immediate response to injury, infection, or irritation, characterized by redness, swelling, heat, and pain.",
+      "rewrite": "It's the immune system's immediate response to injury, infection, or irritation, characterized by redness, swelling, heat, and pain. When this response misfires chronically, conditions like lupus and rheumatoid arthritis emerge — see [autoimmune disease and alcohol inflammation](/never-hungover/alcohol-autoimmune-diseases-inflammatory-response-2025) for the full alcohol-autoimmunity link."
+    },
+    {
+      "source_hub": "alcohol-and-inflammation-complete-health-impact-guide-2025",
+      "target_orphan": "alcohol-eye-health-complete-vision-impact-guide-2025",
+      "anchor_text": "ocular inflammation from alcohol",
+      "sentinel_phrase": "The liver, being the primary organ responsible for metabolizing alcohol, bears a significant brunt of this inflammatory assault.",
+      "rewrite": "The liver, being the primary organ responsible for metabolizing alcohol, bears a significant brunt of this inflammatory assault. The eyes are an under-recognized inflammatory target — see [ocular inflammation from alcohol](/never-hungover/alcohol-eye-health-complete-vision-impact-guide-2025) for the dry-eye, uveitis, and macular pathways."
+    }
+  ]
+}
