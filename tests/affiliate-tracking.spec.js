@@ -8,7 +8,31 @@ import { test, expect, devices } from '@playwright/test';
  *   PostHog analytics on 2026-04-25 showed dead-click rate doubled
  *   (3.2% -> 6.9%, 1.68x worse on mobile). That means users are clicking
  *   on affiliate buttons that either don't navigate, are missing target/rel
- *   attributes, or aren't firing the `affiliate_link_click` PostHog event.
+ *   attributes, or aren't firing the `affiliate_link_click` event.
+ *
+ * Why this is asserted via `window.dataLayer` (not PostHog network requests):
+ *   PostHog's `_is_bot()` UA heuristic detects `HeadlessChrome` and suppresses
+ *   the `loaded` callback. Our `trackEvent()` wrapper in `src/lib/posthog.js`
+ *   early-returns when `initialized === false`, so every `posthog.capture()`
+ *   call is a silent no-op in headless Chromium -- even though tracking is
+ *   healthy in real browsers (verified via HogQL query: 13 events in 7 days).
+ *
+ *   Forensics in `docs/posthog-analysis-2026-04-25/x1-real-browser-repro.md`
+ *   and `x2-handler-forensics.md` confirm the React click handler runs
+ *   end-to-end: it pushes a fully-formed payload to `window.dataLayer` AFTER
+ *   the PostHog capture call. That dataLayer push is therefore the canonical
+ *   proof the handler executed, and is what we assert here.
+ *
+ *   See `useAffiliateTracking.js:160-169`:
+ *     if (window.dataLayer) {
+ *       window.dataLayer.push({
+ *         event: 'affiliate_link_click',
+ *         affiliate_url, affiliate_product, affiliate_placement, page_path, ...
+ *       });
+ *     }
+ *
+ *   Note the `if (window.dataLayer)` guard -- the array MUST exist before the
+ *   click. We pre-create it via `addInitScript`.
  *
  * What this suite verifies (per page, per viewport):
  *   1. The affiliate button exists, is visible, has the expected label.
@@ -17,8 +41,8 @@ import { test, expect, devices } from '@playwright/test';
  *        - amzn.to shortlinks (Amazon's own affiliate-tagged shortener), OR
  *        - amazon.<tld>/... with a `tag=` affiliate query param.
  *   4. Clicking the button opens a NEW page/tab (popup event fires).
- *   5. Clicking the button fires a PostHog event whose payload decodes
- *      to event name `affiliate_link_click`.
+ *   5. Clicking the button pushes an `affiliate_link_click` entry to
+ *      `window.dataLayer` with `affiliate_url` matching the original href.
  *
  * Pages covered:
  *   - /reviews
@@ -29,8 +53,8 @@ import { test, expect, devices } from '@playwright/test';
  *   - iPhone 13 mobile (390x844) -- mobile dead-click rate is 1.68x desktop
  *
  * Sanity checks:
- *   - No console errors on page load
- *   - No 404s for affiliate-button-relevant assets
+ *   - No console errors on page load (filtered to first-party origins)
+ *   - No 404s for first-party assets
  *
  * Base URL:
  *   PLAYWRIGHT_BASE_URL env var, default https://www.dhmguide.com
@@ -40,15 +64,8 @@ import { test, expect, devices } from '@playwright/test';
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'https://www.dhmguide.com';
 
 // Affiliate URL pattern: amzn.to shortlinks OR amazon.<tld> with tag= query param.
-// amzn.to is Amazon's own affiliate-tagged shortener; the tag is server-side
-// on redirect, so its presence alone is sufficient evidence of affiliate intent.
 const AFFILIATE_URL_REGEX =
   /^https?:\/\/(?:www\.)?(?:amzn\.to\/[A-Za-z0-9]+|amazon\.(?:com|co\.uk|ca|de)\/[^\s]*?(?:[?&]tag=[^&\s]+))/i;
-
-// PostHog ingest endpoints we care about. Site proxies via /ingest/* to
-// us.i.posthog.com/*, so accept both proxied and direct hosts.
-const POSTHOG_EVENT_URL_REGEX =
-  /(?:\/ingest|us\.i\.posthog\.com|app\.posthog\.com|us\.posthog\.com)\/(?:e\/?|i\/v0\/e\/?|batch\/?|capture\/?)(?:\?|$)/;
 
 const AFFILIATE_BUTTON_TEXT_REGEX = /(?:check\s+price|buy)\s+on\s+amazon/i;
 
@@ -56,105 +73,72 @@ const AFFILIATE_BUTTON_TEXT_REGEX = /(?:check\s+price|buy)\s+on\s+amazon/i;
 // Helpers
 // -----------------------------------------------------------------------------
 
-/**
- * Decode a PostHog request body into an array of captured events.
- * PostHog sends bodies in a few different formats:
- *   - JSON object  ({ event, properties, ... })
- *   - JSON array   ([ { event, ... }, ... ])
- *   - x-www-form-urlencoded with `data=<base64-or-json>` (older clients)
- *   - lz-string compressed (we don't decompress; we still inspect URL params)
- * Returns [] if the body cannot be parsed.
- */
-function decodePosthogBody(request) {
-  const out = [];
-  try {
-    const postData = request.postData();
-    if (!postData) return out;
+/** Block actual Amazon nav at network layer; click handler still sees real href. */
+async function blockAmazonNavigation(context) {
+  await context.route(
+    /^https?:\/\/(?:www\.)?(?:amzn\.to|amazon\.(?:com|co\.uk|ca|de))\//i,
+    (route) => route.abort()
+  );
+}
 
-    // Try direct JSON first.
-    try {
-      const parsed = JSON.parse(postData);
-      if (Array.isArray(parsed)) return parsed;
-      if (parsed && typeof parsed === 'object') return [parsed];
-    } catch {
-      // Not raw JSON.
-    }
+/** Pre-seed window.dataLayer = [] before any page script runs. */
+async function seedDataLayer(context) {
+  await context.addInitScript(() => {
+    window.dataLayer = window.dataLayer || [];
+  });
+}
 
-    // Try form-encoded `data=...`.
-    if (postData.startsWith('data=') || postData.includes('&data=')) {
-      const params = new URLSearchParams(postData);
-      const data = params.get('data');
-      if (data) {
-        try {
-          // base64-encoded JSON.
-          const decoded = Buffer.from(data, 'base64').toString('utf8');
-          const parsed = JSON.parse(decoded);
-          if (Array.isArray(parsed)) return parsed;
-          if (parsed && typeof parsed === 'object') return [parsed];
-        } catch {
-          // try plain JSON in form value
-          try {
-            const parsed = JSON.parse(decoded);
-            if (Array.isArray(parsed)) return parsed;
-            if (parsed && typeof parsed === 'object') return [parsed];
-          } catch {
-            // give up
+/** Poll dataLayer for an affiliate_link_click entry matching expectedUrl. */
+async function waitForAffiliateDataLayerPush(page, expectedUrl, timeoutMs = 5000) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const found = await page.evaluate(
+      ({ expected }) => {
+        const dl = window.dataLayer || [];
+        for (const entry of dl) {
+          if (
+            entry &&
+            typeof entry === 'object' &&
+            entry.event === 'affiliate_link_click' &&
+            entry.affiliate_url === expected
+          ) {
+            return entry;
           }
         }
-      }
-    }
-  } catch {
-    // ignore
+        return null;
+      },
+      { expected: expectedUrl }
+    );
+    if (found) return found;
+    await page.waitForTimeout(100);
   }
-  return out;
+  return null;
 }
 
-/**
- * Attach a PostHog event listener to a page. Returns a getter that resolves
- * (or rejects on timeout) when an event with the given name is seen.
- */
-function watchPosthogEvent(page, eventName, { timeoutMs = 10_000 } = {}) {
-  /** @type {Array<any>} */
-  const seenEvents = [];
-  /** @type {Array<{url:string, postLen:number}>} */
-  const seenIngestRequests = [];
-
-  const handler = (request) => {
-    const url = request.url();
-    if (!POSTHOG_EVENT_URL_REGEX.test(url)) return;
-    const post = request.postData() || '';
-    seenIngestRequests.push({ url, postLen: post.length });
-    const events = decodePosthogBody(request);
-    for (const ev of events) {
-      if (ev && typeof ev === 'object') seenEvents.push(ev);
-    }
-  };
-  page.on('request', handler);
-
-  return {
-    async waitFor() {
-      const start = Date.now();
-      while (Date.now() - start < timeoutMs) {
-        const hit = seenEvents.find((e) => e?.event === eventName);
-        if (hit) return { event: hit, all: seenEvents, ingest: seenIngestRequests };
-        await page.waitForTimeout(150);
-      }
-      return { event: null, all: seenEvents, ingest: seenIngestRequests };
-    },
-    detach() {
-      page.off('request', handler);
-    },
-    seenEvents,
-    seenIngestRequests,
-  };
+/** Snapshot dataLayer for diagnostic logging on failure. */
+async function snapshotDataLayer(page) {
+  return page
+    .evaluate(() => {
+      const dl = window.dataLayer || [];
+      return dl.map((e) => {
+        if (!e || typeof e !== 'object') return e;
+        const out = {};
+        for (const k of Object.keys(e)) {
+          const v = e[k];
+          if (v === null || ['string', 'number', 'boolean'].includes(typeof v)) {
+            out[k] = v;
+          } else {
+            out[k] = `[${typeof v}]`;
+          }
+        }
+        return out;
+      });
+    })
+    .catch(() => []);
 }
 
-/**
- * Find the first visible affiliate button on the page and return its locator
- * + resolved metadata (href, target, rel).
- */
+/** Find the first visible affiliate button. */
 async function locateFirstAffiliateButton(page) {
-  // Anchor that points at amzn.to or amazon.<tld>.
   const candidates = page.locator(
     'a[href*="amzn.to/"], a[href*="amazon.com/"], a[href*="amazon.co.uk/"], a[href*="amazon.ca/"], a[href*="amazon.de/"]'
   );
@@ -172,19 +156,24 @@ async function locateFirstAffiliateButton(page) {
   return null;
 }
 
-/**
- * Run the full affiliate-button check against a single URL on a single
- * viewport. Designed to be called from per-viewport test groups.
- */
 async function runAffiliateButtonChecks(page, urlPath, label) {
-  // ----- Console error capture -----
-  /** @type {string[]} */
+  const context = page.context();
+
+  // Pre-seed window.dataLayer + block Amazon nav before any page load.
+  await seedDataLayer(context);
+  await blockAmazonNavigation(context);
+
+  /** @type {Array<{text:string, location:string}>} */
   const consoleErrors = [];
   page.on('console', (msg) => {
-    if (msg.type() === 'error') consoleErrors.push(msg.text());
+    if (msg.type() !== 'error') return;
+    const loc = msg.location();
+    consoleErrors.push({
+      text: msg.text(),
+      location: (loc && loc.url) || '',
+    });
   });
 
-  // ----- Failed-asset capture (404s etc.) -----
   /** @type {Array<{url:string, status:number}>} */
   const badResponses = [];
   page.on('response', (resp) => {
@@ -194,10 +183,8 @@ async function runAffiliateButtonChecks(page, urlPath, label) {
     }
   });
 
-  // ----- Load the page -----
   const fullUrl = new URL(urlPath, BASE_URL).toString();
   await page.goto(fullUrl, { waitUntil: 'domcontentloaded' });
-  // Give React hydration + above-fold render time.
   await page.waitForLoadState('networkidle').catch(() => {});
 
   // ----- 1. Locate first affiliate button -----
@@ -207,10 +194,9 @@ async function runAffiliateButtonChecks(page, urlPath, label) {
     `[${label}] No visible affiliate button found on ${urlPath}. ` +
       `Looked for anchors targeting amzn.to or amazon.<tld>.`
   ).not.toBeNull();
-  if (!found) return; // narrow type for TS
+  if (!found) return;
 
   // ----- 2. Button text sanity -----
-  // Many product cards' visible text comes from a child <span>; check both.
   const fullText =
     (await found.link.innerText().catch(() => found.text)) || found.text;
   expect(
@@ -224,54 +210,31 @@ async function runAffiliateButtonChecks(page, urlPath, label) {
     found.target,
     `[${label}] Affiliate button is missing target="_blank" (got ${JSON.stringify(found.target)}).`
   ).toBe('_blank');
-
   expect(
     (found.rel || '').toLowerCase(),
     `[${label}] Affiliate button rel="${found.rel}" does not include "noopener".`
   ).toContain('noopener');
 
   // ----- 4. href format -----
-  expect(
-    found.href,
-    `[${label}] Affiliate button has no href.`
-  ).toBeTruthy();
+  expect(found.href, `[${label}] Affiliate button has no href.`).toBeTruthy();
   expect(
     AFFILIATE_URL_REGEX.test(found.href || ''),
     `[${label}] Affiliate href "${found.href}" does not match expected ` +
       `affiliate format (amzn.to/<id> OR amazon.<tld>/... with tag= param).`
   ).toBe(true);
 
-  // ----- 5. Click opens new page + fires PostHog event -----
-  const watcher = watchPosthogEvent(page, 'affiliate_link_click', {
-    timeoutMs: 8_000,
-  });
-
-  // Make sure we don't actually navigate Amazon. We strip the href and
-  // re-attach after click + event capture so the click still triggers
-  // the React onClick handler / PostHog tracker, but the new tab opens
-  // about:blank instead of hitting amzn.to (faster + no rate-limiting).
+  // ----- 5. Click opens new page + click handler runs (dataLayer push) -----
+  // We do NOT modify the href -- the hook checks `isAffiliateLink(href)` and
+  // would early-return for `about:blank`. Instead we abort the network nav
+  // (already done above via context.route), so the click handler sees the
+  // real Amazon URL, runs to completion, and pushes to dataLayer.
   const originalHref = found.href;
-  await found.link.evaluate((el) => {
-    el.dataset._phOriginalHref = el.getAttribute('href') || '';
-    el.setAttribute('href', 'about:blank');
-  });
 
   let popup = null;
-  try {
-    [popup] = await Promise.all([
-      page.context().waitForEvent('page', { timeout: 8_000 }).catch(() => null),
-      found.link.click({ force: true }),
-    ]);
-  } finally {
-    // Restore href in case the page is reused. Best-effort.
-    await found.link
-      .evaluate((el) => {
-        const orig = el.dataset._phOriginalHref;
-        if (orig) el.setAttribute('href', orig);
-        delete el.dataset._phOriginalHref;
-      })
-      .catch(() => {});
-  }
+  [popup] = await Promise.all([
+    context.waitForEvent('page', { timeout: 8_000 }).catch(() => null),
+    found.link.click({ force: true }),
+  ]);
 
   expect(
     popup,
@@ -281,46 +244,80 @@ async function runAffiliateButtonChecks(page, urlPath, label) {
   ).not.toBeNull();
   if (popup) await popup.close().catch(() => {});
 
-  const result = await watcher.waitFor();
-  watcher.detach();
+  const pushed = await waitForAffiliateDataLayerPush(page, originalHref, 5_000);
 
-  // Diagnostic: log seen ingest requests so a failure points at root cause.
-  if (!result.event) {
+  if (!pushed) {
+    const dlSnapshot = await snapshotDataLayer(page);
     console.log(
-      `[${label}] PostHog ingest requests seen during click ` +
-        `(${result.ingest.length}):`,
-      result.ingest.slice(0, 5)
-    );
-    console.log(
-      `[${label}] Event names captured (${result.all.length}):`,
-      result.all.map((e) => e?.event).filter(Boolean).slice(0, 20)
+      `[${label}] dataLayer snapshot (${dlSnapshot.length} entries):`,
+      JSON.stringify(dlSnapshot, null, 2)
     );
   }
 
   expect(
-    result.event,
-    `[${label}] Clicking the affiliate button did NOT fire a PostHog ` +
-      `'affiliate_link_click' event within 8s. ` +
-      `Saw ${result.ingest.length} ingest request(s) and ` +
-      `${result.all.length} decoded event(s). ` +
-      `This is the regression -- tracking is broken so dead clicks aren't ` +
-      `attributed.`
+    pushed,
+    `[${label}] Clicking the affiliate button did NOT push an ` +
+      `'affiliate_link_click' entry to window.dataLayer within 5s. ` +
+      `Expected affiliate_url="${originalHref}". ` +
+      `This means the React click handler in useAffiliateTracking.js ` +
+      `did not execute end-to-end -- the regression we care about.`
   ).not.toBeNull();
 
+  if (pushed) {
+    expect(
+      pushed.affiliate_url,
+      `[${label}] dataLayer push has wrong affiliate_url.`
+    ).toBe(originalHref);
+    expect(
+      typeof pushed.affiliate_product === 'string' &&
+        pushed.affiliate_product.length > 0,
+      `[${label}] dataLayer push is missing affiliate_product (got ${JSON.stringify(pushed.affiliate_product)}).`
+    ).toBe(true);
+    expect(
+      typeof pushed.affiliate_placement === 'string' &&
+        pushed.affiliate_placement.length > 0,
+      `[${label}] dataLayer push is missing affiliate_placement (got ${JSON.stringify(pushed.affiliate_placement)}).`
+    ).toBe(true);
+    expect(
+      typeof pushed.page_path === 'string' && pushed.page_path.length > 0,
+      `[${label}] dataLayer push is missing page_path (got ${JSON.stringify(pushed.page_path)}).`
+    ).toBe(true);
+  }
+
   // ----- Sanity: no console errors -----
-  // Filter known-noisy entries (third-party scripts, ad blockers).
-  const significantErrors = consoleErrors.filter(
-    (e) =>
-      !/posthog|gtm|google|facebook|tiktok|hotjar|sentry|extension/i.test(e)
-  );
+  // We only care about FIRST-PARTY errors. Generic browser network-failure
+  // messages ("Failed to load resource: 400") don't include the URL in
+  // `msg.text()` -- the URL is only in `msg.location().url`. Many third-party
+  // scripts (PostHog, Microsoft Clarity, GTM, ads) bot-detect headless
+  // Chromium and 400 their own beacons; that's noise, not a regression.
+  //
+  // Decision rule: an error is significant ONLY if its location URL is
+  // first-party (dhmguide.com) AND its text isn't a known-noisy keyword.
+  // Errors with no location (inline / unknown origin) fall back to keyword
+  // filtering.
+  const NOISY_KEYWORD = /posthog|\/ingest\/|gtm|google|facebook|tiktok|hotjar|sentry|extension|clarity|amzn\.to|amazon\.(?:com|co\.uk|ca|de)/i;
+  const significantErrors = consoleErrors.filter((e) => {
+    let isFirstParty = true;
+    if (e.location) {
+      try {
+        const u = new URL(e.location);
+        isFirstParty = u.hostname.endsWith('dhmguide.com');
+      } catch {
+        isFirstParty = false;
+      }
+    }
+    if (!isFirstParty) return false;
+    if (NOISY_KEYWORD.test(e.text)) return false;
+    return true;
+  });
   expect(
     significantErrors,
-    `[${label}] Console errors during page load:\n${significantErrors.join('\n')}`
+    `[${label}] Console errors during page load:\n` +
+      significantErrors.map((e) => `  ${e.text} (${e.location})`).join('\n')
   ).toEqual([]);
 
   // ----- Sanity: no 404s for first-party assets -----
   const significantBadResponses = badResponses.filter((r) => {
-    // ignore 3rd-party tracking endpoints; we only care about own-domain assets.
     try {
       const u = new URL(r.url);
       return u.hostname.endsWith('dhmguide.com');
