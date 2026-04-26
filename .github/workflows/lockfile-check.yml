@@ -1,0 +1,36 @@
+name: Lockfile check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pnpm-frozen-lockfile:
+    name: Verify pnpm-lock.yaml is in sync with package.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
+
+  build:
+    name: Build smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm run build
