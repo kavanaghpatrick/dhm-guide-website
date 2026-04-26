@@ -5,6 +5,29 @@
 API_KEY="${POSTHOG_PERSONAL_API_KEY:?Set POSTHOG_PERSONAL_API_KEY in your environment (~/.zshrc) — see docs/posthog-analysis-2026-04-25/r10-hygiene.md}"
 BASE_URL="https://us.posthog.com/api/projects/@current"
 
+# hogql_table SQL HEADERS_CSV
+# Runs an arbitrary HogQL string and prints CSV (header + rows) to stdout.
+# Used by the 10 traffic-growth dashboard subcommands below — single source of
+# truth for the SQL that also powers scripts/posthog-dashboard-config.json.
+hogql_table() {
+  local sql="$1"
+  local headers="$2"
+  local payload
+  payload=$(python3 -c 'import json,sys; print(json.dumps({"query":{"kind":"HogQLQuery","query":sys.argv[1]}}))' "$sql")
+  curl -s -X POST "$BASE_URL/query" \
+    -H "Authorization: Bearer $API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "$payload" \
+    | HEADERS="$headers" python3 -c "
+import json, os, sys
+d = json.load(sys.stdin)
+hdr = os.environ.get('HEADERS','').split(',') if os.environ.get('HEADERS') else d.get('columns', [])
+if hdr:
+    print(','.join(hdr))
+for r in d.get('results', []):
+    print(','.join('' if c is None else str(c) for c in r))"
+}
+
 case "$1" in
   events)
     echo "=== Event Counts (Last 7 Days) ==="
@@ -97,6 +120,61 @@ print()
 print('Note: Google\\'s \"good\" LCP threshold is 2.5s. Real-user p50 is the headline number.')"
     ;;
 
+  # ─── Traffic-growth dashboard tiles (issue #308) ─────────────────────────
+  # Each subcommand below runs the canonical HogQL for one of the 10
+  # dashboard tiles. The same SQL is mirrored into
+  # scripts/posthog-dashboard-config.json — keep them in sync.
+
+  channel-mix)
+    echo "=== Channel Mix (last 30d) ==="
+    hogql_table "SELECT CASE WHEN properties.\$referrer LIKE '%google.%' THEN 'google' WHEN properties.\$referrer LIKE '%bing.%' THEN 'bing' WHEN properties.\$referrer LIKE '%duckduckgo%' THEN 'duckduckgo' WHEN properties.\$referrer LIKE '%chatgpt%' OR properties.\$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.\$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.\$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.\$referrer LIKE '%gemini.google%' OR properties.\$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.\$referrer LIKE '%copilot.microsoft%' THEN 'copilot' WHEN properties.\$referrer LIKE '%facebook%' OR properties.\$referrer LIKE '%instagram%' OR properties.\$referrer LIKE '%t.co%' OR properties.\$referrer LIKE '%reddit%' THEN 'social' WHEN properties.\$referrer = '\$direct' OR properties.\$referrer IS NULL OR properties.\$referrer = '' THEN 'direct' ELSE 'other' END AS channel, count() AS pageviews, round(100.0 * count() / sum(count()) OVER (), 2) AS pct FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY channel ORDER BY pageviews DESC" "channel,pageviews,pct"
+    ;;
+
+  daily-pv)
+    echo "=== Daily Pageviews (last 90d) ==="
+    hogql_table "SELECT toDate(timestamp) AS day, count() AS pageviews FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 90 DAY GROUP BY day ORDER BY day DESC" "day,pageviews"
+    ;;
+
+  affiliate-by-channel)
+    echo "=== Affiliate Clicks by Channel (last 30d) ==="
+    hogql_table "SELECT CASE WHEN properties.\$referrer LIKE '%google.%' THEN 'google' WHEN properties.\$referrer LIKE '%bing.%' THEN 'bing' WHEN properties.\$referrer LIKE '%duckduckgo%' THEN 'duckduckgo' WHEN properties.\$referrer LIKE '%chatgpt%' OR properties.\$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.\$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.\$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.\$referrer LIKE '%gemini.google%' OR properties.\$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.\$referrer LIKE '%copilot.microsoft%' THEN 'copilot' WHEN properties.\$referrer LIKE '%facebook%' OR properties.\$referrer LIKE '%instagram%' OR properties.\$referrer LIKE '%t.co%' OR properties.\$referrer LIKE '%reddit%' THEN 'social' WHEN properties.\$referrer = '\$direct' OR properties.\$referrer IS NULL OR properties.\$referrer = '' THEN 'direct' ELSE 'other' END AS channel, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY channel ORDER BY clicks DESC" "channel,clicks"
+    ;;
+
+  ai-search)
+    echo "=== AI-Search Referrers (last 30d) ==="
+    hogql_table "SELECT CASE WHEN properties.\$referrer LIKE '%chatgpt%' OR properties.\$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.\$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.\$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.\$referrer LIKE '%gemini.google%' OR properties.\$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.\$referrer LIKE '%copilot.microsoft%' THEN 'copilot' END AS engine, count() AS pageviews FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 30 DAY AND (properties.\$referrer LIKE '%chatgpt%' OR properties.\$referrer LIKE '%openai%' OR properties.\$referrer LIKE '%perplexity%' OR properties.\$referrer LIKE '%claude.ai%' OR properties.\$referrer LIKE '%gemini.google%' OR properties.\$referrer LIKE '%bard.google%' OR properties.\$referrer LIKE '%copilot.microsoft%') GROUP BY engine ORDER BY pageviews DESC" "engine,pageviews"
+    ;;
+
+  top-pv)
+    echo "=== Top 20 Pages by Pageviews (last 30d) ==="
+    hogql_table "SELECT properties.\$pathname AS path, count() AS pageviews FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path ORDER BY pageviews DESC LIMIT 20" "path,pageviews"
+    ;;
+
+  top-ctr)
+    echo "=== Top 20 Pages by Affiliate CTR (last 30d, min 50 PV) ==="
+    hogql_table "SELECT pv.path AS path, pv.pageviews AS pageviews, coalesce(aff.clicks, 0) AS clicks, round(100.0 * coalesce(aff.clicks, 0) / pv.pageviews, 2) AS ctr_pct FROM (SELECT properties.\$pathname AS path, count() AS pageviews FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path) pv LEFT JOIN (SELECT properties.\$pathname AS path, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path) aff ON aff.path = pv.path WHERE pv.pageviews >= 50 ORDER BY ctr_pct DESC LIMIT 20" "path,pageviews,clicks,ctr_pct"
+    ;;
+
+  engagement-watchdog)
+    echo "=== time_on_page_milestone Daily Volume (last 30d) ==="
+    hogql_table "SELECT toDate(timestamp) AS day, count() AS milestones FROM events WHERE event = 'time_on_page_milestone' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC" "day,milestones"
+    ;;
+
+  exception-watchdog)
+    echo "=== \$exception Daily Count (last 30d) ==="
+    hogql_table "SELECT toDate(timestamp) AS day, count() AS exceptions FROM events WHERE event = '\$exception' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC" "day,exceptions"
+    ;;
+
+  newsletter-signups)
+    echo "=== newsletter_subscribe_succeeded (last 30d; expect 0 until #285 ships) ==="
+    hogql_table "SELECT toDate(timestamp) AS day, count() AS signups FROM events WHERE event = 'newsletter_subscribe_succeeded' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC" "day,signups"
+    ;;
+
+  device-cr)
+    echo "=== Mobile vs Desktop CR per Page (last 30d, top 20 by PV) ==="
+    hogql_table "SELECT pv.path AS path, pv.device AS device, pv.pageviews AS pageviews, coalesce(aff.clicks, 0) AS clicks, round(100.0 * coalesce(aff.clicks, 0) / pv.pageviews, 2) AS cr_pct FROM (SELECT properties.\$pathname AS path, properties.\$device_type AS device, count() AS pageviews FROM events WHERE event = '\$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path, device) pv LEFT JOIN (SELECT properties.\$pathname AS path, properties.\$device_type AS device, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path, device) aff ON aff.path = pv.path AND aff.device = pv.device WHERE pv.pageviews >= 50 ORDER BY pv.pageviews DESC LIMIT 20" "path,device,pageviews,clicks,cr_pct"
+    ;;
+
   *)
     echo "PostHog Query Helper"
     echo "Usage: $0 [command]"
@@ -110,5 +188,17 @@ print('Note: Google\\'s \"good\" LCP threshold is 2.5s. Real-user p50 is the hea
     echo "  dead-clicks-raw   - Total \$dead_click count (unfiltered, includes affiliate false-positives)"
     echo "  dead-clicks-real  - \$dead_click count filtered to exclude Amazon/Fuller affiliate false-positives"
     echo "  lcp-real          - Desktop LCP split between real users and the SERP-preview bot (filters Chrome/145 + 800x600 screen)"
+    echo ""
+    echo "Traffic-growth dashboard tiles (issue #308):"
+    echo "  channel-mix          - Channel mix % over last 30d (google/bing/AI/social/direct)"
+    echo "  daily-pv             - Daily pageview trend, last 90d"
+    echo "  affiliate-by-channel - Affiliate clicks grouped by channel, last 30d"
+    echo "  ai-search            - AI-search referrer pageviews by engine, last 30d"
+    echo "  top-pv               - Top 20 pages by pageviews, last 30d"
+    echo "  top-ctr              - Top 20 pages by affiliate CTR (min 50 PV), last 30d"
+    echo "  engagement-watchdog  - time_on_page_milestone daily volume, last 30d"
+    echo "  exception-watchdog   - \$exception daily count, last 30d"
+    echo "  newsletter-signups   - Newsletter signup count, last 30d"
+    echo "  device-cr            - Mobile vs desktop CR per page, last 30d"
     ;;
 esac

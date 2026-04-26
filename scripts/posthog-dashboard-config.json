@@ -1,0 +1,116 @@
+{
+  "name": "Traffic Growth \u2014 10 Tile Master",
+  "description": "Measurement infrastructure for the 6-month traffic-growth plan (#283). Built per issue #308. Every tile is also runnable as a CLI subcommand via scripts/posthog-query.sh \u2014 same SQL, single source of truth.",
+  "tiles": [
+    {
+      "name": "Channel mix (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT CASE WHEN properties.$referrer LIKE '%google.%' THEN 'google' WHEN properties.$referrer LIKE '%bing.%' THEN 'bing' WHEN properties.$referrer LIKE '%duckduckgo%' THEN 'duckduckgo' WHEN properties.$referrer LIKE '%chatgpt%' OR properties.$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.$referrer LIKE '%gemini.google%' OR properties.$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.$referrer LIKE '%copilot.microsoft%' THEN 'copilot' WHEN properties.$referrer LIKE '%facebook%' OR properties.$referrer LIKE '%instagram%' OR properties.$referrer LIKE '%t.co%' OR properties.$referrer LIKE '%reddit%' THEN 'social' WHEN properties.$referrer = '$direct' OR properties.$referrer IS NULL OR properties.$referrer = '' THEN 'direct' ELSE 'other' END AS channel, count() AS pageviews, round(100.0 * count() / sum(count()) OVER (), 2) AS pct FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY channel ORDER BY pageviews DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Daily pageviews (90d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT toDate(timestamp) AS day, count() AS pageviews FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 90 DAY GROUP BY day ORDER BY day DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Affiliate clicks by channel (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT CASE WHEN properties.$referrer LIKE '%google.%' THEN 'google' WHEN properties.$referrer LIKE '%bing.%' THEN 'bing' WHEN properties.$referrer LIKE '%duckduckgo%' THEN 'duckduckgo' WHEN properties.$referrer LIKE '%chatgpt%' OR properties.$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.$referrer LIKE '%gemini.google%' OR properties.$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.$referrer LIKE '%copilot.microsoft%' THEN 'copilot' WHEN properties.$referrer LIKE '%facebook%' OR properties.$referrer LIKE '%instagram%' OR properties.$referrer LIKE '%t.co%' OR properties.$referrer LIKE '%reddit%' THEN 'social' WHEN properties.$referrer = '$direct' OR properties.$referrer IS NULL OR properties.$referrer = '' THEN 'direct' ELSE 'other' END AS channel, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY channel ORDER BY clicks DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "AI-search referrers (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT CASE WHEN properties.$referrer LIKE '%chatgpt%' OR properties.$referrer LIKE '%openai%' THEN 'chatgpt' WHEN properties.$referrer LIKE '%perplexity%' THEN 'perplexity' WHEN properties.$referrer LIKE '%claude.ai%' THEN 'claude' WHEN properties.$referrer LIKE '%gemini.google%' OR properties.$referrer LIKE '%bard.google%' THEN 'gemini' WHEN properties.$referrer LIKE '%copilot.microsoft%' THEN 'copilot' END AS engine, count() AS pageviews FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 30 DAY AND (properties.$referrer LIKE '%chatgpt%' OR properties.$referrer LIKE '%openai%' OR properties.$referrer LIKE '%perplexity%' OR properties.$referrer LIKE '%claude.ai%' OR properties.$referrer LIKE '%gemini.google%' OR properties.$referrer LIKE '%bard.google%' OR properties.$referrer LIKE '%copilot.microsoft%') GROUP BY engine ORDER BY pageviews DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Top 20 pages by pageviews (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT properties.$pathname AS path, count() AS pageviews FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path ORDER BY pageviews DESC LIMIT 20"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Top 20 pages by affiliate CTR (30d, min 50 PV)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT pv.path AS path, pv.pageviews AS pageviews, coalesce(aff.clicks, 0) AS clicks, round(100.0 * coalesce(aff.clicks, 0) / pv.pageviews, 2) AS ctr_pct FROM (SELECT properties.$pathname AS path, count() AS pageviews FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path) pv LEFT JOIN (SELECT properties.$pathname AS path, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path) aff ON aff.path = pv.path WHERE pv.pageviews >= 50 ORDER BY ctr_pct DESC LIMIT 20"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Engagement watchdog: time_on_page_milestone (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT toDate(timestamp) AS day, count() AS milestones FROM events WHERE event = 'time_on_page_milestone' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Exception watchdog: $exception (30d)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT toDate(timestamp) AS day, count() AS exceptions FROM events WHERE event = '$exception' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Newsletter signups (30d, expect 0 pre-#285)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT toDate(timestamp) AS day, count() AS signups FROM events WHERE event = 'newsletter_subscribe_succeeded' AND timestamp > now() - INTERVAL 30 DAY GROUP BY day ORDER BY day DESC"
+        },
+        "full": true
+      }
+    },
+    {
+      "name": "Mobile vs desktop CR per page (30d, top 20 by PV)",
+      "query": {
+        "kind": "DataTableNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT pv.path AS path, pv.device AS device, pv.pageviews AS pageviews, coalesce(aff.clicks, 0) AS clicks, round(100.0 * coalesce(aff.clicks, 0) / pv.pageviews, 2) AS cr_pct FROM (SELECT properties.$pathname AS path, properties.$device_type AS device, count() AS pageviews FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path, device) pv LEFT JOIN (SELECT properties.$pathname AS path, properties.$device_type AS device, count() AS clicks FROM events WHERE event = 'affiliate_link_click' AND timestamp > now() - INTERVAL 30 DAY GROUP BY path, device) aff ON aff.path = pv.path AND aff.device = pv.device WHERE pv.pageviews >= 50 ORDER BY pv.pageviews DESC LIMIT 20"
+        },
+        "full": true
+      }
+    }
+  ]
+}
