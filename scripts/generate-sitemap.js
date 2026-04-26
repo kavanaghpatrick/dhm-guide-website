@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getDateModified } from './lib/get-date-modified.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,9 +71,13 @@ function generateSitemap() {
             priority = '0.6';
           }
           
+          // Resolve dateModified: explicit override -> git commit date -> post.date
+          const resolvedDateModified = getDateModified(post, filePath) || today;
+          const lastmodDate = resolvedDateModified.split('T')[0]; // YYYY-MM-DD for sitemap
+
           blogPosts.push({
             loc: `/never-hungover/${post.slug}`,
-            lastmod: post.date || today,
+            lastmod: lastmodDate,
             changefreq: 'weekly',
             priority: priority
           });

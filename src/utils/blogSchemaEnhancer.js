@@ -171,7 +171,7 @@ export const enhanceBlogPostSchema = (blogPost) => {
     description: metadata.excerpt || metadata.description,
     image: metadata.image || 'https://www.dhmguide.com/blog-default.webp',
     datePublished: metadata.date,
-    dateModified: metadata.lastModified || metadata.date,
+    dateModified: metadata.dateModified || metadata.lastModified || metadata.date,
     author: metadata.author || 'DHM Guide Team',
     url: `https://www.dhmguide.com/never-hungover/${slug}`,
     keywords: metadata.tags || []
