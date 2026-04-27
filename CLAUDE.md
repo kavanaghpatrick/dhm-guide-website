@@ -517,6 +517,43 @@ git push origin branch-name
 
 **Key insight:** External AI review is most valuable for catching inflated expectations and identifying cut candidates. Original plan would have taken 80+ min with questionable ROI. Filtered plan took 40 min with clear, achievable goals.
 
+### Pattern #14: Stacking-Context Trap — Walk the Parent Chain, Don't Bump Z-Index (PRs #339, #340)
+**What we learned:** Two PRs over 30 minutes both tried to fix the same mega-menu overlap by changing the dropdown. Neither worked because the bug was in an *ancestor*, not the dropdown. PR #339 removed an `opacity: 0.95` animation (one stacking-context creator) from the header. PR #340 worked because it severed the DOM relationship — portaled the dropdown to `document.body`. The header still had two stacking-context creators (`position: fixed` and `backdrop-filter: blur-md`), but they no longer mattered once the dropdown was no longer their descendant.
+
+**Application:**
+- When a layered element doesn't paint where you expect, **walk the parent chain in DevTools** looking for any of these on ancestors: `transform`, `opacity ≠ 1`, `filter`, `backdrop-filter`, `will-change` (transform/opacity), `isolation: isolate`, `contain: paint`, `mix-blend-mode`, `clip-path`. The first one you find is your culprit.
+- "Z-index doesn't work" is rarely solved by a bigger number. It's solved by understanding which stacking context contains your element.
+- For elements that must paint above arbitrary page content, **portal them to `document.body`** via `createPortal`. This breaks the DOM relationship that traps z-index.
+- **Never style `<header>`, `<main>`, `<footer>`, or `<App>`** with `transform`, `opacity ≠ 1`, `filter`, or `motion.*` wrappers. These create stacking contexts that trap every descendant.
+- Verify the fix with `document.elementsFromPoint(x, y)` in DevTools — that returns the actual paint order at a coordinate, ground truth.
+
+**Key insight:** The mega-menu DOM lived inside the header. Even when we made the dropdown `position: fixed; z-50`, fixed-positioned elements DO NOT escape ancestor stacking contexts (only the offset parent changes). The portal was the fix.
+
+### Pattern #15: Tailwind v4 Theme Tokens Live in `@theme`, Not `tailwind.config.js` (PR #341)
+**What we learned:** For ~6 months after the Tailwind v3→v4 upgrade, all 12 custom z-index tokens (`z-header`, `z-modal`, `z-popover`, etc.) were defined in `tailwind.config.js` `theme.extend.zIndex` — and Tailwind v4 silently ignored them. NO classes were generated. Live `<header class="z-header">` resolved to `z-index: auto`. Page images scrolled over the fixed header. We discovered the bug only when looking at it head-on with `curl <site> | grep -oE "\.z-header\b"` and finding nothing.
+
+**Application:**
+- In Tailwind v4, **all custom design tokens go in a `@theme` block in CSS**, not in `tailwind.config.js`. The v3 `theme.extend.{colors,zIndex,spacing,fontFamily,...}` syntax is silently ignored. No error, no warning, no console output — just no generated classes.
+- After ANY major build-tool upgrade (Tailwind, PostCSS, Vite, framework majors), run a smoke test against the BUILT output to verify tokens emit:
+  ```bash
+  npm run build && grep -oE "\\.z-(header|modal|popover|...)" dist/assets/*.css | sort -u
+  ```
+- **A build-time check (`scripts/verify-z-classes.mjs`) wired into `npm run build`** catches this class of regression structurally. Wired between `vite build` and prerender, so Vercel's CI naturally enforces it.
+- IDE autocomplete is not authoritative. It reads the JS config object, not the actual emitted CSS. Trust the dist artifact, not the source-of-intent.
+
+**Key insight:** Silent migration regressions are the worst category — no error, no test failure, just a feature that quietly stops working. The cure is testing the OUTPUT, not the INPUT. Same lesson applies to Vite, PostCSS, framework major upgrades.
+
+### Pattern #16: Renumbering a Z-Index Scale Inverts Every Implicit Relationship (PR #341 latent issues)
+**What we learned:** PR #341 fixed the broken `z-header` token by emitting it correctly, AND simultaneously bumped its value from 30 → 40 to outrank stock z-30 page content. That bump silently inverted three design relationships: `comparison: 35` (originally "above header") is now below header (40); `overlay: 40` is now tied with header; modal (50) is now only 10 above header instead of 20. Each was an intentional design decision encoded as a numeric gap, not a token name. The intent was preserved in a single inline comment that nobody re-read.
+
+**Application:**
+- Treat **the gaps between z-index tokens as intentional design**. Names tell you "this is the modal layer"; numbers tell you "the modal is 10 above the dropdown, 20 above the header." Both carry information.
+- Prefer **additive changes** (insert a new token between two existing ones) over **renumbers** (change an existing token's value). Renumbers cascade through every consumer.
+- Before bumping a token, run `grep -rn "z-{tokenname}" src/` AND `grep -rn "z-{tokenname-of-the-thing-just-below-it}" src/` to see what relationships you're moving.
+- When you do renumber, audit every consumer afterward — verify the design intent expressed in original-value gaps is preserved or explicitly re-decided.
+
+**Key insight:** A z-scale is a partial order, not a list. Names communicate "what" but the values communicate "in what relationship to siblings." Both pieces of information must move together when the scale changes.
+
 ---
 
 ## 🔄 Continuous Improvement
