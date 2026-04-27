@@ -22,6 +22,24 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Custom z-index scale.
+     Tailwind v4 generates utility classes from --z-* keys in @theme.
+     `tailwind.config.js` is silently ignored in v4 — these MUST live here.
+     (Issue: page images scrolled over the fixed header because <header class="z-header">
+     resolved to z-index: auto; the v3-style theme.extend.zIndex was a no-op.) */
+  --z-index-base: 0;
+  --z-index-behind: -1;
+  --z-index-dropdown: 10;
+  --z-index-sticky: 20;
+  --z-index-fixed: 30;
+  --z-index-header: 40;
+  --z-index-comparison: 35;
+  --z-index-overlay: 45;
+  --z-index-modal: 50;
+  --z-index-popover: 60;
+  --z-index-notification: 65;
+  --z-index-tooltip: 70;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -89,20 +107,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  
-  /* Z-Index Scale */
-  --z-index-base: 0;          /* Normal document flow */
-  --z-index-behind: -1;       /* Elements behind normal flow */
-  --z-index-dropdown: 10;     /* Dropdowns, tooltips */
-  --z-index-sticky: 20;       /* Sticky elements */
-  --z-index-fixed: 30;        /* Fixed navigation, headers */
-  --z-index-header: 30;       /* Main navigation header */
-  --z-index-comparison: 35;   /* Comparison widget (above header) */
-  --z-index-overlay: 40;      /* Page overlays, drawers */
-  --z-index-modal: 50;        /* Modal dialogs */
-  --z-index-popover: 60;      /* Popovers, floating UI */
-  --z-index-notification: 65; /* Toast notifications */
-  --z-index-tooltip: 70;      /* Tooltips (highest) */
+  /* Z-index scale moved to @theme block (line 26+) — Tailwind v4 only generates
+     utility classes from variables in @theme, not :root. Keeping definitions
+     in @theme is the single source of truth. */
 }
 
 .dark {
