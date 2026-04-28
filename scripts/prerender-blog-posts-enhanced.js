@@ -325,7 +325,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
       : '';
 
     rootDiv.innerHTML = `
-      <div id="prerender-content">
+      <div id="prerender-content" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
         <article>
           <h1>${safeTitle}</h1>
           <div class="meta">
