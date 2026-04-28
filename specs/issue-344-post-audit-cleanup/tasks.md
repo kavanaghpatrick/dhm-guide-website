@@ -266,7 +266,7 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
 
 ## Group 6: Final integration verification
 
-- [ ] 6.1 [VERIFY] End-to-end build + all 5 items pass design.md verification grep set
+- [x] 6.1 [VERIFY] End-to-end build + all 5 items pass design.md verification grep set
   - **Do**: Run a single clean `npm run build` after all 5 groups complete. Run the consolidated verification block from design.md "Build Artifact Verification" (lines 432-467) covering all 5 items at once. Also re-run the FOUC + z-class regression checks from the existing CLAUDE.md learnings (Patterns #14, #15, #16).
   - **Verify**:
     ```bash
