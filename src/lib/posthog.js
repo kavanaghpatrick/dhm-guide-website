@@ -25,6 +25,15 @@ export function initPostHog() {
     return;
   }
 
+  const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+  const isBot = /bot|crawler|spider|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider|prerender|headless|lighthouse/i.test(ua);
+  const host = window.location.hostname;
+  const isPreview = host.includes('vercel.app') || host === 'localhost' || host.startsWith('127.');
+  if (isBot || isPreview) {
+    console.log('[PostHog] Skipping init: bot or preview environment');
+    return;
+  }
+
   try {
     posthog.init(POSTHOG_KEY, {
       api_host: POSTHOG_HOST,
