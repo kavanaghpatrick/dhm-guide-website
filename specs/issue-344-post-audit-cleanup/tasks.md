@@ -223,14 +223,14 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
 
 ## Group 5: Remove unused dependencies (Item #5)
 
-- [ ] 5.1 Uninstall 5 unused packages
+- [x] 5.1 Uninstall 5 unused packages
   - **Do**: Run `npm uninstall recharts embla-carousel-react input-otp cmdk vaul` from repo root. This removes both `package.json` `dependencies` entries and `node_modules` artifacts. Do NOT touch `micromark`, `next-themes`, `posthog-js` (all confirmed in active use).
   - **Files**: `package.json`, `package-lock.json`
   - **Done when**: `package.json` no longer lists the 5 removed deps; lockfile updated.
   - **Commit**: `chore(deps): remove 5 unused packages (recharts, embla, otp, cmdk, vaul)`
   - _Requirements: AC-5.1, AC-5.4_
 
-- [ ] 5.2 Delete the 5 wrapper component files
+- [x] 5.2 Delete the 5 wrapper component files
   - **Do**: Delete the 5 files:
     ```bash
     rm src/components/ui/chart.jsx \
@@ -245,7 +245,7 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
   - **Commit**: `chore(ui): delete 5 wrapper components for removed deps`
   - _Requirements: AC-5.2_
 
-- [ ] 5.3 [VERIFY] Build succeeds + zero references to removed deps
+- [x] 5.3 [VERIFY] Build succeeds + zero references to removed deps
   - **Do**: Confirm build passes (no missing-import errors) and no source/bundle/package references to removed deps remain.
   - **Verify**:
     ```bash
