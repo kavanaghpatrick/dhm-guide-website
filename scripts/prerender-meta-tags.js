@@ -28,7 +28,7 @@ function generateBlogPostMetaTags(post, baseUrl) {
     ogUrl: url,
     ogTitle: title,
     ogDescription: post.excerpt,
-    ogImage: post.image ? `${baseUrl}${post.image}` : `${baseUrl}/blog-default.webp`
+    ogImage: post.image ? `${baseUrl}${post.image}` : `${baseUrl}/og-image.jpg`
   };
 }
 

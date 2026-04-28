@@ -169,7 +169,7 @@ export const enhanceBlogPostSchema = (blogPost) => {
   schemas.push(generateArticleSchema({
     headline: title,
     description: metadata.excerpt || metadata.description,
-    image: metadata.image || 'https://www.dhmguide.com/blog-default.webp',
+    image: metadata.image || 'https://www.dhmguide.com/og-image.jpg',
     datePublished: metadata.date,
     dateModified: metadata.dateModified || metadata.lastModified || metadata.date,
     author: metadata.author || 'DHM Guide Team',
