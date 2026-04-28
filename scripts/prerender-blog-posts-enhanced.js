@@ -15,6 +15,7 @@ import { gfm, gfmHtml } from 'micromark-extension-gfm';
 import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
 import { generateHowToSchema, generateBreadcrumbSchema } from '../src/utils/structuredDataHelpers.js';
 import { getDateModified } from './lib/get-date-modified.js';
+import { getOgImageForPost } from '../src/lib/og-image.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -98,8 +99,8 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   }
   
   const ogImage = document.querySelector('meta[property="og:image"]');
-  if (ogImage && post.image) {
-    ogImage.setAttribute('content', `https://www.dhmguide.com${escapeHtml(post.image)}`);
+  if (ogImage) {
+    ogImage.setAttribute('content', `https://www.dhmguide.com${escapeHtml(getOgImageForPost(post))}`);
   }
   
   // Update Twitter tags with escaped content
@@ -114,8 +115,8 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   }
   
   const twitterImage = document.querySelector('meta[property="twitter:image"]');
-  if (twitterImage && post.image) {
-    twitterImage.setAttribute('content', `https://www.dhmguide.com${escapeHtml(post.image)}`);
+  if (twitterImage) {
+    twitterImage.setAttribute('content', `https://www.dhmguide.com${escapeHtml(getOgImageForPost(post))}`);
   }
   
   // Add canonical URL
@@ -151,7 +152,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
       "@type": "WebPage",
       "@id": `https://www.dhmguide.com/never-hungover/${post.slug}`
     },
-    "image": post.image ? `https://www.dhmguide.com${escapeHtml(post.image)}` : "https://www.dhmguide.com/og-image.jpg"
+    "image": `https://www.dhmguide.com${escapeHtml(getOgImageForPost(post))}`
   };
   
   const scriptTag = document.createElement('script');
@@ -259,7 +260,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     const howToSchema = generateHowToSchema({
       name: post.howTo.name,
       description: post.howTo.description,
-      image: post.image ? `https://www.dhmguide.com${escapeHtml(post.image)}` : undefined,
+      image: `https://www.dhmguide.com${escapeHtml(getOgImageForPost(post))}`,
       totalTime: post.howTo.totalTime,
       steps: post.howTo.steps,
       supply: post.howTo.supply || []
