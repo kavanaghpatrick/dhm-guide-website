@@ -1189,6 +1189,7 @@ export default function DosageCalculatorEnhanced() {
                       <motion.input
                         whileFocus={{ scale: 1.05 }}
                         type="number"
+                        inputMode="decimal"
                         value={drinkingDuration}
                         onChange={(e) => {
                           setDrinkingDuration(Math.max(1, Math.min(8, parseFloat(e.target.value) || 1)))
