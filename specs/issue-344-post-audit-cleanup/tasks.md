@@ -123,7 +123,7 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
 
 ## Group 4: OG image helper + cross-site unification (Item #4)
 
-- [ ] 4.1 Create `src/lib/og-image.js` with `getOgImageForPost(post)` helper
+- [x] 4.1 Create `src/lib/og-image.js` with `getOgImageForPost(post)` helper
   - **Do**: Create new file `src/lib/og-image.js` with the exact shape from design.md:
     - `DEFAULT_OG_IMAGE = '/og-image.jpg'` (named export AND used as fallback)
     - `RULES` array — first rule matches tags `['hangover-prevention', 'hangover-cure', 'hangover prevention', 'hangover cure']` → `/dhm-hangover-prevention.webp`
@@ -135,7 +135,7 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
   - **Commit**: `feat(og-image): unified helper for post OG image fallback`
   - _Requirements: AC-4.1, AC-4.2_
 
-- [ ] 4.2 Wire helper into `useSEO.js` (replace `/blog-default.webp` fallback)
+- [x] 4.2 Wire helper into `useSEO.js` (replace `/blog-default.webp` fallback)
   - **Do**: In `src/hooks/useSEO.js`:
     1. Add import at top of file: `import { getOgImageForPost } from '../lib/og-image.js';`
     2. Replace the existing fallback at lines 298-300:
@@ -152,7 +152,7 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
   - **Commit**: `refactor(seo): use shared og-image helper in useSEO`
   - _Requirements: AC-4.3, AC-4.4_
 
-- [ ] 4.3 Wire helper into all 4 prerender call sites
+- [x] 4.3 Wire helper into all 4 prerender call sites
   - **Do**: In `scripts/prerender-blog-posts-enhanced.js`:
     1. Add import after line 17: `import { getOgImageForPost } from '../src/lib/og-image.js';`
     2. Replace 4 call sites (each currently has `post.image ? ... : '/og-image.jpg'` or only sets when `post.image` truthy):
@@ -166,14 +166,14 @@ No PR creation tasks — branch is already `cleanup/issue-344-post-audit`; user 
   - **Commit**: `refactor(prerender): use shared og-image helper at all 4 call sites`
   - _Requirements: AC-4.3, AC-4.4_
 
-- [ ] 4.4 Set broken-reference post `image: null`
+- [x] 4.4 Set broken-reference post `image: null`
   - **Do**: In `src/newblog/data/posts/flyby-vs-fuller-health-complete-comparison.json`, change the `image` field from `"/images/flyby-vs-fuller-health-hero.jpg"` to `null`. The referenced file does not exist in `/public/`; setting null routes through the new helper to a real fallback.
   - **Files**: `src/newblog/data/posts/flyby-vs-fuller-health-complete-comparison.json`
   - **Done when**: `"image": null` (JSON null, not empty string) in the file.
   - **Commit**: `fix(content): null out broken image reference in flyby-vs-fuller-health post`
   - _Requirements: AC-4.5_
 
-- [ ] 4.5 [VERIFY] Cross-site og:image consistency for hangover post + default-fallback post
+- [x] 4.5 [VERIFY] Cross-site og:image consistency for hangover post + default-fallback post
   - **Do**: Build, then verify a known hangover-tagged null-image post resolves to `/dhm-hangover-prevention.webp` and a non-hangover null-image post resolves to `/og-image.jpg` in prerendered HTML. Also confirm zero references to defunct `/blog-default.webp` and that fallback files exist.
   - **Verify**:
     ```bash
