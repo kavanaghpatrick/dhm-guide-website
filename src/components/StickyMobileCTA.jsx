@@ -69,7 +69,7 @@ export default function StickyMobileCTA() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-3 z-50 md:hidden transform transition-transform duration-300"
+      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-3 pb-[env(safe-area-inset-bottom)] z-50 md:hidden transform transition-transform duration-300"
       style={{ transform: visible ? 'translateY(0)' : 'translateY(100%)' }}
       role="complementary"
       aria-label="Quick access to product reviews"
