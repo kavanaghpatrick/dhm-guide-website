@@ -42,6 +42,11 @@
       "source": "/never-hungover/dhm-randomized-controlled-trials-2024",
       "destination": "/never-hungover/dhm-randomized-controlled-trials",
       "permanent": true
+    },
+    {
+      "source": "/never-hungover/gen-z-mental-health-revolution-why-58%25-are-drinking-less-for-wellness-in-2025",
+      "destination": "/never-hungover/gen-z-mental-health-revolution-58-percent-drinking-less-2025",
+      "permanent": true
     }
   ],
   "rewrites": [
