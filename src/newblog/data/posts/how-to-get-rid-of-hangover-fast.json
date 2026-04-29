@@ -64,5 +64,44 @@
       "question": "Is the 15-minute hangover cure safe?",
       "answer": "Yes, the 15-minute hangover cure using DHM is safe when used occasionally. DHM has been tested in clinical trials at doses up to 1000mg without adverse effects. However, emergency dosing should not exceed once per week and is intended for severe hangover situations only."
     }
-  ]
+  ],
+  "howTo": {
+    "name": "How to Get Fast Hangover Relief in Under 60 Minutes",
+    "description": "Emergency hangover relief protocol using DHM, electrolytes, NAC, and targeted supplements — adapted directly from this guide's 15-minute emergency protocol for moderate-to-severe hangover symptoms.",
+    "totalTime": "PT1H",
+    "supply": [
+      "DHM supplement (800-1000mg for emergency dosing)",
+      "Electrolyte solution with glucose (20 oz)",
+      "N-acetylcysteine / NAC (600mg)",
+      "Vitamin C (1000mg)",
+      "B-complex vitamins (high-potency, especially B1, B6, B12)",
+      "Magnesium glycinate (400mg)"
+    ],
+    "steps": [
+      {
+        "name": "Take an emergency DHM dose immediately on waking",
+        "text": "Take 800mg of DHM with water within minutes of waking. Higher emergency dosing helps accelerate clearance of remaining acetaldehyde and supports recovery of GABA receptor function — both of which drive the worst morning symptoms."
+      },
+      {
+        "name": "Drink 20 oz of electrolyte solution with glucose",
+        "text": "Consume an electrolyte drink containing sodium, potassium, and a small amount of glucose. Glucose helps with stomach absorption and stabilizes blood sugar. Aim to finish within 5 minutes if your stomach tolerates it; sip slowly otherwise."
+      },
+      {
+        "name": "Add NAC, vitamin C, and B-complex",
+        "text": "Take 600mg N-acetylcysteine (supports glutathione for liver antioxidant defense), 1000mg vitamin C, and a high-potency B-complex. Take all three with food or your electrolyte drink to prevent stomach irritation from the supplements."
+      },
+      {
+        "name": "Take 400mg magnesium glycinate",
+        "text": "Magnesium is depleted by alcohol and is directly involved in nerve function and headache pathways. Magnesium glycinate is gentler on the stomach than oxide or citrate forms and is well tolerated when nauseated."
+      },
+      {
+        "name": "Eat light, easily digestible protein and get fresh air",
+        "text": "After 15-30 minutes, eat a small protein-and-carb meal (eggs, toast, banana). Avoid greasy or spicy food. Step outside or open windows — natural light and fresh air help reset cortisol rhythm and reduce fatigue."
+      },
+      {
+        "name": "Reassess after 2 hours and redose DHM if needed",
+        "text": "Most symptoms should significantly improve within 60-90 minutes. If symptoms persist, take an additional 300mg DHM and continue hydration. If vomiting prevents fluid retention beyond 12 hours, or you experience confusion or dizziness on standing, seek medical care."
+      }
+    ]
+  }
 }

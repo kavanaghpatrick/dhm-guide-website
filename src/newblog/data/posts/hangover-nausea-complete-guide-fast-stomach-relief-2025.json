@@ -25,5 +25,43 @@
     "good-morning-hangover-pills-review-2025",
     "hangover-headache-fast-relief-methods-2025",
     "activated-charcoal-hangover"
-  ]
+  ],
+  "howTo": {
+    "name": "How to Relieve Hangover Nausea Fast",
+    "description": "Practical nausea-relief protocol using positional posture, controlled hydration, ginger, B6, and acupressure — extracted from this guide's 5-minute relief technique and Tier 1 most-effective remedies.",
+    "totalTime": "PT30M",
+    "supply": [
+      "Room-temperature water (small amounts)",
+      "Fresh ginger or ginger tea (1 tablespoon grated, or 250mg ginger chews)",
+      "Vitamin B6 (25-50mg)",
+      "Peppermint tea (optional)",
+      "Electrolyte powder (1/4 tsp salt + 1 tsp sugar in 8 oz water)"
+    ],
+    "steps": [
+      {
+        "name": "Sit upright and sip room-temperature water slowly",
+        "text": "Prop yourself at roughly 45 degrees — do not lie flat. Sip 2-3 ounces of room-temperature water every 60 seconds. Cold water can trigger stomach spasms; large gulps overwhelm a stomach that already empties slowly after alcohol."
+      },
+      {
+        "name": "Apply P6 acupressure for nausea",
+        "text": "Press the P6 point (three finger-widths below the inside of your wrist, between the two tendons) firmly for 2-3 minutes per wrist. Repeat hourly as needed. P6 stimulation is one of the most evidence-supported non-pharmaceutical anti-nausea techniques."
+      },
+      {
+        "name": "Use ginger to settle the stomach",
+        "text": "Brew ginger tea (1 tablespoon grated fresh ginger steeped 5-10 minutes), or take 250mg ginger chews. Gingerols help block nausea receptors. Stay under 4 grams of ginger total per day."
+      },
+      {
+        "name": "Take 25-50mg of vitamin B6",
+        "text": "Vitamin B6 reduces nausea via neurotransmitter regulation. A single 25-50mg dose typically works within 30-60 minutes. Do not exceed 100mg in 24 hours."
+      },
+      {
+        "name": "Switch to controlled electrolyte rehydration",
+        "text": "Once initial nausea eases, mix 1/4 teaspoon salt and 1 teaspoon sugar in 8 ounces of room-temperature water and sip slowly over 30 minutes. The sodium and small amount of glucose dramatically improve fluid absorption compared with plain water."
+      },
+      {
+        "name": "Reintroduce easy-to-digest food",
+        "text": "When nausea is manageable, introduce plain white rice, banana, plain toast, or clear bone broth. Avoid greasy, spicy, citrus, dairy, or coffee for at least the next several hours — all of these worsen stomach irritation in this state."
+      }
+    ]
+  }
 }
