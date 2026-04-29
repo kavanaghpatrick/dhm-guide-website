@@ -19,7 +19,6 @@ const pageComponents = {
   '/about': lazy(() => import('./pages/About.jsx')),
   '/compare': lazy(() => import('./pages/Compare.jsx')),
   '/dhm-dosage-calculator': lazy(() => import('./pages/DosageCalculatorEnhanced.jsx')),
-  '/dhm-dosage-calculator-new': lazy(() => import('./pages/DosageCalculatorRewrite/index.jsx')),
   '/never-hungover': lazy(() => import('./newblog/pages/NewBlogListing.jsx')),
   '/never-hungover/:slug': lazy(() => import('./newblog/components/NewBlogPost.jsx')),
 }
