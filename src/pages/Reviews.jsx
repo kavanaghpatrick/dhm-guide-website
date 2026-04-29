@@ -26,7 +26,7 @@ import {
   Trophy
 } from 'lucide-react'
 import { useFeatureFlag } from '../hooks/useFeatureFlag'
-import { trackElementClick } from '../lib/posthog'
+import { trackElementClick, trackEvent } from '../lib/posthog'
 import topProductsData from '../data/topProducts.json'
 
 export default function Reviews() {
@@ -105,13 +105,23 @@ export default function Reviews() {
   // that ItemList schema on /reviews stays in sync with visible content.
   const topProducts = topProductsData
 
-  const filterOptions = [
-    { value: 'all', label: 'All Products' },
-    { value: 'premium', label: 'Premium' },
-    { value: 'budget', label: 'Budget' },
-    { value: 'comprehensive', label: 'Comprehensive' },
-    { value: 'convenience', label: 'Convenience' }
+  // Issue #209: "Best For" quick-filter buttons. Each filter applies a
+  // case-insensitive substring predicate to product.bestFor — see
+  // specs/issue-209-best-for-buttons/research.md for the mapping rationale.
+  const bestForFilters = [
+    { id: 'all', label: 'All Products', match: null },
+    { id: 'overall', label: 'Best Overall', match: (p) => /\b(best|trusted)\b/i.test(p.bestFor) },
+    { id: 'value', label: 'Best Value', match: (p) => /value/i.test(p.bestFor) },
+    { id: 'heavy', label: 'Heavy Drinkers', match: (p) => /(party|weekend|high-performer)/i.test(p.bestFor) },
+    { id: 'health', label: 'Health-Conscious', match: (p) => /(health|liver)/i.test(p.bestFor) }
   ]
+
+  const handleFilterClick = (id) => {
+    // Toggle: clicking the active non-default button clears back to 'all'
+    const next = (filterBy === id && id !== 'all') ? 'all' : id
+    setFilterBy(next)
+    trackEvent('filter_clicked', { filter_value: next })
+  }
 
   const sortOptions = [
     { value: 'rating', label: 'Highest Rated' },
@@ -120,9 +130,10 @@ export default function Reviews() {
     { value: 'reviews', label: 'Most Reviews' }
   ]
 
-  const filteredProducts = topProducts.filter(product => 
-    filterBy === 'all' || product.category === filterBy
-  )
+  const activeFilter = bestForFilters.find(f => f.id === filterBy)
+  const filteredProducts = activeFilter?.match
+    ? topProducts.filter(activeFilter.match)
+    : topProducts
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
@@ -303,18 +314,30 @@ export default function Reviews() {
       <section className="py-4 md:py-6 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4 md:mb-6">
-            <div className="flex items-center space-x-4">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <span className="font-medium text-gray-900">Filter by:</span>
-              <select 
-                value={filterBy} 
-                onChange={(e) => setFilterBy(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                {filterOptions.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-              </select>
+            <div className="flex flex-wrap items-center gap-2 md:gap-3">
+              <div className="flex items-center gap-2 mr-1">
+                <Filter className="w-5 h-5 text-gray-600" />
+                <span className="font-medium text-gray-900">Best For:</span>
+              </div>
+              {bestForFilters.map(f => {
+                const active = filterBy === f.id
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => handleFilterClick(f.id)}
+                    aria-pressed={active}
+                    data-filter-id={f.id}
+                    className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
+                      active
+                        ? 'bg-orange-500 text-white border-orange-500 shadow-sm hover:bg-orange-600'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                )
+              })}
             </div>
             
             <div className="flex items-center space-x-4">
