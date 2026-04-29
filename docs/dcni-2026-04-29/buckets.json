@@ -1,0 +1,2619 @@
+{
+  "generatedAt": "2026-04-29T18:51:14.056Z",
+  "gscCsvPath": "data/gsc-pages-fixture.csv",
+  "totalPostsScanned": 197,
+  "totalGscRows": 18,
+  "nonBlogUrlsIgnored": 1,
+  "buckets": {
+    "save": [
+      {
+        "slug": "activated-charcoal-hangover",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 800,
+        "position": 18,
+        "wordCount": 2956,
+        "inboundBodyLinks": 4,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "advanced-liver-detox-science-vs-marketing-myths-2025",
+        "reason": "cluster-pillar:liver-health",
+        "impressions": 95,
+        "position": 28,
+        "wordCount": 3116,
+        "inboundBodyLinks": 7,
+        "cluster": "liver-health",
+        "clusterRole": "pillar",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-aging-longevity-2025",
+        "reason": "cluster-pillar:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3619,
+        "inboundBodyLinks": 10,
+        "cluster": "health-impact",
+        "clusterRole": "pillar",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-anxiety-breaking-the-cycle-naturally-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2405,
+        "inboundBodyLinks": 1,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-bone-health-complete-skeletal-impact-analysis",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 18,
+        "position": 65,
+        "wordCount": 679,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-cognitive-decline-2025-brain-research-reveals-hidden-risks",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6152,
+        "inboundBodyLinks": 3,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 274
+      },
+      {
+        "slug": "alcohol-and-heart-health-complete-cardiovascular-guide-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1907,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-immune-system-complete-health-impact-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4433,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-inflammation-complete-health-impact-guide-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4007,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-and-metabolic-flexibility-energy-system-optimization-2025",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3035,
+        "inboundBodyLinks": 2,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": 274
+      },
+      {
+        "slug": "alcohol-and-nootropics-cognitive-enhancement-interactions-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5463,
+        "inboundBodyLinks": 2,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "alcohol-and-rem-sleep-complete-scientific-analysis-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3266,
+        "inboundBodyLinks": 2,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-autoimmune-diseases-inflammatory-response-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5594,
+        "inboundBodyLinks": 2,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "alcohol-brain-health-long-term-impact-analysis-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3540,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 273
+      },
+      {
+        "slug": "alcohol-digestive-health-gi-impact-guide-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5091,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-eye-health-complete-vision-impact-guide-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 1200,
+        "position": 22,
+        "wordCount": 3328,
+        "inboundBodyLinks": 2,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-fertility-reproductive-health-guide-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3118,
+        "inboundBodyLinks": 1,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-headache-why-it-happens-how-to-prevent-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2788,
+        "inboundBodyLinks": 3,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "alcohol-intermittent-fasting-metabolic-interaction-guide",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4428,
+        "inboundBodyLinks": 1,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "alcohol-metabolism-genetic-testing-complete-personalized-health-guide-2025",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5442,
+        "inboundBodyLinks": 1,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": 274
+      },
+      {
+        "slug": "alcohol-pharmacokinetics-advanced-absorption-science-2025",
+        "reason": "cluster-pillar:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5348,
+        "inboundBodyLinks": 8,
+        "cluster": "alcohol-science",
+        "clusterRole": "pillar",
+        "ageInDays": null
+      },
+      {
+        "slug": "alcohol-recovery-nutrition-complete-healing-protocol-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3082,
+        "inboundBodyLinks": 2,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "alcohol-thyroid-hormonal-disruption-2025",
+        "reason": "cluster-spoke:health-impact",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4541,
+        "inboundBodyLinks": 1,
+        "cluster": "health-impact",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "altitude-alcohol-high-elevation-drinking-safety-2025",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4356,
+        "inboundBodyLinks": 1,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "antioxidant-anti-aging-dhm-powerhouse-2025",
+        "reason": "cluster-spoke:dhm-master",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2406,
+        "inboundBodyLinks": 3,
+        "cluster": "dhm-master",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "athletes-alcohol-sport-specific-performance-guide-2025",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4497,
+        "inboundBodyLinks": 1,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": null
+      },
+      {
+        "slug": "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2316,
+        "inboundBodyLinks": 2,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "biohacking-alcohol-tolerance-science-based-strategies-2025",
+        "reason": "cluster-spoke:alcohol-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3217,
+        "inboundBodyLinks": 2,
+        "cluster": "alcohol-science",
+        "clusterRole": "spoke",
+        "ageInDays": 275
+      },
+      {
+        "slug": "can-you-take-dhm-every-day-long-term-guide-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1923,
+        "inboundBodyLinks": 5,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "champagne-hangover-why-it-happens-prevention-guide",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2134,
+        "inboundBodyLinks": 6,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "complete-hangover-science-hub-2025",
+        "reason": "cluster-pillar:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1697,
+        "inboundBodyLinks": 0,
+        "cluster": "hangover-science",
+        "clusterRole": "pillar",
+        "ageInDays": 293
+      },
+      {
+        "slug": "dhm-adults-over-50-age-related-safety-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4126,
+        "inboundBodyLinks": 2,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 298
+      },
+      {
+        "slug": "dhm-asian-flush-science-backed-solution",
+        "reason": "well-linked:3-inbound-body-links",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4806,
+        "inboundBodyLinks": 3,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300
+      },
+      {
+        "slug": "dhm-availability-worldwide-guide-2025",
+        "reason": "cluster-spoke:dhm-master",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2006,
+        "inboundBodyLinks": 1,
+        "cluster": "dhm-master",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "dhm-dosage-guide-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 12000,
+        "position": 5.2,
+        "wordCount": 2842,
+        "inboundBodyLinks": 52,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "dhm-japanese-raisin-tree-complete-guide",
+        "reason": "cluster-spoke:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2281,
+        "inboundBodyLinks": 2,
+        "cluster": "hangover-science",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "dhm-medication-interactions-safety-guide-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4166,
+        "inboundBodyLinks": 5,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 298
+      },
+      {
+        "slug": "dhm-randomized-controlled-trials",
+        "reason": "cluster-spoke:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1536,
+        "inboundBodyLinks": 5,
+        "cluster": "hangover-science",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "dhm-science-explained",
+        "reason": "cluster-spoke:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2250,
+        "inboundBodyLinks": 18,
+        "cluster": "hangover-science",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "dhm-supplement-stack-guide-complete-combinations",
+        "reason": "cluster-spoke:dhm-master",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 9398,
+        "inboundBodyLinks": 2,
+        "cluster": "dhm-master",
+        "clusterRole": "spoke",
+        "ageInDays": 298
+      },
+      {
+        "slug": "dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025",
+        "reason": "well-linked:4-inbound-body-links",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1784,
+        "inboundBodyLinks": 4,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 294
+      },
+      {
+        "slug": "dhm-vs-prickly-pear-hangovers",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2432,
+        "inboundBodyLinks": 4,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "dhm-vs-zbiotics",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3355,
+        "inboundBodyLinks": 6,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "dhm-women-hormonal-considerations-safety-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5582,
+        "inboundBodyLinks": 3,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 298
+      },
+      {
+        "slug": "double-wood-dhm-review-analysis",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1146,
+        "inboundBodyLinks": 4,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "double-wood-dhm-vs-dhm1000-comparison-2025",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2518,
+        "inboundBodyLinks": 2,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 300
+      },
+      {
+        "slug": "double-wood-vs-fuller-health-after-party-comparison-2025",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1685,
+        "inboundBodyLinks": 2,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 300
+      },
+      {
+        "slug": "double-wood-vs-no-days-wasted-dhm-comparison-2025",
+        "reason": "cluster-pillar:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2320,
+        "inboundBodyLinks": 10,
+        "cluster": "product-reviews",
+        "clusterRole": "pillar",
+        "ageInDays": 300
+      },
+      {
+        "slug": "emergency-hangover-protocol-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2096,
+        "inboundBodyLinks": 11,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6671,
+        "inboundBodyLinks": 2,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "fatty-liver-disease-diet-complete-nutrition-guide-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3232,
+        "inboundBodyLinks": 1,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "flyby-recovery-review-2025",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1363,
+        "inboundBodyLinks": 2,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "flyby-vs-double-wood-complete-comparison-2025",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2306,
+        "inboundBodyLinks": 2,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 302
+      },
+      {
+        "slug": "functional-medicine-hangover-prevention-2025",
+        "reason": "cluster-pillar:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3571,
+        "inboundBodyLinks": 9,
+        "cluster": "hangover-prevention",
+        "clusterRole": "pillar",
+        "ageInDays": 275
+      },
+      {
+        "slug": "gaba-gamma-aminobutyric-acid-complete-guide-benefits-dosage-natural-sources-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2262,
+        "inboundBodyLinks": 7,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "gen-z-mental-health-revolution-58-percent-drinking-less-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5846,
+        "inboundBodyLinks": 1,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 0
+      },
+      {
+        "slug": "good-morning-hangover-pills-review-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1639,
+        "inboundBodyLinks": 2,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "hangover-nausea-complete-guide-fast-stomach-relief-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1892,
+        "inboundBodyLinks": 2,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "hangover-supplements-complete-guide-what-actually-works-2025",
+        "reason": "cluster-pillar:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3713,
+        "inboundBodyLinks": 18,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "pillar",
+        "ageInDays": 294
+      },
+      {
+        "slug": "hangxiety-complete-guide-2026-supplements-research",
+        "reason": "cluster-pillar:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6136,
+        "inboundBodyLinks": 27,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "pillar",
+        "ageInDays": 3
+      },
+      {
+        "slug": "hard-seltzer-hangover-why-it-happens-prevention-guide",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2309,
+        "inboundBodyLinks": 6,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "how-long-does-hangover-last",
+        "reason": "cluster-spoke:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1820,
+        "inboundBodyLinks": 1,
+        "cluster": "hangover-science",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "how-to-cure-a-hangover-complete-science-guide",
+        "reason": "cluster-spoke:hangover-science",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2742,
+        "inboundBodyLinks": 1,
+        "cluster": "hangover-science",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "is-dhm-safe-science-behind-side-effects-2025",
+        "reason": "cluster-spoke:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1940,
+        "inboundBodyLinks": 9,
+        "cluster": "dhm-safety",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "italian-drinking-culture-guide",
+        "reason": "allowlist:cultural-drinking-canonical",
+        "impressions": 180,
+        "position": 42,
+        "wordCount": 3897,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304
+      },
+      {
+        "slug": "liver-health-alcohol-supplements-dhm-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 250,
+        "position": 35,
+        "wordCount": 2317,
+        "inboundBodyLinks": 2,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "liver-health-complete-guide-optimal-liver-function-protection-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3781,
+        "inboundBodyLinks": 3,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "liver-health-supplements-complete-guide-evidence-based-options-2025",
+        "reason": "well-linked:4-inbound-body-links",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2970,
+        "inboundBodyLinks": 4,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 294
+      },
+      {
+        "slug": "magnesium-hangover-hangxiety-glycinate-vs-citrate-2026",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3832,
+        "inboundBodyLinks": 6,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+        "reason": "cluster-spoke:liver-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3138,
+        "inboundBodyLinks": 4,
+        "cluster": "liver-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2419,
+        "inboundBodyLinks": 6,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "no-days-wasted-dhm-review-analysis",
+        "reason": "cluster-spoke:product-reviews",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1472,
+        "inboundBodyLinks": 5,
+        "cluster": "product-reviews",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "nusapure-dhm-review-analysis",
+        "reason": "well-linked:3-inbound-body-links",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1450,
+        "inboundBodyLinks": 3,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304
+      },
+      {
+        "slug": "organic-natural-hangover-prevention-clean-living-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2481,
+        "inboundBodyLinks": 3,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "ozempic-glp1-alcohol-hangover-2026-research-guide",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4247,
+        "inboundBodyLinks": 0,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "sleep-optimization-gaba-dhm-improve-sleep-quality-naturally-2025",
+        "reason": "cluster-spoke:hangxiety-mental-health",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2011,
+        "inboundBodyLinks": 5,
+        "cluster": "hangxiety-mental-health",
+        "clusterRole": "spoke",
+        "ageInDays": 294
+      },
+      {
+        "slug": "tequila-hangover-truth",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2131,
+        "inboundBodyLinks": 11,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      },
+      {
+        "slug": "toniiq-ease-dhm-review-analysis",
+        "reason": "well-linked:3-inbound-body-links",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1321,
+        "inboundBodyLinks": 3,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304
+      },
+      {
+        "slug": "ultimate-dhm-safety-guide-hub-2025",
+        "reason": "cluster-pillar:dhm-safety",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1728,
+        "inboundBodyLinks": 0,
+        "cluster": "dhm-safety",
+        "clusterRole": "pillar",
+        "ageInDays": 293
+      },
+      {
+        "slug": "viral-hangover-cures-tested-science-2025",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6079,
+        "inboundBodyLinks": 2,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "vodka-hangover-why-it-happens-prevention-guide",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1782,
+        "inboundBodyLinks": 6,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "what-to-eat-before-drinking-alcohol-evidence-based-guide",
+        "reason": "cluster-spoke:hangover-prevention",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4371,
+        "inboundBodyLinks": 12,
+        "cluster": "hangover-prevention",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "when-to-take-dhm-timing-guide-2025",
+        "reason": "cluster-spoke:dhm-master",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1920,
+        "inboundBodyLinks": 6,
+        "cluster": "dhm-master",
+        "clusterRole": "spoke",
+        "ageInDays": 304
+      },
+      {
+        "slug": "whiskey-hangover-why-it-happens-prevention-guide",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2085,
+        "inboundBodyLinks": 9,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 3
+      },
+      {
+        "slug": "wine-hangover-guide",
+        "reason": "cluster-spoke:spirit-specific-hangovers",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1816,
+        "inboundBodyLinks": 11,
+        "cluster": "spirit-specific-hangovers",
+        "clusterRole": "spoke",
+        "ageInDays": 293
+      }
+    ],
+    "merge": [
+      {
+        "slug": "british-pub-culture-guide",
+        "reason": "duplicate-template:cultural-drinking",
+        "impressions": 5,
+        "position": 95,
+        "wordCount": 3923,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "mergeTarget": "italian-drinking-culture-guide"
+      },
+      {
+        "slug": "french-wine-culture-guide",
+        "reason": "duplicate-template:cultural-drinking",
+        "impressions": 3,
+        "position": 99,
+        "wordCount": 2979,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "mergeTarget": "italian-drinking-culture-guide"
+      },
+      {
+        "slug": "german-beer-culture-guide",
+        "reason": "duplicate-template:cultural-drinking",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3057,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "mergeTarget": "italian-drinking-culture-guide"
+      },
+      {
+        "slug": "spanish-drinking-culture-guide",
+        "reason": "duplicate-template:cultural-drinking",
+        "impressions": 1,
+        "position": 98,
+        "wordCount": 3321,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "mergeTarget": "italian-drinking-culture-guide"
+      }
+    ],
+    "delete": [
+      {
+        "slug": "adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives",
+        "reason": "off-strategy:^adaptogenic-+no-traffic+no-links+age-274d",
+        "impressions": 4,
+        "position": 85,
+        "wordCount": 5084,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274
+      },
+      {
+        "slug": "alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025",
+        "reason": "off-strategy:^alcohol-and-+no-traffic+no-links+age-274d",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4659,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274
+      },
+      {
+        "slug": "executive-cognitive-performance-alcohol-impact-business-decision-making",
+        "reason": "off-strategy:^executive-+no-traffic+no-links+age-274d",
+        "impressions": 1,
+        "position": 100,
+        "wordCount": 7280,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274
+      },
+      {
+        "slug": "pre-game-party-strategy-dhm-2025",
+        "reason": "off-strategy:^pre-game-party+no-traffic+no-links+age-304d",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2276,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304
+      },
+      {
+        "slug": "quantum-health-monitoring-alcohol-advanced-biomonitoring-guide-2025",
+        "reason": "off-strategy:^quantum-+no-traffic+no-links+age-274d",
+        "impressions": 8,
+        "position": 88,
+        "wordCount": 5626,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274
+      },
+      {
+        "slug": "social-media-influencer-party-dhm-2025",
+        "reason": "off-strategy:^social-media-influencer-party+no-traffic+no-links+age-304d",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2280,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304
+      }
+    ],
+    "review": [
+      {
+        "slug": "alcohol-athletic-performance-complete-impact-analysis-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4095,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-brain-plasticity-neuroplasticity-recovery-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6209,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-diabetes-blood-sugar-management-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4396,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-hypertension-blood-pressure-management-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1313,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-ketogenic-diet-ketosis-impact-analysis-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1435,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-kidney-disease-renal-function-impact-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4730,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-protein-synthesis-muscle-recovery-impact-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5312,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-skin-health-anti-aging-impact-analysis-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3845,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-weight-loss-metabolic-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3119,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "alcohol-work-performance-professional-impact-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3069,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 273,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "asian-flush-vs-alcohol-allergy-comparison",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5821,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "at-home-alcohol-testing-monitoring-safety-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3941,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "bachelor-bachelorette-party-dhm-2025",
+        "reason": "borderline-off-strategy:^bachelor-bachelorette",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2264,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^bachelor-bachelorette",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "biotechnology-alcohol-treatment-next-gen-therapeutics-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5085,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "broke-college-student-budget-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3950,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "business-dinner-networking-dhm-guide-2025",
+        "reason": "borderline-off-strategy:^business-dinner-networking",
+        "impressions": 2,
+        "position": 92,
+        "wordCount": 2290,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^business-dinner-networking",
+          "impressions:2",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "business-travel-alcohol-executive-health-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3300,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "business-travel-dhm-survival-kit-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3511,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "cannabis-vs-alcohol-complete-health-comparison-for-wellness-minded-adults",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6017,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "chronic-illness-alcohol-managing-autoimmune-conditions-smart-drinking",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6155,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "client-entertainment-sales-mastery-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3361,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "cold-therapy-alcohol-recovery-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5357,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "college-student-dhm-guide-2025",
+        "reason": "borderline-off-strategy:^college-student",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3971,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^college-student",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "college-to-career-transition-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3968,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "complete-guide-asian-flush-comprehensive",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 7404,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "conference-networking-dhm-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2763,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "consultant-client-site-success-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3932,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "craft-beer-vs-mass-market-health-differences-study-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5155,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "dhm-depot-review-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1901,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "dhm-product-forms-absorption-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6801,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 298,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "dhm-safety-complete-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5262,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 163,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "dhm1000-review-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1822,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "does-dhm-work-honest-science-review-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1750,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 293,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "double-wood-vs-cheers-restore-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1395,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "double-wood-vs-dhm-depot-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1552,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "double-wood-vs-good-morning-hangover-pills-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1298,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "double-wood-vs-nusapure-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2268,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "double-wood-vs-toniiq-ease-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1621,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "environmental-toxins-alcohol-metabolism-interaction-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5376,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "executive-travel-wellness-2025",
+        "reason": "borderline-off-strategy:^executive-",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3725,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^executive-",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "festival-season-survival-dhm-guide-concert-music-festival-recovery",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1040,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 303,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "first-responders-alcohol-safety-emergency-personnel-health-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5966,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "fitness-enthusiast-social-drinking-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2380,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-cheers-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1415,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-dhm1000-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1763,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-fuller-health-complete-comparison",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 998,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 273,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-good-morning-pills-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1621,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-no-days-wasted-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1459,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-nusapure-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1886,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "flyby-vs-toniiq-ease-complete-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2164,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 302,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "fuller-health-after-party-review-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1790,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "functional-beverages-vs-alcohol-2025-guide-to-health-optimized-drinking",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4990,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "greek-life-success-dhm-2025",
+        "reason": "borderline-off-strategy:^greek-life",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4075,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^greek-life",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "gut-health-alcohol-microbiome-protection",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2932,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "hangover-career-impact-dhm-solution-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2232,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "hangover-headache-fast-relief-methods-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2069,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 294,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "healthcare-workers-alcohol-safety-2025-professional-monitoring-guide",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 8407,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "heavy-drinking-maximum-protection-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2336,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:2"
+        ]
+      },
+      {
+        "slug": "holiday-drinking-survival-guide-health-first-approach",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2912,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "how-alcohol-affects-your-gut-microbiome-the-hidden-health-impact-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3788,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "how-to-get-over-hangover",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1002,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:2"
+        ]
+      },
+      {
+        "slug": "how-to-get-rid-of-hangover-fast",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2729,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "international-business-success-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4110,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "liver-inflammation-causes-symptoms-natural-treatment-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2954,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 294,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "longevity-biohacking-dhm-liver-protection",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2487,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:2"
+        ]
+      },
+      {
+        "slug": "longevity-science-how-alcohol-accelerates-aging-at-the-cellular-level",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2112,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "mindful-drinking-wellness-warrior-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2414,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "music-festival-survival-dhm-2025",
+        "reason": "borderline-off-strategy:^music-festival",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2267,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^music-festival",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "nad-alcohol-cellular-energy-recovery-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1949,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-cheers-restore-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1746,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-dhm-depot-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2009,
+        "inboundBodyLinks": 2,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:2"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-dhm1000-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2166,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-fuller-health-after-party-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2211,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-good-morning-hangover-pills-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1991,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-nusapure-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2225,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "no-days-wasted-vs-toniiq-ease-dhm-comparison-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1212,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 300,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "non-alcoholic-fatty-liver-disease-nafld-prevention-management-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4414,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 294,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "nootropics-vs-alcohol-cognitive-enhancement",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6240,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "peth-vs-etg-alcohol-testing-advanced-biomarker-comparison-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3280,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "pilots-and-alcohol-safety-aviation-health-monitoring-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6378,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "precision-nutrition-alcohol-metabolism-genetic-diet-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2890,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "pregnant-women-and-alcohol-complete-fetal-impact-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6205,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "preventative-health-strategies-regular-drinkers-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3027,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "remote-work-alcohol-managing-home-based-drinking-for-peak-productivity",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5191,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "rum-health-analysis-complete-spirits-impact-study-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6060,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "salary-negotiation-performance-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2886,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "seniors-alcohol-safety-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3961,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "shift-workers-alcohol-circadian-disruption-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1676,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": null,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "sleep-optimization-social-drinkers-circadian-rhythm",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3441,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "smart-sleep-technology-and-alcohol-circadian-optimization-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 5750,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "smart-social-drinking-your-health-first-strategies-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3094,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 275,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "social-medias-unseen-influence-navigating-alcohol-wellness-in-the-digital-age",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4355,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 0,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "spring-break-2025-cancun-survival-guide-dhm",
+        "reason": "borderline-off-strategy:^spring-break",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3538,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 303,
+        "flags": [
+          "pattern:^spring-break",
+          "impressions:0",
+          "age:303d"
+        ]
+      },
+      {
+        "slug": "study-abroad-international-student-dhm-2025",
+        "reason": "borderline-off-strategy:^study-abroad",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4113,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "pattern:^study-abroad",
+          "impressions:0",
+          "age:304d"
+        ]
+      },
+      {
+        "slug": "summer-alcohol-consumption-dhm-safety-guide",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 3112,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "traditional-mexican-hangover-remedies-vs-modern-supplements",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4319,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 303,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "ultimate-mexico-travel-hangover-prevention-guide-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2781,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 303,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "wearable-alcohol-monitoring-technology-smart-devices-revolution-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 4459,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "wearable-technology-and-alcohol-2025-guide-to-smart-health-monitoring",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 6131,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "work-life-balance-dhm-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2638,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      },
+      {
+        "slug": "workplace-wellness-alcohol-hidden-impact-professional-performance",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 2651,
+        "inboundBodyLinks": 0,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 274,
+        "flags": [
+          "impressions:0",
+          "inbound:0"
+        ]
+      },
+      {
+        "slug": "zebra-striping-drinking-trend-2025",
+        "reason": "borderline:no-clear-signal",
+        "impressions": 0,
+        "position": null,
+        "wordCount": 1284,
+        "inboundBodyLinks": 1,
+        "cluster": null,
+        "clusterRole": null,
+        "ageInDays": 304,
+        "flags": [
+          "impressions:0",
+          "inbound:1"
+        ]
+      }
+    ],
+    "missing": [
+      {
+        "slug": "nonexistent-slug-foo",
+        "impressions": 50,
+        "note": "GSC has URL but post JSON not found"
+      }
+    ]
+  },
+  "summary": {
+    "save": 85,
+    "merge": 4,
+    "delete": 6,
+    "review": 102,
+    "missing": 1,
+    "totalBucketed": 197
+  }
+}
