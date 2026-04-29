@@ -1,0 +1,98 @@
+{
+  "baseline": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "IMG",
+    "stack": [
+      "IMG",
+      "PICTURE",
+      "DIV",
+      "LI"
+    ],
+    "dropdownIsAbove": false
+  },
+  "A_dropdown_z9999": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "IMG",
+    "stack": [
+      "IMG",
+      "PICTURE",
+      "DIV",
+      "LI"
+    ],
+    "dropdownIsAbove": false
+  },
+  "B_header_isolate": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "IMG",
+    "stack": [
+      "IMG",
+      "PICTURE",
+      "DIV",
+      "LI"
+    ],
+    "dropdownIsAbove": false
+  },
+  "C_main_relative_z0": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "IMG",
+    "stack": [
+      "IMG",
+      "PICTURE",
+      "DIV",
+      "DIV"
+    ],
+    "dropdownIsAbove": false
+  },
+  "D_portal_to_body": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "A",
+    "stack": [
+      "A",
+      "LI",
+      "UL",
+      "DIV"
+    ],
+    "dropdownIsAbove": true
+  },
+  "E_header_z50": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "LI",
+    "stack": [
+      "LI",
+      "UL",
+      "DIV",
+      "DIV"
+    ],
+    "dropdownIsAbove": true
+  },
+  "G_main_isolate": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "IMG",
+    "stack": [
+      "IMG",
+      "PICTURE",
+      "DIV",
+      "DIV"
+    ],
+    "dropdownIsAbove": false
+  },
+  "I_portal_plus_z9999": {
+    "cx": 404,
+    "cy": 395,
+    "topAt": "A",
+    "stack": [
+      "A",
+      "LI",
+      "UL",
+      "DIV"
+    ],
+    "dropdownIsAbove": true
+  }
+}
