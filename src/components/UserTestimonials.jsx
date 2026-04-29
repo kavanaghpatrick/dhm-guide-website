@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Card, CardContent } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { motion } from 'framer-motion'
-import { 
-  Star, 
-  CheckCircle, 
-  Users, 
+import { trackEvent } from '@/lib/posthog'
+import {
+  Star,
+  CheckCircle,
+  Users,
   TrendingUp,
   Award,
   Heart,
@@ -19,6 +20,9 @@ import {
 
 const UserTestimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const touchStartXRef = useRef(0)
+  const carouselRef = useRef(null)
 
   const testimonials = [
     {
@@ -138,12 +142,58 @@ const UserTestimonials = () => {
     { number: "Since 2020", label: "Trusted Resource", icon: <TrendingUp className="w-6 h-6" /> }
   ]
 
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+  const goToSlide = (rawIndex, trigger) => {
+    const L = testimonials.length
+    const next = ((rawIndex % L) + L) % L
+    setCurrentTestimonial(next)
+    trackEvent('testimonial_slide_view', { slide_index: next, trigger })
   }
 
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  const nextTestimonial = () => goToSlide(currentTestimonial + 1, 'click')
+  const prevTestimonial = () => goToSlide(currentTestimonial - 1, 'click')
+
+  // Auto-rotate every 5s, pause on hover, respect prefers-reduced-motion
+  useEffect(() => {
+    if (paused) return
+    if (typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+    const id = setInterval(() => {
+      setCurrentTestimonial((prev) => {
+        const next = (prev + 1) % testimonials.length
+        trackEvent('testimonial_slide_view', { slide_index: next, trigger: 'auto' })
+        return next
+      })
+    }, 5000)
+    return () => clearInterval(id)
+  }, [paused, testimonials.length])
+
+  // Keyboard navigation when carousel container has focus
+  useEffect(() => {
+    const el = carouselRef.current
+    if (!el) return
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        goToSlide(currentTestimonial - 1, 'keyboard')
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        goToSlide(currentTestimonial + 1, 'keyboard')
+      }
+    }
+    el.addEventListener('keydown', onKey)
+    return () => el.removeEventListener('keydown', onKey)
+  }, [currentTestimonial, testimonials.length])
+
+  const onTouchStart = (e) => {
+    touchStartXRef.current = e.touches[0].clientX
+  }
+  const onTouchEnd = (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartXRef.current
+    if (Math.abs(dx) < 50) return
+    if (dx < 0) goToSlide(currentTestimonial + 1, 'swipe')
+    else goToSlide(currentTestimonial - 1, 'swipe')
   }
 
   const currentReview = testimonials[currentTestimonial]
@@ -195,7 +245,18 @@ const UserTestimonials = () => {
           </div>
 
           {/* Featured Testimonial Carousel */}
-          <Card className="mb-12 overflow-hidden shadow-2xl">
+          <Card
+            ref={carouselRef}
+            tabIndex={0}
+            role="region"
+            aria-label="Customer testimonials"
+            aria-roledescription="carousel"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            className="mb-12 overflow-hidden shadow-2xl outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+          >
             <CardContent className="p-0">
               <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8">
                 <div className="flex items-center justify-between mb-6">
@@ -286,12 +347,12 @@ const UserTestimonials = () => {
                     {testimonials.map((testimonial, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentTestimonial(index)}
+                        onClick={() => goToSlide(index, 'click')}
                         aria-label={`Go to testimonial ${index + 1} by ${testimonial.name}`}
                         aria-current={index === currentTestimonial ? 'true' : 'false'}
                         className={`w-2 h-2 rounded-full transition-all ${
-                          index === currentTestimonial 
-                            ? 'bg-purple-600 w-8' 
+                          index === currentTestimonial
+                            ? 'bg-purple-600 w-8'
                             : 'bg-gray-300 hover:bg-gray-400'
                         }`}
                       />
