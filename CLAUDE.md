@@ -588,6 +588,22 @@ This ensures spec history is reviewable in PR while runtime artifacts stay out o
 
 ---
 
+## Mass-Edit Moratorium Policy
+
+**Active until 2026-07-15** (issue #366).
+
+Per the DCNI investigation (#362): mass-edits across many post JSONs trigger Google recrawl waves which re-evaluate posts against the current quality bar. PR #243 (147 files) and #246 (197 files) caused measurable DCNI growth. The moratorium prevents recurrence during recovery.
+
+**The rule**: PRs modifying >20 files in `src/newblog/data/posts/` will FAIL CI.
+
+**Escape hatch**: Add `[mass-edit-allowed]` to PR description with rationale (e.g., "corpus restore from backup", "post-moratorium realignment").
+
+**At 2026-07-15**: remove this section, the workflow job, and `scripts/check-mass-edit.mjs`.
+
+**Tracking**: weekly DCNI count via GSC. See issue #366.
+
+---
+
 ## ⚠️ Red Flags (STOP and Simplify)
 
 If you find yourself:
