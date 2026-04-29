@@ -23,5 +23,40 @@
     "hangover-nausea-complete-guide-fast-stomach-relief-2025",
     "cold-therapy-alcohol-recovery-guide-2025",
     "alcohol-headache-why-it-happens-how-to-prevent-2025"
-  ]
+  ],
+  "howTo": {
+    "name": "How to Relieve a Hangover Headache Fast",
+    "description": "Fast hangover-headache relief protocol combining electrolyte hydration, dark-room rest, pressure-point relief, and targeted supplementation — drawn from this guide's 15-minute emergency headache protocol.",
+    "totalTime": "PT15M",
+    "supply": [
+      "Room-temperature water with sea salt (16 oz + 1/4 tsp)",
+      "Magnesium glycinate (400mg)",
+      "Cold compress",
+      "Ibuprofen (400-600mg, taken with food)",
+      "B-complex vitamin",
+      "DHM supplement (300mg, optional)"
+    ],
+    "steps": [
+      {
+        "name": "Rehydrate with electrolyte water immediately",
+        "text": "Drink 16 oz of room-temperature water with 1/4 teaspoon of sea salt within the first 3 minutes. Avoid ice-cold water, which can trigger nausea. Sodium replacement is what makes simple water actually rehydrate brain tissue at this stage."
+      },
+      {
+        "name": "Move to a dark, quiet room and rest",
+        "text": "Light and noise sensitivity are amplified during a hangover headache because alcohol disrupts neurotransmitter balance. Close blinds, turn off screens, and lie down with your head slightly elevated. Even 5-10 minutes of true sensory rest helps."
+      },
+      {
+        "name": "Apply a cold compress and use pressure-point relief",
+        "text": "Place a cold compress on your forehead and temples. Apply gentle pressure to the LI-4 acupressure point (the web between thumb and index finger) for 60 seconds, then massage your temples in slow circles. Both are low-risk supportive techniques."
+      },
+      {
+        "name": "Take 400mg magnesium glycinate",
+        "text": "Alcohol depletes magnesium, which is directly involved in nerve excitability and headache pathways. 400mg of magnesium glycinate is well tolerated even when the stomach is sensitive and supports headache relief without sedation."
+      },
+      {
+        "name": "Use ibuprofen for pain — never acetaminophen with alcohol in your system",
+        "text": "If pain is severe, take 400-600mg ibuprofen with food. Critical safety note: do NOT use acetaminophen (Tylenol) while alcohol is still being metabolized — it sharply increases the risk of liver damage. Add a B-complex vitamin and an optional 300mg DHM dose to support recovery."
+      }
+    ]
+  }
 }

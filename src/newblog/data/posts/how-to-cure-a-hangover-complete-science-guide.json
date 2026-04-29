@@ -24,5 +24,44 @@
     "dhm-science-explained",
     "dhm-japanese-raisin-tree-complete-guide",
     "dhm-randomized-controlled-trials"
-  ]
+  ],
+  "howTo": {
+    "name": "How to Manage Hangover Symptoms After Drinking",
+    "description": "Science-based protocol to manage hangover symptoms using DHM, electrolyte rehydration, antioxidant support, and safe pain relief — extracted from this guide's Tier 1 and Tier 2 recovery content.",
+    "totalTime": "PT1H",
+    "supply": [
+      "DHM supplement (400-600mg)",
+      "Electrolyte solution (20-24 oz)",
+      "Vitamin C (1000-2000mg)",
+      "B-complex vitamin (with B1, B6, B12)",
+      "Light digestible food (toast, banana, eggs)",
+      "Ibuprofen (200-400mg, optional)"
+    ],
+    "steps": [
+      {
+        "name": "Take a recovery dose of DHM with water",
+        "text": "Upon waking with hangover symptoms, take 400-600mg of DHM with a full glass of water. DHM supports the liver enzymes (ADH and ALDH) that clear acetaldehyde, the toxic alcohol byproduct most directly tied to symptoms."
+      },
+      {
+        "name": "Rehydrate with an electrolyte solution",
+        "text": "Drink 20-24 ounces of an electrolyte solution within the first 30 minutes. Plain water alone is insufficient — sodium, potassium, and magnesium replacement is what restores cellular fluid balance after alcohol's diuretic effects."
+      },
+      {
+        "name": "Add antioxidant and B-vitamin support",
+        "text": "Take 1000-2000mg of vitamin C plus a B-complex vitamin (B1 thiamine, B6, B12). B-vitamins are depleted during alcohol metabolism and are essential for restoring normal neurological function. Take with food to prevent stomach irritation."
+      },
+      {
+        "name": "Eat a small, easily digestible meal",
+        "text": "Once nausea allows, eat simple carbohydrates and potassium-rich foods: toast, plain crackers, bananas, or eggs. This stabilizes blood sugar and replaces the potassium lost overnight. Avoid greasy or spicy food, which delays gastric emptying."
+      },
+      {
+        "name": "Use ibuprofen for headache — never acetaminophen",
+        "text": "For severe headache, ibuprofen 200-400mg taken with food is appropriate once alcohol has fully cleared the system. Do NOT use acetaminophen (Tylenol) — combining it with residual alcohol metabolites significantly raises the risk of liver toxicity."
+      },
+      {
+        "name": "Continue hydration and rest through the day",
+        "text": "Sip water or electrolyte solution every 20-30 minutes for the next several hours and prioritize rest. Most symptoms improve within 4-6 hours when DHM and rehydration are combined; full recovery typically occurs within 12-18 hours."
+      }
+    ]
+  }
 }
