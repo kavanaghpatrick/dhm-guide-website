@@ -24,7 +24,6 @@ const ROUTES = [
 
   // Secondary routes (not in primary nav)
   { path: '/dhm-dosage-calculator', name: 'Dosage Calculator', inNav: false, inFooter: true },
-  { path: '/dhm-dosage-calculator-new', name: 'Dosage Calculator (New)', inNav: false },
 
   // Dynamic routes
   { path: '/never-hungover/:slug', name: 'Blog Post', inNav: false, isDynamic: true },

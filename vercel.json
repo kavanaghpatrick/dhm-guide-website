@@ -54,6 +54,11 @@
       "permanent": true
     },
     {
+      "source": "/dhm-dosage-calculator-new",
+      "destination": "/dhm-dosage-calculator",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "dhmguide.com" }],
       "destination": "https://www.dhmguide.com/$1",
