@@ -36,20 +36,42 @@ if [ -z "$PMIDS" ]; then
   exit 0
 fi
 
+verify_one() {
+  local pmid="$1"
+  local tmp="/tmp/pubmed-$pmid.html"
+  local status
+  local title
+  status="$(curl -s -A 'Mozilla/5.0' -o "$tmp" -w "%{http_code}" "https://pubmed.ncbi.nlm.nih.gov/$pmid/" || echo 000)"
+  if [ "$status" != "200" ]; then
+    echo "FAIL pmid=$pmid status=$status"
+    return 1
+  fi
+  title="$(grep -oE '<title>[^<]+</title>' "$tmp" | head -1)"
+  if echo "$title" | grep -qiE "reCAPTCHA"; then
+    echo "RETRY pmid=$pmid (reCAPTCHA)"
+    return 2
+  fi
+  if echo "$title" | grep -qiE "dihydromyricetin|DHM|ampelopsin|hovenia|myricetin|flavonoid|alcohol|liver|hepat|ethanol|GABA|fatty"; then
+    echo "OK   pmid=$pmid"
+    return 0
+  else
+    echo "WARN pmid=$pmid title doesn't match DHM keywords: $title"
+    return 1
+  fi
+}
+
 FAILED=0
 for pmid in $PMIDS; do
-  TMP="/tmp/pubmed-$pmid.html"
-  STATUS="$(curl -s -A 'Mozilla/5.0' -o "$TMP" -w "%{http_code}" "https://pubmed.ncbi.nlm.nih.gov/$pmid/" || echo 000)"
-  if [ "$STATUS" != "200" ]; then
-    echo "FAIL pmid=$pmid status=$STATUS"
-    FAILED=1
-    continue
-  fi
-  TITLE="$(grep -oE '<title>[^<]+</title>' "$TMP" | head -1)"
-  if echo "$TITLE" | grep -qiE "dihydromyricetin|DHM|ampelopsin|hovenia|myricetin|flavonoid|alcohol|liver|hepat|ethanol|GABA|fatty"; then
-    echo "OK   pmid=$pmid"
-  else
-    echo "WARN pmid=$pmid title doesn't match DHM keywords: $TITLE"
+  verify_one "$pmid"
+  rc=$?
+  if [ "$rc" -eq 2 ]; then
+    # reCAPTCHA backoff — wait + retry once
+    sleep 5
+    rm -f "/tmp/pubmed-$pmid.html"
+    verify_one "$pmid"
+    rc=$?
+    [ "$rc" -ne 0 ] && FAILED=1
+  elif [ "$rc" -ne 0 ]; then
     FAILED=1
   fi
 done
