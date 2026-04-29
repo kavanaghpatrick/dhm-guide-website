@@ -1,7 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { JSDOM } from 'jsdom';
-import { generateBreadcrumbSchema } from '../src/utils/structuredDataHelpers.js';
+import {
+  generateBreadcrumbSchema,
+  generateItemListSchema,
+} from '../src/utils/structuredDataHelpers.js';
+
+// Shared product data — same JSON imported by src/pages/Reviews.jsx so the
+// ItemList schema on /reviews stays in sync with the visible ranked list.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const topProducts = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../src/data/topProducts.json'), 'utf-8')
+);
 
 // Main pages to prerender with their unique meta data
 const pages = [
@@ -17,14 +28,83 @@ const pages = [
     title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
     description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
     ogImage: '/guide-og.jpg',
-    bodyStub: '<h1>Complete DHM Guide 2026</h1><p>Master DHM hangover prevention with our comprehensive 2026 guide. Learn proper dosing, optimal timing, and which supplements actually work.</p><p>Expert tips backed by 11 clinical studies covering DHM mechanisms, GABA-A receptor modulation, and liver protection benefits.</p>'
+    bodyStub: '<h1>Complete DHM Guide 2026</h1><p>Master DHM hangover prevention with our comprehensive 2026 guide. Learn proper dosing, optimal timing, and which supplements actually work.</p><p>Expert tips backed by 11 clinical studies covering DHM mechanisms, GABA-A receptor modulation, and liver protection benefits.</p>',
+    // FAQPage schema — text MUST match Guide.jsx visible "Quick FAQ" section
+    // (~lines 528-571). Decorative emoji prefixes in the visible h3 headers
+    // (❓ 💊 🍺 🤔 💰 📦) are stripped from schema names; question/answer
+    // text is otherwise verbatim. Anchor links inside answers (e.g. emergency
+    // hangover protocol, top picks, Flyby Recovery analysis) are reproduced
+    // as plain text since schema does not carry HTML.
+    faqSchema: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How fast does DHM work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DHM starts working within 30 minutes. Peak effects occur 1-2 hours after taking it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I take too much DHM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DHM is very safe. Studies show no serious side effects at doses up to 1,200mg daily."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with all alcohol?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes - beer, wine, liquor, cocktails. DHM works by helping your liver process alcohol faster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I forget to take it before?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Take it as soon as you remember, even while drinking. Late is better than never. For emergency situations, see our emergency hangover protocol."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is DHM expensive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Quality DHM costs $20-35/month. Compare that to weekend hangover recovery costs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do I buy good DHM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We've tested 10+ brands. See our top picks → or read specific reviews like our Flyby Recovery analysis."
+          }
+        }
+      ]
+    }
   },
   {
     route: '/reviews',
     title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
     description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
     ogImage: '/reviews-og.jpg',
-    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>'
+    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>',
+    // ItemList schema for product carousel rich result. Order MUST mirror the
+    // visible ranking in src/pages/Reviews.jsx (which imports the same JSON
+    // from src/data/topProducts.json) — single source of truth, no drift.
+    itemListSchema: generateItemListSchema({
+      name: 'Best DHM Supplements 2026',
+      description: 'Top 10 DHM supplements tested and ranked for hangover prevention',
+      itemUrlBase: 'https://www.dhmguide.com/reviews',
+      products: topProducts
+    })
   },
   {
     route: '/research',
@@ -91,7 +171,64 @@ const pages = [
     title: 'DHM Dosage Calculator | Personalized Prevention',
     description: 'Calculate your optimal DHM dosage based on weight and drinking habits. Science-backed recommendations for effective hangover prevention.',
     ogImage: '/calculator-og.jpg',
-    bodyStub: '<h1>DHM Dosage Calculator</h1><p>Calculate your personalized optimal DHM dosage based on body weight and drinking habits. Science-backed recommendations for effective hangover prevention.</p><p>Get tailored timing and dose guidance derived from clinical trial data — typically 5mg per kg body weight, 30-60 minutes before drinking.</p>'
+    bodyStub: '<h1>DHM Dosage Calculator</h1><p>Calculate your personalized optimal DHM dosage based on body weight and drinking habits. Science-backed recommendations for effective hangover prevention.</p><p>Get tailored timing and dose guidance derived from clinical trial data — typically 5mg per kg body weight, 30-60 minutes before drinking.</p>',
+    // FAQPage schema — text MUST match DosageCalculatorEnhanced.jsx visible
+    // FAQ section (~lines 1864-1928). Source array there is plain
+    // {question,answer} objects so this schema reproduces them verbatim.
+    faqSchema: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much DHM should I take for hangover prevention?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The optimal DHM dosage for hangover prevention depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg of dihydromyricetin, calculated at 5mg per kg of body weight. Our DHM dosage calculator provides personalized mg recommendations based on clinical research."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the correct dihydromyricetin dosage by weight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The standard dihydromyricetin dosage is 5mg per kg of body weight. For a 150lb (68kg) person, this equals approximately 340mg of DHM. Heavier individuals may need up to 600-800mg, while lighter people may only need 250-400mg for effective hangover prevention."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I take DHM for best results?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For hangover prevention, take DHM 30-60 minutes before drinking. For recovery, take it immediately after drinking or before bed. DHM works best when taken with plenty of water."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is DHM safe to take daily?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DHM is generally well-tolerated with no serious side effects reported in clinical studies. However, it's designed for occasional use with alcohol consumption. Don't exceed 1200mg in 24 hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How effective is DHM for hangover prevention?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clinical studies demonstrate DHM's effectiveness in reducing hangover symptoms and blood alcohol levels. A 2024 randomized controlled trial showed significant reductions in blood alcohol and gastrointestinal hangover symptoms compared to placebo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I take DHM with other supplements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DHM works well with electrolytes, B vitamins, and NAC (N-acetylcysteine). Avoid taking with blood thinners or if you have liver disease. Consult your healthcare provider for specific medication interactions."
+          }
+        }
+      ]
+    }
   },
   {
     route: '/compare',
@@ -185,6 +322,16 @@ async function prerenderMainPages() {
         faqScript.setAttribute('type', 'application/ld+json');
         faqScript.textContent = JSON.stringify(page.faqSchema);
         document.head.appendChild(faqScript);
+      }
+
+      // Add ItemList schema if provided (e.g. /reviews product carousel).
+      // Mirrors the FAQ pattern: schema is precomputed on the page entry
+      // from shared product data; loop just appends.
+      if (page.itemListSchema) {
+        const itemListScript = document.createElement('script');
+        itemListScript.setAttribute('type', 'application/ld+json');
+        itemListScript.textContent = JSON.stringify(page.itemListSchema);
+        document.head.appendChild(itemListScript);
       }
 
       // Add BreadcrumbList schema (eligible for Google breadcrumb rich result).

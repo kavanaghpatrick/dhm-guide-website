@@ -1,0 +1,301 @@
+[
+  {
+    "id": 1,
+    "name": "No Days Wasted DHM Detox",
+    "brand": "No Days Wasted",
+    "rating": 4.3,
+    "reviews": 359,
+    "price": "$24.64",
+    "pricePerServing": "$1.64",
+    "servings": 15,
+    "dhm": "1000mg",
+    "purity": "98%+",
+    "badge": "Editor's Choice",
+    "badgeColor": "bg-yellow-500",
+    "score": 9.5,
+    "affiliateLink": "https://amzn.to/3HSHjgu",
+    "pros": [
+      "1K+ bought this month (350,000+ total)",
+      "1000mg DHM + L-Cysteine - strongest tested",
+      "Wake up sharp, not groggy",
+      "GMP certified, 98%+ purity"
+    ],
+    "cons": [
+      "Higher price point",
+      "Only 15 servings per package"
+    ],
+    "bestFor": "Weekend warriors who want the best",
+    "ingredients": ["DHM 1000mg", "L-Cysteine 200mg", "Milk Thistle", "Prickly Pear", "B-Complex", "Electrolytes"],
+    "category": "premium"
+  },
+  {
+    "id": 2,
+    "name": "Double Wood Supplements DHM",
+    "brand": "Double Wood",
+    "rating": 4.4,
+    "reviews": 1145,
+    "price": "$19.95",
+    "pricePerServing": "$0.66",
+    "servings": 30,
+    "dhm": "1000mg",
+    "purity": "98%",
+    "badge": "Best Value",
+    "badgeColor": "bg-green-500",
+    "score": 9.2,
+    "affiliateLink": "https://amzn.to/44sczuq",
+    "pros": [
+      "Amazon's Choice - 2K+ bought this month",
+      "1000mg DHM per tablet - max potency",
+      "Just $0.66/serving - best value tested",
+      "Third-party tested, 98% purity"
+    ],
+    "cons": [
+      "No additional supportive ingredients",
+      "Basic packaging",
+      "Single ingredient formula"
+    ],
+    "bestFor": "Value hunters who want pure DHM",
+    "ingredients": ["DHM 1000mg", "Electrolytes", "Essential Minerals"],
+    "category": "budget"
+  },
+  {
+    "id": 3,
+    "name": "Toniiq Ease",
+    "brand": "Toniiq",
+    "rating": 4.3,
+    "reviews": 1705,
+    "price": "$24.97",
+    "pricePerServing": "$0.62",
+    "servings": 40,
+    "dhm": "300mg",
+    "purity": "98%",
+    "badge": "Most Popular",
+    "badgeColor": "bg-blue-500",
+    "score": 9.0,
+    "affiliateLink": "https://amzn.to/44E95Gi",
+    "pros": [
+      "Amazon's Choice - 500+ bought this month",
+      "Triple-action: DHM + Reishi + Milk Thistle",
+      "40 servings at $0.62 each - great value",
+      "Feel better the morning after"
+    ],
+    "cons": [
+      "Complex formula may not suit everyone",
+      "Larger capsule size due to multiple ingredients",
+      "Requires 3 capsules per serving"
+    ],
+    "bestFor": "Health-conscious drinkers who protect their liver",
+    "ingredients": ["DHM 300mg (98%)", "Red Duanwood Reishi", "Milk Thistle (80% Silymarin)"],
+    "category": "comprehensive"
+  },
+  {
+    "id": 4,
+    "name": "NusaPure Dihydromyricetin (DHM) 1,000mg",
+    "brand": "NusaPure",
+    "rating": 4.2,
+    "reviews": 89,
+    "price": "$19.95",
+    "pricePerServing": "$0.67",
+    "servings": 30,
+    "dhm": "1000mg",
+    "purity": "98%+",
+    "badge": "High Potency",
+    "badgeColor": "bg-orange-500",
+    "score": 8.8,
+    "affiliateLink": "https://amzn.to/44znXFU",
+    "pros": [
+      "1000mg DHM per capsule - max strength",
+      "Under $20 for 30 servings",
+      "98%+ pure, third-party tested",
+      "Made in USA, FDA-registered facility"
+    ],
+    "cons": [
+      "Newer brand with fewer reviews",
+      "No additional supportive ingredients",
+      "Basic packaging"
+    ],
+    "bestFor": "Bulk buyers who want maximum value",
+    "ingredients": ["DHM 1000mg"],
+    "category": "budget"
+  },
+  {
+    "id": 5,
+    "name": "Cheers Restore",
+    "brand": "Cheers®",
+    "rating": 4.0,
+    "reviews": 7972,
+    "price": "$34.99",
+    "pricePerServing": "$2.92",
+    "servings": 12,
+    "dhm": "Most DHM per dose",
+    "purity": "Patented blend",
+    "badge": "As Seen on Shark Tank",
+    "badgeColor": "bg-blue-500",
+    "score": 8.6,
+    "affiliateLink": "https://amzn.to/3T8cO8H",
+    "pros": [
+      "As Seen on Shark Tank - trusted brand",
+      "Patented DHM + Cysteine formula",
+      "25+ million better mornings delivered",
+      "No proprietary blends - full transparency"
+    ],
+    "cons": [
+      "Higher price per serving",
+      "Only 12 doses per package",
+      "Mixed experiences with effectiveness"
+    ],
+    "bestFor": "Social drinkers who want a trusted brand",
+    "ingredients": ["DHM", "L-Cysteine", "Prickly Pear", "B-Vitamins", "Ginger", "Vine Tea"],
+    "category": "premium"
+  },
+  {
+    "id": 6,
+    "name": "Flyby Recovery",
+    "brand": "Flyby",
+    "rating": 4.3,
+    "reviews": 7200,
+    "price": "$17.99",
+    "pricePerServing": "$4.50",
+    "servings": 4,
+    "dhm": "300mg",
+    "purity": "Proprietary extraction",
+    "badge": "Comprehensive Formula",
+    "badgeColor": "bg-purple-500",
+    "score": 8.4,
+    "affiliateLink": "https://amzn.to/4kjCRVw",
+    "pros": [
+      "7,200+ verified customer reviews",
+      "18 amino acids + full B-vitamin complex",
+      "Money-back satisfaction guarantee",
+      "Feel refreshed, not drained next day"
+    ],
+    "cons": [
+      "Higher cost per serving at $4.50",
+      "Only 4 servings per package",
+      "Complex ingredient list may not suit sensitive users"
+    ],
+    "bestFor": "Party people who need serious protection",
+    "ingredients": ["DHM 300mg", "Milk Thistle", "B-Vitamins (B1,B2,B6,B9,B12)", "18 Amino Acids", "Vitamin C", "Apple Cider Vinegar", "Electrolytes"],
+    "category": "comprehensive"
+  },
+  {
+    "id": 7,
+    "name": "Good Morning Hangover Pills",
+    "brand": "Good Health Co",
+    "rating": 4.4,
+    "reviews": 124,
+    "price": "$29.95",
+    "pricePerServing": "$1.00",
+    "servings": 30,
+    "dhm": "DHM + Milk Thistle Blend",
+    "purity": "80% Silymarin Milk Thistle",
+    "badge": "88.89% Effective",
+    "badgeColor": "bg-green-500",
+    "score": 8.2,
+    "affiliateLink": "https://amzn.to/44nKqo9",
+    "pros": [
+      "One pill - no complicated protocols",
+      "88.89% user effectiveness rating",
+      "Just $1.00/serving - great value",
+      "Bounce back faster after drinking"
+    ],
+    "cons": [
+      "Newer brand with fewer customer reviews",
+      "DHM content not precisely specified",
+      "No money-back guarantee offered"
+    ],
+    "bestFor": "Travelers needing portable protection",
+    "ingredients": ["DHM + Milk Thistle Blend", "Electrolytes", "B-Vitamins", "Vitamin C", "Vitamin E", "L-Cysteine", "White Willow Bark"],
+    "category": "convenience"
+  },
+  {
+    "id": 8,
+    "name": "DHM1000",
+    "brand": "Dycetin",
+    "rating": 4.5,
+    "reviews": 613,
+    "price": "$23.95",
+    "pricePerServing": "$0.80",
+    "servings": 30,
+    "dhm": "1000mg",
+    "purity": "High potency + electrolytes",
+    "badge": "Most Powerful",
+    "badgeColor": "bg-red-500",
+    "score": 8.6,
+    "affiliateLink": "https://amzn.to/44nvh65",
+    "pros": [
+      "1000mg DHM - maximum potency",
+      "Enhanced with electrolytes for hydration",
+      "Money-back guarantee included",
+      "Stay productive the next morning"
+    ],
+    "cons": [
+      "Moderate price point for premium formula",
+      "Not third-party tested for purity verification",
+      "Single-ingredient focus without additional liver support"
+    ],
+    "bestFor": "High-performers who want max potency",
+    "ingredients": ["DHM 1000mg", "Electrolytes (Sodium, Potassium, Magnesium)"],
+    "category": "premium"
+  },
+  {
+    "id": 9,
+    "name": "Fuller Health After Party",
+    "brand": "Fuller Health",
+    "rating": 4.3,
+    "reviews": 93,
+    "price": "$44.99",
+    "pricePerServing": "$1.50",
+    "servings": 30,
+    "dhm": "650mg",
+    "purity": "Pure DHM + GABA support",
+    "badge": "Celebrity Endorsed",
+    "badgeColor": "bg-purple-500",
+    "score": 7.8,
+    "affiliateLink": "https://amzn.to/4eBbyEP",
+    "pros": [
+      "Celebrity endorsed - premium brand",
+      "650mg DHM + GABA receptor support",
+      "Organic, pure ingredient sourcing",
+      "Money-back guarantee included"
+    ],
+    "cons": [
+      "Premium pricing at $1.50 per serving",
+      "Limited customer reviews (93)",
+      "Standard shipping only (3-5 days)"
+    ],
+    "bestFor": "Trendsetters who appreciate celebrity picks",
+    "ingredients": ["DHM 650mg", "GABA Support Mechanism"],
+    "category": "premium"
+  },
+  {
+    "id": 10,
+    "name": "DHM Depot",
+    "brand": "Double Wood Supplements",
+    "rating": 4.5,
+    "reviews": 1129,
+    "price": "$44.95",
+    "pricePerServing": "$0.90",
+    "servings": 50,
+    "dhm": "300mg",
+    "purity": "Third-party tested",
+    "badge": "Highest Rated",
+    "badgeColor": "bg-blue-500",
+    "score": 8.8,
+    "affiliateLink": "https://amzn.to/4l1ZoqN",
+    "pros": [
+      "Highest rated - 4.5/5 stars",
+      "1,129+ verified customer reviews",
+      "Third-party tested, GMP certified",
+      "50 servings at $0.90 each - bulk value"
+    ],
+    "cons": [
+      "Lower DHM content at 300mg per serving",
+      "Higher overall package price",
+      "May require multiple doses for some users"
+    ],
+    "bestFor": "Research-driven buyers who trust reviews",
+    "ingredients": ["DHM 300mg"],
+    "category": "premium"
+  }
+]

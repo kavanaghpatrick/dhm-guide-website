@@ -140,6 +140,81 @@ export const generateHowToSchema = ({
 };
 
 /**
+ * Generate ItemList schema for ranked product carousel.
+ *
+ * Mirrors the visible ranked product list 1:1, including order. Each list
+ * entry wraps a Product with the minimum fields Google needs for a product
+ * carousel rich result: name, url, aggregateRating, offers.
+ *
+ * @param {Object} options
+ * @param {string} options.name - Carousel display name (e.g. "Best DHM Supplements 2026")
+ * @param {string} [options.description] - Optional carousel description
+ * @param {string} [options.itemUrlBase] - Base URL for per-item anchor links (e.g. "https://www.dhmguide.com/reviews")
+ * @param {Array<Object>} options.products - Source array. Each entry needs: name, brand, rating, reviews, price, affiliateLink, [id].
+ * @returns {Object} ItemList schema
+ */
+export const generateItemListSchema = ({
+  name,
+  description,
+  itemUrlBase,
+  products
+}) => {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    ...(description ? { description } : {}),
+    numberOfItems: products.length,
+    itemListElement: products.map((product, index) => {
+      const position = index + 1;
+      const productUrl = itemUrlBase
+        ? `${itemUrlBase}#product-${product.id || position}`
+        : product.affiliateLink;
+
+      const item = {
+        '@type': 'Product',
+        name: product.name,
+        url: productUrl,
+        brand: {
+          '@type': 'Brand',
+          name: product.brand
+        }
+      };
+
+      if (typeof product.rating === 'number' && typeof product.reviews === 'number') {
+        item.aggregateRating = {
+          '@type': 'AggregateRating',
+          ratingValue: product.rating,
+          reviewCount: product.reviews,
+          bestRating: '5',
+          worstRating: '1'
+        };
+      }
+
+      if (product.price && product.affiliateLink) {
+        item.offers = {
+          '@type': 'Offer',
+          url: product.affiliateLink,
+          priceCurrency: 'USD',
+          price: String(product.price).replace(/[$,]/g, ''),
+          availability: 'https://schema.org/InStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Amazon'
+          }
+        };
+      }
+
+      return {
+        '@type': 'ListItem',
+        position,
+        item
+      };
+    })
+  };
+};
+
+/**
  * Generate Article schema with author and publisher info
  */
 export const generateArticleSchema = ({
