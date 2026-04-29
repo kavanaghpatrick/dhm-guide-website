@@ -572,6 +572,22 @@ git push origin branch-name
 
 ---
 
+## Spec Artifact Commit Policy
+
+For each `specs/issue-*/` directory, commit:
+- `research.md`
+- `requirements.md`
+- `design.md`
+- `tasks.md`
+
+Do NOT commit:
+- `.progress.md` (gitignored — working notes that change frequently)
+- `.ralph-state.json` (gitignored — runtime state)
+
+This ensures spec history is reviewable in PR while runtime artifacts stay out of the diff.
+
+---
+
 ## ⚠️ Red Flags (STOP and Simplify)
 
 If you find yourself:
