@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { generateEnhancedBlogSchema } from '../utils/productSchemaGenerator.js';
 import { generateBreadcrumbSchema } from '../utils/structuredDataHelpers.js';
+import { getOgImageForPost } from '../lib/og-image.js';
 
 /**
  * Extract the first image URL from markdown content
@@ -297,7 +298,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
       // Extract image from content if not explicitly provided
       const extractedImage = image || extractImageFromMarkdown(content);
-      const finalImage = extractedImage ? `${baseUrl}${extractedImage}` : `${baseUrl}/blog-default.webp`;
+      const ogPath = extractedImage || getOgImageForPost({ tags });
+      const finalImage = `${baseUrl}${ogPath}`;
 
       // Safely handle date conversion
       let dateString = '2024-01-01T00:00:00Z'; // Default fallback

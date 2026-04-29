@@ -9,25 +9,29 @@ const pages = [
     route: '/',
     title: 'DHM Guide: Prevent Hangovers with Science-Backed Supplements',
     description: 'UCLA-proven hangover prevention. DHM blocks 70% of symptoms in clinical trials. Expert reviews, dosage guides, and 11 studies. Never wake up hungover.',
-    ogImage: '/og-image.jpg'
+    ogImage: '/og-image.jpg',
+    bodyStub: '<h1>DHM Guide: Science-Backed Hangover Prevention</h1><p>UCLA-proven DHM (Dihydromyricetin) blocks up to 70% of hangover symptoms in clinical trials. Expert reviews, dosage guides, and analysis of 11 peer-reviewed studies.</p><p>Discover proper DHM dosing, timing, and the best supplements for hangover prevention. Never wake up hungover again.</p>'
   },
   {
     route: '/guide',
     title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
     description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
-    ogImage: '/guide-og.jpg'
+    ogImage: '/guide-og.jpg',
+    bodyStub: '<h1>Complete DHM Guide 2026</h1><p>Master DHM hangover prevention with our comprehensive 2026 guide. Learn proper dosing, optimal timing, and which supplements actually work.</p><p>Expert tips backed by 11 clinical studies covering DHM mechanisms, GABA-A receptor modulation, and liver protection benefits.</p>'
   },
   {
     route: '/reviews',
     title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
     description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
-    ogImage: '/reviews-og.jpg'
+    ogImage: '/reviews-og.jpg',
+    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>'
   },
   {
     route: '/research',
     title: 'Does DHM Work? 11 Studies Prove 70% Hangover Reduction',
     description: 'UCLA and USC clinical trials prove DHM reduces hangovers 70%. See evidence from 11 peer-reviewed studies and 600+ participants.',
     ogImage: '/research-og.jpg',
+    bodyStub: '<h1>Does DHM Work? 11 Clinical Studies</h1><p>UCLA and USC clinical trials prove DHM reduces hangover symptoms by up to 70%. Evidence from 11 peer-reviewed studies covering 600+ participants.</p><p>Detailed breakdowns of randomized controlled trials, mechanism research, and liver protection findings from major research institutions.</p>',
     faqSchema: {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -79,19 +83,22 @@ const pages = [
     route: '/about',
     title: 'About DHM Guide | Hangover Prevention Resource',
     description: 'DHM Guide: Your resource for science-backed hangover prevention since 2020. We analyze clinical research and test supplements to provide unbiased guidance.',
-    ogImage: '/about-og.jpg'
+    ogImage: '/about-og.jpg',
+    bodyStub: '<h1>About DHM Guide</h1><p>DHM Guide has been your resource for science-backed hangover prevention since 2020. We analyze peer-reviewed clinical research and lab-test supplements.</p><p>Our mission is unbiased, expert guidance: clear dosing recommendations, honest product reviews, and accessible explanations of the science behind DHM.</p>'
   },
   {
     route: '/dhm-dosage-calculator',
     title: 'DHM Dosage Calculator | Personalized Prevention',
     description: 'Calculate your optimal DHM dosage based on weight and drinking habits. Science-backed recommendations for effective hangover prevention.',
-    ogImage: '/calculator-og.jpg'
+    ogImage: '/calculator-og.jpg',
+    bodyStub: '<h1>DHM Dosage Calculator</h1><p>Calculate your personalized optimal DHM dosage based on body weight and drinking habits. Science-backed recommendations for effective hangover prevention.</p><p>Get tailored timing and dose guidance derived from clinical trial data — typically 5mg per kg body weight, 30-60 minutes before drinking.</p>'
   },
   {
     route: '/compare',
     title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
     description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
-    ogImage: '/compare-og.jpg'
+    ogImage: '/compare-og.jpg',
+    bodyStub: '<h1>Compare 7 Best DHM Hangover Supplements</h1><p>Compare the top DHM hangover supplements side-by-side: price per dose, DHM content per serving, verified user reviews, and shipping speed.</p><p>Interactive comparison tool helps you find your perfect hangover pill in 60 seconds. Filter by budget, dose strength, and shipping options.</p>'
   }
 ];
 
@@ -188,6 +195,14 @@ async function prerenderMainPages() {
       breadcrumbScript.setAttribute('type', 'application/ld+json');
       breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
       document.head.appendChild(breadcrumbScript);
+
+      // Inject per-route body stub (off-screen prerender content for crawlers).
+      // Preserves PR #343 FOUC fix — the div's inline off-screen styling stays untouched;
+      // only the innerHTML is rewritten so each route shows distinct H1 + paragraphs to crawlers.
+      const stub = document.getElementById('prerender-main-stub');
+      if (stub && page.bodyStub) {
+        stub.innerHTML = page.bodyStub;
+      }
 
       // Determine output directory and file path
       const outputDir = page.route === '/' ? distDir : path.join(distDir, page.route);

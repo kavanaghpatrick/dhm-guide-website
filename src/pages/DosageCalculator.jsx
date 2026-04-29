@@ -517,6 +517,7 @@ export default function DosageCalculator() {
                     <div className="relative">
                       <input
                         type="number"
+                        inputMode="decimal"
                         value={drinkingDuration}
                         onChange={(e) => setDrinkingDuration(Math.max(1, Math.min(8, parseFloat(e.target.value) || 1)))}
                         step="0.5"
