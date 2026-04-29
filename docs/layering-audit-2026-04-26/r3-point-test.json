@@ -1,0 +1,19 @@
+{
+  "overlap": true,
+  "cx": 417,
+  "cy": 395,
+  "innerVisibleRect": {
+    "x": 217,
+    "y": 114,
+    "w": 846,
+    "h": 1000
+  },
+  "imgRect": {
+    "x": 16,
+    "y": 195,
+    "w": 600,
+    "h": 400
+  },
+  "elementFromPoint": "IMG.",
+  "elementFromPointPath": "div > section.pt-8.pb-16 > div.container.mx-auto > div.grid.grid-cols-1 > div.order-1.lg:order-1 > div.relative > picture > img"
+}

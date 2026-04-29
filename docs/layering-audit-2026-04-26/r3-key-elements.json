@@ -1,0 +1,78 @@
+{
+  "dropdownCandidates": [
+    {
+      "path": "div#root.fast-click > div.min-h-screen.bg-gradient-to-br > header.fixed.top-0 > div.container.mx-auto > div.flex.items-center > nav.hidden.lg:flex > div.relative > div#topics-mega-menu.fixed.left-1/2",
+      "text": "DHM Master →\nDHM Science Explained\nIs DHM Safe Science Behind Side\nDHM Supplemen",
+      "rect": {
+        "x": 192,
+        "y": 89,
+        "w": 896,
+        "h": 1135
+      },
+      "position": "fixed",
+      "zIndex": "50",
+      "transform": "none",
+      "backdropFilter": "none",
+      "opacity": "1"
+    }
+  ],
+  "images": [
+    {
+      "path": "div#root.fast-click > div.min-h-screen.bg-gradient-to-br > main.transition-[padding].duration-300 > div > section.pt-8.pb-16 > div.container.mx-auto > div.grid.grid-cols-1 > div.order-1.lg:order-1 > div.relative > picture > img",
+      "src": "before-after-dhm-1536w.webp",
+      "rect": {
+        "x": 16,
+        "y": 195,
+        "w": 600,
+        "h": 400
+      },
+      "position": "static",
+      "zIndex": "auto",
+      "transform": "none",
+      "opacity": "1"
+    },
+    {
+      "path": "div#root.fast-click > div.min-h-screen.bg-gradient-to-br > main.transition-[padding].duration-300 > div > section.py-20.px-4 > div.container.mx-auto > div.mb-24 > div.grid.grid-cols-1 > div.order-1.lg:order-2 > div.relative > img.w-full.h-auto",
+      "src": "02_liver_protection_infographic-760w-D61ozeGX.webp",
+      "rect": {
+        "x": 722,
+        "y": 1939.40625,
+        "w": 592,
+        "h": 394.921875
+      },
+      "position": "static",
+      "zIndex": "auto",
+      "transform": "none",
+      "opacity": "1"
+    },
+    {
+      "path": "div#root.fast-click > div.min-h-screen.bg-gradient-to-br > main.transition-[padding].duration-300 > div > section.py-20.px-4 > div.container.mx-auto > div.mb-16 > div.grid.grid-cols-1 > div.order-1.lg:order-1 > div.relative > img.w-full.h-auto",
+      "src": "04_gaba_receptor_mechanism-760w-BWhz0Rwj.webp",
+      "rect": {
+        "x": -34,
+        "y": 2625.15625,
+        "w": 592,
+        "h": 394.921875
+      },
+      "position": "static",
+      "zIndex": "auto",
+      "transform": "none",
+      "opacity": "1"
+    }
+  ],
+  "header": {
+    "path": "div#root.fast-click > div.min-h-screen.bg-gradient-to-br > header.fixed.top-0",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 81
+    },
+    "position": "fixed",
+    "zIndex": "auto",
+    "transform": "none",
+    "backdropFilter": "blur(12px)",
+    "isolation": "auto",
+    "willChange": "auto"
+  }
+}

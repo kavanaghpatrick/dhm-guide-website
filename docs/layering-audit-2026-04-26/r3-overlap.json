@@ -1,0 +1,28 @@
+{
+  "dropdownRect": {
+    "x": 192,
+    "y": 89,
+    "width": 896,
+    "height": 1135,
+    "top": 89,
+    "right": 1088,
+    "bottom": 1224,
+    "left": 192
+  },
+  "imgRect": {
+    "x": 16,
+    "y": 195,
+    "width": 600,
+    "height": 400,
+    "top": 195,
+    "right": 616,
+    "bottom": 595,
+    "left": 16
+  },
+  "overlap": true,
+  "center": {
+    "cx": 404,
+    "cy": 395
+  },
+  "elementFromPoint": "IMG."
+}

@@ -1,0 +1,18 @@
+{
+  "A": {
+    "topAtOverlap": "IMG."
+  },
+  "B": {
+    "topAtOverlap": "IMG."
+  },
+  "C": {
+    "error": "missing"
+  },
+  "D": {
+    "newParent": "DIV",
+    "topAtOverlap": "IMG."
+  },
+  "E": {
+    "error": "missing"
+  }
+}
