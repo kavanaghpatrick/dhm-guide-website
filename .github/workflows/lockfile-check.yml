@@ -34,3 +34,20 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm run build
+
+  mass-edit-check:
+    name: Mass-edit moratorium check (#366, expires 2026-07-15)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check post JSON modification count
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/check-mass-edit.mjs --base origin/${{ github.base_ref }}
