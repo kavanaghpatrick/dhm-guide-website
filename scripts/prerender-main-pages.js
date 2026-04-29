@@ -5,6 +5,7 @@ import { JSDOM } from 'jsdom';
 import {
   generateBreadcrumbSchema,
   generateItemListSchema,
+  generateHowToSchema,
 } from '../src/utils/structuredDataHelpers.js';
 
 // Shared product data — same JSON imported by src/pages/Reviews.jsx so the
@@ -88,7 +89,33 @@ const pages = [
           }
         }
       ]
-    }
+    },
+    // HowTo schema mirroring the visible "3-Step Hangover Prevention Protocol"
+    // section on /guide (Guide.jsx lines 205-330). Schema content must match
+    // on-page content per Google's HowTo guidelines. SERP rich-result
+    // eligibility for medical/health HowTo was removed in Sept 2023; the
+    // ongoing value is LLM/AI-Overview grounding for "how to take DHM" queries.
+    howToSchema: generateHowToSchema({
+      name: 'How to Take DHM to Prevent a Hangover',
+      description: 'A 3-step protocol for using DHM (dihydromyricetin) before, during, and after drinking to support alcohol metabolism and reduce next-day hangover symptoms.',
+      image: 'https://www.dhmguide.com/guide-og.jpg',
+      totalTime: 'PT8H',
+      supply: ['DHM supplement (300-600mg)', 'Water'],
+      steps: [
+        {
+          name: 'Before You Drink',
+          text: 'Take 300-600mg of DHM 30 minutes before your first drink. This activates liver enzymes, primes alcohol metabolism, and helps reduce next-day headache risk.'
+        },
+        {
+          name: 'While You Drink',
+          text: 'Stay hydrated with water between drinks. If drinking heavily, take an additional 300mg of DHM to keep protection active through the night and support continued alcohol metabolism.'
+        },
+        {
+          name: 'Before Bed',
+          text: 'Take 300-500mg of DHM with a glass of water before bed. This helps clear remaining toxins, supports overnight recovery, and helps you wake up feeling refreshed.'
+        }
+      ]
+    })
   },
   {
     route: '/reviews',
@@ -332,6 +359,15 @@ async function prerenderMainPages() {
         itemListScript.setAttribute('type', 'application/ld+json');
         itemListScript.textContent = JSON.stringify(page.itemListSchema);
         document.head.appendChild(itemListScript);
+      }
+
+      // Add HowTo schema if provided (e.g. /guide). Mirrors the FAQ pattern
+      // above: schema is precomputed on the page entry, loop just appends.
+      if (page.howToSchema) {
+        const howToScript = document.createElement('script');
+        howToScript.setAttribute('type', 'application/ld+json');
+        howToScript.textContent = JSON.stringify(page.howToSchema);
+        document.head.appendChild(howToScript);
       }
 
       // Add BreadcrumbList schema (eligible for Google breadcrumb rich result).
