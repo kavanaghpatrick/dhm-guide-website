@@ -6,7 +6,9 @@ import {
   generateBreadcrumbSchema,
   generateItemListSchema,
   generateHowToSchema,
+  generateScholarlyArticleSchema,
 } from '../src/utils/structuredDataHelpers.js';
+import { researchStudies } from '../src/data/research-studies.js';
 
 // Shared product data — same JSON imported by src/pages/Reviews.jsx so the
 // ItemList schema on /reviews stays in sync with the visible ranked list.
@@ -139,6 +141,11 @@ const pages = [
     description: 'UCLA and USC clinical trials prove DHM reduces hangovers 70%. See evidence from 11 peer-reviewed studies and 600+ participants.',
     ogImage: '/research-og.jpg',
     bodyStub: '<h1>Does DHM Work? 11 Clinical Studies</h1><p>UCLA and USC clinical trials prove DHM reduces hangover symptoms by up to 70%. Evidence from 11 peer-reviewed studies covering 600+ participants.</p><p>Detailed breakdowns of randomized controlled trials, mechanism research, and liver protection findings from major research institutions.</p>',
+    // One ScholarlyArticle JSON-LD block per study — emitted into the
+    // prerendered head so Google crawlers see structured data without
+    // executing JavaScript (Pattern #11). Mirror of the faqSchema field
+    // immediately below — same DOM-injection mechanism.
+    scholarlyArticles: researchStudies.map(generateScholarlyArticleSchema),
     faqSchema: {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -368,6 +375,18 @@ async function prerenderMainPages() {
         howToScript.setAttribute('type', 'application/ld+json');
         howToScript.textContent = JSON.stringify(page.howToSchema);
         document.head.appendChild(howToScript);
+      }
+
+      // Add one ScholarlyArticle schema per DHM study (only used on /research).
+      // Same DOM-injection pattern as the FAQ block above; uses
+      // .textContent (NOT innerHTML) to avoid any HTML-injection surface.
+      if (page.scholarlyArticles && page.scholarlyArticles.length > 0) {
+        page.scholarlyArticles.forEach((schema) => {
+          const script = document.createElement('script');
+          script.setAttribute('type', 'application/ld+json');
+          script.textContent = JSON.stringify(schema);
+          document.head.appendChild(script);
+        });
       }
 
       // Add BreadcrumbList schema (eligible for Google breadcrumb rich result).

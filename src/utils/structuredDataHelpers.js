@@ -256,6 +256,57 @@ export const generateArticleSchema = ({
 };
 
 /**
+ * Generate ScholarlyArticle schema for one DHM clinical/preclinical study.
+ *
+ * Required fields always present: headline, name, author[], datePublished,
+ * publisher, isAccessibleForFree, sameAs, about.
+ *
+ * Optional fields included only when source data is present:
+ *   - identifier: PMID string ("PMID:12345") OR PropertyValue (DOI)
+ *   - isPartOf: PublicationVolume (when study.volume present), nested in Periodical
+ */
+export const generateScholarlyArticleSchema = (study) => {
+  const authorsArr = Array.isArray(study.authors)
+    ? study.authors.map((s) => String(s).trim()).filter(Boolean)
+    : (study.authors || '').split(',').map((s) => s.trim()).filter(Boolean);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: study.title,
+    name: study.title,
+    author: authorsArr.map((name) => ({ '@type': 'Person', name })),
+    datePublished: String(study.year),
+    publisher: { '@type': 'Organization', name: study.journal },
+    isAccessibleForFree: false,
+    sameAs: study.pubmedUrl || `https://pubmed.ncbi.nlm.nih.gov/${study.pmid}/`,
+    about: { '@type': 'Thing', name: 'Dihydromyricetin' }
+  };
+
+  if (study.pmid) {
+    schema.identifier = `PMID:${study.pmid}`;
+  }
+  if (study.doi) {
+    // PropertyValue is more granular than identifier string; both valid.
+    // DOI takes precedence over the PMID identifier when both present.
+    schema.identifier = {
+      '@type': 'PropertyValue',
+      propertyID: 'DOI',
+      value: study.doi
+    };
+  }
+  if (study.volume) {
+    schema.isPartOf = {
+      '@type': 'PublicationVolume',
+      volumeNumber: study.volume,
+      ...(study.issue && { issueNumber: study.issue }),
+      isPartOf: { '@type': 'Periodical', name: study.journal }
+    };
+  }
+  return schema;
+};
+
+/**
  * Extract product data from review content
  */
 export const extractProductDataFromContent = (content, metadata) => {
