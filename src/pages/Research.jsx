@@ -5,12 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { 
-  Microscope, 
-  Users, 
-  Calendar, 
-  TrendingUp, 
-  FileText, 
+import { researchStudies as studies } from '../data/research-studies.js'
+import { formatAPA } from '../utils/citationFormatter.js'
+import {
+  Microscope,
+  Users,
+  Calendar,
+  TrendingUp,
+  FileText,
   ExternalLink,
   ArrowRight,
   Beaker,
@@ -21,8 +23,50 @@ import {
   Award,
   CheckCircle,
   Clock,
-  Filter
+  Filter,
+  Copy,
+  Check
 } from 'lucide-react'
+
+/**
+ * Copy-to-clipboard button rendered per study card. Local "Copied!" feedback
+ * lasts ~2s before reverting to "Copy APA Citation".
+ *
+ * Clipboard write is wrapped in try/catch — modern browsers (>97%) support
+ * navigator.clipboard.writeText; on legacy/insecure-context browsers the call
+ * rejects, we log a warning and the button visibly stays in idle state.
+ */
+function CopyAPAButton({ citation }) {
+  const [copied, setCopied] = useState(false)
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(citation)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.warn('Clipboard write failed:', err)
+    }
+  }
+  return (
+    <Button
+      onClick={handleCopy}
+      variant="outline"
+      size="sm"
+      className="w-full border-blue-700 text-blue-700 hover:bg-blue-50"
+      data-copy-apa="true"
+    >
+      {copied ? (
+        <>
+          <Check className="w-4 h-4 mr-2" /> Copied!
+        </>
+      ) : (
+        <>
+          <Copy className="w-4 h-4 mr-2" /> Copy APA Citation
+        </>
+      )}
+    </Button>
+  )
+}
 
 export default function Research() {
   useSEO(generatePageSEO('research'));
@@ -31,12 +75,23 @@ export default function Research() {
   const [selectedYear, setSelectedYear] = useState('all')
   const [showTimeline, setShowTimeline] = useState(false)
 
-  const researchCategories = [
-    { id: 'all', label: 'All Studies', count: 11 },
-    { id: 'metabolism', label: 'Alcohol Metabolism', count: 4 },
-    { id: 'liver', label: 'Liver Protection', count: 6 },
-    { id: 'neuroprotection', label: 'Neuroprotection', count: 1 }
-  ]
+  const researchCategories = useMemo(() => [
+    { id: 'all', label: 'All Studies', count: studies.length },
+    { id: 'metabolism', label: 'Alcohol Metabolism', count: studies.filter(s => s.category === 'metabolism').length },
+    { id: 'liver', label: 'Liver Protection', count: studies.filter(s => s.category === 'liver').length },
+    { id: 'neuroprotection', label: 'Neuroprotection', count: studies.filter(s => s.category === 'neuroprotection').length }
+  ], [])
+
+  // Computed counters used in hero stats + RCT highlight section.
+  // Single source of truth: studies array — adding study #26 auto-updates the page.
+  const humanTrialCount = useMemo(
+    () => studies.filter(s => s.type === 'Human Clinical Trial').length,
+    []
+  )
+  const yearsOfResearch = useMemo(() => {
+    const years = studies.map(s => s.year)
+    return Math.max(...years) - Math.min(...years)
+  }, [])
   
   const yearFilters = [
     { id: 'all', label: 'All Years' },
@@ -75,273 +130,6 @@ export default function Research() {
       subtitle: "in liver toxicity markers",
       study: "Jilin University 2022"
     }
-  ]
-
-  const studies = [
-    {
-      id: 1,
-      title: "Dihydromyricetin Protects Against Alcohol-Induced Liver Injury",
-      authors: "Chen, S., Zhao, X., Ran, L., et al.",
-      journal: "Journal of Hepatology",
-      year: 2020,
-      institution: "University of Southern California, School of Pharmacy",
-      participants: 120,
-      duration: "12 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM significantly reduced liver enzyme levels and improved liver function in participants with chronic alcohol consumption.",
-      keyResults: [
-        "45% reduction in ALT/AST (liver stress indicators)",
-        "38% reduction in AST levels", 
-        "Improved liver histology scores",
-        "No serious adverse effects"
-      ],
-      methodology: "Randomized, double-blind, placebo-controlled trial",
-      dosage: "300mg twice daily",
-      significance: "First large-scale human study demonstrating hepatoprotective effects",
-      pubmedId: "PMC7211127",
-      pubmedUrl: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/"
-    },
-    {
-      id: 2,
-      title: "DHM Reduces Alcohol Intoxication and Withdrawal Symptoms",
-      authors: "Shen, Y., Lindemeyer, A.K., Gonzalez, C., et al.",
-      journal: "Journal of Neuroscience",
-      year: 2012,
-      institution: "UCLA",
-      participants: "Animal models",
-      duration: "8 weeks",
-      category: "metabolism",
-      type: "Preclinical Study",
-      findings: "DHM treatment resulted in a 70% reduction in alcohol intoxication duration and prevented withdrawal symptoms.",
-      keyResults: [
-        "70% faster alcohol clearance",
-        "Prevented withdrawal anxiety",
-        "Reduced alcohol preference",
-        "Protected against tolerance"
-      ],
-      methodology: "Controlled animal study with multiple dosing protocols",
-      dosage: "1-10 mg/kg body weight",
-      significance: "Breakthrough study establishing DHM's anti-alcohol effects",
-      pubmedId: "22219299",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/22219299/"
-    },
-    {
-      id: 3,
-      title: "DHM Impact on Alcohol Metabolism: A Pharmacokinetic Study",
-      authors: "Stasiłowicz-Krzemień, A., Cielecka-Piontek, J.",
-      journal: "Nutrients",
-      year: 2021,
-      institution: "Charles University, Prague, Czech Republic",
-      participants: "Pharmacokinetic analysis",
-      duration: "Single dose study",
-      category: "metabolism",
-      type: "Preclinical Study",
-      findings: "Study examined DHM's actual impact on alcohol metabolism, finding limited direct effects on alcohol clearance rates.",
-      keyResults: [
-        "No significant effect on blood alcohol clearance",
-        "DHM bioavailability challenges identified",
-        "Metabolite analysis completed",
-        "Safety profile confirmed"
-      ],
-      methodology: "Controlled pharmacokinetic analysis with metabolite tracking",
-      dosage: "Various dosing protocols tested",
-      significance: "Important study clarifying DHM's actual metabolic effects",
-      pubmedId: "33656905",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/33656905/"
-    },
-    {
-      id: 4,
-      title: "DHM Supplementation Improves Ethanol-Induced Lipid Dysregulation",
-      authors: "Blesso, C.N., Fernandez, M.L.",
-      journal: "Frontiers in Nutrition",
-      year: 2023,
-      institution: "Aix Marseille Université, France",
-      participants: 45,
-      duration: "8 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM supplementation significantly improved lipid profiles and reduced inflammatory markers in participants with chronic alcohol consumption.",
-      keyResults: [
-        "Reduced TNF-α, IL-6 (inflammation markers)",
-        "Improved gut barrier function",
-        "Enhanced liver lipid metabolism",
-        "Increased beneficial gut bacteria"
-      ],
-      methodology: "Randomized controlled trial with comprehensive biomarker analysis",
-      dosage: "300mg daily",
-      significance: "First study showing DHM's effects on alcohol-induced gut-liver axis dysfunction",
-      pubmedId: "37645104",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/37645104/"
-    },
-    {
-      id: 5,
-      title: "Dihydromyricetin Attenuates Cerebral Ischemia Reperfusion Injury",
-      authors: "Zhang, Y., Wang, S., Li, H., et al.",
-      journal: "Drug Design, Development and Therapy",
-      year: 2022,
-      institution: "The Second Hospital, Cheeloo College of Medicine, Shandong University",
-      participants: "Animal models + cell culture",
-      duration: "4 weeks",
-      category: "neuroprotection",
-      type: "Preclinical Study",
-      findings: "DHM provided significant neuroprotection against cerebral ischemia-reperfusion injury through ferroptosis inhibition.",
-      keyResults: [
-        "Reduced brain infarct volume by 45%",
-        "Inhibited ferroptosis pathway",
-        "Improved neurological function scores",
-        "Reduced oxidative stress markers"
-      ],
-      methodology: "Controlled animal study with molecular pathway analysis",
-      dosage: "50mg/kg body weight",
-      significance: "Novel mechanism of DHM neuroprotection identified",
-      pubmedId: "36510616",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/36510616/"
-    },
-    {
-      id: 6,
-      title: "DHM Hepatoprotective Effects Against Drug-Induced Liver Injury",
-      authors: "Zhang, L., Wang, M., Chen, H., et al.",
-      journal: "Natural Product Communications",
-      year: 2022,
-      institution: "Jilin University",
-      participants: 150,
-      duration: "8 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM demonstrated significant hepatoprotective effects against acetaminophen-induced liver toxicity.",
-      keyResults: [
-        "60% reduction in liver damage markers",
-        "Improved antioxidant enzyme activity",
-        "Reduced inflammatory cytokines",
-        "Enhanced liver regeneration"
-      ],
-      methodology: "Randomized, double-blind, placebo-controlled trial",
-      dosage: "400mg twice daily",
-      significance: "First study showing DHM protection against drug-induced hepatotoxicity",
-      pubmedId: "1934578X221114234",
-      pubmedUrl: "https://journals.sagepub.com/doi/full/10.1177/1934578X221114234"
-    },
-    {
-      id: 7,
-      title: "DHM Ameliorates Liver Fibrosis via Stellate Cell Inhibition",
-      authors: "Liu, Y., Chen, X., Wang, P., et al.",
-      journal: "Nutrition & Metabolism",
-      year: 2021,
-      institution: "Third Military Medical University (Army Medical University)",
-      participants: 90,
-      duration: "24 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM effectively prevented liver fibrosis progression by inhibiting hepatic stellate cell activation.",
-      keyResults: [
-        "50% reduction in fibrosis markers",
-        "Improved liver architecture",
-        "Reduced collagen deposition",
-        "Enhanced liver function"
-      ],
-      methodology: "Prospective cohort study with liver biopsy",
-      dosage: "500mg daily",
-      significance: "Breakthrough study on DHM anti-fibrotic mechanisms",
-      pubmedId: "s12986-021-00589-6",
-      pubmedUrl: "https://nutritionandmetabolism.biomedcentral.com/articles/10.1186/s12986-021-00589-6"
-    },
-    {
-      id: 8,
-      title: "Efficacy of Hovenia dulcis Fruit Extract in Hangover Mitigation: Double-Blind Randomized Clinical Evaluation",
-      authors: "Research Team (2024)",
-      journal: "Foods",
-      year: 2024,
-      institution: "International Research Collaboration",
-      participants: 30,
-      duration: "Single dose crossover study",
-      category: "metabolism",
-      type: "Human Clinical Trial",
-      findings: "DHM-containing Hovenia dulcis extract significantly reduced blood alcohol levels and hangover symptoms in a controlled clinical trial.",
-      keyResults: [
-        "Significantly reduced blood alcohol at 0.5h and 6h vs placebo",
-        "Lower acetaldehyde accumulation",
-        "Reduced gastrointestinal hangover symptoms",
-        "Enhanced alcohol metabolism efficiency"
-      ],
-      methodology: "Randomized, double-blind, crossover, placebo-controlled trial",
-      dosage: "Standardized Hovenia dulcis extract containing DHM",
-      significance: "First rigorous human clinical trial demonstrating hangover prevention efficacy",
-      pubmedId: "Foods2024",
-      pubmedUrl: "https://www.mdpi.com/journal/foods"
-    },
-    {
-      id: 9,
-      title: "Dihydromyricetin Regulates miR-155-5p/SIRT1/VDAC1 Pathway to Promote Liver Regeneration",
-      authors: "Ma, Q., Chen, L., Zhang, Y., et al.",
-      journal: "Phytomedicine",
-      year: 2025,
-      institution: "Zhejiang Chinese Medical University",
-      participants: "Animal models with molecular analysis",
-      duration: "7 weeks",
-      category: "liver",
-      type: "Preclinical Study",
-      findings: "DHM promotes liver regeneration through novel microRNA pathway regulation, demonstrating regenerative potential beyond protective effects.",
-      keyResults: [
-        "Regulated miR-155-5p/SIRT1/VDAC1 positive feedback loop",
-        "Promoted liver regeneration in alcohol-associated liver disease",
-        "Improved liver inflammation and cellular senescence",
-        "Enhanced hepatocyte proliferation"
-      ],
-      methodology: "Animal study with microRNA and molecular pathway analysis",
-      dosage: "75-150 mg/kg/day",
-      significance: "First evidence of DHM's liver regenerative capabilities through epigenetic mechanisms",
-      pubmedId: "39986231",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/39986231/"
-    },
-    {
-      id: 10,
-      title: "Dihydromyricetin Protects the Liver via Enhanced Ethanol Metabolism and Lipid Regulation",
-      authors: "Silva, J., Yu, X., Moradian, R., et al.",
-      journal: "Alcoholism: Clinical and Experimental Research",
-      year: 2020,
-      institution: "University of Southern California, School of Pharmacy",
-      participants: "Animal models with cellular analysis",
-      duration: "4 weeks",
-      category: "metabolism",
-      type: "Preclinical Study",
-      findings: "DHM enhanced ethanol metabolism by increasing NAD cofactor availability and activated AMPK metabolic signaling pathways.",
-      keyResults: [
-        "Enhanced ethanol metabolism via increased ADH/ALDH enzyme activity",
-        "Reduced hepatic lipid accumulation and inflammation",
-        "Activated AMPK metabolic signaling pathways",
-        "Increased NAD+ levels for enhanced alcohol metabolism"
-      ],
-      methodology: "Controlled animal study with molecular and enzymatic analysis",
-      dosage: "5-10 mg/kg body weight",
-      significance: "Comprehensive study establishing multiple mechanisms of DHM liver protection",
-      pubmedId: "32267550",
-      pubmedUrl: "https://pubmed.ncbi.nlm.nih.gov/32267550/"
-    },
-    {
-      id: 11,
-      title: "DHM Improves Glucose and Lipid Metabolism in Nonalcoholic Fatty Liver Disease: Randomized Trial",
-      authors: "Chen, L., Wei, M., Zhang, H., et al.",
-      journal: "Pharmacological Research",
-      year: 2018,
-      institution: "Third Military Medical University",
-      participants: 60,
-      duration: "12 weeks",
-      category: "liver",
-      type: "Human Clinical Trial",
-      findings: "DHM significantly improved liver enzymes, glucose metabolism, and lipid profiles in NAFLD patients without affecting body weight.",
-      keyResults: [
-        "Significant decreases in ALT, AST, γ-GT (liver stress indicators)",
-        "Improved fasting glucose and HOMA-IR insulin resistance",
-        "Reduced LDL cholesterol and apolipoprotein B",
-        "No adverse effects reported"
-      ],
-      methodology: "Double-blind, randomized, placebo-controlled trial",
-      dosage: "150mg twice daily",
-      significance: "First randomized controlled trial demonstrating DHM efficacy in human liver disease",
-      pubmedId: "Clinical2018",
-      pubmedUrl: "https://www.sciencedirect.com/journal/pharmacological-research"
-    },
   ]
 
   const filteredStudies = useMemo(() => {
@@ -414,11 +202,11 @@ export default function Research() {
             {/* Research Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">11</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">{studies.length}</div>
                 <div className="text-gray-600">Key Studies Reviewed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">7</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">{humanTrialCount}</div>
                 <div className="text-gray-600">Human Clinical Trials</div>
               </div>
               <div className="text-center">
@@ -426,7 +214,7 @@ export default function Research() {
                 <div className="text-gray-600">Trial Participants</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">11</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">{yearsOfResearch}</div>
                 <div className="text-gray-600">Years of Research</div>
               </div>
             </div>
@@ -467,7 +255,7 @@ export default function Research() {
                 </CardHeader>
                 <CardContent>
                   <ul className="text-left space-y-2 text-gray-700">
-                    <li>• <strong>7 human clinical trials</strong> completed</li>
+                    <li>• <strong>{humanTrialCount} human clinical trials</strong> completed</li>
                     <li>• <strong>600+ participants</strong> across studies</li>
                     <li>• <strong>Randomized, double-blind design</strong></li>
                     <li>• <strong>Placebo-controlled protocols</strong></li>
@@ -796,15 +584,15 @@ export default function Research() {
                         </div>
                         
                         <div className="space-y-3">
-                          <Button 
+                          <Button
                             asChild
-                            variant="outline" 
-                            size="sm" 
+                            variant="outline"
+                            size="sm"
                             className="w-full border-green-700 text-green-700 hover:bg-green-50"
                           >
-                            <a 
-                              href={study.pubmedUrl} 
-                              target="_blank" 
+                            <a
+                              href={study.pubmedUrl}
+                              target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-center"
                             >
@@ -812,6 +600,7 @@ export default function Research() {
                               View Full PubMed Study
                             </a>
                           </Button>
+                          <CopyAPAButton citation={formatAPA(study)} />
                         </div>
                       </div>
                     </div>
