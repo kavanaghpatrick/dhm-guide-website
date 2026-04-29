@@ -655,11 +655,11 @@ export default function Reviews() {
                 <thead>
                   <tr className="bg-green-700 text-white">
                     <th className="py-3 px-4 text-left font-semibold">Brand</th>
-                    <th className="py-3 px-4 text-center font-semibold">DHM</th>
+                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">DHM</th>
                     <th className="py-3 px-4 text-center font-semibold">Price</th>
-                    <th className="py-3 px-4 text-center font-semibold">Per Serving</th>
+                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Per Serving</th>
                     <th className="py-3 px-4 text-center font-semibold">Rating</th>
-                    <th className="py-3 px-4 text-center font-semibold">Reviews</th>
+                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Reviews</th>
                     <th className="py-3 px-4 text-center font-semibold">Score</th>
                     <th className="py-3 px-4 text-center font-semibold">Action</th>
                   </tr>
@@ -685,7 +685,7 @@ export default function Reviews() {
                           <div className="text-sm text-gray-600">{product.brand}</div>
                         </a>
                       </td>
-                      <td className="py-3 px-4 text-center font-medium text-green-700">{product.dhm}</td>
+                      <td className="py-3 px-4 text-center font-medium text-green-700 hidden md:table-cell">{product.dhm}</td>
                       <td className="py-3 px-4 text-center">
                         <a
                           href={product.affiliateLink}
@@ -698,7 +698,7 @@ export default function Reviews() {
                           {product.price}
                         </a>
                       </td>
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-3 px-4 text-center hidden md:table-cell">
                         <a
                           href={product.affiliateLink}
                           target="_blank"
@@ -723,7 +723,7 @@ export default function Reviews() {
                           <span className="font-medium hover:underline">{product.rating}</span>
                         </a>
                       </td>
-                      <td className="py-3 px-4 text-center text-gray-700">{product.reviews.toLocaleString()}</td>
+                      <td className="py-3 px-4 text-center text-gray-700 hidden md:table-cell">{product.reviews.toLocaleString()}</td>
                       <td className="py-3 px-4 text-center">
                         <a
                           href={product.affiliateLink}
