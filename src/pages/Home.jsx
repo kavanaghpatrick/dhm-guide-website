@@ -23,6 +23,7 @@ import gaba760w from '../assets/04_gaba_receptor_mechanism-760w.webp'
 import gaba1536w from '../assets/04_gaba_receptor_mechanism-1536w.webp'
 
 import LazyImage from '../components/LazyImage.jsx'
+import topProductsData from '@/data/topProducts.json'
 import {
   ChevronDown,
   Beaker,
@@ -97,36 +98,29 @@ export default function Home() {
     }
   ]
 
-  // Top DHM products
-  const topProducts = [
+  // Top DHM products: canonical fields (price, rating, affiliateLink, etc.) come from
+  // src/data/topProducts.json so a single price refresh propagates everywhere.
+  // Only UI-only marketing copy (`features`) and homepage-specific badge overrides live here.
+  const topProductsById = Object.fromEntries(topProductsData.map(p => [p.id, p]))
+  const homepageProductOverrides = [
     {
-      name: "No Days Wasted DHM Detox",
-      rating: 4.3,
-      price: "$26.99",
-      dhm: "1000mg",
-      badge: "Editor's Choice",
-      features: ["1K+ bought this month", "Science-backed formula", "350K+ customers"],
-      affiliateLink: "https://amzn.to/3HSHjgu"
+      id: 1,
+      features: ["1K+ bought this month", "Science-backed formula", "350K+ customers"]
     },
     {
-      name: "Double Wood Supplements",
-      rating: 4.4,
-      price: "$19.75",
-      dhm: "1000mg",
-      badge: "Best Value",
-      features: ["Amazon's Choice", "2K+ bought monthly", "Enhanced with electrolytes"],
-      affiliateLink: "https://amzn.to/44sczuq"
+      id: 2,
+      features: ["Amazon's Choice", "2K+ bought monthly", "Enhanced with electrolytes"]
     },
     {
-      name: "Cheers Restore",
-      rating: 3.9,
-      price: "$34.99",
-      dhm: "Most DHM per dose",
+      id: 5,
       badge: "Shark Tank",
-      features: ["Patented DHM + Cysteine", "25M+ better mornings", "Full transparency"],
-      affiliateLink: "https://amzn.to/3T8cO8H"
+      features: ["Patented DHM + Cysteine", "25M+ better mornings", "Full transparency"]
     }
   ]
+  const topProducts = homepageProductOverrides.map(local => ({
+    ...topProductsById[local.id],
+    ...local
+  }))
 
   return (
     <div>
