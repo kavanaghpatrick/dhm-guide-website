@@ -5,12 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { 
-  Star, 
-  CheckCircle, 
-  Award, 
-  DollarSign, 
-  Shield, 
+import topProductsData from '@/data/topProducts.json'
+import {
+  Star,
+  CheckCircle,
+  Award,
+  DollarSign,
+  Shield,
   Zap,
   ArrowRight,
   Filter,
@@ -37,24 +38,15 @@ export default function Compare() {
   const [selectedProducts, setSelectedProducts] = useState([])
   const [showAll, setShowAll] = useState(false)
 
-  // Product data - same as Reviews page but with additional comparison fields
-  const allProducts = [
+  // Product data: canonical fields (price, rating, reviews, affiliateLink, name, brand,
+  // dhm, purity, badge, badgeColor, score, servings, category) come from
+  // src/data/topProducts.json so a single price refresh propagates everywhere.
+  // Only Compare-page-specific UI fields (dhmPerDollar, scoring breakdowns,
+  // shipping/cert metadata, image overrides, etc.) live here.
+  const topProductsById = Object.fromEntries(topProductsData.map(p => [p.id, p]))
+  const compareProductOverrides = [
     {
       id: 1,
-      name: "No Days Wasted DHM Detox",
-      brand: "No Days Wasted",
-      rating: 4.3,
-      reviews: 201,
-      price: "$26.99",
-      pricePerServing: "$1.80",
-      servings: 15,
-      dhm: "1000mg",
-      purity: "98%+",
-      badge: "Editor's Choice",
-      badgeColor: "bg-yellow-500",
-      score: 9.5,
-      affiliateLink: "https://amzn.to/3HSHjgu",
-      // Additional comparison fields
       dhmPerDollar: 37.0, // mg per dollar
       additionalIngredients: ["L-Cysteine 200mg", "Milk Thistle", "Prickly Pear", "B-Complex", "Electrolytes"],
       thirdPartyTested: true,
@@ -67,25 +59,10 @@ export default function Compare() {
       effectivenessScore: 9.5,
       safetyScore: 9.0,
       customerSatisfaction: 4.3,
-      monthlyBuyers: "1K+",
-      category: "premium"
+      monthlyBuyers: "1K+"
     },
     {
       id: 2,
-      name: "Double Wood Supplements DHM",
-      brand: "Double Wood",
-      rating: 4.4,
-      reviews: 552,
-      price: "$19.75",
-      pricePerServing: "$0.66",
-      servings: 30,
-      dhm: "1000mg",
-      purity: "98%",
-      badge: "Best Value",
-      badgeColor: "bg-green-500",
-      score: 9.2,
-      affiliateLink: "https://amzn.to/44sczuq",
-      // Additional comparison fields
       dhmPerDollar: 50.6,
       additionalIngredients: ["Electrolytes", "Essential Minerals"],
       thirdPartyTested: true,
@@ -98,25 +75,10 @@ export default function Compare() {
       effectivenessScore: 9.0,
       safetyScore: 8.5,
       customerSatisfaction: 4.4,
-      monthlyBuyers: "2K+",
-      category: "budget"
+      monthlyBuyers: "2K+"
     },
     {
       id: 3,
-      name: "Toniiq Ease",
-      brand: "Toniiq",
-      rating: 4.3,
-      reviews: 1681,
-      price: "$24.97",
-      pricePerServing: "$0.62",
-      servings: 40,
-      dhm: "300mg",
-      purity: "98%",
-      badge: "Most Popular",
-      badgeColor: "bg-blue-500",
-      score: 9.0,
-      affiliateLink: "https://amzn.to/44E95Gi",
-      // Additional comparison fields
       dhmPerDollar: 12.0,
       additionalIngredients: ["Red Duanwood Reishi", "Milk Thistle (80% Silymarin)"],
       thirdPartyTested: true,
@@ -129,25 +91,10 @@ export default function Compare() {
       effectivenessScore: 8.5,
       safetyScore: 9.2,
       customerSatisfaction: 4.3,
-      monthlyBuyers: "500+",
-      category: "comprehensive"
+      monthlyBuyers: "500+"
     },
     {
       id: 4,
-      name: "NusaPure Dihydromyricetin (DHM) 1,000mg",
-      brand: "NusaPure",
-      rating: 4.2,
-      reviews: 89,
-      price: "$19.95",
-      pricePerServing: "$0.67",
-      servings: 30,
-      dhm: "1000mg",
-      purity: "98%+",
-      badge: "High Potency",
-      badgeColor: "bg-orange-500",
-      score: 8.8,
-      affiliateLink: "https://amzn.to/44znXFU",
-      // Additional comparison fields
       dhmPerDollar: 50.1,
       additionalIngredients: [],
       thirdPartyTested: true,
@@ -160,25 +107,10 @@ export default function Compare() {
       effectivenessScore: 8.8,
       safetyScore: 8.0,
       customerSatisfaction: 4.2,
-      monthlyBuyers: "100+",
-      category: "budget"
+      monthlyBuyers: "100+"
     },
     {
       id: 5,
-      name: "Cheers Restore",
-      brand: "Cheers®",
-      rating: 3.9,
-      reviews: 7419,
-      price: "$34.99",
-      pricePerServing: "$2.92",
-      servings: 12,
-      dhm: "Most DHM per dose",
-      purity: "Patented blend",
-      badge: "As Seen on Shark Tank",
-      badgeColor: "bg-blue-500",
-      score: 8.6,
-      affiliateLink: "https://amzn.to/3T8cO8H",
-      // Additional comparison fields
       dhmPerDollar: 8.6, // Estimated based on "most DHM per dose"
       additionalIngredients: ["L-Cysteine", "Prickly Pear", "B-Vitamins", "Ginger", "Vine Tea"],
       thirdPartyTested: false,
@@ -191,25 +123,10 @@ export default function Compare() {
       effectivenessScore: 8.8,
       safetyScore: 8.2,
       customerSatisfaction: 3.9,
-      monthlyBuyers: "Variable",
-      category: "premium"
+      monthlyBuyers: "Variable"
     },
     {
       id: 6,
-      name: "Flyby Recovery",
-      brand: "Flyby",
-      rating: 4.3,
-      reviews: 7200,
-      price: "$17.99",
-      pricePerServing: "$4.50",
-      servings: 4,
-      dhm: "300mg",
-      purity: "Proprietary extraction",
-      badge: "Comprehensive Formula",
-      badgeColor: "bg-purple-500",
-      score: 8.4,
-      affiliateLink: "https://amzn.to/4kjCRVw",
-      // Additional comparison fields
       dhmPerDollar: 16.7,
       additionalIngredients: ["Milk Thistle", "B-Vitamins (B1,B2,B6,B9,B12)", "18 Amino Acids", "Vitamin C", "Apple Cider Vinegar", "Electrolytes"],
       thirdPartyTested: true,
@@ -222,25 +139,11 @@ export default function Compare() {
       effectivenessScore: 8.5,
       safetyScore: 9.0,
       customerSatisfaction: 4.3,
-      monthlyBuyers: "1K+",
-      category: "comprehensive"
+      monthlyBuyers: "1K+"
     },
     {
       id: 7,
-      name: "Good Morning Hangover Pills",
-      brand: "Good Health Co",
       image: "/good-morning-hangover-pills-review-hero.webp",
-      rating: 4.2,
-      reviews: 124,
-      price: "$29.95",
-      pricePerServing: "$1.00",
-      servings: 30,
-      dhm: "DHM + Milk Thistle Blend",
-      purity: "80% Silymarin Milk Thistle",
-      badge: "88.89% Effective",
-      badgeColor: "bg-green-500",
-      score: 8.2,
-      affiliateLink: "https://amzn.to/44nKqo9",
       dhmPerDollar: 4.2,
       additionalIngredients: ["Electrolytes", "Milk Thistle (80% Silymarin)", "B-Vitamins", "Vitamin C", "Vitamin E", "L-Cysteine", "White Willow Bark"],
       thirdPartyTested: true,
@@ -253,25 +156,11 @@ export default function Compare() {
       effectivenessScore: 8.0,
       safetyScore: 8.5,
       customerSatisfaction: 4.2,
-      monthlyBuyers: "500+",
-      category: "convenience"
+      monthlyBuyers: "500+"
     },
     {
       id: 8,
-      name: "DHM1000",
-      brand: "Dycetin",
       image: "/dhm1000-review-hero.webp",
-      rating: 4.3,
-      reviews: 496,
-      price: "$29.95",
-      pricePerServing: "$1.00",
-      servings: 30,
-      dhm: "1000mg",
-      purity: "High potency + electrolytes",
-      badge: "Most Powerful",
-      badgeColor: "bg-red-500",
-      score: 8.6,
-      affiliateLink: "https://amzn.to/44nvh65",
       dhmPerDollar: 33.4,
       additionalIngredients: ["Electrolytes (Sodium, Potassium, Magnesium)"],
       thirdPartyTested: false,
@@ -285,23 +174,14 @@ export default function Compare() {
       safetyScore: 8.5,
       customerSatisfaction: 4.3,
       monthlyBuyers: "800+",
+      // Override category: Compare uses "high-potency" vs JSON "premium"
       category: "high-potency"
     },
     {
       id: 9,
-      name: "Fuller Health After Party",
-      brand: "Fuller Health",
       image: "/fuller-health-after-party-review-hero.webp",
-      rating: 4.0,
-      reviews: 92,
-      price: "$49.95",
-      pricePerServing: "$1.67",
-      servings: 30,
-      dhm: "650mg",
-      purity: "Pure DHM + GABA support",
-      badge: "Celebrity Endorsed",
-      badgeColor: "bg-purple-500",
-      score: 7.8,
+      // Override affiliateLink: Compare uses direct fullerhealth.com URL,
+      // not the Amazon link in topProducts.json
       affiliateLink: "https://fullerhealth.com/products/after-party",
       dhmPerDollar: 13.0,
       additionalIngredients: ["GABA Support Mechanism"],
@@ -315,25 +195,11 @@ export default function Compare() {
       effectivenessScore: 8.0,
       safetyScore: 9.0,
       customerSatisfaction: 4.0,
-      monthlyBuyers: "200+",
-      category: "premium"
+      monthlyBuyers: "200+"
     },
     {
       id: 10,
-      name: "DHM Depot",
-      brand: "Double Wood Supplements",
       image: "/dhm-depot-review-hero.webp",
-      rating: 4.5,
-      reviews: 1129,
-      price: "$44.95",
-      pricePerServing: "$0.90",
-      servings: 50,
-      dhm: "300mg",
-      purity: "Third-party tested",
-      badge: "Highest Rated",
-      badgeColor: "bg-blue-500",
-      score: 8.8,
-      affiliateLink: "https://amzn.to/4l1ZoqN",
       dhmPerDollar: 6.7,
       additionalIngredients: ["None - Pure DHM"],
       thirdPartyTested: true,
@@ -347,9 +213,14 @@ export default function Compare() {
       safetyScore: 9.5,
       customerSatisfaction: 4.5,
       monthlyBuyers: "1.5K+",
+      // Override category: Compare uses "quality" vs JSON "premium"
       category: "quality"
     }
   ]
+  const allProducts = compareProductOverrides.map(local => ({
+    ...topProductsById[local.id],
+    ...local
+  }))
 
   // Auto-select top 3 products by default or from URL params
   useEffect(() => {

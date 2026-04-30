@@ -213,3 +213,7 @@ specs/.index/
 
 # Generated audit outputs (re-run scripts/audit-unused-public-assets.mjs to regenerate)
 audit/
+
+# Amazon price refresh pipeline (scripts/refresh-amazon-prices.sh)
+.playwright-userdata/
+data/amazon-prices.json
