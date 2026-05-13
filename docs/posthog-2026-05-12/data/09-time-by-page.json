@@ -1,0 +1,284 @@
+{
+  "current": {
+    "cache_key": "cache_275753_218b864fa1df9bf858fbc0e1e9327d3cace921fce642a964630ccfd53606f801",
+    "cache_target_age": "2026-05-11T22:12:35.772433Z",
+    "calculation_trigger": null,
+    "clickhouse": "WITH\n    session_max AS (SELECT\n            nullIf(nullIf(events.`mat_$pathname`, ''), 'null') AS path,\n            nullIf(nullIf(events.`$session_id`, ''), 'null') AS sess,\n            max(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_0)s) ? events.properties_group_custom[%(hogql_val_0)s] : null, %(hogql_val_1)s), %(hogql_val_2)s)) AS max_sec\n        FROM\n            events\n        WHERE\n            and(equals(events.team_id, 275753), equals(events.event, %(hogql_val_3)s), isNotNull(nullIf(nullIf(events.`mat_$pathname`, ''), 'null')), isNotNull(nullIf(nullIf(events.`$session_id`, ''), 'null')), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_4)s)), toDateOrNull(%(hogql_val_5)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_6)s)), toDateOrNull(%(hogql_val_7)s)))\n        GROUP BY\n            path,\n            sess)\nSELECT\n    session_max.path AS path,\n    quantile(0.5)(session_max.max_sec) AS median_sec,\n    count() AS n\nFROM\n    session_max\nGROUP BY\n    session_max.path\nHAVING\n    ifNull(greaterOrEquals(n, 3), 0)\nORDER BY\n    n DESC\nLIMIT 40 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+    "columns": [
+      "path",
+      "median_sec",
+      "n"
+    ],
+    "error": null,
+    "explain": null,
+    "hasMore": null,
+    "hogql": "WITH\n    session_max AS (SELECT\n            properties.$pathname AS path,\n            properties.$session_id AS sess,\n            max(toFloat(properties.milestone_seconds)) AS max_sec\n        FROM\n            events\n        WHERE\n            and(equals(event, 'time_on_page_milestone'), notEquals(properties.$pathname, NULL), notEquals(properties.$session_id, NULL), greaterOrEquals(toDate(timestamp), toDate('2026-04-29')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))\n        GROUP BY\n            path,\n            sess)\nSELECT\n    path,\n    quantile(0.5)(max_sec) AS median_sec,\n    count() AS n\nFROM\n    session_max\nGROUP BY\n    path\nHAVING\n    greaterOrEquals(n, 3)\nORDER BY\n    n DESC\nLIMIT 40",
+    "is_cached": false,
+    "last_refresh": "2026-05-11T16:12:35.772433Z",
+    "limit": null,
+    "metadata": null,
+    "modifiers": {
+      "bounceRateDurationSeconds": null,
+      "bounceRatePageViewMode": "count_pageviews",
+      "convertToProjectTimezone": true,
+      "customChannelTypeRules": null,
+      "dataWarehouseEventsModifiers": null,
+      "debug": null,
+      "forceClickhouseDataSkippingIndexes": null,
+      "formatCsvAllowDoubleQuotes": null,
+      "inCohortVia": "subquery",
+      "inlineCohortCalculation": "auto",
+      "materializationMode": "legacy_null_as_null",
+      "materializedColumnsOptimizationMode": null,
+      "optimizeJoinedFilters": false,
+      "optimizeProjections": true,
+      "personsArgMaxVersion": "auto",
+      "personsJoinMode": null,
+      "personsOnEventsMode": "person_id_override_properties_on_events",
+      "propertyGroupsMode": "optimized",
+      "s3TableUseInvalidColumns": null,
+      "sessionIdPushdown": false,
+      "sessionPropertyPreAggregation": false,
+      "sessionTableVersion": "auto",
+      "sessionsV2JoinMode": "uuid",
+      "timings": null,
+      "useMaterializedViews": true,
+      "usePreaggregatedIntermediateResults": null,
+      "usePreaggregatedTableTransforms": null,
+      "useWebAnalyticsPreAggregatedTables": null
+    },
+    "next_allowed_client_refresh": "2026-05-11T16:13:35.772433Z",
+    "offset": null,
+    "query": null,
+    "query_metadata": {
+      "events": [],
+      "updated_at": "2026-05-11T16:12:36.412913Z"
+    },
+    "query_status": null,
+    "resolved_date_range": null,
+    "results": [
+      [
+        "/never-hungover/dhm-dosage-guide-2025",
+        60.0,
+        139
+      ],
+      [
+        "/never-hungover/hangover-supplements-complete-guide-what-actually-works-2025",
+        60.0,
+        38
+      ],
+      [
+        "/reviews",
+        120.0,
+        32
+      ],
+      [
+        "/",
+        30.0,
+        21
+      ],
+      [
+        "/never-hungover/when-to-take-dhm-timing-guide-2025",
+        90.0,
+        20
+      ],
+      [
+        "/never-hungover/dhm-randomized-controlled-trials",
+        120.0,
+        11
+      ],
+      [
+        "/guide",
+        30.0,
+        9
+      ],
+      [
+        "/never-hungover/can-you-take-dhm-every-day-long-term-guide-2025",
+        120.0,
+        9
+      ],
+      [
+        "/research",
+        30.0,
+        7
+      ],
+      [
+        "/never-hungover/dhm1000-review-2025",
+        30.0,
+        7
+      ],
+      [
+        "/never-hungover/italian-drinking-culture-guide",
+        210.0,
+        6
+      ],
+      [
+        "/never-hungover/flyby-vs-cheers-complete-comparison-2025",
+        60.0,
+        5
+      ],
+      [
+        "/dhm-dosage-calculator",
+        60.0,
+        4
+      ],
+      [
+        "/never-hungover/dhm-vs-zbiotics",
+        90.0,
+        4
+      ],
+      [
+        "/never-hungover/nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+        210.0,
+        4
+      ],
+      [
+        "/never-hungover/double-wood-vs-toniiq-ease-dhm-comparison-2025",
+        30.0,
+        3
+      ],
+      [
+        "/never-hungover/flyby-vs-toniiq-ease-complete-comparison-2025",
+        30.0,
+        3
+      ],
+      [
+        "/never-hungover/no-days-wasted-vs-fuller-health-after-party-comparison-2025",
+        120.0,
+        3
+      ]
+    ],
+    "timezone": "UTC",
+    "timings": null,
+    "types": [
+      [
+        "path",
+        "Nullable(String)"
+      ],
+      [
+        "median_sec",
+        "Nullable(Float64)"
+      ],
+      [
+        "n",
+        "UInt64"
+      ]
+    ]
+  },
+  "prior": {
+    "cache_key": "cache_275753_583f499dac82e0e189099b171c5cd7152086536bc519edd3c82297bbaa5efd04",
+    "cache_target_age": "2026-05-11T22:12:37.387608Z",
+    "calculation_trigger": null,
+    "clickhouse": "WITH\n    session_max AS (SELECT\n            nullIf(nullIf(events.`mat_$pathname`, ''), 'null') AS path,\n            nullIf(nullIf(events.`$session_id`, ''), 'null') AS sess,\n            max(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_0)s) ? events.properties_group_custom[%(hogql_val_0)s] : null, %(hogql_val_1)s), %(hogql_val_2)s)) AS max_sec\n        FROM\n            events\n        WHERE\n            and(equals(events.team_id, 275753), equals(events.event, %(hogql_val_3)s), isNotNull(nullIf(nullIf(events.`mat_$pathname`, ''), 'null')), isNotNull(nullIf(nullIf(events.`$session_id`, ''), 'null')), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_4)s)), toDateOrNull(%(hogql_val_5)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_6)s)), toDateOrNull(%(hogql_val_7)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_8)s)), toDateOrNull(%(hogql_val_9)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_10)s)), toDateOrNull(%(hogql_val_11)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_12)s)), toDateOrNull(%(hogql_val_13)s)))\n        GROUP BY\n            path,\n            sess)\nSELECT\n    session_max.path AS path,\n    quantile(0.5)(session_max.max_sec) AS median_sec,\n    count() AS n\nFROM\n    session_max\nGROUP BY\n    session_max.path\nHAVING\n    ifNull(greaterOrEquals(n, 3), 0)\nORDER BY\n    n DESC\nLIMIT 40 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+    "columns": [
+      "path",
+      "median_sec",
+      "n"
+    ],
+    "error": null,
+    "explain": null,
+    "hasMore": null,
+    "hogql": "WITH\n    session_max AS (SELECT\n            properties.$pathname AS path,\n            properties.$session_id AS sess,\n            max(toFloat(properties.milestone_seconds)) AS max_sec\n        FROM\n            events\n        WHERE\n            and(equals(event, 'time_on_page_milestone'), notEquals(properties.$pathname, NULL), notEquals(properties.$session_id, NULL), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))\n        GROUP BY\n            path,\n            sess)\nSELECT\n    path,\n    quantile(0.5)(max_sec) AS median_sec,\n    count() AS n\nFROM\n    session_max\nGROUP BY\n    path\nHAVING\n    greaterOrEquals(n, 3)\nORDER BY\n    n DESC\nLIMIT 40",
+    "is_cached": false,
+    "last_refresh": "2026-05-11T16:12:37.387608Z",
+    "limit": null,
+    "metadata": null,
+    "modifiers": {
+      "bounceRateDurationSeconds": null,
+      "bounceRatePageViewMode": "count_pageviews",
+      "convertToProjectTimezone": true,
+      "customChannelTypeRules": null,
+      "dataWarehouseEventsModifiers": null,
+      "debug": null,
+      "forceClickhouseDataSkippingIndexes": null,
+      "formatCsvAllowDoubleQuotes": null,
+      "inCohortVia": "subquery",
+      "inlineCohortCalculation": "auto",
+      "materializationMode": "legacy_null_as_null",
+      "materializedColumnsOptimizationMode": null,
+      "optimizeJoinedFilters": false,
+      "optimizeProjections": true,
+      "personsArgMaxVersion": "auto",
+      "personsJoinMode": null,
+      "personsOnEventsMode": "person_id_override_properties_on_events",
+      "propertyGroupsMode": "optimized",
+      "s3TableUseInvalidColumns": null,
+      "sessionIdPushdown": false,
+      "sessionPropertyPreAggregation": false,
+      "sessionTableVersion": "auto",
+      "sessionsV2JoinMode": "uuid",
+      "timings": null,
+      "useMaterializedViews": true,
+      "usePreaggregatedIntermediateResults": null,
+      "usePreaggregatedTableTransforms": null,
+      "useWebAnalyticsPreAggregatedTables": null
+    },
+    "next_allowed_client_refresh": "2026-05-11T16:13:37.387608Z",
+    "offset": null,
+    "query": null,
+    "query_metadata": {
+      "events": [],
+      "updated_at": "2026-05-11T16:12:38.255132Z"
+    },
+    "query_status": null,
+    "resolved_date_range": null,
+    "results": [
+      [
+        "/never-hungover/dhm-dosage-guide-2025",
+        60.0,
+        39
+      ],
+      [
+        "/never-hungover/hangover-supplements-complete-guide-what-actually-works-2025",
+        90.0,
+        14
+      ],
+      [
+        "/",
+        10.0,
+        10
+      ],
+      [
+        "/never-hungover/nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+        90.0,
+        8
+      ],
+      [
+        "/reviews",
+        300.0,
+        5
+      ],
+      [
+        "/dhm-dosage-calculator",
+        10.0,
+        4
+      ],
+      [
+        "/never-hungover/when-to-take-dhm-timing-guide-2025",
+        120.0,
+        4
+      ],
+      [
+        "/never-hungover/dhm-vs-zbiotics",
+        120.0,
+        3
+      ]
+    ],
+    "timezone": "UTC",
+    "timings": null,
+    "types": [
+      [
+        "path",
+        "Nullable(String)"
+      ],
+      [
+        "median_sec",
+        "Nullable(Float64)"
+      ],
+      [
+        "n",
+        "UInt64"
+      ]
+    ]
+  }
+}

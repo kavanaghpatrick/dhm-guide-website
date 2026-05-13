@@ -1,0 +1,128 @@
+{
+  "cache_key": "cache_275753_d42a14614e8732f8adae1b1c69fe22a880d2693ef2ad97285f45bed461e658e8",
+  "cache_target_age": "2026-05-11T22:10:56.780609Z",
+  "calculation_trigger": null,
+  "clickhouse": "SELECT\n    nullIf(nullIf(events.`mat_$pathname`, ''), 'null') AS path,\n    countIf(and(greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_0)s)), toDateOrNull(%(hogql_val_1)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_2)s)), toDateOrNull(%(hogql_val_3)s)))) AS pv_current,\n    countIf(and(greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_4)s)), toDateOrNull(%(hogql_val_5)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_6)s)), toDateOrNull(%(hogql_val_7)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_8)s)), toDateOrNull(%(hogql_val_9)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_10)s)), toDateOrNull(%(hogql_val_11)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_12)s)), toDateOrNull(%(hogql_val_13)s)))) AS pv_prior,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_14)s)), toDateOrNull(%(hogql_val_15)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_16)s)), toDateOrNull(%(hogql_val_17)s)))) AS sess_current,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_18)s)), toDateOrNull(%(hogql_val_19)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_20)s)), toDateOrNull(%(hogql_val_21)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_22)s)), toDateOrNull(%(hogql_val_23)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_24)s)), toDateOrNull(%(hogql_val_25)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_26)s)), toDateOrNull(%(hogql_val_27)s)))) AS sess_prior\nFROM\n    events\nWHERE\n    and(equals(events.team_id, 275753), equals(events.event, %(hogql_val_28)s), isNotNull(nullIf(nullIf(events.`mat_$pathname`, ''), 'null')), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_29)s)), toDateOrNull(%(hogql_val_30)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_31)s)), toDateOrNull(%(hogql_val_32)s)))\nGROUP BY\n    path\nHAVING\n    or(ifNull(greaterOrEquals(pv_current, 30), 0), ifNull(greaterOrEquals(pv_prior, 30), 0))\nORDER BY\n    plus(pv_current, pv_prior) DESC\nLIMIT 60 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+  "columns": [
+    "path",
+    "pv_current",
+    "pv_prior",
+    "sess_current",
+    "sess_prior"
+  ],
+  "error": null,
+  "explain": null,
+  "hasMore": null,
+  "hogql": "SELECT\n    properties.$pathname AS path,\n    countIf(and(greaterOrEquals(toDate(timestamp), toDate('2026-04-29')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))) AS pv_current,\n    countIf(and(greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS pv_prior,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toDate(timestamp), toDate('2026-04-29')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))) AS sess_current,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS sess_prior\nFROM\n    events\nWHERE\n    and(equals(event, '$pageview'), notEquals(properties.$pathname, NULL), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))\nGROUP BY\n    path\nHAVING\n    or(greaterOrEquals(pv_current, 30), greaterOrEquals(pv_prior, 30))\nORDER BY\n    plus(pv_current, pv_prior) DESC\nLIMIT 60",
+  "is_cached": false,
+  "last_refresh": "2026-05-11T16:10:56.780609Z",
+  "limit": null,
+  "metadata": null,
+  "modifiers": {
+    "bounceRateDurationSeconds": null,
+    "bounceRatePageViewMode": "count_pageviews",
+    "convertToProjectTimezone": true,
+    "customChannelTypeRules": null,
+    "dataWarehouseEventsModifiers": null,
+    "debug": null,
+    "forceClickhouseDataSkippingIndexes": null,
+    "formatCsvAllowDoubleQuotes": null,
+    "inCohortVia": "subquery",
+    "inlineCohortCalculation": "auto",
+    "materializationMode": "legacy_null_as_null",
+    "materializedColumnsOptimizationMode": null,
+    "optimizeJoinedFilters": false,
+    "optimizeProjections": true,
+    "personsArgMaxVersion": "auto",
+    "personsJoinMode": null,
+    "personsOnEventsMode": "person_id_override_properties_on_events",
+    "propertyGroupsMode": "optimized",
+    "s3TableUseInvalidColumns": null,
+    "sessionIdPushdown": false,
+    "sessionPropertyPreAggregation": false,
+    "sessionTableVersion": "auto",
+    "sessionsV2JoinMode": "uuid",
+    "timings": null,
+    "useMaterializedViews": true,
+    "usePreaggregatedIntermediateResults": null,
+    "usePreaggregatedTableTransforms": null,
+    "useWebAnalyticsPreAggregatedTables": null
+  },
+  "next_allowed_client_refresh": "2026-05-11T16:11:56.780609Z",
+  "offset": null,
+  "query": null,
+  "query_metadata": {
+    "events": [],
+    "updated_at": "2026-05-11T16:10:57.980474Z"
+  },
+  "query_status": null,
+  "resolved_date_range": null,
+  "results": [
+    [
+      "/never-hungover/dhm-dosage-guide-2025",
+      161,
+      163,
+      156,
+      156
+    ],
+    [
+      "/never-hungover/hangover-supplements-complete-guide-what-actually-works-2025",
+      70,
+      115,
+      68,
+      103
+    ],
+    [
+      "/",
+      33,
+      39,
+      33,
+      32
+    ],
+    [
+      "/never-hungover/dhm-randomized-controlled-trials",
+      44,
+      2,
+      44,
+      2
+    ],
+    [
+      "/reviews",
+      32,
+      12,
+      31,
+      12
+    ],
+    [
+      "/never-hungover/dhm-randomized-controlled-trials-2024",
+      0,
+      32,
+      0,
+      29
+    ]
+  ],
+  "timezone": "UTC",
+  "timings": null,
+  "types": [
+    [
+      "path",
+      "Nullable(String)"
+    ],
+    [
+      "pv_current",
+      "UInt64"
+    ],
+    [
+      "pv_prior",
+      "UInt64"
+    ],
+    [
+      "sess_current",
+      "UInt64"
+    ],
+    [
+      "sess_prior",
+      "UInt64"
+    ]
+  ]
+}

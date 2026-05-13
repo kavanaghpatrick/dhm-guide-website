@@ -1,0 +1,111 @@
+{
+  "cache_key": "cache_275753_ea34784558505ff51f3cb71296063205649eb0d27430588a0b6a01e6008abeb0",
+  "cache_target_age": "2026-05-11T22:10:51.380677Z",
+  "calculation_trigger": null,
+  "clickhouse": "WITH\n    session_summary AS (SELECT\n            events.`$session_id` AS sid,\n            min(toTimeZone(events.timestamp, %(hogql_val_0)s)) AS sess_start,\n            countIf(and(equals(events.event, %(hogql_val_1)s), or(like(events.`mat_$pathname`, %(hogql_val_2)s), equals(events.`mat_$pathname`, %(hogql_val_3)s), equals(events.`mat_$pathname`, %(hogql_val_4)s)))) AS blog_pv,\n            countIf(and(equals(events.event, %(hogql_val_5)s), ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_6)s) ? events.properties_group_custom[%(hogql_val_6)s] : null, %(hogql_val_7)s), %(hogql_val_8)s), 75), 0), or(like(events.`mat_$pathname`, %(hogql_val_9)s), equals(events.`mat_$pathname`, %(hogql_val_10)s), equals(events.`mat_$pathname`, %(hogql_val_11)s)))) AS deep_scroll,\n            countIf(and(equals(events.event, %(hogql_val_12)s), or(equals(events.`mat_$pathname`, %(hogql_val_13)s), like(events.`mat_$pathname`, %(hogql_val_14)s), equals(events.`mat_$pathname`, %(hogql_val_15)s), like(events.`mat_$pathname`, %(hogql_val_16)s)))) AS compare_pv,\n            countIf(equals(events.event, %(hogql_val_17)s)) AS aff_clicks,\n            any(nullIf(nullIf(events.`mat_$device_type`, ''), 'null')) AS device,\n            argMin(nullIf(nullIf(events.`mat_$pathname`, ''), 'null'), toTimeZone(events.timestamp, %(hogql_val_18)s)) AS landing_path,\n            minIf(toTimeZone(events.timestamp, %(hogql_val_19)s), equals(events.event, %(hogql_val_20)s)) AS first_aff\n        FROM\n            events\n        WHERE\n            and(equals(events.team_id, 275753), greaterOrEquals(events.timestamp, toDateTime64(%(hogql_val_21)s, 6, %(hogql_val_22)s)), less(events.timestamp, toDateTime64(%(hogql_val_23)s, 6, %(hogql_val_24)s)), isNotNull(events.`$session_id`), not(match(coalesce(events.`mat_$raw_user_agent`, replaceRegexpAll(nullIf(nullIf(JSONExtractRaw(events.properties, %(hogql_val_25)s), ''), 'null'), '^\"|\"$', ''), %(hogql_val_26)s), %(hogql_val_27)s)))\n        GROUP BY\n            events.`$session_id`)\nSELECT\n    count() AS step1_sessions,\n    countIf(ifNull(greater(session_summary.blog_pv, 0), 0)) AS step2_blog,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.deep_scroll, 0), 0))) AS step3_scroll,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.deep_scroll, 0), 0), ifNull(greater(session_summary.compare_pv, 0), 0))) AS step4_compare,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.deep_scroll, 0), 0), ifNull(greater(session_summary.compare_pv, 0), 0), ifNull(greater(session_summary.aff_clicks, 0), 0))) AS step5_aff,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.compare_pv, 0), 0))) AS alt_step3_compare,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.compare_pv, 0), 0), ifNull(greater(session_summary.aff_clicks, 0), 0))) AS alt_step4_aff,\n    countIf(and(ifNull(greater(session_summary.blog_pv, 0), 0), ifNull(greater(session_summary.aff_clicks, 0), 0))) AS blog_to_aff\nFROM\n    session_summary\nLIMIT 101\nOFFSET 0 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+  "columns": [
+    "step1_sessions",
+    "step2_blog",
+    "step3_scroll",
+    "step4_compare",
+    "step5_aff",
+    "alt_step3_compare",
+    "alt_step4_aff",
+    "blog_to_aff"
+  ],
+  "error": null,
+  "explain": null,
+  "hasMore": false,
+  "hogql": "WITH\n    session_summary AS (SELECT\n            $session_id AS sid,\n            min(timestamp) AS sess_start,\n            countIf(and(equals(event, '$pageview'), or(like(properties.$pathname, '/never-hungover/%'), equals(properties.$pathname, '/research'), equals(properties.$pathname, '/guide')))) AS blog_pv,\n            countIf(and(equals(event, 'scroll_depth_milestone'), greaterOrEquals(toFloat(properties.depth_percentage), 75), or(like(properties.$pathname, '/never-hungover/%'), equals(properties.$pathname, '/research'), equals(properties.$pathname, '/guide')))) AS deep_scroll,\n            countIf(and(equals(event, '$pageview'), or(equals(properties.$pathname, '/compare'), like(properties.$pathname, '/compare%'), equals(properties.$pathname, '/reviews'), like(properties.$pathname, '/reviews%')))) AS compare_pv,\n            countIf(equals(event, 'affiliate_link_click')) AS aff_clicks,\n            any(properties.$device_type) AS device,\n            argMin(properties.$pathname, timestamp) AS landing_path,\n            minIf(timestamp, equals(event, 'affiliate_link_click')) AS first_aff\n        FROM\n            events\n        WHERE\n            and(greaterOrEquals(timestamp, '2026-04-15'), less(timestamp, '2026-04-29'), notEquals($session_id, NULL), not(match(coalesce(properties.$raw_user_agent, properties.$useragent, ''), '(?i)bot|crawler|spider|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider|prerender|headless|lighthouse')))\n        GROUP BY\n            $session_id)\nSELECT\n    count() AS step1_sessions,\n    countIf(greater(blog_pv, 0)) AS step2_blog,\n    countIf(and(greater(blog_pv, 0), greater(deep_scroll, 0))) AS step3_scroll,\n    countIf(and(greater(blog_pv, 0), greater(deep_scroll, 0), greater(compare_pv, 0))) AS step4_compare,\n    countIf(and(greater(blog_pv, 0), greater(deep_scroll, 0), greater(compare_pv, 0), greater(aff_clicks, 0))) AS step5_aff,\n    countIf(and(greater(blog_pv, 0), greater(compare_pv, 0))) AS alt_step3_compare,\n    countIf(and(greater(blog_pv, 0), greater(compare_pv, 0), greater(aff_clicks, 0))) AS alt_step4_aff,\n    countIf(and(greater(blog_pv, 0), greater(aff_clicks, 0))) AS blog_to_aff\nFROM\n    session_summary\nLIMIT 101\nOFFSET 0",
+  "is_cached": false,
+  "last_refresh": "2026-05-11T16:10:51.380677Z",
+  "limit": 100,
+  "metadata": null,
+  "modifiers": {
+    "bounceRateDurationSeconds": null,
+    "bounceRatePageViewMode": "count_pageviews",
+    "convertToProjectTimezone": true,
+    "customChannelTypeRules": null,
+    "dataWarehouseEventsModifiers": null,
+    "debug": null,
+    "forceClickhouseDataSkippingIndexes": null,
+    "formatCsvAllowDoubleQuotes": null,
+    "inCohortVia": "subquery",
+    "inlineCohortCalculation": "auto",
+    "materializationMode": "legacy_null_as_null",
+    "materializedColumnsOptimizationMode": null,
+    "optimizeJoinedFilters": false,
+    "optimizeProjections": true,
+    "personsArgMaxVersion": "auto",
+    "personsJoinMode": null,
+    "personsOnEventsMode": "person_id_override_properties_on_events",
+    "propertyGroupsMode": "optimized",
+    "s3TableUseInvalidColumns": null,
+    "sessionIdPushdown": false,
+    "sessionPropertyPreAggregation": false,
+    "sessionTableVersion": "auto",
+    "sessionsV2JoinMode": "uuid",
+    "timings": null,
+    "useMaterializedViews": true,
+    "usePreaggregatedIntermediateResults": null,
+    "usePreaggregatedTableTransforms": null,
+    "useWebAnalyticsPreAggregatedTables": null
+  },
+  "next_allowed_client_refresh": "2026-05-11T16:11:51.380677Z",
+  "offset": 0,
+  "query": null,
+  "query_metadata": {
+    "events": [],
+    "updated_at": "2026-05-11T16:10:52.616789Z"
+  },
+  "query_status": null,
+  "resolved_date_range": null,
+  "results": [
+    [
+      1710,
+      1430,
+      44,
+      3,
+      3,
+      3,
+      3,
+      9
+    ]
+  ],
+  "timezone": "UTC",
+  "timings": null,
+  "types": [
+    [
+      "step1_sessions",
+      "UInt64"
+    ],
+    [
+      "step2_blog",
+      "UInt64"
+    ],
+    [
+      "step3_scroll",
+      "UInt64"
+    ],
+    [
+      "step4_compare",
+      "UInt64"
+    ],
+    [
+      "step5_aff",
+      "UInt64"
+    ],
+    [
+      "alt_step3_compare",
+      "UInt64"
+    ],
+    [
+      "alt_step4_aff",
+      "UInt64"
+    ],
+    [
+      "blog_to_aff",
+      "UInt64"
+    ]
+  ]
+}

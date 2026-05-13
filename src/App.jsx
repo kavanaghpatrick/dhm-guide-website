@@ -1,8 +1,9 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect, useRef } from 'react'
 import Layout from './components/layout/Layout.jsx'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { Toaster } from 'sonner'
 import { useRouter } from './hooks/useRouter'
+import posthog from 'posthog-js'
 import { initPostHog } from './lib/posthog'
 import { useAffiliateTracking } from './hooks/useAffiliateTracking'
 import { useScrollTracking } from './hooks/useScrollTracking'
@@ -58,9 +59,22 @@ function App() {
   // Enable deep engagement tracking (time on page, rage clicks, copy, tab visibility)
   useEngagementTracking({ enabled: true });
 
-  // Reset scroll milestones on route change
+  // Reset scroll milestones + force a $pageview on every SPA route change.
+  // PostHog's pushState interceptor misses navigations triggered by our
+  // useRouter (navigateWithScrollToTop dispatches a synthetic PopStateEvent
+  // that PostHog doesn't observe). See docs/posthog-2026-05-12/B5-affiliate-path.md.
+  // Skip the FIRST run because PostHog's capture_pageview:true already auto-fires
+  // a $pageview on initial load — firing again here would double-count.
+  const isInitialRouteRef = useRef(true);
   useEffect(() => {
     resetMilestones();
+    if (isInitialRouteRef.current) {
+      isInitialRouteRef.current = false;
+      return;
+    }
+    if (typeof window !== 'undefined' && posthog.__loaded) {
+      posthog.capture('$pageview');
+    }
   }, [currentPath, resetMilestones]);
 
   // Replace switch statement with route registry lookup
