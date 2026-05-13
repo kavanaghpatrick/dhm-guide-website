@@ -21,14 +21,9 @@ import KeyTakeaways from './KeyTakeaways';
 import ImageLightbox from './ImageLightbox';
 import Picture from '../../components/Picture';
 import { Link as CustomLink } from '../../components/CustomLink';
+import CompareCTA from '../../components/CompareCTA';
 import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
-
-// Slugs whose markdown bodies already contain in-content /reviews CTAs.
-// Skip the auto-injected template CTA on these to avoid duplication.
-const REVIEWS_CTA_SKIP_SLUGS = new Set([
-  'dhm-dosage-guide-2025',
-]);
 
 // Posts shorter than this (rendered markdown chars) skip the mid-content CTA.
 const TEMPLATE_CTA_MIN_CONTENT_LENGTH = 500;
@@ -1408,11 +1403,9 @@ const NewBlogPost = () => {
                   };
 
                   // Auto-inject template-level /reviews CTA at ~30% and end of body.
-                  // Skip if: post opts out (post.skipReviewsCta), slug is in skip list
-                  // (already has in-content /reviews CTAs), or body is too short.
+                  // Skip if: post opts out (post.skipReviewsCta) or body is too short.
                   const showTemplateCta =
                     !post.skipReviewsCta &&
-                    !REVIEWS_CTA_SKIP_SLUGS.has(post.slug) &&
                     typeof fullContent === 'string' &&
                     fullContent.length >= TEMPLATE_CTA_MIN_CONTENT_LENGTH;
 
@@ -1446,6 +1439,18 @@ const NewBlogPost = () => {
               </div>
             </div>
           </motion.article>
+
+          {/* Template-level CompareCTA — rendered once per post after body, before
+              related posts. Hidden on posts that are already product-comparison
+              oriented (slug contains "vs-" or starts with "compare-") and on
+              posts that opt out via post.hideCompareCTA. */}
+          {!post.hideCompareCTA &&
+            !/(?:^|-)vs-/.test(post.slug || '') &&
+            !/^compare-/.test(post.slug || '') && (
+            <div className="mt-8">
+              <CompareCTA />
+            </div>
+          )}
 
           {/* Related Articles */}
           {relatedPosts.length > 0 && (

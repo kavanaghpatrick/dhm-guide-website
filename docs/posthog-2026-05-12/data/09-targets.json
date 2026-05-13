@@ -1,0 +1,114 @@
+{
+  "cache_key": "cache_275753_c6c6bc00afa90fe518108beb5a9075cce3380c5deb6504ba9bec02857ab38f23",
+  "cache_target_age": "2026-05-11T22:13:27.916643Z",
+  "calculation_trigger": null,
+  "clickhouse": "SELECT\n    nullIf(nullIf(events.`mat_$pathname`, ''), 'null') AS path,\n    countIf(and(equals(events.event, %(hogql_val_0)s), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_1)s)), toDateOrNull(%(hogql_val_2)s)))) AS pv_cur,\n    countIf(and(equals(events.event, %(hogql_val_3)s), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_4)s)), toDateOrNull(%(hogql_val_5)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_6)s)), toDateOrNull(%(hogql_val_7)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_8)s)), toDateOrNull(%(hogql_val_9)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_10)s)), toDateOrNull(%(hogql_val_11)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_12)s)), toDateOrNull(%(hogql_val_13)s)))) AS pv_prior,\n    countIf(and(equals(events.event, %(hogql_val_14)s), ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_15)s) ? events.properties_group_custom[%(hogql_val_15)s] : null, %(hogql_val_16)s), %(hogql_val_17)s), 75), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_18)s)), toDateOrNull(%(hogql_val_19)s)))) AS s75_cur,\n    countIf(and(equals(events.event, %(hogql_val_20)s), ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_21)s) ? events.properties_group_custom[%(hogql_val_21)s] : null, %(hogql_val_22)s), %(hogql_val_23)s), 75), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_24)s)), toDateOrNull(%(hogql_val_25)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_26)s)), toDateOrNull(%(hogql_val_27)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_28)s)), toDateOrNull(%(hogql_val_29)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_30)s)), toDateOrNull(%(hogql_val_31)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_32)s)), toDateOrNull(%(hogql_val_33)s)))) AS s75_prior\nFROM\n    events\nWHERE\n    and(equals(events.team_id, 275753), has([%(hogql_val_34)s, %(hogql_val_35)s, %(hogql_val_36)s, %(hogql_val_37)s, %(hogql_val_38)s, %(hogql_val_39)s], events.`mat_$pathname`), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_40)s)), toDateOrNull(%(hogql_val_41)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_42)s)), toDateOrNull(%(hogql_val_43)s)))\nGROUP BY\n    path\nORDER BY\n    pv_cur DESC\nLIMIT 101\nOFFSET 0 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+  "columns": [
+    "path",
+    "pv_cur",
+    "pv_prior",
+    "s75_cur",
+    "s75_prior"
+  ],
+  "error": null,
+  "explain": null,
+  "hasMore": false,
+  "hogql": "SELECT\n    properties.$pathname AS path,\n    countIf(and(equals(event, '$pageview'), greaterOrEquals(toDate(timestamp), toDate('2026-04-29')))) AS pv_cur,\n    countIf(and(equals(event, '$pageview'), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS pv_prior,\n    countIf(and(equals(event, 'scroll_depth_milestone'), greaterOrEquals(toFloat(properties.depth_percentage), 75), greaterOrEquals(toDate(timestamp), toDate('2026-04-29')))) AS s75_cur,\n    countIf(and(equals(event, 'scroll_depth_milestone'), greaterOrEquals(toFloat(properties.depth_percentage), 75), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS s75_prior\nFROM\n    events\nWHERE\n    and(in(properties.$pathname, tuple('/never-hungover/how-to-cure-a-hangover-complete-science-guide', '/never-hungover/how-to-get-rid-of-hangover-fast', '/never-hungover/hangover-headache-fast-relief-methods-2025', '/never-hungover/hangover-nausea-complete-guide-fast-stomach-relief-2025', '/never-hungover/ultimate-dhm-safety-guide-hub-2025', '/never-hungover/complete-hangover-science-hub-2025')), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))\nGROUP BY\n    path\nORDER BY\n    pv_cur DESC\nLIMIT 101\nOFFSET 0",
+  "is_cached": false,
+  "last_refresh": "2026-05-11T16:13:27.916643Z",
+  "limit": 100,
+  "metadata": null,
+  "modifiers": {
+    "bounceRateDurationSeconds": null,
+    "bounceRatePageViewMode": "count_pageviews",
+    "convertToProjectTimezone": true,
+    "customChannelTypeRules": null,
+    "dataWarehouseEventsModifiers": null,
+    "debug": null,
+    "forceClickhouseDataSkippingIndexes": null,
+    "formatCsvAllowDoubleQuotes": null,
+    "inCohortVia": "subquery",
+    "inlineCohortCalculation": "auto",
+    "materializationMode": "legacy_null_as_null",
+    "materializedColumnsOptimizationMode": null,
+    "optimizeJoinedFilters": false,
+    "optimizeProjections": true,
+    "personsArgMaxVersion": "auto",
+    "personsJoinMode": null,
+    "personsOnEventsMode": "person_id_override_properties_on_events",
+    "propertyGroupsMode": "optimized",
+    "s3TableUseInvalidColumns": null,
+    "sessionIdPushdown": false,
+    "sessionPropertyPreAggregation": false,
+    "sessionTableVersion": "auto",
+    "sessionsV2JoinMode": "uuid",
+    "timings": null,
+    "useMaterializedViews": true,
+    "usePreaggregatedIntermediateResults": null,
+    "usePreaggregatedTableTransforms": null,
+    "useWebAnalyticsPreAggregatedTables": null
+  },
+  "next_allowed_client_refresh": "2026-05-11T16:14:27.916643Z",
+  "offset": 0,
+  "query": null,
+  "query_metadata": {
+    "events": [],
+    "updated_at": "2026-05-11T16:13:28.780052Z"
+  },
+  "query_status": null,
+  "resolved_date_range": null,
+  "results": [
+    [
+      "/never-hungover/hangover-nausea-complete-guide-fast-stomach-relief-2025",
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/how-to-cure-a-hangover-complete-science-guide",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/how-to-get-rid-of-hangover-fast",
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/hangover-headache-fast-relief-methods-2025",
+      0,
+      2,
+      0,
+      0
+    ]
+  ],
+  "timezone": "UTC",
+  "timings": null,
+  "types": [
+    [
+      "path",
+      "Nullable(String)"
+    ],
+    [
+      "pv_cur",
+      "UInt64"
+    ],
+    [
+      "pv_prior",
+      "UInt64"
+    ],
+    [
+      "s75_cur",
+      "UInt64"
+    ],
+    [
+      "s75_prior",
+      "UInt64"
+    ]
+  ]
+}

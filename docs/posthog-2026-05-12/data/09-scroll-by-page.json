@@ -1,0 +1,366 @@
+{
+  "cache_key": "cache_275753_84971dc35bb89e01f5712c05cd3a1efd32b6dea667c5ee0873c09dca6afc0121",
+  "cache_target_age": "2026-05-11T22:11:46.016727Z",
+  "calculation_trigger": null,
+  "clickhouse": "SELECT\n    nullIf(nullIf(events.`mat_$pathname`, ''), 'null') AS path,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_0)s) ? events.properties_group_custom[%(hogql_val_0)s] : null, %(hogql_val_1)s), %(hogql_val_2)s), 75), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_3)s)), toDateOrNull(%(hogql_val_4)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_5)s)), toDateOrNull(%(hogql_val_6)s)))) AS s75_cur,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_7)s) ? events.properties_group_custom[%(hogql_val_7)s] : null, %(hogql_val_8)s), %(hogql_val_9)s), 75), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_10)s)), toDateOrNull(%(hogql_val_11)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_12)s)), toDateOrNull(%(hogql_val_13)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_14)s)), toDateOrNull(%(hogql_val_15)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_16)s)), toDateOrNull(%(hogql_val_17)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_18)s)), toDateOrNull(%(hogql_val_19)s)))) AS s75_prior,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_20)s) ? events.properties_group_custom[%(hogql_val_20)s] : null, %(hogql_val_21)s), %(hogql_val_22)s), 90), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_23)s)), toDateOrNull(%(hogql_val_24)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_25)s)), toDateOrNull(%(hogql_val_26)s)))) AS s90_cur,\n    uniqIf(nullIf(nullIf(events.`$session_id`, ''), 'null'), and(ifNull(greaterOrEquals(accurateCastOrNull(accurateCastOrNull(has(events.properties_group_custom, %(hogql_val_27)s) ? events.properties_group_custom[%(hogql_val_27)s] : null, %(hogql_val_28)s), %(hogql_val_29)s), 90), 0), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_30)s)), toDateOrNull(%(hogql_val_31)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_32)s)), toDateOrNull(%(hogql_val_33)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_34)s)), toDateOrNull(%(hogql_val_35)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_36)s)), toDateOrNull(%(hogql_val_37)s)), notEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_38)s)), toDateOrNull(%(hogql_val_39)s)))) AS s90_prior\nFROM\n    events\nWHERE\n    and(equals(events.team_id, 275753), equals(events.event, %(hogql_val_40)s), isNotNull(nullIf(nullIf(events.`mat_$pathname`, ''), 'null')), greaterOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_41)s)), toDateOrNull(%(hogql_val_42)s)), lessOrEquals(toDate(toTimeZone(events.timestamp, %(hogql_val_43)s)), toDateOrNull(%(hogql_val_44)s)))\nGROUP BY\n    path\nORDER BY\n    plus(s75_cur, s75_prior) DESC\nLIMIT 40 SETTINGS readonly=2, max_execution_time=10, max_threads=60, allow_experimental_object_type=1, max_ast_elements=4000000, max_expanded_ast_elements=4000000, max_bytes_before_external_group_by=0, enable_analyzer=1, transform_null_in=1, optimize_min_equality_disjunction_chain_length=4294967295, allow_experimental_join_condition=1, use_hive_partitioning=0",
+  "columns": [
+    "path",
+    "s75_cur",
+    "s75_prior",
+    "s90_cur",
+    "s90_prior"
+  ],
+  "error": null,
+  "explain": null,
+  "hasMore": null,
+  "hogql": "SELECT\n    properties.$pathname AS path,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toFloat(properties.depth_percentage), 75), greaterOrEquals(toDate(timestamp), toDate('2026-04-29')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))) AS s75_cur,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toFloat(properties.depth_percentage), 75), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS s75_prior,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toFloat(properties.depth_percentage), 90), greaterOrEquals(toDate(timestamp), toDate('2026-04-29')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))) AS s90_cur,\n    uniqIf(properties.$session_id, and(greaterOrEquals(toFloat(properties.depth_percentage), 90), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-04-28')), notEquals(toDate(timestamp), toDate('2026-04-17')), notEquals(toDate(timestamp), toDate('2026-04-19')), notEquals(toDate(timestamp), toDate('2026-04-20')))) AS s90_prior\nFROM\n    events\nWHERE\n    and(equals(event, 'scroll_depth_milestone'), notEquals(properties.$pathname, NULL), greaterOrEquals(toDate(timestamp), toDate('2026-04-15')), lessOrEquals(toDate(timestamp), toDate('2026-05-12')))\nGROUP BY\n    path\nORDER BY\n    plus(s75_cur, s75_prior) DESC\nLIMIT 40",
+  "is_cached": false,
+  "last_refresh": "2026-05-11T16:11:46.016727Z",
+  "limit": null,
+  "metadata": null,
+  "modifiers": {
+    "bounceRateDurationSeconds": null,
+    "bounceRatePageViewMode": "count_pageviews",
+    "convertToProjectTimezone": true,
+    "customChannelTypeRules": null,
+    "dataWarehouseEventsModifiers": null,
+    "debug": null,
+    "forceClickhouseDataSkippingIndexes": null,
+    "formatCsvAllowDoubleQuotes": null,
+    "inCohortVia": "subquery",
+    "inlineCohortCalculation": "auto",
+    "materializationMode": "legacy_null_as_null",
+    "materializedColumnsOptimizationMode": null,
+    "optimizeJoinedFilters": false,
+    "optimizeProjections": true,
+    "personsArgMaxVersion": "auto",
+    "personsJoinMode": null,
+    "personsOnEventsMode": "person_id_override_properties_on_events",
+    "propertyGroupsMode": "optimized",
+    "s3TableUseInvalidColumns": null,
+    "sessionIdPushdown": false,
+    "sessionPropertyPreAggregation": false,
+    "sessionTableVersion": "auto",
+    "sessionsV2JoinMode": "uuid",
+    "timings": null,
+    "useMaterializedViews": true,
+    "usePreaggregatedIntermediateResults": null,
+    "usePreaggregatedTableTransforms": null,
+    "useWebAnalyticsPreAggregatedTables": null
+  },
+  "next_allowed_client_refresh": "2026-05-11T16:12:46.016727Z",
+  "offset": null,
+  "query": null,
+  "query_metadata": {
+    "events": [],
+    "updated_at": "2026-05-11T16:11:47.222237Z"
+  },
+  "query_status": null,
+  "resolved_date_range": null,
+  "results": [
+    [
+      "/reviews",
+      15,
+      12,
+      11,
+      11
+    ],
+    [
+      "/never-hungover/dhm-dosage-guide-2025",
+      10,
+      6,
+      4,
+      4
+    ],
+    [
+      "/never-hungover/hangover-supplements-complete-guide-what-actually-works-2025",
+      3,
+      11,
+      3,
+      5
+    ],
+    [
+      "/guide",
+      4,
+      8,
+      4,
+      5
+    ],
+    [
+      "/never-hungover/nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
+      0,
+      7,
+      0,
+      6
+    ],
+    [
+      "/never-hungover/when-to-take-dhm-timing-guide-2025",
+      4,
+      2,
+      3,
+      2
+    ],
+    [
+      "/",
+      3,
+      2,
+      2,
+      1
+    ],
+    [
+      "/about",
+      3,
+      1,
+      3,
+      1
+    ],
+    [
+      "/never-hungover/dhm-randomized-controlled-trials-2024",
+      1,
+      3,
+      1,
+      3
+    ],
+    [
+      "/never-hungover/dhm-randomized-controlled-trials",
+      3,
+      0,
+      3,
+      0
+    ],
+    [
+      "/never-hungover/no-days-wasted-vs-fuller-health-after-party-comparison-2025",
+      2,
+      1,
+      1,
+      0
+    ],
+    [
+      "/research",
+      2,
+      1,
+      2,
+      1
+    ],
+    [
+      "/never-hungover/double-wood-vs-cheers-restore-dhm-comparison-2025",
+      1,
+      1,
+      1,
+      0
+    ],
+    [
+      "/never-hungover/emergency-hangover-protocol-2025",
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      "/never-hungover/dhm-vs-zbiotics",
+      0,
+      2,
+      0,
+      2
+    ],
+    [
+      "/never-hungover/alcohol-and-cognitive-decline-2025-brain-research-reveals-hidden-risks",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/wearable-alcohol-monitoring-technology-smart-devices-revolution-2025",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/dhm1000-review-2025",
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/dhm-depot-review-2025",
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/no-days-wasted-vs-dhm1000-comparison-2025",
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/double-wood-vs-no-days-wasted-dhm-comparison-2025",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/hangxiety-complete-guide-2026-supplements-research",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/natural-anxiety-relief-gaba-supplements-vs-dhm-stress-management-2025",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/flyby-vs-cheers-complete-comparison-2025",
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      "/dhm-dosage-calculator",
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      "/never-hungover/double-wood-vs-toniiq-ease-dhm-comparison-2025",
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/can-you-take-dhm-every-day-long-term-guide-2025",
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/heavy-drinking-maximum-protection-dhm-2025",
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      "/never-hungover/double-wood-dhm-vs-dhm1000-comparison-2025",
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      "/never-hungover/dhm-supplement-stack-guide-complete-combinations",
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      "/never-hungover/how-to-cure-a-hangover-complete-science-guide",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/dhm-vs-milk-thistle-which-liver-supplement-more-effective-2025",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/fuller-health-after-party-review-2025",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/toniiq-ease-dhm-review-analysis",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/compare",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/complete-guide-asian-flush-comprehensive",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/functional-medicine-hangover-prevention-2025",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/italian-drinking-culture-guide",
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "/never-hungover/flyby-recovery-review-2025",
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "timezone": "UTC",
+  "timings": null,
+  "types": [
+    [
+      "path",
+      "Nullable(String)"
+    ],
+    [
+      "s75_cur",
+      "UInt64"
+    ],
+    [
+      "s75_prior",
+      "UInt64"
+    ],
+    [
+      "s90_cur",
+      "UInt64"
+    ],
+    [
+      "s90_prior",
+      "UInt64"
+    ]
+  ]
+}

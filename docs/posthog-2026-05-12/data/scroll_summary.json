@@ -1,0 +1,52 @@
+{
+  "windows": {
+    "current_14d": ["2026-04-29 00:00:00", "2026-05-13 00:00:00"],
+    "prior_14d": ["2026-04-15 00:00:00", "2026-04-29 00:00:00"]
+  },
+  "bot_filter": {
+    "ua_regex": "(?i)bot|crawler|spider|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider|prerender|headless|lighthouse",
+    "excluded_bot_days_prior": ["2026-04-17", "2026-04-19", "2026-04-20"],
+    "excluded_bot_days_current": []
+  },
+  "depth_field": {
+    "note": "properties.depth_percentage and properties.depth always match for events 2026-04-15..2026-05-12; either works. Used coalesce(depth_percentage, depth).",
+    "events_with_pct": 863,
+    "events_with_depth": 863,
+    "events_total": 863,
+    "value_mismatch_count": 0
+  },
+  "site_wide_per_session_reach": {
+    "prior_raw": {"sessions": 1572, "s25": 156, "s50": 100, "s75": 59, "s90": 40},
+    "prior_botless": {"sessions": 913, "s25": 127, "s50": 86, "s75": 49, "s90": 33},
+    "current": {"sessions": 645, "s25": 114, "s50": 66, "s75": 42, "s90": 30}
+  },
+  "site_wide_pv_rate": {
+    "prior_raw": {"pv": 1641, "m25": 214, "m50": 137, "m75": 86, "m90": 60},
+    "prior_botless": {"pv": 971, "m25": 178, "m50": 118, "m75": 74, "m90": 53},
+    "current": {"pv": 671, "m25": 158, "m50": 97, "m75": 65, "m90": 46}
+  },
+  "per_device_current": {
+    "desktop": {"sess": 396, "s25": 35, "s50": 22, "s75": 17, "s90": 11},
+    "mobile":  {"sess": 247, "s25": 75, "s50": 43, "s75": 24, "s90": 18},
+    "tablet":  {"sess": 2,   "s25": 2,  "s50": 1,  "s75": 1,  "s90": 1}
+  },
+  "per_device_prior_botless": {
+    "desktop": {"sess": 712, "s25": 40, "s50": 27, "s75": 16, "s90": 10},
+    "mobile":  {"sess": 194, "s25": 75, "s50": 49, "s75": 28, "s90": 18},
+    "tablet":  {"sess": 8,   "s25": 5,  "s50": 4,  "s75": 3,  "s90": 3}
+  },
+  "top20_longform_aggregate": {
+    "prior_sess": 508, "cur_sess": 407,
+    "prior_s25": 99, "cur_s25": 85,
+    "prior_s50": 61, "cur_s50": 40,
+    "prior_s75": 30, "cur_s75": 23,
+    "prior_s90": 19, "cur_s90": 13
+  },
+  "continue_your_research_footer": {
+    "pr": 359,
+    "shipped": "2026-04-29",
+    "in_brief": "#246 referenced; per change calendar PR #359 added 'Continue Your Research' footer to 197 posts",
+    "expected_signal": "increase in 90% reach on long-form posts (footer gives readers somewhere to go after finishing)",
+    "observed_signal": "90% reach on top-20 long-form posts went DOWN from 3.74% to 3.19% (-0.55 pp). Both numerators (19 vs 13) are below the 20-session bar for any single window so this is well within noise."
+  }
+}
