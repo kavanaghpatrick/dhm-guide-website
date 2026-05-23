@@ -1,78 +1,179 @@
 import { useState, useEffect } from 'react';
-import { isFeatureEnabled, getFeatureFlag, onFeatureFlagsLoaded } from '../lib/posthog';
+import posthog from 'posthog-js';
+import { trackEvent } from '../lib/posthog';
 
 /**
- * React hook for feature flags and A/B testing
+ * Experiment hook for PostHog A/B tests with reliable exposure tracking + payload support.
  *
- * Usage:
- *   const showNewCTA = useFeatureFlag('new-cta-design');
- *   const variant = useFeatureFlag('cta-experiment', 'control');
+ * Returns `{ variant, payload, isLoading }`:
+ * - `variant`: the flag value as a string (boolean flags translated: true → 'test', false → 'control')
+ * - `payload`: the JSON payload attached to the variant in PostHog (or undefined)
+ * - `isLoading`: true until PostHog has loaded flags for this user; false thereafter
  *
- * To set up an experiment in PostHog:
- * 1. Go to PostHog → Experiments → New Experiment
- * 2. Set the feature flag key (e.g., 'reviews-cta-v2')
- * 3. Define variants (control, test) with traffic split
- * 4. Set goal metric (e.g., 'affiliate_link_click')
- * 5. Use this hook in your component to render different variants
+ * Why this hook exists (and what was broken before):
+ *  1. The previous hook polled getFeatureFlag in a useEffect which made PostHog's
+ *     auto `$feature_flag_called` event unreliable. We now fire an explicit
+ *     `experiment_exposure` event exactly once per (distinct_id, flag) pair.
+ *  2. The previous hook didn't expose payloads, so variant copy/config had to be
+ *     hardcoded in components. Now consumers can read `payload` to drive copy from
+ *     the PostHog UI without code changes.
+ *  3. The previous hook tracked `isLoaded` internally but didn't return it, causing
+ *     above-fold flicker as control rendered first, then swapped to variant.
  *
- * @param {string} flagKey - The feature flag key from PostHog
- * @param {any} defaultValue - Value to use before flags load (default: false)
- * @returns {any} - The feature flag value (boolean for simple flags, string for multivariate)
+ * @param {string} key - The feature flag key from PostHog
+ * @param {{ fallback?: string }} [options] - Options bag
+ * @param {string} [options.fallback='control'] - Variant to return while loading / on error
+ * @returns {{ variant: string, payload: any, isLoading: boolean }}
  */
-export function useFeatureFlag(flagKey, defaultValue = false) {
-  const [value, setValue] = useState(defaultValue);
-  const [isLoaded, setIsLoaded] = useState(false);
+export function useExperiment(key, options = {}) {
+  const fallback = options.fallback ?? 'control';
+
+  // SSR-safe initial state. On server, isLoading stays true and consumers should
+  // gate above-fold experiments behind isLoading to avoid SSR/CSR mismatch.
+  const isBrowser = typeof window !== 'undefined';
+
+  const [state, setState] = useState(() => ({
+    variant: fallback,
+    payload: undefined,
+    isLoading: true,
+  }));
 
   useEffect(() => {
-    // Check immediately in case flags are already loaded
-    const currentValue = getFeatureFlag(flagKey);
-    if (currentValue !== undefined) {
-      setValue(currentValue);
-      setIsLoaded(true);
+    if (!isBrowser) return undefined;
+
+    let cancelled = false;
+
+    const resolve = () => {
+      if (cancelled) return;
+
+      let rawVariant;
+      let payload;
+      try {
+        rawVariant = posthog.getFeatureFlag?.(key);
+        payload = posthog.getFeatureFlagPayload?.(key);
+      } catch {
+        rawVariant = undefined;
+        payload = undefined;
+      }
+
+      // Translate booleans to string variants for consistent consumer ergonomics.
+      let variant;
+      if (rawVariant === true) variant = 'test';
+      else if (rawVariant === false) variant = 'control';
+      else if (typeof rawVariant === 'string') variant = rawVariant;
+      else variant = fallback;
+
+      setState({ variant, payload, isLoading: false });
+
+      // Fire exposure exactly once per (distinct_id, key) for this session.
+      // We use a module-level Set so this survives React 18 Strict Mode
+      // double-effects and component remounts on the same page.
+      fireExposureOnce(key, variant, payload);
+    };
+
+    // PostHog may already have flags loaded when this effect runs; check first.
+    let alreadyResolved = false;
+    try {
+      const current = posthog.getFeatureFlag?.(key);
+      if (current !== undefined) {
+        resolve();
+        alreadyResolved = true;
+      }
+    } catch {
+      // PostHog not initialized yet — fall through to onFeatureFlags
     }
 
-    // Also listen for when flags finish loading
-    onFeatureFlagsLoaded(() => {
-      const loadedValue = getFeatureFlag(flagKey);
-      if (loadedValue !== undefined) {
-        setValue(loadedValue);
-      }
-      setIsLoaded(true);
-    });
-  }, [flagKey]);
+    // Subscribe to flag-load completion. PostHog's onFeatureFlags fires once
+    // when flags arrive (and again if they reload).
+    let unsubscribe;
+    try {
+      unsubscribe = posthog.onFeatureFlags?.(() => resolve());
+    } catch {
+      // Not initialized — leave isLoading true; consumers will see fallback
+    }
 
-  return value;
+    // Safety: if PostHog never loads (blocked, opted out, init disabled),
+    // flip isLoading=false after a short grace period so consumers stop spinning.
+    // We keep variant=fallback in that case.
+    const timeout = setTimeout(() => {
+      if (cancelled || alreadyResolved) return;
+      setState((s) => (s.isLoading ? { ...s, isLoading: false } : s));
+    }, 2500);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+      if (typeof unsubscribe === 'function') {
+        try { unsubscribe(); } catch { /* noop */ }
+      }
+    };
+  }, [key, fallback, isBrowser]);
+
+  return state;
+}
+
+// ---- Exposure tracking ----------------------------------------------------
+
+/**
+ * Module-level guard: per (distinct_id, flag_key), we fire `experiment_exposure`
+ * at most once. Survives Strict Mode double-invocations and component remounts.
+ * NB: this resets on full page reload, which matches our session semantics.
+ */
+const _exposureFired = new Set();
+
+function fireExposureOnce(key, variant, payload) {
+  let distinctId = 'anon';
+  try {
+    distinctId = posthog.get_distinct_id?.() || 'anon';
+  } catch {
+    // ignore
+  }
+
+  const dedupeKey = `${distinctId}::${key}`;
+  if (_exposureFired.has(dedupeKey)) return;
+  _exposureFired.add(dedupeKey);
+
+  trackEvent('experiment_exposure', {
+    experiment_key: key,
+    variant,
+    payload_present: payload !== undefined && payload !== null,
+    assigned_at: new Date().toISOString(),
+  });
+}
+
+// ---- Backward-compatible shim --------------------------------------------
+
+/**
+ * Backward-compatible wrapper around useExperiment.
+ *
+ * Existing consumers call this as `useFeatureFlag(key, 'control')` and expect
+ * a string variant. A small number may pass a boolean default for boolean flags
+ * — in that case we return the boolean while loading, then the resolved variant
+ * once PostHog has answered.
+ *
+ * @param {string} key - The feature flag key from PostHog
+ * @param {string|boolean} [defaultValue=false] - Fallback while flags load
+ * @returns {string|boolean} - Variant string, or boolean for legacy boolean flags
+ */
+export function useFeatureFlag(key, defaultValue = false) {
+  const fallback = typeof defaultValue === 'string' ? defaultValue : 'control';
+  const { variant, isLoading } = useExperiment(key, { fallback });
+  if (isLoading && typeof defaultValue === 'boolean') return defaultValue;
+  return variant;
 }
 
 /**
- * Hook that returns both the flag value and loading state
- * Useful when you need to show a loading state while flags load
+ * Legacy hook preserved for any consumers that want explicit loading state.
+ * New code should prefer useExperiment which also returns payload.
  *
- * @param {string} flagKey - The feature flag key
- * @param {any} defaultValue - Default value while loading
- * @returns {{ value: any, isLoaded: boolean }}
+ * @param {string} key
+ * @param {any} defaultValue
+ * @returns {{ value: string, isLoaded: boolean }}
  */
-export function useFeatureFlagWithLoading(flagKey, defaultValue = false) {
-  const [value, setValue] = useState(defaultValue);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const currentValue = getFeatureFlag(flagKey);
-    if (currentValue !== undefined) {
-      setValue(currentValue);
-      setIsLoaded(true);
-    }
-
-    onFeatureFlagsLoaded(() => {
-      const loadedValue = getFeatureFlag(flagKey);
-      if (loadedValue !== undefined) {
-        setValue(loadedValue);
-      }
-      setIsLoaded(true);
-    });
-  }, [flagKey]);
-
-  return { value, isLoaded };
+export function useFeatureFlagWithLoading(key, defaultValue = false) {
+  const fallback = typeof defaultValue === 'string' ? defaultValue : 'control';
+  const { variant, isLoading } = useExperiment(key, { fallback });
+  return { value: variant, isLoaded: !isLoading };
 }
 
 export default useFeatureFlag;
