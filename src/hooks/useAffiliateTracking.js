@@ -243,6 +243,28 @@ export function useAffiliateTracking(options = {}) {
         product_name: trackingData.productName,
         placement: trackingData.placement
       });
+
+      // Bulk-clicker detection: tag sessions that fire 5+ affiliate clicks in 60s.
+      // The 5/12 anomaly was a single user firing 22 clicks in one session —
+      // we don't drop the events, we just tag so dashboards can exclude them.
+      // Skip if some other handler already cancelled the navigation.
+      if (!event.defaultPrevented) {
+        try {
+          const recent = JSON.parse(sessionStorage.getItem('aff_clicks') || '[]');
+          const now = Date.now();
+          recent.push(now);
+          const last60s = recent.filter(t => now - t < 60_000);
+          sessionStorage.setItem('aff_clicks', JSON.stringify(last60s));
+          if (last60s.length >= 5 && !sessionStorage.getItem('aff_bulk_flagged')) {
+            sessionStorage.setItem('aff_bulk_flagged', '1');
+            if (typeof posthog !== 'undefined' && posthog.register) {
+              posthog.register({ bulk_clicker: true });
+            }
+          }
+        } catch (_) {
+          // sessionStorage may be unavailable (private mode, embedded view) — ignore
+        }
+      }
     } catch (error) {
       console.warn('[AffiliateTracking] Failed to track:', error);
     }

@@ -6,6 +6,7 @@
  */
 import posthog from 'posthog-js';
 import { EVENT_SCHEMA_VERSION } from './posthog-events.js';
+import { detectBot } from './bot-filter.js';
 
 // PostHog configuration - use environment variable or fallback to direct key
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
@@ -26,12 +27,16 @@ export function initPostHog() {
     return;
   }
 
-  const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
-  const isBot = /bot|crawler|spider|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider|prerender|headless|lighthouse/i.test(ua);
+  const { isBot, reason, suspicious } = detectBot();
   const host = window.location.hostname;
   const isPreview = host.includes('vercel.app') || host === 'localhost' || host.startsWith('127.');
   if (isBot || isPreview) {
-    console.log('[PostHog] Skipping init: bot or preview environment');
+    // Dev-only audit of which detection rules fire most often. Prod stays quiet.
+    if (isBot && import.meta.env.DEV) {
+      console.log('[PostHog] Skipping init: bot detected, reason=', reason);
+    } else if (isPreview) {
+      console.log('[PostHog] Skipping init: preview environment');
+    }
     return;
   }
 
@@ -100,6 +105,12 @@ export function initPostHog() {
         const isReturning = localStorage.getItem('phg_returning') === 'true';
         posthog.register({ is_returning_user: isReturning });
         localStorage.setItem('phg_returning', 'true');
+
+        // Tag suspicious-but-not-confirmed-bot sessions so default analytics
+        // can exclude them without dropping the events. See bot-filter.js.
+        if (suspicious) {
+          posthog.register({ suspicious_session: true });
+        }
       },
 
       // Error handling
