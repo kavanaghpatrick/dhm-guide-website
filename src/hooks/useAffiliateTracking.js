@@ -5,6 +5,7 @@
  * for conversion optimization analysis.
  */
 import { useEffect, useCallback } from 'react';
+import posthog from 'posthog-js';
 import { trackAffiliateClick, trackFunnelStep } from '../lib/posthog';
 
 // Stricter URL matching pattern for affiliate links
@@ -110,6 +111,87 @@ const detectLinkPosition = (link) => {
 };
 
 /**
+ * Resolve a stable component_id from the link's data-component-id attr,
+ * or generate a fallback so untagged components are still distinguishable
+ * in PostHog. In dev, warn so we can fix missing attrs at the source.
+ */
+const resolveComponentId = (link, event) => {
+  if (link.dataset.componentId) return link.dataset.componentId;
+  const tag = (event.target?.tagName || link.tagName || 'a').toLowerCase();
+  const fallback = `unknown_${tag}_${Math.random().toString(36).slice(2, 6)}`;
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV) {
+    console.warn('[AffiliateTracking] Missing data-component-id on link:', link.href, '— using fallback:', fallback);
+  }
+  return fallback;
+};
+
+/**
+ * Read position_index from data attribute (numeric). 0 when missing.
+ */
+const resolvePositionIndex = (link) => {
+  const raw = link.dataset.positionIndex;
+  if (!raw) return 0;
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) ? n : 0;
+};
+
+/**
+ * Get the previous-page pathname in this session. Falls back to parsing
+ * document.referrer when sessionStorage is empty (first click in session).
+ */
+const resolveReferrerPathname = () => {
+  try {
+    const stored = sessionStorage.getItem('previous_pathname');
+    if (stored) return stored;
+  } catch {
+    // sessionStorage may be unavailable
+  }
+  const ref = document.referrer;
+  if (!ref) return '';
+  try {
+    return new URL(ref).pathname;
+  } catch {
+    return '';
+  }
+};
+
+/**
+ * Compute session age (seconds). Uses posthog session id timestamp if
+ * available, else falls back to a sessionStorage timestamp set on first call.
+ */
+const resolveSessionAgeSeconds = () => {
+  try {
+    const info = posthog?.get_session_id_info?.();
+    if (info && typeof info.sessionStartTimestamp === 'number') {
+      return Math.max(0, Math.round((Date.now() - info.sessionStartTimestamp) / 1000));
+    }
+  } catch {
+    // posthog may not be initialized yet
+  }
+  try {
+    let startTs = sessionStorage.getItem('session_start_ts');
+    if (!startTs) {
+      startTs = String(Date.now());
+      sessionStorage.setItem('session_start_ts', startTs);
+    }
+    return Math.max(0, Math.round((Date.now() - parseInt(startTs, 10)) / 1000));
+  } catch {
+    return 0;
+  }
+};
+
+/**
+ * Check returning-user flag (set in posthog.js init `loaded` callback).
+ */
+const resolveIsReturningUser = () => {
+  try {
+    return localStorage.getItem('phg_returning') === 'true';
+  } catch {
+    return false;
+  }
+};
+
+/**
  * Hook to automatically track affiliate link clicks
  *
  * @param {Object} options - Configuration options
@@ -140,7 +222,16 @@ export function useAffiliateTracking(options = {}) {
       anchorText: link.textContent?.trim().substring(0, 100) || 'unknown',
       linkPosition: detectLinkPosition(link),
       ratingsVersion: link.dataset.ratingsVersion || null,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+
+      // NEW (P0.1) — passes through to PostHog payload
+      componentId: resolveComponentId(link, event),
+      positionIndex: resolvePositionIndex(link),
+      referrerPathname: resolveReferrerPathname(),
+      sessionAgeSeconds: resolveSessionAgeSeconds(),
+      isReturningUser: resolveIsReturningUser(),
+      experimentKey: link.dataset.experimentKey || null,
+      variant: link.dataset.variant || null
     };
 
     // Track to PostHog

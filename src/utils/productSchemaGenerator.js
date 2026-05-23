@@ -2,6 +2,7 @@
  * Product Schema Generator for DHM Reviews
  * Generates accurate structured data for product review pages
  */
+import { buildAffiliateUrl } from '../lib/utm-builder.js';
 
 // Comprehensive product data with real information from reviews
 export const productReviewData = {
@@ -282,7 +283,8 @@ export function generateProductSchemaFromReview(slug) {
     },
     'offers': {
       '@type': 'Offer',
-      'url': product.url,
+      // Wrap outbound URL with utm_* so schema-driven clicks are attributable
+      'url': buildAffiliateUrl(product.url, { componentId: `schema-product-${slug}` }),
       'priceCurrency': 'USD',
       'price': product.price,
       'availability': 'https://schema.org/InStock',
@@ -346,7 +348,7 @@ export function generateComparisonSchema(slug) {
         },
         'offers': {
           '@type': 'Offer',
-          'url': product.url,
+          'url': buildAffiliateUrl(product.url, { componentId: 'schema-product-cheers-restore' }),
           'priceCurrency': 'USD',
           'price': product.price,
           'availability': 'https://schema.org/InStock',
