@@ -415,7 +415,7 @@ export default function Reviews() {
               Compare all DHM supplements side-by-side at a glance
             </p>
 
-            <InlineComparisonTable variant="full" placement="comparison_table" />
+            <InlineComparisonTable variant="full" placement="comparison_table" mobilePillRowLimit={5} />
 
             <p className="text-sm text-gray-600 text-center mt-4">
               Scroll down for detailed reviews with pros, cons, and buying recommendations

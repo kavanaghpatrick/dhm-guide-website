@@ -19,6 +19,7 @@ import topProductsData from '../data/topProducts.json';
  * @param {string} props.placement           - PostHog data-placement value (passed verbatim)
  * @param {string} [props.heading]           - optional h3 above the table
  * @param {string} [props.subhead]           - optional subhead below the heading
+ * @param {number} [props.mobilePillRowLimit] - full variant only: render a mobile-only "Check Price" pill inside the Price cell for the first N rows (default 0 = off). The CTA column already covers desktop; this surfaces the CTA in the Price cell on mobile where the rightmost Action column may be off-screen.
  */
 export default function InlineComparisonTable({
   variant,
@@ -26,6 +27,7 @@ export default function InlineComparisonTable({
   placement,
   heading,
   subhead,
+  mobilePillRowLimit = 0,
 }) {
   if (variant !== 'compact' && variant !== 'full') {
     if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
@@ -117,18 +119,23 @@ export default function InlineComparisonTable({
                       </a>
                     </td>
                     <td className="py-3 px-4 text-center font-medium text-green-700 hidden md:table-cell">{product.dhm}</td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center min-h-[64px]">
                       <a
                         href={product.affiliateLink}
                         target="_blank"
                         rel="nofollow sponsored noopener noreferrer"
-                        className="font-semibold text-gray-900 hover:text-green-700 hover:underline"
-                        data-placement={placement}
+                        className="block hover:text-green-700"
+                        data-placement={index < mobilePillRowLimit ? 'comparison_table_mobile_pricecell' : placement}
                         data-product-name={product.name}
                         data-ratings-version="2026-01-01"
-                        data-component-id={componentId}
+                        data-component-id={index < mobilePillRowLimit ? `${placement}-pricecell-${index}` : componentId}
                       >
-                        {product.price}
+                        <span className="block font-semibold text-gray-900 hover:underline">{product.price}</span>
+                        {index < mobilePillRowLimit && (
+                          <span className="inline-flex md:hidden mt-1 px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded items-center gap-1 min-h-[36px]">
+                            Check Price <ExternalLink className="w-3 h-3" />
+                          </span>
+                        )}
                       </a>
                     </td>
                     <td className="py-3 px-4 text-center hidden md:table-cell">
