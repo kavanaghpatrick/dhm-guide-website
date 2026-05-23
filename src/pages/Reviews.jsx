@@ -44,9 +44,6 @@ export default function Reviews() {
   // CTA Copy: Hardcoded after A/B tests concluded
   const getCtaCopy = (isTable = false) => isTable ? "Check Price" : "Check Price on Amazon"
 
-  // Table CTA Classes: Hardcoded to control variant
-  const tableCtaClasses = "inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
-
   // Button Colors: Hardcoded to orange gradient (control)
   const buttonColorClasses = 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
 
@@ -389,7 +386,7 @@ export default function Reviews() {
               product_name: topProducts[0].name,
               placement: 'mobile-sticky-table-top',
             })}
-            className="flex-shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xs px-3 py-2 rounded-md min-h-[40px] flex items-center gap-1"
+            className="flex-shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xs px-3 py-2 rounded-md min-h-[44px] flex items-center gap-1"
           >
             Check Price <ExternalLink className="w-3 h-3" />
           </a>

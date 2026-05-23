@@ -32,7 +32,9 @@ export const EVENT_SCHEMA_VERSION = '2026.05.23.v1';
  *   'rage_click_detected',
  *   'page_exit',
  *   '$dead_click',
- *   '$exception'
+ *   '$exception',
+ *   'compare_toggle',
+ *   'filter_clicked'
  * ]}
  */
 export const EVENT_NAMES = /** @type {const} */ ([
@@ -47,6 +49,8 @@ export const EVENT_NAMES = /** @type {const} */ ([
   'page_exit',
   '$dead_click',
   '$exception',
+  'compare_toggle',
+  'filter_clicked',
 ]);
 
 /**

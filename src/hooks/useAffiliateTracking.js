@@ -94,7 +94,6 @@ const detectLinkPosition = (link) => {
 
   // Get vertical position as rough indicator
   const rect = link.getBoundingClientRect();
-  const viewportHeight = window.innerHeight;
   const scrollY = window.scrollY;
   const absoluteTop = rect.top + scrollY;
   const pageHeight = document.documentElement.scrollHeight;
@@ -261,7 +260,7 @@ export function useAffiliateTracking(options = {}) {
               posthog.register({ bulk_clicker: true });
             }
           }
-        } catch (_) {
+        } catch {
           // sessionStorage may be unavailable (private mode, embedded view) — ignore
         }
       }

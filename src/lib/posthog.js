@@ -138,7 +138,7 @@ export function trackEvent(eventName, properties = {}) {
       ...properties,
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch {
     // Silently fail - don't break the app for analytics
   }
 }
@@ -261,7 +261,7 @@ export function enrichPageview(properties = {}) {
     } catch {
       // sessionStorage may be unavailable (Safari private mode, etc.) — ignore
     }
-  } catch (error) {
+  } catch {
     // Silently fail
   }
 }
