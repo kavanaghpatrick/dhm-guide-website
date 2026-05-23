@@ -1,0 +1,5 @@
+{
+  "$schema": "./experiments.registry.schema.json",
+  "$comment": "Single source of truth for active experiments. Each entry under `experiments` must have: owner (string), hypothesis (string), start_date (ISO date), decision_date (ISO date), primary_metric (string, e.g. 'affiliate_link_click'), files (array of paths that read the flag). Auto-audited by scripts/audit-feature-flags.mjs which cross-references PostHog flags against this registry and the codebase to flag drift (registered-but-unused, used-but-unregistered, past decision_date).",
+  "experiments": {}
+}

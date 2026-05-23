@@ -6,7 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import ComparisonWidgetWrapper from '../components/ComparisonWidgetWrapper.jsx'
+import InlineComparisonTable from '../components/InlineComparisonTable.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
+import { buildAffiliateUrl } from '../lib/utm-builder.js'
 import {
   Star,
   CheckCircle,
@@ -41,9 +43,6 @@ export default function Reviews() {
 
   // CTA Copy: Hardcoded after A/B tests concluded
   const getCtaCopy = (isTable = false) => isTable ? "Check Price" : "Check Price on Amazon"
-
-  // Table CTA Classes: Hardcoded to control variant
-  const tableCtaClasses = "inline-flex items-center gap-1 px-4 py-2.5 min-h-[44px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
 
   // Button Colors: Hardcoded to orange gradient (control)
   const buttonColorClasses = 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
@@ -226,11 +225,12 @@ export default function Reviews() {
                 </div>
               </div>
               <a
-                href={topProducts[0].affiliateLink}
+                href={buildAffiliateUrl(topProducts[0].affiliateLink, { componentId: 'reviews-herocard-cta-0' })}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
                 data-placement="hero"
                 data-product-name={topProducts[0].name}
+                data-component-id="reviews-herocard-cta-0"
                 onClick={() => trackElementClick('quick-pick-cta', {
                   product_name: topProducts[0].name,
                   placement: 'above-fold-quick-pick',
@@ -283,11 +283,12 @@ export default function Reviews() {
               </div>
 
               <a
-                href={topProducts[0].affiliateLink}
+                href={buildAffiliateUrl(topProducts[0].affiliateLink, { componentId: 'reviews-herocard-fullcard-cta-0' })}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
                 data-placement="hero"
                 data-product-name={topProducts[0].name}
+                data-component-id="reviews-herocard-fullcard-cta-0"
                 onClick={() => trackElementClick('hero-product-card', {
                   product_name: topProducts[0].name,
                   placement: 'above-fold-hero',
@@ -357,6 +358,41 @@ export default function Reviews() {
         </div>
       </section>
 
+      {/* Mobile-only: persistent #1-product CTA above the table (P1.5).
+          Gated when the sticky-recommendation-bar A/B test variant flips on,
+          to avoid two stacked sticky tops on mobile. */}
+      {stickyBarVariant !== 'sticky-bar' && topProducts?.length > 0 && (
+        <div className="md:hidden sticky top-16 z-30 bg-white border-b border-orange-200 shadow-sm px-4 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <Trophy className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+            <div className="min-w-0">
+              <div className="text-xs font-semibold text-gray-900 truncate">
+                #1 {topProducts[0].brand}
+              </div>
+              <div className="text-xs text-gray-600">
+                {topProducts[0].price} · ★{topProducts[0].rating}
+              </div>
+            </div>
+          </div>
+          <a
+            href={buildAffiliateUrl(topProducts[0].affiliateLink, { componentId: 'reviews-mobile-sticky-top-cta' })}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            data-placement="mobile_sticky_top_reviews"
+            data-product-name={topProducts[0].name}
+            data-ratings-version="2026-01-01"
+            data-component-id="reviews-mobile-sticky-top-cta"
+            onClick={() => trackElementClick('reviews-mobile-sticky-top-cta-click', {
+              product_name: topProducts[0].name,
+              placement: 'mobile-sticky-table-top',
+            })}
+            className="flex-shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xs px-3 py-2 rounded-md min-h-[44px] flex items-center gap-1"
+          >
+            Check Price <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+      )}
+
       {/* Quick Comparison Table - order-first on mobile to front-load above hero (Issue: mobile CR 2.9x desktop, but lower scroll depth) */}
       <section
         id="comparison-table"
@@ -376,111 +412,7 @@ export default function Reviews() {
               Compare all DHM supplements side-by-side at a glance
             </p>
 
-            <div className="overflow-x-auto bg-white rounded-lg shadow-md">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-green-700 text-white">
-                    <th className="py-3 px-4 text-left font-semibold">Brand</th>
-                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">DHM</th>
-                    <th className="py-3 px-4 text-center font-semibold">Price</th>
-                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Per Serving</th>
-                    <th className="py-3 px-4 text-center font-semibold">Rating</th>
-                    <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Reviews</th>
-                    <th className="py-3 px-4 text-center font-semibold">Score</th>
-                    <th className="py-3 px-4 text-center font-semibold">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {topProducts.map((product, index) => (
-                    <tr
-                      key={product.id}
-                      className={`border-b border-gray-200 hover:bg-green-50 transition-colors ${
-                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                      }`}
-                    >
-                      <td className="py-3 px-4">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="block hover:text-green-700 transition-colors"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                        >
-                          <div className="font-semibold text-gray-900 hover:text-green-700 hover:underline">{product.name}</div>
-                          <div className="text-sm text-gray-600">{product.brand}</div>
-                        </a>
-                      </td>
-                      <td className="py-3 px-4 text-center font-medium text-green-700 hidden md:table-cell">{product.dhm}</td>
-                      <td className="py-3 px-4 text-center">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="font-semibold text-gray-900 hover:text-green-700 hover:underline"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                        >
-                          {product.price}
-                        </a>
-                      </td>
-                      <td className="py-3 px-4 text-center hidden md:table-cell">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="text-gray-700 hover:text-green-700 hover:underline"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                        >
-                          {product.pricePerServing}
-                        </a>
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="flex items-center justify-center space-x-1 hover:text-green-700"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                        >
-                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          <span className="font-medium hover:underline">{product.rating}</span>
-                        </a>
-                      </td>
-                      <td className="py-3 px-4 text-center text-gray-700 hidden md:table-cell">{product.reviews.toLocaleString()}</td>
-                      <td className="py-3 px-4 text-center">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          className="font-bold text-green-700 hover:text-green-800 hover:underline"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                        >
-                          {product.score}/10
-                        </a>
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <a
-                          href={product.affiliateLink}
-                          target="_blank"
-                          rel="nofollow sponsored noopener noreferrer"
-                          data-placement="comparison_table"
-                          data-product-name={product.name}
-                          data-ratings-version="2026-01-01"
-                          className={tableCtaClasses}
-                        >
-                          {getCtaCopy(true)}
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <InlineComparisonTable variant="full" placement="comparison_table" mobilePillRowLimit={5} />
 
             <p className="text-sm text-gray-600 text-center mt-4">
               Scroll down for detailed reviews with pros, cons, and buying recommendations
@@ -665,9 +597,18 @@ export default function Reviews() {
                       <Button
                         asChild
                         size="lg"
-                        className={`${buttonColorClasses} text-white flex-1 shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]`}
+                        className={`${buttonColorClasses} text-white flex-[2] shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]`}
                       >
-                        <a href={product.affiliateLink} target="_blank" rel="nofollow sponsored noopener noreferrer" data-placement="product_card" data-product-name={product.name} data-ratings-version="2026-01-01" className="flex items-center justify-center gap-2 px-4">
+                        <a
+                          href={buildAffiliateUrl(product.affiliateLink, { componentId: `reviews-card-cta-${index}` })}
+                          target="_blank"
+                          rel="nofollow sponsored noopener noreferrer"
+                          data-placement="product_card"
+                          data-product-name={product.name}
+                          data-ratings-version="2026-01-01"
+                          data-component-id={`reviews-card-cta-${index}`}
+                          className="flex items-center justify-center gap-2 px-4"
+                        >
                           <span className="flex items-center">{getCtaCopy()}</span>
                           <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
                             Free Shipping
@@ -675,29 +616,34 @@ export default function Reviews() {
                           <ExternalLink className="w-4 h-4 flex-shrink-0" />
                         </a>
                       </Button>
-                      <Button 
-                        onClick={() => handleComparisonToggle(product)}
-                        variant="outline" 
-                        size="lg"
-                        className={`border-2 border-green-700 hover:bg-green-50 transition-all duration-200 ${
-                          selectedForComparison.find(p => p.id === product.id)
-                            ? 'bg-green-50 text-green-800 border-green-800'
-                            : 'text-green-700'
-                        }`}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleComparisonToggle(product);
+                          trackEvent?.('compare_toggle', {
+                            product_id: product.id,
+                            action: selectedForComparison.find(p => p.id === product.id) ? 'remove' : 'add'
+                          });
+                        }}
                         disabled={!selectedForComparison.find(p => p.id === product.id) && selectedForComparison.length >= 4}
+                        className={`flex-1 sm:max-w-[160px] min-h-[44px] inline-flex items-center justify-center gap-1 rounded-md border border-gray-300 hover:border-green-600 hover:bg-green-50 text-gray-700 hover:text-green-700 text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          selectedForComparison.find(p => p.id === product.id)
+                            ? 'bg-green-50 text-green-700 border-green-600'
+                            : ''
+                        }`}
                       >
                         {selectedForComparison.find(p => p.id === product.id) ? (
                           <>
-                            <Check className="w-4 h-4 mr-2" />
+                            <Check className="w-3 h-3" />
                             Added to Compare
                           </>
                         ) : (
                           <>
-                            <Plus className="w-4 h-4 mr-2" />
+                            <Plus className="w-3 h-3" />
                             Add to Compare
                           </>
                         )}
-                      </Button>
+                      </button>
                     </div>
                     {/* Trust Signals Near CTA */}
                     {isClickableCards ? (
@@ -876,11 +822,12 @@ export default function Reviews() {
               </div>
             </div>
             <a
-              href={topProducts[0].affiliateLink}
+              href={buildAffiliateUrl(topProducts[0].affiliateLink, { componentId: 'reviews-sticky-recommendation-bar-cta' })}
               target="_blank"
               rel="nofollow sponsored noopener noreferrer"
               data-placement="sticky_bar"
               data-product-name={topProducts[0].name}
+              data-component-id="reviews-sticky-recommendation-bar-cta"
               onClick={() => trackElementClick('sticky-recommendation-bar', {
                 product_name: topProducts[0].name,
                 price: topProducts[0].price

@@ -23,6 +23,11 @@ import Picture from '../../components/Picture';
 import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
+import InlineComparisonTable from '../../components/InlineComparisonTable';
+
+// Matches <!-- inline-comparison-table:VARIANT:PLACEMENT:ID,ID,ID --> in markdown.
+// Capture groups: 1=variant, 2=placement, 3=id list (comma-separated).
+const INLINE_COMPARISON_TABLE_MARKER = /<!--\s*inline-comparison-table:([\w-]+):([\w-]+):([\d,]+)\s*-->/g;
 
 // Slugs whose markdown bodies already contain in-content /reviews CTAs.
 // Skip the auto-injected template CTA on these to avoid duplication.
@@ -1407,6 +1412,62 @@ const NewBlogPost = () => {
                     ),
                   };
 
+                  // Renders a markdown string, replacing inline-comparison-table markers
+                  // with <InlineComparisonTable /> components. Markers are HTML comments
+                  // of the form <!-- inline-comparison-table:VARIANT:PLACEMENT:ID,ID,ID -->.
+                  // Malformed markers are skipped silently in prod (warn in dev).
+                  const renderMarkdownWithMarkers = (md, keyPrefix) => {
+                    if (typeof md !== 'string' || md.length === 0) return null;
+                    if (!md.includes('<!-- inline-comparison-table:')) {
+                      return (
+                        <ReactMarkdown key={`${keyPrefix}-md-0`} remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                          {md}
+                        </ReactMarkdown>
+                      );
+                    }
+                    const parts = [];
+                    let lastIndex = 0;
+                    let chunkIdx = 0;
+                    // Reset regex state since /g regexes carry lastIndex across uses.
+                    INLINE_COMPARISON_TABLE_MARKER.lastIndex = 0;
+                    let match;
+                    while ((match = INLINE_COMPARISON_TABLE_MARKER.exec(md)) !== null) {
+                      const before = md.slice(lastIndex, match.index);
+                      if (before.length > 0) {
+                        parts.push(
+                          <ReactMarkdown key={`${keyPrefix}-md-${chunkIdx}`} remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                            {before}
+                          </ReactMarkdown>
+                        );
+                      }
+                      const [, variant, placementVal, idsStr] = match;
+                      const ids = idsStr.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => Number.isFinite(n));
+                      if ((variant === 'compact' || variant === 'full') && placementVal && ids.length > 0) {
+                        parts.push(
+                          <InlineComparisonTable
+                            key={`${keyPrefix}-tbl-${chunkIdx}`}
+                            variant={variant}
+                            placement={placementVal}
+                            productIds={ids}
+                          />
+                        );
+                      } else if (process.env.NODE_ENV !== 'production') {
+                        console.warn(`[NewBlogPost] Malformed inline-comparison-table marker: ${match[0]}`);
+                      }
+                      lastIndex = match.index + match[0].length;
+                      chunkIdx += 1;
+                    }
+                    const tail = md.slice(lastIndex);
+                    if (tail.length > 0) {
+                      parts.push(
+                        <ReactMarkdown key={`${keyPrefix}-md-${chunkIdx}`} remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                          {tail}
+                        </ReactMarkdown>
+                      );
+                    }
+                    return <>{parts}</>;
+                  };
+
                   // Auto-inject template-level /reviews CTA at ~30% and end of body.
                   // Skip if: post opts out (post.skipReviewsCta), slug is in skip list
                   // (already has in-content /reviews CTAs), or body is too short.
@@ -1417,25 +1478,17 @@ const NewBlogPost = () => {
                     fullContent.length >= TEMPLATE_CTA_MIN_CONTENT_LENGTH;
 
                   if (!showTemplateCta) {
-                    return (
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                        {fullContent}
-                      </ReactMarkdown>
-                    );
+                    return renderMarkdownWithMarkers(fullContent, 'full');
                   }
 
                   const [contentBefore, contentAfter] = splitContentAtRatio(fullContent, 0.3);
                   return (
                     <>
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                        {contentBefore}
-                      </ReactMarkdown>
+                      {renderMarkdownWithMarkers(contentBefore, 'before')}
                       {contentAfter && (
                         <>
                           <InlineReviewsCTA placement="blog_template_mid" postSlug={post.slug} />
-                          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                            {contentAfter}
-                          </ReactMarkdown>
+                          {renderMarkdownWithMarkers(contentAfter, 'after')}
                         </>
                       )}
                       <InlineReviewsCTA placement="blog_template_end" postSlug={post.slug} />

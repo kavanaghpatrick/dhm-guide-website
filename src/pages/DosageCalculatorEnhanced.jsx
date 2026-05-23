@@ -11,8 +11,7 @@ import { useMobileOptimization } from '../hooks/useMobileOptimization.js'
 import engagementTracker from '../utils/engagement-tracker.js'
 import { trackEvent } from '../lib/posthog'
 import { toast } from 'sonner'
-import RelatedCalculators from '../components/RelatedCalculators.jsx'
-import { 
+import {
   Calculator,
   Info,
   User,
@@ -1754,13 +1753,6 @@ Save this for future reference!
           </div>
         </section>
       )}
-
-      {/* Related Calculators Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-6xl">
-          <RelatedCalculators currentCalculator="dhm-dosage" />
-        </div>
-      </section>
 
       {/* Safety Information */}
       <section className="py-16 px-4 bg-white">

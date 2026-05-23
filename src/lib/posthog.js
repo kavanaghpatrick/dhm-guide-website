@@ -5,6 +5,8 @@
  * Privacy-safe configuration with input masking and session sampling.
  */
 import posthog from 'posthog-js';
+import { EVENT_SCHEMA_VERSION } from './posthog-events.js';
+import { detectBot } from './bot-filter.js';
 
 // PostHog configuration - use environment variable or fallback to direct key
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
@@ -25,12 +27,16 @@ export function initPostHog() {
     return;
   }
 
-  const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
-  const isBot = /bot|crawler|spider|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider|prerender|headless|lighthouse/i.test(ua);
+  const { isBot, reason, suspicious } = detectBot();
   const host = window.location.hostname;
   const isPreview = host.includes('vercel.app') || host === 'localhost' || host.startsWith('127.');
   if (isBot || isPreview) {
-    console.log('[PostHog] Skipping init: bot or preview environment');
+    // Dev-only audit of which detection rules fire most often. Prod stays quiet.
+    if (isBot && import.meta.env.DEV) {
+      console.log('[PostHog] Skipping init: bot detected, reason=', reason);
+    } else if (isPreview) {
+      console.log('[PostHog] Skipping init: preview environment');
+    }
     return;
   }
 
@@ -99,6 +105,12 @@ export function initPostHog() {
         const isReturning = localStorage.getItem('phg_returning') === 'true';
         posthog.register({ is_returning_user: isReturning });
         localStorage.setItem('phg_returning', 'true');
+
+        // Tag suspicious-but-not-confirmed-bot sessions so default analytics
+        // can exclude them without dropping the events. See bot-filter.js.
+        if (suspicious) {
+          posthog.register({ suspicious_session: true });
+        }
       },
 
       // Error handling
@@ -126,7 +138,7 @@ export function trackEvent(eventName, properties = {}) {
       ...properties,
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch {
     // Silently fail - don't break the app for analytics
   }
 }
@@ -223,6 +235,10 @@ export function trackFunnelStep(step, properties = {}) {
 
 /**
  * Enrich pageview with content metadata
+ *
+ * Also stamps sessionStorage.previous_pathname AFTER firing so the NEXT
+ * pageview can attribute its `referrer_pathname` to this page. Used by
+ * useAffiliateTracking + downstream events to track in-funnel navigation.
  */
 export function enrichPageview(properties = {}) {
   if (typeof window === 'undefined' || !initialized) return;
@@ -234,7 +250,18 @@ export function enrichPageview(properties = {}) {
       device_type: getDeviceType(),
       ...properties
     });
-  } catch (error) {
+
+    // Stamp previous_pathname for the NEXT pageview/event to read.
+    // Ensure session_start_ts exists so session_age_seconds is computable.
+    try {
+      sessionStorage.setItem('previous_pathname', window.location.pathname);
+      if (!sessionStorage.getItem('session_start_ts')) {
+        sessionStorage.setItem('session_start_ts', String(Date.now()));
+      }
+    } catch {
+      // sessionStorage may be unavailable (Safari private mode, etc.) — ignore
+    }
+  } catch {
     // Silently fail
   }
 }
@@ -260,9 +287,16 @@ function getPageType() {
 
 /**
  * Track affiliate link click
+ *
+ * BACKWARD COMPAT: All existing property names are preserved (dashboards
+ * depend on them). New P0.1 props are additive: experiment_key, variant,
+ * component_id, position_index, referrer_pathname, session_age_seconds,
+ * is_returning_user, event_schema_version. Caller passes via the
+ * `properties` object; missing values fall back gracefully (null/0/unknown).
  */
 export function trackAffiliateClick(properties) {
   trackEvent('affiliate_link_click', {
+    // Existing properties — DO NOT rename
     url: properties.url,
     product_name: properties.productName,
     placement: properties.placement,
@@ -272,7 +306,17 @@ export function trackAffiliateClick(properties) {
     anchor_text: properties.anchorText,
     link_position: properties.linkPosition,
     referrer: document.referrer || 'direct',
-    device_type: getDeviceType()
+    device_type: getDeviceType(),
+
+    // NEW properties (P0.1) — additive; caller passes via `properties`
+    experiment_key: properties.experimentKey ?? null,
+    variant: properties.variant ?? null,
+    component_id: properties.componentId ?? 'unknown_component',
+    position_index: typeof properties.positionIndex === 'number' ? properties.positionIndex : 0,
+    referrer_pathname: properties.referrerPathname ?? '',
+    session_age_seconds: typeof properties.sessionAgeSeconds === 'number' ? properties.sessionAgeSeconds : 0,
+    is_returning_user: properties.isReturningUser === true,
+    event_schema_version: EVENT_SCHEMA_VERSION
   });
 }
 
