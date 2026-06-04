@@ -34,7 +34,7 @@ import topProductsData from '../data/topProducts.json'
 export default function Reviews() {
   useSEO(generatePageSEO('reviews'));
 
-  const [sortBy, setSortBy] = useState('rating')
+  const [sortBy, setSortBy] = useState('score')
   const [filterBy, setFilterBy] = useState('all')
   const [selectedForComparison, setSelectedForComparison] = useState([])
 
@@ -123,6 +123,7 @@ export default function Reviews() {
   }
 
   const sortOptions = [
+    { value: 'score', label: 'Our Pick' },
     { value: 'rating', label: 'Highest Rated' },
     { value: 'price', label: 'Best Value' },
     { value: 'dhm', label: 'Highest DHM' },
@@ -136,6 +137,8 @@ export default function Reviews() {
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
+      case 'score':
+        return b.score - a.score
       case 'rating':
         return b.rating - a.rating
       case 'price':
@@ -165,24 +168,23 @@ export default function Reviews() {
       {/* Hero Section */}
       <section className="pt-6 pb-8 md:pb-12 px-4">
         <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
-              <Award className="w-4 h-4 mr-2" />
-              2026 Lab-Tested Reviews
-            </Badge>
+          <div className="text-center max-w-4xl mx-auto">
+            <Link to="/guide" data-testid="lab-tested-link" className="inline-block">
+              <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
+                <Award className="w-4 h-4 mr-2" />
+                2026 Lab-Tested Reviews
+              </Badge>
+            </Link>
 
             <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Best DHM Supplements (January 2026)
+              Best DHM Supplements (June 2026)
             </h1>
-            
+
             <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
               Expert reviews of hangover prevention supplements that actually work - stop hangovers before they start.
             </p>
+
+            <p data-testid="reviews-byline" className="text-sm text-gray-500 mb-4">Reviewed by the DHM Guide editorial team · Updated June 2026</p>
 
             {/* Quick Stats - Now visible on mobile (Issue #224) */}
             <div className="grid grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">
@@ -199,7 +201,7 @@ export default function Reviews() {
                 <div className="text-gray-600 text-xs md:text-sm">Months Testing</div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -331,7 +333,7 @@ export default function Reviews() {
                     data-filter-id={f.id}
                     className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
                       active
-                        ? 'bg-orange-500 text-white border-orange-500 shadow-sm hover:bg-orange-600'
+                        ? 'bg-green-600 text-white border-green-600 shadow-sm hover:bg-green-700'
                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
                     }`}
                   >
@@ -430,18 +432,20 @@ export default function Reviews() {
                 key={product.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0 }}
                 viewport={{ once: true }}
                 data-track="product"
                 data-product-name={product.name}
                 data-product-position={index + 1}
+                data-testid={index === 0 ? 'reviews-winner-card' : undefined}
               >
-                <Card className="bg-white border-green-100 hover:shadow-lg transition-all duration-300">
+                <Card className={`hover:shadow-lg transition-all duration-300 ${index === 0 ? 'border-2 border-orange-400 bg-orange-50 ring-1 ring-orange-200 shadow-md' : 'bg-white border-green-100'}`}>
                   <CardHeader>
                     <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-2xl font-bold text-gray-400">#{index + 1}</span>
+                          {index === 0 && <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">🏆 Best Pick</span>}
                           {isClickableCards ? (
                             <a
                               href={product.affiliateLink}
@@ -491,7 +495,7 @@ export default function Reviews() {
                           >
                             <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                             <span className="font-medium hover:underline">{product.rating}</span>
-                            <span className="text-gray-500 hover:text-green-600">({product.reviews} reviews)</span>
+                            <span className="text-gray-500 hover:text-green-600">({product.reviews} Amazon reviews)</span>
                           </a>
                           <div className="text-sm text-gray-600">
                             Score: <span className="font-bold text-green-700">{product.score}/10</span>
@@ -597,7 +601,7 @@ export default function Reviews() {
                       <Button
                         asChild
                         size="lg"
-                        className={`${buttonColorClasses} text-white flex-[2] shadow-lg hover:shadow-xl transition-all duration-200 text-base font-semibold min-h-[48px]`}
+                        className={`${buttonColorClasses} text-white flex-[2] shadow-lg hover:shadow-xl transition-all duration-200 font-semibold ${index === 0 ? 'min-h-[56px] text-lg' : 'min-h-[48px] text-base'}`}
                       >
                         <a
                           href={buildAffiliateUrl(product.affiliateLink, { componentId: `reviews-card-cta-${index}` })}
@@ -610,9 +614,11 @@ export default function Reviews() {
                           className="flex items-center justify-center gap-2 px-4"
                         >
                           <span className="flex items-center">{getCtaCopy()}</span>
-                          <span className="px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
-                            Free Shipping
-                          </span>
+                          {product.freeShipping !== false && (
+                            <span data-testid="free-shipping-badge" className="px-2 py-1 bg-white text-orange-700 text-xs font-bold rounded-full shadow-md whitespace-nowrap">
+                              Free Shipping
+                            </span>
+                          )}
                           <ExternalLink className="w-4 h-4 flex-shrink-0" />
                         </a>
                       </Button>
@@ -656,7 +662,7 @@ export default function Reviews() {
                         className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2 hover:text-green-700 transition-colors"
                       >
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
-                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
+                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} Amazon reviews)</span>
                         {product.monthlyBuyers && (
                           <>
                             <span aria-hidden="true">•</span>
@@ -667,7 +673,7 @@ export default function Reviews() {
                     ) : (
                       <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mt-2">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" aria-hidden="true" />
-                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} reviews)</span>
+                        <span>{product.rating} ({product.reviews?.toLocaleString() || 'N/A'} Amazon reviews)</span>
                         {product.monthlyBuyers && (
                           <>
                             <span aria-hidden="true">•</span>
