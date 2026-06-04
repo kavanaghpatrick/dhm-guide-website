@@ -123,9 +123,18 @@ test.describe('Reviews Page', () => {
     const table = page.locator('table');
     await expect(table.first()).toBeVisible();
 
-    // Check for Action column header
-    const actionHeader = page.locator('th', { hasText: 'Action' });
-    await expect(actionHeader).toBeVisible();
+    // The "Action" column is desktop-only. On mobile it is intentionally hidden to
+    // avoid horizontal overflow and replaced by always-visible price-cell "Check Price"
+    // pills (Tier-1 CRO fix — see tests/reviews-tier1-mobile-cta.spec.js).
+    const isMobile = (page.viewportSize()?.width ?? 1024) < 768;
+    if (isMobile) {
+      await expect(
+        page.locator('#comparison-table a').filter({ hasText: /check price/i }).first()
+      ).toBeVisible();
+    } else {
+      const actionHeader = page.locator('th', { hasText: 'Action' });
+      await expect(actionHeader).toBeVisible();
+    }
   });
 
   test('should have Check Price buttons in comparison table', async ({ page }) => {
@@ -198,8 +207,12 @@ test.describe('Compare Page', () => {
     const count = await affiliateLinks.count();
 
     if (count > 0) {
-      const firstLink = affiliateLinks.first();
-      await expect(firstLink).toBeVisible();
+      // Compare.jsx renders two responsive layouts (desktop table `hidden lg:block`
+      // + mobile cards `lg:hidden`), so some affiliate links are display:none for the
+      // current viewport. Assert at least one VISIBLE affiliate button — don't use
+      // .first(), which is the hidden desktop-layout duplicate on mobile.
+      const visibleAffiliate = page.locator('a[href*="amzn.to"]:visible, a[href*="amazon"]:visible');
+      await expect(visibleAffiliate.first()).toBeVisible();
     }
   });
 });

@@ -33,6 +33,7 @@
       "B-Complex",
       "Electrolytes"
     ],
+    "freeShipping": true,
     "category": "premium"
   },
   {
@@ -67,6 +68,7 @@
       "Electrolytes",
       "Essential Minerals"
     ],
+    "freeShipping": true,
     "category": "budget"
   },
   {
@@ -101,6 +103,7 @@
       "Red Duanwood Reishi",
       "Milk Thistle (80% Silymarin)"
     ],
+    "freeShipping": true,
     "category": "comprehensive"
   },
   {
@@ -133,6 +136,7 @@
     "ingredients": [
       "DHM 1000mg"
     ],
+    "freeShipping": true,
     "category": "budget"
   },
   {
@@ -170,6 +174,7 @@
       "Ginger",
       "Vine Tea"
     ],
+    "freeShipping": true,
     "category": "premium"
   },
   {
@@ -208,6 +213,7 @@
       "Apple Cider Vinegar",
       "Electrolytes"
     ],
+    "freeShipping": true,
     "category": "comprehensive"
   },
   {
@@ -246,6 +252,7 @@
       "L-Cysteine",
       "White Willow Bark"
     ],
+    "freeShipping": true,
     "category": "convenience"
   },
   {
@@ -279,6 +286,7 @@
       "DHM 1000mg",
       "Electrolytes (Sodium, Potassium, Magnesium)"
     ],
+    "freeShipping": true,
     "category": "premium"
   },
   {
@@ -312,6 +320,7 @@
       "DHM 650mg",
       "GABA Support Mechanism"
     ],
+    "freeShipping": false,
     "category": "premium"
   },
   {
@@ -344,6 +353,7 @@
     "ingredients": [
       "DHM 300mg"
     ],
+    "freeShipping": true,
     "category": "premium"
   }
 ]

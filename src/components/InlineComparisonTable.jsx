@@ -87,23 +87,27 @@ export default function InlineComparisonTable({
                 <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">DHM</th>
                 <th className="py-3 px-4 text-center font-semibold">Price</th>
                 <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Per Serving</th>
-                <th className="py-3 px-4 text-center font-semibold">Rating</th>
+                <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Rating</th>
                 <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Reviews</th>
-                <th className="py-3 px-4 text-center font-semibold">Score</th>
-                <th className="py-3 px-4 text-center font-semibold">Action</th>
+                <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Score</th>
+                <th className="py-3 px-4 text-center font-semibold hidden md:table-cell">Action</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product, index) => {
                 const componentId = `${placement}-row-${index}`;
+                const isWinner = index === 0;
                 return (
                   <tr
                     key={product.id}
+                    data-testid={isWinner ? 'comparison-winner-row' : undefined}
                     className={`border-b border-gray-200 hover:bg-green-50 transition-colors ${
-                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                      isWinner
+                        ? 'bg-amber-50 border-l-4 border-amber-400'
+                        : index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                     }`}
                   >
-                    <td className="py-3 px-4">
+                    <td className={`py-3 px-4 ${isWinner ? 'bg-amber-50' : ''}`}>
                       <a
                         href={product.affiliateLink}
                         target="_blank"
@@ -114,6 +118,11 @@ export default function InlineComparisonTable({
                         data-ratings-version="2026-01-01"
                         data-component-id={componentId}
                       >
+                        {isWinner && (
+                          <span className="inline-block mb-1 px-2 py-0.5 bg-amber-400 text-amber-900 text-xs font-bold rounded uppercase tracking-wide">
+                            Best Pick
+                          </span>
+                        )}
                         <div className="font-semibold text-gray-900 hover:text-green-700 hover:underline">{product.name}</div>
                         <div className="text-sm text-gray-600">{product.brand}</div>
                       </a>
@@ -125,17 +134,15 @@ export default function InlineComparisonTable({
                         target="_blank"
                         rel="nofollow sponsored noopener noreferrer"
                         className="block hover:text-green-700"
-                        data-placement={index < mobilePillRowLimit ? 'comparison_table_mobile_pricecell' : placement}
+                        data-placement="comparison_table_mobile_pricecell"
                         data-product-name={product.name}
                         data-ratings-version="2026-01-01"
-                        data-component-id={index < mobilePillRowLimit ? `${placement}-pricecell-${index}` : componentId}
+                        data-component-id={`${placement}-pricecell-${index}`}
                       >
                         <span className="block font-semibold text-gray-900 hover:underline">{product.price}</span>
-                        {index < mobilePillRowLimit && (
-                          <span className="inline-flex md:hidden mt-1 px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded items-center gap-1 min-h-[36px]">
-                            Check Price <ExternalLink className="w-3 h-3" />
-                          </span>
-                        )}
+                        <span className="inline-flex md:hidden mt-1 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded items-center gap-1 min-h-[44px] whitespace-nowrap">
+                          Check Price <ExternalLink className="w-3 h-3" />
+                        </span>
                       </a>
                     </td>
                     <td className="py-3 px-4 text-center hidden md:table-cell">
@@ -152,7 +159,7 @@ export default function InlineComparisonTable({
                         {product.pricePerServing}
                       </a>
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center hidden md:table-cell">
                       <a
                         href={product.affiliateLink}
                         target="_blank"
@@ -168,7 +175,7 @@ export default function InlineComparisonTable({
                       </a>
                     </td>
                     <td className="py-3 px-4 text-center text-gray-700 hidden md:table-cell">{product.reviews.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center hidden md:table-cell">
                       <a
                         href={product.affiliateLink}
                         target="_blank"
@@ -182,7 +189,7 @@ export default function InlineComparisonTable({
                         {product.score}/10
                       </a>
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center hidden md:table-cell">
                       <a
                         href={product.affiliateLink}
                         target="_blank"
