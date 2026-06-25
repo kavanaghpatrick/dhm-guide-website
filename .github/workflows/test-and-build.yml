@@ -91,13 +91,13 @@ jobs:
           retention-days: 7
 
   visual:
-    name: Visual regression (informational)
+    name: Visual baselines (bootstrap)
     needs: e2e
     runs-on: ubuntu-latest
-    # Non-blocking for now: snapshot baselines are committed from macOS dev, and Linux
-    # CI font rendering differs slightly. Bless Linux-native baselines via a manual
-    # `--update-snapshots` run before promoting this to a required merge gate.
-    continue-on-error: true
+    # The committed baselines are macOS-rendered; Linux CI font rendering differs, so a
+    # straight compare would always fail. This job GENERATES Linux-native baselines and
+    # uploads them as an artifact (always green). Download + commit those, then switch the
+    # step below from `test:visual:update` to `test:visual` to make visual a real gate.
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -110,17 +110,14 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Install Playwright (chromium)
         run: pnpm exec playwright install --with-deps chromium
-      - name: Visual regression tests
-        run: pnpm run test:visual
-      - name: Upload visual diffs
-        if: failure()
+      - name: Generate Linux visual baselines
+        run: pnpm run test:visual:update
+      - name: Upload Linux baselines
         uses: actions/upload-artifact@v4
         with:
-          name: visual-diffs
-          path: |
-            test-results/
-            playwright-report/
-          retention-days: 7
+          name: visual-baselines-linux
+          path: tests/visual/**/*.png
+          retention-days: 14
 
   mass-edit-check:
     name: Mass-edit moratorium check (#366, expires 2026-07-15)
