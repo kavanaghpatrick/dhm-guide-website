@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DHM Guide — Modern Design Language (Theme Demo)</title>
+  <meta name="description" content="Standalone theme demo for the DHM Guide 2026 design modernization. Not wired into production." />
+
+  <!--
+    DEMO ONLY: fonts loaded via Google Fonts CDN for convenience.
+    PRODUCTION self-hosts subset variable woff2 (Fraunces + Inter) with
+    size-adjust / ascent-override for CLS 0. Never ship the Google CDN.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./theme.css" />
+</head>
+<body>
+
+  <!-- ======================================================================
+       TOP HEADER — wordmark + nav + single orange CTA.
+       Sticky, but no transform/filter/opacity/backdrop-filter on <header>
+       (would create a stacking context — see CLAUDE.md Patterns #14–#16).
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="#top" aria-label="DHM Guide home">
+        <span class="wordmark__mark" aria-hidden="true">
+          <i data-lucide="leaf"></i>
+        </span>
+        <span class="wordmark__text">DHM&nbsp;Guide</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#hero">Overview</a>
+        <a href="#sample">Sample</a>
+        <a href="#styleguide">Style Guide</a>
+        <a href="#components">Components</a>
+      </nav>
+
+      <a class="btn btn-cta btn-sm site-header__cta" href="#components">
+        <i data-lucide="shopping-cart"></i>
+        Check Price on Amazon
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+<!-- @hero -->
+<section id="hero" class="hero surface-wash">
+  <div class="container">
+    <div class="hero__grid">
+
+      <!-- LEFT: editorial headline, trust signals, stationary CTA -->
+      <div class="reveal" data-revealed="true">
+        <span class="eyebrow">UCLA-discovered · clinically studied</span>
+
+        <h1 class="hero__title">
+          Never wake up <span class="accent">hungover</span> again.
+        </h1>
+
+        <p class="lead hero__lead">
+          DHM is the plant flavonoid that supports your body’s natural alcohol
+          metabolism — clearing the toxin that causes the morning after before it
+          starts. We test the brands so you don’t have to guess.
+        </p>
+
+        <div class="hero__actions">
+          <a class="btn btn-cta btn-lg" href="#sample">
+            <i data-lucide="search-check"></i>
+            Find My Supplement
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#sample">
+            Read the science
+            <i data-lucide="arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="trust-row">
+          <span class="trust-row__item">
+            <span class="stars" role="img" aria-label="Rated 4.4 out of 5">
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star" class="is-empty"></i>
+            </span>
+            <strong>4.4</strong>&nbsp;avg rating
+          </span>
+          <span class="trust-row__divider" aria-hidden="true"></span>
+          <span class="trust-row__item">
+            <i data-lucide="flask-conical"></i>
+            <strong>20+</strong>&nbsp;brands tested
+          </span>
+          <span class="trust-row__divider" aria-hidden="true"></span>
+          <span class="trust-row__item">
+            <i data-lucide="messages-square"></i>
+            <strong>5,000+</strong>&nbsp;reviews analyzed
+          </span>
+        </div>
+      </div>
+
+      <!-- RIGHT: dual-pathway as TWO tier-0 bordered cards (no gradient banner) -->
+      <div class="reveal" data-revealed="true">
+        <p class="eyebrow" style="color: var(--color-ink-soft);">How it protects you</p>
+        <div class="pathways">
+          <article class="card pathway">
+            <span class="pathway__icon"><i data-lucide="shield"></i></span>
+            <h3 class="pathway__title">Liver protection</h3>
+            <p class="pathway__body">
+              Supports the enzymes (ADH &amp; ALDH) that break alcohol down, so
+              acetaldehyde — the toxin behind nausea and headaches — is cleared
+              faster.
+            </p>
+          </article>
+          <article class="card pathway">
+            <span class="pathway__icon"><i data-lucide="brain"></i></span>
+            <h3 class="pathway__title">Brain protection</h3>
+            <p class="pathway__body">
+              Helps restore GABA receptor balance after drinking, so you wake up
+              clear-headed and focused instead of foggy and rattled.
+            </p>
+          </article>
+        </div>
+        <p class="pathways__note">
+          <i data-lucide="check" style="display:inline-block;width:1em;height:1em;vertical-align:-0.12em;color:var(--color-brand);"></i>
+          Two pathways, one supplement — the dual-action approach backed by
+          clinical research.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- @sample -->
+<!-- ======================================================================
+     APPLIED SAMPLE — the new theme on real DHM content. The visual highlight:
+     a true before → after. Top picks → trust band → testimonials → final CTA.
+     ====================================================================== -->
+
+<!-- ---- 1. TOP PICKS (product row, 3 raised cards) ---- -->
+<section class="section">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">Editor’s top picks · June 2026</span>
+      <h2>The 3 DHM supplements <span class="accent">actually</span> worth buying</h2>
+      <p class="lead">
+        Ranked by per-serving DHM dose, third-party lab results, and 5,000+ real
+        reviews. Every pick is independently tested — no pay-to-rank.
+      </p>
+    </header>
+
+    <div class="picks-grid reveal">
+
+      <!-- Pick #1 -->
+      <article class="card-raised product-card">
+        <div class="product-media">
+          <span class="badge badge-brand product-media__tag">Editor’s pick</span>
+          <i data-lucide="image"></i>
+          <span class="visually-hidden">No Days Wasted DHM Detox bottle</span>
+        </div>
+        <div class="stack" style="--stack-gap: var(--space-2);">
+          <h3 class="product-brand">No Days Wasted DHM Detox</h3>
+          <div class="cluster" style="gap: var(--space-3);">
+            <span class="stars" role="img" aria-label="Rated 4.5 out of 5">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+              <i data-lucide="star" class="is-empty"></i>
+            </span>
+            <span class="rating-meta"><strong>4.5</strong> · 2,400+ reviews</span>
+          </div>
+          <p class="product-value">
+            1,000&nbsp;mg DHM + milk thistle &amp; electrolytes — the highest
+            per-serving dose we tested.
+          </p>
+          <div class="product-price">
+            <span class="product-price__amount">$29.99</span>
+            <span class="product-price__unit">/ 30 servings · $1.00 ea</span>
+          </div>
+        </div>
+        <ul class="proscons">
+          <li class="pro"><i data-lucide="check"></i> Highest DHM dose</li>
+          <li class="con"><i data-lucide="minus"></i> Premium price</li>
+          <li class="pro"><i data-lucide="check"></i> Added electrolytes</li>
+          <li class="con"><i data-lucide="minus"></i> Large capsules</li>
+        </ul>
+        <a class="btn btn-cta btn-block" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+      </article>
+
+      <!-- Pick #2 -->
+      <article class="card-raised product-card">
+        <div class="product-media">
+          <span class="badge badge-cta product-media__tag">Best value</span>
+          <i data-lucide="image"></i>
+          <span class="visually-hidden">Double Wood DHM bottle</span>
+        </div>
+        <div class="stack" style="--stack-gap: var(--space-2);">
+          <h3 class="product-brand">Double Wood Supplements DHM</h3>
+          <div class="cluster" style="gap: var(--space-3);">
+            <span class="stars" role="img" aria-label="Rated 4.4 out of 5">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+              <i data-lucide="star" class="is-empty"></i>
+            </span>
+            <span class="rating-meta"><strong>4.4</strong> · 7,100+ reviews</span>
+          </div>
+          <p class="product-value">
+            Straightforward 1,000&nbsp;mg DHM at the lowest cost per serving —
+            our value pick for regular users.
+          </p>
+          <div class="product-price">
+            <span class="product-price__amount">$23.95</span>
+            <span class="product-price__unit">/ 60 servings · $0.40 ea</span>
+          </div>
+        </div>
+        <ul class="proscons">
+          <li class="pro"><i data-lucide="check"></i> Lowest cost / serving</li>
+          <li class="con"><i data-lucide="minus"></i> No electrolytes</li>
+          <li class="pro"><i data-lucide="check"></i> Huge review base</li>
+          <li class="con"><i data-lucide="minus"></i> Single-ingredient</li>
+        </ul>
+        <a class="btn btn-cta btn-block" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+      </article>
+
+      <!-- Pick #3 -->
+      <article class="card-raised product-card">
+        <div class="product-media">
+          <span class="badge badge-brand product-media__tag">Best blend</span>
+          <i data-lucide="image"></i>
+          <span class="visually-hidden">Cheers Restore bottle</span>
+        </div>
+        <div class="stack" style="--stack-gap: var(--space-2);">
+          <h3 class="product-brand">Cheers Restore</h3>
+          <div class="cluster" style="gap: var(--space-3);">
+            <span class="stars" role="img" aria-label="Rated 4.1 out of 5">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+              <i data-lucide="star" class="is-empty"></i>
+            </span>
+            <span class="rating-meta"><strong>4.1</strong> · 1,800+ reviews</span>
+          </div>
+          <p class="product-value">
+            300&nbsp;mg DHM in a wider recovery blend with L-cysteine, B-vitamins
+            and prickly pear.
+          </p>
+          <div class="product-price">
+            <span class="product-price__amount">$34.99</span>
+            <span class="product-price__unit">/ 12 servings · $2.92 ea</span>
+          </div>
+        </div>
+        <ul class="proscons">
+          <li class="pro"><i data-lucide="check"></i> Full recovery blend</li>
+          <li class="con"><i data-lucide="minus"></i> Lower DHM dose</li>
+          <li class="pro"><i data-lucide="check"></i> Easy-mix drink</li>
+          <li class="con"><i data-lucide="minus"></i> Most expensive</li>
+        </ul>
+        <a class="btn btn-cta btn-block" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ---- 2. "WHY THESE" TRUST BAND on a brand surface ---- -->
+<section class="section surface-brand">
+  <div class="container">
+    <div class="trust-band reveal">
+      <div>
+        <span class="eyebrow">Why trust these rankings</span>
+        <h2>An editorial science desk — not an affiliate list.</h2>
+        <p class="text-soft" style="max-width: 50ch; margin-bottom: var(--space-6);">
+          Every product is bought at retail, dosed against the clinical research,
+          and cross-checked with third-party lab results. Brands can’t pay for
+          placement, and we update rankings as new studies land.
+        </p>
+        <div class="cluster">
+          <span class="chip"><i data-lucide="flask-conical"></i> Dosed vs. research</span>
+          <span class="chip"><i data-lucide="shield-check"></i> 3rd-party tested</span>
+          <span class="chip"><i data-lucide="ban"></i> No pay-to-rank</span>
+        </div>
+      </div>
+
+      <div class="card" style="background-color: var(--color-surface);">
+        <div class="trust-band__stats">
+          <div class="stat">
+            <span class="stat-value">20+</span>
+            <span class="stat-label">Brands tested</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">5,000+</span>
+            <span class="stat-label">Reviews analyzed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">6</span>
+            <span class="stat-label">Months testing</span>
+          </div>
+        </div>
+        <hr class="divider" style="margin-block: var(--space-6);" />
+        <p class="text-soft" style="margin: 0; font-size: var(--text-small);">
+          <i data-lucide="info" style="display:inline-block;width:1em;height:1em;vertical-align:-0.12em;color:var(--color-info);"></i>
+          Last updated June 2026 · reviewed by the DHM Guide editorial team.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---- 3. TESTIMONIAL / CREDIBILITY BAND ---- -->
+<section class="section">
+  <div class="container">
+    <header class="section-head section-head--center reveal">
+      <span class="eyebrow">From the 5,000+</span>
+      <h2>What readers say after switching</h2>
+      <p class="lead">
+        Real notes from people who used our top pick before a big night out.
+      </p>
+    </header>
+
+    <div class="quote-grid reveal">
+      <article class="card quote">
+        <span class="stars" role="img" aria-label="Rated 5 out of 5">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </span>
+        <p class="quote__text">
+          “First wedding in years where I felt human the next morning. Took it
+          before bed and woke up genuinely fine.”
+        </p>
+        <div class="quote__foot">
+          <span class="quote__avatar" aria-hidden="true">JM</span>
+          <span>
+            <span class="quote__name" style="display:block;">Jordan M.</span>
+            <span class="quote__meta">Verified buyer</span>
+          </span>
+        </div>
+      </article>
+
+      <article class="card quote">
+        <span class="stars" role="img" aria-label="Rated 5 out of 5">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </span>
+        <p class="quote__text">
+          “I was skeptical of the whole category, but the dose breakdown here
+          actually made sense. The value pick does the job for half the price.”
+        </p>
+        <div class="quote__foot">
+          <span class="quote__avatar" aria-hidden="true">AP</span>
+          <span>
+            <span class="quote__name" style="display:block;">Alex P.</span>
+            <span class="quote__meta">Verified buyer</span>
+          </span>
+        </div>
+      </article>
+
+      <article class="card quote">
+        <span class="stars" role="img" aria-label="Rated 4.5 out of 5">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+          <i data-lucide="star" class="is-empty"></i>
+        </span>
+        <p class="quote__text">
+          “Finally a site that cites the research instead of just selling. I
+          trusted the ranking and it held up after a work trip.”
+        </p>
+        <div class="quote__foot">
+          <span class="quote__avatar" aria-hidden="true">RK</span>
+          <span>
+            <span class="quote__name" style="display:block;">Riya K.</span>
+            <span class="quote__meta">Verified buyer</span>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ---- 4. FINAL CTA BAND (calm background, single orange CTA) ---- -->
+<section class="section surface-brand">
+  <div class="container">
+    <div class="cta-band reveal">
+      <span class="eyebrow">Ready to skip the hangover?</span>
+      <h2>Find the right DHM supplement in 60&nbsp;seconds.</h2>
+      <p class="lead">
+        Compare doses, prices, and lab results side by side — then check the live
+        Amazon price for our current top pick.
+      </p>
+      <div class="cta-band__actions">
+        <a class="btn btn-cta btn-lg" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+        <a class="btn btn-secondary btn-lg" href="#components">
+          See full comparison
+        </a>
+      </div>
+      <p class="cta-band__reassure">
+        <i data-lucide="lock" style="display:inline-block;width:1em;height:1em;vertical-align:-0.12em;color:var(--color-brand);"></i>
+        Independent rankings · we may earn a commission, at no cost to you.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- @styleguide -->
+<section id="styleguide" class="section surface-brand">
+  <div class="container">
+    <header class="reveal" style="max-width: 60ch; margin-bottom: var(--space-12);">
+      <span class="eyebrow">Design System</span>
+      <h2>The <span class="accent">System</span></h2>
+      <p class="lead">
+        The visible parts of credibility: an editorial type voice, a warm paper
+        foundation, border-first depth, and exactly one saturated color reserved
+        for conversion. Every token below is shared across all six pages.
+      </p>
+    </header>
+
+    <!-- ================= TYPOGRAPHY ================= -->
+    <div class="card reveal" style="margin-bottom: var(--space-12);">
+      <span class="eyebrow">Typography</span>
+      <h3 class="card-title">Fraunces display, Inter text</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+        A high-contrast editorial serif for headings paired with Inter for body
+        and UI. Headings run tight; body relaxes to 1.6 for a comfortable
+        reading measure. Georgia is retired.
+      </p>
+
+      <div>
+        <div class="type-row">
+          <div class="type-meta">
+            <span class="type-role">H1 · Display</span>
+            <span class="type-spec">Fraunces · clamp 2.5–4rem · LH 1.05</span>
+          </div>
+          <p class="type-sample type-sample--h1">Drink smarter, not harder</p>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <span class="type-role">H2 · Display</span>
+            <span class="type-spec">Fraunces · clamp 1.75–2.5rem · LH 1.15</span>
+          </div>
+          <p class="type-sample type-sample--h2">The science of next-day clarity</p>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <span class="type-role">H3 · Display</span>
+            <span class="type-spec">Fraunces · 1.5rem · LH 1.15</span>
+          </div>
+          <p class="type-sample type-sample--h3">How DHM supports the liver</p>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <span class="type-role">Body · Text</span>
+            <span class="type-spec">Inter · 1.0625rem (17px) · LH 1.6</span>
+          </div>
+          <p class="type-sample type-sample--body">
+            Dihydromyricetin (DHM) is a flavonoid studied for its role in
+            supporting the body’s natural alcohol metabolism. Seventeen-pixel
+            body text and a relaxed line height keep long-form research readable.
+          </p>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <span class="type-role">Small · Text</span>
+            <span class="type-spec">Inter · 0.875rem · LH 1.5</span>
+          </div>
+          <p class="type-sample type-sample--small">
+            Captions, metadata, disclosures, and footnotes — quieter ink, same Inter rhythm.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= COLOR ================= -->
+    <div class="card reveal" style="margin-bottom: var(--space-12);">
+      <span class="eyebrow">Color</span>
+      <h3 class="card-title">Warm paper, green demoted, orange protected</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+        Green keeps its brand equity but stops shouting. Calm neutrals on warm
+        paper let the single orange conversion accent become the natural focal
+        point. Blue is reserved for links and science callouts only.
+      </p>
+
+      <p class="eyebrow" style="color: var(--color-ink-soft);">Foundation</p>
+      <div class="swatch-grid" style="margin-bottom: var(--space-8);">
+        <div class="swatch">
+          <div class="swatch__chip swatch__chip--ring" style="background-color: var(--color-paper);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-paper</span>
+            <span class="swatch__hex">#FAF8F4</span>
+            <span class="swatch__role">Page background — warm, not stark white</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip swatch__chip--ring" style="background-color: var(--color-surface);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-surface</span>
+            <span class="swatch__hex">#FFFFFF</span>
+            <span class="swatch__role">Card surfaces</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-ink);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-ink</span>
+            <span class="swatch__hex">#1A1D1A</span>
+            <span class="swatch__role">Primary text</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-ink-soft);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-ink-soft</span>
+            <span class="swatch__hex">#4A4E48</span>
+            <span class="swatch__role">Secondary text</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-border);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-border</span>
+            <span class="swatch__hex">#E7E3DB</span>
+            <span class="swatch__role">Warm hairline borders — the border-first depth cue</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="eyebrow" style="color: var(--color-ink-soft);">Brand · green = mark + trust</p>
+      <div class="swatch-grid" style="margin-bottom: var(--space-8);">
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-brand);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-brand</span>
+            <span class="swatch__hex">#15803D</span>
+            <span class="swatch__role">Mark + trust accent (deeper, less neon)</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-brand-strong);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-brand-strong</span>
+            <span class="swatch__hex">#166534</span>
+            <span class="swatch__role">Green emphasis</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip swatch__chip--ring" style="background-color: var(--color-brand-soft);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-brand-soft</span>
+            <span class="swatch__hex">#ECF3EE</span>
+            <span class="swatch__role">Trust chips, badges, tinted section surfaces</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="eyebrow" style="color: var(--color-cta);">Conversion · the protected accent</p>
+      <div class="swatch-grid" style="margin-bottom: var(--space-8);">
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-cta);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-cta</span>
+            <span class="swatch__hex">#F97316</span>
+            <span class="swatch__role">The single saturated color — conversion only</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-cta-hover);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-cta-hover</span>
+            <span class="swatch__hex">#EA580C</span>
+            <span class="swatch__role">CTA hover state</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="eyebrow" style="color: var(--color-info);">Info · links &amp; science callouts</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch__chip" style="background-color: var(--color-info);"></div>
+          <div class="swatch__body">
+            <span class="token-name">--color-info</span>
+            <span class="swatch__hex">#1D4ED8</span>
+            <span class="swatch__role">Links and “science” callouts only — not a co-brand</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ELEVATION ================= -->
+    <div class="reveal" style="margin-bottom: var(--space-12);">
+      <span class="eyebrow">Elevation</span>
+      <h3>Border-first depth, not shadow-on-everything</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-8);">
+        Each surface earns at most one depth cue. Most content sits flat on
+        paper with a single warm border — the biggest modern tell. Shadows are
+        reserved for things that genuinely lift off the page.
+      </p>
+
+      <div class="grid-auto">
+        <div class="card">
+          <span class="badge badge-brand">Tier 0</span>
+          <h4 class="card-title" style="margin-top: var(--space-3);">Flat</h4>
+          <p class="text-soft" style="margin: 0;">
+            Border-first. 1px warm hairline, <span class="token-name">--elev-0</span>,
+            no shadow. The default for most content.
+          </p>
+        </div>
+
+        <div class="card-raised">
+          <span class="badge badge-brand">Tier 1</span>
+          <h4 class="card-title" style="margin-top: var(--space-3);">Raised</h4>
+          <p class="text-soft" style="margin: 0;">
+            Interactive cards. Two-layer warm soft shadow
+            (<span class="token-name">--elev-1</span>) plus border. Hover to lift.
+          </p>
+        </div>
+
+        <div class="card" style="box-shadow: var(--elev-2);">
+          <span class="badge badge-brand">Tier 2</span>
+          <h4 class="card-title" style="margin-top: var(--space-3);">Overlay</h4>
+          <p class="text-soft" style="margin: 0;">
+            Modals, dropdowns, sticky bars. A real shadow
+            (<span class="token-name">--elev-2</span>) for things that float.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= RADIUS + SPACING ================= -->
+    <div class="reveal">
+      <span class="eyebrow">Shape &amp; Rhythm</span>
+      <h3>One radius, a strict 4 / 8 grid</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-8);">
+        An 8px radius unifies cards, buttons, and inputs; pills handle chips and
+        badges. Spacing snaps to a 4/8 scale so vertical rhythm never drifts.
+      </p>
+
+      <div class="grid-auto" style="align-items: start;">
+        <div class="card">
+          <span class="eyebrow">Radius</span>
+          <h4 class="card-title">8px, unified</h4>
+          <div class="spec-grid" style="margin-top: var(--space-4);">
+            <div class="radius-tile">
+              <div class="radius-swatch" style="border-radius: var(--radius-sm);"></div>
+              <span class="type-spec"><span class="token-name">--radius-sm</span></span>
+              <span class="type-spec">6px · insets</span>
+            </div>
+            <div class="radius-tile">
+              <div class="radius-swatch" style="border-radius: var(--radius);"></div>
+              <span class="type-spec"><span class="token-name">--radius</span></span>
+              <span class="type-spec">8px · cards / buttons</span>
+            </div>
+            <div class="radius-tile">
+              <div class="radius-swatch" style="border-radius: var(--radius-lg);"></div>
+              <span class="type-spec"><span class="token-name">--radius-lg</span></span>
+              <span class="type-spec">14px · panels</span>
+            </div>
+            <div class="radius-tile">
+              <div class="radius-swatch" style="border-radius: var(--radius-pill);"></div>
+              <span class="type-spec"><span class="token-name">--radius-pill</span></span>
+              <span class="type-spec">pill · chips</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="eyebrow">Spacing</span>
+          <h4 class="card-title">4 / 8 rhythm</h4>
+          <div class="spacing-row" style="margin-top: var(--space-4);">
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-1</span> 4px</span>
+              <span class="spacing-item__bar" style="width: var(--space-1);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-2</span> 8px</span>
+              <span class="spacing-item__bar" style="width: var(--space-2);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-3</span> 12px</span>
+              <span class="spacing-item__bar" style="width: var(--space-3);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-4</span> 16px</span>
+              <span class="spacing-item__bar" style="width: var(--space-4);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-6</span> 24px</span>
+              <span class="spacing-item__bar" style="width: var(--space-6);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-8</span> 32px</span>
+              <span class="spacing-item__bar" style="width: var(--space-8);"></span>
+            </div>
+            <div class="spacing-item">
+              <span class="spacing-item__label"><span class="token-name">--space-12</span> 48px</span>
+              <span class="spacing-item__bar" style="width: var(--space-12);"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orange discipline: the only saturated color on the whole page. -->
+      <div class="card" style="margin-top: var(--space-12);">
+        <span class="eyebrow" style="color: var(--color-cta);">Orange discipline</span>
+        <h4 class="card-title">The only saturated color</h4>
+        <p class="text-soft" style="max-width: 60ch;">
+          Across this entire style guide, full saturation appears exactly once —
+          here. Calm neutrals raise the salience of the conversion button rather
+          than competing with it.
+        </p>
+        <div class="cluster" style="margin-top: var(--space-4);">
+          <a class="btn btn-cta" href="#components">
+            <i data-lucide="shopping-cart"></i>
+            Check Price on Amazon
+          </a>
+          <a class="btn btn-secondary" href="#components">Compare options</a>
+          <a class="btn btn-ghost" href="#components">Read the science</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="components" class="section">
+  <div class="container">
+    <header class="reveal" style="max-width: 60ch; margin-bottom: var(--space-12);">
+      <span class="eyebrow">Components</span>
+      <h2>The <span class="accent">Gallery</span></h2>
+      <p class="lead">
+        The shared building blocks, assembled. Border-first depth, one 8px
+        radius, and a single saturated orange reserved for every
+        “Check&nbsp;Price” action — so conversion is never in doubt.
+      </p>
+    </header>
+
+    <!-- ================= BUTTONS ================= -->
+    <div class="card reveal" style="margin-bottom: var(--space-12);">
+      <span class="gallery-label">Buttons</span>
+      <h3 class="card-title">One conversion color, calm everything else</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+        The orange <span class="token-name">.btn-cta</span> is the only fully
+        saturated element — the natural focal point. Secondary, ghost, and text
+        links stay neutral so they never compete with it.
+      </p>
+
+      <div class="cluster" style="margin-bottom: var(--space-4);">
+        <a class="btn btn-cta" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+        <a class="btn btn-secondary" href="#components">Compare options</a>
+        <a class="btn btn-ghost" href="#components">Read the science</a>
+        <a href="#components">Inline text link</a>
+      </div>
+
+      <p class="hover-note" style="margin: 0;">
+        Hover → CTA deepens to <span class="token-name">--color-cta-hover</span>;
+        secondary gains a hairline + soft lift; ghost fills brand-soft; press →
+        <span class="token-name">scale(0.97)</span>. Try hovering each above.
+      </p>
+
+      <hr class="divider" style="margin-block: var(--space-6);" />
+
+      <span class="gallery-label">Sizes &amp; full-width</span>
+      <div class="cluster" style="margin-bottom: var(--space-4);">
+        <a class="btn btn-cta btn-sm" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price
+        </a>
+        <a class="btn btn-cta" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+        <a class="btn btn-cta btn-lg" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+      </div>
+      <a class="btn btn-cta btn-block" href="#components" style="max-width: 22rem;">
+        <i data-lucide="shopping-cart"></i>
+        Check Price on Amazon
+      </a>
+    </div>
+
+    <!-- ================= TRUST CHIPS / BADGES ================= -->
+    <div class="card reveal" style="margin-bottom: var(--space-12);">
+      <span class="gallery-label">Trust chips &amp; badges</span>
+      <h3 class="card-title">Credibility you can see at a glance</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+        Brand-soft pills carry the trust signals; green stays in its lane as the
+        mark-and-trust color. Badges flag editorial states without borrowing the
+        conversion orange.
+      </p>
+
+      <p class="gallery-label" style="color: var(--color-ink-soft);">Trust chips</p>
+      <div class="cluster" style="margin-bottom: var(--space-6);">
+        <span class="chip"><i data-lucide="flask-conical"></i> Clinically studied</span>
+        <span class="chip"><i data-lucide="shield-check"></i> 3rd-party tested</span>
+        <span class="chip"><i data-lucide="microscope"></i> Lab-verified purity</span>
+        <span class="chip"><i data-lucide="leaf"></i> Vegan &amp; non-GMO</span>
+      </div>
+
+      <p class="gallery-label" style="color: var(--color-ink-soft);">Badges</p>
+      <div class="cluster">
+        <span class="badge">Default</span>
+        <span class="badge badge-brand">Editor’s pick</span>
+        <span class="badge badge-info">New study</span>
+        <span class="badge badge-cta">Best value</span>
+      </div>
+    </div>
+
+    <!-- ================= PRODUCT CARD (the money component) ================= -->
+    <div class="reveal" style="margin-bottom: var(--space-12);">
+      <span class="gallery-label">Product card</span>
+      <h3>The money component</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-8);">
+        Raised tier (Tier&nbsp;1) because it’s interactive. Fraunces brand name,
+        a Lucide star rating, a one-line value prop, the price, the orange
+        <span class="token-name">.btn-cta</span>, and a compact pros/cons split
+        using Lucide <span class="token-name">check</span> (brand green) and
+        <span class="token-name">minus</span> (desaturated, honest — not alarming).
+      </p>
+
+      <article class="card-raised product-card">
+        <div class="product-media">
+          <span class="badge badge-brand product-media__tag">Editor’s pick</span>
+          <i data-lucide="image"></i>
+          <span class="visually-hidden">Product image placeholder</span>
+        </div>
+
+        <div class="stack" style="--stack-gap: var(--space-2);">
+          <h4 class="product-brand">No Days Wasted DHM Detox</h4>
+
+          <div class="cluster" style="gap: var(--space-3);">
+            <span class="stars" role="img" aria-label="Rated 4.5 out of 5">
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star"></i>
+              <i data-lucide="star" class="is-empty"></i>
+            </span>
+            <span class="rating-meta"><strong>4.5</strong> · 2,400+ reviews</span>
+          </div>
+
+          <p class="product-value">
+            1,000&nbsp;mg DHM + milk thistle &amp; electrolytes — the highest
+            per-serving dose we tested.
+          </p>
+
+          <div class="product-price">
+            <span class="product-price__amount">$29.99</span>
+            <span class="product-price__unit">/ 30 servings · $1.00 ea</span>
+          </div>
+        </div>
+
+        <ul class="proscons">
+          <li class="pro"><i data-lucide="check"></i> Highest DHM dose per serving</li>
+          <li class="con"><i data-lucide="minus"></i> Premium price point</li>
+          <li class="pro"><i data-lucide="check"></i> Added electrolytes</li>
+          <li class="con"><i data-lucide="minus"></i> Capsules are large</li>
+          <li class="pro"><i data-lucide="check"></i> 3rd-party lab tested</li>
+          <li class="con"><i data-lucide="minus"></i> Subscription pushed at checkout</li>
+        </ul>
+
+        <a class="btn btn-cta btn-block" href="#components">
+          <i data-lucide="shopping-cart"></i>
+          Check Price on Amazon
+        </a>
+      </article>
+    </div>
+
+    <!-- ================= COMPARISON TABLE ================= -->
+    <div class="card reveal" style="margin-bottom: var(--space-12);">
+      <span class="gallery-label">Comparison table</span>
+      <h3 class="card-title">Tight, zebra-striped, scannable</h3>
+      <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+        A decision tool stays dense — no loosening the table. Zebra rows aid
+        scanning, the winner carries a subtle orange edge marker, and the only
+        saturated color lives in the Action column.
+      </p>
+
+      <div class="compare-scroll">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">DHM / serving</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Price / serving</th>
+              <th scope="col" class="action-cell">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-winner">
+              <td class="product-cell">
+                No Days Wasted
+                <span class="badge badge-brand" style="margin-left: var(--space-2);">Best</span>
+              </td>
+              <td class="num">1,000&nbsp;mg</td>
+              <td class="num">4.5 ★</td>
+              <td class="num">$1.00</td>
+              <td class="action-cell">
+                <a class="btn btn-cta btn-sm" href="#components">Check Price</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-cell">DHM Depot</td>
+              <td class="num">600&nbsp;mg</td>
+              <td class="num">4.3 ★</td>
+              <td class="num">$0.55</td>
+              <td class="action-cell">
+                <a class="btn btn-cta btn-sm" href="#components">Check Price</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-cell">Double Wood DHM</td>
+              <td class="num">300&nbsp;mg</td>
+              <td class="num">4.4 ★</td>
+              <td class="num">$0.30</td>
+              <td class="action-cell">
+                <a class="btn btn-cta btn-sm" href="#components">Check Price</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="product-cell">Cheers Restore</td>
+              <td class="num">300&nbsp;mg</td>
+              <td class="num">4.1 ★</td>
+              <td class="num">$1.50</td>
+              <td class="action-cell">
+                <a class="btn btn-cta btn-sm" href="#components">Check Price</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= FAQ ACCORDION + STAT BLOCK ================= -->
+    <div class="grid-auto reveal" style="grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; gap: var(--space-8);">
+
+      <!-- FAQ accordion (static open + closed states) -->
+      <div class="card">
+        <span class="gallery-label">FAQ accordion</span>
+        <h3 class="card-title">Answers, on demand</h3>
+        <p class="text-soft" style="max-width: 60ch; margin-bottom: var(--space-6);">
+          Radix/Framer height reveals in production; shown here as static
+          open + closed states. Open items tint the question green; the chevron
+          flips on expand.
+        </p>
+
+        <div class="faq">
+          <div class="faq-item" data-open="true">
+            <button class="faq-q" type="button" aria-expanded="true">
+              When should I take DHM?
+              <i data-lucide="chevron-up"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                Most studies dose DHM around the time of drinking. A common
+                approach is one serving before your first drink and another
+                before bed — but follow the label and talk to your clinician.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Is DHM the same as a “hangover cure”?
+              <i data-lucide="chevron-down"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                No supplement is a cure. DHM is studied for supporting normal
+                alcohol metabolism — outcomes vary by person and dose.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button class="faq-q" type="button" aria-expanded="false">
+              How do you test the products you rank?
+              <i data-lucide="chevron-down"></i>
+            </button>
+            <div class="faq-a">
+              <p>
+                We compare per-serving DHM dose, third-party lab results,
+                formulation, and real review patterns before ranking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat block (count-up visual style; static numbers) -->
+      <div class="card surface-wash" style="border: 1px solid var(--color-border);">
+        <span class="gallery-label">Trust stats</span>
+        <h3 class="card-title">Earned, not asserted</h3>
+        <p class="text-soft" style="margin-bottom: var(--space-8);">
+          Count-up on scroll-in in production — cheap, high-credibility polish.
+          Static here.
+        </p>
+
+        <div class="stack" style="--stack-gap: var(--space-8);">
+          <div class="stat">
+            <span class="stat-value">20+</span>
+            <span class="stat-label">DHM brands tested</span>
+          </div>
+          <hr class="divider" />
+          <div class="stat">
+            <span class="stat-value">5,000+</span>
+            <span class="stat-label">Verified reviews analyzed</span>
+          </div>
+          <hr class="divider" />
+          <div class="stat">
+            <span class="stat-value">3rd-party</span>
+            <span class="stat-label">Lab results on every pick</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @components -->
+  </main>
+
+  <!-- ======================================================================
+       FOOTER — slim
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span class="wordmark wordmark--sm">
+        <span class="wordmark__mark" aria-hidden="true"><i data-lucide="leaf"></i></span>
+        <span class="wordmark__text">DHM Guide</span>
+      </span>
+      <p class="site-footer__note">
+        Theme demo — design-modernization-2026-06-25. Standalone artifact, not wired into production.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Lucide icons CDN (demo) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Render all <i data-lucide="..."> icons.
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+
+      // One-shot scroll reveals — gated behind prefers-reduced-motion.
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealEls = document.querySelectorAll('.reveal');
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.setAttribute('data-revealed', 'true'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-revealed', 'true');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    });
+  </script>
+
+  <!--
+    Header/footer chrome styles live inline here (demo-only chrome, not part of
+    the shared component token set in theme.css). The four @anchor regions above
+    are replaced verbatim by the later page designers.
+  -->
+  <style>
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgb(250 248 244 / 0.85);
+      border-bottom: 1px solid var(--color-border);
+      /* NOTE: a real header would self-host a solid bg; the translucency here is
+         demo polish. No transform/filter on <header> per stacking-context rule.
+         backdrop-filter intentionally omitted to keep the scale unbroken. */
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      min-height: 64px;
+    }
+    .site-nav {
+      display: none;
+      gap: var(--space-6);
+      margin-inline: auto;
+    }
+    .site-nav a {
+      color: var(--color-ink-soft);
+      font-size: var(--text-small);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .site-nav a:hover { color: var(--color-ink); }
+    @media (min-width: 768px) {
+      .site-nav { display: flex; }
+    }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      color: var(--color-ink);
+    }
+    .wordmark:hover { color: var(--color-ink); text-decoration: none; }
+    .wordmark__mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      background-color: var(--color-brand-soft);
+      color: var(--color-brand);
+    }
+    .wordmark__mark [data-lucide] { width: 18px; height: 18px; }
+    .wordmark__text {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.1875rem;
+      letter-spacing: -0.01em;
+    }
+    .wordmark--sm .wordmark__text { font-size: 1rem; }
+    .wordmark--sm .wordmark__mark { width: 28px; height: 28px; }
+
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      padding-block: var(--space-8);
+      margin-top: var(--space-24);
+    }
+    .site-footer__inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: flex-start;
+    }
+    .site-footer__note {
+      margin: 0;
+      font-size: var(--text-small);
+      color: var(--color-ink-soft);
+    }
+    @media (min-width: 640px) {
+      .site-footer__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</body>
+</html>

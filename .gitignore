@@ -217,3 +217,15 @@ audit/
 # Amazon price refresh pipeline (scripts/refresh-amazon-prices.sh)
 .playwright-userdata/
 data/amazon-prices.json
+
+# Design modernization: regenerable capture artifacts
+# (re-run scripts/capture-design-library.mjs / scripts/shoot-demo.mjs)
+docs/design-modernization-2026-06-25/screenshots/
+docs/design-modernization-2026-06-25/demo/preview/
+
+# Playwright run outputs
+test-results/
+playwright-report/
+
+# Self-hosted modern variant fonts (override the public/* ignore)
+!public/fonts/

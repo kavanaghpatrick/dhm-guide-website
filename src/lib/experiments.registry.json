@@ -1,5 +1,33 @@
 {
   "$schema": "./experiments.registry.schema.json",
   "$comment": "Single source of truth for active experiments. Each entry under `experiments` must have: owner (string), hypothesis (string), start_date (ISO date), decision_date (ISO date), primary_metric (string, e.g. 'affiliate_link_click'), files (array of paths that read the flag). Auto-audited by scripts/audit-feature-flags.mjs which cross-references PostHog flags against this registry and the codebase to flag drift (registered-but-unused, used-but-unregistered, past decision_date).",
-  "experiments": {}
+  "experiments": {
+    "reviews-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern, editorial restyle of /reviews (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs, fixed Check-Price/card alignment) holds or lifts affiliate CTR while improving perceived credibility and scroll depth.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/ReviewsRoute.jsx",
+        "src/pages/Reviews.modern.jsx",
+        "src/components/modern/ProductCardModern.jsx",
+        "src/components/modern/ComparisonTableModern.jsx",
+        "src/hooks/useVariant.js"
+      ]
+    },
+    "home-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern homepage hero and sections (solid Fraunces headline with single green accent, border-first dual-pathway cards, parallax removed) hold or lift engagement and downstream affiliate CTR vs the current gradient hero.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/HomeRoute.jsx",
+        "src/pages/Home.modern.jsx",
+        "src/components/modern/ProductCardModern.jsx",
+        "src/hooks/useVariant.js"
+      ]
+    }
+  }
 }

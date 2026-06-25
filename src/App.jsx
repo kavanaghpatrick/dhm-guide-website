@@ -12,9 +12,9 @@ import './App.css'
 
 // Lazy load all page components - mapped to route paths
 const pageComponents = {
-  '/': lazy(() => import('./pages/Home.jsx')),
+  '/': lazy(() => import('./pages/HomeRoute.jsx')),
   '/guide': lazy(() => import('./pages/Guide.jsx')),
-  '/reviews': lazy(() => import('./pages/Reviews.jsx')),
+  '/reviews': lazy(() => import('./pages/ReviewsRoute.jsx')),
   '/research': lazy(() => import('./pages/Research.jsx')),
   '/about': lazy(() => import('./pages/About.jsx')),
   '/compare': lazy(() => import('./pages/Compare.jsx')),
