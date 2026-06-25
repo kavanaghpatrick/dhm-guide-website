@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import posthog from 'posthog-js';
 import { trackEvent } from '../lib/posthog';
+import { readCachedFlag } from '../lib/cachedFlags';
 
 /**
  * Experiment hook for PostHog A/B tests with reliable exposure tracking + payload support.
@@ -32,11 +33,19 @@ export function useExperiment(key, options = {}) {
   // gate above-fold experiments behind isLoading to avoid SSR/CSR mismatch.
   const isBrowser = typeof window !== 'undefined';
 
-  const [state, setState] = useState(() => ({
-    variant: fallback,
-    payload: undefined,
-    isLoading: true,
-  }));
+  const [state, setState] = useState(() => {
+    // Seed SYNCHRONOUSLY from PostHog's localStorage cache so a returning user's
+    // assigned variant is correct on the FIRST render — this is what eliminates the
+    // control→modern flash (and the SPA-nav flip, since every mount re-seeds from
+    // the same cache). The effect below still reconciles via onFeatureFlags (the
+    // source of truth) and fires exposure; we deliberately do NOT fire exposure
+    // from this seed (PostHog may not be initialized yet; resolve() handles it).
+    const cached = isBrowser ? readCachedFlag(key) : undefined;
+    if (typeof cached === 'string') {
+      return { variant: cached, payload: undefined, isLoading: false };
+    }
+    return { variant: fallback, payload: undefined, isLoading: true };
+  });
 
   useEffect(() => {
     if (!isBrowser) return undefined;

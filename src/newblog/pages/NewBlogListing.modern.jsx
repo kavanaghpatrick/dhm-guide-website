@@ -27,7 +27,7 @@ import '../../styles/theme-modern.css';
 
 /**
  * NewBlogListing.modern — the "modern" arm of the /never-hungover A/B test
- * (flag key: "never-hungover-modern-v1"). A flag-gated restyle of the CONTROL
+ * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL
  * hub page (src/newblog/pages/NewBlogListing.jsx), built on the approved 2026
  * design language (docs/design-modernization-2026-06-25/recommendations/
  * never-hungover.md): warm paper palette, Fraunces display headings in SOLID
@@ -62,7 +62,7 @@ import '../../styles/theme-modern.css';
  * listener fires affiliate_link_click, so adding one would double-count.
  */
 
-const EXPERIMENT_KEY = 'never-hungover-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 
 // Preferred slugs for the single Editor's Pick hero, in priority order. These are
 // CTA-bearing evergreen articles (the conversion job of the hub is to route

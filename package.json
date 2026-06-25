@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "node scripts/validate-posts.js && node scripts/generate-blog-canonicals.js && node scripts/generate-sitemap.js && vite build && node scripts/verify-z-classes.mjs && node scripts/prerender-blog-posts-enhanced.js && node scripts/prerender-main-pages.js",
     "lint": "eslint .",
-    "lint:modern": "eslint src/components/modern \"src/pages/*.modern.jsx\" \"src/pages/*Route.jsx\" \"src/newblog/pages/*.modern.jsx\" src/hooks/useVariant.js src/lib/experimentOverride.js src/lib/preloadModernFonts.js src/lib/__tests__ src/hooks/__tests__ src/pages/__tests__ src/components/modern/__tests__",
+    "lint:modern": "eslint src/components/modern \"src/pages/*.modern.jsx\" \"src/pages/*Route.jsx\" \"src/newblog/pages/*.modern.jsx\" src/hooks/useVariant.js src/hooks/useFeatureFlag.js src/lib/experiment.js src/lib/experimentOverride.js src/lib/cachedFlags.js src/lib/preloadModernFonts.js src/lib/__tests__ src/hooks/__tests__ src/pages/__tests__ src/components/modern/__tests__",
     "preview": "vite preview",
     "verify-registry": "node verify-registry.js",
     "generate-registry": "node generate-registry.js",

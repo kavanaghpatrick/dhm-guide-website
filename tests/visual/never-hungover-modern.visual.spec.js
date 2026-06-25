@@ -23,7 +23,7 @@ import { test, expect } from '@playwright/test';
  * capture below covers grid regressions.
  */
 
-const MODERN_URL = '/never-hungover?exp_never-hungover-modern-v1=modern';
+const MODERN_URL = '/never-hungover?exp_site-modern-v1=modern';
 
 /** Selectors whose CONTENT is dynamic and must be masked out of the diff. */
 const DYNAMIC_MASK_SELECTORS = [

@@ -17,6 +17,25 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    // Default every context to a SETTLED user (PostHog flag cached = 'control'), which
+    // is the realistic steady state. The unified experiment wrapper renders a neutral
+    // hold only while a flag is UNresolved (a brand-new visitor); seeding the cache lets
+    // control specs paint control immediately, while ?exp_site-modern-v1=modern specs
+    // still override to modern and the flicker spec seeds/clears its own state.
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: 'http://localhost:5173',
+          localStorage: [
+            {
+              name: 'ph_phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4_posthog',
+              value: JSON.stringify({ $enabled_feature_flags: { 'site-modern-v1': 'control' } }),
+            },
+          ],
+        },
+      ],
+    },
   },
   projects: [
     {

@@ -19,7 +19,7 @@ import '../styles/theme-modern.css'
 
 /**
  * Reviews.modern — the "modern" arm of the /reviews A/B test
- * (flag key: "reviews-modern-v1"). A flag-gated restyle of the CONTROL page
+ * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Reviews.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/): warm paper palette, Fraunces display
  * headings in SOLID ink (no gradient), border-first cards, a single saturated
@@ -46,7 +46,7 @@ import '../styles/theme-modern.css'
  * listener fires affiliate_link_click, so adding one would double-count.
  */
 
-const EXPERIMENT_KEY = 'reviews-modern-v1'
+const EXPERIMENT_KEY = 'site-modern-v1'
 
 export default function ReviewsModern() {
   useSEO(generatePageSEO('reviews'))

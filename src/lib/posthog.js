@@ -8,8 +8,9 @@ import posthog from 'posthog-js';
 import { EVENT_SCHEMA_VERSION } from './posthog-events.js';
 import { detectBot } from './bot-filter.js';
 
-// PostHog configuration - use environment variable or fallback to direct key
-const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
+// PostHog configuration - use environment variable or fallback to direct key.
+// Exported so cachedFlags.js can read PostHog's own localStorage cache key.
+export const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY || 'phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4';
 const POSTHOG_HOST = '/ingest'; // Proxied through Vercel
 
 let initialized = false;

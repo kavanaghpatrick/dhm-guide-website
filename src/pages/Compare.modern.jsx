@@ -28,7 +28,7 @@ import '../styles/theme-modern.css'
 
 /**
  * Compare.modern — the "modern" arm of the /compare A/B test
- * (flag key: "compare-modern-v1"). A flag-gated restyle of the CONTROL page
+ * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Compare.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/recommendations/compare.md): warm paper
  * foundation, solid-ink headings (no gradient clip-text), de-noised single-accent
@@ -61,7 +61,7 @@ import '../styles/theme-modern.css'
  * — the listener fires affiliate_link_click, so adding one would double-count.
  */
 
-const EXPERIMENT_KEY = 'compare-modern-v1'
+const EXPERIMENT_KEY = 'site-modern-v1'
 
 export default function CompareModern() {
   useSEO(generatePageSEO('compare'))

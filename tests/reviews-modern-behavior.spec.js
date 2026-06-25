@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Behavior contract for the /reviews "modern" A/B variant (flag reviews-modern-v1).
+ * Behavior contract for the /reviews "modern" A/B variant (flag site-modern-v1).
  *
  * RED until the variant is built. These assertions define what the modern
  * variant MUST satisfy to be conversion-safe and shippable. They run under the
@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
  * is gated to the mobile viewport so it exercises the Pixel 5 project.
  *
  * The variant is forced deterministically via the URL override:
- *   /reviews?exp_reviews-modern-v1=modern
+ *   /reviews?exp_site-modern-v1=modern
  * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
  *
  * NOTE: we deliberately do NOT click affiliate links here. This suite runs
@@ -20,7 +20,7 @@ import { test, expect } from '@playwright/test';
  * Click-through end-to-end behavior is covered by tests/affiliate-tracking.spec.js.
  */
 
-const EXPERIMENT_KEY = 'reviews-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 const MODERN_URL = `/reviews?exp_${EXPERIMENT_KEY}=modern`;
 
 /** Tailwind/oklch rgb values for the orange CTA hue (must NOT appear on filters). */

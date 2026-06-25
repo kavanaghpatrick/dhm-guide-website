@@ -2,20 +2,20 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Behavior contract for the Home "modern" A/B variant (flag home-modern-v1).
+ * Behavior contract for the Home "modern" A/B variant (flag site-modern-v1).
  *
  * RED until the variant is built. Runs under the main playwright.config.js
  * (pnpm test:e2e) across the chromium + "Mobile Chrome" (Pixel 5) projects.
  *
  * Variant forced via URL override:
- *   /?exp_home-modern-v1=modern
+ *   /?exp_site-modern-v1=modern
  * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
  *
  * We assert the affiliate CTA *contract* statically (no click) — end-to-end
  * click behavior is covered by tests/affiliate-tracking.spec.js.
  */
 
-const EXPERIMENT_KEY = 'home-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 const MODERN_URL = `/?exp_${EXPERIMENT_KEY}=modern`;
 
 test.describe('Home — modern variant behavior', () => {
