@@ -2,79 +2,18 @@
   "$schema": "./experiments.registry.schema.json",
   "$comment": "Single source of truth for active experiments. Each entry under `experiments` must have: owner (string), hypothesis (string), start_date (ISO date), decision_date (ISO date), primary_metric (string, e.g. 'affiliate_link_click'), files (array of paths that read the flag). Auto-audited by scripts/audit-feature-flags.mjs which cross-references PostHog flags against this registry and the codebase to flag drift (registered-but-unused, used-but-unregistered, past decision_date).",
   "experiments": {
-    "reviews-modern-v1": {
+    "site-modern-v1": {
       "owner": "patrick",
-      "hypothesis": "A modern, editorial restyle of /reviews (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs, fixed Check-Price/card alignment) holds or lifts affiliate CTR while improving perceived credibility and scroll depth.",
+      "hypothesis": "A unified modern redesign across all 6 primary pages (one shared assignment, so a user is modern everywhere or control everywhere) holds or lifts site-wide affiliate_link_click vs the current design. Replaces the 6 per-page experiments (reviews/home/guide/research/compare/never-hungover-modern-v1) to give consistent UX and faster significance.",
       "start_date": "2026-06-25",
       "decision_date": "2026-07-23",
       "primary_metric": "affiliate_link_click",
       "files": [
-        "src/pages/ReviewsRoute.jsx",
-        "src/pages/Reviews.modern.jsx",
-        "src/components/modern/ProductCardModern.jsx",
-        "src/components/modern/ComparisonTableModern.jsx",
-        "src/hooks/useVariant.js"
-      ]
-    },
-    "home-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A modern homepage hero and sections (solid Fraunces headline with single green accent, border-first dual-pathway cards, parallax removed) hold or lift engagement and downstream affiliate CTR vs the current gradient hero.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/HomeRoute.jsx",
-        "src/pages/Home.modern.jsx",
-        "src/components/modern/ProductCardModern.jsx",
-        "src/hooks/useVariant.js"
-      ]
-    },
-    "guide-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A modern, editorial restyle of /guide (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts affiliate CTR and engagement vs the current control layout.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/GuideRoute.jsx",
-        "src/pages/Guide.modern.jsx",
-        "src/hooks/useVariant.js"
-      ]
-    },
-    "research-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A modern, editorial restyle of /research (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts engagement and downstream affiliate CTR vs the current control layout.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/ResearchRoute.jsx",
-        "src/pages/Research.modern.jsx",
-        "src/hooks/useVariant.js"
-      ]
-    },
-    "compare-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A modern, editorial restyle of /compare (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts affiliate CTR and engagement vs the current control comparison layout.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/CompareRoute.jsx",
-        "src/pages/Compare.modern.jsx",
-        "src/hooks/useVariant.js"
-      ]
-    },
-    "never-hungover-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A modern, editorial restyle of /never-hungover (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts engagement and downstream affiliate CTR vs the current control listing layout.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/NeverHungoverRoute.jsx",
-        "src/newblog/pages/NewBlogListing.modern.jsx",
-        "src/hooks/useVariant.js"
+        "src/pages/ModernRoute.jsx",
+        "src/lib/experiment.js",
+        "src/lib/cachedFlags.js",
+        "src/hooks/useVariant.js",
+        "src/hooks/useFeatureFlag.js"
       ]
     }
   }

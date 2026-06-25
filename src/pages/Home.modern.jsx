@@ -17,7 +17,7 @@ import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import '../styles/theme-modern.css'
 
 /**
- * Home.modern — the "modern" A/B variant of the homepage (flag "home-modern-v1").
+ * Home.modern — the "modern" A/B variant of the homepage (flag "site-modern-v1").
  *
  * A flag-gated restyle of the homepage hero + key sections in the approved 2026
  * design language (docs/design-modernization-2026-06-25): warm paper palette,
@@ -35,7 +35,7 @@ import '../styles/theme-modern.css'
  * There is intentionally NO onClick — adding one would double-count.
  */
 
-const EXPERIMENT_KEY = 'home-modern-v1'
+const EXPERIMENT_KEY = 'site-modern-v1'
 
 export default function HomeModern() {
   // Reuse the canonical homepage SEO (same title/description/schema as control).
@@ -196,7 +196,7 @@ export default function HomeModern() {
       {/* ===================================================================
           TOP PICKS — reuse the canonical top-3 products via ProductCardModern.
           Affiliate CTAs inside each card follow the attribution contract with
-          experimentKey="home-modern-v1".
+          experimentKey="site-modern-v1".
           =================================================================== */}
       <section className="section">
         <div className="container">

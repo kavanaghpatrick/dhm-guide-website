@@ -23,7 +23,7 @@ import { test, expect } from '@playwright/test';
  * Baselines are generated later via: pnpm test:visual:update
  */
 
-const MODERN_URL = '/compare?exp_compare-modern-v1=modern';
+const MODERN_URL = '/compare?exp_site-modern-v1=modern';
 
 /** Selectors whose CONTENT is dynamic and must be masked out of the diff. */
 const DYNAMIC_MASK_SELECTORS = [

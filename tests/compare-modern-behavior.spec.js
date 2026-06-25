@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Behavior contract for the /compare "modern" A/B variant (flag compare-modern-v1).
+ * Behavior contract for the /compare "modern" A/B variant (flag site-modern-v1).
  *
  * These assertions define what the modern variant MUST satisfy to be
  * conversion-safe and shippable. They run under the main playwright.config.js
@@ -10,7 +10,7 @@ import { test, expect } from '@playwright/test';
  * (Pixel 5) projects.
  *
  * The variant is forced deterministically via the URL override:
- *   /compare?exp_compare-modern-v1=modern
+ *   /compare?exp_site-modern-v1=modern
  * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
  *
  * NOTE: we deliberately do NOT click affiliate links here. This suite runs
@@ -18,7 +18,7 @@ import { test, expect } from '@playwright/test';
  * affiliate CTA *contract* (href + data-* attributes + rel/target) statically.
  */
 
-const EXPERIMENT_KEY = 'compare-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 const MODERN_URL = `/compare?exp_${EXPERIMENT_KEY}=modern`;
 
 test.describe('Compare — modern variant behavior', () => {

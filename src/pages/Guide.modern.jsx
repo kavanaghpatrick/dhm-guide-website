@@ -24,7 +24,7 @@ import '../styles/theme-modern.css'
 
 /**
  * Guide.modern — the "modern" arm of the /guide A/B test
- * (flag key: "guide-modern-v1"). A flag-gated restyle of the CONTROL page
+ * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Guide.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/recommendations/guide.md): warm paper
  * foundation, editorial Fraunces H1 in SOLID ink with one brand-green emphasis

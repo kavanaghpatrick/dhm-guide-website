@@ -28,7 +28,7 @@ import '../styles/theme-modern.css'
 
 /**
  * Research.modern — the "modern" arm of the /research A/B test
- * (flag key: "research-modern-v1"). A flag-gated restyle of the CONTROL page
+ * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Research.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/recommendations/research.md): warm
  * paper palette, Fraunces display headings in SOLID ink (no gradient clip-text),
@@ -70,7 +70,7 @@ import '../styles/theme-modern.css'
  * mount (variant arm only).
  */
 
-const EXPERIMENT_KEY = 'research-modern-v1'
+const EXPERIMENT_KEY = 'site-modern-v1'
 
 /**
  * Copy-to-clipboard button rendered per study card. Local "Copied!" feedback

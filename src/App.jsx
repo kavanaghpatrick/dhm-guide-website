@@ -36,14 +36,13 @@ const PageLoader = () => (
 function App() {
   const { currentPath, getRouteByPath } = useRouter()
 
-  // Initialize PostHog analytics (deferred for performance)
+  // Initialize PostHog as early as possible (no window-'load' deferral). PostHog reads
+  // its localStorage flag cache on init, so deferring to 'load' made even returning
+  // users wait ~600ms–2s for their assignment (the control→modern flash). The SDK keeps
+  // its heavy work (session recording, network, autocapture) internally deferred, so
+  // eager init does not block LCP.
   useEffect(() => {
-    // Defer initialization until after page load
-    if (document.readyState === 'complete') {
-      initPostHog();
-    } else {
-      window.addEventListener('load', initPostHog, { once: true });
-    }
+    initPostHog();
   }, []);
 
   // Enable automatic affiliate link tracking

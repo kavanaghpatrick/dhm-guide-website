@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Behavior contract for the /guide "modern" A/B variant (flag guide-modern-v1).
+ * Behavior contract for the /guide "modern" A/B variant (flag site-modern-v1).
  *
  * These assertions define what the modern variant MUST satisfy to be
  * conversion-safe and shippable. They run under the main playwright.config.js
@@ -10,7 +10,7 @@ import { test, expect } from '@playwright/test';
  * (Pixel 5) projects.
  *
  * The variant is forced deterministically via the URL override:
- *   /guide?exp_guide-modern-v1=modern
+ *   /guide?exp_site-modern-v1=modern
  * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
  *
  * NOTE: /guide has NO affiliate links — every CTA is an internal <Link> (to
@@ -20,7 +20,7 @@ import { test, expect } from '@playwright/test';
  * (no same-origin 4xx, no page errors, no horizontal overflow).
  */
 
-const EXPERIMENT_KEY = 'guide-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 const MODERN_URL = `/guide?exp_${EXPERIMENT_KEY}=modern`;
 
 test.describe('Guide — modern variant behavior', () => {

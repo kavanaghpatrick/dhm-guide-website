@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 /**
  * Behavior contract for the /never-hungover "modern" A/B variant
- * (flag never-hungover-modern-v1).
+ * (flag site-modern-v1).
  *
  * These assertions define what the modern variant MUST satisfy to be
  * conversion-safe and shippable. They run under the main playwright.config.js
@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
  * (Pixel 5) projects.
  *
  * The variant is forced deterministically via the URL override:
- *   /never-hungover?exp_never-hungover-modern-v1=modern
+ *   /never-hungover?exp_site-modern-v1=modern
  * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
  *
  * NOTE: we deliberately do NOT click affiliate links here. This suite runs
@@ -19,7 +19,7 @@ import { test, expect } from '@playwright/test';
  * affiliate CTA *contract* (href + data-* attributes + rel/target) statically.
  */
 
-const EXPERIMENT_KEY = 'never-hungover-modern-v1';
+const EXPERIMENT_KEY = 'site-modern-v1';
 const MODERN_URL = `/never-hungover?exp_${EXPERIMENT_KEY}=modern`;
 
 test.describe('Never Hungover — modern variant behavior', () => {

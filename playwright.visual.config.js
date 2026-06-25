@@ -48,6 +48,22 @@ export default defineConfig({
     // Deterministic rendering for stable pixel baselines.
     reducedMotion: 'reduce',
     colorScheme: 'light',
+    // Seed a settled 'control' flag cache so control-unchanged snapshots paint control
+    // immediately (not the neutral hold). Modern visual specs override via ?exp_=modern.
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: 'http://localhost:5173',
+          localStorage: [
+            {
+              name: 'ph_phc_BxeZzVX7gh2w23tsDyCAWViH5v3rRF9ipPNNQYNdkS4_posthog',
+              value: JSON.stringify({ $enabled_feature_flags: { 'site-modern-v1': 'control' } }),
+            },
+          ],
+        },
+      ],
+    },
   },
   projects: [
     {
