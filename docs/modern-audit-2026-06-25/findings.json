@@ -1,0 +1,317 @@
+[
+  {
+    "rank": 1,
+    "severity": "critical",
+    "title": "Mobile /reviews comparison table hides Rating, DHM, Price AND the Amazon CTA off-screen with no scroll cue",
+    "page": "/reviews \u2014 \"Quick comparison table\" (ComparisonTableModern). Also affects any page mounting this component.",
+    "issue": "ComparisonTableModern renders a 5-column table (Product \u00b7 Rating \u00b7 DHM \u00b7 Price \u00b7 Action) inside .compare-scroll{overflow-x:auto} with .product-cell{white-space:nowrap}. On ~390px the Product column consumes the full width, pushing Rating/DHM/Price and the orange \"Check Price on Amazon\" CTA entirely off-screen. There is no scroll affordance (no edge fade, no peek, no swipe hint), so mobile users \u2014 the majority of affiliate traffic \u2014 see a bare list of names with zero prices, ratings, or buy buttons. The helper line even says \"Scroll down\" (not right). Confirmed visually in reviews/mobile-01.png.",
+    "fix": "Add a mobile breakpoint that collapses .compare into a stacked per-product card layout below ~640px (name + rating + DHM + price + a full-width orange CTA), reusing the lg:hidden card markup already present in Compare.modern.jsx. Minimum stopgap: drop white-space:nowrap on .product-cell at small widths, add a right-edge scroll-shadow + \"swipe to see prices \u2192\" hint, and fix the helper copy \u2014 but the card fallback is the real fix because the CTA must be reachable.",
+    "file": "src/components/modern/ComparisonTableModern.jsx (no mobile branch) + src/styles/theme-modern.css (.compare/.compare-scroll/.product-cell ~lines 803-811); mount at src/pages/Reviews.modern.jsx ~line 190"
+  },
+  {
+    "rank": 2,
+    "severity": "high",
+    "title": "\"Best value indicator\" caption is hardcoded under ALL columns of the Value row (owner issue #1, CONFIRMED)",
+    "page": "/compare \u2014 Detailed comparison \"Value (mg DHM per $)\" row (desktop table + mobile cards)",
+    "issue": "The static string \"Best value indicator\" renders once per product cell with no winner condition, so it prints under all three columns \u2014 including Toniiq's 12.0 mg/$ (the worst value) and No Days Wasted's 37.0 mg/$ (middle) \u2014 while only Double Wood (50.6 mg/$) is actually highlighted green with a crown. Three cells simultaneously claim to be the best-value indicator; reads as a duplicated placeholder bug and undercuts table credibility. The cell already computes isWinner (used for the green value + Crown) but the caption ignores it.",
+    "fix": "Gate the caption on the winner flag, mirroring the Crown: render the \"Best value\" label only when isWinner, and show a neutral unit label (e.g. \"mg DHM per $\") otherwise. Apply the identical change in BOTH the desktop cell and the mobile card.",
+    "file": "src/pages/Compare.modern.jsx (desktop line 580; mobile line 793)"
+  },
+  {
+    "rank": 3,
+    "severity": "high",
+    "title": "Head-to-head \"Read comparison\" cards render the chart icon ABOVE the title when it wraps, INLINE when it doesn't (owner issue #2, CONFIRMED)",
+    "page": "/reviews \"Head-to-head product comparisons\" grid AND /compare \"Quick Head-to-Head Matchups\" grid (same broken pattern in two files)",
+    "issue": "The h3 uses className=\"card-title cluster\". .cluster is display:flex; flex-wrap:wrap; align-items:center, so the BarChart3 icon and the title text are wrapping flex siblings. When the title fits one line the icon sits inline-left; when the title wraps to 2 lines, flex-wrap drops the text onto its own line and strands the icon ALONE on the first line ABOVE the title. Result: non-deterministic icon placement across cards in the same grid and across pages. Confirmed in reviews/desktop-04.png (every 2-line card has the icon above).",
+    "fix": "Stop using the wrapping .cluster for an icon+heading. Make the icon flex:0 0 auto with align-items:flex-start and flex-wrap:nowrap, wrapping the title text in its own span (flex:1 1 auto; min-width:0) so the icon stays pinned top-left and only the text wraps. Apply the SAME pattern to both files so the pages match.",
+    "file": "src/pages/Reviews.modern.jsx (h3 ~line 313) and src/pages/Compare.modern.jsx (h3 ~line 1049); class at src/styles/theme-modern.css line 469"
+  },
+  {
+    "rank": 4,
+    "severity": "high",
+    "title": "Cheers Restore rating renders as a bare \"4\" (not \"4.0\") on cards and in the comparison table \u2014 looks like placeholder/missing data",
+    "page": "Home Top Picks card, /reviews product card + quick-comparison Rating column (desktop + mobile)",
+    "issue": "topProducts.json stores Cheers Restore rating: 4 (a whole number). ProductCardModern renders <strong>{rating}</strong> (rating = Number(product.rating)) and ComparisonTableModern renders <strong>{product.rating}</strong>, so Cheers prints \"4\" while every sibling shows one decimal (4.3, 4.4, 4.5). A bare \"4\" next to \"4 \u00b7 7,972 reviews\" reads like an unfinished value and breaks the rating-row rhythm; same bug hits any future whole-number rating.",
+    "fix": "Format to one decimal at render: Number(rating).toFixed(1) in ProductCardModern (~line 91) and Number(product.rating).toFixed(1) in ComparisonTableModern (rating cell). Belt-and-suspenders: store 4.0 for Cheers in topProducts.json.",
+    "file": "src/components/modern/ProductCardModern.jsx (~line 91) + src/components/modern/ComparisonTableModern.jsx (rating cell) + src/data/topProducts.json (id 5)"
+  },
+  {
+    "rank": 5,
+    "severity": "high",
+    "title": "Double Wood card states two contradictory per-serving prices ($0.80 price line vs \"$0.66/serving\" pro bullet)",
+    "page": "Home Top Picks + /reviews Double Wood card (desktop + mobile)",
+    "issue": "The price line renders product.pricePerServing = \"$0.80\" (correct: $23.95/30 \u2248 $0.80) but the third pro bullet is a hardcoded string \"Just $0.66/serving - best value tested\". The same card simultaneously claims $0.80 and $0.66 per serving \u2014 a factual self-contradiction on a high-intent component.",
+    "fix": "Fix the stale pro string in topProducts.json (id 2, pros[2]) to \"$0.80/serving\" or drop the price from the pro bullet so the price line is the single source of truth.",
+    "file": "src/data/topProducts.json (id 2, pros array)"
+  },
+  {
+    "rank": 6,
+    "severity": "high",
+    "title": "Blog read-time renders raw prose strings \u2192 garbled/duplicated units (\"Estimated 30-40 minutes min read\", \"15 min min read\")",
+    "page": "/never-hungover blog hub grid + featured card (~35 of 197 cards)",
+    "issue": "The template renders `{post.readTime} min read`, assuming an integer, but 35/197 posts store strings like \"Estimated 30-40 minutes\", \"15 min read\", \"30 minutes\", \"36 min\". Concatenating \" min read\" produces visible garbage on the clock chip and also forces the meta row to wrap to two lines, breaking single-line meta rhythm. Confirmed via metadata scan.",
+    "fix": "Normalize at render: const rt = parseInt(post.readTime,10); show `${rt} min read` only when numeric, else show post.readTime as-is. Better long-term: clean the source data so readTime is always an integer (strip 'min'/'minutes'/'read'/'Estimated', take first number).",
+    "file": "src/newblog/pages/NewBlogListing.modern.jsx (~lines 464 & 558) + src/newblog/data/metadata/index.json"
+  },
+  {
+    "rank": 7,
+    "severity": "high",
+    "title": "Comparison-table DHM column mixes numeric doses with marketing prose (\"Most DHM per dose\", \"DHM + Milk Thistle Blend\")",
+    "page": "/reviews quick-comparison DHM column (and product-card pros)",
+    "issue": "The dhm field is meant to be a comparable mg value (tabular-num column), but Cheers Restore stores \"Most DHM per dose\" and Good Morning stores \"DHM + Milk Thistle Blend\". This breaks at-a-glance comparison, left-aligns prose where numbers belong, is factually misleading (Cheers is a 300mg-class blend, not the highest dose), and the dhm-sort `parseInt(b.dhm.replace(/[^\\d]/g,''))` yields 0 for these, mis-ranking them.",
+    "fix": "Normalize dhm to a numeric mg value for every product (Cheers \u2192 \"300mg\", Good Morning \u2192 its actual mg). If a blend truly lacks one DHM number, render \"\u2014\" or move the description to a footnote, not the numeric column.",
+    "file": "src/data/topProducts.json (dhm for Cheers Restore + Good Morning) + sort logic in src/pages/Reviews.modern.jsx (~lines 107-111)"
+  },
+  {
+    "rank": 8,
+    "severity": "high",
+    "title": "Placeholder author \"Research Team (2024)\" shipped on the flagship human clinical trial",
+    "page": "/research \u2014 Hovenia dulcis Fruit Extract study card (the only human RCT)",
+    "issue": "The page's single human clinical trial \u2014 the most credibility-critical card \u2014 prints the literal placeholder byline \"Research Team (2024)\" while all 24 other cards show real author lists (e.g. \"Chen, S., Zhao, X., Ran, L., et al.\"). Reads as an un-filled stub on the highest-trust study. Confirmed at research-studies.js:195.",
+    "fix": "Replace with the real author list, or suppress the byline line when authors is a non-name placeholder.",
+    "file": "src/data/research-studies.js (record at line 195), rendered at src/pages/Research.modern.jsx (~line 571)"
+  },
+  {
+    "rank": 9,
+    "severity": "high",
+    "title": "First-impression card-anatomy break: the top ~21 blog cards are text-only while every card below the fold has a 16:9 image",
+    "page": "/never-hungover blog hub grid",
+    "issue": "The grid gates the image on `{post.image && ...}`. The newest posts (hangxiety, magnesium, ozempic, vodka, whiskey, champagne, seltzer, etc.) have image:null, so the first ~21 cards \u2014 the most-viewed scroll position \u2014 render as bare text cards while everything lower is fully imaged. The opening screen looks the least finished; a first-impression conversion problem.",
+    "fix": "Either backfill images for the newest posts (data fix) or give imageless cards a deterministic branded placeholder (brand-soft gradient + topic glyph, reusing the .product-media gradient) so every card has consistent height and visual weight.",
+    "file": "src/newblog/pages/NewBlogListing.modern.jsx (~line 528) or the post JSON image fields"
+  },
+  {
+    "rank": 10,
+    "severity": "high",
+    "title": "\"Participants\"/\"Duration\" use .stat (tight-number) styling but ~19/25 studies store descriptive prose",
+    "page": "/research \u2014 every study card",
+    "issue": "Research.modern.jsx wraps Participants and Duration in the .stat component (designed for tight tokens like \"600+\"), but most studies store phrases (\"Animal models + cell culture\", \"Meta-analysis of preclinical studies\", \"In vitro platelet aggregation assays\"), so a stat-styled label sits above a wrapping sentence \u2014 breaking the one-tight-token stat contract on nearly every card.",
+    "fix": "Stop using .stat for these. Render as a plain \"Label: value\" meta pair (like Methodology/Dosage), or apply .stat only when participants is numeric and route descriptive values to a \"Study type\" meta line.",
+    "file": "src/pages/Research.modern.jsx (~lines 578-587)"
+  },
+  {
+    "rank": 11,
+    "severity": "high",
+    "title": "Cross-surface color-discipline violation: shared legacy header shows a saturated GREEN pill CTA above every modern page",
+    "page": "ALL modern pages (Home, Reviews, Guide, Research, Compare, Never-Hungover) \u2014 top-right \"Best Supplements\" header button",
+    "issue": "The modern theme's premise is \"orange reserved for the single conversion CTA, green demoted to mark/trust.\" But the shared header (outside .theme-modern) renders a saturated green \"Best Supplements\" pill that functions as a CTA \u2014 the most saturated element above the fold \u2014 directly competing with the page's orange affiliate CTAs and stacking two conversion-color languages vertically. The dark legacy footer creates the same top-and-bottom mismatch.",
+    "fix": "A/B-owner decision (out of any single component's scope). Either render a neutral/ghost header variant gated on the modern flag, or theme the shared Header/Footer for the modern arm. At minimum reconcile the green header CTA so the variant has one dominant action color; otherwise the experiment isn't visually coherent at the top of the fold.",
+    "file": "src/components/Layout.jsx (shared header CTA), gated on the modern flag \u2014 not the page files"
+  },
+  {
+    "rank": 12,
+    "severity": "high",
+    "title": "Reviews winner emphasis is bound to render position (index===0), so a sort/filter can move \"Editor's Pick\" off the real pick",
+    "page": "/reviews detailed reviews grid (with Filter/Sort controls)",
+    "issue": "ProductCardModern receives isWinner={index === 0} over sortedProducts. When the user changes Sort (Price/Rating) or applies a Best-For filter, index 0 becomes whatever now sorts first \u2014 so the orange Editor's-Pick emphasis migrates to a different, possibly weaker product, or the genuine pick loses its emphasis. The primary conversion signal is tied to position, not editorial rank.",
+    "fix": "Bind winner emphasis to a stable product property (e.g. product.editorsPick === true or product.id === editorsPickId), not index===0, so the badge + orange edge follow the real pick regardless of sort/filter.",
+    "file": "src/pages/Reviews.modern.jsx (~line 283 isWinner={index === 0}) + src/components/modern/ProductCardModern.jsx"
+  },
+  {
+    "rank": 13,
+    "severity": "high",
+    "title": "Two unrelated comparison-table designs for the same job: light brand-soft table (/reviews) vs black-header table (/compare)",
+    "page": "/reviews ComparisonTableModern (brand-soft header, orange per-row CTA) vs /compare inline table (black --color-ink header, green badges/crowns, no per-row CTA)",
+    "issue": "The flagship side-by-side comparison appears on two pages in two visually unrelated forms. Compare overrides the .compare header to solid black (background:var(--color-ink)) \u2014 a dark-on-light treatment found nowhere else in the modern theme \u2014 so a user moving Reviews\u2192Compare sees what looks like two different design systems. Winner convention also differs (orange row-edge vs green cell+crown).",
+    "fix": "Pick ONE comparison-table visual language. Lowest-risk: drop the black-header override on Compare and use the theme's intended brand-soft header + border-first styling (as ComparisonTableModern does). At minimum align header color, winner-highlight convention, and CTA presence across both.",
+    "file": "src/pages/Compare.modern.jsx (~lines 506 & 513 black-header overrides) vs src/components/modern/ComparisonTableModern.jsx"
+  },
+  {
+    "rank": 14,
+    "severity": "medium",
+    "title": "Hero H1 \"accent\" paints a full 4-word phrase green vs the documented \"one green accent word\" discipline",
+    "page": "/guide hero H1 (worst case); also a cross-page inconsistency vs Home/Compare/Reviews which accent a single word",
+    "issue": "The .accent token is documented as a single accent word, but Guide wraps the entire second clause \"Science-Based Hangover Prevention\" (4 words) in .accent with display:block \u2014 on mobile a 3-line solid-green block \u2014 fighting the warm-paper restraint and over-weighting color. Every other hero accents one word.",
+    "fix": "Reduce the Guide hero accent to a single word (e.g. green only \"Science-Based\" or \"Prevention\") to match Home/Compare/Reviews/Never-Hungover.",
+    "file": "src/pages/Guide.modern.jsx (~lines 125-130)"
+  },
+  {
+    "rank": 15,
+    "severity": "medium",
+    "title": "Guide hero before/after pair uses mismatched list markers and mismatched card elevation",
+    "page": "/guide hero two-up cards (\"Your current reality\" vs \"Your new reality\")",
+    "issue": "Two issues on the paired cards: (1) 'Your current reality' is a plain <ul> with disc bullets while 'Your new reality' uses .proscons with green check icons \u2014 bullets vs icons, different alignment, looks half-styled. (2) 'current reality' is a bordered white card while 'new reality' is overridden to brand-soft fill with borderColor:transparent \u2014 one bordered, one borderless tinted, breaking the border-first elevation language (and on mobile the borderless card bleeds into the page wash).",
+    "fix": "Give 'current reality' a parallel marker (use .proscons with the existing desaturated .con marker, or strip disc bullets + left padding), and keep both cards bordered (remove borderColor:transparent or give 'current reality' a matching muted fill) so the pair reads as a deliberate two-tone set.",
+    "file": "src/pages/Guide.modern.jsx (~lines 172-177 markers; ~lines 180-183 border)"
+  },
+  {
+    "rank": 16,
+    "severity": "medium",
+    "title": "Scenario / mechanism card icons sit mid-height against wrapping titles on mobile (same .cluster icon-alignment family as the head-to-head bug)",
+    "page": "/guide scenario titles + mechanism cards (mobile)",
+    "issue": "Scenario titles use h3.card-title.cluster with the icon as the first flex child and align-items:center from .cluster. On mobile the long titles wrap to 2 lines, so the icon floats to the vertical middle of the wrapped block instead of aligning to the first line \u2014 the same icon/title misalignment family as the head-to-head cards.",
+    "fix": "Set align-items:flex-start (or baseline) on the scenario/mechanism title clusters so the icon pins to the first line. One shared .card-title.cluster override (which also helps if the head-to-head fix is generalized).",
+    "file": "src/pages/Guide.modern.jsx (~lines 373, 405, 430) or a shared rule in src/styles/theme-modern.css"
+  },
+  {
+    "rank": 17,
+    "severity": "medium",
+    "title": "Hero \"12 min average read\" is hardcoded and contradicts the 18-35 min read-times in the cards below",
+    "page": "/never-hungover hero trust strip",
+    "issue": "The hero hardcodes \"12 min average read\" while the cards immediately below show 18/20/24/25/30/35-min reads \u2014 the claim reads as placeholder/inaccurate and erodes the trust the strip is meant to build.",
+    "fix": "Compute the real average from post metadata (mean of numeric read-times, rounded), or soften to a range / remove the number.",
+    "file": "src/newblog/pages/NewBlogListing.modern.jsx (~lines 206-208)"
+  },
+  {
+    "rank": 18,
+    "severity": "medium",
+    "title": "Author byline is unstandardized across blog cards (\"DHM Guide Team\" vs \"DHM Guide Research Team\" vs \"Dr. Evelyn Reed\")",
+    "page": "/never-hungover blog hub grid",
+    "issue": "The card foot renders `By {post.author}` and the author string is inconsistent across the corpus \u2014 three+ variants appear in one grid, reading as a data-entry artifact and undercutting the science-backed framing.",
+    "fix": "Standardize the author field in post metadata to one canonical byline (or intentionally surface real expert names everywhere). Pure data normalization; no template change.",
+    "file": "src/newblog/data/posts/*.json (author fields)"
+  },
+  {
+    "rank": 19,
+    "severity": "medium",
+    "title": "Significance callout sets a block of body copy in green-on-green (off-palette for running text)",
+    "page": "/research \u2014 every study card Significance box",
+    "issue": "Significance text uses color:var(--color-brand-strong) #166534 at ~14px on --color-brand-soft #ECF3EE. It passes AA but reads muddy and contradicts the theme intent that green is a trust accent, not running body copy.",
+    "fix": "Set the significance body to var(--color-ink) (or ink-soft); keep green only for the \"Significance\" label/icon.",
+    "file": "src/pages/Research.modern.jsx (~lines 632-633)"
+  },
+  {
+    "rank": 20,
+    "severity": "medium",
+    "title": "Compare hero forces 4 trust stats into a cramped 2x2 grid on desktop instead of a 4-across row",
+    "page": "/compare hero stat strip",
+    "issue": "The four stats are hardcoded to gridTemplateColumns:'repeat(2,1fr)' at all breakpoints, so on the wide desktop hero they stack 2x2 in the center with large empty gutters, looking unbalanced and disconnected from the heading.",
+    "fix": "Make the column count responsive: 2 columns on mobile, 4 on desktop (media query or grid utility).",
+    "file": "src/pages/Compare.modern.jsx (~line 382)"
+  },
+  {
+    "rank": 21,
+    "severity": "medium",
+    "title": "Compare \"Overall Score\" crown is keyed off effectivenessScore but the cell displays product.score \u2014 fields can diverge and crown the wrong column",
+    "page": "/compare \"Overall Score\" row (desktop + mobile Top Choice flag)",
+    "issue": "The cell renders {product.score}/10 (9.5/9.2/9.0) but the winner highlight is computed by winner('effectiveness') over effectivenessScore (9.5/9.0/8.5) \u2014 a different field. They agree today by coincidence; if the max score and max effectivenessScore land on different products, the crown sits on a cell that is NOT the highest displayed number.",
+    "fix": "Key the Overall Score winner off the displayed field \u2014 add a 'score' case to getWinner and use winner('score',...) for that row (or display effectivenessScore) so the number and the crown can never disagree.",
+    "file": "src/pages/Compare.modern.jsx (line 528 vs 533; mobile 728/761)"
+  },
+  {
+    "rank": 22,
+    "severity": "medium",
+    "title": "Compare DHM tie (1000mg = 1000mg) arbitrarily crowns one product; tie-break is render-order, not deterministic",
+    "page": "/compare \"DHM Content\" row",
+    "issue": "No Days Wasted and Double Wood both have 1000mg, but getWinner('dhm') uses strict `prevDhm > currentDhm ? prev : current`, so a tie falls through to whichever product is reached last, crowning exactly one. Users see a definitive winner on tied data (and the un-crowned product even lists higher \"98%+ purity\"). Same gap affects rating and dhmPerDollar.",
+    "fix": "Handle ties explicitly: compute the max, then mark every product equal to the max as a winner (show two crowns on a true tie), or mark none and show \"Tie\". Apply to all tie-prone getWinner fields.",
+    "file": "src/pages/Compare.modern.jsx (getWinner ~lines 302-321)"
+  },
+  {
+    "rank": 23,
+    "severity": "medium",
+    "title": "Compare table header truncates product names to the first 3 words, silently dropping meaningful tokens",
+    "page": "/compare detailed table column headers",
+    "issue": "Headers render product.name.split(' ').slice(0,3).join(' '), so \"No Days Wasted DHM Detox\" shows \"No Days Wasted\" (drops \"DHM Detox\") and the cutoff is word-count, not width \u2014 a 3-word product shows fully while a 5-word one is silently clipped with no ellipsis, mismatching the full names used in the selector cards and Category Winners.",
+    "fix": "Show the full product.name with CSS line-clamp/ellipsis or text-wrap:balance instead of a word-count slice.",
+    "file": "src/pages/Compare.modern.jsx (~line 517)"
+  },
+  {
+    "rank": 24,
+    "severity": "medium",
+    "title": "Global mobile sticky \"Check Price\" bar adds a SECOND orange CTA and overlaps the last card on multiple pages",
+    "page": "Mobile /research, /never-hungover (and any page with the global sticky bar)",
+    "issue": "The shared md:hidden sticky bottom bar adds a second orange \"Check Price\" button competing with the page's single in-body orange CTA, and because no bottom padding is reserved on the list, the final card is permanently occluded by the bar.",
+    "fix": "Reconcile the double-orange (suppress the in-body orange CTA on mobile, or restyle the sticky bar) and reserve bottom padding/scroll-margin on the page wrapper equal to the sticky bar height so the last card isn't hidden.",
+    "file": "global sticky CTA component + src/styles/theme-modern.css (mobile section padding); page CTA e.g. src/pages/Research.modern.jsx (~line 404)"
+  },
+  {
+    "rank": 25,
+    "severity": "medium",
+    "title": "Reviews Filter/Sort row: native <select> styled as a button keeps an OS chevron, and Best-For pills wrap raggedly on mobile",
+    "page": "/reviews filter/sort controls (desktop + mobile)",
+    "issue": "(1) The Sort control is a native <select className=\"btn btn-sm\"> styled like the secondary buttons but still shows the OS dropdown arrow, reading as a button with a stray chevron. (2) On mobile the Best-For label + 5 pills wrap across 3 rows and the cluster's justify-content:space-between just left-aligns everything, so the group looks ragged and adds friction before the first product card.",
+    "fix": "Add appearance:none + a custom chevron to the select (or visibly distinguish it as a dropdown); on mobile drop space-between, set a consistent gap, and consider a horizontal-scroll chip strip or a compact dropdown for the Best-For filters.",
+    "file": "src/pages/Reviews.modern.jsx (~lines 199-254)"
+  },
+  {
+    "rank": 26,
+    "severity": "medium",
+    "title": "Hero \"How it protects you\" eyebrow is overridden to grey, breaking the brand-green eyebrow convention",
+    "page": "Home (modern) hero, above the Liver/Brain pathway cards",
+    "issue": "Every other eyebrow on the page renders brand-green per the .eyebrow default; this one is overridden inline to var(--color-ink-soft), so it reads washed-out \u2014 a lone grey eyebrow among green ones.",
+    "fix": "Delete the inline color override so the eyebrow inherits the standard brand-green. One-line deletion.",
+    "file": "src/pages/Home.modern.jsx (line 144)"
+  },
+  {
+    "rank": 27,
+    "severity": "medium",
+    "title": "Winner card stacks three orange elements (orange border + orange edge + orange badge + orange CTA), diluting the single-focal-point rule",
+    "page": "Home Top Picks + /reviews winner card (No Days Wasted Editor's Pick)",
+    "issue": "The winner card applies a full orange (--color-cta) border AND an inset orange left edge AND an orange 'Editor's pick' badge AND the orange CTA \u2014 stacking the protected conversion color across non-clickable chrome, so the eye no longer reads the button as THE action.",
+    "fix": "Keep orange on the CTA + one emphasis element only. Revert the full card border to the standard warm --color-border (keep the inset edge), or make the 'Editor's pick' badge brand-green. Reduces orange to one structural emphasis + the button.",
+    "file": "src/components/modern/ProductCardModern.jsx (winnerStyle ~lines 44-50; badge ~line 62)"
+  },
+  {
+    "rank": 28,
+    "severity": "medium",
+    "title": "Pros/cons truncation silently drops the deciding con and produces uneven card balance/heights",
+    "page": "Home + /reviews product cards",
+    "issue": "ProductCardModern slices pros to 3 and cons to 2 by array order, so it drops real cons (Double Wood's 'Single ingredient formula', Cheers' 'Mixed experiences with effectiveness' \u2014 arguably the most material) and can show a 3:1 check-to-minus ratio that makes a card look artificially rosy, with uneven bottoms before the pinned CTA. Truncation is also order-based, not persuasion-weighted, so a winner's strongest pro can be cut.",
+    "fix": "Standardize to an even 2 pros + 2 cons across all cards (matches heights and keeps the honesty signal), and curate topProducts.json so the most persuasive pro is first / the most material con survives the slice.",
+    "file": "src/components/modern/ProductCardModern.jsx (lines 38-39) + src/data/topProducts.json"
+  },
+  {
+    "rank": 29,
+    "severity": "low",
+    "title": "Comparison-table \"Price\" header is actually price-per-serving \u2014 $0.40/$0.48 read like bottle prices",
+    "page": "/reviews quick-comparison Price column",
+    "issue": "The cell renders product.pricePerServing under a header that just says \"Price\", so a shopper may read \"$0.40\" as the product cost. Inconsistent with the cards, which correctly label \"$0.40 / serving\".",
+    "fix": "Change the table header to \"Price / serving\" (or \"$/serving\"). One-word fix, no data change.",
+    "file": "src/components/modern/ComparisonTableModern.jsx (header row)"
+  },
+  {
+    "rank": 30,
+    "severity": "low",
+    "title": "Comparison-table Rating uses a hollow outline star, not the filled gold star used on the cards",
+    "page": "/reviews quick-comparison Rating column",
+    "issue": "The table renders a bare <Star> with no fill, inheriting the default Lucide outline (empty) star, while product cards show filled gold (#E8A317). The hollow star reads as a 0-star/placeholder glyph and is inconsistent with the cards for the same products.",
+    "fix": "Give the table star the same gold fill (color:#E8A317; fill:currentColor) or drop the icon and show only the number. Match the card star treatment.",
+    "file": "src/components/modern/ComparisonTableModern.jsx (rating cell)"
+  },
+  {
+    "rank": 31,
+    "severity": "low",
+    "title": "Compare winner-marker uses orange (--color-cta) for a non-CTA, and star gold is hardcoded inline instead of a token",
+    "page": "/compare table winner edge + selector/table star ratings",
+    "issue": "Two small color-discipline drifts: (1) the shared .row-winner rule paints an inset orange bar (box-shadow inset 3px var(--color-cta)) on a non-clickable winner row, diluting 'orange = buy'. (2) Star gold #E8A317 is re-hardcoded inline in 3+ places with no --color-star token, risking drift.",
+    "fix": "Recolor the .row-winner marker to var(--color-brand) (green) so orange stays CTA-only; add a --color-star token and reference it everywhere stars appear.",
+    "file": "src/styles/theme-modern.css (.row-winner line 811; add --color-star) + src/pages/Compare.modern.jsx (inline star colors)"
+  },
+  {
+    "rank": 32,
+    "severity": "low",
+    "title": "Compare/Research hero stat clusters put words (\"Real-time\", \"Expert\") in the big numeric .stat-value display style",
+    "page": "/compare hero (and inconsistent vs Home/Research which are all-numeric)",
+    "issue": ".stat-value is a large display-numeral style tuned for numbers; putting long words 'Real-time' and 'Expert' in it looks oversized and breaks the stat rhythm (two numbers next to two words), inconsistent with how other pages render stat clusters.",
+    "fix": "Make all four stats numeric, or demote the qualitative two to a smaller label-style treatment so the big display size is reserved for actual numbers.",
+    "file": "src/pages/Compare.modern.jsx (~lines 386-398)"
+  },
+  {
+    "rank": 33,
+    "severity": "low",
+    "title": "Inconsistent secondary-action affordances (ghost link vs bordered button) and hero stars (4 solid for a 4.4 label)",
+    "page": "Home (modern) hero + picks/CTA bands",
+    "issue": "Three secondary treatments on one page: hero 'Read the science' is borderless btn-ghost (under-reads as an action next to the heavy orange CTA), while 'See full comparison' and 'Calculate your dosage' are bordered btn-secondary. Separately, the hero hardcodes 4 solid + 1 empty stars next to a '4.4 avg rating' label, so the icons read 4.0 and contradict the number.",
+    "fix": "Pick one secondary affordance (or ensure the ghost still reads as a button). For stars, accept rounding (document the convention) or render a partial 5th star for .4.",
+    "file": "src/pages/Home.modern.jsx (secondary ~line 91; stars ~line 104)"
+  },
+  {
+    "rank": 34,
+    "severity": "low",
+    "title": "Guide final-CTA makes merchant promises (\"Free shipping \u00b7 30-day returns\") on a non-commerce page, plus repetitive proof-point copy",
+    "page": "/guide final CTA + mid-page bands",
+    "issue": "The Guide sells nothing (links only to internal /reviews) yet the reassurance line reads 'Free shipping \u00b7 30-day returns \u00b7 Thousands of 5-star reviews' \u2014 promises the guide can't make, a trust mismatch. Separately, '11 clinical studies and 1,000+ years' is restated ~5 times on one scroll, reading as filler.",
+    "fix": "Replace merchant promises with claims the guide can back ('Science-backed \u00b7 11 clinical studies \u00b7 No affiliate bias'); keep the proof points in the hero + final stat block and vary/trim the mid-page restatements.",
+    "file": "src/pages/Guide.modern.jsx (reassurance ~lines 732-742; repeated copy ~lines 331-333, 298, 662-663)"
+  },
+  {
+    "rank": 35,
+    "severity": "low",
+    "title": "Assorted Guide/Research polish: trust-row label drift, link-dense hero, James testimonial blue in-byline link, divergent CTA-band/footer treatments, '+N more' unstyled, mobile divider noise",
+    "page": "/guide and /research (multiple low-impact spots)",
+    "issue": "Cluster of minor inconsistencies: Guide hero says '1000+ years of use' but the footer stat block says '1000+ Years of safe use' (same metric, two labels); the Guide hero lead packs 3 blue links creating color noise under the H1; the James testimonial embeds a blue in-byline link breaking the uniform 'AGE NN' meta of the other two cards; Research has two CTA-band treatments (boxed card vs full-bleed) and a weak all-neutral footer CTA; blog '+N more' renders as unstyled plain text after pill chips; and the mobile hero trust-row dividers float between wrapped items.",
+    "fix": "Batch as a polish pass: canonicalize the trust-row label set; reduce the Guide hero lead to \u22642 links; remove the James in-byline link for symmetry; pick one cta-band treatment; style '+N more' as a muted ghost chip; hide .trust-row__divider below a breakpoint.",
+    "file": "src/pages/Guide.modern.jsx, src/pages/Research.modern.jsx, src/newblog/pages/NewBlogListing.modern.jsx, src/styles/theme-modern.css"
+  }
+]

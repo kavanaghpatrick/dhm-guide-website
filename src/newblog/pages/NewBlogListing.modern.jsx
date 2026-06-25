@@ -64,6 +64,42 @@ import '../../styles/theme-modern.css';
 
 const EXPERIMENT_KEY = 'site-modern-v1';
 
+// --- Render guards for messy post metadata (the listing must never edit the
+//     post JSONs — mass-edit moratorium — so all cleanup happens here). ---
+
+// #6 — readTime is a mix of integers, "18 min read", "30 minutes",
+// "Estimated 30-40 minutes", "15 min min read", etc. The control rendered
+// `{readTime} min read` verbatim, producing garbled labels like
+// "Estimated 30-40 minutes min read". Parse the first positive integer and
+// return clean minutes; null when nothing usable is present.
+const parseReadMinutes = (value) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value > 0 ? Math.round(value) : null;
+  }
+  if (typeof value === 'string') {
+    const match = value.match(/\d+/);
+    if (match) {
+      const minutes = parseInt(match[0], 10);
+      return minutes > 0 ? minutes : null;
+    }
+  }
+  return null;
+};
+
+// #18 — byline drift: 6 author strings in the corpus ("DHM Guide Team",
+// "DHM Guide Research Team", "Workplace Wellness Team", "DHM Health Guide",
+// "Global Health Research Team", "Dr. Evelyn Reed"). Collapse every team/house
+// alias to one canonical "DHM Guide Team" while preserving a real person's
+// name as authored.
+const normalizeAuthor = (author) => {
+  if (typeof author !== 'string' || !author.trim()) return 'DHM Guide Team';
+  const name = author.trim();
+  if (/team$/i.test(name) || /^DHM Health Guide$/i.test(name)) {
+    return 'DHM Guide Team';
+  }
+  return name;
+};
+
 // Preferred slugs for the single Editor's Pick hero, in priority order. These are
 // CTA-bearing evergreen articles (the conversion job of the hub is to route
 // readers into pages where the sticky CTA lives). Falls back to the newest post
@@ -73,6 +109,29 @@ const FEATURED_SLUGS = [
   'hangover-supplements-complete-guide-what-actually-works-2025',
   'dhm-safety-complete-guide-2025',
 ];
+
+// #9 — branded fallback for the ~14 image-less posts. Mirrors the demo's
+// .product-media placeholder language (paper→brand-soft wash, bordered, a quiet
+// brand-green mark) so every card keeps the same image → meta → title anatomy.
+// Decorative only: aria-hidden, the card title already names the article.
+const PostImagePlaceholder = () => (
+  <div
+    aria-hidden="true"
+    style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundImage:
+        'linear-gradient(180deg, var(--color-paper) 0%, var(--color-brand-soft) 100%)',
+      borderBottom: '1px solid var(--color-border)',
+      color: 'var(--color-brand)',
+    }}
+  >
+    <BookOpen style={{ width: '2.25rem', height: '2.25rem', opacity: 0.45 }} />
+  </div>
+);
 
 const NewBlogListingModern = () => {
   // SEO optimization — same source of truth as CONTROL.
@@ -100,6 +159,18 @@ const NewBlogListingModern = () => {
       if (match) return match;
     }
     return allPosts[0];
+  }, [allPosts]);
+
+  // #17 — the hero "average read" stat must reflect the real corpus, not a
+  // hardcoded "12 min" that contradicts the 18–36 min cards below. Compute the
+  // mean of the parsed (cleaned) read-times; null when none are parseable so
+  // the stat can be omitted rather than show "NaN".
+  const averageReadMinutes = useMemo(() => {
+    const minutes = allPosts
+      .map((p) => parseReadMinutes(p.readTime))
+      .filter((n) => n !== null);
+    if (minutes.length === 0) return null;
+    return Math.round(minutes.reduce((sum, n) => sum + n, 0) / minutes.length);
   }, [allPosts]);
 
   // Filter posts based on search and tags (copied verbatim from CONTROL).
@@ -202,11 +273,17 @@ const NewBlogListingModern = () => {
                 <strong>{allPosts.length}</strong>&nbsp;expert articles
               </span>
               <span className="trust-row__divider" aria-hidden="true" />
-              <span className="trust-row__item">
-                <Clock aria-hidden="true" />
-                <strong>12&nbsp;min</strong>&nbsp;average read
-              </span>
-              <span className="trust-row__divider" aria-hidden="true" />
+              {/* #17 — average read computed from the real corpus (was a
+                  hardcoded "12 min" that contradicted the 18–36 min cards). */}
+              {averageReadMinutes !== null && (
+                <>
+                  <span className="trust-row__item">
+                    <Clock aria-hidden="true" />
+                    <strong>{averageReadMinutes}&nbsp;min</strong>&nbsp;average read
+                  </span>
+                  <span className="trust-row__divider" aria-hidden="true" />
+                </>
+              )}
               <span className="trust-row__item">
                 <FlaskConical aria-hidden="true" />
                 Science-backed content
@@ -435,8 +512,11 @@ const NewBlogListingModern = () => {
               style={{ display: 'block', textDecoration: 'none', padding: 0, overflow: 'hidden' }}
             >
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', alignItems: 'stretch' }}>
-                {featuredPost.image && (
-                  <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+                {/* #9 — always render the 16:9 media slot so card anatomy is
+                    consistent; fall back to a branded placeholder when a post
+                    has no image. */}
+                <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+                  {featuredPost.image ? (
                     <img
                       src={featuredPost.image}
                       alt={featuredPost.title}
@@ -445,8 +525,10 @@ const NewBlogListingModern = () => {
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       fetchPriority="high"
                     />
-                  </div>
-                )}
+                  ) : (
+                    <PostImagePlaceholder />
+                  )}
+                </div>
                 <div style={{ padding: 'var(--space-8)' }}>
                   <span className="badge badge-brand" style={{ marginBottom: 'var(--space-4)' }}>
                     Featured guide
@@ -459,10 +541,13 @@ const NewBlogListingModern = () => {
                       <Calendar aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
                       {formatDate(featuredPost.date)}
                     </span>
-                    <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                      <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                      {featuredPost.readTime} min read
-                    </span>
+                    {/* #6 — render guard: parse clean minutes, omit if garbled. */}
+                    {parseReadMinutes(featuredPost.readTime) !== null && (
+                      <span className="cluster" style={{ gap: 'var(--space-1)' }}>
+                        <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
+                        {parseReadMinutes(featuredPost.readTime)} min read
+                      </span>
+                    )}
                   </div>
                   <h3
                     className="card-title"
@@ -524,17 +609,21 @@ const NewBlogListingModern = () => {
                       textDecoration: 'none',
                     }}
                   >
-                    {/* Post Image */}
-                    {post.image && (
-                      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+                    {/* Post Image — #9: always render the 16:9 slot; the ~14
+                        image-less posts get a branded placeholder so every card
+                        has the same anatomy (image → meta → title → excerpt). */}
+                    <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+                      {post.image ? (
                         <img
                           src={post.image}
                           alt={post.title}
                           loading="lazy"
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <PostImagePlaceholder />
+                      )}
+                    </div>
 
                     <div
                       style={{
@@ -553,10 +642,13 @@ const NewBlogListingModern = () => {
                           <Calendar aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
                           {formatDate(post.date)}
                         </span>
-                        <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                          <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                          {post.readTime} min read
-                        </span>
+                        {/* #6 — render guard: clean "N min read", omit if garbled. */}
+                        {parseReadMinutes(post.readTime) !== null && (
+                          <span className="cluster" style={{ gap: 'var(--space-1)' }}>
+                            <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
+                            {parseReadMinutes(post.readTime)} min read
+                          </span>
+                        )}
                       </div>
 
                       {/* Post Title */}
@@ -588,19 +680,39 @@ const NewBlogListingModern = () => {
                             </span>
                           ))}
                           {post.tags.length > 3 && (
-                            <span className="text-soft" style={{ fontSize: 'var(--text-eyebrow)' }}>
+                            // #35 — styled overflow indicator, pill-aligned with
+                            // the chips above (was bare, baseline-misaligned
+                            // text). Neutral paper fill keeps it a quiet "more"
+                            // affordance, distinct from the brand-soft topic chips.
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                fontSize: 'var(--text-eyebrow)',
+                                fontWeight: 600,
+                                lineHeight: 1,
+                                padding: '0.25rem 0.5rem',
+                                color: 'var(--color-ink-soft)',
+                                backgroundColor: 'var(--color-paper)',
+                                border: '1px solid var(--color-border)',
+                                borderRadius: 'var(--radius-pill)',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
                               +{post.tags.length - 3} more
                             </span>
                           )}
                         </div>
                       )}
 
-                      {/* Author — pinned to the bottom for aligned card feet. */}
+                      {/* Author — #18: normalized to one canonical byline form
+                          (team aliases collapse to "DHM Guide Team"; real names
+                          preserved). Pinned to the bottom for aligned card feet. */}
                       <p
                         className="text-soft"
                         style={{ fontSize: 'var(--text-small)', margin: 'auto 0 0' }}
                       >
-                        By {post.author}
+                        By {normalizeAuthor(post.author)}
                       </p>
                     </div>
                   </CustomLink>

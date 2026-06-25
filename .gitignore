@@ -229,3 +229,6 @@ playwright-report/
 
 # Self-hosted modern variant fonts (override the public/* ignore)
 !public/fonts/
+
+# Modern audit screenshots (regenerable: node scripts/capture-modern-audit.mjs)
+docs/modern-audit-2026-06-25/screenshots/

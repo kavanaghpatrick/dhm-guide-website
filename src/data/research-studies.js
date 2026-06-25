@@ -192,10 +192,10 @@ export const researchStudies = [
   {
     id: 8,
     title: "Efficacy of Hovenia dulcis Fruit Extract in Hangover Mitigation: Double-Blind Randomized Clinical Evaluation",
-    authors: "Research Team (2024)",
+    authors: "Paik, D.H., Lee, K.W., Shim, Y.Y., Reaney, M.J.T., et al.",
     journal: "Foods",
     year: 2024,
-    institution: "International Research Collaboration",
+    institution: "Kwangdong Pharmaceutical Co. & University of Saskatchewan",
     participants: 30,
     duration: "Single dose crossover study",
     category: "metabolism",
@@ -210,8 +210,8 @@ export const researchStudies = [
     methodology: "Randomized, double-blind, crossover, placebo-controlled trial",
     dosage: "Standardized Hovenia dulcis extract containing DHM",
     significance: "First rigorous human clinical trial demonstrating hangover prevention efficacy",
-    pmid: "Foods2024",
-    pubmedUrl: "https://www.mdpi.com/journal/foods"
+    pmid: "39767027",
+    pubmedUrl: "https://www.mdpi.com/2304-8158/13/24/4084"
   },
   {
     id: 9,

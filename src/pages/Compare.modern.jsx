@@ -287,41 +287,41 @@ export default function CompareModern() {
 
   const selectedProductsData = allProducts.filter((p) => selectedProducts.includes(p.id))
 
-  const getWinner = (field) => {
-    if (selectedProductsData.length === 0) return null
-
+  // Numeric metric extractor per comparison field. Returns the value the table
+  // CELL actually shows, so winner highlighting can never disagree with the cell
+  // (e.g. Overall Score keys off product.score, the value rendered — #21).
+  const metricValue = (field, product) => {
     switch (field) {
+      case 'score':
+        return Number(product.score) || 0
       case 'value':
-        return selectedProductsData.reduce((prev, current) =>
-          prev.valueScore > current.valueScore ? prev : current
-        )
+        return Number(product.valueScore) || 0
       case 'effectiveness':
-        return selectedProductsData.reduce((prev, current) =>
-          prev.effectivenessScore > current.effectivenessScore ? prev : current
-        )
+        return Number(product.effectivenessScore) || 0
       case 'dhm':
-        return selectedProductsData.reduce((prev, current) => {
-          const prevDhm = parseInt(prev.dhm.replace(/[^\d]/g, '')) || 0
-          const currentDhm = parseInt(current.dhm.replace(/[^\d]/g, '')) || 0
-          return prevDhm > currentDhm ? prev : current
-        })
+        return parseInt(String(product.dhm).replace(/[^\d]/g, '')) || 0
       case 'reviews':
-        return selectedProductsData.reduce((prev, current) =>
-          prev.reviews > current.reviews ? prev : current
-        )
+        return Number(product.reviews) || 0
       case 'rating':
-        return selectedProductsData.reduce((prev, current) =>
-          prev.rating > current.rating ? prev : current
-        )
+        return Number(product.rating) || 0
       case 'dhmPerDollar':
-        return selectedProductsData.reduce((prev, current) => {
-          const prevValue = typeof prev.dhmPerDollar === 'string' ? 0 : prev.dhmPerDollar
-          const currentValue = typeof current.dhmPerDollar === 'string' ? 0 : current.dhmPerDollar
-          return prevValue > currentValue ? prev : current
-        })
+        return typeof product.dhmPerDollar === 'string' ? 0 : Number(product.dhmPerDollar) || 0
       default:
         return null
     }
+  }
+
+  const maxMetric = (field) => {
+    if (selectedProductsData.length === 0) return null
+    return Math.max(...selectedProductsData.map((p) => metricValue(field, p)))
+  }
+
+  // Single representative winner (first product at the max) — used by the
+  // Category Winners cards where exactly one product must be named.
+  const getWinner = (field) => {
+    const max = maxMetric(field)
+    if (max === null) return null
+    return selectedProductsData.find((p) => metricValue(field, p) === max) ?? null
   }
 
   // ---- Modern style helpers (scoped to .theme-modern tokens) ----------------
@@ -345,7 +345,13 @@ export default function CompareModern() {
     whiteSpace: 'nowrap',
   }
 
-  const winner = (field, product) => getWinner(field)?.id === product.id
+  // Tie-aware winner test: a product is a winner if it equals the max for the
+  // field, so a true tie (e.g. DHM 1000 = 1000) marks BOTH as best rather than
+  // arbitrarily crowning the first one (#22).
+  const winner = (field, product) => {
+    const max = maxMetric(field)
+    return max !== null && metricValue(field, product) === max
+  }
 
   return (
     <div className="theme-modern" style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}>
@@ -372,30 +378,33 @@ export default function CompareModern() {
               side-by-side comparison — analyze effectiveness, value, and ingredients to stop hangovers forever.
             </p>
 
-            {/* Quick comparison stats — hairline-ruled strip, brand-soft numbers. */}
+            {/* Quick comparison stats — hairline-ruled strip, 4-across on desktop.
+                Numeric stats keep the big .stat-value; word-valued stats use the
+                smaller .stat-word treatment so prose never lands in the big
+                numeric face (#20 grid, #32 no-words-in-stat-value). */}
             <div
-              className="trust-band__stats"
+              className="trust-band__stats compare-hero-stats"
               style={{
                 marginTop: 'var(--space-12)',
                 paddingTop: 'var(--space-8)',
                 borderTop: '1px solid var(--color-border)',
-                gridTemplateColumns: 'repeat(2, 1fr)',
+                rowGap: 'var(--space-8)',
               }}
             >
-              <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
+              <div className="stat compare-hero-stat" style={{ alignItems: 'center', textAlign: 'center' }}>
                 <span className="stat-value">{selectedProductsData.length}</span>
                 <span className="stat-label">Products Selected</span>
               </div>
-              <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
+              <div className="stat compare-hero-stat" style={{ alignItems: 'center', textAlign: 'center' }}>
                 <span className="stat-value">15+</span>
                 <span className="stat-label">Comparison Points</span>
               </div>
-              <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
-                <span className="stat-value">Real-time</span>
+              <div className="stat compare-hero-stat" style={{ alignItems: 'center', textAlign: 'center' }}>
+                <span className="stat-word">Real-time</span>
                 <span className="stat-label">Price Updates</span>
               </div>
-              <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
-                <span className="stat-value">Expert</span>
+              <div className="stat compare-hero-stat" style={{ alignItems: 'center', textAlign: 'center' }}>
+                <span className="stat-word">Expert</span>
                 <span className="stat-label">Analysis</span>
               </div>
             </div>
@@ -503,18 +512,22 @@ export default function CompareModern() {
                   <table className="compare" style={{ border: 0, borderRadius: 0, fontSize: 'var(--text-small)' }}>
                     <thead>
                       <tr>
-                        <th scope="col" style={{ background: 'var(--color-ink)', color: 'var(--color-surface)', textTransform: 'none', letterSpacing: 'normal', fontSize: 'var(--text-small)' }}>
+                        {/* Light paper-palette header (default .compare thead th:
+                            brand-soft fill, brand-strong text) — the black-header
+                            override was dropped to match ComparisonTableModern (#13). */}
+                        <th scope="col" style={{ textTransform: 'none', letterSpacing: 'normal', fontSize: 'var(--text-small)' }}>
                           Comparison Factor
                         </th>
                         {selectedProductsData.map((product) => (
                           <th
                             key={product.id}
                             scope="col"
-                            style={{ background: 'var(--color-ink)', color: 'var(--color-surface)', textTransform: 'none', letterSpacing: 'normal', textAlign: 'center', minWidth: '200px' }}
+                            style={{ textTransform: 'none', letterSpacing: 'normal', textAlign: 'center', minWidth: '200px', whiteSpace: 'normal' }}
                           >
                             <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-                              <span style={{ fontSize: 'var(--text-eyebrow)', opacity: 0.85, fontWeight: 500 }}>{product.brand}</span>
-                              <span style={{ fontSize: '1rem', fontWeight: 700 }}>{product.name.split(' ').slice(0, 3).join(' ')}</span>
+                              <span style={{ fontSize: 'var(--text-eyebrow)', color: 'var(--color-ink-soft)', fontWeight: 500 }}>{product.brand}</span>
+                              {/* Full product name — no 3-word truncation (#23). */}
+                              <span style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{product.name}</span>
                               <span className="badge badge-brand" style={{ marginTop: '0.25rem' }}>{product.badge}</span>
                             </span>
                           </th>
@@ -526,7 +539,8 @@ export default function CompareModern() {
                       <tr>
                         <td style={rowLabelStyle}><Award style={rowIcon} aria-hidden="true" />Overall Score</td>
                         {selectedProductsData.map((product) => {
-                          const isWinner = winner('effectiveness', product)
+                          // Crown keys off product.score — the value the cell shows (#21).
+                          const isWinner = winner('score', product)
                           return (
                             <td key={product.id} className="num" style={{ textAlign: 'center', ...(isWinner ? winnerCellStyle : {}) }}>
                               <span style={{ fontSize: '1.25rem', ...(isWinner ? winnerValueStyle : baseValueStyle) }}>
@@ -577,7 +591,8 @@ export default function CompareModern() {
                                 {product.dhmPerDollar.toFixed(1)} mg/$
                                 {isWinner && <Crown style={{ width: '0.95rem', height: '0.95rem', display: 'inline', marginLeft: '0.25rem', color: 'var(--color-brand)' }} />}
                               </div>
-                              <div className="text-soft" style={{ fontSize: 'var(--text-eyebrow)' }}>Best value indicator</div>
+                              {/* Caption only under the winning column (#2). */}
+                              {isWinner && <div className="text-soft" style={{ fontSize: 'var(--text-eyebrow)' }}>Best value indicator</div>}
                             </td>
                           )
                         })}
@@ -725,7 +740,9 @@ export default function CompareModern() {
               <div className="lg:hidden">
                 <div className="stack" style={{ padding: 'var(--space-4)', '--stack-gap': 'var(--space-6)' }}>
                   {selectedProductsData.map((product, index) => {
-                    const isTopChoice = winner('effectiveness', product)
+                    // "Top Choice" + highlighted Overall Score box show product.score,
+                    // so the highlight keys off the same value (#21).
+                    const isTopChoice = winner('score', product)
                     const isBestValue = winner('dhmPerDollar', product)
                     const isHighestRated = winner('rating', product)
                     const isHighestDHM = winner('dhm', product)
@@ -790,7 +807,8 @@ export default function CompareModern() {
                                 {product.dhmPerDollar.toFixed(1)} mg/$
                                 {isBestValue && <Crown style={{ width: '0.95rem', height: '0.95rem', display: 'inline', marginLeft: '0.25rem', color: 'var(--color-brand)' }} />}
                               </span>
-                              <span className="text-soft" style={{ fontSize: 'var(--text-eyebrow)' }}>Best value indicator</span>
+                              {/* Caption only on the best-value product (#2). */}
+                              {isBestValue && <span className="text-soft" style={{ display: 'block', fontSize: 'var(--text-eyebrow)' }}>Best value indicator</span>}
                             </span>
                           </div>
 
@@ -1046,9 +1064,12 @@ export default function CompareModern() {
                 className="card"
                 style={{ display: 'block', textDecoration: 'none', height: '100%' }}
               >
-                <h3 className="card-title cluster" style={{ gap: 'var(--space-2)', color: 'var(--color-ink)', fontSize: '1.0625rem' }}>
-                  <BarChart3 aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem', color: 'var(--color-brand)' }} />
-                  {comparison.title}
+                {/* Non-wrapping flex (not .cluster) so the icon stays beside a
+                    wrapping title instead of floating above it; icon flex:0 0 auto,
+                    top-aligned to the first line (#3). */}
+                <h3 className="card-title" style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink)', fontSize: '1.0625rem' }}>
+                  <BarChart3 aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem', flex: '0 0 auto', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                  <span>{comparison.title}</span>
                 </h3>
                 <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>{comparison.desc}</p>
                 <span className="cluster" style={{ gap: 'var(--space-1)', marginTop: 'var(--space-3)', color: 'var(--color-brand-strong)', fontWeight: 600, fontSize: 'var(--text-small)' }}>

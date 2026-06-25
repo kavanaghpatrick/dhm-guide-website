@@ -13,6 +13,7 @@ import {
   Award,
   ArrowRight,
   CheckCircle2,
+  XCircle,
   Star,
   FlaskConical,
   Wine,
@@ -120,23 +121,19 @@ export default function GuideModern() {
               Stop the Hangover Cycle
             </span>
 
-            {/* Solid-ink editorial H1 — one brand-green emphasis line, NO gradient clip.
-                Static (no entrance translate) to protect the LCP element. */}
+            {/* Solid-ink editorial H1 — ONE brand-green emphasis word (not a phrase),
+                NO gradient clip. Static (no entrance translate) to protect the LCP element. */}
             <h1 style={{ marginTop: 'var(--space-4)' }}>
               The Complete Guide to DHM
-              <span className="accent" style={{ display: 'block' }}>
-                Science-Based Hangover Prevention
+              <span style={{ display: 'block' }}>
+                Science-Based Hangover <span className="accent">Prevention</span>
               </span>
             </h1>
 
             <p className="lead" style={{ marginInline: 'auto' }}>
               Learn exactly how to take DHM to prevent hangovers — dosage, timing, and which
-              products work. 11 clinical studies prove DHM reduces hangover severity by up to 70%.{' '}
-              <Link to="/never-hungover/dhm-japanese-raisin-tree-complete-guide">
-                From traditional medicine to cutting-edge research
-              </Link>
-              .{' '}
-              Learn about{' '}
+              products work. 11 clinical studies prove DHM reduces hangover severity by up to 70%.
+              From traditional medicine to cutting-edge research, learn about{' '}
               <Link to="/never-hungover/dhm-science-explained">DHM&rsquo;s molecular mechanisms</Link>{' '}
               and explore our{' '}
               <Link to="/never-hungover/dhm-dosage-guide-2025">comprehensive dosage guide</Link>.
@@ -159,7 +156,7 @@ export default function GuideModern() {
               <span className="trust-row__divider" aria-hidden="true" />
               <span className="trust-row__item">
                 <Award aria-hidden="true" />
-                <strong>1000+</strong>&nbsp;years of use
+                <strong>1000+</strong>&nbsp;years of safe use
               </span>
             </div>
           </header>
@@ -169,17 +166,29 @@ export default function GuideModern() {
           <div className="pathways" style={{ marginTop: 'var(--space-12)' }}>
             <div className="card">
               <h3 className="card-title">Your current reality</h3>
-              <ul style={{ margin: 0, color: 'var(--color-ink-soft)', fontSize: 'var(--text-small)' }}>
-                <li>Wasted Saturdays recovering in bed</li>
-                <li>Anxiety and regret the next day</li>
-                <li>Missing workouts, plans, and productivity</li>
-                <li>Expensive hangover &ldquo;cures&rdquo; that don&rsquo;t work</li>
+              <ul className="proscons" style={{ display: 'block' }}>
+                <li className="con">
+                  <XCircle aria-hidden="true" />
+                  Wasted Saturdays recovering in bed
+                </li>
+                <li className="con">
+                  <XCircle aria-hidden="true" />
+                  Anxiety and regret the next day
+                </li>
+                <li className="con">
+                  <XCircle aria-hidden="true" />
+                  Missing workouts, plans, and productivity
+                </li>
+                <li className="con">
+                  <XCircle aria-hidden="true" />
+                  Expensive hangover &ldquo;cures&rdquo; that don&rsquo;t work
+                </li>
               </ul>
             </div>
 
             <div
               className="card"
-              style={{ backgroundColor: 'var(--color-brand-soft)', borderColor: 'transparent' }}
+              style={{ backgroundColor: 'var(--color-brand-soft)' }}
             >
               <h3 className="card-title" style={{ color: 'var(--color-brand-strong)' }}>
                 Your new reality
@@ -370,8 +379,8 @@ export default function GuideModern() {
           <div className="stack" style={{ '--stack-gap': 'var(--space-6)' }}>
             {/* Scenario 1 */}
             <div className="card">
-              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)' }}>
-                <GlassWater aria-hidden="true" style={{ width: '1.25rem', height: '1.25rem', color: 'var(--color-brand)' }} />
+              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)', alignItems: 'flex-start' }}>
+                <GlassWater aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
                 Scenario 1: Friday Night Out (4-6 drinks)
               </h3>
               <div className="grid-auto" style={{ gap: 'var(--space-4)' }}>
@@ -402,8 +411,8 @@ export default function GuideModern() {
 
             {/* Scenario 2 */}
             <div className="card">
-              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)' }}>
-                <Wine aria-hidden="true" style={{ width: '1.25rem', height: '1.25rem', color: 'var(--color-brand)' }} />
+              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)', alignItems: 'flex-start' }}>
+                <Wine aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
                 Scenario 2: Wine with Dinner (2-3 glasses)
               </h3>
               <div className="grid-auto" style={{ gap: 'var(--space-4)' }}>
@@ -427,8 +436,8 @@ export default function GuideModern() {
 
             {/* Scenario 3 */}
             <div className="card">
-              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)' }}>
-                <PartyPopper aria-hidden="true" style={{ width: '1.25rem', height: '1.25rem', color: 'var(--color-brand)' }} />
+              <h3 className="card-title cluster" style={{ gap: 'var(--space-2)', alignItems: 'flex-start' }}>
+                <PartyPopper aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
                 Scenario 3: Special Event (6+ drinks)
               </h3>
               <div className="grid-auto" style={{ gap: 'var(--space-4)' }}>
@@ -730,15 +739,7 @@ export default function GuideModern() {
             </div>
 
             <p className="cta-band__reassure">
-              Free shipping · 30-day returns · Thousands of 5-star reviews
-              <br />
-              <Link to="/never-hungover/fitness-enthusiast-social-drinking-dhm-2025">
-                Fitness enthusiasts guide
-              </Link>{' '}
-              ·{' '}
-              <Link to="/never-hungover/organic-natural-hangover-prevention-clean-living-2025">
-                Clean living approach
-              </Link>
+              No fluff · Independent reviews · Science-backed protocol
             </p>
           </div>
         </div>
