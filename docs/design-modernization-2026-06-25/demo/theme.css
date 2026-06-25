@@ -1,0 +1,1082 @@
+/* ==========================================================================
+   DHM Guide — Modern Design Language theme (2026)
+   Demo stylesheet for docs/design-modernization-2026-06-25/demo/
+   --------------------------------------------------------------------------
+   Plain CSS using design tokens. NO Tailwind here — this is the standalone,
+   self-contained showcase of the design language. Production self-hosts the
+   variable woff2 fonts (subset, size-adjust/ascent-override for CLS 0); this
+   DEMO loads Fraunces + Inter via a Google Fonts <link> in index.html for
+   convenience only. Do not ship the Google CDN to production.
+
+   Token set, type scale, and component classes mirror the design-lead spec:
+   briefs/modernized-design-language.md
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* --- Color: warm-paper foundation, green demoted to mark+trust, orange = the
+         single saturated conversion accent, blue = links/science callouts only --- */
+  --color-paper:        #FAF8F4; /* page background — warm, not stark white */
+  --color-surface:      #FFFFFF; /* cards */
+  --color-ink:          #1A1D1A; /* primary text */
+  --color-ink-soft:     #4A4E48; /* secondary text */
+  --color-border:       #E7E3DB; /* warm hairline borders */
+  --color-brand:        #15803d; /* green — mark + trust (deeper, less neon) */
+  --color-brand-strong: #166534; /* green emphasis */
+  --color-brand-soft:   #ECF3EE; /* trust chips / badges / section surfaces */
+  --color-cta:          #F97316; /* CONVERSION ACCENT — protected, singular */
+  --color-cta-hover:    #EA580C; /* CTA hover */
+  --color-info:         #1D4ED8; /* blue — links / "science" callouts ONLY */
+
+  /* Derived ink-on-color text helpers */
+  --color-on-cta:       #FFFFFF;
+  --color-on-brand:     #FFFFFF;
+
+  /* --- Typography ---
+     Display = Fraunces (high-contrast editorial serif, optical-size axis).
+     Text/UI = Inter. Metric-matched system fallbacks keep swap reflow low. */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype",
+                  "Book Antiqua", Georgia, serif;
+  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Fluid type scale (clamp) — per spec */
+  --text-h1:      clamp(2.5rem, 5vw, 4rem);
+  --text-h2:      clamp(1.75rem, 3vw, 2.5rem);
+  --text-h3:      1.5rem;
+  --text-body:    1.0625rem;  /* 17px — up from 16px */
+  --text-small:   0.875rem;
+  --text-eyebrow: 0.75rem;
+
+  --leading-tight: 1.05;   /* h1 */
+  --leading-snug:  1.15;   /* h2/h3 */
+  --leading-body:  1.6;    /* body — relaxed editorial measure */
+  --tracking-tight: -0.02em;
+  --tracking-wide:  0.08em; /* eyebrows / uppercase labels */
+
+  /* --- Shape ---
+     8px unified radius; chips/badges pill; hero/feature panels 12–16px. */
+  --radius:        0.5rem;   /* 8px — cards, buttons, inputs */
+  --radius-sm:     0.375rem; /* 6px — small inset elements */
+  --radius-lg:     0.875rem; /* 14px — hero / feature panels (12–16 max) */
+  --radius-pill:   9999px;   /* chips / badges */
+
+  /* --- Spacing rhythm (strict 4/8 base: 4,8,12,16,24,32,48,64,96) --- */
+  --space-1:  0.25rem; /*  4px */
+  --space-2:  0.5rem;  /*  8px */
+  --space-3:  0.75rem; /* 12px */
+  --space-4:  1rem;    /* 16px */
+  --space-6:  1.5rem;  /* 24px */
+  --space-8:  2rem;    /* 32px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-24: 6rem;    /* 96px */
+
+  /* Section rhythm: py-20 desktop / py-12 mobile */
+  --section-y:        3rem; /* 48px mobile default */
+  --container-px:     1rem; /* px-4 mobile */
+  --container-max:    72rem;   /* 1152px — app/comparison layouts */
+  --container-prose:  45rem;   /* ~720px — editorial reading measure */
+
+  /* --- Elevation: role-based, border-first, warm-tinted shadows ---
+     Tier 0 is just the 1px warm border (the biggest modern tell). */
+  --elev-0: none;
+  --elev-1: 0 1px 2px rgb(26 29 26 / 0.04),
+            0 8px 24px -8px rgb(26 29 26 / 0.08);
+  --elev-2: 0 2px 4px rgb(26 29 26 / 0.05),
+            0 18px 40px -12px rgb(26 29 26 / 0.16);
+
+  /* --- Motion --- */
+  --transition: 180ms ease-out;
+  --transition-slow: 240ms ease-out;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --container-px: 1.5rem; /* sm:px-6 */
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-y: 5rem; /* py-20 desktop */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET / BASE ELEMENTS
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-4);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 600;
+}
+
+h2 {
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 var(--space-4);
+  max-width: 70ch;
+}
+
+a {
+  color: var(--color-info);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: color var(--transition);
+}
+a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+strong, b { font-weight: 600; color: var(--color-ink); }
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-12) 0;
+}
+
+ul, ol { padding-left: 1.25rem; }
+li { margin-bottom: var(--space-2); }
+
+small { font-size: var(--text-small); color: var(--color-ink-soft); }
+
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-info);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT — containers & sections
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+.container-prose {
+  width: 100%;
+  max-width: var(--container-prose);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+/* Deliberate tinted section surface (with border) to break monotony */
+.surface-brand {
+  background-color: var(--color-brand-soft);
+  border-block: 1px solid var(--color-border);
+}
+
+/* Subtle paper → brand-soft vertical wash for hero panels (no two-hue gradient) */
+.surface-wash {
+  background-image: linear-gradient(180deg, var(--color-paper) 0%, var(--color-brand-soft) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   4. TYPOGRAPHIC UTILITIES
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-brand-strong);
+  margin-bottom: var(--space-3);
+}
+
+/* Single accent word in a heading — solid color, never gradient text */
+.accent { color: var(--color-brand); }
+
+.lead {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  max-width: 60ch;
+}
+
+.text-soft  { color: var(--color-ink-soft); }
+.text-brand { color: var(--color-brand); }
+
+/* --------------------------------------------------------------------------
+   5. BUTTONS
+   Min 44px touch target, 8px radius, press scale(.97), 150–250ms ease-out.
+   -------------------------------------------------------------------------- */
+.btn {
+  --_btn-bg: var(--color-surface);
+  --_btn-fg: var(--color-ink);
+  --_btn-bd: var(--color-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;            /* touch target */
+  padding: 0.625rem 1.25rem;
+  border: 1px solid var(--_btn-bd);
+  border-radius: var(--radius);
+  background-color: var(--_btn-bg);
+  color: var(--_btn-fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition),
+              border-color var(--transition),
+              color var(--transition),
+              box-shadow var(--transition),
+              transform var(--transition);
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: scale(0.97); }
+.btn svg,
+.btn [data-lucide] { width: 1.125em; height: 1.125em; }
+
+/* The ONE saturated color on the page → the natural conversion focal point. */
+.btn-cta {
+  --_btn-bg: var(--color-cta);
+  --_btn-fg: var(--color-on-cta);
+  --_btn-bd: var(--color-cta);
+  box-shadow: 0 1px 2px rgb(234 88 12 / 0.20),
+              0 8px 20px -8px rgb(234 88 12 / 0.45);
+}
+.btn-cta:hover {
+  --_btn-bg: var(--color-cta-hover);
+  --_btn-bd: var(--color-cta-hover);
+  color: var(--color-on-cta);
+}
+.btn-cta:active { opacity: 0.95; } /* active opacity feedback paired with scale */
+
+.btn-secondary {
+  --_btn-bg: var(--color-surface);
+  --_btn-fg: var(--color-ink);
+  --_btn-bd: var(--color-border);
+}
+.btn-secondary:hover {
+  --_btn-bd: var(--color-ink-soft);
+  background-color: #fff;
+  color: var(--color-ink);
+  box-shadow: var(--elev-1);
+}
+
+.btn-ghost {
+  --_btn-bg: transparent;
+  --_btn-fg: var(--color-ink-soft);
+  --_btn-bd: transparent;
+}
+.btn-ghost:hover {
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+}
+
+.btn-sm { min-height: 38px; padding: 0.4375rem 0.875rem; font-size: var(--text-small); }
+.btn-lg { min-height: 52px; padding: 0.875rem 1.75rem; font-size: 1.125rem; }
+.btn-block { width: 100%; }
+
+/* Touch devices: the compact .btn-sm keeps desktop density, but a coarse
+   pointer needs the full 44px touch target (header CTA, in-table actions). */
+@media (pointer: coarse) {
+  .btn-sm { min-height: 44px; }
+}
+
+/* --------------------------------------------------------------------------
+   6. CHIPS & BADGES (pill, brand-soft trust accents)
+   -------------------------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+  font-size: var(--text-small);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+.chip svg,
+.chip [data-lucide] { width: 1em; height: 1em; color: var(--color-brand); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-ink-soft);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.badge-brand { background: var(--color-brand-soft); color: var(--color-brand-strong); border-color: transparent; }
+.badge-cta   { background: var(--color-cta); color: var(--color-on-cta); border-color: transparent; }
+.badge-info  { background: #EAF0FE; color: var(--color-info); border-color: transparent; }
+
+/* --------------------------------------------------------------------------
+   7. CARDS — border-first depth tiers
+   -------------------------------------------------------------------------- */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--elev-0); /* Tier 0 — flat, border only */
+}
+
+/* Tier 1 — raised, interactive: two-layer warm shadow + 1px border */
+.card-raised {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--elev-1);
+  transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-raised:hover {
+    transform: translateY(-4px);   /* card hover lift */
+    box-shadow: var(--elev-2);
+  }
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. STAT — trust metrics ("20+ brands", "5000+ reviews")
+   -------------------------------------------------------------------------- */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-brand-strong);
+}
+.stat-label {
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   9. SCROLL-REVEAL (one-shot, gated behind reduced-motion)
+   Toggle [data-revealed] via IntersectionObserver in JS to animate in.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+  }
+  .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. SMALL HELPERS used by later designers
+   -------------------------------------------------------------------------- */
+.grid-auto {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.stack > * + * { margin-top: var(--stack-gap, var(--space-4)); }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.divider { border: 0; border-top: 1px solid var(--color-border); margin: 0; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   11. STYLE-GUIDE SPECIMENS (scoped to the @styleguide showcase section)
+   Built only from the existing token set — no new design tokens introduced.
+   These are documentation/layout helpers for the design-system page itself.
+   -------------------------------------------------------------------------- */
+
+/* Small monospace token name (e.g. --color-paper) used across specimens. */
+.token-name {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono",
+               Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.125rem 0.375rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* TYPOGRAPHY specimen: role/font/size meta column + rendered sample. */
+.type-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+.type-row:first-child { border-top: 0; }
+.type-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+.type-role {
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-brand-strong);
+}
+.type-spec {
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}
+.type-sample { margin: 0; max-width: none; color: var(--color-ink); }
+.type-sample--h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 600;
+}
+.type-sample--h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+.type-sample--h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+.type-sample--body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+.type-sample--small {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+@media (min-width: 768px) {
+  .type-row {
+    grid-template-columns: 14rem 1fr;
+    align-items: baseline;
+  }
+}
+
+/* COLOR specimen: swatch grid. */
+.swatch-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+}
+.swatch {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+.swatch__chip {
+  height: 4.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.swatch__body {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.swatch__hex {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono",
+               Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  color: var(--color-ink-soft);
+  text-transform: uppercase;
+}
+.swatch__role {
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+  line-height: 1.45;
+}
+/* For very light chips, an inset ring keeps the edge legible on paper. */
+.swatch__chip--ring { box-shadow: inset 0 0 0 1px var(--color-border); }
+
+/* RADIUS + SPACING specimen tiles. */
+.spec-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+}
+.radius-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+.radius-swatch {
+  width: 100%;
+  height: 3.5rem;
+  background-color: var(--color-brand-soft);
+  border: 1px solid var(--color-border);
+}
+.spacing-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.spacing-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.spacing-item__label {
+  flex: 0 0 8.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}
+.spacing-item__bar {
+  height: 1rem;
+  background-color: var(--color-brand);
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   12. COMPONENT-GALLERY HELPERS (scoped to the @components showcase)
+   Layout/structure helpers for the money components: product card, star
+   rating, pros/cons, comparison table, FAQ accordion. Built ONLY from the
+   existing token set — no new design tokens introduced.
+   -------------------------------------------------------------------------- */
+
+/* Generic label above a component cluster in the gallery. */
+.gallery-label {
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-brand-strong);
+  margin-bottom: var(--space-3);
+}
+/* Quiet inline note (e.g. "hover →") next to a specimen. */
+.hover-note {
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+  font-style: italic;
+}
+
+/* ---- Star rating (Lucide stars, brand-soft track / cta-free) ---- */
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  color: #E8A317;          /* warm gold — review convention, not the CTA orange */
+  line-height: 0;
+}
+.stars [data-lucide] {
+  width: 1.05em;
+  height: 1.05em;
+  fill: currentColor;       /* filled-star look */
+  stroke: currentColor;
+}
+.stars [data-lucide].is-empty {
+  fill: none;
+  color: var(--color-border);
+}
+.rating-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}
+.rating-meta strong { color: var(--color-ink); }
+
+/* ---- Product card (the money component) ---- */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 22rem;
+}
+.product-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(180deg, var(--color-paper) 0%, var(--color-brand-soft) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-ink-soft);
+}
+.product-media [data-lucide] { width: 2.5rem; height: 2.5rem; opacity: 0.5; }
+.product-media__tag {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+.product-brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.product-value {
+  color: var(--color-ink-soft);
+  font-size: var(--text-small);
+  margin: 0;
+  max-width: none;
+}
+.product-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.product-price__amount {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+.product-price__unit { font-size: var(--text-small); color: var(--color-ink-soft); }
+
+/* ---- Pros / cons list (Lucide check = brand green, minus = desaturated) ---- */
+.proscons {
+  display: grid;
+  gap: var(--space-3) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 480px) {
+  .proscons { grid-template-columns: 1fr 1fr; }
+}
+.proscons li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+.proscons [data-lucide] {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.05rem;
+}
+.proscons .pro [data-lucide] { color: var(--color-brand); }
+/* Cons read "honest", not "alarming" — desaturated, not a saturated red. */
+.proscons .con { color: var(--color-ink-soft); }
+.proscons .con [data-lucide] { color: var(--color-ink-soft); opacity: 0.7; }
+
+/* ---- Comparison table (tight, zebra-striped, scannable) ---- */
+.compare {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: var(--text-small);
+}
+.compare th,
+.compare td {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+}
+.compare thead th {
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+  font-weight: 600;
+  font-size: var(--text-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.compare tbody tr:nth-child(even) td { background-color: var(--color-paper); } /* zebra */
+.compare tbody tr:last-child td { border-bottom: 0; }
+.compare tbody tr:hover td { background-color: var(--color-brand-soft); }
+.compare .product-cell {
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+.compare .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.compare .action-cell { text-align: right; white-space: nowrap; }
+.compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.compare .row-winner td { box-shadow: inset 3px 0 0 0 var(--color-cta); } /* subtle winner marker */
+
+/* ---- FAQ accordion (static open + closed states) ---- */
+.faq { display: flex; flex-direction: column; gap: var(--space-3); }
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  overflow: hidden;
+}
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: left;
+  line-height: 1.3;
+}
+.faq-q [data-lucide] {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-ink-soft);
+  transition: transform var(--transition);
+}
+.faq-item[data-open="true"] .faq-q { color: var(--color-brand-strong); }
+.faq-a {
+  padding: 0 var(--space-6) var(--space-6);
+  color: var(--color-ink-soft);
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+.faq-a p { margin: 0; max-width: 66ch; }
+.faq-item[data-open="false"] .faq-a { display: none; }
+
+/* --------------------------------------------------------------------------
+   13. APPLIED-SAMPLE HELPERS (scoped to the @hero + @sample showcase)
+   Layout/structure helpers for the "new theme on real DHM content" highlight.
+   Built ONLY from the existing token set — no new design tokens introduced.
+   -------------------------------------------------------------------------- */
+
+/* ---- HERO: warm paper, two-column on desktop, static + stationary CTA ---- */
+.hero { padding-block: var(--section-y); }
+.hero__grid {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--space-16);
+  }
+}
+.hero__title {
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-6);
+  text-wrap: balance;
+}
+.hero__lead { margin-bottom: var(--space-8); }
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+/* Inline trust-signal row under the CTAs (stars + quick proof points). */
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}
+.trust-row__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+.trust-row__item strong { color: var(--color-ink); }
+.trust-row [data-lucide] {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--color-brand);
+  flex: 0 0 auto;
+}
+.trust-row__divider {
+  width: 1px;
+  height: 1.25rem;
+  background-color: var(--color-border);
+}
+
+/* ---- Dual-pathway cards (Liver / Brain) — two tier-0 bordered cards,
+        NOT a green→blue gradient banner. ---- */
+.pathways {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 480px) {
+  .pathways { grid-template-columns: 1fr 1fr; }
+}
+.pathway {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+}
+.pathway__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand);
+  border: 1px solid var(--color-border);
+}
+.pathway__icon [data-lucide] { width: 22px; height: 22px; }
+.pathway__title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.pathway__body {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  max-width: none;
+}
+/* A quiet caption tying the two pathways together, under the card pair. */
+.pathways__note {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+  max-width: none;
+}
+
+/* ---- Section heading cluster (eyebrow + h2 + lead, centered option) ---- */
+.section-head { margin-bottom: var(--space-12); max-width: 60ch; }
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.section-head--center .lead { margin-inline: auto; }
+
+/* ---- Top-picks product row (3 product cards in a responsive grid) ---- */
+.picks-grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+@media (min-width: 720px) {
+  .picks-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .picks-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.picks-grid .product-card { max-width: none; height: 100%; }
+
+/* ---- "Why these" trust band on a brand surface (stat cluster) ---- */
+.trust-band {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (min-width: 880px) {
+  .trust-band { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+}
+.trust-band__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+.trust-band__stats .stat-value { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+
+/* ---- Testimonial / credibility band (quote cards) ---- */
+.quote-grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .quote-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+.quote__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--color-ink);
+  max-width: none;
+}
+.quote__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+.quote__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  flex: 0 0 auto;
+}
+.quote__name { font-weight: 600; font-size: var(--text-small); color: var(--color-ink); line-height: 1.2; }
+.quote__meta { font-size: var(--text-eyebrow); color: var(--color-ink-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* ---- Final CTA band (calm centered card, single orange CTA) ---- */
+.cta-band {
+  text-align: center;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.cta-band .lead { margin-inline: auto; margin-bottom: var(--space-8); }
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  align-items: center;
+}
+.cta-band__reassure {
+  margin: var(--space-6) 0 0;
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}

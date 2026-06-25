@@ -1,0 +1,86 @@
+[
+  {
+    "rank": 1,
+    "page": "Best DHM Supplements (Reviews)",
+    "route": "/reviews",
+    "experimentKey": "reviews-modern-foundation-v1",
+    "hypothesis": "A warm-paper neutral foundation that concentrates the single orange accent on the recommended product (de-oranging the comparison table so only the winner row keeps a filled orange button) raises perceived credibility and CTA salience, holding or lifting affiliate CTR while improving scroll depth.",
+    "variant": "Reviews.modern.jsx behind useExperiment, gated on isLoading: (1) warm paper #FAF8F4 page bg replacing the green/blue gradient; (2) solid ink H1 + ink stats replacing the green gradient-clip; (3) border-first review-card elevation keeping the #1 winner as the only tinted/shadowed surface; (4) de-orange the comparison table \u2014 neutral header, zebra striping, right-aligned numerics, only the winner row keeps a filled orange button (GATED to the Reviews placement via a variant/placement prop since InlineComparisonTable is shared). CTA hue/size/copy, winner emphasis, table density, and mobile sticky bar IDENTICAL to control. Web fonts EXCLUDED.",
+    "primaryMetric": "affiliate_link_click",
+    "effort": "M",
+    "expectedLift": "Modest. Hold-or-slight-lift on total affiliate CTR (realistic 0 to +8%); honest downside is click redistribution toward the winner row. Real upside is scroll depth + perceived credibility.",
+    "sequencing": "Ship first: highest-traffic, most conversion-proximate page, and the cleanest hypothesis. Land the @theme tokens and the wrapper pattern here so pages 2-6 reuse them. CRITICAL: instrument per-row affiliate_link_click (component_id rollup), not just total, because de-oranging the table may shift clicks toward the winner before declaring a win."
+  },
+  {
+    "rank": 2,
+    "page": "Homepage",
+    "route": "/",
+    "experimentKey": "homepage-editorial-refresh-v1",
+    "hypothesis": "A credible editorial frame (warm paper, flattened gradient headings, recolored off-palette gradient bands, monochrome stats, border-first cards, parallax removed) holds or raises affiliate CTR because the calm field makes the untouched orange CTAs the obvious focal point.",
+    "variant": "Home.modern.jsx behind useExperiment, gated on isLoading: warm paper #FAF8F4 replacing gray/white hero + green/blue washes; the four gradient-fill headings flattened to solid ink; the three off-palette gradient bands (green\u2192blue, purple\u2192blue, indigo) recolored to one brand surface with monochrome stats; border-first elevation (flat content cards, raised product cards); heritage parallax DELETED for a static section (also fixes the mobile broken-image bug); decorative emoji stripped from headings/badges. Orange product CTAs and mobile sticky Check-Price bar byte-for-byte identical to control. CUTS the stat count-up and web fonts.",
+    "primaryMetric": "affiliate_link_click",
+    "effort": "M",
+    "expectedLift": "Modest. Hold-or-slight-lift (realistic 0 to +6%). Primary win is removing the dominant 'dated' signal on the most-trafficked entry page; parallax deletion also recovers a broken-image trust hit on mobile.",
+    "sequencing": "Ship second, after Reviews validates the tokens+wrapper. Watch CTR on the GREEN /guide and /reviews CTA labels touched by the emoji strip (orange CTAs are untouched) \u2014 be ready to revert just the label emoji. Keep H1/H2 text, hierarchy, links, and schema identical to control so the experiment cannot move rankings."
+  },
+  {
+    "rank": 3,
+    "page": "DHM Hangover Relief Guide",
+    "route": "/guide",
+    "experimentKey": "guide-editorial-modern-v1",
+    "hypothesis": "Recoloring every primary CTA from green to the single protected orange accent (Pattern #12 saw +21% from exactly this swap) ON a calm paper foundation that makes the lone orange button unmissable lifts affiliate clicks \u2014 the conversion lever and the trust lever reinforce each other.",
+    "variant": "Guide.modern.jsx behind useExperiment, gated on isLoading: (1) warm paper foundation replacing the green\u2192blue wash; (2) solid-ink H1 (gradient-clip retired, one green emphasis word); (3) de-rainbowed 2-tone surfaces + border-first elevation (kill the purple testimonial card, unify the protocol circles to one tonal ramp); CRITICALLY (4) every primary CTA recolored green\u2192orange #F97316 plus a mobile sticky orange CTA bar reusing the existing sticky pattern + z-token. Static hero (no LCP-H1 translate), reduced-motion gating. Web fonts on font-display:optional only if added; emoji\u2192Lucide. Do NOT prune the 5 CTA bands (band removal changes structure and confounds the read).",
+    "primaryMetric": "affiliate_link_click",
+    "effort": "M",
+    "expectedLift": "Higher-confidence than ranks 1-2 because this CHANGES the CTA color (proven lever) rather than holding it. Honest: +7 to +15% (Pattern #12's +21% was a different surface; divide hype). This page is the documented biggest funnel leak, so even a modest lift is high-value.",
+    "sequencing": "Ship third. This is the one foundation variant where orange CHANGES \u2014 that is the intended lever, not a confound, because today the Guide has NO orange CTA at all. Keep CTA structure constant (5 bands stay), hold the H1 string and links for SEO, and ensure the mobile sticky bar uses the existing z-index token (never restyle header/main)."
+  },
+  {
+    "rank": 4,
+    "page": "The Science Behind DHM",
+    "route": "/research",
+    "experimentKey": "research-editorial-cta-v1",
+    "hypothesis": "Inserting ONE orange 'Check Price on Amazon' CTA right after the Key Findings / RCT proof sections \u2014 where reader conviction peaks \u2014 on a calm-neutral re-skin captures a high-intent audience that currently has NO mid-body affiliate path, directly adding affiliate clicks.",
+    "variant": "Research.modern.jsx behind useExperiment, gated on isLoading: warm-neutral bg replacing the green/blue wash; solid ink headings replacing the gradient clip-text; the 4-hue accent system (green + blue significance boxes + purple timeline button + split filter states) collapsed to green-mark + neutral; long-form study prose constrained to max-w-3xl (~66ch); flat border-first Key Findings cards; CRITICALLY ONE orange CTA inserted after the proof sections, wired through trackAffiliateClick({experimentKey, variant}). Control = current page with no body affiliate path. Web fonts and count-up EXCLUDED.",
+    "primaryMetric": "affiliate_link_click",
+    "effort": "M",
+    "expectedLift": "Potentially the highest absolute lift of the set because it fills a verified GAP (zero body CTA today) rather than redistributing \u2014 but from a smaller, lower-traffic audience. Honest: meaningful relative lift in affiliate_link_click from this page's converted-reader segment; modest in absolute site terms.",
+    "sequencing": "Ship fourth. Reserve a fixed min-height on the new CTA block so it doesn't shift content as it mounts (CLS). Confirm the new mid-body CTA out-emphasizes but does not cannibalize the footer internal CTAs. Keep all h1/h2 text and PubMed citation links intact \u2014 this page's ranking value IS the citations. Control (Research.jsx) stays byte-untouched."
+  },
+  {
+    "rank": 5,
+    "page": "Never Hungover Blog Hub",
+    "route": "/never-hungover",
+    "experimentKey": "never-hungover-editorial-hub-v1",
+    "hypothesis": "Adding a single compact orange 'Check Price on Amazon' product rail to the DESKTOP hub \u2014 which today has NO CTA at all (StickyMobileCTA is md:hidden) \u2014 plus a featured hero card and warm-paper re-skin, gives desktop readers a direct affiliate path and breaks the 169-card monotony, raising affiliate clicks per visitor.",
+    "variant": "NewBlogListing.modern.jsx behind useExperiment, gated on isLoading: (1) warm paper replacing the green\u2192blue wash + solid-ink H1 with one green accent word (drop bg-clip-text, gradient, hover:scale-105); (2) ONE compact orange product rail between the header and grid (net-new DESKTOP affiliate surface), reusing the sticky bar's topProductsData[0] + buildAffiliateUrl, wiring trackAffiliateClick (NO extra per-button onClick \u2014 the global listener already fires, double-wiring double-counts); (3) a single Featured/Editor's Pick hero card above the grid routing to a CTA-bearing article; (4) border-first grid cards with hover-only shadow + neutral tag chips. Web fonts, count-up, staggered reveals, and grid virtualization EXCLUDED.",
+    "primaryMetric": "affiliate_link_click (rate per visitor); secondary: article click-through, scroll depth, time-on-page",
+    "effort": "M",
+    "expectedLift": "Net-new desktop affiliate path = direct upside from a surface that converts nothing today; honest absolute lift is modest because the hub is top-of-funnel, but it is pure addition, not redistribution.",
+    "sequencing": "Ship fifth. Give the new rail image and the featured-hero image explicit width/height (or aspect-ratio) and keep the hero as the intended LCP element (fetchpriority=high) so they don't shift layout. Keep the rail IN-FLOW (not fixed/sticky) so it can't conflict with the global StickyMobileCTA z-40 scale. Do NOT virtualize the grid (would drop ~160 crawlable internal links \u2014 an SEO priority)."
+  },
+  {
+    "rank": 6,
+    "page": "Compare DHM Supplements",
+    "route": "/compare",
+    "experimentKey": "compare-calm-foundation-v1",
+    "hypothesis": "Making orange the ONLY saturated color on the page \u2014 warm paper bg, de-noised single-rubric comparison table with a green-soft winner pill, re-skinned Category Winners band, border-first cards \u2014 raises affiliate CTR by giving the orange CTAs uncontested salience.",
+    "variant": "Compare.modern.jsx behind useExperiment, gated on isLoading: (1) warm paper #FAF8F4 bg + solid-ink headings, gradient text removed; (2) comparison table de-noised to a single muted-ink rubric with zebra striping, right-aligned numerics, and a green-soft #ECF3EE winner-cell pill (remove the 7 competing accent-colored row icons); (3) Category Winners band re-skinned from saturated green to paper + tinted-border cards; (4) border-first elevation across matchup/FAQ/table surfaces. Orange CTA hue/size/'Check Price on Amazon'+'Free Shipping' copy byte-for-byte identical to control; typography stays system/Georgia. Web fonts, mobile-flow reorder, selector chips, and motion changes all DEFERRED.",
+    "primaryMetric": "affiliate_link_click",
+    "effort": "M",
+    "expectedLift": "Modest, same class as Reviews/Home/Compare foundation tests (realistic 0 to +8% hold-or-lift). Lowest traffic of the conversion pages, hence last.",
+    "sequencing": "Ship sixth. Color/border-only, zero new assets, no font load \u2014 near-zero CWV risk. Keep the four DIFFERENT levers (typography swap, mobile-flow reorder, selector-chip winner nudge, count-up) OUT \u2014 the selector-chip badge in particular is a behavioral conversion nudge, not aesthetics, and would make the CTR delta uninterpretable. Verify the orange CTAs are byte-identical between control and variant (L669, L671-677, L929)."
+  },
+  {
+    "rank": 7,
+    "page": "Site-wide (all six)",
+    "route": "/* (per-page or shared global)",
+    "experimentKey": "editorial-typography-v1",
+    "hypothesis": "Self-hosted Fraunces display + Inter text (replacing Georgia/system) reads as 'editorial/premium/credible' and is the #1 modernization lever \u2014 IF it ships with zero CLS and no LCP regression, it holds or lifts affiliate CTR via perceived quality.",
+    "variant": "On top of the winning foundation variants: swap headings to --font-display (Fraunces variable woff2, subset, font-display:optional) and body to --font-sans (Inter variable woff2, subset, preloaded as the LCP-participating text font) with size-adjust/ascent-override metric matching and a metric-matched local fallback so the webfont swap causes ZERO layout shift. Tokens in @theme. Measure LCP/CLS before/after in PostHog + Lighthouse; if the display serif regresses hero LCP, keep font-display:optional (fallback serif renders, webfont swaps on next nav).",
+    "primaryMetric": "affiliate_link_click (guardrail metrics: LCP, CLS)",
+    "effort": "L",
+    "expectedLift": "Uncertain. Typography is the biggest stated lever but the hardest to attribute and the biggest CWV risk on a zero-web-font, SEO-sensitive site. Treat as a perceived-quality bet with a CWV guardrail, not a CTR play.",
+    "sequencing": "Ship LAST, as its own isolated experiment(s), only after the foundation variants have won and shipped. Never bundle into a foundation or CTA test (every reviewer fences it out). Ship ONE web font pair only \u2014 self-hosting both families plus hand-rolled metric overrides is the over-engineered path the brief warns against; keep total payload <140KB and zero render-blocking requests. If any CWV guarantee can't be met, fall back to the refined-system-stack (CWV-free) and skip this test."
+  }
+]
