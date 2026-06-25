@@ -28,6 +28,54 @@
         "src/components/modern/ProductCardModern.jsx",
         "src/hooks/useVariant.js"
       ]
+    },
+    "guide-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern, editorial restyle of /guide (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts affiliate CTR and engagement vs the current control layout.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/GuideRoute.jsx",
+        "src/pages/Guide.modern.jsx",
+        "src/hooks/useVariant.js"
+      ]
+    },
+    "research-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern, editorial restyle of /research (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts engagement and downstream affiliate CTR vs the current control layout.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/ResearchRoute.jsx",
+        "src/pages/Research.modern.jsx",
+        "src/hooks/useVariant.js"
+      ]
+    },
+    "compare-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern, editorial restyle of /compare (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts affiliate CTR and engagement vs the current control comparison layout.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/CompareRoute.jsx",
+        "src/pages/Compare.modern.jsx",
+        "src/hooks/useVariant.js"
+      ]
+    },
+    "never-hungover-modern-v1": {
+      "owner": "patrick",
+      "hypothesis": "A modern, editorial restyle of /never-hungover (warm paper palette, Fraunces+Inter, border-first cards, orange-only CTAs) holds or lifts engagement and downstream affiliate CTR vs the current control listing layout.",
+      "start_date": "2026-06-25",
+      "decision_date": "2026-07-23",
+      "primary_metric": "affiliate_link_click",
+      "files": [
+        "src/pages/NeverHungoverRoute.jsx",
+        "src/newblog/pages/NewBlogListing.modern.jsx",
+        "src/hooks/useVariant.js"
+      ]
     }
   }
 }

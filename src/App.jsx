@@ -13,13 +13,13 @@ import './App.css'
 // Lazy load all page components - mapped to route paths
 const pageComponents = {
   '/': lazy(() => import('./pages/HomeRoute.jsx')),
-  '/guide': lazy(() => import('./pages/Guide.jsx')),
+  '/guide': lazy(() => import('./pages/GuideRoute.jsx')),
   '/reviews': lazy(() => import('./pages/ReviewsRoute.jsx')),
-  '/research': lazy(() => import('./pages/Research.jsx')),
+  '/research': lazy(() => import('./pages/ResearchRoute.jsx')),
   '/about': lazy(() => import('./pages/About.jsx')),
-  '/compare': lazy(() => import('./pages/Compare.jsx')),
+  '/compare': lazy(() => import('./pages/CompareRoute.jsx')),
   '/dhm-dosage-calculator': lazy(() => import('./pages/DosageCalculatorEnhanced.jsx')),
-  '/never-hungover': lazy(() => import('./newblog/pages/NewBlogListing.jsx')),
+  '/never-hungover': lazy(() => import('./pages/NeverHungoverRoute.jsx')),
   '/never-hungover/:slug': lazy(() => import('./newblog/components/NewBlogPost.jsx')),
 }
 
