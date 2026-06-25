@@ -1,0 +1,39 @@
+/* fonts-modern.css — self-hosted variable fonts for the "modern" A/B variant.
+ *
+ * Imported by src/styles/theme-modern.css, which is only loaded by variant pages.
+ * Control pages never reference these families, so the bytes only ship to the
+ * variant arm.
+ *
+ * Metric overrides on "Inter Variable" minimize CLS by matching the box metrics
+ * of the system fallback (Arial). Values are the published Inter-vs-Arial
+ * figures (Capsize / next-font), so the fallback text occupies the same space
+ * as Inter and there is no layout shift on swap.
+ *
+ * Fraunces uses font-display: optional — it is the display/heading face and we
+ * never want it to block or shift LCP. If it is not cached in time, the browser
+ * keeps the fallback for this page load rather than risking a late swap.
+ */
+
+/* ---- Body text: Inter ---------------------------------------------------- */
+@font-face {
+  font-family: "Inter Variable";
+  src: url(/fonts/inter-variable.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  /* Match Arial box metrics to eliminate CLS on swap (Inter vs Arial). */
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+}
+
+/* ---- Display / headings: Fraunces ---------------------------------------- */
+@font-face {
+  font-family: "Fraunces Variable";
+  src: url(/fonts/fraunces-variable.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  /* optional: never block or late-swap the LCP heading. */
+  font-display: optional;
+}

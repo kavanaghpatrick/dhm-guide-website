@@ -2,6 +2,11 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  // Visual-regression specs run under playwright.visual.config.js (reduced-motion,
+  // committed baselines). affiliate-tracking.spec.js is a PROD-targeted regression
+  // suite (defaults to https://www.dhmguide.com) run via playwright.affiliate.config.js.
+  // Keep both out of the default localhost behavior/e2e run.
+  testIgnore: ['**/visual/**', '**/affiliate-tracking.spec.js'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

@@ -1,0 +1,140 @@
+name: Test and Build
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      # Scoped to the new variant code. Full-repo `pnpm run lint` has ~450
+      # pre-existing errors (Node globals in /scripts not covered by eslint.config.js);
+      # that cleanup is out of scope for this PR and tracked separately.
+      - name: Lint variant code
+        run: pnpm run lint:modern
+
+  unit:
+    name: Unit tests
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Unit tests
+        run: pnpm run test
+
+  build:
+    name: Build
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Build (includes verify-z-classes)
+        run: pnpm run build
+
+  e2e:
+    name: E2E tests
+    needs: [unit, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright (chromium)
+        run: pnpm exec playwright install --with-deps chromium
+      # Behavior/e2e on localhost. The prod-targeted affiliate-tracking suite and the
+      # visual specs are excluded via testIgnore in playwright.config.js.
+      - name: E2E tests
+        run: pnpm run test:e2e
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  visual:
+    name: Visual regression (informational)
+    needs: e2e
+    runs-on: ubuntu-latest
+    # Non-blocking for now: snapshot baselines are committed from macOS dev, and Linux
+    # CI font rendering differs slightly. Bless Linux-native baselines via a manual
+    # `--update-snapshots` run before promoting this to a required merge gate.
+    continue-on-error: true
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright (chromium)
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Visual regression tests
+        run: pnpm run test:visual
+      - name: Upload visual diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  mass-edit-check:
+    name: Mass-edit moratorium check (#366, expires 2026-07-15)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check post JSON modification count
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/check-mass-edit.mjs --base origin/${{ github.base_ref }}
