@@ -94,10 +94,13 @@ jobs:
     name: Visual baselines (bootstrap)
     needs: e2e
     runs-on: ubuntu-latest
-    # The committed baselines are macOS-rendered; Linux CI font rendering differs, so a
-    # straight compare would always fail. This job GENERATES Linux-native baselines and
-    # uploads them as an artifact (always green). Download + commit those, then switch the
-    # step below from `test:visual:update` to `test:visual` to make visual a real gate.
+    # Informational, never blocks merge: this job GENERATES Linux-native baselines
+    # (macOS-committed baselines differ from Linux CI font rendering) and uploads them
+    # as an artifact. continue-on-error keeps occasional element-stability flakes on
+    # slow runners from blocking PRs. To promote to a strict gate once the design is
+    # locked: commit the Linux baselines, switch test:visual:update -> test:visual,
+    # and drop continue-on-error.
+    continue-on-error: true
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4

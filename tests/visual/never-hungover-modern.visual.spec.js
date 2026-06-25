@@ -65,9 +65,12 @@ function masks(page) {
 test.describe('Visual — /never-hungover modern variant', () => {
   test('hero', async ({ page }) => {
     await prepare(page);
-    const hero = page.locator('[data-testid="never-hungover-hero-modern"]');
-    await expect(hero).toBeVisible();
-    await expect(hero).toHaveScreenshot('never-hungover-modern-hero.png', {
+    await expect(page.locator('[data-testid="never-hungover-hero-modern"]')).toBeVisible();
+    // Capture the VIEWPORT (= the hero at scroll 0), not the hero element. An
+    // element screenshot scroll-into-views and waits for the element's box to be
+    // stable; on this lazy-loading hub that never settles on slow CI. A viewport
+    // capture has no element-stability requirement and is deterministic here.
+    await expect(page).toHaveScreenshot('never-hungover-modern-hero.png', {
       mask: masks(page),
     });
   });
