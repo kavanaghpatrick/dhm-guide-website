@@ -36,6 +36,9 @@ export default defineConfig({
       maxDiffPixelRatio: 0.01,
       animations: 'disabled',
       caret: 'hide',
+      // Give the element-stability wait headroom on slower CI runners (long,
+      // lazy-loading pages like the blog hub keep reflowing past the 5s default).
+      timeout: 20_000,
     },
   },
   use: {

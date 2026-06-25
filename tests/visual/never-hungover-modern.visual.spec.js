@@ -35,11 +35,26 @@ const DYNAMIC_MASK_SELECTORS = [
 
 /** @param {import('@playwright/test').Page} page */
 async function prepare(page) {
-  await page.goto(MODERN_URL);
-  await page.waitForLoadState('domcontentloaded');
+  await page.goto(MODERN_URL, { waitUntil: 'networkidle' });
   // Fonts must be painted before we screenshot, or the baseline flickers.
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(500);
+  // The hub lazy-loads ~197 article cards/images. On slower CI this keeps the
+  // layout (and the hero element's box) shifting, so settle it: scroll the whole
+  // page to trigger every lazy load, then return to top and let it stabilize.
+  await page.evaluate(async () => {
+    await new Promise((resolve) => {
+      let y = 0;
+      const step = 1200;
+      const t = setInterval(() => {
+        window.scrollBy(0, step);
+        y += step;
+        if (y >= document.body.scrollHeight) { clearInterval(t); resolve(); }
+      }, 40);
+    });
+  });
+  await page.waitForTimeout(300);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(800);
 }
 
 /** @param {import('@playwright/test').Page} page */
