@@ -32,20 +32,29 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
   const rating = Number(product.rating) || 0
   const filledStars = Math.round(rating)
   const stars = Array.from({ length: 5 }, (_, i) => i < filledStars)
+  // Always display one decimal so a whole-number rating (e.g. 4) never renders a
+  // bare "4" next to its peers' "4.3" (finding #4).
+  const ratingLabel = rating.toFixed(1)
 
-  // Show a compact, scannable subset of pros/cons (the demo card is intentionally
-  // tight — two of each keeps the grid balanced and the card height controlled).
-  const pros = (product.pros ?? []).slice(0, 3)
-  const cons = (product.cons ?? []).slice(0, 2)
+  // Pros / cons: keep the card scannable, but NEVER silently drop a con — the
+  // cons are the deciding information (finding #28). Show up to 3 pros and ALL
+  // cons (each product has only 2–3), then a single "+N more" that accounts for
+  // any hidden pros so the count is honest and card heights stay even.
+  const allPros = product.pros ?? []
+  const allCons = product.cons ?? []
+  const pros = allPros.slice(0, 3)
+  const cons = allCons
+  const hiddenCount = allPros.length - pros.length
 
-  // Winner emphasis: an inset orange edge marker built from the existing
-  // conversion-accent token (mirrors the demo `.row-winner` / orange CTA),
-  // plus a 1px brand-soft surface lift. No new tokens.
+  // Winner emphasis (finding #27): orange is reserved for the ONE conversion
+  // element (the CTA). The winner gets a GREEN brand edge + brand border + a
+  // green "Editor's pick" badge, so the card reads as "trusted" without stacking
+  // three orange signals against the single orange buy button. No new tokens.
   const winnerStyle = isWinner
     ? {
         boxShadow:
-          'inset 4px 0 0 0 var(--color-cta), var(--elev-2)',
-        borderColor: 'var(--color-cta)',
+          'inset 4px 0 0 0 var(--color-brand), var(--elev-2)',
+        borderColor: 'var(--color-brand)',
       }
     : undefined
 
@@ -59,7 +68,7 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
       data-testid={isWinner ? 'reviews-winner-card' : undefined}
     >
       {isWinner && (
-        <span className="badge badge-cta" style={{ alignSelf: 'flex-start' }}>
+        <span className="badge badge-brand" style={{ alignSelf: 'flex-start' }}>
           Editor&rsquo;s pick
         </span>
       )}
@@ -74,7 +83,7 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
           <span
             className="stars"
             role="img"
-            aria-label={`Rated ${rating} out of 5`}
+            aria-label={`Rated ${ratingLabel} out of 5`}
           >
             {stars.map((filled, i) => (
               <Star
@@ -88,7 +97,7 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
             ))}
           </span>
           <span className="rating-meta">
-            <strong>{rating}</strong>
+            <strong>{ratingLabel}</strong>
             {' · '}
             {(product.reviews ?? 0).toLocaleString()} reviews
           </span>
@@ -113,6 +122,14 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
             <Minus aria-hidden="true" /> {con}
           </li>
         ))}
+        {hiddenCount > 0 && (
+          <li
+            className="product-value"
+            style={{ gridColumn: '1 / -1', fontSize: 'var(--text-small)' }}
+          >
+            +{hiddenCount} more {hiddenCount === 1 ? 'benefit' : 'benefits'}
+          </li>
+        )}
       </ul>
 
       <p className="product-value">

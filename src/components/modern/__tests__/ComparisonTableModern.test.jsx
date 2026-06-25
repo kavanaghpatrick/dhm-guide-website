@@ -109,9 +109,9 @@ describe('ComparisonTableModern', () => {
     expect(winnerCta.getAttribute('href')).toContain('utm_content=reviews-modern-table-cta-0');
   });
 
-  it('renders the comparison column headers (Product, Rating, DHM, Price, Action)', () => {
+  it('renders the comparison column headers (Product, Rating, DHM, Price / serving, Action)', () => {
     setup();
-    ['Product', 'Rating', 'DHM', 'Price', 'Action'].forEach((label) => {
+    ['Product', 'Rating', 'DHM', 'Price / serving', 'Action'].forEach((label) => {
       expect(
         screen.getByRole('columnheader', { name: label })
       ).toBeInTheDocument();

@@ -37,6 +37,7 @@
   --color-cta:          #F97316; /* CONVERSION ACCENT — protected, singular */
   --color-cta-hover:    #EA580C; /* CTA hover */
   --color-info:         #1D4ED8; /* blue — links / "science" callouts ONLY */
+  --color-star:         #E8A317; /* warm gold — star-rating convention, distinct from CTA orange */
 
   /* Derived ink-on-color text helpers */
   --color-on-cta:       #FFFFFF;
@@ -667,7 +668,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.125rem;
-    color: #E8A317;          /* warm gold — review convention, not the CTA orange */
+    color: var(--color-star); /* warm gold — review convention, not the CTA orange */
     line-height: 0;
   }
   .stars [data-lucide] {
@@ -808,7 +809,19 @@
   .compare .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .compare .action-cell { text-align: right; white-space: nowrap; }
   .compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .compare .row-winner td { box-shadow: inset 3px 0 0 0 var(--color-cta); } /* subtle winner marker */
+  .compare .row-winner td { box-shadow: inset 3px 0 0 0 var(--color-brand); } /* green winner marker — orange reserved for CTAs */
+
+  /* "+N more" overflow indicator (e.g. ingredient lists). A muted, lowercase
+     pill so it reads as a count, not a clickable chip (#35). */
+  .more-count {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    text-transform: none;
+    letter-spacing: normal;
+  }
 
   /* ---- FAQ accordion (static open + closed states) ---- */
   .faq { display: flex; flex-direction: column; gap: var(--space-3); }
@@ -908,9 +921,16 @@
     flex: 0 0 auto;
   }
   .trust-row__divider {
+    flex: 0 0 auto;
     width: 1px;
     height: 1.25rem;
     background-color: var(--color-border);
+  }
+  /* On narrow screens the row wraps and items stack — dividers then dangle at
+     the start/end of wrapped lines. Drop them; the gap alone separates items. */
+  @media (max-width: 480px) {
+    .trust-row { gap: var(--space-2) var(--space-4); }
+    .trust-row__divider { display: none; }
   }
 
   /* ---- Dual-pathway cards (Liver / Brain) — two tier-0 bordered cards,
@@ -1002,6 +1022,23 @@
   }
   .trust-band__stats .stat-value { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
 
+  /* ---- Compare hero stat strip: 4-across on desktop (was cramped 2x2). ----
+     Word-valued stats (Real-time, Expert) use .stat-word — same display face,
+     but sized as a qualitative value so prose never sits in the big numeric
+     .stat-value. (#20 grid, #32 no-words-in-numeric). */
+  .compare-hero-stat .stat-word {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-strong);
+  }
+  .compare-hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 720px) {
+    .compare-hero-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
   /* ---- Testimonial / credibility band (quote cards) ---- */
   .quote-grid {
     display: grid;
@@ -1067,6 +1104,20 @@
     margin: var(--space-6) 0 0;
     font-size: var(--text-small);
     color: var(--color-ink-soft);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   GLOBAL STICKY MOBILE CTA CLEARANCE (#24)
+   The shared StickyMobileCTA bar is fixed to the bottom on mobile only
+   (Tailwind `md:hidden` → shows below 768px) at ~56px tall + safe-area inset.
+   Reserve matching space at the foot of the variant subtree so the last card /
+   CTA is never overlapped by the bar. Matched to the bar's `md:hidden`
+   breakpoint so desktop (where the bar is hidden) gets no dead space.
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .theme-modern {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
   }
 }
 

@@ -73,6 +73,22 @@ import '../styles/theme-modern.css'
 const EXPERIMENT_KEY = 'site-modern-v1'
 
 /**
+ * #8 — Author-byline guard. Real study bylines are surname-initial author lists
+ * ("Chen, S., Zhao, X., et al."). Placeholder strings like "Research Team (2024)"
+ * are not authors and must never render as one on the flagship clinical trial.
+ * Returns false for empty/placeholder values so the byline line is omitted and
+ * the card falls back to the journal · institution line. Once the underlying
+ * data is corrected this guard simply passes the real authors through.
+ */
+function hasRealAuthors(authors) {
+  if (typeof authors !== 'string') return false
+  const value = authors.trim()
+  if (!value) return false
+  // Generic team/group placeholders (with or without a trailing year) are not authors.
+  return !/^(research|study|clinical|the)\s+(team|group|collaboration)\b/i.test(value)
+}
+
+/**
  * Copy-to-clipboard button rendered per study card. Local "Copied!" feedback
  * lasts ~2s before reverting. Restyled to the theme (neutral ghost button); the
  * data-copy-apa hook is preserved for parity with the control.
@@ -387,15 +403,17 @@ export default function ResearchModern() {
       {winnerProduct?.affiliateLink && (
         <section className="section">
           <div className="container">
-            <div
-              className="cta-band card"
-              style={{ minHeight: '14rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}
-            >
+            {/* #35: standardized on the canonical .cta-band contract (shared
+                with the footer band) — the class already centers content and
+                .cta-band__actions/.__reassure lay out the button + disclosure,
+                so the divergent inline flex/minHeight overrides are dropped. The
+                `card` surface stays because this band sits mid-page. */}
+            <div className="cta-band card">
               <span className="eyebrow">Ready to put the research to work?</span>
               <h2 style={{ marginBottom: 'var(--space-3)' }}>
                 Try the DHM Supplement Behind These Results
               </h2>
-              <p className="lead" style={{ marginInline: 'auto' }}>
+              <p className="lead">
                 Our top-rated pick, <strong>{winnerProduct.name}</strong>, delivers a clinically-studied
                 DHM dose — the same compound shown to clear alcohol up to 70% faster.
               </p>
@@ -568,22 +586,32 @@ export default function ResearchModern() {
                 </div>
 
                 <h3 className="card-title">{study.title}</h3>
-                <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: '0 0 var(--space-1)' }}>
-                  {study.authors}
-                </p>
+                {/* #8 render guard: never surface a placeholder byline (e.g.
+                    "Research Team (2024)") as a real author. When the data lacks
+                    a genuine author list, fall back to the institution alone so
+                    the flagship RCT never shows a fake author line. */}
+                {hasRealAuthors(study.authors) && (
+                  <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: '0 0 var(--space-1)' }}>
+                    {study.authors}
+                  </p>
+                )}
                 <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: '0 0 var(--space-4)' }}>
                   {study.journal} · {study.institution}
                 </p>
 
-                <div className="cluster" style={{ gap: 'var(--space-6)', marginBottom: 'var(--space-4)' }}>
-                  <span className="stat">
-                    <span className="stat-label">Participants</span>
-                    <strong>{study.participants}</strong>
-                  </span>
-                  <span className="stat">
-                    <span className="stat-label">Duration</span>
-                    <strong>{study.duration}</strong>
-                  </span>
+                {/* #10/#32: Participants & Duration are descriptive prose
+                    ("Animal models + cell culture", "Single dose crossover
+                    study"), NOT numbers — render them as plain label:value meta
+                    pairs, never with the big numeric .stat-value treatment. */}
+                <div className="cluster" style={{ gap: 'var(--space-8)', marginBottom: 'var(--space-4)' }}>
+                  <div>
+                    <span className="stat-label" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>Participants</span>
+                    <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>{study.participants}</span>
+                  </div>
+                  <div>
+                    <span className="stat-label" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>Duration</span>
+                    <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>{study.duration}</span>
+                  </div>
                 </div>
 
                 <hr className="divider" style={{ margin: 'var(--space-4) 0' }} />
@@ -619,18 +647,20 @@ export default function ResearchModern() {
                   </div>
                 </div>
 
-                {/* Significance — desaturated brand-soft callout (was saturated blue). */}
+                {/* #19 Significance — subtle paper surface with a green label and
+                    INK body copy (was green-on-green: brand-strong text on a
+                    brand-soft fill, which washed the copy out). */}
                 <div
                   style={{
                     marginTop: 'var(--space-4)',
                     padding: 'var(--space-4)',
-                    backgroundColor: 'var(--color-brand-soft)',
+                    backgroundColor: 'var(--color-paper)',
                     border: '1px solid var(--color-border)',
                     borderRadius: 'var(--radius)',
                   }}
                 >
-                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.0625rem', margin: '0 0 var(--space-2)' }}>Significance</h4>
-                  <p style={{ margin: 0, fontSize: 'var(--text-small)', color: 'var(--color-brand-strong)' }}>{study.significance}</p>
+                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.0625rem', margin: '0 0 var(--space-2)', color: 'var(--color-brand-strong)' }}>Significance</h4>
+                  <p style={{ margin: 0, fontSize: 'var(--text-small)', color: 'var(--color-ink)' }}>{study.significance}</p>
                 </div>
 
                 <div className="cluster" style={{ gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>

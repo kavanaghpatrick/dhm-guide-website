@@ -7,6 +7,7 @@ import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 import StickyMobileCTA from '@/components/StickyMobileCTA'
 import { useFeatureFlag } from '@/hooks/useFeatureFlag'
+import { useModernExperiment } from '@/lib/experiment'
 import clusterConfig from '../../../scripts/cluster-config.json'
 
 // Util: kebab-case → Title Case ("dhm-master" → "DHM Master")
@@ -76,6 +77,17 @@ function Layout({ children }) {
   // A/B Test #255: Nav CTA copy re-test (previously #134)
   const navCtaVariant = useFeatureFlag('nav-cta-copy-v1', 'control')
   const navCtaCopy = navCtaVariant === 'see-top-picks' ? 'See Top Picks' : 'Best Supplements'
+
+  // Modern variant gate (#11): the shared header CTA navigates to /reviews — it is
+  // NOT an affiliate/buy CTA, so on the modern variant it must NOT use the reserved
+  // conversion orange, and it must drop the loud saturated green gradient that fights
+  // the variant's restrained warm-paper palette. Render a calm, single-tone deep-green
+  // (brand "trust" accent) instead. Control behavior is untouched.
+  const { variant: modernVariant } = useModernExperiment()
+  const isModern = modernVariant === 'modern'
+  const navCtaClassName = isModern
+    ? 'bg-green-700 hover:bg-green-800 text-white shadow-none'
+    : 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white'
 
   // Get navigation items from centralized router
   const navItems = getNavItems().map(route => ({
@@ -212,7 +224,7 @@ function Layout({ children }) {
             <div className="hidden lg:block flex-shrink-0">
               <Button
                 asChild
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+                className={navCtaClassName}
                 data-track="nav-cta"
                 data-cta-variant={navCtaVariant}
               >
@@ -355,7 +367,7 @@ function Layout({ children }) {
                 })}
                 <Button
                   asChild
-                  className="mt-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+                  className={`mt-4 ${navCtaClassName}`}
                 >
                   <a
                     href="/reviews"

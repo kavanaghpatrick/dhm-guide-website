@@ -65,10 +65,14 @@ test.describe('Reviews — modern variant behavior', () => {
     await expect(winnerCard).toBeVisible();
   });
 
-  test('comparison table has exactly one winner row', async ({ page }) => {
-    const winnerRow = page.locator('[data-testid="comparison-winner-row"]');
-    await expect(winnerRow).toHaveCount(1);
-    await expect(winnerRow).toBeVisible();
+  test('comparison table marks exactly one winner (responsive: row on desktop, card on mobile)', async ({ page }) => {
+    // The modern table renders a desktop <table> (winner = comparison-winner-row) and,
+    // below 640px, stacked product cards (winner = comparison-winner-card). Exactly one
+    // winner marker is VISIBLE in whichever layout the viewport gets.
+    const visibleWinner = page.locator(
+      '[data-testid="comparison-winner-row"]:visible, [data-testid="comparison-winner-card"]:visible'
+    );
+    await expect(visibleWinner).toHaveCount(1);
   });
 
   test('every Check Price affiliate link carries the modern tracking contract', async ({

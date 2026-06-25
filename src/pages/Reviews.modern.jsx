@@ -88,10 +88,25 @@ export default function ReviewsModern() {
     { value: 'reviews', label: 'Most Reviews' },
   ]
 
+  // The Editor's Choice winner is a STABLE product property (the product flagged
+  // with the "Editor's Choice" badge), NOT whatever lands at index 0 after the
+  // user sorts/filters. Emphasis (orange edge + winner testid + free-shipping
+  // badge) must follow this product wherever it sits in the list (finding #12).
+  const isEditorsChoice = (p) => p?.badge === "Editor's Choice"
+
   const activeFilter = bestForFilters.find((f) => f.id === filterBy)
   const filteredProducts = activeFilter?.match
     ? topProducts.filter(activeFilter.match)
     : topProducts
+
+  // Parse the leading mg figure from the (sometimes prose) DHM field so sorting
+  // is total and stable. Entries like "Most DHM per dose" / "DHM + Milk Thistle
+  // Blend" have no number — they sink to the bottom (-1) instead of producing
+  // NaN, which would corrupt the comparator and yield arbitrary order (finding #7).
+  const dhmMg = (value) => {
+    const match = String(value ?? '').match(/(\d[\d,]*)\s*mg/i) ?? String(value ?? '').match(/\d[\d,]*/)
+    return match ? parseInt(match[0].replace(/[^\d]/g, ''), 10) : -1
+  }
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
@@ -105,10 +120,7 @@ export default function ReviewsModern() {
           parseFloat(b.pricePerServing.replace('$', ''))
         )
       case 'dhm':
-        return (
-          parseInt(b.dhm.replace(/[^\d]/g, '')) -
-          parseInt(a.dhm.replace(/[^\d]/g, ''))
-        )
+        return dhmMg(b.dhm) - dhmMg(a.dhm)
       case 'reviews':
         return b.reviews - a.reviews
       default:
@@ -126,7 +138,7 @@ export default function ReviewsModern() {
     { title: 'No Days Wasted vs Good Morning', slug: 'no-days-wasted-vs-good-morning-hangover-pills-comparison-2025', desc: 'Premium hangover pill showdown' },
   ]
 
-  const winner = topProducts?.[0]
+  const winner = topProducts.find(isEditorsChoice) ?? topProducts?.[0]
 
   return (
     <div className="theme-modern" style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}>
@@ -202,9 +214,11 @@ export default function ReviewsModern() {
             className="cluster"
             style={{ justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-6)' }}
           >
-            {/* Best For filter — active button uses brand GREEN (testid/visual parity). */}
-            <div className="cluster" style={{ gap: 'var(--space-2)' }}>
-              <span className="cluster" style={{ gap: 'var(--space-2)', color: 'var(--color-ink-soft)', fontWeight: 600 }}>
+            {/* Best For filter — active button uses brand GREEN (testid/visual parity).
+                The pills wrap cleanly: the "Best For:" label is kept intact and the
+                pills flow after it onto as many rows as the viewport needs (#25). */}
+            <div className="cluster" style={{ gap: 'var(--space-2)', rowGap: 'var(--space-2)' }}>
+              <span className="cluster" style={{ flex: '0 0 auto', flexWrap: 'nowrap', gap: 'var(--space-2)', color: 'var(--color-ink-soft)', fontWeight: 600, whiteSpace: 'nowrap' }}>
                 <Filter aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem' }} />
                 Best For:
               </span>
@@ -242,7 +256,21 @@ export default function ReviewsModern() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="btn btn-sm"
-                style={{ fontWeight: 500, cursor: 'pointer' }}
+                style={{
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  // Suppress the OS chevron and paint a single custom caret in the
+                  // ink-soft tone so the control reads as one coherent affordance
+                  // rather than a button with a foreign system arrow (#25).
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'none',
+                  paddingRight: '2.25rem',
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%234A4E48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E\")",
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 0.875rem center',
+                }}
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -280,7 +308,7 @@ export default function ReviewsModern() {
                 product={product}
                 index={index}
                 experimentKey={EXPERIMENT_KEY}
-                isWinner={index === 0}
+                isWinner={isEditorsChoice(product)}
               />
             ))}
           </div>
@@ -310,9 +338,15 @@ export default function ReviewsModern() {
                 className="card-raised"
                 style={{ display: 'block', textDecoration: 'none', height: '100%' }}
               >
-                <h3 className="card-title cluster" style={{ gap: 'var(--space-2)', color: 'var(--color-ink)' }}>
-                  <BarChart3 aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem', color: 'var(--color-brand)' }} />
-                  {comparison.title}
+                {/* Non-wrapping flex (NOT .cluster): the icon stays fixed-size and
+                    top-aligned beside a title that may wrap to multiple lines, so
+                    it never floats mid-height or breaks onto its own row (#3). */}
+                <h3
+                  className="card-title"
+                  style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink)' }}
+                >
+                  <BarChart3 aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                  <span>{comparison.title}</span>
                 </h3>
                 <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>
                   {comparison.desc}

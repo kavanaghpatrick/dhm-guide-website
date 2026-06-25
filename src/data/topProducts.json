@@ -21,8 +21,9 @@
       "GMP certified, 98%+ purity"
     ],
     "cons": [
-      "Higher price point",
-      "Only 15 servings per package"
+      "Higher price at $1.93 per serving",
+      "Only 15 servings per package",
+      "Premium positioning costs more than basic DHM-only options"
     ],
     "bestFor": "Weekend warriors who want the best",
     "ingredients": [
@@ -54,7 +55,7 @@
     "pros": [
       "Amazon's Choice - 2K+ bought this month",
       "1000mg DHM per tablet - max potency",
-      "Just $0.66/serving - best value tested",
+      "Just $0.80/serving - best value tested",
       "Third-party tested, 98% purity"
     ],
     "cons": [
@@ -123,7 +124,7 @@
     "affiliateLink": "https://amzn.to/44znXFU",
     "pros": [
       "1000mg DHM per capsule - max strength",
-      "Under $20 for 30 servings",
+      "60 servings at just $0.48 each - lowest cost per dose",
       "98%+ pure, third-party tested",
       "Made in USA, FDA-registered facility"
     ],
@@ -148,7 +149,8 @@
     "price": "$34.99",
     "pricePerServing": "$2.92",
     "servings": 12,
-    "dhm": "Most DHM per dose",
+    "dhm": "1000mg",
+    "dhmNote": "Most DHM per dose (1,200mg vine tea extract, 98% DHM)",
     "purity": "Patented blend",
     "badge": "As Seen on Shark Tank",
     "badgeColor": "bg-blue-500",
@@ -199,7 +201,7 @@
       "Feel refreshed, not drained next day"
     ],
     "cons": [
-      "Higher cost per serving at $4.50",
+      "Higher cost per serving at $3.62",
       "Only 4 servings per package",
       "Complex ingredient list may not suit sensitive users"
     ],
@@ -225,7 +227,8 @@
     "price": "$29.95",
     "pricePerServing": "$1.00",
     "servings": 30,
-    "dhm": "DHM + Milk Thistle Blend",
+    "dhm": "Undisclosed",
+    "dhmNote": "DHM + Milk Thistle Blend (mg not disclosed by brand)",
     "purity": "80% Silymarin Milk Thistle",
     "badge": "88.89% Effective",
     "badgeColor": "bg-green-500",
@@ -311,7 +314,7 @@
       "Money-back guarantee included"
     ],
     "cons": [
-      "Premium pricing at $1.50 per serving",
+      "Premium pricing at $2.00 per serving",
       "Limited customer reviews (93)",
       "Standard shipping only (3-5 days)"
     ],
@@ -342,7 +345,7 @@
       "Highest rated - 4.5/5 stars",
       "1,129+ verified customer reviews",
       "Third-party tested, GMP certified",
-      "50 servings at $0.90 each - bulk value"
+      "50 servings at $0.40 each - bulk value"
     ],
     "cons": [
       "Lower DHM content at 300mg per serving",

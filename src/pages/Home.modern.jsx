@@ -87,8 +87,11 @@ export default function HomeModern() {
                   <SearchCheck aria-hidden="true" />
                   Find My Supplement
                 </Link>
-                {/* Ghost secondary — stays neutral so it never competes with the CTA. */}
-                <Link className="btn btn-ghost btn-lg" to="/guide">
+                {/* Bordered secondary — matches every other secondary action on the
+                    page (See full comparison, Calculate your dosage) for one
+                    consistent affordance, while staying neutral so it never
+                    competes with the single orange CTA. */}
+                <Link className="btn btn-secondary btn-lg" to="/guide">
                   Read the science
                   <ArrowRight aria-hidden="true" />
                 </Link>
@@ -101,28 +104,71 @@ export default function HomeModern() {
                     role="img"
                     aria-label="Rated 4.4 out of 5"
                   >
-                    {[true, true, true, true, false].map((filled, i) => (
-                      <Star
-                        key={i}
-                        aria-hidden="true"
-                        className={filled ? undefined : 'is-empty'}
-                        style={
-                          filled
-                            ? {
-                                width: '1.05em',
-                                height: '1.05em',
-                                fill: 'currentColor',
-                                stroke: 'currentColor',
-                              }
-                            : {
-                                width: '1.05em',
-                                height: '1.05em',
-                                fill: 'none',
-                                color: 'var(--color-border)',
-                              }
-                        }
-                      />
-                    ))}
+                    {[0, 1, 2, 3, 4].map((i) => {
+                      // Render the 4.4 average honestly: 4 full stars + a 5th
+                      // star filled to its fractional share (0.4) via a clipped
+                      // gold overlay on an empty track. No flat "4 stars".
+                      const fill = Math.max(0, Math.min(1, 4.4 - i))
+                      if (fill >= 1) {
+                        return (
+                          <Star
+                            key={i}
+                            aria-hidden="true"
+                            style={{
+                              width: '1.05em',
+                              height: '1.05em',
+                              fill: 'currentColor',
+                              stroke: 'currentColor',
+                            }}
+                          />
+                        )
+                      }
+                      return (
+                        <span
+                          key={i}
+                          style={{
+                            position: 'relative',
+                            display: 'inline-flex',
+                            width: '1.05em',
+                            height: '1.05em',
+                          }}
+                        >
+                          {/* Empty track */}
+                          <Star
+                            className="is-empty"
+                            aria-hidden="true"
+                            style={{
+                              width: '1.05em',
+                              height: '1.05em',
+                              fill: 'none',
+                              color: 'var(--color-border)',
+                            }}
+                          />
+                          {/* Gold fill clipped to the fractional share */}
+                          {fill > 0 && (
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                overflow: 'hidden',
+                                width: `${fill * 100}%`,
+                                color: 'inherit',
+                              }}
+                            >
+                              <Star
+                                style={{
+                                  width: '1.05em',
+                                  height: '1.05em',
+                                  fill: 'currentColor',
+                                  stroke: 'currentColor',
+                                }}
+                              />
+                            </span>
+                          )}
+                        </span>
+                      )
+                    })}
                   </span>
                   <strong>4.4</strong>&nbsp;avg rating
                 </span>
@@ -141,7 +187,7 @@ export default function HomeModern() {
 
             {/* RIGHT: dual-pathway as TWO tier-0 bordered cards (no gradient banner) */}
             <div>
-              <p className="eyebrow" style={{ color: 'var(--color-ink-soft)' }}>
+              <p className="eyebrow">
                 How it protects you
               </p>
               <div className="pathways">
