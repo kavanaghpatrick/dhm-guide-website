@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/button.jsx'
 import { Menu, X, Leaf, ChevronDown } from 'lucide-react'
 import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
@@ -9,6 +8,7 @@ import StickyMobileCTA from '@/components/StickyMobileCTA'
 import { useFeatureFlag } from '@/hooks/useFeatureFlag'
 import { useModernExperiment } from '@/lib/experiment'
 import clusterConfig from '../../../scripts/cluster-config.json'
+import '../../styles/theme-modern.css'
 
 // Util: kebab-case → Title Case ("dhm-master" → "DHM Master")
 const ACRONYMS = new Set(['dhm', 'nac', 'bac', 'rem', 'gi'])
@@ -45,7 +45,7 @@ function Layout({ children }) {
   const [mounted, setMounted] = useState(false)
   const topicsRef = useRef(null)
   const dropdownRef = useRef(null)
-  const { currentPath, navigate, isActive, getNavItems, getFooterItems } = useRouter()
+  const { navigate, isActive, getNavItems } = useRouter()
   const { headerRef, headerHeight } = useHeaderHeight()
 
   useEffect(() => {
@@ -78,25 +78,24 @@ function Layout({ children }) {
   const navCtaVariant = useFeatureFlag('nav-cta-copy-v1', 'control')
   const navCtaCopy = navCtaVariant === 'see-top-picks' ? 'See Top Picks' : 'Best Supplements'
 
-  // Modern variant gate (#11): the shared header CTA navigates to /reviews — it is
-  // NOT an affiliate/buy CTA, so on the modern variant it must NOT use the reserved
-  // conversion orange, and it must drop the loud saturated green gradient that fights
-  // the variant's restrained warm-paper palette. Render a calm, single-tone deep-green
-  // (brand "trust" accent) instead. Control behavior is untouched.
-  const { variant: modernVariant } = useModernExperiment()
-  const isModern = modernVariant === 'modern'
-  const navCtaClassName = isModern
-    ? 'bg-green-700 hover:bg-green-800 text-white shadow-none'
-    : 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white'
+  // The shared header CTA navigates to /reviews — it is NOT an affiliate/buy CTA, so
+  // it must NEVER use the reserved conversion orange. It renders as a calm, single-tone
+  // deep brand green (the "trust" accent) via theme-modern tokens on the .btn base,
+  // consistent with the shipped modern chrome. `useModernExperiment` is still consumed
+  // for parity with the rest of the file (and any future variant gating), but the CTA
+  // treatment is now unconditionally modern/green on the restyled chrome.
+  useModernExperiment()
+  // Solid brand-strong green fill with white text (7.1:1 contrast, AA); no gradient,
+  // no orange. Applied on top of the theme-modern `.btn` base (44px min target, radius).
+  const navCtaGreenStyle = {
+    backgroundColor: 'var(--color-brand-strong)',
+    borderColor: 'var(--color-brand-strong)',
+    color: 'var(--color-on-brand)',
+    boxShadow: 'none',
+  }
 
   // Get navigation items from centralized router
   const navItems = getNavItems().map(route => ({
-    name: route.name,
-    href: route.path
-  }))
-
-  // Get footer resource items
-  const footerItems = getFooterItems().map(route => ({
     name: route.name,
     href: route.path
   }))
@@ -106,16 +105,24 @@ function Layout({ children }) {
   }, [navigate])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-      {/* Header. NB: do NOT add opacity/transform/will-change/filter here without
-          also escaping the Topics dropdown (#161) to position:fixed — this header is
-          a stacking-context-creating ancestor of that dropdown. The previous
+    <div className="min-h-screen bg-white">
+      {/* Header — modern chrome. Scoped `theme-modern` so the shared design tokens
+          (--color-paper/-border/-brand/-ink, --font-display, --radius, --elev-1)
+          cascade into the header subtree (the header sits OUTSIDE each page's
+          .theme-modern wrapper, so it needs its own scope).
+          NB: do NOT add opacity/transform/will-change/filter here without also
+          escaping the Topics dropdown (#161) to position:fixed — this header is a
+          stacking-context-creating ancestor of that dropdown. The previous
           `style={{ opacity: headerOpacity }}` from useTransform trapped the
           dropdown's z-50 inside the header's local stacking context and caused
           page content to render above the dropdown. (issue: mega-menu overlap) */}
       <header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-header bg-white/80 backdrop-blur-md border-b border-green-100"
+        className="theme-modern fixed top-0 left-0 right-0 z-header backdrop-blur-md"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--color-paper) 82%, transparent)',
+          borderBottom: '1px solid var(--color-border)',
+        }}
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between min-h-[40px]">
@@ -131,14 +138,16 @@ function Layout({ children }) {
               }}
               className="flex items-center space-x-2 group flex-shrink-0"
             >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center"
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
+                style={{ backgroundColor: 'var(--color-brand)', borderRadius: 'var(--radius)' }}
               >
-                <Leaf className="w-5 h-5 text-white" />
-              </motion.div>
-              <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent whitespace-nowrap">
+                <Leaf className="w-5 h-5 text-white" aria-hidden="true" />
+              </div>
+              <span
+                className="text-xl lg:text-2xl font-bold whitespace-nowrap"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-brand-strong)' }}
+              >
                 DHM Guide
               </span>
             </a>
@@ -164,20 +173,16 @@ function Layout({ children }) {
                         aria-expanded={isTopicsOpen}
                         aria-controls="topics-mega-menu"
                         data-track="nav-topics-trigger"
-                        className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 whitespace-nowrap inline-flex items-center gap-1 ${
-                          isActive('/never-hungover')
-                            ? 'text-green-600'
-                            : 'text-gray-600 hover:text-green-600'
+                        className={`nav-link relative px-3 py-2 text-sm whitespace-nowrap inline-flex items-center gap-1 ${
+                          isActive('/never-hungover') ? 'is-active' : ''
                         }`}
                       >
                         Topics
-                        <ChevronDown className={`w-4 h-4 transition-transform ${isTopicsOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform ${isTopicsOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
                         {isActive('/never-hungover') && (
-                          <motion.div
-                            layoutId="activeTab"
-                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600"
-                            initial={false}
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          <span
+                            className="nav-marker absolute bottom-0 left-0 right-0 h-0.5"
+                            aria-hidden="true"
                           />
                         )}
                       </button>
@@ -200,19 +205,15 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation(item.href);
                     }}
-                    className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
-                      isActive(item.href)
-                        ? 'text-green-600'
-                        : 'text-gray-600 hover:text-green-600'
+                    className={`nav-link relative px-3 py-2 text-sm whitespace-nowrap ${
+                      isActive(item.href) ? 'is-active' : ''
                     }`}
                   >
                     {item.name}
                     {isActive(item.href) && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      <span
+                        className="nav-marker absolute bottom-0 left-0 right-0 h-0.5"
+                        aria-hidden="true"
                       />
                     )}
                   </a>
@@ -220,38 +221,36 @@ function Layout({ children }) {
               })}
             </nav>
 
-            {/* CTA Button */}
+            {/* CTA Button — internal nav to /reviews (NOT an affiliate/buy CTA), so
+                it renders in brand GREEN, never the reserved conversion orange. */}
             <div className="hidden lg:block flex-shrink-0">
-              <Button
-                asChild
-                className={navCtaClassName}
+              <a
+                href="/reviews"
                 data-track="nav-cta"
                 data-cta-variant={navCtaVariant}
-              >
-                <a
-                  href="/reviews"
-                  onClick={(e) => {
-                    // Allow Ctrl/Cmd+click for "open in new tab"
-                    if (e.metaKey || e.ctrlKey) return;
+                onClick={(e) => {
+                  // Allow Ctrl/Cmd+click for "open in new tab"
+                  if (e.metaKey || e.ctrlKey) return;
 
-                    e.preventDefault();
-                    handleNavigation('/reviews');
-                  }}
-                >
-                  {navCtaCopy}
-                </a>
-              </Button>
+                  e.preventDefault();
+                  handleNavigation('/reviews');
+                }}
+                className="btn"
+                style={navCtaGreenStyle}
+              >
+                {navCtaCopy}
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-3 text-gray-600 hover:text-green-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
+              className="nav-link lg:hidden p-3 min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
               data-track="mobile_menu"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
 
@@ -261,29 +260,35 @@ function Layout({ children }) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="lg:hidden mt-4 pb-4 border-t border-green-100 pt-4"
+              className="lg:hidden mt-4 pb-4 pt-4"
+              style={{ borderTop: '1px solid var(--color-border)' }}
             >
               <div className="flex flex-col space-y-3">
                 {navItems.map((item) => {
                   // Replace /never-hungover with collapsible Topics section on mobile
                   if (item.href === '/never-hungover') {
                     return (
-                      <div key="topics-mobile" className="border border-green-100 rounded-lg overflow-hidden">
+                      <div
+                        key="topics-mobile"
+                        className="rounded-lg overflow-hidden"
+                        style={{ border: '1px solid var(--color-border)', borderRadius: 'var(--radius)' }}
+                      >
                         <button
                           type="button"
                           onClick={() => setExpandedClusterMobile(c => c === '__topics__' ? null : '__topics__')}
                           aria-expanded={expandedClusterMobile === '__topics__'}
-                          className={`w-full px-4 py-3 text-sm font-medium text-left min-h-[44px] flex items-center justify-between ${
-                            isActive('/never-hungover')
-                              ? 'bg-green-100 text-green-600'
-                              : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
+                          className={`nav-link-block w-full text-sm text-left justify-between ${
+                            isActive('/never-hungover') ? 'is-active' : ''
                           }`}
                         >
                           <span>Topics</span>
-                          <ChevronDown className={`w-4 h-4 transition-transform ${expandedClusterMobile === '__topics__' ? 'rotate-180' : ''}`} />
+                          <ChevronDown className={`w-4 h-4 transition-transform ${expandedClusterMobile === '__topics__' ? 'rotate-180' : ''}`} aria-hidden="true" />
                         </button>
                         {expandedClusterMobile === '__topics__' && (
-                          <div className="bg-green-50/50 px-2 py-2 space-y-3">
+                          <div
+                            className="px-2 py-2 space-y-3"
+                            style={{ backgroundColor: 'color-mix(in srgb, var(--color-brand-soft) 55%, transparent)' }}
+                          >
                             {clusterConfig.clusters.map((cluster) => {
                               const pillarHref = `/never-hungover/${cluster.pillar}`
                               return (
@@ -297,11 +302,15 @@ function Layout({ children }) {
                                     }}
                                     data-track="nav-topics-cluster-mobile"
                                     data-cluster={cluster.name}
-                                    className="block text-sm font-bold text-green-700 py-2"
+                                    className="block text-sm font-bold py-2"
+                                    style={{ color: 'var(--color-brand-strong)' }}
                                   >
                                     {clusterLabel(cluster.name)} →
                                   </a>
-                                  <ul className="pl-3 space-y-1 border-l-2 border-green-200">
+                                  <ul
+                                    className="pl-3 space-y-1"
+                                    style={{ borderLeft: '2px solid var(--color-border)' }}
+                                  >
                                     {cluster.spokes.slice(0, SPOKES_PER_CLUSTER).map((spoke) => {
                                       const href = `/never-hungover/${spoke}`
                                       return (
@@ -315,7 +324,7 @@ function Layout({ children }) {
                                             }}
                                             data-track="nav-topics-spoke-mobile"
                                             data-cluster={cluster.name}
-                                            className="block text-xs text-gray-700 hover:text-green-600 py-1.5 min-h-[32px]"
+                                            className="nav-link block text-xs py-1.5 min-h-[32px]"
                                           >
                                             {slugToSpokeTitle(spoke)}
                                           </a>
@@ -326,7 +335,7 @@ function Layout({ children }) {
                                 </div>
                               )
                             })}
-                            <div className="px-2 pt-2 border-t border-green-200">
+                            <div className="px-2 pt-2" style={{ borderTop: '1px solid var(--color-border)' }}>
                               <a
                                 href="/never-hungover"
                                 onClick={(e) => {
@@ -334,7 +343,8 @@ function Layout({ children }) {
                                   e.preventDefault()
                                   handleNavigation('/never-hungover')
                                 }}
-                                className="block text-sm font-medium text-green-600 py-2"
+                                className="nav-link block text-sm font-medium py-2"
+                                style={{ color: 'var(--color-brand-strong)' }}
                               >
                                 View all articles →
                               </a>
@@ -355,33 +365,28 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation(item.href);
                     }}
-                    className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors text-left min-h-[44px] ${
-                      isActive(item.href)
-                        ? 'bg-green-100 text-green-600'
-                        : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
+                    className={`nav-link-block text-sm text-left ${
+                      isActive(item.href) ? 'is-active' : ''
                     }`}
                   >
                     {item.name}
                   </a>
                   )
                 })}
-                <Button
-                  asChild
-                  className={`mt-4 ${navCtaClassName}`}
-                >
-                  <a
-                    href="/reviews"
-                    onClick={(e) => {
-                      // Allow Ctrl/Cmd+click for "open in new tab"
-                      if (e.metaKey || e.ctrlKey) return;
+                <a
+                  href="/reviews"
+                  onClick={(e) => {
+                    // Allow Ctrl/Cmd+click for "open in new tab"
+                    if (e.metaKey || e.ctrlKey) return;
 
-                      e.preventDefault();
-                      handleNavigation('/reviews');
-                    }}
-                  >
-                    {navCtaCopy}
-                  </a>
-                </Button>
+                    e.preventDefault();
+                    handleNavigation('/reviews');
+                  }}
+                  className="btn btn-block mt-4"
+                  style={navCtaGreenStyle}
+                >
+                  {navCtaCopy}
+                </a>
               </div>
             </motion.nav>
           )}
@@ -406,8 +411,14 @@ function Layout({ children }) {
           aria-label="Topics"
           onMouseEnter={() => setIsTopicsOpen(true)}
           onMouseLeave={() => setIsTopicsOpen(false)}
-          style={{ top: headerHeight + 8 }}
-          className="fixed left-1/2 -translate-x-1/2 w-screen max-w-4xl bg-white rounded-xl shadow-2xl border border-gray-100 p-6 z-50"
+          style={{
+            top: headerHeight + 8,
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius)',
+            boxShadow: 'var(--elev-1)',
+          }}
+          className="theme-modern fixed left-1/2 -translate-x-1/2 w-screen max-w-4xl p-6 z-50"
         >
           <div className="grid grid-cols-3 gap-x-6 gap-y-5">
             {clusterConfig.clusters.map((cluster) => {
@@ -424,7 +435,8 @@ function Layout({ children }) {
                     }}
                     data-track="nav-topics-cluster"
                     data-cluster={cluster.name}
-                    className="block text-sm font-bold text-green-700 hover:text-green-900 mb-2 leading-tight"
+                    className="nav-link block text-sm font-bold mb-2 leading-tight"
+                    style={{ color: 'var(--color-brand-strong)' }}
                   >
                     {clusterLabel(cluster.name)} →
                   </a>
@@ -443,7 +455,7 @@ function Layout({ children }) {
                             }}
                             data-track="nav-topics-spoke"
                             data-cluster={cluster.name}
-                            className="block text-xs text-gray-600 hover:text-green-600 leading-snug"
+                            className="nav-link block text-xs leading-snug"
                           >
                             {slugToSpokeTitle(spoke)}
                           </a>
@@ -455,7 +467,7 @@ function Layout({ children }) {
               )
             })}
           </div>
-          <div className="mt-5 pt-4 border-t border-gray-100">
+          <div className="mt-5 pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
             <a
               href="/never-hungover"
               onClick={(e) => {
@@ -464,7 +476,8 @@ function Layout({ children }) {
                 setIsTopicsOpen(false)
                 handleNavigation('/never-hungover')
               }}
-              className="text-sm font-medium text-green-600 hover:text-green-800"
+              className="nav-link text-sm font-medium"
+              style={{ color: 'var(--color-brand-strong)' }}
             >
               View all articles →
             </a>
@@ -481,31 +494,57 @@ function Layout({ children }) {
       {/* Sticky Mobile CTA - A/B Test #126 */}
       <StickyMobileCTA />
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      {/* Footer — modern chrome. Scoped `theme-modern` for token access. Rendered as a
+          LIGHT warm surface (paper) so it reads as a continuation of the warm-paper
+          modern pages, separated from the body by a single 1px --color-border hairline
+          (border-first, no heavy slab). Replaces the old cold near-black footer slab.
+          Links use quiet ink-soft → brand-strong hover; headings/wordmark are solid
+          Fraunces ink; disclosure/copyright use ink-soft. Footer tap targets carry a
+          44px min-height on mobile (a11y). No orange anywhere — no affiliate CTA here. */}
+      <footer
+        className="theme-modern py-12"
+        style={{
+          backgroundColor: 'var(--color-paper)',
+          color: 'var(--color-ink-soft)',
+          borderTop: '1px solid var(--color-border)',
+        }}
+      >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                  <Leaf className="w-5 h-5 text-white" />
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--color-brand)', borderRadius: 'var(--radius)' }}
+                >
+                  <Leaf className="w-5 h-5 text-white" aria-hidden="true" />
                 </div>
-                <span className="text-xl font-bold">DHM Guide</span>
+                <span
+                  className="text-xl font-bold"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+                >
+                  DHM Guide
+                </span>
               </div>
-              <p className="text-gray-300 mb-4 max-w-md">
+              <p className="mb-4 max-w-md" style={{ color: 'var(--color-ink-soft)' }}>
                 Your comprehensive resource for understanding DHM (Dihydromyricetin) and its benefits for hangover prevention and liver health.
               </p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm" style={{ color: 'var(--color-ink-soft)' }}>
                 © 2026 DHM Guide. All rights reserved.
               </p>
-              <p className="text-sm text-gray-400 mt-3">
+              <p className="text-sm mt-3" style={{ color: 'var(--color-ink-soft)' }}>
                 As an Amazon Associate I earn from qualifying purchases made through links on this site, at no additional cost to you.
               </p>
             </div>
-            
+
             <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-gray-300">
+              <h3
+                className="font-semibold mb-4"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+              >
+                Quick Links
+              </h3>
+              <ul className="space-y-1">
                 {navItems.map((item) => (
                   <li key={item.name}>
                     <a
@@ -517,7 +556,8 @@ function Layout({ children }) {
                         e.preventDefault();
                         handleNavigation(item.href);
                       }}
-                      className="hover:text-white transition-colors"
+                      className="nav-link text-sm"
+                      style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
                     >
                       {item.name}
                     </a>
@@ -525,10 +565,15 @@ function Layout({ children }) {
                 ))}
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
-              <ul className="space-y-2 text-gray-300">
+              <h3
+                className="font-semibold mb-4"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+              >
+                Resources
+              </h3>
+              <ul className="space-y-1">
                 <li>
                   <a
                     href="/research"
@@ -537,7 +582,8 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation('/research');
                     }}
-                    className="hover:text-white transition-colors"
+                    className="nav-link text-sm"
+                    style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
                   >
                     Scientific Studies
                   </a>
@@ -550,7 +596,8 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation('/reviews');
                     }}
-                    className="hover:text-white transition-colors"
+                    className="nav-link text-sm"
+                    style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
                   >
                     Product Reviews
                   </a>
@@ -563,7 +610,8 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation('/dhm-dosage-calculator');
                     }}
-                    className="hover:text-white transition-colors"
+                    className="nav-link text-sm"
+                    style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
                   >
                     Dosage Calculator
                   </a>
@@ -576,7 +624,8 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation('/about');
                     }}
-                    className="hover:text-white transition-colors"
+                    className="nav-link text-sm"
+                    style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
                   >
                     Safety Information
                   </a>

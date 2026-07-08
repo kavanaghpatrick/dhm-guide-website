@@ -464,8 +464,14 @@
   .grid-auto {
     display: grid;
     gap: var(--space-6);
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    /* min(100%, 16rem) keeps a column from ever exceeding the container at very
+       narrow viewports (≤320px), so tracks wrap instead of overflowing. */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
+  /* Grid items default to min-width:auto, which refuses to shrink below their
+     content's min-content and can push a track past the viewport. Let them
+     shrink so inner content wraps instead. */
+  .grid-auto > * { min-width: 0; }
   .stack > * + * { margin-top: var(--stack-gap, var(--space-4)); }
   .cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
   .divider { border: 0; border-top: 1px solid var(--color-border); margin: 0; }
@@ -1105,6 +1111,69 @@
     font-size: var(--text-small);
     color: var(--color-ink-soft);
   }
+
+  /* ----------------------------------------------------------------------
+     14. SHARED CHROME (header nav + footer) — scoped primitives
+     The shared header/footer live OUTSIDE any page's .theme-modern wrapper
+     (Layout wraps <main>, the page wrapper is inside it), so restyling chrome
+     means adding `theme-modern` to the <header>/<footer> themselves and using
+     these classes. Built ONLY from the existing token set — no new tokens, no
+     new Tailwind z-* utilities (the header keeps its existing `z-header`).
+     ---------------------------------------------------------------------- */
+
+  /* ---- Nav link (header desktop/mobile + footer "quick links") ----
+     The base `a` rule paints links blue (--color-info) for editorial/science
+     links; nav links are navigation chrome, so they resolve to quiet ink that
+     warms to brand green on hover/active. Use on plain <a>/<button> nav items.
+     `.nav-link.is-active` (or [aria-current="page"]) = brand green + weight. */
+  .nav-link {
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition), background-color var(--transition);
+  }
+  .nav-link:hover {
+    color: var(--color-brand-strong);
+    text-decoration: none;
+  }
+  .nav-link.is-active,
+  .nav-link[aria-current="page"] {
+    color: var(--color-brand-strong);
+    font-weight: 600;
+  }
+  /* The 2px underline marker under the active desktop nav item (green, not the
+     old neon green-600). Pair on the same element that renders the marker. */
+  .nav-marker { background-color: var(--color-brand); }
+
+  /* Mobile nav row: full-width tappable pill; active row gets a brand-soft
+     fill. Keeps the >=44px touch target the control had. */
+  .nav-link-block {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius);
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition), background-color var(--transition);
+  }
+  .nav-link-block:hover {
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-strong);
+    text-decoration: none;
+  }
+  .nav-link-block.is-active {
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-strong);
+    font-weight: 600;
+  }
+
+  /* (Footer renders as a light warm-paper surface with .nav-link links — see
+     Layout.jsx. The earlier dark-footer `.footer-modern` variant was unused and
+     removed to keep this file free of dead CSS.) */
 }
 
 /* --------------------------------------------------------------------------

@@ -26,8 +26,12 @@ async function installSampler(context) {
     };
     // classify the painted page each frame: 'modern' | 'control' | 'blank'(hold)
     const classify = () => {
-      const modern = document.querySelector('.theme-modern');
-      if (onScreen(modern)) return 'modern';
+      // The modern PAGE renders its body as a .theme-modern INSIDE <main>. The
+      // shared chrome (header / footer / mega-menu) is now .theme-modern too, but
+      // lives OUTSIDE <main>, so scope the modern-body signal to <main> — otherwise
+      // the (now always-modern) chrome would read as a page-body flash.
+      const modernBodies = Array.prototype.slice.call(document.querySelectorAll('main .theme-modern'));
+      if (modernBodies.some(onScreen)) return 'modern';
       const h1s = Array.prototype.slice.call(document.querySelectorAll('h1'));
       const visibleControlH1 = h1s.some((h) => !h.closest('.theme-modern') && !h.closest('#prerender-main-stub') && onScreen(h));
       if (visibleControlH1) return 'control';
@@ -58,7 +62,7 @@ test.describe('Experiment flicker — unified site-modern-v1', () => {
     await seedFlag(context, 'modern');
     await installSampler(context);
     await page.goto('/reviews');
-    await expect(page.locator('.theme-modern')).toBeVisible();
+    await expect(page.locator('main .theme-modern').first()).toBeVisible();
     await page.waitForTimeout(1500);
     const frames = await page.evaluate(() => window.__frames || []);
     const seen = [...new Set(frames)];
@@ -73,11 +77,11 @@ test.describe('Experiment flicker — unified site-modern-v1', () => {
     await seedFlag(context, 'modern');
     await installSampler(context);
     await page.goto('/reviews');
-    await expect(page.locator('.theme-modern')).toBeVisible();
+    await expect(page.locator('main .theme-modern').first()).toBeVisible();
     await page.evaluate(() => window.__resetFrames && window.__resetFrames());
     await page.locator('a[href="/guide"]').first().click();
     await page.waitForURL('**/guide');
-    await expect(page.locator('.theme-modern')).toBeVisible();
+    await expect(page.locator('main .theme-modern').first()).toBeVisible();
     await page.waitForTimeout(1000);
     const frames = await page.evaluate(() => window.__frames || []);
     expect(frames, `nav frames: ${[...new Set(frames)].join(',')} — must not drop to control on navigation`).not.toContain('control');
