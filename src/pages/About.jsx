@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from '../components/CustomLink.jsx'
-import { motion } from 'framer-motion'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
-import { Badge } from '@/components/ui/badge.jsx'
-import { Button } from '@/components/ui/button.jsx'
 import missionVisual from '../assets/dhm_mission_visual.webp'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
+import { preloadModernFonts } from '../lib/preloadModernFonts.js'
+import '../styles/theme-modern.css'
 import {
   Users,
   Target,
@@ -14,6 +12,7 @@ import {
   Shield,
   ArrowRight,
   CheckCircle,
+  XCircle,
   Heart,
   Globe,
   Mail
@@ -21,25 +20,30 @@ import {
 
 export default function About() {
   useSEO(generatePageSEO('about'));
-  
+
+  // Variant/modern surface: preload the body font once, on mount.
+  useEffect(() => {
+    preloadModernFonts()
+  }, [])
+
   const values = [
     {
-      icon: <Microscope className="w-8 h-8" />,
+      icon: <Microscope aria-hidden="true" />,
       title: "Science-Based",
       description: "Every recommendation is backed by peer-reviewed research and clinical studies."
     },
     {
-      icon: <Shield className="w-8 h-8" />,
+      icon: <Shield aria-hidden="true" />,
       title: "Transparent Reviews",
       description: "We earn affiliate commissions on purchases. This never influences our ratings."
     },
     {
-      icon: <Heart className="w-8 h-8" />,
+      icon: <Heart aria-hidden="true" />,
       title: "User-Focused",
       description: "Prioritizing real user experiences and practical effectiveness over marketing claims."
     },
     {
-      icon: <Globe className="w-8 h-8" />,
+      icon: <Globe aria-hidden="true" />,
       title: "Accessible Knowledge",
       description: "Making complex scientific research understandable and actionable for everyone."
     }
@@ -66,22 +70,22 @@ export default function About() {
 
   const achievements = [
     {
-      icon: <BookOpen className="w-6 h-6" />,
-      title: "50+ Studies Analyzed",
+      value: "50+",
+      title: "Studies Analyzed",
       description: "Comprehensive review of all major DHM research"
     },
     {
-      icon: <Users className="w-6 h-6" />,
-      title: "20+ Brands Tested",
+      value: "20+",
+      title: "Brands Tested",
       description: "Independent testing of leading DHM supplements"
     },
     {
-      icon: <Microscope className="w-6 h-6" />,
-      title: "11 Clinical Studies Reviewed",
+      value: "11",
+      title: "Clinical Studies Reviewed",
       description: "In-depth analysis of peer-reviewed DHM trials"
     },
     {
-      icon: <Target className="w-6 h-6" />,
+      value: "100%",
       title: "Transparent Methodology",
       description: "Clear criteria for all product evaluations"
     }
@@ -111,402 +115,304 @@ export default function About() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-      {/* Hero Section */}
-      <section className="pt-8 pb-16 px-4">
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <Badge className="mb-6 bg-green-100 text-green-800 hover:bg-green-200">
-              <Users className="w-4 h-4 mr-2" />
+    <div className="theme-modern" style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}>
+      {/* ============================ HERO ============================ */}
+      <section className="surface-wash" style={{ paddingBlock: 'var(--section-y)' }}>
+        <div className="container">
+          <header className="section-head section-head--center" style={{ marginInline: 'auto' }}>
+            <span className="chip" style={{ marginBottom: 'var(--space-4)' }}>
+              <Users aria-hidden="true" />
               DHM Guide Team
-            </Badge>
+            </span>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Your Trusted DHM Research Resource
+            <h1 style={{ marginTop: 'var(--space-4)' }}>
+              Your Trusted <span className="accent">DHM Research</span> Resource
             </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Dedicated to helping you <span className="font-semibold text-green-700">never wake up hungover again</span>{' '}
-              through science-backed research, independent testing, and proven hangover prevention strategies.
+
+            <p className="lead">
+              Dedicated to helping you{' '}
+              <strong className="text-brand">never wake up hungover again</strong>{' '}
+              through science-backed research, independent testing, and proven
+              hangover prevention strategies.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 text-lg"
+            <div
+              className="cluster"
+              style={{ justifyContent: 'center', marginTop: 'var(--space-8)' }}
+            >
+              <Link
+                to="/guide"
+                className="btn btn-lg"
+                style={{ textDecoration: 'none', backgroundColor: 'var(--color-brand-strong)', borderColor: 'var(--color-brand-strong)', color: 'var(--color-on-brand)', boxShadow: 'none' }}
                 data-track="cta"
                 data-cta-text="Explore Our Research"
                 data-cta-destination="/guide"
               >
-                <Link to="/guide">
-                  Explore Our Research
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-green-700 text-green-700 hover:bg-green-50 px-8 py-3 text-lg"
+                Explore Our Research
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link
+                to="/reviews"
+                className="btn btn-secondary btn-lg"
+                style={{ textDecoration: 'none' }}
                 data-track="cta"
                 data-cta-text="See Tested Products"
                 data-cta-destination="/reviews"
               >
-                <Link to="/reviews">See Tested Products</Link>
-              </Button>
+                See Tested Products
+              </Link>
             </div>
-          </motion.div>
+          </header>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-900 text-center">
-              Our Mission
-            </h2>
-            
-            {/* Split Layout: Mission Text + Visual */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-              {/* Mission Text */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <p className="text-gray-700 leading-relaxed text-xl">
-                  To bridge the gap between cutting-edge DHM research and practical, actionable information 
-                  that helps people make informed decisions about hangover prevention and liver health.
-                </p>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="text-gray-600">
-                      <span className="font-semibold text-gray-900">Evidence-Based:</span> Every recommendation backed by peer-reviewed research
-                    </p>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="text-gray-600">
-                      <span className="font-semibold text-gray-900">Transparent:</span> Affiliate relationships disclosed; ratings never influenced by commissions
-                    </p>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-600 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="text-gray-600">
-                      <span className="font-semibold text-gray-900">Accessible:</span> Complex science made simple and actionable
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+      {/* ============================ MISSION ============================ */}
+      <section className="section">
+        <div className="container">
+          <header className="section-head section-head--center">
+            <span className="eyebrow">Why we exist</span>
+            <h2>Our Mission</h2>
+            <p className="lead">
+              To bridge the gap between cutting-edge DHM research and practical,
+              actionable information that helps people make informed decisions about
+              hangover prevention and liver health.
+            </p>
+          </header>
 
-              {/* Mission Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="flex justify-center lg:justify-end"
-              >
-                <div className="relative max-w-lg w-full">
-                  <img 
-                    src={missionVisual}
-                    alt="DHM Guide Mission: Bridging Research and Practical Information"
-                    className="w-full h-auto rounded-2xl shadow-2xl border border-gray-200"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-2xl"></div>
-                </div>
-              </motion.div>
-            </div>
-            
-            <div className="prose prose-lg max-w-none">
-              <div className="bg-green-50 p-8 rounded-lg mb-8">
-                <h3 className="text-2xl font-semibold text-green-800 mb-4 text-center">Why DHM Guide Exists</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">The Problem</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <span>Conflicting information about DHM online</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <span>Marketing claims without scientific backing</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <span>Complex research difficult to understand</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <span>No comprehensive product comparisons</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Our Solution</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li className="flex items-start space-x-2">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Evidence-based information only</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Independent product testing</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Clear, accessible explanations</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Comprehensive product database</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+          {/* Split Layout: Mission points + Visual */}
+          <div
+            className="grid-auto"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 20rem), 1fr))',
+              alignItems: 'center',
+              marginBottom: 'var(--space-16)',
+            }}
+          >
+            <div className="stack" style={{ '--stack-gap': 'var(--space-4)' }}>
+              <div className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
+                <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                <p style={{ margin: 0, color: 'var(--color-ink-soft)' }}>
+                  <strong>Evidence-Based:</strong> Every recommendation backed by peer-reviewed research
+                </p>
+              </div>
+              <div className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
+                <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                <p style={{ margin: 0, color: 'var(--color-ink-soft)' }}>
+                  <strong>Transparent:</strong> Affiliate relationships disclosed; ratings never influenced by commissions
+                </p>
+              </div>
+              <div className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
+                <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                <p style={{ margin: 0, color: 'var(--color-ink-soft)' }}>
+                  <strong>Accessible:</strong> Complex science made simple and actionable
+                </p>
               </div>
             </div>
-          </motion.div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <img
+                src={missionVisual}
+                alt="DHM Guide Mission: Bridging Research and Practical Information"
+                className="card"
+                style={{ width: '100%', maxWidth: '32rem', padding: 0, overflow: 'hidden' }}
+              />
+            </div>
+          </div>
+
+          {/* "Why DHM Guide Exists" — problem / solution, border-first card */}
+          <div className="card">
+            <h3 style={{ textAlign: 'center' }}>Why DHM Guide Exists</h3>
+            <div
+              className="grid-auto"
+              style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 16rem), 1fr))', marginTop: 'var(--space-6)' }}
+            >
+              <div>
+                <h4 style={{ marginBottom: 'var(--space-3)' }}>The Problem</h4>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {[
+                    'Conflicting information about DHM online',
+                    'Marketing claims without scientific backing',
+                    'Complex research difficult to understand',
+                    'No comprehensive product comparisons',
+                  ].map((item) => (
+                    <li key={item} className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink-soft)' }}>
+                      <XCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-ink-soft)', opacity: 0.7 }} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 style={{ marginBottom: 'var(--space-3)' }}>Our Solution</h4>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {[
+                    'Evidence-based information only',
+                    'Independent product testing',
+                    'Clear, accessible explanations',
+                    'Comprehensive product database',
+                  ].map((item) => (
+                    <li key={item} className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink-soft)' }}>
+                      <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-blue-50">
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Our Core Values
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      {/* ============================ VALUES ============================ */}
+      <section className="section surface-brand">
+        <div className="container">
+          <header className="section-head section-head--center">
+            <span className="eyebrow">What guides us</span>
+            <h2>Our Core Values</h2>
+            <p className="lead">
               The principles that guide everything we do at DHM Guide.
             </p>
-          </motion.div>
+          </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="h-full bg-white/80 backdrop-blur-sm border-green-100 hover:shadow-lg transition-all duration-300">
-                  <CardHeader className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center mx-auto mb-4 text-white">
-                      {value.icon}
-                    </div>
-                    <CardTitle className="text-xl text-gray-900">{value.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-center text-gray-600">
-                      {value.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          <div className="grid-auto">
+            {values.map((value) => (
+              <div key={value.title} className="card-raised pathway">
+                <span className="pathway__icon">{value.icon}</span>
+                <h3 className="pathway__title">{value.title}</h3>
+                <p className="pathway__body">{value.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Expertise Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center">
-              Our Research Standards
-            </h2>
+      {/* ============================ RESEARCH STANDARDS ============================ */}
+      <section className="section">
+        <div className="container">
+          <header className="section-head section-head--center">
+            <span className="eyebrow">How we work</span>
+            <h2>Our Research Standards</h2>
+            <p className="lead">
+              The bar every recommendation on DHM Guide has to clear.
+            </p>
+          </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {expertise.map((area, index) => (
-                <motion.div
-                  key={area.area}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="h-full bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-                    <CardHeader>
-                      <CardTitle className="text-lg text-green-800">{area.area}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="text-green-700">
-                        {area.description}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          <div className="grid-auto">
+            {expertise.map((area) => (
+              <div key={area.area} className="card">
+                <h3 className="card-title">{area.area}</h3>
+                <p className="text-soft" style={{ margin: 0, fontSize: 'var(--text-small)' }}>
+                  {area.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Methodology Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-blue-50">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center">
-              Our Research Methodology
-            </h2>
-            
-            <div className="space-y-6">
-              {methodology.map((step, index) => (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-start space-x-4 p-6 bg-white rounded-lg shadow-sm"
+      {/* ============================ METHODOLOGY ============================ */}
+      <section className="section surface-brand">
+        <div className="container">
+          <header className="section-head section-head--center">
+            <span className="eyebrow">Our process</span>
+            <h2>Our Research Methodology</h2>
+            <p className="lead">
+              Four steps from peer-reviewed literature to a recommendation you can trust.
+            </p>
+          </header>
+
+          <div className="stack" style={{ '--stack-gap': 'var(--space-6)', maxWidth: 'var(--container-prose)', marginInline: 'auto' }}>
+            {methodology.map((step) => (
+              <div
+                key={step.step}
+                className="card cluster"
+                style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-4)' }}
+              >
+                <span
+                  className="pathway__icon"
+                  style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '1.125rem' }}
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                    {step.step}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
-                    <p className="text-gray-700">{step.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                  {step.step}
+                </span>
+                <div>
+                  <h3 className="card-title" style={{ marginBottom: 'var(--space-2)' }}>{step.title}</h3>
+                  <p className="text-soft" style={{ margin: 0, fontSize: 'var(--text-small)' }}>
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Achievements Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Our Impact
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      {/* ============================ IMPACT (stats) ============================ */}
+      <section className="section">
+        <div className="container">
+          <header className="section-head section-head--center">
+            <span className="eyebrow">By the numbers</span>
+            <h2>Our Impact</h2>
+            <p className="lead">
               Measurable contributions to DHM knowledge and user education.
             </p>
-          </motion.div>
+          </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <Card className="h-full bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-lg transition-all duration-300">
-                  <CardHeader className="text-center">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4 text-white">
-                      {achievement.icon}
-                    </div>
-                    <CardTitle className="text-lg text-blue-800">{achievement.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-center text-blue-700">
-                      {achievement.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          <div className="grid-auto">
+            {achievements.map((achievement) => (
+              <div key={achievement.title} className="card" style={{ textAlign: 'center' }}>
+                <div className="stat" style={{ alignItems: 'center' }}>
+                  <span className="stat-value">{achievement.value}</span>
+                  <span className="stat-label" style={{ fontWeight: 600, color: 'var(--color-ink)' }}>
+                    {achievement.title}
+                  </span>
+                </div>
+                <p className="text-soft" style={{ margin: 'var(--space-3) 0 0', fontSize: 'var(--text-small)' }}>
+                  {achievement.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-green-700 to-green-800 text-white">
-        <div className="container mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Get in Touch
-            </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Have questions about DHM or suggestions for our research? 
-              We'd love to hear from you.
+      {/* ============================ CONTACT CTA BAND ============================ */}
+      <section className="section surface-brand">
+        <div className="container">
+          <div className="cta-band">
+            <span className="eyebrow">Get in touch</span>
+            <h2>We&rsquo;d love to hear from you</h2>
+            <p className="lead">
+              Have questions about DHM or suggestions for our research? Reach out
+              anytime — we read every message.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                variant="secondary"
-                className="bg-white text-green-700 hover:bg-gray-100 px-8 py-3 text-lg"
+            <div className="cta-band__actions">
+              <a
+                href="mailto:hello@dhmguide.com"
+                className="btn btn-lg"
+                style={{ textDecoration: 'none', backgroundColor: 'var(--color-brand-strong)', borderColor: 'var(--color-brand-strong)', color: 'var(--color-on-brand)', boxShadow: 'none' }}
                 data-track="cta"
                 data-cta-text="Contact Us"
                 data-cta-destination="mailto:hello@dhmguide.com"
               >
-                <a href="mailto:hello@dhmguide.com">
-                  <Mail className="w-5 h-5 mr-2" />
-                  Contact Us
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 text-lg"
+                <Mail aria-hidden="true" />
+                Contact Us
+              </a>
+              <Link
+                to="/research"
+                className="btn btn-secondary btn-lg"
+                style={{ textDecoration: 'none' }}
                 data-track="cta"
                 data-cta-text="Discover the Science"
                 data-cta-destination="/research"
               >
-                <Link to="/research">
-                  Discover the Science
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
+                Discover the Science
+                <ArrowRight aria-hidden="true" />
+              </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
   )
 }
-

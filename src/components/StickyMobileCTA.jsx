@@ -73,14 +73,25 @@ export default function StickyMobileCTA() {
 
   return (
     <div
-      className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-200 shadow-lg pb-[env(safe-area-inset-bottom)] animate-in slide-in-from-bottom duration-300"
+      className="md:hidden fixed bottom-0 inset-x-0 z-40 pb-[env(safe-area-inset-bottom)] animate-in slide-in-from-bottom duration-300"
+      style={{
+        // Modern warm surface + warm hairline top border (border-first, subtle warm
+        // shadow) — replaces the cold bg-white / border-gray-200 / heavy shadow-lg.
+        backgroundColor: '#FFFFFF',
+        borderTop: '1px solid #E7E3DB', // --color-border
+        boxShadow: '0 -1px 2px rgb(26 29 26 / 0.04), 0 -8px 24px -8px rgb(26 29 26 / 0.08)',
+      }}
       role="complementary"
       aria-label="Top DHM product quick access"
     >
       <div className="flex items-center gap-2 px-3 py-2 min-h-[56px]">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center justify-center bg-orange-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex-shrink-0">
+            {/* Rank badge — brand green (orange is reserved for the buy CTA only). */}
+            <span
+              className="inline-flex items-center justify-center text-[10px] font-bold rounded-full w-5 h-5 flex-shrink-0"
+              style={{ backgroundColor: '#15803d', color: '#ffffff' }} // solid brand green + white "1" → AA (~4.9:1)
+            >
               1
             </span>
             <p className="text-sm font-semibold text-gray-900 truncate">{product.name}</p>
@@ -88,7 +99,8 @@ export default function StickyMobileCTA() {
           <div className="flex items-center gap-2 text-xs text-gray-600 mt-0.5">
             <span className="font-semibold text-gray-900">{product.price}</span>
             <span className="inline-flex items-center gap-0.5">
-              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+              {/* Warm-gold star (--color-star) — review convention, distinct from CTA orange. */}
+              <Star className="w-3 h-3" style={{ fill: '#E8A317', color: '#E8A317' }} aria-hidden="true" />
               {product.rating}
             </span>
           </div>
@@ -112,7 +124,7 @@ export default function StickyMobileCTA() {
           aria-label="Dismiss"
           className="flex-shrink-0 text-gray-400 hover:text-gray-600 active:opacity-90 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5" aria-hidden="true" />
         </button>
       </div>
     </div>

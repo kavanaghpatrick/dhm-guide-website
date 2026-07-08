@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link } from '../components/CustomLink.jsx'
-import { Button } from '@/components/ui/button.jsx'
-import { Card, CardContent } from '@/components/ui/card.jsx'
 import { trackEvent } from '../lib/posthog.js'
 import {
   Home,
@@ -11,6 +9,7 @@ import {
   ArrowRight,
   AlertCircle
 } from 'lucide-react'
+import '../styles/theme-modern.css'
 
 export default function NotFound() {
   // Track 404 event for monitoring broken links
@@ -50,69 +49,123 @@ export default function NotFound() {
   ];
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-      <div className="max-w-2xl w-full text-center">
-        {/* 404 Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-100 mb-6">
-            <AlertCircle className="w-10 h-10 text-amber-600" />
+    <div
+      className="theme-modern"
+      style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}
+    >
+      <div
+        className="min-h-[70vh] flex items-center justify-center px-4"
+        style={{ paddingBlock: 'var(--section-y)' }}
+      >
+        <div className="max-w-2xl w-full text-center">
+          {/* 404 Header */}
+          <div style={{ marginBottom: 'var(--space-8)' }}>
+            <div
+              className="inline-flex items-center justify-center"
+              style={{
+                width: '80px',
+                height: '80px',
+                borderRadius: 'var(--radius-pill)',
+                backgroundColor: 'var(--color-brand-soft)',
+                border: '1px solid var(--color-border)',
+                marginBottom: 'var(--space-6)'
+              }}
+            >
+              <AlertCircle
+                className="w-10 h-10"
+                aria-hidden="true"
+                style={{ color: 'var(--color-brand)' }}
+              />
+            </div>
+            <h1 style={{ marginBottom: 'var(--space-4)' }}>
+              Page Not Found
+            </h1>
+            <p className="lead" style={{ maxWidth: '28rem', marginInline: 'auto' }}>
+              Sorry, we couldn't find the page you're looking for. It may have been moved or no longer exists.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Page Not Found
-          </h1>
-          <p className="text-lg text-gray-600 max-w-md mx-auto">
-            Sorry, we couldn't find the page you're looking for. It may have been moved or no longer exists.
+
+          {/* Quick Actions */}
+          <div
+            className="flex flex-col sm:flex-row justify-center"
+            style={{ gap: 'var(--space-4)', marginBottom: 'var(--space-12)' }}
+          >
+            <Link
+              to="/"
+              className="btn btn-secondary btn-lg w-full sm:w-auto"
+              style={{ textDecoration: 'none' }}
+            >
+              <Home aria-hidden="true" />
+              Go to Homepage
+            </Link>
+            <Link
+              to="/reviews"
+              className="btn btn-secondary btn-lg w-full sm:w-auto"
+              style={{ textDecoration: 'none' }}
+            >
+              <Star aria-hidden="true" />
+              See Top DHM Products
+            </Link>
+          </div>
+
+          {/* Helpful Links Grid */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2"
+            style={{ gap: 'var(--space-4)' }}
+          >
+            {helpfulLinks.map((link, index) => (
+              <Link
+                key={index}
+                to={link.href}
+                className="card-raised group"
+                style={{ display: 'block', textDecoration: 'none', height: '100%' }}
+              >
+                <div
+                  className="flex items-start"
+                  style={{ gap: 'var(--space-4)' }}
+                >
+                  <span className="pathway__icon" style={{ flexShrink: 0 }} aria-hidden="true">
+                    {link.icon}
+                  </span>
+                  <div className="text-left flex-1">
+                    <h2
+                      className="card-title flex items-center"
+                      style={{
+                        gap: 'var(--space-2)',
+                        marginBottom: 'var(--space-1)',
+                        color: 'var(--color-ink)'
+                      }}
+                    >
+                      {link.title}
+                      <ArrowRight
+                        className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                        aria-hidden="true"
+                        style={{ color: 'var(--color-brand-strong)' }}
+                      />
+                    </h2>
+                    <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>
+                      {link.description}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Help Text */}
+          <p
+            className="text-soft"
+            style={{ marginTop: 'var(--space-8)', fontSize: 'var(--text-small)' }}
+          >
+            If you believe this is an error, please{' '}
+            <a
+              href="mailto:contact@dhmguide.com"
+              style={{ color: 'var(--color-info)' }}
+            >
+              let us know
+            </a>.
           </p>
         </div>
-
-        {/* Quick Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link href="/">
-            <Button size="lg" className="w-full sm:w-auto bg-green-600 hover:bg-green-700">
-              <Home className="w-4 h-4 mr-2" />
-              Go to Homepage
-            </Button>
-          </Link>
-          <Link href="/reviews">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto">
-              <Star className="w-4 h-4 mr-2" />
-              See Top DHM Products
-            </Button>
-          </Link>
-        </div>
-
-        {/* Helpful Links Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {helpfulLinks.map((link, index) => (
-            <Link key={index} href={link.href}>
-              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer group">
-                <CardContent className="p-4 flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
-                    {link.icon}
-                  </div>
-                  <div className="text-left flex-1">
-                    <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors flex items-center gap-2">
-                      {link.title}
-                      <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </h3>
-                    <p className="text-sm text-gray-500">{link.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        {/* Help Text */}
-        <p className="mt-8 text-sm text-gray-500">
-          If you believe this is an error, please{' '}
-          <a
-            href="mailto:contact@dhmguide.com"
-            className="text-green-600 hover:underline"
-          >
-            let us know
-          </a>.
-        </p>
       </div>
     </div>
   );

@@ -232,3 +232,6 @@ playwright-report/
 
 # Modern audit screenshots (regenerable: node scripts/capture-modern-audit.mjs)
 docs/modern-audit-2026-06-25/screenshots/
+
+# Site-consistency audit screenshots (regenerable: node scripts/capture-rest-of-site.mjs)
+docs/site-consistency-audit-2026-07-08/screenshots/
