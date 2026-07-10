@@ -747,36 +747,105 @@
   }
   .product-price__unit { font-size: var(--text-small); color: var(--color-ink-soft); }
 
-  /* ---- Pros / cons list (Lucide check = brand green, minus = desaturated) ---- */
+  /* ---- Pros / cons: a designed, consistent bullet set ----
+     Single grouped column (all pros, then all cons). Every marker is the SAME
+     circular chip — soft-green check for pros, calm neutral minus for cons —
+     same size + baseline, with a hanging indent so wrapped lines align under
+     the text (never under the icon). */
   .proscons {
-    display: grid;
-    gap: var(--space-3) var(--space-6);
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin: var(--space-1) 0 0 0;
     padding: 0;
     list-style: none;
   }
-  @media (min-width: 480px) {
-    .proscons { grid-template-columns: 1fr 1fr; }
-  }
-  .proscons li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
+  .proscons__item {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;   /* fixed icon gutter + text = hanging indent */
+    align-items: start;
+    gap: 0.625rem;
     margin: 0;
     font-size: var(--text-small);
-    line-height: 1.45;
+    line-height: 1.4;
     color: var(--color-ink);
   }
-  .proscons [data-lucide] {
+  .proscons__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    margin-top: 0.03rem;   /* optical-center the chip on the first text line */
     flex: 0 0 auto;
-    width: 1.05rem;
-    height: 1.05rem;
-    margin-top: 0.05rem;
   }
-  .proscons .pro [data-lucide] { color: var(--color-brand); }
-  /* Cons read "honest", not "alarming" — desaturated, not a saturated red. */
+  .proscons__mark svg { width: 0.8125rem; height: 0.8125rem; }
+  .proscons__item--pro .proscons__mark {
+    background: var(--color-brand-soft);
+    color: var(--color-brand-strong);
+  }
+  /* Cons read "honest", not "alarming" — a calm neutral chip + muted text. */
+  .proscons__item--con { color: var(--color-ink-soft); }
+  .proscons__item--con .proscons__mark {
+    background: color-mix(in srgb, var(--color-ink) 9%, transparent);
+    color: var(--color-ink-soft);
+  }
+  .proscons__more {
+    margin: 0.125rem 0 0 0;
+    padding-left: calc(1.25rem + 0.625rem);   /* align with the text column */
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-ink-soft);
+  }
+
+  /* Legacy structure: Guide's problem/solution lists use `.proscons > .pro/.con`
+     with a direct, ALREADY-CIRCULAR icon (XCircle / CheckCircle2) — no chip
+     wrapper. Give them the same aligned grid + hanging indent, but NO chip
+     background (a circle-in-a-circle would look busy). Their <ul> is
+     display:block, so row rhythm comes from li margin. */
+  .proscons .pro,
+  .proscons .con {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;
+    align-items: start;
+    gap: 0.625rem;
+    margin: 0 0 0.625rem 0;
+    font-size: var(--text-small);
+    line-height: 1.4;
+  }
+  .proscons .pro:last-child,
+  .proscons .con:last-child { margin-bottom: 0; }
   .proscons .con { color: var(--color-ink-soft); }
-  .proscons .con [data-lucide] { color: var(--color-ink-soft); opacity: 0.7; }
+  .proscons .pro > svg,
+  .proscons .con > svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.03rem;
+    flex: 0 0 auto;
+  }
+  .proscons .pro > svg { color: var(--color-brand-strong); }
+  .proscons .con > svg { color: var(--color-ink-soft); }
+
+  /* ---- "Best for" footer: quiet uppercase label + value, set off by a hairline ---- */
+  .product-bestfor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1875rem;
+    margin: var(--space-4) 0 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-small);
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+  .product-bestfor__label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-soft);
+  }
 
   /* ---- Comparison table (tight, zebra-striped, scannable) ---- */
   .compare {
@@ -814,7 +883,48 @@
   }
   .compare .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .compare .action-cell { text-align: right; white-space: nowrap; }
-  .compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Horizontally scrollable table wrapper. On laptop widths a 4-product table
+     (4 × 200px columns + factor column) is wider than its container, so the
+     region genuinely scrolls. macOS/iOS overlay scrollbars stay hidden until a
+     scroll gesture, which made the trailing column read as truncated rather than
+     scrollable. Two affordances fix that:
+       1. An ALWAYS-VISIBLE thin scrollbar (theme-tinted) so the region is
+          obviously scrollable at rest.
+       2. A right-edge fade cue that only appears while there's more content to
+          the right (scroll-driven mask; progressive enhancement — where
+          animation-timeline: scroll() is unsupported the scrollbar alone
+          carries the affordance). */
+  .compare-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;                                  /* Firefox */
+    scrollbar-color: var(--color-brand) var(--color-brand-soft);
+  }
+  .compare-scroll::-webkit-scrollbar { height: 8px; }       /* WebKit/Blink */
+  .compare-scroll::-webkit-scrollbar-track {
+    background: var(--color-brand-soft);
+    border-radius: var(--radius-pill);
+  }
+  .compare-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-brand);
+    border-radius: var(--radius-pill);
+  }
+
+  @supports (animation-timeline: scroll(self inline)) {
+    .compare-scroll {
+      /* Fade the right edge; the mask animates from "faded" (more to the right)
+         to "no fade" (scrolled to the end), driven by this element's own
+         horizontal scroll position — no JS. */
+      animation: compare-scroll-fade linear;
+      animation-timeline: scroll(self inline);
+    }
+    @keyframes compare-scroll-fade {
+      /* At scroll start (more content to the right): fade the right edge. */
+      from { mask-image: linear-gradient(to right, #000 82%, transparent 100%); }
+      /* Near the end: keep a full-opacity edge (nothing more to scroll to). */
+      to   { mask-image: linear-gradient(to right, #000 100%, #000 100%); }
+    }
+  }
   .compare .row-winner td { box-shadow: inset 3px 0 0 0 var(--color-brand); } /* green winner marker — orange reserved for CTAs */
 
   /* "+N more" overflow indicator (e.g. ingredient lists). A muted, lowercase

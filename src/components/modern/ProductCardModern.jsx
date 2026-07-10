@@ -113,27 +113,31 @@ export default function ProductCardModern({ product, index, experimentKey, isWin
 
       <ul className="proscons">
         {pros.map((pro, i) => (
-          <li key={`pro-${i}`} className="pro">
-            <Check aria-hidden="true" /> {pro}
+          <li key={`pro-${i}`} className="proscons__item proscons__item--pro">
+            <span className="proscons__mark" aria-hidden="true">
+              <Check strokeWidth={2.75} />
+            </span>
+            <span>{pro}</span>
           </li>
         ))}
         {cons.map((con, i) => (
-          <li key={`con-${i}`} className="con">
-            <Minus aria-hidden="true" /> {con}
+          <li key={`con-${i}`} className="proscons__item proscons__item--con">
+            <span className="proscons__mark" aria-hidden="true">
+              <Minus strokeWidth={2.75} />
+            </span>
+            <span>{con}</span>
           </li>
         ))}
         {hiddenCount > 0 && (
-          <li
-            className="product-value"
-            style={{ gridColumn: '1 / -1', fontSize: 'var(--text-small)' }}
-          >
+          <li className="proscons__more">
             +{hiddenCount} more {hiddenCount === 1 ? 'benefit' : 'benefits'}
           </li>
         )}
       </ul>
 
-      <p className="product-value">
-        <strong>Best for:</strong> {product.bestFor}
+      <p className="product-bestfor">
+        <span className="product-bestfor__label">Best for</span>
+        <span className="product-bestfor__value">{product.bestFor}</span>
       </p>
 
       <a

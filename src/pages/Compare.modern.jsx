@@ -71,8 +71,6 @@ export default function CompareModern() {
     preloadModernFonts()
   }, [])
 
-  const [selectedProducts, setSelectedProducts] = useState([])
-
   // Product data: canonical fields (price, rating, reviews, affiliateLink, name,
   // brand, dhm, purity, badge, badgeColor, score, servings, category) come from
   // src/data/topProducts.json so a single price refresh propagates everywhere.
@@ -252,22 +250,34 @@ export default function CompareModern() {
     ...local,
   }))
 
-  // Auto-select top 3 products by default or from URL params. Copied verbatim.
+  // Default selection = top 3 by score. Derived from static data, so it's stable
+  // across renders and safe to compute synchronously for the initial state.
+  const defaultTopThreeIds = [...allProducts]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((p) => p.id)
+
+  // Initialize selection SYNCHRONOUSLY to the top 3 (lazy initializer) rather
+  // than starting empty and populating in an effect. Starting empty meant the
+  // Detailed Comparison + Category Winners sections (gated on
+  // selectedProductsData.length) rendered `null` on the first paint and then
+  // popped in after mount — a large post-paint layout shift (page scrollHeight
+  // ~4x). Seeding the default here renders those sections on the very first
+  // React paint, eliminating that self-inflicted CLS. Copied selection logic
+  // from Compare.jsx.
+  const [selectedProducts, setSelectedProducts] = useState(() => defaultTopThreeIds)
+
+  // The ?products= URL override still runs on mount (it can only be read in the
+  // browser). The default above already covers the no-param case, so this only
+  // adjusts the selection when an explicit product list is present.
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const productIds = urlParams.get('products')
+    if (!productIds) return
 
-    if (productIds) {
-      const ids = productIds.split(',').map((id) => parseInt(id)).filter((id) => !isNaN(id))
-      const validIds = ids.filter((id) => allProducts.find((p) => p.id === id))
-      setSelectedProducts(validIds)
-    } else {
-      const topThree = allProducts
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 3)
-        .map((p) => p.id)
-      setSelectedProducts(topThree)
-    }
+    const ids = productIds.split(',').map((id) => parseInt(id)).filter((id) => !isNaN(id))
+    const validIds = ids.filter((id) => allProducts.find((p) => p.id === id))
+    if (validIds.length > 0) setSelectedProducts(validIds)
     // Mount-only initialization. allProducts is derived from static data and is
     // rebuilt each render, so we intentionally do NOT depend on it (that would
     // reset the user's selection on every render).
@@ -486,10 +496,9 @@ export default function CompareModern() {
         </div>
       </section>
 
-      {/* ===================== DETAILED COMPARISON TABLE =====================
-          order-first on mobile to front-load above hero (mobile CR 2.9x desktop). */}
+      {/* ===================== DETAILED COMPARISON TABLE ===================== */}
       {selectedProductsData.length > 0 && (
-        <section className="section" style={{ order: -1 }}>
+        <section className="section">
           <div className="container" style={{ maxWidth: '80rem' }}>
             <header className="section-head section-head--center">
               <span className="eyebrow">Head to head</span>
