@@ -235,3 +235,7 @@ docs/modern-audit-2026-06-25/screenshots/
 
 # Site-consistency audit screenshots (regenerable: node scripts/capture-rest-of-site.mjs)
 docs/site-consistency-audit-2026-07-08/screenshots/
+
+# Visual-inspection ground-truth captures + audit evidence (regenerable: node scripts/visual-truth.mjs)
+docs/compare-visual-fix-2026-07-08/
+docs/visual-inspection-process-2026-07-08/ground-truth/
