@@ -49,7 +49,7 @@ const EXP = 'exp_site-modern-v1=modern';
 // is where the comparison table is widest and, in the laptop band, requires
 // horizontal scrolling — the real defect the old process missed. Guarding it
 // permanently means the table can never silently outgrow the laptop viewport again.
-const ROUTES = (process.env.INVARIANT_ROUTES || '/;/reviews;/guide;/research;/compare;/compare?products=1,2,3,4;/never-hungover;/about;/dhm-dosage-calculator')
+const ROUTES = (process.env.INVARIANT_ROUTES || '/;/reviews;/guide;/research;/compare;/compare?products=1,2,3,4;/never-hungover;/never-hungover/when-to-take-dhm-timing-guide-2025;/about;/dhm-dosage-calculator')
   .split(';')
   .map((s) => s.trim())
   .filter(Boolean);

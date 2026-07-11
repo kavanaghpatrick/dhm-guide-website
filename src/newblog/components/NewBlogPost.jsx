@@ -2,11 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, ChevronRight, Loader2, Info, AlertCircle, CheckCircle, Lightbulb, Leaf } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.jsx';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx';
-import { Badge } from '@/components/ui/badge.jsx';
-import { Button } from '@/components/ui/button.jsx';
-import { Separator } from '@/components/ui/separator.jsx';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip.jsx';
 import {
   getPostBySlug,
@@ -24,6 +19,8 @@ import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
 import { motion } from 'framer-motion';
 import InlineComparisonTable from '../../components/InlineComparisonTable';
+import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
+import '../../styles/theme-modern.css';
 
 // Matches <!-- inline-comparison-table:VARIANT:PLACEMENT:ID,ID,ID --> in markdown.
 // Capture groups: 1=variant, 2=placement, 3=id list (comma-separated).
@@ -57,11 +54,29 @@ const InlineReviewsCTA = ({ placement, postSlug }) => {
   };
 
   return (
-    <div className="my-8 p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 rounded-r-lg not-prose">
-      <p className="text-base md:text-lg font-semibold text-gray-900 mb-1">
+    <div
+      className="not-prose card"
+      style={{
+        marginBlock: 'var(--space-8)',
+        backgroundColor: 'var(--color-brand-soft)',
+        borderLeft: '3px solid var(--color-brand)',
+      }}
+    >
+      <p
+        style={{
+          margin: '0 0 var(--space-1)',
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.125rem',
+          fontWeight: 600,
+          color: 'var(--color-ink)',
+        }}
+      >
         Looking for the best DHM supplement?
       </p>
-      <p className="text-sm text-gray-700 mb-3">
+      <p
+        className="text-soft"
+        style={{ margin: '0 0 var(--space-3)', fontSize: 'var(--text-small)' }}
+      >
         We've independently tested 10+ products for purity, absorption, and value.
       </p>
       <CustomLink
@@ -70,11 +85,45 @@ const InlineReviewsCTA = ({ placement, postSlug }) => {
         data-element-name="blog_template_reviews_cta"
         data-placement={placement}
         onClick={handleClick}
-        className="inline-flex items-center gap-1 text-green-700 hover:text-green-800 font-semibold underline underline-offset-2 min-h-[44px]"
+        className="btn btn-secondary"
+        style={{ color: 'var(--color-brand-strong)' }}
       >
         See our top-rated picks
         <ChevronRight className="w-4 h-4" />
       </CustomLink>
+    </div>
+  );
+};
+
+/**
+ * In-article callout — the modern border-first replacement for the shadcn
+ * <Alert>/green-gradient boxes the control template used. Uses the scoped
+ * .callout primitives from theme-modern.css (icon + title + body, 1px border +
+ * 3px accent rule). Variant → semantic mapping (per #384):
+ *   note (blue)    — Info Box / Did You Know / Important Medical Information
+ *   tip (green)    — Pro Tip
+ *   warning (amber)— Warning / Important / Emergency Protocol
+ *   key (ink)      — Key Insight
+ * Orange is never emitted here — it stays exclusive to affiliate/buy CTAs.
+ */
+const CALLOUT_ICONS = {
+  note: Info,
+  tip: CheckCircle,
+  warning: AlertCircle,
+  key: Lightbulb,
+};
+
+const Callout = ({ variant = 'note', title, children }) => {
+  const Icon = CALLOUT_ICONS[variant] || Info;
+  return (
+    <div className={`not-prose callout callout--${variant}`} role="note">
+      <span className="callout__icon" aria-hidden="true">
+        <Icon />
+      </span>
+      <div className="callout__content">
+        {title && <p className="callout__title">{title}</p>}
+        <p className="callout__body">{children}</p>
+      </div>
     </div>
   );
 };
@@ -99,91 +148,63 @@ const splitContentAtRatio = (content, ratio = 0.3) => {
 
 // Helper function to create enhanced components for special content patterns
 const createEnhancedComponents = () => {
-  // Function to detect and render info boxes
+  // Function to detect and render info boxes → modern .callout primitives
   const renderInfoBox = (text) => {
     // Pattern: **Info Box:** content
     if (text.startsWith('**Info Box:**')) {
       const content = text.replace('**Info Box:**', '').trim();
-      return (
-        <Alert className="border-blue-200 bg-blue-50 my-4">
-          <Info className="h-4 w-4 text-blue-600" />
-          <AlertTitle>Did You Know?</AlertTitle>
-          <AlertDescription>{content}</AlertDescription>
-        </Alert>
-      );
+      return <Callout variant="note" title="Did You Know?">{content}</Callout>;
     }
-    
+
     // Pattern: **Warning:** content
     if (text.startsWith('**Warning:**')) {
       const content = text.replace('**Warning:**', '').trim();
-      return (
-        <Alert className="border-amber-200 bg-amber-50 my-4">
-          <AlertCircle className="h-4 w-4 text-amber-600" />
-          <AlertTitle>Important</AlertTitle>
-          <AlertDescription>{content}</AlertDescription>
-        </Alert>
-      );
+      return <Callout variant="warning" title="Important">{content}</Callout>;
     }
-    
+
     // Pattern: **Pro Tip:** content
     if (text.startsWith('**Pro Tip:**')) {
       const content = text.replace('**Pro Tip:**', '').trim();
-      return (
-        <Alert className="border-green-200 bg-green-50 my-4">
-          <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertTitle>Pro Tip</AlertTitle>
-          <AlertDescription>{content}</AlertDescription>
-        </Alert>
-      );
+      return <Callout variant="tip" title="Pro Tip">{content}</Callout>;
     }
-    
+
     // Pattern: **Key Insight:** content
     if (text.startsWith('**Key Insight:**')) {
       const content = text.replace('**Key Insight:**', '').trim();
-      return (
-        <Alert className="border-purple-200 bg-purple-50 my-4">
-          <Lightbulb className="h-4 w-4 text-purple-600" />
-          <AlertTitle>Key Insight</AlertTitle>
-          <AlertDescription>{content}</AlertDescription>
-        </Alert>
-      );
+      return <Callout variant="key" title="Key Insight">{content}</Callout>;
     }
-    
+
     return null;
   };
 
-  // Function to create enhanced product cards
+  // Function to create enhanced product cards → border-first card (brand accents)
   const renderProductCard = (text) => {
     // Pattern: **Product Spotlight: [Product Name]** - details
     const productMatch = text.match(/\*\*Product Spotlight: (.+?)\*\* - (.+)/);
     if (productMatch) {
       const [_, productName, details] = productMatch;
       return (
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer border-green-200 my-6">
-          <CardHeader>
-            <div className="flex justify-between items-start">
-              <CardTitle className="text-green-800">{productName}</CardTitle>
-              <Badge className="bg-green-100 text-green-800">Featured</Badge>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700">{details}</p>
-            <Button variant="outline" size="sm" className="mt-4">
-              See Full Details →
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="not-prose card-raised" style={{ marginBlock: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--space-4)', marginBottom: 'var(--space-3)' }}>
+            <p className="card-title" style={{ color: 'var(--color-ink)' }}>{productName}</p>
+            <span className="badge badge-brand" style={{ flex: '0 0 auto' }}>Featured</span>
+          </div>
+          <p className="text-soft" style={{ margin: '0 0 var(--space-4)' }}>{details}</p>
+          <CustomLink to="/reviews" className="btn btn-secondary btn-sm" style={{ color: 'var(--color-brand-strong)' }}>
+            See Full Details →
+          </CustomLink>
+        </div>
       );
     }
     return null;
   };
 
-  // Function to render visual separators
+  // Function to render visual separators → quiet brand-green leaf on a hairline
   const renderVisualSeparator = () => (
-    <div className="relative my-12">
-      <Separator className="bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4">
-        <Leaf className="w-6 h-6 text-green-600" />
+    <div className="not-prose" style={{ position: 'relative', marginBlock: 'var(--space-12)' }}>
+      <div style={{ borderTop: '1px solid var(--color-border)' }} />
+      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--color-paper)', paddingInline: 'var(--space-4)' }}>
+        <Leaf style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-brand)' }} aria-hidden="true" />
       </div>
     </div>
   );
@@ -300,6 +321,11 @@ const NewBlogPost = () => {
     const currentPath = window.location.pathname;
     return currentPath.replace('/never-hungover/', '').replace('/newblog/', '');
   };
+
+  // Modern variant: preload the body font once, on mount.
+  useEffect(() => {
+    preloadModernFonts();
+  }, []);
 
   // Listen for URL changes
   useEffect(() => {
@@ -666,16 +692,16 @@ const NewBlogPost = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="flex items-center justify-center mb-4">
-            <Loader2 className="w-8 h-8 animate-spin text-green-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-900">Never Hungover</h1>
+      <div
+        className="theme-modern"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+            <Loader2 className="animate-spin" style={{ width: '2rem', height: '2rem', color: 'var(--color-brand)' }} />
+            <h1 style={{ fontSize: '1.5rem' }}>Never Hungover</h1>
           </div>
-          <p className="text-gray-600 mb-2">Loading post dynamically...</p>
-          <div className="text-sm text-green-600">
-            ⚡ Only loading what you need
-          </div>
+          <p className="text-soft" style={{ margin: 0 }}>Loading post…</p>
         </div>
       </div>
     );
@@ -684,15 +710,18 @@ const NewBlogPost = () => {
   // Error state
   if (loadingError || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-6">
+      <div
+        className="theme-modern"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <div style={{ textAlign: 'center', paddingInline: 'var(--space-4)' }}>
+          <h1 style={{ marginBottom: 'var(--space-4)' }}>Post Not Found</h1>
+          <p className="text-soft" style={{ marginBottom: 'var(--space-6)' }}>
             {loadingError || "The blog post you're looking for doesn't exist."}
           </p>
           <button
             onClick={() => handleNavigation('/never-hungover')}
-            className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+            className="btn btn-secondary"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Never Hungover
@@ -717,53 +746,57 @@ const NewBlogPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div
+      className="theme-modern"
+      style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}
+    >
       {/* Reading Progress Bar - positioned below header using CSS variable */}
       {isClient && (
         <div
-          className="fixed left-0 w-full h-1 bg-gray-200 z-sticky"
-          style={{ top: 'var(--header-height, 80px)' }}
+          className="fixed left-0 w-full h-1 z-sticky"
+          style={{ top: 'var(--header-height, 80px)', backgroundColor: 'var(--color-border)' }}
         >
           <div
-            className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-150 ease-out"
-            style={{ width: `${readingProgress}%` }}
+            className="h-full transition-all duration-150 ease-out"
+            style={{ width: `${readingProgress}%`, backgroundColor: 'var(--color-brand)' }}
           />
         </div>
       )}
 
       {/* Header */}
-      <div className="bg-white border-b">
+      <div style={{ backgroundColor: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)' }}>
         <div className="max-w-4xl mx-auto px-4 py-6">
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <button 
+          <nav className="flex items-center gap-2 text-sm mb-4" style={{ color: 'var(--color-ink-soft)' }}>
+            <button
               onClick={() => handleNavigation('/')}
-              className="hover:text-green-600 transition-colors"
+              className="transition-colors hover:[color:var(--color-brand-strong)]"
             >
               Home
             </button>
             <ChevronRight className="w-4 h-4" />
-            <button 
+            <button
               onClick={() => handleNavigation('/never-hungover')}
-              className="hover:text-green-600 transition-colors"
+              className="transition-colors hover:[color:var(--color-brand-strong)]"
             >
               Never Hungover
             </button>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-700 truncate">
+            <span className="truncate" style={{ color: 'var(--color-ink)' }}>
               {formatTitle(post.title).mainTitle}
             </span>
           </nav>
 
-          <button 
+          <button
             onClick={() => handleNavigation('/never-hungover')}
-            className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors mb-6"
+            className="btn btn-ghost btn-sm mb-6"
+            style={{ color: 'var(--color-brand-strong)' }}
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Never Hungover
           </button>
-          
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+
+          <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: 'var(--color-ink-soft)' }}>
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               <span>Last Updated: {formatDate(post.date)}</span>
@@ -782,7 +815,8 @@ const NewBlogPost = () => {
               <button
                 onClick={sharePost}
                 data-track="share"
-                className="flex items-center gap-1 text-green-600 hover:text-green-700 transition-colors"
+                className="flex items-center gap-1 transition-colors hover:[color:var(--color-ink)]"
+                style={{ color: 'var(--color-brand-strong)' }}
               >
                 <Share2 className="w-4 h-4" />
                 Share
@@ -795,13 +829,13 @@ const NewBlogPost = () => {
               const { mainTitle, subtitle } = formatTitle(post.title);
               return (
                 <>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                  <h1 style={{ marginBottom: subtitle ? 'var(--space-3)' : 0 }}>
                     {mainTitle}
                   </h1>
                   {subtitle && (
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-600 mt-3 leading-relaxed">
+                    <p className="lead" style={{ margin: 0 }}>
                       {subtitle}
-                    </h2>
+                    </p>
                   )}
                 </>
               );
@@ -809,7 +843,7 @@ const NewBlogPost = () => {
           </div>
 
           {post.excerpt && (
-            <p className="text-xl text-gray-600 leading-relaxed mb-6">
+            <p className="lead" style={{ marginBottom: 'var(--space-6)' }}>
               {post.excerpt}
             </p>
           )}
@@ -817,10 +851,7 @@ const NewBlogPost = () => {
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span 
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium"
-                >
+                <span key={tag} className="chip">
                   <Tag className="w-3 h-3" />
                   {tag}
                 </span>
@@ -835,25 +866,38 @@ const NewBlogPost = () => {
         {isClient && tocItems.length > 0 && (
           <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky" style={{ top: 'calc(var(--header-height, 80px) + 16px)' }}>
-              <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <List className="w-4 h-4 text-green-600" />
+              <div className="card">
+                {/* Navigation-chrome label — deliberately NOT a heading element so
+                    it stays out of the article's semantic outline (h1 → body h2 → h3). */}
+                <p
+                  className="mb-4 flex items-center gap-2"
+                  style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600, color: 'var(--color-ink)', margin: '0 0 var(--space-4)' }}
+                >
+                  <List className="w-4 h-4" style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
                   Table of Contents
-                </h3>
+                </p>
                 <nav className="space-y-1">
-                  {tocItems.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`block w-full text-left text-sm py-2 px-3 rounded-lg transition-all duration-150 ${
-                        activeSection === item.id
-                          ? 'bg-green-100 text-green-700 font-medium shadow-sm border-l-2 border-green-500'
-                          : 'text-gray-600 hover:text-green-600 hover:bg-green-50 hover:shadow-sm'
-                      } ${item.level === 3 ? 'ml-4 text-xs' : ''}`}
-                    >
-                      {item.text}
-                    </button>
-                  ))}
+                  {tocItems.map((item) => {
+                    const isActive = activeSection === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className={`block w-full text-left text-sm transition-all duration-150 ${item.level === 3 ? 'ml-4' : ''}`}
+                        style={{
+                          minHeight: '44px',
+                          padding: '0.5rem 0.75rem',
+                          borderRadius: 'var(--radius)',
+                          borderLeft: isActive ? '2px solid var(--color-brand)' : '2px solid transparent',
+                          backgroundColor: isActive ? 'var(--color-brand-soft)' : 'transparent',
+                          color: isActive ? 'var(--color-brand-strong)' : 'var(--color-ink-soft)',
+                          fontWeight: isActive ? 600 : 400,
+                        }}
+                      >
+                        {item.text}
+                      </button>
+                    );
+                  })}
                 </nav>
               </div>
             </div>
@@ -870,17 +914,17 @@ const NewBlogPost = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
                 onClick={() => setShowToc(!showToc)}
-                className="flex items-center gap-2 bg-white px-4 py-3 rounded-lg shadow-md text-gray-700 hover:text-green-600 transition-all duration-200 hover:shadow-lg touch-manipulation min-h-[44px]"
+                className="btn btn-secondary touch-manipulation"
               >
                 <List className="w-4 h-4" />
                 <span>Table of Contents</span>
                 <div className={`transform transition-transform duration-200 ${showToc ? 'rotate-180' : ''}`}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
               </motion.button>
-              
+
               {/* TOC animation uses grid for GPU-accelerated smooth animation (fixes #97) */}
               <div
                 className="grid transition-all duration-300 ease-in-out"
@@ -890,24 +934,31 @@ const NewBlogPost = () => {
                   className={`overflow-hidden transition-opacity duration-300 ${showToc ? 'opacity-100' : 'opacity-0'}`}
                   style={{ visibility: showToc ? 'visible' : 'hidden' }}
                 >
-                <div className="mt-4 bg-white rounded-lg shadow-lg p-4">
-                  <nav className="space-y-2">
-                    {tocItems.map((item) => (
-                      <button
-                        key={item.id}
-                        onClick={() => {
-                          scrollToSection(item.id);
-                          setShowToc(false);
-                        }}
-                        className={`block w-full text-left text-sm py-2 px-3 rounded transition-all duration-150 ${
-                          activeSection === item.id
-                            ? 'bg-green-100 text-green-700 font-medium shadow-sm'
-                            : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
-                        } ${item.level === 3 ? 'ml-4' : ''}`}
-                      >
-                        {item.text}
-                      </button>
-                    ))}
+                <div className="card mt-4">
+                  <nav className="space-y-1">
+                    {tocItems.map((item) => {
+                      const isActive = activeSection === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => {
+                            scrollToSection(item.id);
+                            setShowToc(false);
+                          }}
+                          className={`block w-full text-left text-sm transition-all duration-150 ${item.level === 3 ? 'ml-4' : ''}`}
+                          style={{
+                            minHeight: '44px',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: 'var(--radius)',
+                            backgroundColor: isActive ? 'var(--color-brand-soft)' : 'transparent',
+                            color: isActive ? 'var(--color-brand-strong)' : 'var(--color-ink-soft)',
+                            fontWeight: isActive ? 600 : 400,
+                          }}
+                        >
+                          {item.text}
+                        </button>
+                      );
+                    })}
                   </nav>
                 </div>
               </div>
@@ -916,11 +967,12 @@ const NewBlogPost = () => {
           )}
 
           {/* Article Content */}
-          <motion.article 
+          <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden">
+            className="overflow-hidden"
+            style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)' }}>
             {/* Hero Image - aspect-video + width/height attrs prevent CLS (Issue #293) */}
             {post.image && (
               <div className="w-full">
@@ -931,17 +983,40 @@ const NewBlogPost = () => {
                   width={1600}
                   height={900}
                   priority
-                  fetchpriority="high"
+                  fetchPriority="high"
                 />
               </div>
             )}
-            
+
             <div className="p-8 md:p-12">
               {/* Quick Answer callout — positioned in the first ~100 words for AI engine extraction (Perplexity, ChatGPT, Gemini). Issue #292. */}
               {post.quickAnswer && (
-                <div className="max-w-3xl mx-auto mb-8 p-5 bg-blue-50 border-l-4 border-blue-600 rounded-r-lg">
-                  <p className="text-sm font-bold uppercase tracking-wide text-blue-700 mb-1">Quick Answer</p>
-                  <p className="text-base md:text-lg text-gray-900 leading-relaxed m-0">{post.quickAnswer}</p>
+                <div
+                  className="container-prose"
+                  style={{
+                    marginBottom: 'var(--space-8)',
+                    padding: 'var(--space-4) var(--space-6)',
+                    backgroundColor: '#EAF0FE',
+                    borderLeft: '3px solid var(--color-info)',
+                    borderRadius: 'var(--radius)',
+                    border: '1px solid var(--color-border)',
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: '0 0 var(--space-1)',
+                      fontSize: 'var(--text-small)',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: 'var(--tracking-wide)',
+                      color: 'var(--color-info)',
+                    }}
+                  >
+                    Quick Answer
+                  </p>
+                  <p style={{ margin: 0, fontSize: '1.125rem', lineHeight: 1.6, color: 'var(--color-ink)' }}>
+                    {post.quickAnswer}
+                  </p>
                 </div>
               )}
 
@@ -949,10 +1024,10 @@ const NewBlogPost = () => {
               {keyTakeaways.length > 0 && (
                 <KeyTakeaways takeaways={keyTakeaways} />
               )}
-              
-              {/* Main Content - Constrained Width */}
-              <div className="max-w-3xl mx-auto">
-                <div ref={contentRef} className="prose prose-lg prose-green max-w-none enhanced-typography">
+
+              {/* Main Content — the scoped .article-body typography (Fraunces solid
+                  headings, Inter body ~68ch measure) replaces the Tailwind prose. */}
+              <div ref={contentRef} className="article-body">
                 {(() => {
                   // Shared components config for ReactMarkdown
                   const markdownComponents = {
@@ -965,7 +1040,7 @@ const NewBlogPost = () => {
                       };
                       const text = extractText(children);
                       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-                      return <h1 id={id} className="text-3xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{children}</h1>;
+                      return <h1 id={id}>{children}</h1>;
                     },
                     h2: ({children}) => {
                       const extractText = (node) => {
@@ -976,7 +1051,7 @@ const NewBlogPost = () => {
                       };
                       const text = extractText(children);
                       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-                      return <h2 id={id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b border-gray-200 pb-2">{children}</h2>;
+                      return <h2 id={id}>{children}</h2>;
                     },
                     h3: ({children}) => {
                       const extractText = (node) => {
@@ -987,12 +1062,7 @@ const NewBlogPost = () => {
                       };
                       const text = extractText(children);
                       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-                      return (
-                        <h3 id={id} className="text-xl font-bold text-gray-900 mt-8 mb-4 relative">
-                          <span className="relative z-10 bg-white pr-4">{children}</span>
-                          <div className="absolute left-0 top-1/2 w-full h-px bg-gradient-to-r from-green-200 to-transparent -translate-y-1/2 -z-0"></div>
-                        </h3>
-                      );
+                      return <h3 id={id}>{children}</h3>;
                     },
                     p: ({children}) => {
                       // Extract text content from children (which might be an array with React elements)
@@ -1009,120 +1079,60 @@ const NewBlogPost = () => {
                       // Check for special patterns only at the start of the paragraph
                       const trimmedText = fullText.trim();
                       
-                      // Check for info box patterns
+                      // Check for info box patterns → modern .callout primitives
                       if (trimmedText.startsWith('Info Box:')) {
                         const content = trimmedText.replace(/^Info Box:\s*/, '');
-                        return (
-                          <Alert className="border-blue-200 bg-blue-50 my-4">
-                            <Info className="h-4 w-4 text-blue-600" />
-                            <AlertTitle>Did You Know?</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="note" title="Did You Know?">{content}</Callout>;
                       }
-                      
+
                       // Check for warning patterns
                       if (trimmedText.startsWith('Warning:')) {
                         const content = trimmedText.replace(/^Warning:\s*/, '');
-                        return (
-                          <Alert className="border-amber-200 bg-amber-50 my-4">
-                            <AlertCircle className="h-4 w-4 text-amber-600" />
-                            <AlertTitle>Important</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="warning" title="Important">{content}</Callout>;
                       }
-                      
+
                       // Check for pro tip patterns
                       if (trimmedText.startsWith('Pro Tip:')) {
                         const content = trimmedText.replace(/^Pro Tip:\s*/, '');
-                        return (
-                          <Alert className="border-green-200 bg-green-50 my-4">
-                            <CheckCircle className="h-4 w-4 text-green-600" />
-                            <AlertTitle>Pro Tip</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="tip" title="Pro Tip">{content}</Callout>;
                       }
-                      
+
                       // Check for key insight patterns
                       if (trimmedText.startsWith('Key Insight:')) {
                         const content = trimmedText.replace(/^Key Insight:\s*/, '');
-                        return (
-                          <Alert className="border-purple-200 bg-purple-50 my-4">
-                            <Lightbulb className="h-4 w-4 text-purple-600" />
-                            <AlertTitle>Key Insight</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="key" title="Key Insight">{content}</Callout>;
                       }
-                      
+
                       // Check for important patterns
                       if (trimmedText.startsWith('Important:')) {
                         const content = trimmedText.replace(/^Important:\s*/, '');
-                        return (
-                          <Alert className="border-red-200 bg-red-50 my-4">
-                            <AlertCircle className="h-4 w-4 text-red-600" />
-                            <AlertTitle>Important</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="warning" title="Important">{content}</Callout>;
                       }
-                      
+
                       // Check for patterns with asterisks (from blockquotes)
                       if (trimmedText.startsWith('**Warning:**')) {
                         const content = trimmedText.replace(/^\*\*Warning:\*\*\s*/, '');
-                        return (
-                          <Alert className="border-amber-200 bg-amber-50 my-4">
-                            <AlertCircle className="h-4 w-4 text-amber-600" />
-                            <AlertTitle>Warning</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="warning" title="Warning">{content}</Callout>;
                       }
-                      
+
                       if (trimmedText.startsWith('**Key Insight:**')) {
                         const content = trimmedText.replace(/^\*\*Key Insight:\*\*\s*/, '');
-                        return (
-                          <Alert className="border-purple-200 bg-purple-50 my-4">
-                            <Lightbulb className="h-4 w-4 text-purple-600" />
-                            <AlertTitle>Key Insight</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="key" title="Key Insight">{content}</Callout>;
                       }
-                      
+
                       if (trimmedText.startsWith('**Pro Tip:**')) {
                         const content = trimmedText.replace(/^\*\*Pro Tip:\*\*\s*/, '');
-                        return (
-                          <Alert className="border-green-200 bg-green-50 my-4">
-                            <CheckCircle className="h-4 w-4 text-green-600" />
-                            <AlertTitle>Pro Tip</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="tip" title="Pro Tip">{content}</Callout>;
                       }
-                      
+
                       if (trimmedText.startsWith('**Emergency Protocol:**')) {
                         const content = trimmedText.replace(/^\*\*Emergency Protocol:\*\*\s*/, '');
-                        return (
-                          <Alert className="border-red-200 bg-red-50 my-4">
-                            <AlertCircle className="h-4 w-4 text-red-600" />
-                            <AlertTitle>Emergency Protocol</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="warning" title="Emergency Protocol">{content}</Callout>;
                       }
-                      
+
                       if (trimmedText.startsWith('**Important Medical Information:**')) {
                         const content = trimmedText.replace(/^\*\*Important Medical Information:\*\*\s*/, '');
-                        return (
-                          <Alert className="border-blue-200 bg-blue-50 my-4">
-                            <Info className="h-4 w-4 text-blue-600" />
-                            <AlertTitle>Important Medical Information</AlertTitle>
-                            <AlertDescription>{content}</AlertDescription>
-                          </Alert>
-                        );
+                        return <Callout variant="note" title="Important Medical Information">{content}</Callout>;
                       }
                       
                       // Skip rendering key takeaways in the main content since we show them at the top
@@ -1130,85 +1140,41 @@ const NewBlogPost = () => {
                         return null;
                       }
                       
-                      // Check for product card patterns
+                      // Check for product card patterns → border-first card
                       if (trimmedText.startsWith('Product Spotlight:')) {
                         const productMatch = trimmedText.match(/^Product Spotlight:\s*([^-]+?)\s*-\s*(.+)/);
                         if (productMatch) {
                           const [_, productName, details] = productMatch;
                           return (
-                            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-green-200 my-6">
-                              <CardHeader>
-                                <div className="flex justify-between items-start">
-                                  <CardTitle className="text-green-800">{productName.trim()}</CardTitle>
-                                  <Badge className="bg-green-100 text-green-800">Featured</Badge>
-                                </div>
-                              </CardHeader>
-                              <CardContent>
-                                <p className="text-gray-700">{details.trim()}</p>
-                                <Button variant="outline" size="sm" className="mt-4">
-                                  See Full Details →
-                                </Button>
-                              </CardContent>
-                            </Card>
+                            <div className="not-prose card-raised" style={{ marginBlock: 'var(--space-6)' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--space-4)', marginBottom: 'var(--space-3)' }}>
+                                <p className="card-title" style={{ color: 'var(--color-ink)' }}>{productName.trim()}</p>
+                                <span className="badge badge-brand" style={{ flex: '0 0 auto' }}>Featured</span>
+                              </div>
+                              <p className="text-soft" style={{ margin: '0 0 var(--space-4)' }}>{details.trim()}</p>
+                              <CustomLink to="/reviews" className="btn btn-secondary btn-sm" style={{ color: 'var(--color-brand-strong)' }}>
+                                See Full Details →
+                              </CustomLink>
+                            </div>
                           );
                         }
                       }
-                      
+
                       // Check for separator pattern
                       if (fullText.trim() === '---') {
                         return renderVisualSeparator();
                       }
-                      
-                      // Default paragraph rendering
-                      return <p className="text-gray-700 leading-relaxed mb-4 text-lg">{children}</p>;
+
+                      // Default paragraph rendering — styled by .article-body descendant CSS
+                      return <p>{children}</p>;
                     },
-                    ul: ({children}) => (
-                      <ul className="space-y-3 mb-6 text-lg">
-                        {children}
-                      </ul>
-                    ),
-                    ol: ({children}) => (
-                      <ol className="space-y-3 mb-6 text-lg counter-reset-list">
-                        {children}
-                      </ol>
-                    ),
-                    li: ({children, ...props}) => {
-                      const isOrderedList = props.node?.parentNode?.tagName === 'ol';
-                      const text = typeof children === 'string' ? children : '';
-                      
-                      // Check for special list item patterns
-                      let icon = null;
-                      let specialClass = '';
-                      
-                      if (text.includes('✅') || text.toLowerCase().includes('benefit')) {
-                        icon = <CheckCircle className="w-5 h-5 text-green-600" />;
-                        specialClass = 'bg-green-50 border-l-2 border-green-500 pl-4 -ml-4';
-                      } else if (text.includes('⚠️') || text.toLowerCase().includes('warning')) {
-                        icon = <AlertCircle className="w-5 h-5 text-amber-600" />;
-                        specialClass = 'bg-amber-50 border-l-2 border-amber-500 pl-4 -ml-4';
-                      } else if (text.includes('💡') || text.toLowerCase().includes('tip')) {
-                        icon = <Lightbulb className="w-5 h-5 text-purple-600" />;
-                        specialClass = 'bg-purple-50 border-l-2 border-purple-500 pl-4 -ml-4';
-                      }
-                      
-                      return isOrderedList ? (
-                        <li className={`flex items-start gap-3 leading-relaxed text-gray-700 counter-increment-item ${specialClass}`}>
-                          <span className="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5 counter-content">
-                          </span>
-                          <span className="flex-1">{children}</span>
-                        </li>
-                      ) : (
-                        <li className={`flex items-start gap-3 leading-relaxed text-gray-700 ${specialClass}`}>
-                          {icon || <span className="flex-shrink-0 w-2 h-2 bg-gradient-to-r from-green-600 to-green-700 rounded-full mt-3"></span>}
-                          <span className="flex-1">{children}</span>
-                        </li>
-                      );
-                    },
-                    blockquote: ({children}) => (
-                      <blockquote className="border-l-4 border-green-500 pl-6 py-4 my-6 bg-green-50 italic text-gray-700 rounded-r-lg">
-                        {children}
-                      </blockquote>
-                    ),
+                    // Lists + blockquote are styled by .article-body descendant CSS
+                    // (brand-green markers, hanging indent, brand-soft quote). Plain
+                    // elements keep the SEO-visible text/structure untouched.
+                    ul: ({children}) => <ul>{children}</ul>,
+                    ol: ({children}) => <ol>{children}</ol>,
+                    li: ({children}) => <li>{children}</li>,
+                    blockquote: ({children}) => <blockquote>{children}</blockquote>,
                     code: ({node, inline, className, children, ...props}) => {
                       // ReactMarkdown v6+ doesn't always pass inline prop correctly
                       // Check if this is inline code by looking at the parent node
@@ -1235,7 +1201,10 @@ const NewBlogPost = () => {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <code className="inline bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800 underline decoration-dotted cursor-help" style={{display: 'inline'}}>
+                                  <code
+                                    className="cursor-help"
+                                    style={{ display: 'inline', textDecoration: 'underline dotted' }}
+                                  >
                                     {children}
                                   </code>
                                 </TooltipTrigger>
@@ -1246,13 +1215,13 @@ const NewBlogPost = () => {
                             </TooltipProvider>
                           );
                         }
-                        
-                        return <code className="inline bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800" style={{display: 'inline'}} {...props}>{children}</code>;
+
+                        return <code style={{ display: 'inline' }} {...props}>{children}</code>;
                       }
-                      
-                      // Block code
+
+                      // Block code — styled by .article-body pre/code descendant CSS
                       return (
-                        <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6">
+                        <pre>
                           <code className={className} {...props}>{children}</code>
                         </pre>
                       );
@@ -1265,7 +1234,7 @@ const NewBlogPost = () => {
                       // hook gets proper placement metadata + Google compliance attrs.
                       const isAffiliate = isExternal && /(?:^|\/\/|\.)(amazon\.[a-z.]{2,6}|amzn\.to)\//i.test(href || '');
 
-                      // Handle hash links (TOC links)
+                      // Handle hash links (TOC links) — internal nav, brand green
                       if (isHashLink && isClient) {
                         return (
                           <span
@@ -1274,7 +1243,8 @@ const NewBlogPost = () => {
                               const targetId = href.slice(1); // Remove the #
                               scrollToSection(targetId);
                             }}
-                            className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1 cursor-pointer"
+                            className="inline-flex items-center gap-1 cursor-pointer underline"
+                            style={{ color: 'var(--color-brand-strong)' }}
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => {
@@ -1290,21 +1260,27 @@ const NewBlogPost = () => {
                         );
                       }
 
+                      // Internal article link — brand green (nav), NOT the body blue
                       if (isInternal && isClient) {
                         return (
                           <CustomLink
                             to={href}
-                            className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
+                            className="inline-flex items-center gap-1 underline"
+                            style={{ color: 'var(--color-brand-strong)' }}
                           >
                             {children}
                           </CustomLink>
                         );
                       }
 
+                      // External / affiliate link — plain <a>, contract preserved
+                      // byte-for-byte (rel/target/data-placement, NO onClick). Body
+                      // color comes from the .article-body a rule (editorial blue);
+                      // orange is never applied to in-article links.
                       return (
                         <a
                           href={href}
-                          className="text-green-600 hover:text-green-700 underline transition-colors inline-flex items-center gap-1"
+                          className="inline-flex items-center gap-1"
                           target={isExternal ? '_blank' : undefined}
                           rel={isAffiliate ? 'nofollow sponsored noopener noreferrer' : (isExternal ? 'noopener noreferrer' : undefined)}
                           data-placement={isAffiliate ? 'blog_content_inline' : undefined}
@@ -1314,99 +1290,41 @@ const NewBlogPost = () => {
                         </a>
                       );
                     },
-                    strong: ({children}) => {
-                      const text = typeof children === 'string' ? children : '';
-                      const isFormula = text.includes(':') && text.endsWith(':');
-                      
-                      // Check for percentage patterns (e.g., "70% faster")
-                      const percentageMatch = text.match(/^(\d+)%\s+(.+)$/);
-                      if (percentageMatch) {
-                        const [_, percentage, description] = percentageMatch;
-                        return (
-                          <span className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-blue-50 px-3 py-1 rounded-lg border border-green-200">
-                            <strong className="text-2xl font-bold text-green-700">{percentage}%</strong>
-                            <span className="text-gray-700 font-medium">{description}</span>
-                          </span>
-                        );
-                      }
-                      
-                      // Check for key stat patterns (e.g., "300mg" or "$29.99")
-                      const statMatch = text.match(/^([\$]?\d+(?:mg|g|ml|L)?|\$\d+\.\d{2})$/);
-                      if (statMatch) {
-                        return (
-                          <strong className="inline-block text-xl font-bold text-green-700 bg-green-50 px-2 py-1 rounded-md border border-green-200">
-                            {children}
-                          </strong>
-                        );
-                      }
-                      
-                      return isFormula ? (
-                        <strong className="inline-block font-bold gradient-text-green border-b-2 border-green-200 pb-1 mr-1">
-                          {children}
-                        </strong>
-                      ) : (
-                        <strong className="font-bold text-gray-900 bg-green-50 px-1 py-0.5 rounded">
-                          {children}
-                        </strong>
-                      );
-                    },
-                    em: ({children}) => <em className="italic text-gray-700">{children}</em>,
+                    // strong/em styled by .article-body descendant CSS (quiet
+                    // font-weight:600 solid ink — no green pills / gradient text).
+                    strong: ({children}) => <strong>{children}</strong>,
+                    em: ({children}) => <em>{children}</em>,
+                    // Tables wrap in .table-scroll for mobile overflow safety; the
+                    // .article-body table/thead/th/td CSS supplies brand-soft header,
+                    // paper zebra, 1px border + radius.
                     table: ({children}) => (
-                      <div className="overflow-x-auto my-8 rounded-xl shadow-lg border border-gray-200">
-                        <table className="w-full border-collapse bg-white">
-                          {children}
-                        </table>
+                      <div className="table-scroll">
+                        <table>{children}</table>
                       </div>
                     ),
-                    thead: ({children}) => (
-                      <thead className="bg-gradient-to-r from-green-600 to-green-700">
-                        {children}
-                      </thead>
-                    ),
-                    tbody: ({children}) => (
-                      <tbody className="divide-y divide-gray-200">
-                        {children}
-                      </tbody>
-                    ),
-                    tr: ({children, ...props}) => {
-                      const isHeader = props.node?.tagName === 'tr' && props.node?.parentNode?.tagName === 'thead';
-                      return (
-                        <tr className={isHeader ? '' : 'hover:bg-gray-50 transition-colors duration-150'}>
-                          {children}
-                        </tr>
-                      );
-                    },
-                    th: ({children}) => (
-                      <th className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-r border-green-500 last:border-r-0">
-                        {children}
-                      </th>
-                    ),
-                    td: ({children}) => (
-                      <td className="px-6 py-4 text-sm text-gray-700 border-r border-gray-200 last:border-r-0 leading-relaxed">
-                        {children}
-                      </td>
-                    ),
+                    thead: ({children}) => <thead>{children}</thead>,
+                    tbody: ({children}) => <tbody>{children}</tbody>,
+                    tr: ({children}) => <tr>{children}</tr>,
+                    th: ({children}) => <th>{children}</th>,
+                    td: ({children}) => <td>{children}</td>,
                     img: ({src, alt, ...props}) => {
-                      // Use ImageLightbox for blog content images
+                      // Use ImageLightbox for blog content images; rounded + 1px
+                      // border comes from the .article-body img rule on the inner img.
                       return (
-                        <div className="my-8">
-                          <ImageLightbox 
-                            src={src} 
+                        <div style={{ marginBlock: 'var(--space-8)' }}>
+                          <ImageLightbox
+                            src={src}
                             alt={alt}
-                            className="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                            className="w-full"
                           />
                         </div>
                       );
                     },
                     hr: () => (
-                      <div className="relative my-12">
-                        <div className="absolute inset-0 flex items-center">
-                          <div className="w-full border-t border-gray-300"></div>
-                        </div>
-                        <div className="relative flex justify-center">
-                          <span className="bg-white px-4">
-                            <Leaf className="w-6 h-6 text-green-600" />
-                          </span>
+                      <div className="not-prose" style={{ position: 'relative', marginBlock: 'var(--space-12)' }}>
+                        <div style={{ borderTop: '1px solid var(--color-border)' }} />
+                        <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--color-paper)', paddingInline: 'var(--space-4)' }}>
+                          <Leaf style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-brand)' }} aria-hidden="true" />
                         </div>
                       </div>
                     ),
@@ -1496,59 +1414,85 @@ const NewBlogPost = () => {
                   );
                 })()}
                 </div>
-              </div>
             </div>
           </motion.article>
 
           {/* Related Articles */}
           {relatedPosts.length > 0 && (
-            <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-6">Related Articles</h3>
+            <div className="card" style={{ marginTop: 'var(--space-8)' }}>
+              <h3
+                style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-ink)', marginBottom: 'var(--space-6)' }}
+              >
+                Related Articles
+              </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedPosts.map((relatedPost) => (
-                  <div
+                  <article
                     key={relatedPost.slug}
-                    className="border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                    className="card-raised"
+                    style={{ padding: 0, overflow: 'hidden', height: '100%' }}
                   >
                     <CustomLink
                       to={`/never-hungover/${relatedPost.slug}`}
-                      className="block p-4"
+                      style={{ display: 'flex', flexDirection: 'column', height: '100%', textDecoration: 'none' }}
                     >
                       {relatedPost.image && (
-                        <img
-                          src={relatedPost.image}
-                          alt={relatedPost.title}
-                          className="w-full h-32 object-cover rounded-lg mb-3"
-                          loading="lazy"
-                        />
+                        <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+                          <img
+                            src={relatedPost.image}
+                            alt={relatedPost.title}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            loading="lazy"
+                          />
+                        </div>
                       )}
-                      <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-                        {relatedPost.title}
-                      </h4>
-                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                        {relatedPost.excerpt}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <Clock className="w-3 h-3" />
-                        <span>{relatedPost.readTime} min read</span>
+                      <div style={{ padding: 'var(--space-4)', display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
+                        <h4
+                          className="card-title line-clamp-2"
+                          style={{ fontSize: '1.0625rem', color: 'var(--color-ink)', marginBottom: 'var(--space-2)' }}
+                        >
+                          {relatedPost.title}
+                        </h4>
+                        <p
+                          className="text-soft line-clamp-2"
+                          style={{ fontSize: 'var(--text-small)', marginBottom: 'var(--space-3)' }}
+                        >
+                          {relatedPost.excerpt}
+                        </p>
+                        <div
+                          className="cluster"
+                          style={{ gap: 'var(--space-1)', marginTop: 'auto', color: 'var(--color-ink-soft)', fontSize: 'var(--text-eyebrow)' }}
+                        >
+                          <Clock className="w-3 h-3" />
+                          <span>{relatedPost.readTime} min read</span>
+                        </div>
+                        <span
+                          className="cluster"
+                          style={{ gap: 'var(--space-1)', marginTop: 'var(--space-3)', color: 'var(--color-brand-strong)', fontWeight: 600, fontSize: 'var(--text-small)' }}
+                        >
+                          Read
+                          <ChevronRight className="w-4 h-4" />
+                        </span>
                       </div>
                     </CustomLink>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Performance Info */}
-          <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-4 text-sm">
-            <h4 className="font-semibold text-green-800 mb-2">⚡ Dynamically Loaded</h4>
-            <div className="text-green-700 space-y-1">
-              <div>• Post loaded on-demand: {Math.round(JSON.stringify(post).length / 1024)}KB</div>
-              <div>• Related posts preloaded in background</div>
-              <div>• Smart caching active: {getCacheStats().size}/{getCacheStats().maxSize} posts cached</div>
-              <div>• Reading progress and TOC generated client-side</div>
+          {/* Performance Info — dev only, neutral card in production diagnostics off */}
+          {!import.meta.env.PROD && (
+            <div className="card" style={{ marginTop: 'var(--space-8)', fontSize: 'var(--text-small)' }}>
+              <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)', marginBottom: 'var(--space-2)' }}>⚡ Dynamically Loaded</h4>
+              <div className="text-soft" style={{ display: 'grid', gap: '0.25rem' }}>
+                <div>• Post loaded on-demand: {Math.round(JSON.stringify(post).length / 1024)}KB</div>
+                <div>• Related posts preloaded in background</div>
+                <div>• Smart caching active: {getCacheStats().size}/{getCacheStats().maxSize} posts cached</div>
+                <div>• Reading progress and TOC generated client-side</div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
