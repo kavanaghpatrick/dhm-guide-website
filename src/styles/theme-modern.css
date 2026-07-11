@@ -345,6 +345,414 @@
   }
 
   /* ----------------------------------------------------------------------
+     5b. FORM CONTROLS
+     Reusable, scoped form primitives for the dosage calculator + future forms.
+     Consistent with .btn/.card/.badge: 1px warm borders, 8px radius, 4/8 rhythm.
+     Contract: brand GREEN accent (tools are not conversion surfaces — orange is
+     reserved for affiliate/buy CTAs elsewhere), >=44px touch targets, a visible
+     :focus-visible ring (the root rule already paints an outline; controls add a
+     matched border tint on focus), AA contrast. Built ONLY from existing tokens.
+
+     Building blocks:
+       .field                       label + control group (vertical stack)
+       .label / .label-hint         control label + optional inline hint
+       .input                       text / number / email input
+       .input-affix (+ .input__unit) input with a trailing unit label (e.g. "lbs")
+       .select                      native <select> with a custom brand caret
+       .range                       styled input[type=range] slider (track + thumb)
+       .range-scale                 min / current / max value row under a slider
+       .range-scale__value          the highlighted current-value pill
+       .choice-group                grid wrapper for .choice cards (radio group)
+       .choice                      one selectable card; [aria-checked]/.is-selected = on
+       .choice__title / .choice__desc  card title + helper line
+       .stepper (+ .stepper__btn / .stepper__value)  −/N/+ number stepper
+       .segmented (+ .segmented__btn) segmented unit toggle (e.g. lbs | kg)
+       .checkbox / .radio           native checkbox / radio, brand accent-color
+       .choice-inline               label wrapping a .checkbox/.radio + text
+       .progress (+ .progress__bar) determinate result/meter bar
+       .meter-scale                 caption row under a progress bar
+     ---------------------------------------------------------------------- */
+
+  /* ---- Field group: a label stacked over its control ---- */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0; /* allow the control to shrink inside grids without overflow */
+  }
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .label-hint {
+    font-weight: 400;
+    color: var(--color-ink-soft);
+  }
+
+  /* ---- Text / number / email input ---- */
+  .input {
+    width: 100%;
+    min-height: 44px;                 /* touch target */
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.3;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .input::placeholder { color: var(--color-ink-soft); opacity: 1; }
+  .input:hover { border-color: var(--color-ink-soft); }
+  .input:focus-visible {
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+    outline: 2px solid var(--color-info); /* keep the root focus outline for AA */
+    outline-offset: 2px;
+  }
+  .input:disabled {
+    background-color: var(--color-paper);
+    color: var(--color-ink-soft);
+    cursor: not-allowed;
+  }
+  /* Numeric inputs read best centered + tabular; use with type="number". */
+  .input-num { text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  /* ---- Input with a trailing unit label (e.g. a weight box + "lbs") ---- */
+  .input-affix {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .input-affix .input { width: auto; min-width: 5rem; }
+  .input__unit {
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+
+  /* ---- Native <select> with a single custom brand-ink caret ---- */
+  .select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.625rem 2.5rem 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Custom caret in --color-ink-soft (#4A4E48) so the control reads as one
+       coherent affordance rather than a box with a foreign system arrow. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%234A4E48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .select:hover { border-color: var(--color-ink-soft); }
+  .select:focus-visible {
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+  }
+
+  /* ---- Range slider (native input[type=range]) — brand track + thumb ----
+     For forms that don't use the shared ui/slider component. Cross-browser thumb
+     + track styling; 44px hit area via a tall transparent element with a slim
+     painted track. */
+  .range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 44px;                     /* touch target height */
+    background: transparent;          /* track is painted per-vendor below */
+    cursor: pointer;
+    margin: 0;
+  }
+  /* Track */
+  .range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--color-border);
+  }
+  .range::-moz-range-track {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--color-border);
+  }
+  /* Filled portion (Firefox only — WebKit has no standard fill selector) */
+  .range::-moz-range-progress {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--color-brand);
+  }
+  /* Thumb */
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;                 /* center the 22px thumb on the 6px track */
+    border-radius: var(--radius-pill);
+    background: var(--color-brand);
+    border: 2px solid var(--color-surface);
+    box-shadow: var(--elev-1);
+    transition: transform var(--transition);
+  }
+  .range::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-pill);
+    background: var(--color-brand);
+    border: 2px solid var(--color-surface);
+    box-shadow: var(--elev-1);
+  }
+  .range:active::-webkit-slider-thumb { transform: scale(1.1); }
+  .range:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px var(--color-brand-soft), var(--elev-1);
+  }
+  .range:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 4px var(--color-brand-soft), var(--elev-1);
+  }
+
+  /* min / current / max caption row under a slider */
+  .range-scale {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+  }
+  .range-scale__value {
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-strong);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ---- Choice cards (radio-group semantics as selectable cards) ----
+     Use on a <button> or a role="radio"/aria-checked element. Selected state via
+     .is-selected OR [aria-checked="true"] OR [aria-pressed="true"]. Green accent. */
+  .choice-group {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .choice-group--2 { grid-template-columns: repeat(2, 1fr); }
+    .choice-group--3 { grid-template-columns: repeat(3, 1fr); }
+  }
+  .choice {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--transition), background-color var(--transition),
+                box-shadow var(--transition), transform var(--transition);
+  }
+  .choice:hover { border-color: var(--color-ink-soft); box-shadow: var(--elev-1); }
+  .choice:active { transform: scale(0.99); }
+  .choice.is-selected,
+  .choice[aria-checked="true"],
+  .choice[aria-pressed="true"] {
+    border-color: var(--color-brand);
+    background-color: var(--color-brand-soft);
+    box-shadow: inset 0 0 0 1px var(--color-brand);
+  }
+  .choice__title {
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--color-ink);
+  }
+  .choice.is-selected .choice__title,
+  .choice[aria-checked="true"] .choice__title,
+  .choice[aria-pressed="true"] .choice__title { color: var(--color-brand-strong); }
+  .choice__desc {
+    font-size: var(--text-small);
+    line-height: 1.4;
+    color: var(--color-ink-soft);
+  }
+  /* Center variant for icon/emoji-led choices (tolerance, purpose). */
+  .choice--center { align-items: center; text-align: center; }
+
+  /* ---- Number stepper: −  [value]  +  ---- */
+  .stepper {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    overflow: hidden;
+  }
+  .stepper__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-height: 44px;                 /* touch target */
+    border: 0;
+    background-color: transparent;
+    color: var(--color-brand-strong);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--transition), color var(--transition);
+  }
+  .stepper__btn:hover { background-color: var(--color-brand-soft); }
+  .stepper__btn:active { background-color: var(--color-brand-soft); transform: scale(0.97); }
+  .stepper__btn:disabled { color: var(--color-border); cursor: not-allowed; background: transparent; }
+  .stepper__btn svg,
+  .stepper__btn [data-lucide] { width: 1.125rem; height: 1.125rem; }
+  .stepper__value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    padding-inline: var(--space-2);
+    border-inline: 1px solid var(--color-border);
+    font-size: var(--text-body);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+  }
+  /* Bare number input inside a stepper (removes spinners, centers value) */
+  .stepper__input {
+    width: 3.5rem;
+    min-height: 44px;
+    border: 0;
+    border-inline: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-ink);
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .stepper__input::-webkit-outer-spin-button,
+  .stepper__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .stepper__input:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--color-brand);
+    outline-offset: -2px;
+  }
+
+  /* ---- Segmented control (unit toggle: lbs | kg, prevention | recovery) ---- */
+  .segmented {
+    display: inline-flex;
+    padding: 0.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-paper);
+    gap: 0.25rem;
+  }
+  .segmented__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;                 /* 44px on coarse pointers below */
+    padding: 0.375rem 1rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+  }
+  .segmented__btn:hover { color: var(--color-ink); }
+  .segmented__btn.is-selected,
+  .segmented__btn[aria-pressed="true"],
+  .segmented__btn[aria-checked="true"] {
+    background-color: var(--color-surface);
+    color: var(--color-brand-strong);
+    box-shadow: var(--elev-1);
+  }
+  @media (pointer: coarse) {
+    .segmented__btn { min-height: 44px; }
+  }
+
+  /* ---- Native checkbox / radio (brand accent) + inline label wrapper ---- */
+  .checkbox,
+  .radio {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--color-brand);
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+  .choice-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;                 /* touch target for the whole label row */
+    padding: var(--space-2) 0;
+    font-size: var(--text-body);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  /* ---- Progress / meter bar (determinate result bar) ----
+     Set the fill width inline: style="width: 72%". Green fill = brand. */
+  .progress {
+    width: 100%;
+    height: 0.625rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-brand-soft);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .progress__bar {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-brand);
+    transition: width var(--transition-slow);
+  }
+  /* Caption row under a progress bar (e.g. "0mg" … "600mg"). */
+  .meter-scale {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ----------------------------------------------------------------------
      6. CHIPS & BADGES (pill, brand-soft trust accents)
      ---------------------------------------------------------------------- */
   .chip {
