@@ -133,6 +133,7 @@ const postModules = {
   "how-to-cure-a-hangover-complete-science-guide": () => import("./posts/how-to-cure-a-hangover-complete-science-guide.json"),
   "how-to-get-over-hangover": () => import("./posts/how-to-get-over-hangover.json"),
   "how-to-get-rid-of-hangover-fast": () => import("./posts/how-to-get-rid-of-hangover-fast.json"),
+  "how-to-prevent-a-hangover": () => import("./posts/how-to-prevent-a-hangover.json"),
   "international-business-success-2025": () => import("./posts/international-business-success-2025.json"),
   "is-dhm-safe-science-behind-side-effects-2025": () => import("./posts/is-dhm-safe-science-behind-side-effects-2025.json"),
   "italian-drinking-culture-guide": () => import("./posts/italian-drinking-culture-guide.json"),
