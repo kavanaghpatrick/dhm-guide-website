@@ -1692,6 +1692,429 @@
   /* (Footer renders as a light warm-paper surface with .nav-link links — see
      Layout.jsx. The earlier dark-footer `.footer-modern` variant was unused and
      removed to keep this file free of dead CSS.) */
+
+  /* ----------------------------------------------------------------------
+     15. ARTICLE / PROSE + CALLOUTS  (blog POST template — #381 / #384)
+     --------------------------------------------------------------------------
+     The editorial reading system for the ~197-post blog template
+     (src/newblog/components/NewBlogPost.jsx). Replaces the Tailwind Typography
+     `.prose / .prose-lg / .prose-green` body with a scoped, tokenised
+     article-typography sheet so post BODY content reads as a warm-paper
+     editorial page: Fraunces display headings in SOLID ink (never gradient
+     clip-text), Inter body at ~1.125rem / 1.7, a comfortable ~68ch measure,
+     blue in-article links, gold star convention untouched, and the single
+     saturated orange reserved for affiliate/buy CTAs (NEVER emitted by the
+     prose reset — body <a> stay blue; buy CTAs opt into .btn-cta explicitly).
+
+     Contract for consumers (the POST-template restyle, #384):
+       - Wrap the ReactMarkdown output container in .article-body. That is the
+         ONLY class the markdown container needs — every child element (p, h2,
+         h3, ul, ol, li, blockquote, a, strong, img, figure, table, code, pre,
+         hr) is styled by descendant selectors here, so no per-element classes
+         are required and the SEO-critical heading TEXT / hierarchy / anchor IDs
+         / link hrefs are untouched (presentation only).
+       - .prose-modern is an alias of .article-body (identical ruleset) for
+         call-sites that prefer the "prose" name.
+       - In-body callouts (Pro Tip / Warning / Key Insight / Info) migrate to the
+         .callout family below — border-first, AA-contrast, icon + title + body.
+
+     Built ONLY from existing tokens. No new tokens. No new Tailwind z-* utils.
+     ---------------------------------------------------------------------- */
+
+  .article-body,
+  .prose-modern {
+    /* Reading measure + base rhythm. `ch` is relative to the body font, so
+       ~68ch on Inter ≈ a comfortable 60–75-char editorial line. The container
+       centers itself; page layout still controls outer gutters. */
+    max-width: 68ch;
+    margin-inline: auto;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.125rem;              /* 18px editorial body — up from 17px UI */
+    line-height: 1.7;                 /* relaxed reading leading */
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+
+    /* ---- Vertical rhythm: children flow with a shared top margin, collapsed
+            at the very start so the body opens flush with its first element. --- */
+    & > * { margin-top: 0; }
+    & > * + * { margin-top: var(--space-6); }
+    & > :first-child { margin-top: 0; }
+    & > :last-child { margin-bottom: 0; }
+
+    /* ---- Paragraphs ---- */
+    p {
+      margin: 0;
+      max-width: none;                /* the container already caps the measure */
+      color: var(--color-ink);
+    }
+
+    /* ---- Headings: Fraunces display, SOLID ink, generous space-before.
+            The article <h1> is rendered ONCE by the page shell (not the body);
+            body headings are h2/h3(/h4). Extra top margin creates section
+            separation without relying on borders. ---- */
+    h2, h3, h4 {
+      font-family: var(--font-display);
+      color: var(--color-ink);        /* solid — never gradient clip-text */
+      font-weight: 600;
+      text-wrap: balance;
+      scroll-margin-top: 6rem;        /* TOC anchor jumps clear the fixed header */
+    }
+    h2 {
+      margin-top: var(--space-12);
+      margin-bottom: var(--space-4);
+      font-size: clamp(1.625rem, 2.5vw, 2rem);
+      line-height: var(--leading-snug);
+      letter-spacing: -0.015em;
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);  /* quiet section rule */
+    }
+    h3 {
+      margin-top: var(--space-8);
+      margin-bottom: var(--space-3);
+      font-size: 1.375rem;
+      line-height: var(--leading-snug);
+      letter-spacing: -0.01em;
+    }
+    h4 {
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-2);
+      font-size: 1.125rem;
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+    }
+    /* First heading opens flush (no giant gap under the article header). */
+    & > h2:first-child,
+    & > h3:first-child,
+    & > h4:first-child { margin-top: 0; }
+
+    /* ---- Links: editorial blue with a comfortable underline offset. In-article
+            links are NAVIGATION/reference, never conversion — they stay blue and
+            NEVER take the orange CTA color (buy CTAs opt into .btn-cta). ---- */
+    a {
+      color: var(--color-info);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+      text-decoration-color: color-mix(in srgb, var(--color-info) 40%, transparent);
+      transition: color var(--transition), text-decoration-color var(--transition);
+    }
+    a:hover {
+      color: var(--color-ink);
+      text-decoration-color: currentColor;
+    }
+
+    /* ---- Emphasis ---- */
+    strong, b { font-weight: 600; color: var(--color-ink); }
+    em, i { font-style: italic; }
+    mark {
+      background: var(--color-brand-soft);
+      color: var(--color-brand-strong);
+      padding: 0.05em 0.25em;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ---- Lists: hanging bullets, tokenised markers, breathing room. ---- */
+    ul, ol {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: var(--color-ink);
+    }
+    ul { list-style: disc; }
+    ol { list-style: decimal; }
+    li { margin: 0 0 var(--space-2); padding-left: 0.25rem; }
+    li::marker { color: var(--color-brand); }        /* brand-green markers */
+    ol > li::marker { color: var(--color-ink-soft); font-weight: 600; }
+    li:last-child { margin-bottom: 0; }
+    /* Nested lists tighten up and inherit spacing. */
+    li > ul, li > ol { margin-top: var(--space-2); margin-bottom: 0; }
+
+    /* ---- Blockquote: brand-green rule + soft surface, NOT a gradient banner. --- */
+    blockquote {
+      margin: 0;
+      padding: var(--space-4) var(--space-6);
+      border-left: 3px solid var(--color-brand);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background-color: var(--color-brand-soft);
+      color: var(--color-ink);
+      font-style: normal;
+    }
+    blockquote > :first-child { margin-top: 0; }
+    blockquote > :last-child { margin-bottom: 0; }
+    blockquote p { color: var(--color-ink); }
+    blockquote cite {
+      display: block;
+      margin-top: var(--space-2);
+      font-size: var(--text-small);
+      font-style: normal;
+      color: var(--color-ink-soft);
+    }
+
+    /* ---- Images / figures: rounded, bordered, centered with a caption slot. --- */
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin-inline: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+    }
+    figure { margin: 0; }
+    figure img { margin-bottom: var(--space-2); }
+    figcaption {
+      font-size: var(--text-small);
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+      text-align: center;
+    }
+
+    /* ---- Horizontal rule ---- */
+    hr {
+      border: 0;
+      border-top: 1px solid var(--color-border);
+      margin-block: var(--space-8);
+    }
+
+    /* ---- Inline code + code blocks: surface bg, mono, no horizontal overflow.
+            <pre> scrolls within its own box so long code never widens the page
+            (mobile 320/375/414 safety). ---- */
+    code, kbd, samp {
+      font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono",
+                   Menlo, Consolas, monospace;
+      font-size: 0.9em;
+    }
+    :not(pre) > code {
+      padding: 0.15em 0.4em;
+      background-color: var(--color-brand-soft);
+      color: var(--color-brand-strong);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      white-space: break-spaces;      /* wrap long inline tokens, don't overflow */
+      word-break: break-word;
+    }
+    pre {
+      margin: 0;
+      padding: var(--space-4);
+      background-color: var(--color-ink);
+      color: #F4F2EC;                 /* paper-warm ink-on-dark for AA on code */
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow-x: auto;               /* code scrolls in its box, not the page */
+      -webkit-overflow-scrolling: touch;
+      font-size: var(--text-small);
+      line-height: 1.6;
+      tab-size: 2;
+    }
+    pre code {
+      padding: 0;
+      background: none;
+      border: 0;
+      color: inherit;
+      font-size: inherit;
+      white-space: pre;               /* preserve code formatting */
+      word-break: normal;
+    }
+    kbd {
+      padding: 0.1em 0.4em;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-bottom-width: 2px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85em;
+      color: var(--color-ink);
+    }
+
+    /* ---- Tables: bordered, zebra-striped, brand-soft header. Wide tables get a
+            horizontal scroll via the .table-scroll wrapper below (mobile safety).
+            The table itself never forces the page wider than the viewport. ---- */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;               /* clip zebra fills to the rounded corners */
+      font-size: var(--text-small);
+      line-height: 1.5;
+    }
+    th, td {
+      padding: 0.625rem 0.875rem;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--color-border);
+    }
+    thead th {
+      background-color: var(--color-brand-soft);
+      color: var(--color-brand-strong);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: var(--text-eyebrow);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) td { background-color: var(--color-paper); }  /* zebra */
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background-color: var(--color-brand-soft); }
+    /* In-cell links stay blue but drop the underline until hover for scannability. */
+    td a, th a { text-decoration: none; }
+    td a:hover, th a:hover { text-decoration: underline; }
+
+    /* Wide tables/pre/images should scroll in their own box, never the viewport.
+       Wrap a wide <table> in <div class="table-scroll"> to opt in. */
+    .table-scroll {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-brand) var(--color-brand-soft);
+    }
+    .table-scroll table { min-width: 32rem; }   /* let columns keep width, scroll */
+    .table-scroll::-webkit-scrollbar { height: 8px; }
+    .table-scroll::-webkit-scrollbar-track {
+      background: var(--color-brand-soft);
+      border-radius: var(--radius-pill);
+    }
+    .table-scroll::-webkit-scrollbar-thumb {
+      background: var(--color-brand);
+      border-radius: var(--radius-pill);
+    }
+
+    /* First-child of the body opens flush regardless of element type. */
+    & > p:first-child,
+    & > ul:first-child,
+    & > ol:first-child,
+    & > blockquote:first-child { margin-top: 0; }
+  }
+
+  /* ----------------------------------------------------------------------
+     15b. CALLOUT FAMILY  (in-article notes / tips / warnings / key insights)
+     --------------------------------------------------------------------------
+     Border-first note primitives for the post body. Each is a coloured hairline
+     card with a leading icon slot, a bold title, and a body — the modern
+     replacement for the shadcn <Alert> / green-gradient boxes the control
+     template used. AA-contrast text on soft tint fills.
+
+     Structure (consumer markup — #384):
+       <div class="callout callout--tip" role="note">
+         <span class="callout__icon" aria-hidden="true"><!-- lucide icon --></span>
+         <div class="callout__content">
+           <p class="callout__title">Pro Tip</p>
+           <p class="callout__body">…</p>
+         </div>
+       </div>
+
+     Variants (accent + soft fill):
+       .callout--note     info-blue    (default / neutral reference)
+       .callout--tip      brand-green  (pro tips, do-this guidance)
+       .callout--warning  warm-amber   (cautions, medical warnings)
+       .callout--key      neutral ink  (key insight / takeaway)
+
+     `--_c-accent` / `--_c-fill` / `--_c-ink` are per-instance custom props each
+     variant sets, so the base .callout ruleset stays variant-agnostic.
+     ---------------------------------------------------------------------- */
+
+  .callout {
+    --_c-accent: var(--color-info);
+    --_c-fill:   #EAF0FE;                 /* info-blue soft (matches .badge-info) */
+    --_c-ink:    var(--color-ink);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: var(--space-3);
+    margin-block: var(--space-6);
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--_c-accent);
+    border-radius: var(--radius);
+    background-color: var(--_c-fill);
+    color: var(--_c-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+
+  /* Icon slot — a small rounded chip carrying the variant accent. */
+  .callout__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-top: 0.05rem;                  /* optical-center on the title line */
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in srgb, var(--_c-accent) 14%, transparent);
+    color: var(--_c-accent);
+    flex: 0 0 auto;
+  }
+  .callout__icon svg,
+  .callout__icon [data-lucide] { width: 1rem; height: 1rem; }
+
+  .callout__content { min-width: 0; }     /* let long words/links wrap, no overflow */
+
+  .callout__title {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-small);
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    color: var(--_c-accent);
+  }
+
+  .callout__body {
+    margin: 0;
+    max-width: none;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+  .callout__body > :first-child { margin-top: 0; }
+  .callout__body > :last-child { margin-bottom: 0; }
+  /* Links inside callouts inherit the variant accent (stays blue/green/amber
+     with the note) rather than the generic body link blue. */
+  .callout__body a {
+    color: var(--_c-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+  .callout__body a:hover { color: var(--color-ink); }
+
+  /* ---- Variants: set the accent + soft fill; body ink stays --color-ink. ---- */
+
+  /* NOTE / info — blue (reference, "did you know") — the default. */
+  .callout--note {
+    --_c-accent: var(--color-info);
+    --_c-fill:   #EAF0FE;
+  }
+  /* TIP — brand green ("Pro Tip", do-this guidance). */
+  .callout--tip {
+    --_c-accent: var(--color-brand-strong);
+    --_c-fill:   var(--color-brand-soft);
+  }
+  /* WARNING — warm amber (cautions, medical warnings). Amber ≠ CTA orange:
+     #B45309 text-weight accent + a soft #FDF4E6 fill keep it distinct from the
+     protected conversion orange while still reading as "caution". */
+  .callout--warning {
+    --_c-accent: #B45309;                 /* amber-700 — AA on the soft fill */
+    --_c-fill:   #FDF4E6;                 /* warm amber wash */
+  }
+  /* KEY / insight — neutral ink (a quiet, authoritative takeaway box). */
+  .callout--key {
+    --_c-accent: var(--color-ink);
+    --_c-fill:   color-mix(in srgb, var(--color-ink) 5%, var(--color-surface));
+    --_c-ink:    var(--color-ink);
+  }
+  .callout--key .callout__title { color: var(--color-ink); }
+  .callout--key .callout__body a { color: var(--color-info); }
+
+  /* When a callout lives INSIDE the article body, neutralise the prose reset's
+     child-margin rhythm so its internal <p>/<ul> keep the tight callout spacing. */
+  .article-body .callout,
+  .prose-modern .callout { max-width: none; }
+  .article-body .callout > *,
+  .prose-modern .callout > * { margin-top: 0; }
 }
 
 /* --------------------------------------------------------------------------
