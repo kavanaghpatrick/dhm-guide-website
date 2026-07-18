@@ -20,7 +20,7 @@ const ROOT = join(__dirname, '..');
 const POSTS = join(ROOT, 'src/newblog/data/posts');
 const INDEX = join(ROOT, 'src/newblog/data/metadata/index.json');
 
-const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks')
+const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 // Unambiguous medical OVERCLAIMS that must never appear (health-content policy).
