@@ -44,6 +44,7 @@ const postModules = {
   "bachelor-bachelorette-party-dhm-2025": () => import("./posts/bachelor-bachelorette-party-dhm-2025.json"),
   "best-liver-detox-science-based-methods-vs-marketing-myths-2025": () => import("./posts/best-liver-detox-science-based-methods-vs-marketing-myths-2025.json"),
   "best-liver-detox-supplements": () => import("./posts/best-liver-detox-supplements.json"),
+  "best-fatty-liver-supplements": () => import("./posts/best-fatty-liver-supplements.json"),
   "biohacking-alcohol-tolerance-science-based-strategies-2025": () => import("./posts/biohacking-alcohol-tolerance-science-based-strategies-2025.json"),
   "biotechnology-alcohol-treatment-next-gen-therapeutics-2025": () => import("./posts/biotechnology-alcohol-treatment-next-gen-therapeutics-2025.json"),
   "british-pub-culture-guide": () => import("./posts/british-pub-culture-guide.json"),
