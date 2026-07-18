@@ -3,7 +3,10 @@
     {
       "source": "/ingest/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
       ]
     }
   ],
@@ -40,7 +43,12 @@
     },
     {
       "source": "/never-hungover/dhm-randomized-controlled-trials-2024",
-      "destination": "/never-hungover/dhm-randomized-controlled-trials",
+      "destination": "/never-hungover/dhm-dosage-guide-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/dhm-randomized-controlled-trials",
+      "destination": "/never-hungover/dhm-dosage-guide-2025",
       "permanent": true
     },
     {
@@ -59,8 +67,43 @@
       "permanent": true
     },
     {
+      "source": "/never-hungover/how-to-get-rid-of-hangover-fast",
+      "destination": "/never-hungover/how-to-cure-a-hangover-complete-science-guide",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/how-to-get-over-hangover",
+      "destination": "/never-hungover/how-to-cure-a-hangover-complete-science-guide",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/is-dhm-safe-science-behind-side-effects-2025",
+      "destination": "/never-hungover/dhm-safety-complete-guide-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/ultimate-dhm-safety-guide-hub-2025",
+      "destination": "/never-hungover/dhm-safety-complete-guide-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/advanced-liver-detox-science-vs-marketing-myths-2025",
+      "destination": "/never-hungover/best-liver-detox-science-based-methods-vs-marketing-myths-2025",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/festival-season-survival-dhm-guide-concert-music-festival-recovery",
+      "destination": "/never-hungover/music-festival-survival-dhm-2025",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "dhmguide.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "dhmguide.com"
+        }
+      ],
       "destination": "https://www.dhmguide.com/$1",
       "permanent": true
     }
