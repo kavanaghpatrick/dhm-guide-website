@@ -20,7 +20,7 @@ const ROOT = join(__dirname, '..');
 const POSTS = join(ROOT, 'src/newblog/data/posts');
 const INDEX = join(ROOT, 'src/newblog/data/metadata/index.json');
 
-const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover')
+const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 // Unambiguous medical OVERCLAIMS that must never appear (health-content policy).
@@ -86,6 +86,26 @@ for (const slug of NEW_CONTENT) {
       const c = `${post.content || ''} ${post.title || ''} ${post.metaDescription || ''}`;
       const hits = OVERCLAIMS.filter((re) => re.test(c)).map((re) => re.source);
       expect(hits, `overclaim phrase(s) present: ${hits.join(' | ')}`).toEqual([]);
+    });
+
+    test('affiliate links: rel="nofollow sponsored" + amazon product links carry the tag', async ({ page }) => {
+      test.skip(!post, 'post missing');
+      await page.goto(`/never-hungover/${slug}?exp_site-modern-v1=modern`, { waitUntil: 'domcontentloaded' });
+      await page.waitForTimeout(1500);
+      const links = page.locator('main a[href*="amazon."], main a[href*="amzn.to"]');
+      const n = await links.count();
+      test.skip(n === 0, 'no affiliate links on this post');
+      for (let i = 0; i < n; i++) {
+        const a = links.nth(i);
+        const rel = ((await a.getAttribute('rel')) || '').toLowerCase();
+        const href = (await a.getAttribute('href')) || '';
+        expect(rel, `affiliate link #${i} (${href}) must be rel="nofollow"`).toContain('nofollow');
+        expect(rel, `affiliate link #${i} (${href}) must be rel="sponsored"`).toContain('sponsored');
+        // Raw amazon.com product links must carry the Associates tag (attribution).
+        if (/amazon\.[a-z.]+\/dp\//i.test(href)) {
+          expect(href, `amazon product link #${i} must carry tag=dhmguide-20`).toContain('tag=dhmguide-20');
+        }
+      }
     });
 
     test('renders at its route: single h1, JSON-LD, no console errors', async ({ page }) => {
