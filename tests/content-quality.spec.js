@@ -20,7 +20,7 @@ const ROOT = join(__dirname, '..');
 const POSTS = join(ROOT, 'src/newblog/data/posts');
 const INDEX = join(ROOT, 'src/newblog/data/metadata/index.json');
 
-const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements')
+const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements,best-fatty-liver-supplements')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 // Unambiguous medical OVERCLAIMS that must never appear (health-content policy).
@@ -76,7 +76,7 @@ for (const slug of NEW_CONTENT) {
     test('funnels to money: >=1 affiliate CTA + >=2 internal links', () => {
       test.skip(!post, 'post missing');
       const c = post.content || '';
-      expect(/amzn\.to\//.test(c), 'has >=1 amzn.to affiliate CTA').toBe(true);
+      expect(/amzn\.to\/|amazon\.[a-z.]+\/dp\//i.test(c), 'has >=1 affiliate CTA (amzn.to or amazon.com/dp)').toBe(true);
       const internal = (c.match(/\]\(\/(reviews|guide|compare|research|dhm-dosage-calculator|never-hungover)[^)]*\)/g) || []).length;
       expect(internal, '>= 2 internal links to money pages / posts').toBeGreaterThanOrEqual(2);
     });
