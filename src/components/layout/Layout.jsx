@@ -45,6 +45,7 @@ function Layout({ children }) {
   const [mounted, setMounted] = useState(false)
   const topicsRef = useRef(null)
   const dropdownRef = useRef(null)
+  const closeTimerRef = useRef(null)
   const { navigate, isActive, getNavItems } = useRouter()
   const { headerRef, headerHeight } = useHeaderHeight()
 
@@ -73,6 +74,20 @@ function Layout({ children }) {
       document.removeEventListener('mousedown', onClick)
     }
   }, [isTopicsOpen])
+
+  // Open/close the Topics dropdown with a short close-DELAY so the cursor can
+  // cross the small gap between the trigger and the portaled dropdown (top:
+  // headerHeight+8, in document.body) without the frame vanishing. Entering
+  // either the trigger or the dropdown cancels a pending close. (hover-gap fix)
+  const openTopics = useCallback(() => {
+    if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
+    setIsTopicsOpen(true)
+  }, [])
+  const scheduleCloseTopics = useCallback(() => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current)
+    closeTimerRef.current = setTimeout(() => setIsTopicsOpen(false), 200)
+  }, [])
+  useEffect(() => () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current) }, [])
 
   // A/B Test #255: Nav CTA copy re-test (previously #134)
   const navCtaVariant = useFeatureFlag('nav-cta-copy-v1', 'control')
@@ -162,8 +177,8 @@ function Layout({ children }) {
                       key="topics-dropdown"
                       ref={topicsRef}
                       className="relative"
-                      onMouseEnter={() => setIsTopicsOpen(true)}
-                      onMouseLeave={() => setIsTopicsOpen(false)}
+                      onMouseEnter={openTopics}
+                      onMouseLeave={scheduleCloseTopics}
                     >
                       <button
                         type="button"
@@ -409,8 +424,8 @@ function Layout({ children }) {
           id="topics-mega-menu"
           role="region"
           aria-label="Topics"
-          onMouseEnter={() => setIsTopicsOpen(true)}
-          onMouseLeave={() => setIsTopicsOpen(false)}
+          onMouseEnter={openTopics}
+          onMouseLeave={scheduleCloseTopics}
           style={{
             top: headerHeight + 8,
             backgroundColor: 'var(--color-surface)',
