@@ -15,8 +15,6 @@ const products = [
   { id: 3, name: "Toniiq Ease", affiliateLink: "https://amzn.to/44E95Gi" },
   { id: 4, name: "NusaPure DHM 1,000mg", affiliateLink: "https://amzn.to/44znXFU" },
   { id: 6, name: "Flyby Recovery", affiliateLink: "https://amzn.to/4kjCRVw" },
-  { id: 7, name: "Good Morning Hangover Pills", affiliateLink: "https://amzn.to/44nKqo9" },
-  { id: 8, name: "DHM1000", affiliateLink: "https://amzn.to/44nvh65" },
   { id: 10, name: "DHM Depot", affiliateLink: "https://amzn.to/4l1ZoqN" },
 ];
 

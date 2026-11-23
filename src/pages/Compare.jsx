@@ -142,47 +142,8 @@ export default function Compare() {
       monthlyBuyers: "1K+"
     },
     {
-      id: 7,
-      image: "/good-morning-hangover-pills-review-hero.webp",
-      dhmPerDollar: 4.2,
-      additionalIngredients: ["Electrolytes", "Milk Thistle (80% Silymarin)", "B-Vitamins", "Vitamin C", "Vitamin E", "L-Cysteine", "White Willow Bark"],
-      thirdPartyTested: true,
-      moneyBackGuarantee: false,
-      shippingSpeed: "Prime Overnight",
-      manufacturingLocation: "USA",
-      certifications: ["GMP", "Non-GMO"],
-      bestForUseCase: "Single-pill convenience",
-      valueScore: 9.5,
-      effectivenessScore: 8.0,
-      safetyScore: 8.5,
-      customerSatisfaction: 4.2,
-      monthlyBuyers: "500+"
-    },
-    {
-      id: 8,
-      image: "/dhm1000-review-hero.webp",
-      dhmPerDollar: 33.4,
-      additionalIngredients: ["Electrolytes (Sodium, Potassium, Magnesium)"],
-      thirdPartyTested: false,
-      moneyBackGuarantee: true,
-      shippingSpeed: "Prime 1-2 days",
-      manufacturingLocation: "USA",
-      certifications: ["GMP", "Non-GMO"],
-      bestForUseCase: "Maximum potency + flexibility",
-      valueScore: 8.0,
-      effectivenessScore: 9.0,
-      safetyScore: 8.5,
-      customerSatisfaction: 4.3,
-      monthlyBuyers: "800+",
-      // Override category: Compare uses "high-potency" vs JSON "premium"
-      category: "high-potency"
-    },
-    {
       id: 9,
       image: "/fuller-health-after-party-review-hero.webp",
-      // Override affiliateLink: Compare uses direct fullerhealth.com URL,
-      // not the Amazon link in topProducts.json
-      affiliateLink: "https://fullerhealth.com/products/after-party",
       dhmPerDollar: 13.0,
       additionalIngredients: ["GABA Support Mechanism"],
       thirdPartyTested: false,

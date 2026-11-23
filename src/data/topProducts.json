@@ -13,7 +13,7 @@
     "badge": "Editor's Choice",
     "badgeColor": "bg-yellow-500",
     "score": 9.5,
-    "affiliateLink": "https://amzn.to/3HSHjgu",
+    "affiliateLink": "https://www.amazon.com/dp/B0D4BWK6PH?tag=dhmguide-20",
     "pros": [
       "1K+ bought this month (350,000+ total)",
       "1000mg DHM + L-Cysteine - strongest tested",
@@ -51,7 +51,7 @@
     "badge": "Best Value",
     "badgeColor": "bg-green-500",
     "score": 9.2,
-    "affiliateLink": "https://amzn.to/44sczuq",
+    "affiliateLink": "https://www.amazon.com/dp/B074N712FM?tag=dhmguide-20",
     "pros": [
       "Amazon's Choice - 2K+ bought this month",
       "1000mg DHM per tablet - max potency",
@@ -86,7 +86,7 @@
     "badge": "Most Popular",
     "badgeColor": "bg-blue-500",
     "score": 9,
-    "affiliateLink": "https://amzn.to/44E95Gi",
+    "affiliateLink": "https://www.amazon.com/dp/B07S448GTT?tag=dhmguide-20",
     "pros": [
       "Amazon's Choice - 500+ bought this month",
       "Triple-action: DHM + Reishi + Milk Thistle",
@@ -121,7 +121,7 @@
     "badge": "High Potency",
     "badgeColor": "bg-orange-500",
     "score": 8.8,
-    "affiliateLink": "https://amzn.to/44znXFU",
+    "affiliateLink": "https://www.amazon.com/dp/B08B32XBRB?tag=dhmguide-20",
     "pros": [
       "1000mg DHM per capsule - max strength",
       "60 servings at just $0.48 each - lowest cost per dose",
@@ -155,7 +155,7 @@
     "badge": "As Seen on Shark Tank",
     "badgeColor": "bg-blue-500",
     "score": 8.6,
-    "affiliateLink": "https://amzn.to/3T8cO8H",
+    "affiliateLink": "https://www.amazon.com/dp/B079P7FXTW?tag=dhmguide-20",
     "pros": [
       "As Seen on Shark Tank - trusted brand",
       "Patented DHM + Cysteine formula",
@@ -193,7 +193,7 @@
     "badge": "Comprehensive Formula",
     "badgeColor": "bg-purple-500",
     "score": 8.4,
-    "affiliateLink": "https://amzn.to/4kjCRVw",
+    "affiliateLink": "https://www.amazon.com/dp/B0CCK34H46?tag=dhmguide-20",
     "pros": [
       "7,200+ verified customer reviews",
       "18 amino acids + full B-vitamin complex",
@@ -219,80 +219,6 @@
     "category": "comprehensive"
   },
   {
-    "id": 7,
-    "name": "Good Morning Hangover Pills",
-    "brand": "Good Health Co",
-    "rating": 4.4,
-    "reviews": 124,
-    "price": "$29.95",
-    "pricePerServing": "$1.00",
-    "servings": 30,
-    "dhm": "Undisclosed",
-    "dhmNote": "DHM + Milk Thistle Blend (mg not disclosed by brand)",
-    "purity": "80% Silymarin Milk Thistle",
-    "badge": "88.89% Effective",
-    "badgeColor": "bg-green-500",
-    "score": 8.2,
-    "affiliateLink": "https://amzn.to/44nKqo9",
-    "pros": [
-      "One pill - no complicated protocols",
-      "88.89% user effectiveness rating",
-      "Just $1.00/serving - great value",
-      "Bounce back faster after drinking"
-    ],
-    "cons": [
-      "Newer brand with fewer customer reviews",
-      "DHM content not precisely specified",
-      "No money-back guarantee offered"
-    ],
-    "bestFor": "Travelers needing portable protection",
-    "ingredients": [
-      "DHM + Milk Thistle Blend",
-      "Electrolytes",
-      "B-Vitamins",
-      "Vitamin C",
-      "Vitamin E",
-      "L-Cysteine",
-      "White Willow Bark"
-    ],
-    "freeShipping": true,
-    "category": "convenience"
-  },
-  {
-    "id": 8,
-    "name": "DHM1000",
-    "brand": "Dycetin",
-    "rating": 4.5,
-    "reviews": 613,
-    "price": "$23.95",
-    "pricePerServing": "$0.80",
-    "servings": 30,
-    "dhm": "1000mg",
-    "purity": "High potency + electrolytes",
-    "badge": "Most Powerful",
-    "badgeColor": "bg-red-500",
-    "score": 8.6,
-    "affiliateLink": "https://amzn.to/44nvh65",
-    "pros": [
-      "1000mg DHM - maximum potency",
-      "Enhanced with electrolytes for hydration",
-      "Money-back guarantee included",
-      "Stay productive the next morning"
-    ],
-    "cons": [
-      "Moderate price point for premium formula",
-      "Not third-party tested for purity verification",
-      "Single-ingredient focus without additional liver support"
-    ],
-    "bestFor": "High-performers who want max potency",
-    "ingredients": [
-      "DHM 1000mg",
-      "Electrolytes (Sodium, Potassium, Magnesium)"
-    ],
-    "freeShipping": true,
-    "category": "premium"
-  },
-  {
     "id": 9,
     "name": "Fuller Health After Party",
     "brand": "Fuller Health",
@@ -306,7 +232,7 @@
     "badge": "Celebrity Endorsed",
     "badgeColor": "bg-purple-500",
     "score": 7.8,
-    "affiliateLink": "https://amzn.to/4eBbyEP",
+    "affiliateLink": "https://www.amazon.com/dp/B0CQN1SB8X?tag=dhmguide-20",
     "pros": [
       "Celebrity endorsed - premium brand",
       "650mg DHM + GABA receptor support",
@@ -340,7 +266,7 @@
     "badge": "Highest Rated",
     "badgeColor": "bg-blue-500",
     "score": 8.8,
-    "affiliateLink": "https://amzn.to/4l1ZoqN",
+    "affiliateLink": "https://www.amazon.com/dp/B0767N448Q?tag=dhmguide-20",
     "pros": [
       "Highest rated - 4.5/5 stars",
       "1,129+ verified customer reviews",
