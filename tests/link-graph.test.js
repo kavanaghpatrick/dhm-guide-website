@@ -81,6 +81,19 @@ describe('dist internal link graph', () => {
     expect([...new Set(bad)]).toEqual([]);
   });
 
+  it('redirected posts are fully retired: target is live, no built page, not in sitemap', () => {
+    const sitemap = fs.readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8');
+    const bad = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../vercel.json'), 'utf8')).redirects
+      .filter((r) => !r.has && /^\/never-hungover\/[^:(]+$/.test(r.source))
+      .flatMap((r) => [
+        !graph.has(r.destination) && `${r.destination} (target not built)`,
+        graph.has(r.source) && `${r.source} (still built)`,
+        sitemap.includes(`${SITE}${r.source}<`) && `${r.source} (still in sitemap)`,
+      ])
+      .filter(Boolean);
+    expect(bad).toEqual([]);
+  });
+
   it('cluster-config (mega-menu) references only live, non-redirected posts', () => {
     const cfg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../scripts/cluster-config.json'), 'utf8'));
     const bad = cfg.clusters

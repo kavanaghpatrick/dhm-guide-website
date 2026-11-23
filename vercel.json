@@ -92,6 +92,16 @@
       "permanent": true
     },
     {
+      "source": "/never-hungover/dhm-asian-flush-science-backed-solution",
+      "destination": "/never-hungover/complete-guide-asian-flush-comprehensive",
+      "permanent": true
+    },
+    {
+      "source": "/never-hungover/asian-flush-vs-alcohol-allergy-comparison",
+      "destination": "/never-hungover/complete-guide-asian-flush-comprehensive",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [
         {
