@@ -129,23 +129,25 @@ function parseCsv(filePath) {
   if (lines.length === 0) {
     throw new Error(`GSC CSV empty: ${filePath}`);
   }
-  const header = tokenizeRow(lines[0]).map((s) => s.trim());
-  const expected = ['URL', 'Impressions', 'Clicks', 'CTR', 'Position'];
-  for (const col of expected) {
-    const alt = col === 'URL' ? 'Top pages' : col;
-    if (!header.includes(col) && !header.includes(alt)) {
-      throw new Error(`GSC CSV header drift: missing "${col}". Got: ${header.join(', ')}`);
-    }
+  // Map columns by header name, case-insensitive: real GSC exports order them
+  // "Top pages,Clicks,Impressions,...", the API script "page,clicks,impressions,...".
+  const header = tokenizeRow(lines[0]).map((s) => s.trim().toLowerCase());
+  const idx = {};
+  for (const [key, names] of Object.entries({
+    url: ['url', 'top pages', 'page'], impressions: ['impressions'], clicks: ['clicks'], ctr: ['ctr'], position: ['position'],
+  })) {
+    idx[key] = header.findIndex((h) => names.includes(h));
+    if (idx[key] === -1) throw new Error(`GSC CSV header drift: missing "${key}". Got: ${header.join(', ')}`);
   }
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
     const t = tokenizeRow(lines[i]);
     rows.push({
-      url: (t[0] || '').trim(),
-      impressions: parseInt(t[1], 10) || 0,
-      clicks: parseInt(t[2], 10) || 0,
-      ctr: t[3],
-      position: parseFloat(t[4]) || null,
+      url: (t[idx.url] || '').trim(),
+      impressions: parseInt(t[idx.impressions], 10) || 0,
+      clicks: parseInt(t[idx.clicks], 10) || 0,
+      ctr: t[idx.ctr],
+      position: parseFloat(t[idx.position]) || null,
     });
   }
   return rows;
@@ -307,7 +309,7 @@ function renderMarkdown(output) {
   const lines = [];
   lines.push('# DCNI Bucketing — Decisions');
   lines.push('');
-  lines.push('> **DECISIONS ONLY.** Do not deploy 410s/301s from this output until the Action 4 moratorium expires (mid-July 2026, per #366) and a manual review pass completes.');
+  lines.push('> **DECISIONS ONLY.** Ship removals in batches of 20 or fewer, manually reviewed, each logged in docs/seo/reads-ledger.jsonl.');
   lines.push('');
   lines.push('## Run metadata');
   lines.push('');
@@ -364,10 +366,10 @@ function renderMarkdown(output) {
   return lines.join('\n') + '\n';
 }
 
-function renderReadme() {
-  return `# DCNI Bucketing Output — ${path.basename(__dirname)}
+function renderReadme(outDir) {
+  return `# DCNI Bucketing Output — ${path.basename(outDir)}
 
-**DECISIONS ONLY — DO NOT DEPLOY** until the Action 4 moratorium expires (mid-July 2026 per #366) AND a manual review of the REVIEW bucket completes.
+**DECISIONS ONLY.** Removals ship as separate, manually reviewed PRs in batches of 20 or fewer.
 
 This directory contains the decision table emitted by \`scripts/dcni-bucket.mjs\` for the GSC CSV input listed in \`buckets.json#gscCsvPath\`. Re-running the script with a fresh GSC export overwrites these files.
 
@@ -381,7 +383,7 @@ This directory contains the decision table emitted by \`scripts/dcni-bucket.mjs\
 
 The actual 410s / 301 redirects are gated on three conditions, none of which this script enforces:
 
-1. **Moratorium expiry**: mid-July 2026 (per #366). Shipping deletions earlier risks another DCNI wave.
+1. **Batch size**: 20 or fewer URLs per PR (the moratorium in #366 expired 2026-07-15).
 2. **Manual REVIEW bucket sign-off**: every entry in the \`review\` bucket needs human eyes.
 3. **Pilot before scale**: ship 410s for the 10 lowest-impression DELETE candidates first; measure 4-6 weeks; only then scale.
 
@@ -528,7 +530,7 @@ function main() {
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'buckets.json'), JSON.stringify(output, null, 2) + '\n');
   fs.writeFileSync(path.join(outDir, 'buckets.md'), renderMarkdown(output));
-  fs.writeFileSync(path.join(outDir, 'README.md'), renderReadme());
+  fs.writeFileSync(path.join(outDir, 'README.md'), renderReadme(outDir));
   console.log(`Wrote ${outDir}/buckets.{json,md} + README.md`);
   console.log(JSON.stringify(summary, null, 2));
 }

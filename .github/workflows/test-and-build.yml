@@ -126,7 +126,7 @@ jobs:
           retention-days: 14
 
   mass-edit-check:
-    name: Mass-edit moratorium check (#366, expires 2026-07-15)
+    name: Bulk-edit guard (>20 modified existing posts)
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     if: github.event_name == 'pull_request'
@@ -137,7 +137,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check post JSON modification count
+      - name: Self-test the guard
+        run: node --test scripts/check-mass-edit.test.mjs
+      - name: Count modified existing posts (added posts exempt)
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: node scripts/check-mass-edit.mjs --base origin/${{ github.base_ref }}

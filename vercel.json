@@ -102,6 +102,11 @@
       "permanent": true
     },
     {
+      "source": "/never-hungover/french-wine-culture-guide",
+      "destination": "/never-hungover/italian-drinking-culture-guide",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [
         {
@@ -121,6 +126,10 @@
     {
       "source": "/ingest/:path*",
       "destination": "https://us.i.posthog.com/:path*"
+    },
+    {
+      "source": "/never-hungover/:slug(adaptogenic-beverages-ancient-wisdom-meets-modern-alcohol-alternatives|alcohol-and-autophagy-cellular-cleanup-mechanism-optimization-2025|quantum-health-monitoring-alcohol-advanced-biomonitoring-guide-2025|bachelor-bachelorette-party-dhm-2025|executive-travel-wellness-2025|study-abroad-international-student-dhm-2025|salary-negotiation-performance-dhm-2025|biotechnology-alcohol-treatment-next-gen-therapeutics-2025|wearable-alcohol-monitoring-technology-smart-devices-revolution-2025)",
+      "destination": "/api/gone"
     },
     {
       "source": "/((?!never-hungover/).*)",

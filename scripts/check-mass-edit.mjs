@@ -1,76 +1,62 @@
 #!/usr/bin/env node
 /**
- * check-mass-edit.mjs
+ * check-mass-edit.mjs — bulk-edit guard for existing posts.
  *
- * CI guardrail for the mass-edit moratorium (issue #366, expires 2026-07-15).
- * Fails if a PR modifies > THRESHOLD post JSONs without [mass-edit-allowed]
- * in the PR description.
+ * Fails a PR that MODIFIES (or renames) more than THRESHOLD existing post JSONs
+ * in src/newblog/data/posts/. Bulk edits of old posts triggered the recrawl
+ * waves behind the 2026 DCNI growth (PRs #243, #246). ADDED posts are exempt:
+ * new content is uncapped. Deleted posts are exempt too (pruning ships in
+ * reviewed batches logged in docs/seo/reads-ledger.jsonl).
  *
- * Mirrors scripts/verify-z-classes.mjs precedent: Node stdlib only, zero deps,
- * binary exit code, multi-line failure message linking to root cause.
+ * Replaces the time-boxed moratorium from #366, which expired 2026-07-15.
  *
  * Usage:
- *   node scripts/check-mass-edit.mjs                                  # default base=origin/main, threshold=20
- *   node scripts/check-mass-edit.mjs --base HEAD~5                    # local testing
- *   node scripts/check-mass-edit.mjs --pr-body "..." --threshold 10   # CLI override
- *
- * Refs: https://github.com/kavanaghpatrick/dhm-guide-website/issues/366
- *       CLAUDE.md "Mass-Edit Moratorium Policy" section
+ *   node scripts/check-mass-edit.mjs                       # base=origin/main, threshold=20
+ *   node scripts/check-mass-edit.mjs --base HEAD~5
+ *   PR_BODY="... [mass-edit-allowed] ..." node scripts/check-mass-edit.mjs
+ * Self-test: node --test scripts/check-mass-edit.test.mjs
  */
 
 import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-// Argv parsing (stdlib only)
-const args = process.argv.slice(2);
-const getFlag = (name, def) => {
-  const i = args.indexOf(`--${name}`);
-  return i === -1 ? def : args[i + 1];
-};
-
-const BASE = getFlag('base', 'origin/main');
-const THRESHOLD = parseInt(getFlag('threshold', '20'), 10);
-const PR_BODY = getFlag('pr-body', process.env.PR_BODY || '');
-const OVERRIDE_TAG = '[mass-edit-allowed]';
 const POST_RE = /^src\/newblog\/data\/posts\/[^/]+\.json$/;
+const THRESHOLD = 20;
+const OVERRIDE_TAG = '[mass-edit-allowed]';
 
-// Determine modified post JSONs
-let changed;
-try {
-  changed = execSync(`git diff --name-only ${BASE}...HEAD`, { encoding: 'utf8' })
+// `git diff --name-status` text -> paths of modified/renamed existing posts.
+export function modifiedPosts(nameStatus) {
+  return nameStatus
     .split('\n')
-    .filter(f => POST_RE.test(f));
-} catch (e) {
-  console.error(`[check-mass-edit] Failed to compute diff against ${BASE}: ${e.message}`);
-  console.error('In CI, ensure actions/checkout uses fetch-depth: 0');
-  process.exit(2);
+    .map((l) => l.split('\t'))
+    .filter(([status, ...paths]) => /^[MR]/.test(status || '') && POST_RE.test(paths.at(-1)))
+    .map(([, ...paths]) => paths.at(-1));
 }
 
-const count = changed.length;
-const hasOverride = PR_BODY.includes(OVERRIDE_TAG);
-
-if (count <= THRESHOLD) {
-  console.log(`[check-mass-edit] OK: ${count} post JSON(s) modified (threshold ${THRESHOLD})`);
-  process.exit(0);
+export function verdict(nameStatus, prBody = '', threshold = THRESHOLD) {
+  const files = modifiedPosts(nameStatus);
+  return { files, ok: files.length <= threshold || prBody.includes(OVERRIDE_TAG) };
 }
 
-if (hasOverride) {
-  console.log(`[check-mass-edit] OK (override): ${count} files modified, PR body contains ${OVERRIDE_TAG}`);
-  process.exit(0);
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const args = process.argv.slice(2);
+  const i = args.indexOf('--base');
+  const base = i === -1 ? 'origin/main' : args[i + 1];
+  let diff;
+  try {
+    diff = execSync(`git diff --name-status ${base}...HEAD`, { encoding: 'utf8' });
+  } catch (e) {
+    console.error(`[check-mass-edit] git diff against ${base} failed (CI needs fetch-depth: 0): ${e.message}`);
+    process.exit(2);
+  }
+  const { files, ok } = verdict(diff, process.env.PR_BODY || '');
+  if (ok) {
+    console.log(`[check-mass-edit] OK: ${files.length} existing post(s) modified (limit ${THRESHOLD}; added posts exempt)`);
+    process.exit(0);
+  }
+  console.error(`[check-mass-edit] FAIL: ${files.length} existing posts modified (limit ${THRESHOLD}).`);
+  console.error('Bulk edits of old posts trigger Google recrawl waves (see #362). Split into batches of 20 or fewer,');
+  console.error(`or add ${OVERRIDE_TAG} to the PR description with a rationale.`);
+  files.slice(0, 10).forEach((f) => console.error(`  ${f}`));
+  process.exit(1);
 }
-
-// Failure — clear, actionable error message
-console.error(`\n[check-mass-edit] FAIL — mass-edit moratorium violation`);
-console.error(`  Modified ${count} post JSONs in src/newblog/data/posts/ (threshold: ${THRESHOLD})`);
-console.error(`  This may trigger a Google recrawl wave during DCNI recovery`);
-console.error(`  (issue #366, expires 2026-07-15)`);
-console.error(``);
-console.error(`  Files (first 10):`);
-changed.slice(0, 10).forEach(f => console.error(`    ${f}`));
-if (count > 10) console.error(`    ... and ${count - 10} more`);
-console.error(``);
-console.error(`  To override (with rationale), add to PR description:`);
-console.error(`    ${OVERRIDE_TAG}`);
-console.error(``);
-console.error(`  Background: https://github.com/kavanaghpatrick/dhm-guide-website/issues/366`);
-console.error(`  Policy: CLAUDE.md "Mass-Edit Moratorium Policy" section\n`);
-process.exit(1);
