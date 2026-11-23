@@ -17,7 +17,7 @@ export const productReviewData = {
       reviewCount: 1129,
       price: '44.95',
       pricePerUnit: '0.90',
-      url: 'https://amzn.to/3PJy1Km'
+      url: 'https://www.amazon.com/dp/B0767N448Q?tag=dhmguide-20'
     }
   },
   'dhm1000-review-2025': {
@@ -45,7 +45,7 @@ export const productReviewData = {
       reviewCount: 552,
       price: '19.75',
       pricePerUnit: '0.33',
-      url: 'https://amzn.to/3C1DQEF'
+      url: 'https://www.amazon.com/dp/B074N712FM?tag=dhmguide-20'
     }
   },
   'flyby-recovery-review-2025': {
@@ -59,7 +59,7 @@ export const productReviewData = {
       reviewCount: 2341,
       price: '32.99',
       pricePerUnit: '0.73',
-      url: 'https://amzn.to/40uVvqD'
+      url: 'https://www.amazon.com/dp/B0CCK34H46?tag=dhmguide-20'
     }
   },
   'fuller-health-after-party-review-2025': {
@@ -101,7 +101,7 @@ export const productReviewData = {
       reviewCount: 201,
       price: '26.99',
       pricePerUnit: '1.80',
-      url: 'https://amzn.to/3HSHjgu'
+      url: 'https://www.amazon.com/dp/B0D4BWK6PH?tag=dhmguide-20'
     }
   },
   'nusapure-dhm-review-analysis': {
@@ -115,7 +115,7 @@ export const productReviewData = {
       reviewCount: 412,
       price: '29.95',
       pricePerUnit: '0.17',
-      url: 'https://amzn.to/4fVSEKH'
+      url: 'https://www.amazon.com/dp/B08B32XBRB?tag=dhmguide-20'
     }
   },
   'toniiq-ease-dhm-review-analysis': {
@@ -129,7 +129,7 @@ export const productReviewData = {
       reviewCount: 167,
       price: '36.99',
       pricePerUnit: '0.41',
-      url: 'https://amzn.to/48pXpjK'
+      url: 'https://www.amazon.com/dp/B07S448GTT?tag=dhmguide-20'
     }
   }
 };

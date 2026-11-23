@@ -30,7 +30,8 @@ const LEGACY_SHORT_LINKS = new Set([
 const LINK_RE = /https?:\/\/(?:www\.)?(?:amzn\.to|amazon\.com)\/[^\s"'()<>\]\\]*/g;
 const ASIN_RE = /\/dp\/(B[0-9A-Z]{9})/;
 
-const files = [PRODUCTS, ...fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.json')).map(f => path.join(POSTS_DIR, f))];
+const SCHEMA_GEN = path.join(ROOT, 'src/utils/productSchemaGenerator.js');
+const files = [PRODUCTS, SCHEMA_GEN, ...fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.json')).map(f => path.join(POSTS_DIR, f))];
 const errors = [];
 const links = new Set();
 
