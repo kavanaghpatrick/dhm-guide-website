@@ -989,6 +989,13 @@ const NewBlogPost = () => {
             )}
 
             <div className="p-8 md:p-12">
+              {/* FTC affiliate disclosure — near the top, only on posts with buy links. */}
+              {/amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '') && (
+                <p className="container-prose text-soft" style={{ margin: '0 0 var(--space-4)', fontSize: 'var(--text-small)' }}>
+                  We may earn a commission if you buy through links on this page, at no extra cost to you.
+                </p>
+              )}
+
               {/* Quick Answer callout — positioned in the first ~100 words for AI engine extraction (Perplexity, ChatGPT, Gemini). Issue #292. */}
               {post.quickAnswer && (
                 <div
@@ -1274,13 +1281,15 @@ const NewBlogPost = () => {
                       }
 
                       // External / affiliate link — plain <a>, contract preserved
-                      // byte-for-byte (rel/target/data-placement, NO onClick). Body
-                      // color comes from the .article-body a rule (editorial blue);
-                      // orange is never applied to in-article links.
+                      // (rel/target/data-placement, NO onClick). Body color comes from
+                      // the .article-body a rule (editorial blue), except affiliate
+                      // links written as "Check price…" which render as the orange
+                      // buy button (.btn-cta).
+                      const isBuyButton = isAffiliate && /^check price/i.test([].concat(children).join(''));
                       return (
                         <a
                           href={href}
-                          className="inline-flex items-center gap-1"
+                          className={isBuyButton ? 'btn btn-cta' : 'inline-flex items-center gap-1'}
                           target={isExternal ? '_blank' : undefined}
                           rel={isAffiliate ? 'nofollow sponsored noopener noreferrer' : (isExternal ? 'noopener noreferrer' : undefined)}
                           data-placement={isAffiliate ? 'blog_content_inline' : undefined}

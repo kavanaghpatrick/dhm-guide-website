@@ -219,7 +219,8 @@ export default function InlineComparisonTable({
   return (
     <div className="not-prose my-6">
       {renderHeader()}
-      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+      {/* compare-scroll: visible branded scrollbar so a phone reader knows to swipe */}
+      <div className="compare-scroll overflow-x-auto bg-white rounded-lg shadow-md">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-green-700 text-white">
@@ -268,7 +269,6 @@ export default function InlineComparisonTable({
                       className={`${tableCtaClasses} min-h-[48px]`}
                     >
                       Check Price
-                      <ExternalLink className="w-3 h-3" />
                     </a>
                   </td>
                 </tr>

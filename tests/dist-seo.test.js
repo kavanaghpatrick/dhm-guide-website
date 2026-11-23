@@ -64,6 +64,24 @@ describe('dist SEO gate', () => {
     expect(new Set(descs).size).toBe(MAIN_ROUTES.length);
   });
 
+  // Buy-surface coverage (WS3): every high-traffic informational/money page must
+  // ship at least one tagged Amazon affiliate anchor in the HTML crawlers receive.
+  it('top-traffic pages carry a tagged affiliate anchor', () => {
+    const BUY_SURFACE_PAGES = [
+      'dhm-dosage-guide-2025',
+      'when-to-take-dhm-timing-guide-2025',
+      'best-hangover-recovery-drinks',
+      'best-liver-supplements',
+      'best-liver-detox-supplements',
+      'best-fatty-liver-supplements',
+      'dhm-vs-zbiotics',
+      'hangover-supplements-complete-guide-what-actually-works-2025',
+    ];
+    const tagged = /<a [^>]*href="https:\/\/www\.amazon\.com\/[^"]*tag=dhmguide-20/;
+    const missing = BUY_SURFACE_PAGES.filter((slug) => !tagged.test(read(`never-hungover/${slug}`)));
+    expect(missing).toEqual([]);
+  });
+
   it('restored RCT evidence page is prerendered with a self canonical', () => {
     const html = read('never-hungover/dhm-randomized-controlled-trials');
     expect(canonical(html)).toBe(`${SITE}/never-hungover/dhm-randomized-controlled-trials`);

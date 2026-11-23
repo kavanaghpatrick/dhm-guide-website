@@ -1791,7 +1791,7 @@
     /* ---- Links: editorial blue with a comfortable underline offset. In-article
             links are NAVIGATION/reference, never conversion — they stay blue and
             NEVER take the orange CTA color (buy CTAs opt into .btn-cta). ---- */
-    a {
+    a:not(.btn) {
       color: var(--color-info);
       text-decoration: underline;
       text-decoration-thickness: 1px;
@@ -1799,7 +1799,7 @@
       text-decoration-color: color-mix(in srgb, var(--color-info) 40%, transparent);
       transition: color var(--transition), text-decoration-color var(--transition);
     }
-    a:hover {
+    a:not(.btn):hover {
       color: var(--color-ink);
       text-decoration-color: currentColor;
     }

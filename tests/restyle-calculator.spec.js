@@ -298,6 +298,17 @@ test.describe('DHM Dosage Calculator — modern restyle contract', () => {
 
   // =================== BEHAVIOR PRESERVED (regression guard) ===================
 
+  // Rage-click hotspot (WS3): per-keystroke clamping snapped the first digit of a
+  // typed weight to the minimum, so "180" could never be typed.
+  test('body weight can be typed digit by digit', async ({ page }) => {
+    const weight = page.locator('#calc-weight');
+    await weight.click();
+    await weight.press('ControlOrMeta+a');
+    await weight.pressSequentially('180');
+    await weight.blur();
+    await expect(weight).toHaveValue('180');
+  });
+
   test('the calculator still computes a plausible dose after the restyle', async ({
     page,
   }) => {
