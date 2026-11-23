@@ -7,7 +7,7 @@ on:
 jobs:
   pnpm-frozen-lockfile:
     name: Verify pnpm-lock.yaml is in sync with package.json
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
 
   build:
     name: Build smoke test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
 
   mass-edit-check:
     name: Mass-edit moratorium check (#366, expires 2026-07-15)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 2
     if: github.event_name == 'pull_request'
     steps:

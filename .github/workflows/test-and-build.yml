@@ -11,7 +11,7 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
   unit:
     name: Unit tests
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
   build:
     name: Build
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
   e2e:
     name: E2E tests
     needs: [unit, build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -93,7 +93,7 @@ jobs:
   visual:
     name: Visual baselines (bootstrap)
     needs: e2e
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Informational, never blocks merge: this job GENERATES Linux-native baselines
     # (macOS-committed baselines differ from Linux CI font rendering) and uploads them
     # as an artifact. continue-on-error keeps occasional element-stability flakes on
@@ -124,7 +124,7 @@ jobs:
 
   mass-edit-check:
     name: Mass-edit moratorium check (#366, expires 2026-07-15)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 2
     if: github.event_name == 'pull_request'
     steps:
