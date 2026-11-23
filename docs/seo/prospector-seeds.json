@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "_doc": "Explicit seeds for THE PROSPECTOR (ported from arcompare scripts/seo/prospector). Contract: { version: 1, seeds: [{ keyword (2-80 chars), market?: us|jp|all (default all), why?: string, suggest?: true }] }. suggest:true buys that phrase a full-text keyword_suggestions fan-out (one paid call). dhmguide.com is US-only, so every seed is market us. Seeded 2026-11-23 from the dhm niche list + docs/seo-content-gap-2026-07-11/STRATEGY.md; [OWN] receipts are GSC last-90d as of 2026-11-23.",
+  "seeds": [
+    {
+      "keyword": "dhm supplement",
+      "market": "us",
+      "why": "core product head — the /reviews money page's category [OWN] 90d: 218 imps, 1 clicks, pos 14.5 on /never-hungover/dhm-dosage-guide-2025"
+    },
+    {
+      "keyword": "dihydromyricetin",
+      "market": "us",
+      "why": "core ingredient head — scientific-name phrasing [OWN] 90d: 1 imps, 0 clicks, pos 2 on /never-hungover/dhm-dosage-guide-2025"
+    },
+    {
+      "keyword": "hangover pills",
+      "market": "us",
+      "why": "commercial head — /reviews retarget (STRATEGY #3) [OWN] 90d: 3 imps, 0 clicks, pos 2 on /reviews"
+    },
+    {
+      "keyword": "hangover prevention",
+      "market": "us",
+      "why": "prevention intent — DHM's actual mechanism; HANGOVER CURE pillar spoke [OWN] 90d: 1 imps, 0 clicks, pos 4 on /never-hungover/dhm-dosage-guide-2025"
+    },
+    {
+      "keyword": "hangover supplements",
+      "market": "us",
+      "why": "commercial head — /reviews + best-of money pages [OWN] 90d: 1 imps, 0 clicks, pos 8 on /reviews"
+    },
+    {
+      "keyword": "liver supplements",
+      "market": "us",
+      "why": "liver cluster — highest CPC in the 2026-07-11 gap set; Best Liver Supplements money page"
+    },
+    {
+      "keyword": "liver detox",
+      "market": "us",
+      "why": "liver cluster — Best Liver Detox Supplements money page [OWN] 90d: 4 imps, 0 clicks, pos 6.8 on /never-hungover/best-liver-supplements"
+    },
+    {
+      "keyword": "milk thistle vs dhm",
+      "market": "us",
+      "why": "ingredient decision tail — comparison intent"
+    },
+    {
+      "keyword": "electrolytes for hangover",
+      "market": "us",
+      "why": "electrolyte SKU category (STRATEGY #9) — DHM+electrolyte stacking [OWN] 90d: 8 imps, 0 clicks, pos 38 on /never-hungover/best-hangover-recovery-drinks"
+    },
+    {
+      "keyword": "hangover recovery drinks",
+      "market": "us",
+      "why": "Best Hangover Recovery Drinks money page head [OWN] 90d: 6 imps, 0 clicks, pos 23.5 on /never-hungover/best-hangover-recovery-drinks"
+    },
+    {
+      "keyword": "pedialyte hangover",
+      "market": "us",
+      "why": "named-product recovery tail"
+    },
+    {
+      "keyword": "alka seltzer hangover",
+      "market": "us",
+      "why": "named-product recovery tail (OTC)"
+    },
+    {
+      "keyword": "pepto bismol alcohol",
+      "market": "us",
+      "why": "named-product OTC tail — interaction/usage intent"
+    },
+    {
+      "keyword": "asian flush",
+      "market": "us",
+      "why": "existing footprint (STRATEGY #19 — ranking problem, not a gap); informational [OWN] 90d: 1 imps, 0 clicks, pos 49 on /never-hungover/complete-guide-asian-flush-comprehensive"
+    },
+    {
+      "keyword": "alcohol flush",
+      "market": "us",
+      "why": "asian-flush adjacent phrasing"
+    },
+    {
+      "keyword": "nac alcohol",
+      "market": "us",
+      "why": "ingredient tail — NAC is a liver-supplement stack component"
+    },
+    {
+      "keyword": "glutathione alcohol",
+      "market": "us",
+      "why": "ingredient tail — antioxidant stack component"
+    },
+    {
+      "keyword": "b vitamins alcohol",
+      "market": "us",
+      "why": "ingredient tail — B-vitamin depletion angle"
+    },
+    {
+      "keyword": "cheers restore",
+      "market": "us",
+      "why": "competitor brand — review/vs tails [OWN] 90d: 2 imps, 0 clicks, pos 1 on /reviews"
+    },
+    {
+      "keyword": "zbiotics",
+      "market": "us",
+      "why": "competitor brand — review/vs tails [OWN] 90d: 13 imps, 0 clicks, pos 3.1 on /never-hungover/dhm-vs-zbiotics"
+    },
+    {
+      "keyword": "flyby recovery",
+      "market": "us",
+      "why": "competitor brand — review/vs tails (flyby pills striking distance per STRATEGY #3) [OWN] 90d: 50 imps, 0 clicks, pos 10.8 on /never-hungover/flyby-recovery-review-2025"
+    },
+    {
+      "keyword": "no days wasted",
+      "market": "us",
+      "why": "competitor brand — review/vs tails (no days wasted pills striking distance per STRATEGY #3) [OWN] 90d: 1 imps, 0 clicks, pos 17 on /never-hungover/no-days-wasted-vs-good-morning-hangover-pills-comparison-2025"
+    },
+    {
+      "keyword": "morning recovery drink",
+      "market": "us",
+      "why": "competitor brand — review/vs tails [OWN] 90d: 5 imps, 0 clicks, pos 16.2 on /never-hungover/best-hangover-recovery-drinks"
+    },
+    {
+      "keyword": "supplements before drinking",
+      "market": "us",
+      "why": "broad adjacent stub — pre-drinking supplement intent beyond DHM",
+      "suggest": true
+    },
+    {
+      "keyword": "alcohol recovery",
+      "market": "us",
+      "why": "broad adjacent stub — next-day recovery products/routines",
+      "suggest": true
+    },
+    {
+      "keyword": "drinking without a hangover",
+      "market": "us",
+      "why": "broad adjacent stub — prevention phrasing family",
+      "suggest": true
+    },
+    {
+      "keyword": "liver health supplements",
+      "market": "us",
+      "why": "broad adjacent stub — liver cluster fan-out beyond the four money pages [OWN] 90d: 11 imps, 0 clicks, pos 48.8 on /never-hungover/best-liver-supplements",
+      "suggest": true
+    },
+    {
+      "keyword": "alcohol metabolism",
+      "market": "us",
+      "why": "broad adjacent stub — mechanism/education phrasing that feeds DHM explainers",
+      "suggest": true
+    }
+  ]
+}

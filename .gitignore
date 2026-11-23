@@ -90,6 +90,8 @@ dist
 public/*
 !public/sitemap.xml
 !public/robots.txt
+# IndexNow ownership key (scripts/seo/indexnow-submit.mjs)
+!public/750ef536075c994387cadda67b52a7b8.txt
 !public/critical-lcp.css
 !public/images/
 !public/favicon.svg

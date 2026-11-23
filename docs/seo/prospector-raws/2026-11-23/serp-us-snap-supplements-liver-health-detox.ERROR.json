@@ -1,0 +1,40 @@
+{
+ "version": "0.1.20261117",
+ "status_code": 20000,
+ "status_message": "Ok.",
+ "time": "17.9207 sec.",
+ "cost": 0,
+ "tasks_count": 1,
+ "tasks_error": 0,
+ "tasks": [
+  {
+   "id": "11230935-1853-0139-0000-5ddea05630b6",
+   "status_code": 40101,
+   "status_message": "Internal SE Server Error.",
+   "time": "17.7242 sec.",
+   "cost": 0,
+   "result_count": 0,
+   "path": [
+    "v3",
+    "serp",
+    "google",
+    "organic",
+    "live",
+    "advanced"
+   ],
+   "data": {
+    "api": "serp",
+    "function": "live",
+    "se": "google",
+    "se_type": "organic",
+    "keyword": "snap supplements liver health detox",
+    "location_code": 2840,
+    "language_code": "en",
+    "depth": 30,
+    "device": "desktop",
+    "os": "windows"
+   },
+   "result": null
+  }
+ ]
+}

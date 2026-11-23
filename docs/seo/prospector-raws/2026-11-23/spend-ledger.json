@@ -1,0 +1,1329 @@
+{
+ "cap_usd": 2,
+ "total_usd": 1.32644,
+ "items": [
+  {
+   "name": "suggest-us-liver-health-supplements",
+   "path": "dataforseo_labs/google/keyword_suggestions/live",
+   "cost": 0.0258,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "suggest-us-supplements-before-drinking",
+   "path": "dataforseo_labs/google/keyword_suggestions/live",
+   "cost": 0.01368,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "suggest-us-alcohol-recovery",
+   "path": "dataforseo_labs/google/keyword_suggestions/live",
+   "cost": 0.048,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "suggest-us-drinking-without-a-hangover",
+   "path": "dataforseo_labs/google/keyword_suggestions/live",
+   "cost": 0.01296,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "suggest-us-alcohol-metabolism",
+   "path": "dataforseo_labs/google/keyword_suggestions/live",
+   "cost": 0.048,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "ideas-us-1",
+   "path": "dataforseo_labs/google/keyword_ideas/live",
+   "cost": 0.072,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "ideas-us-2",
+   "path": "dataforseo_labs/google/keyword_ideas/live",
+   "cost": 0.072,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "ideas-us-3",
+   "path": "dataforseo_labs/google/keyword_ideas/live",
+   "cost": 0.072,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "ideas-us-4",
+   "path": "dataforseo_labs/google/keyword_ideas/live",
+   "cost": 0.072,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-before-or-after-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dihydromyricetin-dosage",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-can-you-take-dhm-daily",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-much-dhm-to-take",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-when-to-take-dhm",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-supplement",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-when-to-take-dhm-for-hangover-reddit",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-much-dhm-after-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-dosage-for-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-to-take-dhm-for-hangover",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-much-dhm-before-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-flyby-vs-cheers",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-for-hangovers",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-dose",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-half-life",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-yes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-hangover",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-does-no-days-wasted-work",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-fuller-health-after-party",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm1000",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-nac-supplement",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-after-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplements-before-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-reddit",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-top-10-liver-support-supplements",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-miglior-integratore-per-il-fegato-grasso",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-activate-dhm",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-no-days-wasted-when-to-take",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-benefits",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dihydromyricetin-hangover",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cheers-vs-no-days-wasted",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-supplements-to-take-before-drinking-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhmguide-com",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-1000",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-italian-drinking-culture",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-hangover-prevention-drink",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-zbiotics-uk",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cheers-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dhm-for-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-japanese-raisin-tree-extract",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-activate-dhm-reviews",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-zbiotics-shelf-life",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-most-effective",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-does-dhm-prevent-you-from-getting-drunk",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-which-is-most-effective",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-when-is-the-best-time-to-take-it",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-bacillus-subtilis-zb183",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dandelion-supplement",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-if-i-drink-every-day",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-no-days-waster",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-nusapure",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-product-is-the-best",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-recommended-me",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-s-the-serving-size",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-suggest-a-product",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplement",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-asian-flash",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-double-wood-resolution-cost",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-no-days-wasted-review",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-blood-alcohol-content-calc",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-liver-function-test-lft",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-vitamin-c-supplement",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-lfts-liver-function-tests",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-elevated-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-increases-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cleansing-liver-detox",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-alcohol-recovery-center-near-me",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-foods-and-supplements-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-blood-test-for-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-blood-tests-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-bloodwork-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-lab-test-for-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-liver-enzymes-blood-work",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-liver-enzymes-on-a-blood-test",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cause-of-high-enzymes-in-liver",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-health-benefits-of-chia-seeds",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cruciferous-vegetables-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-ibuprofen-and-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-beef-liver-supplements",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-cause-for-high-liver-enzymes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-causes-for-liver-enzymes-to-be-high",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-elevated-liver-function-tests-causes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-high-liver-enzymes-causes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-tylenol-and-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-recovery-from-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-antioxidants-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-foods-for-fatty-liver-disease",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-drug-and-alcohol-recovery-centers-near-me",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-dog-liver-health-supplements",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-herbal-supplements-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-does-alcohol-affect-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-rate-of-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-long-does-alcohol-recovery-take",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-thrive-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-timeline-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-liver-recovery-after-quitting-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplements-for-kidney-and-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-natural-supplements-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-liver-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-alcohol-metabolism-rate-per-hour-calculator",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-alcohol-poisoning-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-calculator-for-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplements-to-take-before-drinking",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-steps-of-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-is-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-effects-of-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-rate-of-alcohol-metabolism-calculator",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-stages-of-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplements-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-drug-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-alcohol-fatty-liver-recovery-time",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-books-about-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-books-on-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-calculate-alcohol-metabolism-rate",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-native-american-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-how-to-speed-up-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-vitamins-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-movies-about-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-quotes-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-supplements-that-support-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-fast-metabolism-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-drugs-and-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-the-main-site-of-alcohol-metabolism-is-in-the",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-smart-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-stories-of-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-vitamins-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-buddhism-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-inspirational-alcohol-recovery-quotes",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-does-metabolism-affect-alcohol-tolerance",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-brain-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-food-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-foods-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-online-alcohol-recovery-program",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-songs-about-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-songs-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-speeds-up-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-recovery-position-alcohol",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-statistics-of-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-books-about-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-books-on-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-inspirational-quotes-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-isopropyl-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-where-does-alcohol-metabolism-take-place",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-buena-vista-drug-alcohol-recovery-center-of-tucson-photos",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0,
+   "status": 40101,
+   "message": "Internal SE Server Error."
+  },
+  {
+   "name": "serp us-buena-vista-drug-alcohol-recovery-center-of-tucson-reviews",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-christian-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-first-step-in-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-outpatient-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-recovery-time-from-alcohol-poisoning",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-12-steps-to-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-supplements-should-i-take-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-thrive-alcohol-recovery-shark-tank",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-artichoke-supplements-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-b-vitamins-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-bible-verses-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-books-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-byproduct-of-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-diet-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-the-first-stage-of-treatment-for-alcohol-recovery-is",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-what-supplements-help-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-inland-valley-drug-and-alcohol-recovery-services",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-inpatient-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-kidney-and-liver-health-supplements",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-prayer-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-prayers-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-slow-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-snap-supplements-liver-health-detox",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0,
+   "status": 40101,
+   "message": "Internal SE Server Error."
+  },
+  {
+   "name": "serp us-statistics-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-symptoms-of-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-toxic-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-where-is-the-chief-site-of-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-acetaldehyde-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-the-adh-pathway-of-alcohol-metabolism-converts-ethanol-into",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-average-rate-of-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-beef-liver-supplements-for-liver-health",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-christian-based-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-depression-and-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-best-drink-for-alcohol-recovery",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  },
+  {
+   "name": "serp us-does-exercise-speed-up-alcohol-metabolism",
+   "path": "serp/google/organic/live/advanced",
+   "cost": 0.005,
+   "status": 20000,
+   "message": "Ok."
+  }
+ ]
+}
