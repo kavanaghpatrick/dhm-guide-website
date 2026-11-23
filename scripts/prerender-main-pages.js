@@ -265,6 +265,13 @@ const pages = [
     }
   },
   {
+    route: '/never-hungover',
+    title: 'Never Hungover: Master Science-Backed Hangover Prevention',
+    description: 'Learn how to never wake up hungover again. Expert guides on DHM, proven prevention strategies, and cutting-edge research. Master the hangover-free lifestyle.',
+    ogImage: '/og-image.jpg',
+    bodyStub: '<h1>Never Hungover</h1><p>Evidence-based articles on DHM, hangover prevention, liver health, and smarter drinking.</p><p>Guides on DHM dosing and timing, clinical research, supplement comparisons, and recovery strategies.</p>'
+  },
+  {
     route: '/compare',
     title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
     description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',

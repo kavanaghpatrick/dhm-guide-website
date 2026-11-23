@@ -101,12 +101,12 @@ function generateSitemap() {
 
   <!-- Main Site Pages -->`;
     
-    // Add main pages
+    // Add main pages. No <lastmod>: stamping the build date on unchanged pages is a
+    // false freshness signal that erodes Google's trust in our lastmod values.
     MAIN_PAGES.forEach(page => {
       xml += `
   <url>
     <loc>${BASE_URL}${page.loc}</loc>
-    <lastmod>${today}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`;
