@@ -5,9 +5,9 @@ export default defineConfig({
   // Visual-regression specs run under playwright.visual.config.js (reduced-motion,
   // committed baselines). affiliate-tracking.spec.js is a PROD-targeted regression
   // suite (defaults to https://www.dhmguide.com) run via playwright.affiliate.config.js.
-  // Keep both out of the default localhost behavior/e2e run. dist-seo.test.js is a
-  // vitest post-build gate (npm run test:dist), not a Playwright spec.
-  testIgnore: ['**/visual/**', '**/affiliate-tracking.spec.js', '**/dist-seo.test.js'],
+  // Keep both out of the default localhost behavior/e2e run. *.test.js files are
+  // vitest post-build gates (npm run test:dist), not Playwright specs.
+  testIgnore: ['**/visual/**', '**/affiliate-tracking.spec.js', '**/*.test.js'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
