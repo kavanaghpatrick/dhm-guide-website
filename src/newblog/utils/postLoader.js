@@ -182,17 +182,24 @@ export const preloadPost = async (slug) => {
  * Get related posts metadata based on tags
  */
 export const getRelatedPostsMetadata = (currentPost, limit = 3) => {
-  if (!currentPost || !currentPost.tags) {
+  if (!currentPost) {
     return [];
   }
 
   const allPosts = getAllPostsMetadata();
-  
+
+  // Curated post.relatedPosts (slugs) come first; tag overlap fills the rest.
+  const curated = (currentPost.relatedPosts || [])
+    .map(slug => allPosts.find(post => post.slug === slug))
+    .filter(Boolean);
+  const curatedSlugs = new Set(curated.map(post => post.slug));
+  const tags = currentPost.tags || [];
+
   // Score posts based on tag overlap
   const scoredPosts = allPosts
-    .filter(post => post.slug !== currentPost.slug)
+    .filter(post => post.slug !== currentPost.slug && !curatedSlugs.has(post.slug))
     .map(post => {
-      const commonTags = post.tags?.filter(tag => currentPost.tags.includes(tag)) || [];
+      const commonTags = post.tags?.filter(tag => tags.includes(tag)) || [];
       return {
         ...post,
         score: commonTags.length
@@ -201,7 +208,7 @@ export const getRelatedPostsMetadata = (currentPost, limit = 3) => {
     .filter(post => post.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  return scoredPosts.slice(0, limit);
+  return [...curated, ...scoredPosts].slice(0, limit);
 };
 
 /**

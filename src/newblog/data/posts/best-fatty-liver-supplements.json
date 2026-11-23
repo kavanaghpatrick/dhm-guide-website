@@ -58,5 +58,6 @@
       "question": "Should I see a doctor for fatty liver instead of taking supplements?",
       "answer": "Yes — fatty liver disease is a real, diagnosable medical condition that can progress to inflammation, fibrosis, and cirrhosis, so it needs proper medical follow-up, not self-treatment with supplements. A doctor or hepatologist can stage the disease (fibrosis matters more than fat), check for related metabolic problems, monitor liver enzymes, and guide the lifestyle changes that actually reverse it. Supplements are, at most, a secondary adjunct to add with your doctor's guidance — never a replacement for medical care. If you have a fatty liver diagnosis or elevated liver enzymes, see a healthcare provider."
     }
-  ]
+  ],
+  "skipReviewsCta": true
 }

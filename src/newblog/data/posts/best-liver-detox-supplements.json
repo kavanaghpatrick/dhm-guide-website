@@ -58,5 +58,6 @@
       "question": "Can a liver cleanse treat fatty liver or liver disease?",
       "answer": "No. No supplement — \"detox,\" \"cleanse,\" or otherwise — treats, cures, or reverses fatty liver disease, hepatitis, cirrhosis, or any diagnosed liver condition, and using one in place of medical care can be harmful. For non-alcoholic fatty liver, the best-evidenced interventions are weight loss, exercise, and dietary change under a doctor's guidance. If you have elevated liver enzymes or a diagnosed condition, see a healthcare provider. A \"cleanse\" may play a supportive role at most, and only alongside real medical care."
     }
-  ]
+  ],
+  "skipReviewsCta": true
 }

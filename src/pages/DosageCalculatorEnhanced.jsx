@@ -947,10 +947,14 @@ export default function DosageCalculatorEnhanced() {
                           id="calc-weight"
                           type="number"
                           value={weight}
+                          // Clamp on blur, not per keystroke: clamping on change snapped
+                          // the first typed digit ("1" of "180") to the 90 minimum, so the
+                          // field couldn't be typed into (calculator rage-click hotspot).
                           onChange={(e) => {
-                            setWeight(Math.max(weightUnit === 'lbs' ? 90 : 40, Math.min(weightUnit === 'lbs' ? 350 : 160, parseInt(e.target.value) || 0)))
+                            setWeight(parseInt(e.target.value) || 0)
                             setHasInteracted(true)
                           }}
+                          onBlur={() => setWeight(Math.max(weightUnit === 'lbs' ? 90 : 40, Math.min(weightUnit === 'lbs' ? 350 : 160, weight)))}
                           className="input input-num"
                           style={{ width: '6rem' }}
                         />
