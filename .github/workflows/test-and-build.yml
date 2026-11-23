@@ -65,7 +65,8 @@ jobs:
   e2e:
     name: E2E tests
     needs: [unit, build]
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to 26.04, which Playwright chromium does not support yet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -93,7 +94,8 @@ jobs:
   visual:
     name: Visual baselines (bootstrap)
     needs: e2e
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to 26.04, which Playwright chromium does not support yet.
+    runs-on: ubuntu-24.04
     # Informational, never blocks merge: this job GENERATES Linux-native baselines
     # (macOS-committed baselines differ from Linux CI font rendering) and uploads them
     # as an artifact. continue-on-error keeps occasional element-stability flakes on
