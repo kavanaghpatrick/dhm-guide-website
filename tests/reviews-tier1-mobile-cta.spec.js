@@ -15,11 +15,15 @@
  */
 
 import { test, expect, devices } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+// One CTA per catalog product (was a hardcoded 10 before the catalog shrank to 8).
+const PRODUCT_COUNT = JSON.parse(readFileSync(new URL('../src/data/topProducts.json', import.meta.url), 'utf8')).length;
 
 // Mobile viewport for all tests in this file
 test.use({ ...devices['Pixel 5'] });
 
-test('comparison table: >= 10 visible Check Price CTAs, 44px tap targets, no horizontal overflow', async ({ page }) => {
+test('comparison table: one visible Check Price CTAs, 44px tap targets, no horizontal overflow', async ({ page }) => {
   // ── Navigate ────────────────────────────────────────────────────────────────
   await page.goto('/reviews');
   await page.waitForLoadState('domcontentloaded');
@@ -38,11 +42,11 @@ test('comparison table: >= 10 visible Check Price CTAs, 44px tap targets, no hor
     }
   }
 
-  // ASSERTION 1: at least 10 visible CTAs (one per product row)
+  // ASSERTION 1: at least one visible CTA (one per product row)
   expect(
     visibleCtas.length,
-    `Expected >= 10 visible "Check Price" CTAs inside #comparison-table but found ${visibleCtas.length} (total in DOM: ${totalCount})`
-  ).toBeGreaterThanOrEqual(10);
+    `Expected >= ${PRODUCT_COUNT} visible "Check Price" CTAs inside #comparison-table but found ${visibleCtas.length} (total in DOM: ${totalCount})`
+  ).toBeGreaterThanOrEqual(PRODUCT_COUNT);
 
   // ── 2. Tap-target height ≥ 44px ────────────────────────────────────────────
   for (let i = 0; i < visibleCtas.length; i++) {
