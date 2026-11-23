@@ -66,6 +66,10 @@ async function resolveProduct(product) {
   if (!link || typeof link !== 'string') {
     return { ...base, asin: null, fullUrl: null, error: 'no affiliateLink' };
   }
+  // Full amazon.com/dp/ASIN links (the policy since check-affiliate-links.mjs) need no network hop.
+  if (extractAsin(link)) {
+    return { ...base, asin: extractAsin(link), fullUrl: link, resolvedAt: new Date().toISOString() };
+  }
   if (!/^https?:\/\/amzn\.to\//i.test(link)) {
     return { ...base, asin: null, fullUrl: null, error: `not an amzn.to short link: ${link}` };
   }
