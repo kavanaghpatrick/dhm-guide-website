@@ -94,6 +94,28 @@ describe('dist internal link graph', () => {
     expect(bad).toEqual([]);
   });
 
+  it('410-pruned posts are fully retired: not built, linked, in sitemap, metadata or registry', () => {
+    const vercel = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../vercel.json'), 'utf8'));
+    const rule = vercel.rewrites.find((r) => r.destination === '/api/gone');
+    const slugs = rule.source.match(/\(([^)]+)\)/)[1].split('|');
+    expect(slugs.length).toBeGreaterThan(0);
+    const sitemap = fs.readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8');
+    const meta = fs.readFileSync(path.resolve(__dirname, '../src/newblog/data/metadata/index.json'), 'utf8');
+    const registry = fs.readFileSync(path.resolve(__dirname, '../src/newblog/data/postRegistry.js'), 'utf8');
+    const linked = new Set([...graph.values()].flat());
+    const bad = slugs.flatMap((s) => {
+      const url = `/never-hungover/${s}`;
+      return [
+        graph.has(url) && `${s} (still built)`,
+        linked.has(url) && `${s} (still linked)`,
+        sitemap.includes(`${SITE}${url}<`) && `${s} (still in sitemap)`,
+        meta.includes(`"${s}"`) && `${s} (still in metadata)`,
+        registry.includes(`/${s}.json`) && `${s} (still in postRegistry)`,
+      ];
+    }).filter(Boolean);
+    expect(bad).toEqual([]);
+  });
+
   it('cluster-config (mega-menu) references only live, non-redirected posts', () => {
     const cfg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../scripts/cluster-config.json'), 'utf8'));
     const bad = cfg.clusters
