@@ -7,7 +7,6 @@
       "pillar": "dhm-dosage-guide-2025",
       "spokes": [
         "dhm-science-explained",
-        "is-dhm-safe-science-behind-side-effects-2025",
         "dhm-supplement-stack-guide-complete-combinations",
         "when-to-take-dhm-timing-guide-2025",
         "can-you-take-dhm-every-day-long-term-guide-2025",
@@ -23,11 +22,13 @@
     },
     {
       "name": "liver-health",
-      "pillar": "advanced-liver-detox-science-vs-marketing-myths-2025",
+      "pillar": "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
       "spokes": [
+        "best-liver-supplements",
+        "best-liver-detox-supplements",
+        "best-fatty-liver-supplements",
         "fatty-liver-disease-complete-guide-causes-symptoms-natural-treatment-2025",
         "fatty-liver-disease-diet-complete-nutrition-guide-2025",
-        "best-liver-detox-science-based-methods-vs-marketing-myths-2025",
         "liver-health-complete-guide-optimal-liver-function-protection-2025",
         "liver-health-alcohol-supplements-dhm-2025",
         "nac-vs-dhm-which-antioxidant-better-liver-protection-2025",
@@ -84,6 +85,7 @@
       "name": "hangover-prevention",
       "pillar": "functional-medicine-hangover-prevention-2025",
       "spokes": [
+        "best-hangover-recovery-drinks",
         "hangover-supplements-complete-guide-what-actually-works-2025",
         "good-morning-hangover-pills-review-2025",
         "activated-charcoal-hangover",
@@ -186,11 +188,10 @@
     },
     {
       "name": "dhm-safety",
-      "pillar": "ultimate-dhm-safety-guide-hub-2025",
+      "pillar": "dhm-safety-complete-guide-2025",
       "spokes": [
         "can-you-take-dhm-every-day-long-term-guide-2025",
         "dhm-dosage-guide-2025",
-        "is-dhm-safe-science-behind-side-effects-2025",
         "dhm-medication-interactions-safety-guide-2025",
         "dhm-women-hormonal-considerations-safety-2025",
         "dhm-adults-over-50-age-related-safety-2025"

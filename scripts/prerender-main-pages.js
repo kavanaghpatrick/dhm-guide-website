@@ -124,7 +124,9 @@ const pages = [
     title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
     description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
     ogImage: '/reviews-og.jpg',
-    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>',
+    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>' +
+      // Mirrors the "More buying guides" links in Reviews.modern.jsx (crawler-visible internal links).
+      '<p>More buying guides: <a href="/never-hungover/no-days-wasted-dhm-review-analysis">No Days Wasted Review 2026</a>, <a href="/never-hungover/best-liver-supplements">best liver supplements</a>, <a href="/never-hungover/best-liver-detox-supplements">best liver detox supplements</a>, <a href="/never-hungover/best-fatty-liver-supplements">best fatty liver supplements</a>, <a href="/never-hungover/best-hangover-recovery-drinks">best hangover recovery drinks</a>.</p>',
     // ItemList schema for product carousel rich result. Order MUST mirror the
     // visible ranking in src/pages/Reviews.jsx (which imports the same JSON
     // from src/data/topProducts.json) — single source of truth, no drift.

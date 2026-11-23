@@ -138,6 +138,14 @@ export default function ReviewsModern() {
     { title: 'No Days Wasted vs Good Morning', slug: 'no-days-wasted-vs-good-morning-hangover-pills-comparison-2025', desc: 'Premium hangover pill showdown' },
   ]
 
+  const buyingGuides = [
+    { label: 'No Days Wasted Review 2026', slug: 'no-days-wasted-dhm-review-analysis' },
+    { label: 'Best liver supplements', slug: 'best-liver-supplements' },
+    { label: 'Best liver detox supplements', slug: 'best-liver-detox-supplements' },
+    { label: 'Best fatty liver supplements', slug: 'best-fatty-liver-supplements' },
+    { label: 'Best hangover recovery drinks', slug: 'best-hangover-recovery-drinks' },
+  ]
+
   const winner = topProducts.find(isEditorsChoice) ?? topProducts?.[0]
 
   return (
@@ -390,6 +398,16 @@ export default function ReviewsModern() {
               </Link>
             </div>
           </div>
+          {/* Mirrored in the /reviews prerender stub (scripts/prerender-main-pages.js). */}
+          <p className="text-soft" style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
+            More buying guides:{' '}
+            {buyingGuides.map((g, i) => (
+              <span key={g.slug}>
+                {i > 0 && ' · '}
+                <Link to={`/never-hungover/${g.slug}`}>{g.label}</Link>
+              </span>
+            ))}
+          </p>
         </div>
       </section>
     </div>
