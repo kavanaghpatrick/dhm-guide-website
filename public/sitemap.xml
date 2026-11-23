@@ -46,7 +46,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Blog Posts (196 total) -->
+  <!-- Blog Posts (197 total) -->
   <url>
     <loc>https://www.dhmguide.com/never-hungover/activated-charcoal-hangover</loc>
     <lastmod>2026-04-29</lastmod>
@@ -1148,6 +1148,12 @@
   <url>
     <loc>https://www.dhmguide.com/never-hungover/traditional-mexican-hangover-remedies-vs-modern-supplements</loc>
     <lastmod>2025-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dhmguide.com/never-hungover/tylenol-and-alcohol</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
