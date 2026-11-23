@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { trackEvent } from '../lib/posthog.js'
+import { useSEO } from '../hooks/useSEO.js'
 import {
   Home,
   Search,
@@ -12,6 +13,9 @@ import {
 import '../styles/theme-modern.css'
 
 export default function NotFound() {
+  // Unknown URLs serve the SPA shell with HTTP 200; noindex keeps them out of Google (soft-404s).
+  useSEO({ title: 'Page Not Found | DHM Guide', noIndex: true });
+
   // Track 404 event for monitoring broken links
   useEffect(() => {
     trackEvent('page_not_found', {
