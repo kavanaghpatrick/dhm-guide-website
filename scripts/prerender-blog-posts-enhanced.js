@@ -421,16 +421,7 @@ async function main() {
     await processBatch(batches[i], i, batches.length, baseHtml, blogDistDir);
   }
   
-  // Create blog index page with proper escaping
-  console.log('📄 Creating blog index page...');
-  
-  const blogIndexHtml = baseHtml
-    .replace(/<title>.*?<\/title>/, 
-             '<title>Never Hungover Blog - Science-Based Alcohol &amp; DHM Articles | DHM Guide</title>')
-    .replace(/content=".*?Clinically proven.*?"/, 
-             'content="Explore 195+ evidence-based articles on DHM, hangover prevention, liver health, and smart drinking strategies"');
-  
-  fs.writeFileSync(path.join(blogDistDir, 'index.html'), blogIndexHtml);
+  // The /never-hungover hub page itself is prerendered by prerender-main-pages.js.
   
   console.log(`
 ✅ Successfully prerendered ${posts.length} blog posts with:
