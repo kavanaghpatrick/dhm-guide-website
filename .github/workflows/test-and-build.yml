@@ -138,7 +138,7 @@ jobs:
         with:
           node-version: 22
       - name: Self-test the guard
-        run: node --test scripts/check-mass-edit.test.mjs
+        run: node --test scripts/check-mass-edit.test.mjs scripts/lib/get-date-modified.test.mjs
       - name: Count modified existing posts (added posts exempt)
         env:
           PR_BODY: ${{ github.event.pull_request.body }}

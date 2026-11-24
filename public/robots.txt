@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+# Block search template URL with placeholder
+Disallow: /search?q=%7B*
 
 # Explicit allows for AI crawlers (issue #291).
 # Wildcard already covers them, but explicit allows make intent unambiguous
@@ -33,9 +35,6 @@ Allow: /
 
 User-agent: Amazonbot
 Allow: /
-
-# Block search template URL with placeholder
-Disallow: /search?q=%7B*
 
 # Sitemap
 Sitemap: https://www.dhmguide.com/sitemap.xml

@@ -17,16 +17,16 @@ const BLOG_DIR = path.join(__dirname, '../src/newblog/data/posts');
 const OUTPUT_FILE = path.join(__dirname, '../public/sitemap.xml');
 const BASE_URL = 'https://www.dhmguide.com';
 
-// Main site pages with their priorities
+// Main site pages. No priority/changefreq: Google ignores both tags.
 const MAIN_PAGES = [
-  { loc: '/', priority: '1.0', changefreq: 'weekly' },
-  { loc: '/guide', priority: '0.9', changefreq: 'weekly' },
-  { loc: '/reviews', priority: '0.9', changefreq: 'weekly' },
-  { loc: '/never-hungover', priority: '0.9', changefreq: 'weekly' },
-  { loc: '/dhm-dosage-calculator', priority: '0.9', changefreq: 'weekly' },
-  { loc: '/compare', priority: '0.8', changefreq: 'weekly' },
-  { loc: '/research', priority: '0.8', changefreq: 'monthly' },
-  { loc: '/about', priority: '0.7', changefreq: 'monthly' }
+  '/',
+  '/guide',
+  '/reviews',
+  '/never-hungover',
+  '/dhm-dosage-calculator',
+  '/compare',
+  '/research',
+  '/about'
 ];
 
 function generateSitemap() {
@@ -41,12 +41,6 @@ function generateSitemap() {
     const files = fs.readdirSync(BLOG_DIR).filter(file => file.endsWith('.json'));
     
     files.forEach(file => {
-      // Skip backup/draft files
-      if (file.includes('-original') || file.includes('-backup') || file.includes('-enhanced') || file.includes('-broken')) {
-        console.log(`  ⏭️  Skipping backup/draft file: ${file}`);
-        return;
-      }
-      
       try {
         const filePath = path.join(BLOG_DIR, file);
         const content = fs.readFileSync(filePath, 'utf8');
@@ -54,38 +48,23 @@ function generateSitemap() {
         
         if (post.slug && !processedSlugs.has(post.slug)) {
           processedSlugs.add(post.slug);
-          
-          // Determine priority based on content type
-          let priority = '0.8'; // Default for blog posts
-          
-          // Trust-building content and hub pages get higher priority
-          if (post.slug.includes('is-dhm-safe') || 
-              post.slug.includes('does-dhm-work') || 
-              post.slug.includes('can-you-take-dhm-every-day') ||
-              post.slug.includes('-hub-') ||
-              post.slug.includes('-center-')) {
-            priority = '0.9';
-          }
-          // Cultural guides get lower priority
-          else if (post.slug.includes('-culture-guide')) {
-            priority = '0.6';
-          }
-          
+
           // Resolve dateModified: explicit override -> git commit date -> post.date
           const resolvedDateModified = getDateModified(post, filePath) || today;
           const lastmodDate = resolvedDateModified.split('T')[0]; // YYYY-MM-DD for sitemap
 
           blogPosts.push({
             loc: `/never-hungover/${post.slug}`,
-            lastmod: lastmodDate,
-            changefreq: 'weekly',
-            priority: priority
+            lastmod: lastmodDate
           });
-          
+
           console.log(`  ✓ ${post.slug}`);
         }
       } catch (error) {
         console.error(`  ✗ Error processing ${file}:`, error.message);
+        // A malformed post JSON must fail the build, not silently drop the
+        // post from the sitemap.
+        process.exitCode = 1;
       }
     });
     
@@ -103,12 +82,10 @@ function generateSitemap() {
     
     // Add main pages. No <lastmod>: stamping the build date on unchanged pages is a
     // false freshness signal that erodes Google's trust in our lastmod values.
-    MAIN_PAGES.forEach(page => {
+    MAIN_PAGES.forEach(loc => {
       xml += `
   <url>
-    <loc>${BASE_URL}${page.loc}</loc>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
+    <loc>${BASE_URL}${loc}</loc>
   </url>`;
     });
     
@@ -122,8 +99,6 @@ function generateSitemap() {
   <url>
     <loc>${BASE_URL}${post.loc}</loc>
     <lastmod>${post.lastmod}</lastmod>
-    <changefreq>${post.changefreq}</changefreq>
-    <priority>${post.priority}</priority>
   </url>`;
     });
     

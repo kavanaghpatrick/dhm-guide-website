@@ -241,6 +241,11 @@ function ageInDays(date) {
 function decide(ctx) {
   const { slug, gsc, cluster, inboundLinks, age, threshold, deleteThreshold } = ctx;
 
+  // 0. Too new to judge → SAVE (brand-new pages have no GSC history yet and
+  // must never surface as prune candidates)
+  if (age !== null && age < 90) {
+    return { bucket: 'save', reason: `too-new-to-bucket:${age}d` };
+  }
   // 1. Cluster member → SAVE
   if (cluster) {
     return { bucket: 'save', reason: `cluster-${cluster.role}:${cluster.cluster}` };
