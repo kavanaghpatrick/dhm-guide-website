@@ -68,7 +68,8 @@ jobs:
     # Pinned: ubuntu-latest moved to 26.04, which Playwright chromium does not support yet.
     runs-on: ubuntu-24.04
     # Suite was already ~19.5 min (workers=1); each gated post adds 16 tests.
-    timeout-minutes: 30
+    # 2026-11-24: 46-page expansion pushed it past 30m (batch 2 died at 30m14s).
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
