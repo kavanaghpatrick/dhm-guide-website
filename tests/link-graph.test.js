@@ -116,6 +116,24 @@ describe('dist internal link graph', () => {
     expect(bad).toEqual([]);
   });
 
+  it('sitemap positive invariant: every loc is built, self-canonical, indexable; every built post is listed', () => {
+    const sitemap = fs.readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8');
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => normalize(m[1]));
+    expect(locs.length).toBeGreaterThan(100);
+    const bad = [];
+    for (const loc of locs) {
+      if (!graph.has(loc)) { bad.push(`${loc} (listed but not built)`); continue; }
+      const html = fs.readFileSync(path.join(DIST, loc === '/' ? 'index.html' : `${loc.slice(1)}/index.html`), 'utf8');
+      const canon = (html.match(/<link rel="canonical" href="([^"]*)"/) || [])[1];
+      if (normalize(canon || '') !== loc) bad.push(`${loc} (canonical: ${canon ?? 'missing'})`);
+      if (/<meta[^>]+noindex/i.test(html)) bad.push(`${loc} (noindex)`);
+    }
+    const listed = new Set(locs);
+    for (const route of graph.keys())
+      if (route.startsWith('/never-hungover/') && !listed.has(route)) bad.push(`${route} (built but missing from sitemap)`);
+    expect(bad).toEqual([]);
+  });
+
   it('cluster-config (mega-menu) references only live, non-redirected posts', () => {
     const cfg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../scripts/cluster-config.json'), 'utf8'));
     const bad = cfg.clusters
