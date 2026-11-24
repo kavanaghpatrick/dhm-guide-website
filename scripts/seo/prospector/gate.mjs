@@ -73,7 +73,7 @@ const isAuthority = (domain) => {
  * @returns {{ walled: boolean, authority_top5: number, ai_overview: boolean }}
  */
 export function authorityWall(items) {
-  const list = items ?? [];
+  const list = (items ?? []).map(realDomain);
   const aio = list.some((i) => i.type === "ai_overview");
   const top5 = list.filter((i) => i.type === "organic" && i.rank_group && i.rank_group <= 5);
   const n = top5.filter((i) => isAuthority(i.domain)).length;
@@ -138,15 +138,27 @@ export function classifyDomain(domain) {
  *   no weak slot → WALLED; 2+ forums or 3+ weak in top-10 → ADMITS;
  *   else MIXED.
  */
-// DataForSEO now returns some organic rows as google.com/goto redirects with
-// domain "google.com"; the real host is in the breadcrumb URL, or for social
-// rows ("3K+ views · 4 years ago") in website_name ("YouTube · Channel").
+// DataForSEO (Nov 2026) masks some organic rows: domain "google.com" and/or a
+// google.com/goto redirect url. Host = the item's url host first; when that is
+// masked or missing, the breadcrumb URL, then an unmasked domain, then (social
+// rows like "3K+ views · 4 years ago") website_name ("YouTube · Channel").
+// Normalized: lowercase, no leading "www.".
+const MASKED = /(^|\.)google\.com$/;
+const normHost = (h) => String(h ?? "").trim().toLowerCase().replace(/^www\./, "");
+const urlHost = (u) => {
+  const m = /^https?:\/\/([^\s/?#›]+)/i.exec(String(u ?? "").trim());
+  const h = m ? normHost(m[1]) : "";
+  return h && !MASKED.test(h) ? h : "";
+};
 export const realDomain = (i) => {
-  if (i.type !== "organic" || !/google\.com\/goto/.test(i.url ?? "")) return i;
-  const bc = i.breadcrumb ?? "";
-  const domain = /^https?:\/\//.test(bc)
-    ? bc.replace(/^https?:\/\//, "").split(/[\s›/]/)[0]
-    : `${String(i.website_name ?? "").split(/\s*·\s*/)[0].trim().toLowerCase().replace(/\s+/g, "")}.com`;
+  if (i.type !== "organic") return i;
+  const dom = normHost(i.domain);
+  const name = String(i.website_name ?? "").split(/\s*·\s*/)[0].trim().toLowerCase().replace(/\s+/g, "");
+  const domain =
+    urlHost(i.url) ||
+    urlHost(i.breadcrumb) ||
+    (dom && !MASKED.test(dom) ? dom : "") ||
+    (name ? (name.includes(".") ? name : `${name}.com`) : "");
   return { ...i, domain };
 };
 
