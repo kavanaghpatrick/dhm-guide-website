@@ -20,7 +20,7 @@ const ROOT = join(__dirname, '..');
 const POSTS = join(ROOT, 'src/newblog/data/posts');
 const INDEX = join(ROOT, 'src/newblog/data/metadata/index.json');
 
-const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements,best-fatty-liver-supplements,tylenol-and-alcohol,pedialyte-vs-gatorade-hangover,pepto-bismol-and-alcohol,zbiotics-vs-cheers,nac-vs-dhm-which-antioxidant-better-liver-protection-2025')
+const NEW_CONTENT = (process.env.CONTENT_SLUGS || 'how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements,best-fatty-liver-supplements,tylenol-and-alcohol,pedialyte-vs-gatorade-hangover,pepto-bismol-and-alcohol,zbiotics-vs-cheers,nac-vs-dhm-which-antioxidant-better-liver-protection-2025,ibuprofen-and-alcohol,aleve-and-alcohol,dayquil-and-alcohol,dramamine-and-alcohol,creatine-and-alcohol,cheers-restore-review,zbiotics-review,do-hangover-patches-work,beer-before-liquor-myth,two-day-hangover')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 // Unambiguous medical OVERCLAIMS that must never appear (health-content policy).

@@ -157,5 +157,14 @@ test("google.com/goto organic rows score by their breadcrumb host", () => {
     gotoOrg(1, "www.mayoclinic.org"), gotoOrg(2, "www.webmd.com"), gotoOrg(3, "www.reddit.com"),
   ] });
   assert.equal(s.basis, "WALLED-AUTHORITY");
-  assert.equal(s.top3[0].domain, "www.mayoclinic.org");
+  assert.equal(s.top3[0].domain, "mayoclinic.org");
+});
+test("masked domain with a real url scores by the url host", () => {
+  const org = (rank, url) => ({ type: "organic", rank_group: rank, rank_absolute: rank + 1, domain: "google.com", url });
+  const w = authorityWall([
+    { type: "ai_overview", rank_group: 1 },
+    org(1, "https://www.mayoclinic.org/x"), org(2, "https://my.clevelandclinic.org/y"), org(3, "https://www.reddit.com/z"),
+  ]);
+  assert.equal(w.authority_top5, 2);
+  assert.equal(w.walled, true);
 });
