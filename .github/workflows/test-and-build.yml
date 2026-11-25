@@ -83,6 +83,18 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       # Behavior/e2e on localhost. The prod-targeted affiliate-tracking suite and the
       # visual specs are excluded via testIgnore in playwright.config.js.
+      # 2026-11-26: content-quality ran every gated post on every PR (batch-01 E2E took
+      # 30m17s). Scope it to the posts this PR ADDS; when none are added, run a fixed
+      # 10-slug regression sample. Local runs without CONTENT_SLUGS still use the full list.
+      - name: Scope content E2E to posts added in this PR
+        run: |
+          git fetch --depth=1 origin ${{ github.base_ref }}
+          SLUGS=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }} HEAD -- 'src/newblog/data/posts/*.json' | xargs -r -n1 basename | sed 's/\.json$//' | paste -sd, -)
+          if [ -z "$SLUGS" ]; then
+            SLUGS=how-to-prevent-a-hangover,best-liver-supplements,best-hangover-recovery-drinks,best-liver-detox-supplements,best-fatty-liver-supplements,tylenol-and-alcohol,pedialyte-vs-gatorade-hangover,pepto-bismol-and-alcohol,zbiotics-vs-cheers,nac-vs-dhm-which-antioxidant-better-liver-protection-2025
+          fi
+          echo "CONTENT_SLUGS=$SLUGS" >> "$GITHUB_ENV"
+          echo "Content E2E slugs: $SLUGS"
       - name: E2E tests
         run: pnpm run test:e2e
       - name: Upload Playwright report
