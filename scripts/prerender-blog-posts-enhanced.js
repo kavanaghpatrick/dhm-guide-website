@@ -74,23 +74,26 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   const safeMetaDescription = escapeHtml(post.metaDescription || post.excerpt);
   const safeAuthor = escapeHtml(post.author || 'DHM Guide Team');
   
-  // Update meta tags with escaped content
-  document.title = `${safeTitle} | DHM Guide`;
+  // DOM APIs (document.title / setAttribute) take RAW text: JSDOM escapes on
+  // serialize, so passing safe* here double-encoded apostrophes (&amp;#039;).
+  const rawTitle = post.title || '';
+  const rawMetaDescription = post.metaDescription || post.excerpt || '';
+  document.title = `${rawTitle} | DHM Guide`;
   
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
-    metaDescription.setAttribute('content', safeMetaDescription);
+    metaDescription.setAttribute('content', rawMetaDescription);
   }
   
   // Update Open Graph tags with escaped content
   const ogTitle = document.querySelector('meta[property="og:title"]');
   if (ogTitle) {
-    ogTitle.setAttribute('content', safeTitle);
+    ogTitle.setAttribute('content', rawTitle);
   }
   
   const ogDescription = document.querySelector('meta[property="og:description"]');
   if (ogDescription) {
-    ogDescription.setAttribute('content', safeMetaDescription);
+    ogDescription.setAttribute('content', rawMetaDescription);
   }
   
   const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -106,12 +109,12 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   // Update Twitter tags with escaped content
   const twitterTitle = document.querySelector('meta[property="twitter:title"]');
   if (twitterTitle) {
-    twitterTitle.setAttribute('content', safeTitle);
+    twitterTitle.setAttribute('content', rawTitle);
   }
   
   const twitterDescription = document.querySelector('meta[property="twitter:description"]');
   if (twitterDescription) {
-    twitterDescription.setAttribute('content', safeMetaDescription);
+    twitterDescription.setAttribute('content', rawMetaDescription);
   }
   
   const twitterImage = document.querySelector('meta[property="twitter:image"]');
