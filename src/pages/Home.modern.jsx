@@ -45,8 +45,8 @@ export default function HomeModern() {
             </h1>
 
             <p className="lead hero__lead">
-              DHM is a plant compound sold to prevent hangovers. The animal research is
-              promising and the human evidence is thin.
+              DHM is a plant compound sold to prevent hangovers. Most of what is known comes
+              from rats and mice, and no trial has tested DHM capsules on hangovers.
             </p>
 
             <div className="hero__actions" style={{ alignItems: 'center', marginBottom: 'var(--space-4)' }}>

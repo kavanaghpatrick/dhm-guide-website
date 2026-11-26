@@ -50,7 +50,7 @@ const FAQ = [
   },
   {
     q: 'Does DHM work?',
-    a: 'The evidence is thin. DHM counteracted alcohol intoxication in rats and protected the liver in mice, both given by injection. The one controlled human trial we know of tested a drink made with raisin-tree extract, not DHM capsules. It found lower blood alcohol in the first half hour and milder stomach symptoms than placebo.',
+    a: 'Unproven for hangovers. DHM counteracted alcohol intoxication in rats and protected the liver in mice, both given by injection. The one controlled human trial we know of tested a drink made with raisin-tree extract, not DHM capsules. It found lower blood alcohol in the first half hour and milder stomach symptoms than placebo.',
   },
 ]
 
