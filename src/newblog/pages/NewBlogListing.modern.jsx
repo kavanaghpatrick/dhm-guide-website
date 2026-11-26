@@ -1,20 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import {
-  Calendar,
-  Clock,
-  Tag,
-  Search,
-  Filter,
-  ArrowRight,
-  FlaskConical,
-  BookOpen,
-  Sparkles,
-  ShoppingCart,
-  Star,
-} from 'lucide-react';
+import { Search, ArrowRight, Star } from 'lucide-react';
 import {
   getAllPostsMetadata,
-  getAllTags,
   searchPostsMetadata,
   preloadPost,
 } from '../utils/postLoader';
@@ -24,54 +11,41 @@ import { buildAffiliateUrl } from '../../lib/utm-builder.js';
 import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
 import topProductsData from '../../data/topProducts.json';
 import '../../styles/theme-modern.css';
+import '../../styles/blog-listing.css';
 
 /**
- * NewBlogListing.modern — the "modern" arm of the /never-hungover A/B test
- * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL
- * hub page (src/newblog/pages/NewBlogListing.jsx), built on the approved 2026
- * design language (docs/design-modernization-2026-06-25/recommendations/
- * never-hungover.md): warm paper palette, Fraunces display headings in SOLID
- * ink (no gradient clip-text), border-first cards, and a single saturated orange
- * reserved exclusively for the affiliate CTA.
+ * NewBlogListing.modern — the /never-hungover library index (shipped arm of
+ * flag "site-modern-v1").
  *
- * Reuse contract with CONTROL:
- *   - Same data sources (getAllPostsMetadata / getAllTags / searchPostsMetadata)
- *     — no new data pipeline.
- *   - Same state + filter/search logic copied verbatim from NewBlogListing.jsx.
- *   - Same SEO: useSEO(generatePageSEO('never-hungover')).
- *   - Same internal links (/never-hungover/<slug>) preserved on every card.
+ * Editorial layout (blog design brief, Nov 2026): one paper ground, ink
+ * headings, one green accent, orange only on the single buy button. The post
+ * list is text-first (only ~1 in 5 posts has a hero image, so image cards were
+ * mostly placeholders): a 3-column index on desktop that collapses to a
+ * hairline-separated list on phones. Styles live in src/styles/blog-listing.css,
+ * scoped to [data-blog="listing"].
  *
- * Isolation contract:
- *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
- *     scoped stylesheet src/styles/theme-modern.css is imported here so the
- *     modern CSS is code-split into this chunk — CONTROL users pay nothing.
- *   - preloadModernFonts() runs on mount (variant arm only).
- *
- * Page-specific modernization moves applied (per the recommendation doc, v1
- * bundle only — fonts/count-up/virtualization deliberately excluded):
- *   #1 Foundation: warm paper + solid-ink H1 with ONE green accent word.
- *   #2 Featured hero: ONE editor's-pick card routing to a CTA-bearing article.
- *   #3 Card re-tier: border-first cards, hover-only lift, neutral/brand-soft chips.
- *   #6 Desktop product rail: ONE orange "Check Price on Amazon" module above the
- *      grid — net-new DESKTOP affiliate surface (control has none; the sticky bar
- *      is md:hidden). Reuses topProducts[0] + buildAffiliateUrl.
- *
- * Affiliate CTA contract: the rail CTA is a plain <a> with the
- * data-experiment-key / data-variant / data-component-id attributes the global
- * listener (src/hooks/useAffiliateTracking.js) reads. There is NO onClick — the
- * listener fires affiliate_link_click, so adding one would double-count.
+ * Contracts kept:
+ *   - data sources: getAllPostsMetadata / searchPostsMetadata (no new pipeline)
+ *   - SEO: useSEO(generatePageSEO('never-hungover'))
+ *   - every card links to /never-hungover/<slug>
+ *   - [data-testid="never-hungover-hero-modern"] on the page header
+ *   - the rail CTA is a plain <a> with the data-* attributes the global
+ *     affiliate listener reads; NO onClick (it would double-count)
+ *   - list windowed to 60 cards with Load More; counts use the deduped total
+ *   - design-spec hooks: [data-blog="listing"], .blog-card, .blog-card__title,
+ *     .blog-card__excerpt
  */
 
 const EXPERIMENT_KEY = 'site-modern-v1';
+const PAGE_SIZE = 60;
 
-// --- Render guards for messy post metadata (the listing must never edit the
-//     post JSONs — mass-edit moratorium — so all cleanup happens here). ---
+// Topic filters: the most-used tags, merged case-insensitively. A tag that is on
+// more than half of all posts ("DHM") filters nothing, so it is left out.
+const TOPICS_SHOWN = 10;
+const TOPICS_MORE = 30;
 
-// #6 — readTime is a mix of integers, "18 min read", "30 minutes",
-// "Estimated 30-40 minutes", "15 min min read", etc. The control rendered
-// `{readTime} min read` verbatim, producing garbled labels like
-// "Estimated 30-40 minutes min read". Parse the first positive integer and
-// return clean minutes; null when nothing usable is present.
+// readTime is a mix of integers, "18 min read", "Estimated 30-40 minutes", etc.
+// Take the first positive integer; null when nothing usable is present.
 const parseReadMinutes = (value) => {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return value > 0 ? Math.round(value) : null;
@@ -86,73 +60,83 @@ const parseReadMinutes = (value) => {
   return null;
 };
 
-// #18 — byline drift: 6 author strings in the corpus ("DHM Guide Team",
-// "DHM Guide Research Team", "Workplace Wellness Team", "DHM Health Guide",
-// "Global Health Research Team", "Dr. Evelyn Reed"). Collapse every team/house
-// alias to one canonical "DHM Guide Team" while preserving a real person's
-// name as authored.
-const normalizeAuthor = (author) => {
-  if (typeof author !== 'string' || !author.trim()) return 'DHM Guide Team';
-  const name = author.trim();
-  if (/team$/i.test(name) || /^DHM Health Guide$/i.test(name)) {
-    return 'DHM Guide Team';
-  }
-  return name;
-};
-
-// Preferred slugs for the single Editor's Pick hero, in priority order. These are
-// CTA-bearing evergreen articles (the conversion job of the hub is to route
-// readers into pages where the sticky CTA lives). Falls back to the newest post
-// if none of these exist in the corpus, so the hero can never render empty.
+// Preferred slugs for the single "Start here" feature, in priority order
+// (CTA-bearing evergreen guides). Falls back to the newest post.
 const FEATURED_SLUGS = [
   'dhm-dosage-guide-2025',
   'hangover-supplements-complete-guide-what-actually-works-2025',
   'dhm-safety-complete-guide-2025',
 ];
 
-// #9 — branded fallback for the ~14 image-less posts. Mirrors the demo's
-// .product-media placeholder language (paper→brand-soft wash, bordered, a quiet
-// brand-green mark) so every card keeps the same image → meta → title anatomy.
-// Decorative only: aria-hidden, the card title already names the article.
-const PostImagePlaceholder = () => (
-  <div
-    aria-hidden="true"
-    style={{
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundImage:
-        'linear-gradient(180deg, var(--color-paper) 0%, var(--color-brand-soft) 100%)',
-      borderBottom: '1px solid var(--color-border)',
-      color: 'var(--color-brand)',
-    }}
-  >
-    <BookOpen style={{ width: '2.25rem', height: '2.25rem', opacity: 0.45 }} />
-  </div>
-);
+// Dates in words, day first ("29 July 2025"), per the brief.
+const formatDate = (date) =>
+  new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+
+const titleCase = (tag) =>
+  (tag.charAt(0).toUpperCase() + tag.slice(1)).replace(/\b(dhm|nad|aldh2|gaba)\b/gi, (m) => m.toUpperCase());
+
+// The card's small label is its first tag that is one of the library's topics
+// (a category such as "Medication safety"), not its own keyword, which would
+// just repeat the title.
+const topicLabel = (post, topics) => {
+  const tag = (post.tags || []).find((t) => topics.includes(String(t).trim().toLowerCase()));
+  return tag ? titleCase(String(tag).trim().toLowerCase()) : null;
+};
+
+const Meta = ({ post }) => {
+  const minutes = parseReadMinutes(post.readTime);
+  return (
+    <p className="blog-meta">
+      <time dateTime={post.date.toISOString().slice(0, 10)}>{formatDate(post.date)}</time>
+      {minutes !== null && (
+        <>
+          <span aria-hidden="true"> · </span>
+          {minutes}&nbsp;min read
+        </>
+      )}
+    </p>
+  );
+};
 
 const NewBlogListingModern = () => {
-  // SEO optimization — same source of truth as CONTROL.
   useSEO(generatePageSEO('never-hungover'));
 
-  // Variant arm only: preload the body font once, on mount.
   useEffect(() => {
     preloadModernFonts();
   }, []);
 
-  // State management (copied verbatim from CONTROL).
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [showAllFilters, setShowAllFilters] = useState(false);
+  const [selectedTopics, setSelectedTopics] = useState([]); // lower-case keys
+  const [showMoreTopics, setShowMoreTopics] = useState(false);
 
-  // Load metadata instantly (no dynamic imports needed) — same data source.
-  const allPosts = useMemo(() => getAllPostsMetadata(), []);
-  const allTags = useMemo(() => getAllTags(), []);
+  // Deduped once: the metadata index has had duplicate slugs before, which
+  // would double-render a card and inflate the count.
+  const allPosts = useMemo(() => {
+    const seen = new Set();
+    return getAllPostsMetadata().filter((post) => {
+      const id = post.slug ?? post.id;
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+  }, []);
 
-  // Featured Editor's Pick — derived from the SAME metadata source (no new
-  // pipeline). Pick the first preferred CTA-bearing slug present, else newest.
+  const topics = useMemo(() => {
+    const counts = new Map();
+    for (const post of allPosts) {
+      const keys = new Set((post.tags || []).map((t) => String(t).trim().toLowerCase()));
+      for (const k of keys) {
+        if (!k || /\d{4}/.test(k)) continue;
+        counts.set(k, (counts.get(k) || 0) + 1);
+      }
+    }
+    return [...counts.entries()]
+      .filter(([, n]) => n >= 3 && n <= allPosts.length / 2)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, TOPICS_MORE)
+      .map(([key]) => key);
+  }, [allPosts]);
+
   const featuredPost = useMemo(() => {
     for (const slug of FEATURED_SLUGS) {
       const match = allPosts.find((p) => p.slug === slug);
@@ -161,320 +145,202 @@ const NewBlogListingModern = () => {
     return allPosts[0];
   }, [allPosts]);
 
-  // #17 — the hero "average read" stat must reflect the real corpus, not a
-  // hardcoded "12 min" that contradicts the 18–36 min cards below. Compute the
-  // mean of the parsed (cleaned) read-times; null when none are parseable so
-  // the stat can be omitted rather than show "NaN".
-  const averageReadMinutes = useMemo(() => {
-    const minutes = allPosts
-      .map((p) => parseReadMinutes(p.readTime))
-      .filter((n) => n !== null);
-    if (minutes.length === 0) return null;
-    return Math.round(minutes.reduce((sum, n) => sum + n, 0) / minutes.length);
-  }, [allPosts]);
+  const query = searchQuery.trim();
 
-  // Filter posts based on search and tags (copied verbatim from CONTROL).
   const filteredPosts = useMemo(() => {
     let posts = allPosts;
-
-    if (searchQuery.trim()) {
-      posts = searchPostsMetadata(searchQuery.trim());
+    if (query) {
+      const hits = new Set(searchPostsMetadata(query).map((p) => p.slug));
+      posts = posts.filter((p) => hits.has(p.slug));
     }
-
-    if (selectedTags.length > 0) {
+    if (selectedTopics.length > 0) {
       posts = posts.filter((post) =>
-        selectedTags.some((tag) => post.tags?.includes(tag))
+        (post.tags || []).some((t) => selectedTopics.includes(String(t).trim().toLowerCase()))
       );
     }
+    return posts;
+  }, [allPosts, query, selectedTopics]);
 
-    // Dedupe by slug: the metadata index contains a few duplicate entries, which
-    // would otherwise render the same article twice and trigger duplicate React keys.
-    const seen = new Set();
-    return posts.filter((post) => {
-      const id = post.slug ?? post.id;
-      if (seen.has(id)) return false;
-      seen.add(id);
-      return true;
-    });
-  }, [allPosts, searchQuery, selectedTags]);
+  const isBrowsing = !query && selectedTopics.length === 0;
 
-  // Whether the hub is in its "browsing" (unfiltered) state — the featured hero
-  // + product rail only show when the reader hasn't started searching/filtering,
-  // so a narrowed result set isn't visually buried under promo blocks.
-  const isBrowsing = !searchQuery.trim() && selectedTags.length === 0;
-
-  // Window the grid: rendering all ~800 cards at once made the page ~480k px.
-  const PAGE_SIZE = 60;
+  // Window the list: rendering all ~800 cards at once made the page ~480k px.
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [searchQuery, selectedTags]);
-  const remaining = filteredPosts.length - visibleCount;
+  }, [query, selectedTopics]);
+  const shown = Math.min(visibleCount, filteredPosts.length);
+  const remaining = filteredPosts.length - shown;
 
-  // Preload post on hover (copied verbatim from CONTROL).
-  const handlePostHover = (slug) => {
-    preloadPost(slug);
-  };
-
-  // Tag management (copied verbatim from CONTROL).
-  const toggleTag = (tag) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
+  const toggleTopic = (key) => {
+    setSelectedTopics((prev) => (prev.includes(key) ? prev.filter((t) => t !== key) : [...prev, key]));
   };
 
   const clearFilters = () => {
     setSearchQuery('');
-    setSelectedTags([]);
+    setSelectedTopics([]);
   };
 
-  const formatDate = (date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }).format(date);
-  };
-
-  // The single product surfaced in the desktop rail — reuse the #1 pick from the
-  // shared topProducts data (same source the sticky bar uses). One product only.
   const railProduct = topProductsData[0];
   const railComponentId = 'never-hungover-modern-hub-rail-cta';
   const railRating = Number(railProduct?.rating) || 0;
 
+  const visibleTopics = topics.slice(0, showMoreTopics ? TOPICS_MORE : TOPICS_SHOWN);
+  // A selected topic always stays visible, even when the list is collapsed.
+  for (const key of selectedTopics) if (!visibleTopics.includes(key)) visibleTopics.push(key);
+
+  const total = allPosts.length;
+
   return (
-    <div
-      className="theme-modern"
-      style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}
-    >
-      {/* ============================ HERO / HEADER ============================ */}
-      <section
-        data-testid="never-hungover-hero-modern"
-        className="surface-wash"
-        style={{
-          borderBottom: '1px solid var(--color-border)',
-          paddingBlock: 'var(--section-y)',
-        }}
-      >
-        <div className="container">
-          <header className="section-head section-head--center" style={{ marginBottom: 'var(--space-12)' }}>
-            <span className="eyebrow">The Never Hungover library</span>
+    <div className="theme-modern blog-listing" data-blog="listing">
+      {/* ================================ HEADER ================================ */}
+      <header data-testid="never-hungover-hero-modern" className="blog-listing__head">
+        <div className="blog-listing__wrap">
+          <p className="blog-label">The DHM Guide library</p>
+          <h1 className="blog-listing__title">Never Hungover</h1>
+          <p className="blog-listing__lead">
+            Plain-English guides to hangovers, DHM and drinking more safely, checked against the
+            published research.
+          </p>
+          <p className="blog-listing__count">
+            <strong>{total.toLocaleString('en-US')}</strong> articles
+          </p>
 
-            {/* #1 — solid-ink H1 (no gradient clip-text), ONE green accent word. */}
-            <h1 style={{ marginBottom: 'var(--space-4)' }}>
-              Never <span className="accent">Hungover</span>
-            </h1>
-
-            <p className="lead" style={{ marginInline: 'auto' }}>
-              Master the science of hangover prevention. Expert guides, proven
-              strategies, and cutting-edge research to help you never wake up
-              hungover again.
-            </p>
-
-            {/* #5 (simplified) — designed trust strip, no looping pulse dot. */}
-            <div
-              className="trust-row"
-              style={{ justifyContent: 'center', marginTop: 'var(--space-8)' }}
-            >
-              <span className="trust-row__item">
-                <BookOpen aria-hidden="true" />
-                <strong>{allPosts.length}</strong>&nbsp;expert articles
-              </span>
-              <span className="trust-row__divider" aria-hidden="true" />
-              {/* #17 — average read computed from the real corpus (was a
-                  hardcoded "12 min" that contradicted the 18–36 min cards). */}
-              {averageReadMinutes !== null && (
-                <>
-                  <span className="trust-row__item">
-                    <Clock aria-hidden="true" />
-                    <strong>{averageReadMinutes}&nbsp;min</strong>&nbsp;average read
-                  </span>
-                  <span className="trust-row__divider" aria-hidden="true" />
-                </>
-              )}
-              <span className="trust-row__item">
-                <FlaskConical aria-hidden="true" />
-                Science-backed content
-              </span>
-            </div>
-          </header>
-
-          {/* ===================== SEARCH + FILTERS ===================== */}
-          <div style={{ maxWidth: '56rem', marginInline: 'auto' }}>
-            {/* Search Bar */}
-            <div style={{ position: 'relative', marginBottom: 'var(--space-6)' }}>
-              <Search
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  left: 'var(--space-4)',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: '1.125rem',
-                  height: '1.125rem',
-                  color: 'var(--color-ink-soft)',
-                  pointerEvents: 'none',
-                }}
-              />
+          {/* ============================ SEARCH + TOPICS ============================ */}
+          <div className="blog-filters" role="search">
+            <label htmlFor="blog-search" className="blog-filters__label">
+              Search the library
+            </label>
+            <div className="blog-search">
+              <Search aria-hidden="true" className="blog-search__icon" />
               <input
-                type="text"
-                placeholder="Search articles..."
+                id="blog-search"
+                type="search"
+                placeholder="Try “sleep”, “ibuprofen” or “DHM dosage”"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  width: '100%',
-                  paddingBlock: '0.75rem',
-                  paddingLeft: '2.75rem',
-                  paddingRight: 'var(--space-4)',
-                  fontSize: 'var(--text-body)',
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink)',
-                  backgroundColor: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius)',
-                  outline: 'none',
-                }}
+                className="blog-search__input"
+                autoComplete="off"
               />
             </div>
 
-            {/* Tag Filters */}
-            <div style={{ marginBottom: 'var(--space-4)' }}>
-              <div
-                className="cluster"
-                style={{ justifyContent: 'space-between', marginBottom: 'var(--space-3)' }}
-              >
-                <span
-                  className="cluster"
-                  style={{ gap: 'var(--space-2)', color: 'var(--color-ink-soft)', fontWeight: 600 }}
+            <p className="blog-filters__label" id="blog-topics-label">
+              Popular topics
+            </p>
+            <div
+              className={`blog-topics${showMoreTopics ? ' is-open' : ''}`}
+              role="group"
+              aria-labelledby="blog-topics-label"
+            >
+              {visibleTopics.map((key) => (
+                <button
+                  key={key}
+                  type="button"
+                  className="blog-topic"
+                  aria-pressed={selectedTopics.includes(key)}
+                  onClick={() => toggleTopic(key)}
                 >
-                  <Filter aria-hidden="true" style={{ width: '1rem', height: '1rem' }} />
-                  Filter by topic
-                </span>
-                {(selectedTags.length > 0 || searchQuery) && (
-                  <button
-                    type="button"
-                    onClick={clearFilters}
-                    className="btn btn-ghost btn-sm"
-                  >
-                    Clear filters
-                  </button>
-                )}
-              </div>
-
-              {/* #3/#7 — neutral default chips, ONE brand-soft active state.
-                  Green stops being a page-wide haze; orange stays the only
-                  saturated thing (reserved for the affiliate CTA). */}
-              <div className="cluster" style={{ gap: 'var(--space-2)' }}>
-                {allTags.slice(0, showAllFilters ? allTags.length : 12).map((tag) => {
-                  const active = selectedTags.includes(tag);
-                  return (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => toggleTag(tag)}
-                      aria-pressed={active}
-                      className="btn btn-sm"
-                      style={
-                        active
-                          ? {
-                              backgroundColor: 'var(--color-brand)',
-                              borderColor: 'var(--color-brand)',
-                              color: 'var(--color-on-brand)',
-                            }
-                          : undefined
-                      }
-                    >
-                      {tag}
-                    </button>
-                  );
-                })}
-
-                {allTags.length > 12 && (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllFilters(!showAllFilters)}
-                    className="btn btn-sm btn-ghost"
-                  >
-                    {showAllFilters ? 'Show less' : `+${allTags.length - 12} more`}
-                  </button>
-                )}
-              </div>
+                  {titleCase(key)}
+                </button>
+              ))}
+              {topics.length > TOPICS_SHOWN && (
+                <button
+                  type="button"
+                  className="blog-topic blog-topic--quiet"
+                  aria-expanded={showMoreTopics}
+                  onClick={() => setShowMoreTopics((v) => !v)}
+                >
+                  {showMoreTopics ? 'Fewer topics' : 'More topics'}
+                </button>
+              )}
             </div>
 
-            {/* Results Count */}
-            {(searchQuery || selectedTags.length > 0) && (
-              <p
-                className="text-soft"
-                style={{ fontSize: 'var(--text-small)', margin: 0 }}
-              >
-                {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''} found
-                {selectedTags.length > 0 && <span> in: {selectedTags.join(', ')}</span>}
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== DESKTOP PRODUCT RAIL (#6) =====================
-          Net-new DESKTOP affiliate surface — the control hub has NONE (sticky bar
-          is md:hidden). In-flow (never fixed/sticky), one product, stationary, the
-          single orange CTA on the page. Only shows in the unfiltered browse state. */}
-      {isBrowsing && railProduct && (
-        <section className="section surface-brand">
-          <div className="container">
-            <div
-              className="card-raised"
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: 'var(--space-6)',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div style={{ flex: '1 1 22rem', minWidth: 0 }}>
-                <span className="eyebrow" style={{ marginBottom: 'var(--space-2)' }}>
-                  Editor&rsquo;s #1 DHM supplement
-                </span>
-                <h2 style={{ fontSize: 'var(--text-h3)', marginBottom: 'var(--space-2)' }}>
-                  {railProduct.name}
-                </h2>
-                <div
-                  className="cluster"
-                  style={{ gap: 'var(--space-3)', marginBottom: 'var(--space-2)' }}
-                >
-                  <span
-                    className="stars"
-                    role="img"
-                    aria-label={`Rated ${railRating} out of 5`}
-                  >
-                    {Array.from({ length: 5 }, (_, i) => i < Math.round(railRating)).map(
-                      (filled, i) => (
-                        <Star
-                          key={i}
-                          aria-hidden="true"
-                          className={filled ? undefined : 'is-empty'}
-                          style={
-                            filled
-                              ? { fill: 'currentColor', stroke: 'currentColor' }
-                              : { fill: 'none', color: 'var(--color-border)' }
-                          }
-                        />
-                      )
+            <div className="blog-results" aria-live="polite">
+              {!isBrowsing && (
+                <>
+                  <span>
+                    {filteredPosts.length.toLocaleString('en-US')}{' '}
+                    {filteredPosts.length === 1 ? 'article' : 'articles'}
+                    {query && <> matching “{query}”</>}
+                    {selectedTopics.length > 0 && (
+                      <> in {selectedTopics.map(titleCase).join(', ')}</>
                     )}
                   </span>
-                  <span className="rating-meta">
-                    <strong>{railRating}</strong>
-                    {' · '}
-                    {(railProduct.reviews ?? 0).toLocaleString()} reviews ·{' '}
+                  <button type="button" className="blog-link-button" onClick={clearFilters}>
+                    Clear
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ============================ START HERE ============================ */}
+      {isBrowsing && featuredPost && (
+        <section className="blog-section" aria-labelledby="blog-start-here">
+          <div className="blog-listing__wrap">
+            <h2 id="blog-start-here" className="blog-section__title">Start here</h2>
+            <CustomLink
+              to={`/never-hungover/${featuredPost.slug}`}
+              className={`blog-feature${featuredPost.image ? '' : ' blog-feature--text'}`}
+              onMouseEnter={() => preloadPost(featuredPost.slug)}
+            >
+              {featuredPost.image && (
+                <div className="blog-feature__media">
+                  <img
+                    src={featuredPost.image}
+                    alt=""
+                    width="1200"
+                    height="675"
+                    fetchPriority="high"
+                  />
+                </div>
+              )}
+              <div className="blog-feature__body">
+                {topicLabel(featuredPost, topics) && (
+                  <p className="blog-label">{topicLabel(featuredPost, topics)}</p>
+                )}
+                <h3 className="blog-feature__title">{featuredPost.title}</h3>
+                <p className="blog-feature__excerpt">{featuredPost.excerpt}</p>
+                <Meta post={featuredPost} />
+                <span className="blog-feature__more">
+                  Read the guide <ArrowRight aria-hidden="true" />
+                </span>
+              </div>
+            </CustomLink>
+          </div>
+        </section>
+      )}
+
+      {/* ============================ PRODUCT RAIL ============================
+          The one buy button on the page. In-flow, never sticky; browse state only. */}
+      {isBrowsing && railProduct && (
+        <aside className="blog-section blog-section--tight" aria-label="Our top-rated DHM supplement">
+          <div className="blog-listing__wrap">
+            <div className="blog-rail">
+              <div className="blog-rail__text">
+                <p className="blog-label">Our top-rated DHM supplement</p>
+                <h3 className="blog-rail__name">{railProduct.name}</h3>
+                <p className="blog-rail__meta">
+                  <span className="stars" role="img" aria-label={`Rated ${railRating} out of 5`}>
+                    {Array.from({ length: 5 }, (_, i) => i < Math.round(railRating)).map((filled, i) => (
+                      <Star
+                        key={i}
+                        aria-hidden="true"
+                        style={
+                          filled
+                            ? { fill: 'currentColor', stroke: 'currentColor' }
+                            : { fill: 'none', color: 'var(--color-rule, #E7E3DB)' }
+                        }
+                      />
+                    ))}
+                  </span>
+                  <span>
+                    {railRating} from {(railProduct.reviews ?? 0).toLocaleString('en-US')} reviews ·{' '}
                     {railProduct.price}
                   </span>
-                </div>
-                <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>
-                  <strong>Best for:</strong> {railProduct.bestFor}
                 </p>
               </div>
-
               <a
                 className="btn btn-cta btn-lg"
                 href={buildAffiliateUrl(railProduct.affiliateLink, {
@@ -489,255 +355,82 @@ const NewBlogListingModern = () => {
                 data-component-id={railComponentId}
                 data-placement="hub_product_rail"
                 data-product-name={railProduct.name}
-                style={{ flex: '0 0 auto' }}
               >
-                <ShoppingCart aria-hidden="true" />
                 Check Price on Amazon
               </a>
             </div>
           </div>
-        </section>
+        </aside>
       )}
 
-      {/* ===================== FEATURED EDITOR'S PICK (#2) =====================
-          ONE wide featured card breaks the ~169-card monotony and routes readers
-          to a CTA-bearing evergreen article. Reuses existing post metadata. */}
-      {isBrowsing && featuredPost && (
-        <section className="section">
-          <div className="container">
-            <header className="section-head" style={{ marginBottom: 'var(--space-8)' }}>
-              <span className="eyebrow">
-                <Sparkles aria-hidden="true" style={{ width: '0.9em', height: '0.9em', display: 'inline', verticalAlign: '-0.1em' }} />{' '}
-                Editor&rsquo;s pick
-              </span>
-              <h2>Start here</h2>
-            </header>
-
-            <CustomLink
-              to={`/never-hungover/${featuredPost.slug}`}
-              className="card-raised"
-              onMouseEnter={() => handlePostHover(featuredPost.slug)}
-              style={{ display: 'block', textDecoration: 'none', padding: 0, overflow: 'hidden' }}
-            >
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', alignItems: 'stretch' }}>
-                {/* #9 — always render the 16:9 media slot so card anatomy is
-                    consistent; fall back to a branded placeholder when a post
-                    has no image. */}
-                <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
-                  {featuredPost.image ? (
-                    <img
-                      src={featuredPost.image}
-                      alt={featuredPost.title}
-                      width="1200"
-                      height="675"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      fetchPriority="high"
-                    />
-                  ) : (
-                    <PostImagePlaceholder />
-                  )}
-                </div>
-                <div style={{ padding: 'var(--space-8)' }}>
-                  <span className="badge badge-brand" style={{ marginBottom: 'var(--space-4)' }}>
-                    Featured guide
-                  </span>
-                  <div
-                    className="cluster"
-                    style={{ gap: 'var(--space-4)', color: 'var(--color-ink-soft)', fontSize: 'var(--text-small)', marginBottom: 'var(--space-3)' }}
-                  >
-                    <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                      <Calendar aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                      {formatDate(featuredPost.date)}
-                    </span>
-                    {/* #6 — render guard: parse clean minutes, omit if garbled. */}
-                    {parseReadMinutes(featuredPost.readTime) !== null && (
-                      <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                        <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                        {parseReadMinutes(featuredPost.readTime)} min read
-                      </span>
-                    )}
-                  </div>
-                  <h3
-                    className="card-title"
-                    style={{ fontSize: 'var(--text-h3)', color: 'var(--color-ink)', marginBottom: 'var(--space-3)' }}
-                  >
-                    {featuredPost.title}
-                  </h3>
-                  <p className="text-soft" style={{ marginBottom: 'var(--space-4)' }}>
-                    {featuredPost.excerpt}
-                  </p>
-                  <span
-                    className="cluster"
-                    style={{ gap: 'var(--space-1)', color: 'var(--color-brand-strong)', fontWeight: 600, fontSize: 'var(--text-small)' }}
-                  >
-                    Read the full guide
-                    <ArrowRight aria-hidden="true" style={{ width: '1rem', height: '1rem' }} />
-                  </span>
-                </div>
-              </div>
-            </CustomLink>
-          </div>
-        </section>
-      )}
-
-      {/* ===================== BLOG POSTS GRID (#3 re-tier) ===================== */}
-      <section className="section">
-        <div className="container">
-          {isBrowsing && (
-            <header className="section-head" style={{ marginBottom: 'var(--space-8)' }}>
-              <span className="eyebrow">All articles</span>
-              <h2>Browse the full library</h2>
-            </header>
-          )}
+      {/* ============================== ALL ARTICLES ============================== */}
+      <section
+        className={`blog-section${isBrowsing ? '' : ' blog-section--tight'}`}
+        aria-labelledby="blog-all"
+      >
+        <div className="blog-listing__wrap">
+          <h2 id="blog-all" className={isBrowsing ? 'blog-section__title' : 'sr-only'}>
+            {isBrowsing ? 'All articles' : 'Results'}
+          </h2>
 
           {filteredPosts.length === 0 ? (
-            <div style={{ textAlign: 'center', paddingBlock: 'var(--space-16)' }}>
-              <Search
-                aria-hidden="true"
-                style={{ width: '2.5rem', height: '2.5rem', margin: '0 auto var(--space-4)', color: 'var(--color-ink-soft)' }}
-              />
-              <h3 style={{ marginBottom: 'var(--space-2)' }}>No articles found</h3>
-              <p className="text-soft">Try adjusting your search or filters.</p>
+            <div className="blog-empty">
+              <p className="blog-empty__title">
+                {query ? <>Nothing in the library matches “{query}”.</> : 'No articles in that combination of topics.'}
+              </p>
+              <p className="blog-empty__text">
+                Try a shorter word, check the spelling, or start from one of these.
+              </p>
+              <ul className="blog-empty__links">
+                {FEATURED_SLUGS.map((slug) => allPosts.find((p) => p.slug === slug))
+                  .filter(Boolean)
+                  .map((post) => (
+                    <li key={post.slug}>
+                      <CustomLink to={`/never-hungover/${post.slug}`}>{post.title}</CustomLink>
+                    </li>
+                  ))}
+              </ul>
+              <button type="button" className="btn btn-secondary" onClick={clearFilters}>
+                Show all {total.toLocaleString('en-US')} articles
+              </button>
             </div>
           ) : (
-            <div className="picks-grid">
-              {filteredPosts.slice(0, visibleCount).map((post) => (
-                <article
-                  key={post.slug ?? post.id}
-                  className="card-raised"
-                  style={{ padding: 0, overflow: 'hidden', height: '100%' }}
-                >
-                  <CustomLink
-                    to={`/never-hungover/${post.slug}`}
-                    onMouseEnter={() => handlePostHover(post.slug)}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: '100%',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    {/* Post Image — #9: always render the 16:9 slot; the ~14
-                        image-less posts get a branded placeholder so every card
-                        has the same anatomy (image → meta → title → excerpt). */}
-                    <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
-                      {post.image ? (
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          loading="lazy"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                      ) : (
-                        <PostImagePlaceholder />
-                      )}
-                    </div>
-
-                    <div
-                      style={{
-                        padding: 'var(--space-6)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flex: '1 1 auto',
-                      }}
+            <ul className="blog-grid">
+              {filteredPosts.slice(0, shown).map((post) => {
+                const label = topicLabel(post, topics);
+                return (
+                  <li key={post.slug ?? post.id} className="blog-card">
+                    <CustomLink
+                      to={`/never-hungover/${post.slug}`}
+                      className="blog-card__link"
+                      onMouseEnter={() => preloadPost(post.slug)}
                     >
-                      {/* Post Meta */}
-                      <div
-                        className="cluster"
-                        style={{ gap: 'var(--space-4)', color: 'var(--color-ink-soft)', fontSize: 'var(--text-small)', marginBottom: 'var(--space-3)' }}
-                      >
-                        <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                          <Calendar aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                          {formatDate(post.date)}
-                        </span>
-                        {/* #6 — render guard: clean "N min read", omit if garbled. */}
-                        {parseReadMinutes(post.readTime) !== null && (
-                          <span className="cluster" style={{ gap: 'var(--space-1)' }}>
-                            <Clock aria-hidden="true" style={{ width: '0.9rem', height: '0.9rem' }} />
-                            {parseReadMinutes(post.readTime)} min read
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Post Title */}
-                      <h3
-                        className="card-title"
-                        style={{ color: 'var(--color-ink)', marginBottom: 'var(--space-3)' }}
-                      >
-                        {post.title}
-                      </h3>
-
-                      {/* Post Excerpt */}
-                      <p
-                        className="text-soft"
-                        style={{ fontSize: 'var(--text-small)', marginBottom: 'var(--space-4)' }}
-                      >
-                        {post.excerpt}
-                      </p>
-
-                      {/* Tags — neutral/brand-soft chips, NOT green-on-green. */}
-                      {post.tags && post.tags.length > 0 && (
-                        <div
-                          className="cluster"
-                          style={{ gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}
-                        >
-                          {post.tags.slice(0, 3).map((tag, i) => (
-                            <span key={`${tag}-${i}`} className="chip" style={{ fontSize: 'var(--text-eyebrow)', padding: '0.25rem 0.5rem' }}>
-                              <Tag aria-hidden="true" />
-                              {tag}
-                            </span>
-                          ))}
-                          {post.tags.length > 3 && (
-                            // #35 — styled overflow indicator, pill-aligned with
-                            // the chips above (was bare, baseline-misaligned
-                            // text). Neutral paper fill keeps it a quiet "more"
-                            // affordance, distinct from the brand-soft topic chips.
-                            <span
-                              style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                fontSize: 'var(--text-eyebrow)',
-                                fontWeight: 600,
-                                lineHeight: 1,
-                                padding: '0.25rem 0.5rem',
-                                color: 'var(--color-ink-soft)',
-                                backgroundColor: 'var(--color-paper)',
-                                border: '1px solid var(--color-border)',
-                                borderRadius: 'var(--radius-pill)',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              +{post.tags.length - 3} more
-                            </span>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Author — #18: normalized to one canonical byline form
-                          (team aliases collapse to "DHM Guide Team"; real names
-                          preserved). Pinned to the bottom for aligned card feet. */}
-                      <p
-                        className="text-soft"
-                        style={{ fontSize: 'var(--text-small)', margin: 'auto 0 0' }}
-                      >
-                        By {normalizeAuthor(post.author)}
-                      </p>
-                    </div>
-                  </CustomLink>
-                </article>
-              ))}
-            </div>
+                      {label && <p className="blog-label">{label}</p>}
+                      <h3 className="blog-card__title">{post.title}</h3>
+                      {post.excerpt && <p className="blog-card__excerpt">{post.excerpt}</p>}
+                      <Meta post={post} />
+                    </CustomLink>
+                  </li>
+                );
+              })}
+            </ul>
           )}
 
-          {remaining > 0 && (
-            <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
-              >
-                Load more articles ({remaining} remaining)
-              </button>
+          {filteredPosts.length > 0 && (
+            <div className="blog-more">
+              <p className="blog-more__count">
+                Showing {shown.toLocaleString('en-US')} of {filteredPosts.length.toLocaleString('en-US')}{' '}
+                {filteredPosts.length === 1 ? 'article' : 'articles'}
+              </p>
+              {remaining > 0 && (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+                >
+                  Load more articles ({remaining.toLocaleString('en-US')} remaining)
+                </button>
+              )}
             </div>
           )}
         </div>
