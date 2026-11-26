@@ -50,19 +50,15 @@ export default defineConfig({
           // UI components
           ui: [
             '@radix-ui/react-accordion',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-navigation-menu',
-            '@radix-ui/react-popover',
             '@radix-ui/react-tabs',
             '@radix-ui/react-tooltip'
           ],
           // Utilities
-          utils: ['date-fns', 'clsx', 'tailwind-merge', 'class-variance-authority'],
+          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
           // Icons and animations
           icons: ['lucide-react', 'framer-motion'],
           // Markdown and content
-          content: ['react-markdown', 'remark-gfm', 'gray-matter']
+          content: ['react-markdown', 'remark-gfm']
         }
       }
     },
