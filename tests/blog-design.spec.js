@@ -20,7 +20,7 @@ import { test, expect } from '@playwright/test';
  *     article.post               the single reading column (no white card, no motion.*)
  *       h1.post-title            exactly one H1, the FULL post title (matches prerender)
  *       p.post-lead              ONE standfirst under the H1 (not two stacked leads)
- *       .post-meta               "Updated <date in words> · N min read" (no date in the H1)
+ *       .post-meta               "Published|Updated <date in words> · N min read" (no date in the H1)
  *       .article-body            markdown prose: p, ul/ol, h2, h3, table, .callout
  *     nav.post-toc               table of contents (H2 entries), links >= 44px tall on phones
  *     section.post-related       related posts; each tile is a link >= 44px tall
@@ -389,11 +389,13 @@ for (const cfg of PAGES) {
  *     .post-eyebrow            category label
  *     h1.post-title
  *     p.post-lead              standfirst from the excerpt
- *     p.post-meta              exactly "Updated <date> · N min read", nothing else
+ *     p.post-meta              exactly "Published <date> · N min read" (never edited) or
+ *                              "Updated <date> · N min read" (dateModified after date)
  *     p.post-disclosure        affiliate pages only, small quiet print
- *     .post-answer             Quick answer card, only when the post has one
  *     hr.post-rule             the hairline that closes the header
  *   details.contents           below 1024px: collapsed native "Contents" block
+ *   .post-main > .post-answer  Quick answer card, first block of the article column
+ *                              (level with the top of the rail), only when the post has one
  *   nav.post-toc--rail         from 1024px: sticky quiet rail, "On this page" label,
  *                              active link gets .is-active (green + 2px bar)
  */
@@ -434,11 +436,10 @@ test.describe('blog design: post header + table of contents', () => {
       }, MONTHS);
       const order = ['post-eyebrow', 'post-title', 'post-lead', 'post-meta'];
       if (r.disclosure) order.push('post-disclosure');
-      if (r.kids.includes('post-answer')) order.push('post-answer');
       order.push('post-rule');
       expect(r.kids, '.post-head children in order').toEqual(order);
       expect(r.headerEl, 'post header is a div, not <header>').toBe(false);
-      expect(r.text, 'meta line reads exactly "Updated <date> · N min read"').toMatch(/^Updated .+ · \d+ min read$/);
+      expect(r.text, 'meta line reads exactly "Published|Updated <date> · N min read"').toMatch(/^(Updated|Published) .+ · \d+ min read$/);
       expect(r.dates, `meta line "${r.text}" has exactly one date`).toBe(1);
       expect(r.times, 'the one date is a <time>').toBe(1);
       expect(r.chrome, 'no trust-badge language (Evidence reviewed, citation counts, Fact-checked)').not.toMatch(BANNED);
@@ -457,10 +458,10 @@ test.describe('blog design: post header + table of contents', () => {
     expect(d.fs, 'smaller than the standfirst').toBeLessThan(d.lead);
   });
 
-  test('quick answer sits inside the header as a soft green panel with a left accent', async ({ page }) => {
+  test('quick answer opens the article column as a soft green panel with a left accent', async ({ page }) => {
     await openPost(page, 'hangover-supplements-complete-guide-what-actually-works-2025', DESKTOP);
     const qa = await page.evaluate(() => {
-      const el = document.querySelector('.post-head > .post-answer');
+      const el = document.querySelector('.post-main > .post-answer');
       if (!el) return null;
       const cs = getComputedStyle(el);
       return {
@@ -469,9 +470,16 @@ test.describe('blog design: post header + table of contents', () => {
         bl: parseFloat(cs.borderLeftWidth),
         blc: cs.borderLeftColor,
         copies: document.querySelectorAll('.post-answer').length,
+        belowRule: Math.round(el.getBoundingClientRect().top - document.querySelector('.post-rule').getBoundingClientRect().bottom),
+        railDelta: Math.round(Math.abs(el.getBoundingClientRect().top - document.querySelector('nav.post-toc--rail').getBoundingClientRect().top)),
+        beforeBody: !!(el.compareDocumentPosition(document.querySelector('.article-body')) & Node.DOCUMENT_POSITION_FOLLOWING),
       };
     });
-    expect(qa, 'quick answer is a child of .post-head').not.toBeNull();
+    expect(qa, 'quick answer is a child of .post-main').not.toBeNull();
+    expect(qa.belowRule, 'opens the article column ~30px under the header rule').toBeGreaterThanOrEqual(24);
+    expect(qa.belowRule).toBeLessThanOrEqual(36);
+    expect(qa.railDelta, 'top-aligned with the rail').toBeLessThanOrEqual(4);
+    expect(qa.beforeBody, 'comes before the article body').toBe(true);
     expect(qa.label).toMatch(/^quick answer$/i);
     expect(qa.bg, 'tinted panel').not.toBe('rgba(0, 0, 0, 0)');
     expect(qa.bl, 'left accent border').toBeGreaterThanOrEqual(2);

@@ -2257,7 +2257,7 @@ main .theme-modern[data-blog="post"] {
     border: 0;
     border-top: 1px solid var(--color-rule);
   }
-  .post-head + .post-main { margin-top: var(--s1h); }
+  .post-head + .post-main { margin-top: var(--s1); }
   .post-main { position: relative; }
   .post-figure { margin-top: var(--s1h); }
   .post-figure img { width: 100%; border-radius: var(--radius-sm); }
@@ -2273,8 +2273,7 @@ main .theme-modern[data-blog="post"] {
     font-size: var(--text-body);
     line-height: 1.65;
   }
-  .post-head > .post-answer {
-    margin-top: var(--s1);
+  .post-main > .post-answer {
     border-left: 3px solid var(--color-accent);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
@@ -2302,6 +2301,7 @@ main .theme-modern[data-blog="post"] {
   /* Spacing inside .post-main (hero, Key takeaways, body).
      Later rules win at equal specificity, so the order here matters. */
   .post-main > .article-body { margin-top: var(--s2); }
+  .post-answer + .article-body { margin-top: var(--s1); }
   .post-main > :first-child,
   .post-main > .post-toc-rail + * { margin-top: 0; } /* the rail takes no room */
 
@@ -2372,7 +2372,7 @@ main .theme-modern[data-blog="post"] {
      left margin. */
   @media (min-width: 64rem) {
     .contents { display: none; }
-    .contents + .post-main { margin-top: var(--s1h); }
+    .contents + .post-main { margin-top: var(--s1); } /* 30px under the rule, as in the demo */
     .post-shell {
       max-width: calc(var(--measure-wide) + 2 * var(--post-gutter) + 16rem);
       padding-left: calc(var(--post-gutter) + 16rem);

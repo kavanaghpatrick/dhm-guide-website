@@ -167,8 +167,9 @@ function Layout({ children }) {
               </span>
             </a>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-1 justify-center max-w-4xl mx-8">
+            {/* Desktop Navigation. No gap utility: each item's px-2 already spaces
+                the labels, and the 7 items + logo + CTA must fit the 1104px row. */}
+            <nav className="hidden lg:flex items-center flex-1 justify-center max-w-4xl mx-4">
               {navItems.map((item) => {
                 // Replace /never-hungover with mega-menu Topics dropdown
                 if (item.href === '/never-hungover') {
@@ -188,7 +189,7 @@ function Layout({ children }) {
                         aria-expanded={isTopicsOpen}
                         aria-controls="topics-mega-menu"
                         data-track="nav-topics-trigger"
-                        className={`nav-link relative px-3 py-2 text-sm whitespace-nowrap inline-flex items-center gap-1 ${
+                        className={`nav-link relative px-2 py-2 text-sm whitespace-nowrap inline-flex items-center gap-1 ${
                           isActive('/never-hungover') ? 'is-active' : ''
                         }`}
                       >
@@ -220,7 +221,7 @@ function Layout({ children }) {
                       e.preventDefault();
                       handleNavigation(item.href);
                     }}
-                    className={`nav-link relative px-3 py-2 text-sm whitespace-nowrap ${
+                    className={`nav-link relative px-2 py-2 text-sm whitespace-nowrap ${
                       isActive(item.href) ? 'is-active' : ''
                     }`}
                   >
@@ -238,7 +239,9 @@ function Layout({ children }) {
 
             {/* CTA Button — internal nav to /reviews (NOT an affiliate/buy CTA), so
                 it renders in brand GREEN, never the reserved conversion orange. */}
-            <div className="hidden lg:block flex-shrink-0">
+            {/* From xl only: at 1024-1279px the row is too narrow for it, and the
+                nav already links "Best Supplements". */}
+            <div className="hidden xl:block flex-shrink-0">
               <a
                 href="/reviews"
                 data-track="nav-cta"
@@ -250,17 +253,17 @@ function Layout({ children }) {
                   e.preventDefault();
                   handleNavigation('/reviews');
                 }}
-                className="btn"
+                className="btn btn-sm"
                 style={navCtaGreenStyle}
               >
                 {navCtaCopy}
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button. lg:hidden! because index.css `header button` (unlayered) beats a plain lg:hidden. */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="nav-link lg:hidden p-3 min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
+              className="nav-link lg:hidden! p-3 min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
               data-track="mobile_menu"
