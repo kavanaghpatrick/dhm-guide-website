@@ -1,409 +1,338 @@
 import React, { useState } from 'react'
 import { Link } from '../components/CustomLink.jsx'
-import {
-  Award,
-  Filter,
-  TrendingUp,
-  FlaskConical,
-  MessagesSquare,
-  Truck,
-  BarChart3,
-  ArrowRight,
-} from 'lucide-react'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import ProductCardModern from '../components/modern/ProductCardModern.jsx'
-import ComparisonTableModern from '../components/modern/ComparisonTableModern.jsx'
+import AmazonLink from '../components/modern/AmazonLink.jsx'
 import topProductsData from '../data/topProducts.json'
+import {
+  NOTES,
+  PRODUCTS_BY_ID,
+  doseLabel,
+  servingPrice,
+  costPer1000,
+  usd,
+  ratingLabel,
+  numberWord,
+} from '../data/productNotes.js'
 import '../styles/theme-modern.css'
+import '../styles/money-pages.css'
 
 /**
- * Reviews.modern — the "modern" arm of the /reviews A/B test
- * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
- * (src/pages/Reviews.jsx), built on the approved 2026 design language
- * (docs/design-modernization-2026-06-25/): warm paper palette, system-font display
- * headings in SOLID ink (no gradient), border-first cards, a single saturated
- * orange reserved for conversion CTAs.
+ * /reviews, modern arm (flag site-modern-v1, shipped to 100%).
  *
- * Reuse contract with CONTROL:
- *   - Same data source (src/data/topProducts.json) — no new data.
- *   - Same sort + "Best For" filter logic (copied verbatim from Reviews.jsx).
- *   - Same SEO: useSEO(generatePageSEO('reviews')).
- *   - Same conversion testids preserved for the A/B harness:
- *       reviews-byline, lab-tested-link, free-shipping-badge,
- *       the H1 containing "2026", and a green active "Best For" filter.
+ * Layout follows the blog's editorial system (money-pages.css): one reading column,
+ * eyebrow + H1 + standfirst + byline + disclosure, then the verdict. The editor's
+ * pick card and its buy button sit in the first phone screen and a half, because
+ * almost every Amazon click on this site happens in the top fifth of the page.
  *
- * Isolation contract:
- *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
- *     scoped stylesheet src/styles/theme-modern.css is imported here so the
- *     modern CSS is code-split into this chunk — CONTROL users pay nothing.
+ * Copy lives in src/data/productNotes.js; every number comes from topProducts.json.
  *
- * Affiliate CTA contract: ALL product/table CTAs render through
- * ProductCardModern / ComparisonTableModern, which emit a plain <a> with the
- * data-experiment-key / data-variant / data-component-id attributes the global
- * listener (src/hooks/useAffiliateTracking.js) reads. There is NO onClick — the
- * listener fires affiliate_link_click, so adding one would double-count.
+ * Affiliate links render through AmazonLink (plain <a>, data-* attributes, no
+ * onClick). The global listener in useAffiliateTracking fires affiliate_link_click.
+ *
+ * The legacy control page (Reviews.jsx) is still rendered by ReviewsRoute for the
+ * control arm and for first-time visitors before the flag resolves, so it stays.
  */
 
-const EXPERIMENT_KEY = 'site-modern-v1'
+const isPick = (p) => p?.badge === "Editor's Choice"
+
+const SORTS = [
+  { id: 'overall', label: 'Best overall', compare: (a, b) => b.score - a.score },
+  { id: 'cost', label: 'Cost per 1,000 mg', compare: (a, b) => costPer1000(a) - costPer1000(b) },
+  { id: 'serving', label: 'Price per serving', compare: (a, b) => servingPrice(a) - servingPrice(b) },
+  { id: 'rating', label: 'Amazon rating', compare: (a, b) => b.rating - a.rating || b.reviews - a.reviews },
+]
+
+const P = PRODUCTS_BY_ID
+const MATCHUPS = [
+  { a: 1, b: 4, slug: 'no-days-wasted-vs-nusapure-dhm-comparison-2025',
+    desc: () => `The same dose of DHM, at ${P[1].pricePerServing} and ${P[4].pricePerServing} a serving.` },
+  { a: 2, b: 1, slug: 'double-wood-vs-no-days-wasted-dhm-comparison-2025',
+    desc: () => 'Plain DHM against DHM with add-ins.' },
+  { a: 6, b: 1, slug: 'flyby-vs-no-days-wasted-complete-comparison-2025',
+    desc: () => `A ${P[6].servings}-serving trial pack against a ${P[1].servings}-serving box.` },
+  { a: 2, b: 3, slug: 'double-wood-vs-toniiq-ease-dhm-comparison-2025',
+    desc: () => `${doseLabel(P[2])} of plain DHM against ${doseLabel(P[3])} with reishi and milk thistle.` },
+  { a: 6, b: 2, slug: 'flyby-vs-double-wood-complete-comparison-2025',
+    desc: () => `${P[6].pricePerServing} against ${P[2].pricePerServing} a serving.` },
+]
+
+const BUYING_GUIDES = [
+  { label: 'No Days Wasted review', slug: 'no-days-wasted-dhm-review-analysis' },
+  { label: 'Best liver supplements', slug: 'best-liver-supplements' },
+  { label: 'Best liver detox supplements', slug: 'best-liver-detox-supplements' },
+  { label: 'Best fatty liver supplements', slug: 'best-fatty-liver-supplements' },
+  { label: 'Best hangover recovery drinks', slug: 'best-hangover-recovery-drinks' },
+]
 
 export default function ReviewsModern() {
   useSEO(generatePageSEO('reviews'))
+  const [sortId, setSortId] = useState('overall')
 
-
-  const [sortBy, setSortBy] = useState('score')
-  const [filterBy, setFilterBy] = useState('all')
-
-  // Single source of truth — shared with scripts/prerender-main-pages.js so the
-  // ItemList schema on /reviews stays in sync with visible content.
-  const topProducts = topProductsData
-
-  // "Best For" quick-filter buttons — copied verbatim from the control page
-  // (Issue #209). Each filter applies a case-insensitive substring predicate to
-  // product.bestFor.
-  const bestForFilters = [
-    { id: 'all', label: 'All Products', match: null },
-    { id: 'overall', label: 'Best Overall', match: (p) => /\b(best|trusted)\b/i.test(p.bestFor) },
-    { id: 'value', label: 'Best Value', match: (p) => /value/i.test(p.bestFor) },
-    { id: 'heavy', label: 'Heavy Drinkers', match: (p) => /(party|weekend|high-performer)/i.test(p.bestFor) },
-    { id: 'health', label: 'Health-Conscious', match: (p) => /(health|liver)/i.test(p.bestFor) },
-  ]
-
-  const handleFilterClick = (id) => {
-    // Toggle: clicking the active non-default button clears back to 'all'.
-    const next = filterBy === id && id !== 'all' ? 'all' : id
-    setFilterBy(next)
-  }
-
-  const sortOptions = [
-    { value: 'score', label: 'Our Pick' },
-    { value: 'rating', label: 'Highest Rated' },
-    { value: 'price', label: 'Best Value' },
-    { value: 'dhm', label: 'Highest DHM' },
-    { value: 'reviews', label: 'Most Reviews' },
-  ]
-
-  // The Editor's Choice winner is a STABLE product property (the product flagged
-  // with the "Editor's Choice" badge), NOT whatever lands at index 0 after the
-  // user sorts/filters. Emphasis (orange edge + winner testid + free-shipping
-  // badge) must follow this product wherever it sits in the list (finding #12).
-  const isEditorsChoice = (p) => p?.badge === "Editor's Choice"
-
-  const activeFilter = bestForFilters.find((f) => f.id === filterBy)
-  const filteredProducts = activeFilter?.match
-    ? topProducts.filter(activeFilter.match)
-    : topProducts
-
-  // Parse the leading mg figure from the (sometimes prose) DHM field so sorting
-  // is total and stable. Entries like "Most DHM per dose" / "DHM + Milk Thistle
-  // Blend" have no number — they sink to the bottom (-1) instead of producing
-  // NaN, which would corrupt the comparator and yield arbitrary order (finding #7).
-  const dhmMg = (value) => {
-    const match = String(value ?? '').match(/(\d[\d,]*)\s*mg/i) ?? String(value ?? '').match(/\d[\d,]*/)
-    return match ? parseInt(match[0].replace(/[^\d]/g, ''), 10) : -1
-  }
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case 'score':
-        return b.score - a.score
-      case 'rating':
-        return b.rating - a.rating
-      case 'price':
-        return (
-          parseFloat(a.pricePerServing.replace('$', '')) -
-          parseFloat(b.pricePerServing.replace('$', ''))
-        )
-      case 'dhm':
-        return dhmMg(b.dhm) - dhmMg(a.dhm)
-      case 'reviews':
-        return b.reviews - a.reviews
-      default:
-        return 0
-    }
-  })
-
-  // Head-to-head comparison posts — same set the control links to.
-  const comparisons = [
-    { title: 'No Days Wasted vs NusaPure', slug: 'no-days-wasted-vs-nusapure-dhm-comparison-2025', desc: 'Premium brand vs budget bulk value' },
-    { title: 'Double Wood vs No Days Wasted', slug: 'double-wood-vs-no-days-wasted-dhm-comparison-2025', desc: 'Best value vs premium effectiveness' },
-    { title: 'Flyby vs No Days Wasted', slug: 'flyby-vs-no-days-wasted-complete-comparison-2025', desc: 'Two premium alternatives compared' },
-    { title: 'Double Wood vs Toniiq Ease', slug: 'double-wood-vs-toniiq-ease-dhm-comparison-2025', desc: 'Value leaders go head-to-head' },
-    { title: 'Flyby vs Double Wood', slug: 'flyby-vs-double-wood-complete-comparison-2025', desc: 'Two top-rated supplements tested' },
-    { title: 'No Days Wasted vs Good Morning', slug: 'no-days-wasted-vs-good-morning-hangover-pills-comparison-2025', desc: 'Premium hangover pill showdown' },
-  ]
-
-  const buyingGuides = [
-    { label: 'No Days Wasted Review 2026', slug: 'no-days-wasted-dhm-review-analysis' },
-    { label: 'Best liver supplements', slug: 'best-liver-supplements' },
-    { label: 'Best liver detox supplements', slug: 'best-liver-detox-supplements' },
-    { label: 'Best fatty liver supplements', slug: 'best-fatty-liver-supplements' },
-    { label: 'Best hangover recovery drinks', slug: 'best-hangover-recovery-drinks' },
-  ]
-
-  const winner = topProducts.find(isEditorsChoice) ?? topProducts?.[0]
+  const ranked = [...topProductsData].sort(SORTS[0].compare)
+  const tableRows = [...topProductsData].sort(SORTS.find((s) => s.id === sortId).compare)
+  const pick = topProductsData.find(isPick) ?? ranked[0]
+  const nusa = PRODUCTS_BY_ID[4]
+  const doubleWood = PRODUCTS_BY_ID[2]
+  const count = numberWord(topProductsData.length)
 
   return (
-    <div className="theme-modern" style={{ backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}>
-      {/* ============================ HERO ============================ */}
-      <section data-testid="reviews-hero-modern" className="surface-wash" style={{ paddingBlock: 'var(--section-y)' }}>
-        <div className="container">
-          <header className="section-head section-head--center" style={{ marginInline: 'auto' }}>
-            <Link to="/guide" data-testid="lab-tested-link" style={{ textDecoration: 'none' }}>
-              <span className="chip" style={{ marginBottom: 'var(--space-4)' }}>
-                <Award aria-hidden="true" />
-                2026 Lab-Tested Reviews
-              </span>
-            </Link>
-
-            {/* H1 carries the year only, never a month-year stamp (goes stale). */}
-            <h1 style={{ marginTop: 'var(--space-4)' }}>
-              Best DHM Supplements <span className="accent">of 2026</span>
-            </h1>
-
-            <p className="lead">
-              Expert reviews of hangover prevention supplements that actually work —
-              stop hangovers before they start.
-            </p>
-
-            <p data-testid="reviews-byline" className="text-soft" style={{ fontSize: 'var(--text-small)', marginTop: 'var(--space-2)' }}>
-              Reviewed by the DHM Guide editorial team · 2026 edition
-            </p>
-
-            {/* Inline trust-signal row (paper, brand-green icons, no saturated color). */}
-            <div className="trust-row" style={{ justifyContent: 'center', marginTop: 'var(--space-8)' }}>
-              <span className="trust-row__item">
-                <FlaskConical aria-hidden="true" />
-                <strong>20+</strong>&nbsp;brands tested
-              </span>
-              <span className="trust-row__divider" aria-hidden="true" />
-              <span className="trust-row__item">
-                <MessagesSquare aria-hidden="true" />
-                <strong>5,000+</strong>&nbsp;reviews analyzed
-              </span>
-              <span className="trust-row__divider" aria-hidden="true" />
-              <span className="trust-row__item">
-                <Award aria-hidden="true" />
-                <strong>6</strong>&nbsp;months testing
-              </span>
-            </div>
-          </header>
-        </div>
-      </section>
-
-      {/* ===================== QUICK COMPARISON TABLE ===================== */}
-      <section className="section surface-brand">
-        <div className="container">
-          <header className="section-head section-head--center">
-            <span className="eyebrow">At a glance</span>
-            <h2>Quick comparison table</h2>
-            <p className="lead">
-              Compare all DHM supplements side-by-side — dose, rating, and price per serving.
-            </p>
-          </header>
-
-          <ComparisonTableModern products={topProducts} experimentKey={EXPERIMENT_KEY} />
-
-          <p className="text-soft" style={{ textAlign: 'center', marginTop: 'var(--space-6)', fontSize: 'var(--text-small)' }}>
-            Scroll down for detailed reviews with pros, cons, and buying recommendations.
+    <div className="theme-modern" data-money="reviews">
+      <div className="m-shell m-shell--wide">
+        <div className="m-head" data-testid="reviews-hero-modern">
+          <p className="m-eyebrow t-label">Buying guide</p>
+          {/* H1 carries the year only, never a month-year stamp (it goes stale). */}
+          <h1 className="m-title">Best DHM Supplements of 2026</h1>
+          <p className="m-lead">
+            We compared {count} DHM supplements on dose, price per serving and Amazon
+            ratings. This is what we would buy, and what we would skip.
+          </p>
+          <p className="m-meta" data-testid="reviews-byline">
+            Written by the DHM Guide editors · Updated November 2026
+          </p>
+          <p className="m-disclosure">
+            We earn a commission if you buy through our Amazon links. It does not change
+            the price you pay.
           </p>
         </div>
-      </section>
+        <hr className="m-rule" />
 
-      {/* ===================== FILTER + SORT ===================== */}
-      <section className="section">
-        <div className="container">
-          <div
-            className="cluster"
-            style={{ justifyContent: 'space-between', alignItems: 'center', gap: 'var(--space-6)' }}
-          >
-            {/* Best For filter — active button uses brand GREEN (testid/visual parity).
-                The pills wrap cleanly: the "Best For:" label is kept intact and the
-                pills flow after it onto as many rows as the viewport needs (#25). */}
-            <div className="cluster" style={{ gap: 'var(--space-2)', rowGap: 'var(--space-2)' }}>
-              <span className="cluster" style={{ flex: '0 0 auto', flexWrap: 'nowrap', gap: 'var(--space-2)', color: 'var(--color-ink-soft)', fontWeight: 600, whiteSpace: 'nowrap' }}>
-                <Filter aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem' }} />
-                Best For:
-              </span>
-              {bestForFilters.map((f) => {
-                const active = filterBy === f.id
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() => handleFilterClick(f.id)}
-                    aria-pressed={active}
-                    data-filter-id={f.id}
-                    className="btn btn-sm"
-                    style={
-                      active
-                        ? {
-                            backgroundColor: 'var(--color-brand)',
-                            borderColor: 'var(--color-brand)',
-                            color: 'var(--color-on-brand)',
-                          }
-                        : undefined
-                    }
-                  >
-                    {f.label}
-                  </button>
-                )
-              })}
+        {/* ===================== THE VERDICT ===================== */}
+        <section className="m-verdict" aria-labelledby="pick-name">
+          <div className="m-winner" data-testid="reviews-winner-card" data-product-name={pick.name}>
+            <div className="m-winner__head">
+              <p className="m-label">Editor&rsquo;s pick</p>
+              <h2 id="pick-name" className="m-winner__name">{pick.name}</h2>
             </div>
+            <p className="m-winner__why">
+              Buy {NOTES[pick.id].short} if you want one product for a night out. Each
+              serving has {doseLabel(pick)} of DHM plus L-cysteine, milk thistle, prickly
+              pear, B vitamins and electrolytes. You pay for that convenience:{' '}
+              {pick.pricePerServing} a serving, and {pick.servings} servings to a pack.
+            </p>
+            <dl className="m-facts">
+              <div><dt>DHM</dt><dd>{doseLabel(pick)}</dd></div>
+              <div><dt>Per serving</dt><dd>{pick.pricePerServing}</dd></div>
+              <div><dt>Servings</dt><dd>{pick.servings}</dd></div>
+              <div><dt>Rating</dt><dd>{ratingLabel(pick)}</dd></div>
+            </dl>
+            <AmazonLink
+              product={pick}
+              componentId="reviews-pick-cta"
+              placement="reviews_pick"
+              position={0}
+              className="btn btn-cta m-buy"
+            >
+              Check price on Amazon
+            </AmazonLink>
+          </div>
 
-            {/* Sort control */}
-            <label className="cluster" style={{ gap: 'var(--space-2)', color: 'var(--color-ink-soft)', fontWeight: 600 }}>
-              <TrendingUp aria-hidden="true" style={{ width: '1.125rem', height: '1.125rem' }} />
-              Sort by:
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+          <p className="m-alt">
+            If you only want DHM,{' '}
+            <AmazonLink product={nusa} componentId="reviews-alt-nusapure" placement="reviews_verdict_text" position={1}>
+              NusaPure
+            </AmazonLink>{' '}
+            and{' '}
+            <AmazonLink product={doubleWood} componentId="reviews-alt-doublewood" placement="reviews_verdict_text" position={2}>
+              Double Wood
+            </AmazonLink>{' '}
+            give you the same {doseLabel(nusa)} for {nusa.pricePerServing} and{' '}
+            {doubleWood.pricePerServing} a serving. NusaPure is cheaper. Double Wood has
+            more buyer history: {doubleWood.reviews.toLocaleString('en-US')} Amazon ratings
+            to NusaPure&rsquo;s {nusa.reviews}.
+          </p>
+        </section>
+
+        {/* ===================== COMPARISON TABLE ===================== */}
+        <section className="m-section" aria-labelledby="table-heading">
+          <h2 id="table-heading">How the {count} compare</h2>
+          <p>
+            Cost per 1,000 mg is what you would spend for a full 1,000 mg dose of DHM. It
+            is the fairest way to compare a 300 mg product with a 1,000 mg one.
+          </p>
+
+          <div className="m-sort" role="group" aria-label="Order the table by">
+            <span className="m-sort__label">Order by</span>
+            {SORTS.map((s) => (
+              <button
+                key={s.id}
+                type="button"
                 className="btn btn-sm"
-                style={{
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  // Suppress the OS chevron and paint a single custom caret in the
-                  // ink-soft tone so the control reads as one coherent affordance
-                  // rather than a button with a foreign system arrow (#25).
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  MozAppearance: 'none',
-                  paddingRight: '2.25rem',
-                  backgroundImage:
-                    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%234A4E48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E\")",
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right 0.875rem center',
-                }}
+                aria-pressed={sortId === s.id}
+                onClick={() => setSortId(s.id)}
               >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== PRODUCT REVIEWS GRID ===================== */}
-      <section className="section">
-        <div className="container">
-          <header className="section-head">
-            <span className="eyebrow">Editor&rsquo;s top picks · 2026</span>
-            <h2>Detailed reviews</h2>
-            {/* free-shipping-badge testid parity — surfaces the winner's free-shipping
-                signal (the control attached this testid to the #1 CTA). */}
-            {winner && winner.freeShipping !== false && (
-              <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>
-                <span data-testid="free-shipping-badge" className="chip">
-                  <Truck aria-hidden="true" />
-                  Free shipping on our #1 pick
-                </span>
-              </p>
-            )}
-          </header>
-
-          <div className="picks-grid">
-            {sortedProducts.map((product, index) => (
-              <ProductCardModern
-                key={product.id}
-                product={product}
-                index={index}
-                experimentKey={EXPERIMENT_KEY}
-                isWinner={isEditorsChoice(product)}
-              />
+                {s.label}
+              </button>
             ))}
           </div>
 
-          <p className="text-soft" style={{ textAlign: 'center', marginTop: 'var(--space-8)', fontSize: 'var(--text-small)' }}>
-            As an Amazon Associate I earn from qualifying purchases.
-          </p>
-        </div>
-      </section>
-
-      {/* ===================== HEAD-TO-HEAD COMPARISONS ===================== */}
-      <section className="section surface-brand">
-        <div className="container">
-          <header className="section-head section-head--center">
-            <span className="eyebrow">Side by side</span>
-            <h2>Head-to-head product comparisons</h2>
-            <p className="lead">
-              Detailed analysis comparing these supplements one against another.
-            </p>
-          </header>
-
-          <div className="grid-auto">
-            {comparisons.map((comparison) => (
-              <Link
-                key={comparison.slug}
-                to={`/never-hungover/${comparison.slug}`}
-                className="card-raised"
-                style={{ display: 'block', textDecoration: 'none', height: '100%' }}
-              >
-                {/* Non-wrapping flex (NOT .cluster): the icon stays fixed-size and
-                    top-aligned beside a title that may wrap to multiple lines, so
-                    it never floats mid-height or breaks onto its own row (#3). */}
-                <h3
-                  className="card-title"
-                  style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink)' }}
-                >
-                  <BarChart3 aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
-                  <span>{comparison.title}</span>
-                </h3>
-                <p className="text-soft" style={{ fontSize: 'var(--text-small)', margin: 0 }}>
-                  {comparison.desc}
-                </p>
-                <span
-                  className="cluster"
-                  style={{ gap: 'var(--space-1)', marginTop: 'var(--space-3)', color: 'var(--color-brand-strong)', fontWeight: 600, fontSize: 'var(--text-small)' }}
-                >
-                  Read full comparison
-                  <ArrowRight aria-hidden="true" style={{ width: '1rem', height: '1rem' }} />
-                </span>
-              </Link>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: 'var(--space-12)' }}>
-            <Link to="/compare" className="btn btn-secondary btn-lg" style={{ textDecoration: 'none' }}>
-              <BarChart3 aria-hidden="true" />
-              Compare products side-by-side
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== BUYING GUIDE CTA BAND ===================== */}
-      <section className="section">
-        <div className="container">
-          <div className="cta-band">
-            <span className="eyebrow">Need help choosing?</span>
-            <h2>Read our comprehensive buying guide</h2>
-            <p className="lead">
-              Understand exactly what to look for in a quality DHM supplement before you buy.
-            </p>
-            <div className="cta-band__actions">
-              <Link to="/guide" className="btn btn-secondary btn-lg" style={{ textDecoration: 'none' }}>
-                Read buying guide
-                <ArrowRight aria-hidden="true" />
-              </Link>
-              <Link to="/research" className="btn btn-ghost btn-lg" style={{ textDecoration: 'none' }}>
-                See research data
-              </Link>
+          <div id="comparison-table">
+            <div
+              className="m-scroll"
+              tabIndex={0}
+              role="region"
+              aria-label="DHM supplement comparison table (scrolls sideways on small screens)"
+            >
+              <table className="m-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">DHM per serving</th>
+                    <th scope="col">Price per serving</th>
+                    <th scope="col">Cost per 1,000 mg</th>
+                    <th scope="col">Servings</th>
+                    <th scope="col">Amazon rating</th>
+                    <th scope="col"><span className="m-sr">Buy</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableRows.map((p, i) => (
+                    <tr
+                      key={p.id}
+                      className={isPick(p) ? 'is-pick' : undefined}
+                      data-testid={isPick(p) ? 'comparison-winner-row' : undefined}
+                    >
+                      <th scope="row" className="m-cell-name">
+                        {p.name}
+                        {isPick(p) && <span className="m-label m-label--row">Editor&rsquo;s pick</span>}
+                      </th>
+                      <td data-label="DHM">{doseLabel(p)}</td>
+                      <td data-label="Per serving">{p.pricePerServing}</td>
+                      <td data-label="Per 1,000 mg">{usd(costPer1000(p))}</td>
+                      <td data-label="Servings">{p.servings}</td>
+                      <td data-label="Rating">
+                        {Number(p.rating).toFixed(1)}
+                        <span className="m-soft"> ({p.reviews.toLocaleString('en-US')})</span>
+                      </td>
+                      <td className="m-cell-buy">
+                        <AmazonLink
+                          product={p}
+                          componentId={`reviews-table-cta-${p.id}`}
+                          placement="comparison_table"
+                          position={i}
+                          className="m-textlink"
+                        >
+                          Check price
+                        </AmazonLink>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
+          <p className="m-small">
+            Ratings are Amazon&rsquo;s, with the number of ratings in brackets. Prices come
+            from the Amazon listings and change often; the links show today&rsquo;s price.
+          </p>
+        </section>
+
+        {/* ===================== ONE NOTE PER PRODUCT ===================== */}
+        <section className="m-section" aria-labelledby="notes-heading">
+          <h2 id="notes-heading">Notes on all {count}</h2>
+          <ol className="m-products">
+            {ranked.map((p, i) => {
+              const note = NOTES[p.id]
+              return (
+                <li key={p.id}>
+                  <article
+                    className="m-product"
+                    data-track="product"
+                    data-product-position={i + 1}
+                    data-product-name={p.name}
+                  >
+                    <h3 className="m-product__name">
+                      <span className="m-product__rank">{i + 1}.</span> {p.name}
+                    </h3>
+                    <p className="m-product__facts">
+                      {doseLabel(p)} of DHM · {p.pricePerServing} a serving · {p.servings} servings ·{' '}
+                      {ratingLabel(p)}
+                    </p>
+                    {note && (
+                      <>
+                        <p className="m-product__suits">
+                          <span className="m-label">Who it suits</span> {note.suits}
+                        </p>
+                        <p>{note.verdict(p)}</p>
+                        <p>{note.skip(p)}</p>
+                      </>
+                    )}
+                    <AmazonLink
+                      product={p}
+                      componentId={`reviews-note-cta-${p.id}`}
+                      placement="product_card"
+                      position={i}
+                      className="btn btn-cta m-buy m-buy--note"
+                    >
+                      Check price on Amazon
+                    </AmazonLink>
+                  </article>
+                </li>
+              )
+            })}
+          </ol>
+        </section>
+
+        {/* ===================== METHOD AND EVIDENCE ===================== */}
+        <section className="m-section" aria-labelledby="method-heading">
+          <h2 id="method-heading">How we chose</h2>
+          <p>
+            We did not run lab tests. For each product we read the label and the Amazon
+            listing, noted the DHM per serving, the price and the number of servings, and
+            worked out what a 1,000 mg dose costs. Ratings are shown with their count,
+            because a {Number(nusa.rating).toFixed(1)} from {nusa.reviews} people tells you
+            less than a {Number(PRODUCTS_BY_ID[6].rating).toFixed(1)} from{' '}
+            {PRODUCTS_BY_ID[6].reviews.toLocaleString('en-US')}.
+          </p>
+          <p>
+            The editor&rsquo;s pick is the product we would suggest for an occasional night
+            out. The plain DHM products rank next because they give the same dose for less.
+            Formulas that charge more per milligram for add-ins with little evidence behind
+            them rank lower.
+          </p>
+
+          <h2 id="evidence-heading" className="m-h2-follow">What to expect from DHM</h2>
+          <p>
+            Keep expectations modest. The study most often cited, from UCLA in 2012, was
+            done in rats. Human trials are few and small, and none shows that a supplement
+            reliably prevents hangovers. No supplement makes it safe to drive after
+            drinking.
+          </p>
+          <p>
+            Ask a doctor or pharmacist before taking DHM if you take prescription medicine,
+            are pregnant or breastfeeding, or have liver or kidney disease. For dose and
+            timing, see the <Link to="/guide">DHM guide</Link>.
+          </p>
+        </section>
+
+        {/* ===================== FURTHER READING ===================== */}
+        <section className="m-section" aria-labelledby="more-heading">
+          <h2 id="more-heading">Head-to-head comparisons</h2>
+          <ul className="m-links">
+            {MATCHUPS.map(({ a, b, slug, desc }) => (
+              <li key={slug}>
+                <Link to={`/never-hungover/${slug}`}>
+                  {NOTES[a].short} vs {NOTES[b].short}
+                </Link>
+                <span className="m-soft"> {desc()}</span>
+              </li>
+            ))}
+          </ul>
+          <p>
+            To put up to four products side by side, use the{' '}
+            <Link to="/compare">comparison tool</Link>.
+          </p>
           {/* Mirrored in the /reviews prerender stub (scripts/prerender-main-pages.js). */}
-          <p className="text-soft" style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
+          <p className="m-small">
             More buying guides:{' '}
-            {buyingGuides.map((g, i) => (
+            {BUYING_GUIDES.map((g, i) => (
               <span key={g.slug}>
                 {i > 0 && ' · '}
                 <Link to={`/never-hungover/${g.slug}`}>{g.label}</Link>
               </span>
             ))}
           </p>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   )
 }

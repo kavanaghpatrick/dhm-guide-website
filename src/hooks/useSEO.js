@@ -166,8 +166,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'reviews':
       return {
-        title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
-        description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
+        title: 'Best DHM Supplements 2026: 8 Compared on Dose and Price',
+        description: 'Eight DHM supplements compared on dose, price per serving and Amazon ratings, with the one we would buy and the ones we would skip.',
         keywords: 'best dhm supplements, dhm supplement reviews, best dhm for hangovers, dhm pills, dhm supplement comparison',
         canonicalUrl: `${baseUrl}/reviews`,
         ogImage: `${baseUrl}/dhm-reviews-featured.webp`,
@@ -175,8 +175,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Best Hangover Pills: Lab-Tested Supplements That Work",
-            "description": "Expert reviews of hangover pills that actually work. Lab-tested supplements ranked by effectiveness.",
+            "headline": "Best DHM Supplements of 2026",
+            "description": "Eight DHM supplements compared on dose, price per serving and Amazon ratings.",
             "author": {
               "@type": "Organization",
               "name": "DHM Guide"
@@ -217,8 +217,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'compare':
       return {
-        title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
-        description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
+        title: 'Compare DHM Supplements Side by Side (2026)',
+        description: 'Put up to four DHM supplements side by side: dose, price per serving, the cost of a 1,000 mg dose, servings and Amazon ratings.',
         keywords: 'compare hangover supplements, hangover prevention comparison, anti-hangover pills comparison, best hangover cure supplements',
         canonicalUrl: `${baseUrl}/compare`,
         ogImage: `${baseUrl}/dhm-comparison-featured.webp`,
