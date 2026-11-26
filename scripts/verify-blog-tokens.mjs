@@ -17,7 +17,7 @@
  *   Palette        one ink, one accent, one conversion colour (2.3)
  *   Rhythm         --l (one 30px body line) and --s0..--s4 multiples of it (2.4)
  *   Classes        type-scale utilities .t-display .. .t-label, plus the post
- *                  template hooks .article-body .post-title .post-lead .post-byline
+ *                  template hooks .article-body .post-title .post-lead .post-meta
  *
  * Values are compared after normalising both sides the way the minifier does:
  * lower-case, whitespace removed, leading "0." shortened to ".".
@@ -66,7 +66,7 @@ export const TOKENS_ANY_VALUE = ['--color-cta', '--color-on-cta'];
 export const CLASSES = [
   't-display', 't-title', 't-heading', 't-subheading',
   't-lead', 't-body', 't-small', 't-label',
-  'article-body', 'post-title', 'post-lead', 'post-byline',
+  'article-body', 'post-title', 'post-lead', 'post-meta',
 ];
 
 const norm = (v) =>

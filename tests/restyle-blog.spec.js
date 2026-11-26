@@ -422,7 +422,8 @@ test.describe('Blog post template — modern restyle contract', () => {
     // TOC target corresponds to a heading id that exists in the DOM.
     // 1) A Table of Contents affordance must render (desktop sidebar OR mobile
     //    toggle — whichever is visible for the current viewport).
-    const tocAny = page.getByText('Table of Contents', { exact: false });
+    // "On this page" rail on desktop, a native <details> "Contents" block below 1024px.
+    const tocAny = page.getByText(/^(table of contents|on this page|contents)$/i);
     // The desktop sidebar copy is hidden on mobile and vice-versa; require that
     // AT LEAST ONE Table-of-Contents element is visible for this viewport.
     const tocCount = await tocAny.count();
@@ -519,7 +520,8 @@ test.describe('Blog post template — mobile a11y / responsive', () => {
   test('the mobile Table-of-Contents toggle is a >=44px tap target', async ({ page }) => {
     // On mobile the TOC collapses behind a toggle control. It must meet the 44px
     // minimum touch target of the modern system.
-    const toggle = page.getByRole('button', { name: /table of contents/i }).first();
+    // A native <details class="contents"> disclosure ("Contents").
+    const toggle = page.locator('details.contents > summary').first();
     await expect(toggle, 'a mobile Table of Contents toggle must render').toBeVisible();
     const box = await toggle.boundingBox();
     expect(box, 'TOC toggle must have a layout box').not.toBeNull();

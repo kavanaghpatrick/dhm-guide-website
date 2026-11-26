@@ -193,9 +193,8 @@ const renderContent = (post) => {
 
 const NewBlogPost = () => {
   // State management
-  const [tocItems, setTocItems] = useState([]);
   const [activeSection, setActiveSection] = useState('');
-  const [showToc, setShowToc] = useState(false);
+  const [activeSub, setActiveSub] = useState('');
   const [isClient, setIsClient] = useState(false);
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
@@ -210,6 +209,29 @@ const NewBlogPost = () => {
     if (!post?.content) return '';
     return cleanMarkdown(renderContent(post));
   }, [post?.content]);
+
+  // Table of contents, read straight from the markdown with the same id rule
+  // as the h2/h3 components below: [{id, text, children: [{id, text}]}].
+  // H3s are kept only under an H2 with 2 to 8 of them (listicle items, steps).
+  const toc = useMemo(() => {
+    const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const plain = (t) => t.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').replace(/\s+#+\s*$/, '').replace(/\s*\{#[^}]*\}/g, '').trim();
+    const items = [];
+    for (const [, hashes, raw] of fullContent.replace(/```[\s\S]*?```/g, '').matchAll(/^(##|###)[ \t]+(.+)$/gm)) {
+      const text = plain(raw);
+      const id = slugify(text);
+      if (!id) continue;
+      if (hashes === '##') {
+        // Short label: "Hidden Alcohol: Mouthwash, Cough Syrup..." -> "Hidden Alcohol".
+        const cut = text.indexOf(': ');
+        items.push({ id, text: cut >= 12 ? text.slice(0, cut) : text, children: [] });
+      } else if (items.length) {
+        items[items.length - 1].children.push({ id, text });
+      }
+    }
+    for (const item of items) if (item.children.length < 2 || item.children.length > 8) item.children = [];
+    return items;
+  }, [fullContent]);
 
   // Extract slug from URL
   const extractSlug = () => {
@@ -338,159 +360,27 @@ const NewBlogPost = () => {
     }
   };
 
-  // Generate Table of Contents with MutationObserver
-  useEffect(() => {
-    if (!post || !contentRef.current) return;
-
-    let observer;
-    let timeoutId;
-    const maxWaitTime = 2000; // 2 second maximum wait
-    let isGenerating = true;
-
-    const generateTOC = () => {
-      const headings = contentRef.current.querySelectorAll('h2, h3');
-      
-      if (headings.length > 0) {
-        // Import the utility function inline to avoid module issues
-        const items = Array.from(headings).map((heading, index) => {
-          const text = heading.textContent.replace(/\s*\{#[^}]*\}\s*$/, '');
-          
-          // Check if heading already has an ID (from embedded TOC links)
-          if (heading.id) {
-            return {
-              id: heading.id,
-              text,
-              level: parseInt(heading.tagName.charAt(1))
-            };
-          }
-          
-          // Generate ID that matches the pattern used in content
-          let id = text
-            .toLowerCase()
-            .replace(/[^a-z0-9\s-]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-')
-            .replace(/^-|-$/g, '');
-          
-          if (!id) {
-            id = `heading-${index}`;
-          }
-          
-          // Check if this ID already exists (from embedded links)
-          let finalId = id;
-          let counter = 1;
-          while (document.getElementById(finalId) && document.getElementById(finalId) !== heading) {
-            finalId = `${id}-${counter}`;
-            counter++;
-          }
-          
-          heading.id = finalId;
-          return {
-            id: finalId,
-            text,
-            level: parseInt(heading.tagName.charAt(1))
-          };
-        });
-        
-        setTocItems(items);
-        isGenerating = false;
-        
-        // Clean up observer
-        if (observer) {
-          observer.disconnect();
-        }
-        clearTimeout(timeoutId);
-      }
-    };
-
-    // Set up MutationObserver
-    observer = new MutationObserver((mutations) => {
-      // Check if any mutations added heading elements
-      const hasNewHeadings = mutations.some(mutation => 
-        Array.from(mutation.addedNodes).some(node => 
-          node.nodeName && /^H[23]$/.test(node.nodeName)
-        )
-      );
-
-      if (hasNewHeadings) {
-        // Debounce to avoid multiple rapid calls
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(generateTOC, 50);
-      }
-    });
-
-    // Start observing
-    observer.observe(contentRef.current, {
-      childList: true,
-      subtree: true
-    });
-
-    // Initial check (in case content is already rendered)
-    generateTOC();
-
-    // Timeout fallback
-    timeoutId = setTimeout(() => {
-      if (isGenerating) {
-        console.warn('TOC generation timed out');
-        generateTOC(); // Try one more time
-        if (observer) {
-          observer.disconnect();
-        }
-      }
-    }, maxWaitTime);
-
-    // Cleanup
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-      clearTimeout(timeoutId);
-    };
-  }, [post]);
-
-  // Track the active section (H2s only, the same set the TOC lists)
+  // Scroll-spy: the last H2 (and H3 inside it) whose top has passed y=150.
   useEffect(() => {
     let ticking = false;
-    
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (!contentRef.current) return;
-
-          const headings = contentRef.current.querySelectorAll('h2');
-          let current = '';
-          
-          headings.forEach((heading) => {
-            const rect = heading.getBoundingClientRect();
-            if (rect.top <= 150 && rect.bottom >= 0) {
-              current = heading.id;
-            }
-          });
-          
-          if (!current && headings.length > 0 && headings[0].getBoundingClientRect().top <= 150) {
-            let closest = headings[0];
-            let closestDistance = Math.abs(headings[0].getBoundingClientRect().top);
-            
-            headings.forEach((heading) => {
-              const distance = Math.abs(heading.getBoundingClientRect().top);
-              if (distance < closestDistance && heading.getBoundingClientRect().top <= 150) {
-                closest = heading;
-                closestDistance = distance;
-              }
-            });
-            current = closest.id;
-          }
-          
-          setActiveSection(current);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (!contentRef.current) return;
+        let h2 = '';
+        let h3 = '';
+        for (const h of contentRef.current.querySelectorAll('h2, h3')) {
+          if (h.getBoundingClientRect().top > 150) break;
+          if (h.tagName === 'H2') { h2 = h.id; h3 = ''; } else h3 = h.id;
+        }
+        setActiveSection(h2);
+        setActiveSub(h3);
+      });
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, [post]);
 
@@ -503,7 +393,7 @@ const NewBlogPost = () => {
     }
     
     try {
-      return new Intl.DateTimeFormat('en-US', {
+      return new Intl.DateTimeFormat('en-GB', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -512,19 +402,6 @@ const NewBlogPost = () => {
     } catch (error) {
       console.error('Error formatting date:', error);
       return 'Date unavailable';
-    }
-  };
-
-  const sharePost = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: post.title,
-        text: post.excerpt,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
     }
   };
 
@@ -574,8 +451,6 @@ const NewBlogPost = () => {
       top: offsetPosition,
       behavior: scrollBehavior
     });
-    
-    setActiveSection(id);
   };
 
   // Loading state
@@ -620,13 +495,40 @@ const NewBlogPost = () => {
     );
   }
 
-  const tocH2 = tocItems.filter((item) => item.level === 2);
   // Some posts store readTime as "18 min read", most as a number.
   const readTimeLabel = (t) => (/min/i.test(String(t)) ? String(t) : `${t} min read`);
-  // Decide from the markdown (available on first render) so the TOC row is in
-  // place before the effect fills its links: no layout shift above the body.
-  const hasToc = (fullContent.match(/^##\s/gm) || []).length > 1;
-  const updated = post.dateModified ? new Date(post.dateModified) : post.date;
+  const hasToc = toc.length > 1;
+  const shownDate = new Date(post.dateModified || post.date);
+  const tocLink = (item, active) => (
+    <a
+      href={`#${item.id}`}
+      className={active ? 'is-active' : undefined}
+      aria-current={active ? 'location' : undefined}
+      onClick={(e) => {
+        e.preventDefault();
+        scrollToSection(item.id);
+      }}
+    >
+      {item.text}
+    </a>
+  );
+  // One list, used by both the phone "Contents" block and the desktop rail.
+  const tocList = (
+    <ol>
+      {toc.map((item) => (
+        <li key={item.id}>
+          {tocLink(item, activeSection === item.id)}
+          {item.children.length > 0 && (
+            <ol>
+              {item.children.map((child) => (
+                <li key={child.id}>{tocLink(child, activeSub === child.id)}</li>
+              ))}
+            </ol>
+          )}
+        </li>
+      ))}
+    </ol>
+  );
 
   return (
     // key: mount a fresh tree, so React doesn't morph the centred loading
@@ -634,33 +536,66 @@ const NewBlogPost = () => {
     <div key="post" className="theme-modern" data-blog="post">
       <div className="post-shell">
         <article className="post">
-          <nav className="post-crumbs t-label" aria-label="Breadcrumb">
-            <CustomLink to="/never-hungover">Never Hungover</CustomLink>
-          </nav>
+          {/* A div, not <header>: index.css styles every `header button`. */}
+          <div className="post-head">
+            <nav className="post-eyebrow post-crumbs t-label" aria-label="Breadcrumb">
+              <CustomLink to="/never-hungover">Never Hungover</CustomLink>
+              {post.category && <span> / {post.category}</span>}
+            </nav>
 
-          {/* The full title, matching the prerendered H1 and <title>. */}
-          <h1 className="post-title">{post.title}</h1>
+            {/* The full title, matching the prerendered H1 and <title>. */}
+            <h1 className="post-title">{post.title}</h1>
 
-          {post.excerpt && <p className="post-lead">{post.excerpt}</p>}
+            {post.excerpt && <p className="post-lead">{post.excerpt}</p>}
 
-          <div className="post-byline">
-            <span>Updated {formatDate(updated)}</span>
-            {post.author && <span>By {post.author}</span>}
-            {post.readTime && <span>{readTimeLabel(post.readTime)}</span>}
-            {isClient && (
-              <span>
-                <button type="button" onClick={sharePost} data-track="share" className="post-share">
-                  Share
-                </button>
-              </span>
+            {/* One quiet line: "Updated <date> · N min read", nothing else.
+                The author stays in the JSON-LD. */}
+            <p className="post-meta">
+              Updated{' '}
+              <time dateTime={isNaN(shownDate) ? undefined : shownDate.toISOString().slice(0, 10)}>
+                {formatDate(shownDate)}
+              </time>
+              {post.readTime && <> · {readTimeLabel(post.readTime)}</>}
+            </p>
+
+            {/* FTC affiliate disclosure — near the top, only on posts with buy links. */}
+            {/amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '') && (
+              <p className="post-disclosure">
+                We earn a commission if you buy through our links, at no cost to you.
+              </p>
             )}
+
+            {/* Quick Answer — part of the header, in the first ~100 words for AI engine extraction. Issue #292. */}
+            {post.quickAnswer && (
+              <div className="post-answer">
+                <p className="post-block-label">Quick answer</p>
+                <p className="post-answer__text">{post.quickAnswer}</p>
+              </div>
+            )}
+
+            <hr className="post-rule" />
           </div>
 
-          {/* FTC affiliate disclosure — near the top, only on posts with buy links. */}
-          {/amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '') && (
-            <p className="post-disclosure">
-              We may earn a commission if you buy through links on this page, at no extra cost to you.
-            </p>
+          {/* Below 1024px: a collapsed native "Contents" block, no JS state. */}
+          {hasToc && (
+            <details className="contents">
+              <summary>
+                Contents
+                <ChevronDown aria-hidden="true" />
+              </summary>
+              <nav className="post-toc" aria-label="Contents">{tocList}</nav>
+            </details>
+          )}
+
+          <div className="post-main">
+          {/* From 1024px: a quiet sticky rail in the left margin (CSS). */}
+          {hasToc && (
+            <div className="post-toc-rail">
+              <nav className="post-toc post-toc--rail" aria-label="On this page">
+                <p className="post-toc__label">On this page</p>
+                {tocList}
+              </nav>
+            </div>
           )}
 
           {/* Hero image - width/height attrs + aspect-video prevent CLS (Issue #293) */}
@@ -678,53 +613,7 @@ const NewBlogPost = () => {
             </div>
           )}
 
-          {/* Quick Answer — in the first ~100 words for AI engine extraction. Issue #292. */}
-          {post.quickAnswer && (
-            <div className="post-answer">
-              <p className="post-block-label">Quick answer</p>
-              <p className="post-answer__text">{post.quickAnswer}</p>
-            </div>
-          )}
-
           {keyTakeaways.length > 0 && <KeyTakeaways takeaways={keyTakeaways} />}
-
-          {/* Table of contents (H2s only). Collapsed row above the body on narrow
-              screens; sticky list in the left margin on wide ones (CSS only). */}
-          {hasToc && (
-            <div className="post-toc-rail">
-              <nav className={`post-toc${showToc ? ' is-open' : ''}`} aria-label="Table of contents">
-                <button
-                  type="button"
-                  className="post-toc__toggle"
-                  aria-expanded={showToc}
-                  aria-controls="post-toc-list"
-                  onClick={() => setShowToc(!showToc)}
-                >
-                  <span>Table of contents</span>
-                  <ChevronDown aria-hidden="true" />
-                </button>
-                <p className="post-toc__label t-label">Table of contents</p>
-                <ol className="post-toc__list" id="post-toc-list">
-                  {tocH2.map((item) => (
-                    <li key={item.id}>
-                      <a
-                        href={`#${item.id}`}
-                        className="post-toc__link"
-                        aria-current={activeSection === item.id ? 'true' : undefined}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToSection(item.id);
-                          setShowToc(false);
-                        }}
-                      >
-                        {item.text}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            </div>
-          )}
 
           {/* Article body — styled by .article-body (theme-modern.css section 15). */}
           <div ref={contentRef} className="article-body">
@@ -1099,6 +988,7 @@ const NewBlogPost = () => {
                     </>
                   );
                 })()}
+          </div>
           </div>
         </article>
 
