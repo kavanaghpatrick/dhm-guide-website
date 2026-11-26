@@ -322,26 +322,46 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
         })
       : '';
 
-    // Quick Answer callout (issue #292) — placed before main content so AI
-    // crawlers (Perplexity, ChatGPT, Gemini) extract the definitive answer
-    // from the first ~100 words. Mirrors NewBlogPost.jsx render logic.
+    // Same DOM order and class hooks as NewBlogPost.jsx: header (eyebrow,
+    // title, standfirst, meta, disclosure, rule), then the article column
+    // opening with the Quick answer (issue #292: first ~100 words for AI
+    // crawlers). The meta line follows the same "Published|Updated" rule.
+    const published = new Date(post.date || post.datePublished);
+    const modified = new Date(post.dateModified || post.lastModified);
+    const wasEdited = modified > published;
+    const shownDate = wasEdited ? modified : published;
+    const shownDateOk = !isNaN(shownDate.getTime());
+    const shownDateLabel = shownDateOk
+      ? new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(shownDate)
+      : '';
+    const readTimeLabel = post.readTime
+      ? ` · ${escapeHtml(/min/i.test(String(post.readTime)) ? String(post.readTime) : `${post.readTime} min read`)}`
+      : '';
+    const disclosureHtml = /amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '')
+      ? '<p class="post-disclosure">We earn a commission if you buy through our links, at no cost to you.</p>'
+      : '';
     const quickAnswerHtml = post.quickAnswer
-      ? `<aside class="quick-answer" style="border-left:4px solid #2563eb;background:#eff6ff;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 0.5rem 0.5rem 0;"><p style="font-size:0.875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#1d4ed8;margin:0 0 0.25rem 0;">Quick Answer</p><p style="margin:0;font-size:1.0625rem;line-height:1.6;color:#111827;">${escapeHtml(post.quickAnswer)}</p></aside>`
+      ? `<div class="post-answer"><p class="post-block-label">Quick answer</p><p class="post-answer__text">${escapeHtml(post.quickAnswer)}</p></div>`
       : '';
 
     rootDiv.innerHTML = `
       <div id="prerender-content" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
-        <article>
-          <h1>${safeTitle}</h1>
-          <div class="meta">
-            <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time>
-            <span>${safeAuthor}</span>
-            <span>${escapeHtml(String(post.readTime))} min read</span>
+        <div class="theme-modern" data-blog="post"><div class="post-shell">
+        <article class="post">
+          <div class="post-head">
+            <nav class="post-eyebrow post-crumbs t-label" aria-label="Breadcrumb"><a href="/never-hungover">Never Hungover</a>${post.category ? `<span> / ${escapeHtml(post.category)}</span>` : ''}</nav>
+            <h1 class="post-title">${safeTitle}</h1>
+            ${safeExcerpt ? `<p class="post-lead">${safeExcerpt}</p>` : ''}
+            <p class="post-meta">${wasEdited ? 'Updated' : 'Published'} <time${shownDateOk ? ` datetime="${shownDate.toISOString().slice(0, 10)}"` : ''}>${shownDateLabel}</time>${readTimeLabel}</p>
+            ${disclosureHtml}
+            <hr class="post-rule" />
           </div>
-          <p class="excerpt">${safeExcerpt}</p>
-          ${quickAnswerHtml}
-          ${fullContentHtml}
+          <div class="post-main">
+            ${quickAnswerHtml}
+            <div class="article-body">${fullContentHtml}</div>
+          </div>
         </article>
+        </div></div>
       </div>
     `;
   }
