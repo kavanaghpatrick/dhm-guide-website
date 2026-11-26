@@ -15,14 +15,12 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const POSTS_DIR = 'src/newblog/data/posts';
-const SENTINEL = '<!-- hub-footer:auto -->';
 const HEADING = '## Continue Your Research';
 
 const FOOTER = `
 
 ---
 
-${SENTINEL}
 ${HEADING}
 
 - **[Complete DHM Guide →](/guide)** - Dosage, timing, and how DHM works
@@ -46,7 +44,7 @@ for (const file of files) {
     continue;
   }
 
-  if (post.content.includes(SENTINEL) || post.content.includes(HEADING)) {
+  if (post.content.includes(HEADING)) {
     counts.skippedHasFooter++;
     continue;
   }
