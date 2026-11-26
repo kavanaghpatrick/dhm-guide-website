@@ -396,8 +396,18 @@ for (const cfg of PAGES) {
  *   details.contents           below 1024px: collapsed native "Contents" block
  *   .post-main > .post-answer  Quick answer card, first block of the article column
  *                              (level with the top of the rail), only when the post has one
- *   nav.post-toc--rail         from 1024px: sticky quiet rail, "On this page" label,
- *                              active link gets .is-active (green + 2px bar)
+ *   nav.post-toc--rail         from 1024px: sticky docs-style rail, "On this page" label,
+ *                              a 1px hairline track down the list, active link gets
+ *                              .is-active (green, weight 500, 2px bar over the track)
+ *
+ * TOC TYPE CONTRACT (changed 26 Nov 2026, intentionally):
+ *   - Desktop rail links are 14px (H3s 13px), line-height 1.4, ONE line each
+ *     (white-space: nowrap + ellipsis; full heading in title/aria-label).
+ *     The old ">=16px" floor no longer applies to the rail: it is a mouse-first
+ *     index, not reading text, and 16px wrapped every label to two lines.
+ *   - The 44px tap-target rule applies to the PHONE/TABLET details.contents
+ *     links only (they stay 16px with 44px+ targets). The desktop rail is
+ *     exempt because it only renders from 1024px, for pointer users.
  */
 const TOC_SLUGS = ['metronidazole-and-alcohol', 'best-soups-for-hangover', 'hangover-supplements-complete-guide-what-actually-works-2025'];
 const postUrl = (slug) => `${BASE}/never-hungover/${slug}`;
@@ -488,7 +498,7 @@ test.describe('blog design: post header + table of contents', () => {
   });
 
   for (const vp of [PHONE, { width: 768, height: 1024 }]) {
-    test(`contents block at ${vp.width}px: native details, collapsed, 16px links, >=44px targets`, async ({ page }) => {
+    test(`contents block at ${vp.width}px: native details, collapsed, section count, 16px links, >=44px targets`, async ({ page }) => {
       await openPost(page, 'best-soups-for-hangover', vp);
       const d = page.locator('details.contents');
       expect(await d.count(), 'one native details.contents').toBe(1);
@@ -498,6 +508,9 @@ test.describe('blog design: post header + table of contents', () => {
       expect(await page.locator('nav.post-toc--rail').isVisible(), 'no rail below 1024px').toBe(false);
       const sum = await d.locator('summary').boundingBox();
       expect(sum.height, 'summary >= 44px').toBeGreaterThanOrEqual(44);
+      const s = await d.locator('summary').evaluate((e) => ({ text: e.textContent.trim(), fs: parseFloat(getComputedStyle(e).fontSize), n: document.querySelectorAll('nav.post-toc--rail > ol > li').length }));
+      expect(s.text, 'plain-text section count').toBe(`Contents · ${s.n} sections`);
+      expect(s.fs, 'summary 14px').toBe(14);
       await d.locator('summary').click();
       const r = await page.evaluate(() => {
         const links = [...document.querySelectorAll('details.contents a')].filter((a) => a.getClientRects().length);
@@ -515,19 +528,34 @@ test.describe('blog design: post header + table of contents', () => {
   }
 
   for (const width of [1024, 1366]) {
-    test(`quiet rail at ${width}px: sticky, no box, 16px links, active accent after scroll, H3s only under active H2`, async ({ page }) => {
+    test(`docs rail at ${width}px: sticky, no box, hairline track, 14px one-line links, active bar after scroll, H3s only under active H2`, async ({ page }) => {
       await openPost(page, 'best-soups-for-hangover', { width, height: 900 });
       expect(await page.locator('details.contents').isVisible(), 'no contents block on desktop').toBe(false);
       const r = await page.evaluate(() => {
         const nav = document.querySelector('nav.post-toc--rail');
         const all = [nav, ...nav.querySelectorAll('*')];
         const links = [...nav.querySelectorAll('a')].filter((a) => a.getClientRects().length);
+        const list = nav.querySelector(':scope > ol');
+        const lcs = getComputedStyle(list);
+        const labelCs = getComputedStyle(nav.querySelector('.post-toc__label'));
         return {
           sticky: getComputedStyle(nav).position,
           label: nav.querySelector('.post-toc__label')?.textContent.trim(),
+          labelFs: parseFloat(labelCs.fontSize),
+          labelAboveTrack: nav.querySelector('.post-toc__label').getBoundingClientRect().bottom <= list.getBoundingClientRect().top,
+          track: { w: parseFloat(lcs.borderLeftWidth), style: lcs.borderLeftStyle, color: lcs.borderLeftColor },
           boxed: all.filter((e) => { const cs = getComputedStyle(e); return cs.boxShadow !== 'none' || cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.backgroundImage !== 'none'; }).map((e) => e.className || e.tagName),
-          bad: links.map((a) => { const cs = getComputedStyle(a); return { t: a.textContent.trim().slice(0, 30), fs: parseFloat(cs.fontSize), lh: +(parseFloat(cs.lineHeight) / parseFloat(cs.fontSize)).toFixed(2) }; })
-            .filter((x) => x.fs < 16 || x.lh < 1.4 || x.lh > 1.5 || /\{#/.test(x.t)),
+          bad: links.map((a) => {
+            const cs = getComputedStyle(a);
+            const fs = parseFloat(cs.fontSize);
+            const lhPx = parseFloat(cs.lineHeight);
+            const textH = a.getBoundingClientRect().height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+            return {
+              t: a.textContent.trim().slice(0, 30), fs, lh: +(lhPx / fs).toFixed(2),
+              lines: Math.round(textH / lhPx),
+              titled: a.title.length >= a.textContent.trim().length && a.getAttribute('aria-label') === a.title,
+            };
+          }).filter((x) => x.fs !== 14 || x.lh !== 1.4 || x.lines !== 1 || !x.titled || /\{#/.test(x.t)),
           h3Visible: [...nav.querySelectorAll('ol ol a')].filter((a) => a.getClientRects().length).length,
           railRight: nav.getBoundingClientRect().right,
           bodyLeft: document.querySelector('.article-body').getBoundingClientRect().left,
@@ -536,8 +564,11 @@ test.describe('blog design: post header + table of contents', () => {
       });
       expect(r.sticky).toBe('sticky');
       expect(r.label).toMatch(/^on this page$/i);
+      expect(r.labelFs, '"On this page" label is 11px').toBe(11);
+      expect(r.labelAboveTrack, 'label sits above the track').toBe(true);
+      expect(r.track, '1px hairline track on the list').toEqual({ w: 1, style: 'solid', color: 'rgb(231, 227, 219)' });
       expect(r.boxed, 'no box, shadow or background anywhere in the rail').toEqual([]);
-      expect(r.bad, 'rail links >=16px, line-height ~1.45').toEqual([]);
+      expect(r.bad, 'rail links 14px, line-height 1.4, one line, full text in title + aria-label').toEqual([]);
       expect(r.railRight, 'rail sits left of the reading column').toBeLessThanOrEqual(r.bodyLeft);
       expect(r.overflow, 'no horizontal page scroll').toBe(false);
       expect(r.h3Visible, 'no H3s shown before any section is active').toBe(0);
@@ -557,19 +588,26 @@ test.describe('blog design: post header + table of contents', () => {
         const link = document.querySelector(`nav.post-toc--rail a[href="#${id}"]`);
         const cs = getComputedStyle(link);
         const visibleSubs = [...document.querySelectorAll('nav.post-toc--rail ol ol')].filter((o) => o.getClientRects().length);
+        const list = document.querySelector('nav.post-toc--rail > ol');
         return {
           cls: link.className,
           color: cs.color,
+          weight: cs.fontWeight,
           bar: parseFloat(cs.borderLeftWidth),
           barColor: cs.borderLeftColor,
+          barOnTrack: link.getBoundingClientRect().left - list.getBoundingClientRect().left,
+          oneLine: Math.round((link.getBoundingClientRect().height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)) / parseFloat(cs.lineHeight)),
           subsVisible: visibleSubs.length,
           subsUnderActive: visibleSubs.every((o) => o.parentElement.contains(link)),
         };
       }, target);
       expect(a.cls, 'active class after scrolling').toContain('is-active');
       expect(a.color, 'active link is green').toBe('rgb(22, 101, 52)');
+      expect(a.weight, 'active link is weight 500').toBe('500');
+      expect(a.oneLine, 'bolder active label still one line (no reflow)').toBe(1);
       expect(a.bar, '2px left accent').toBe(2);
       expect(a.barColor).toBe('rgb(22, 101, 52)');
+      expect(a.barOnTrack, 'bar starts exactly on the 1px track').toBe(0);
       expect(a.subsVisible, 'only the active section shows its H3s').toBe(1);
       expect(a.subsUnderActive).toBe(true);
     });
