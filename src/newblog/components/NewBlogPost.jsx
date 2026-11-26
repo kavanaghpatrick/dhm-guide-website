@@ -56,7 +56,7 @@ const InlineReviewsCTA = ({ placement, postSlug }) => {
     <div className="not-prose post-offer">
       <p className="post-offer__title">Looking for the best DHM supplement?</p>
       <p className="post-offer__text">
-        We've independently tested 10+ products for purity, absorption, and value.
+        Compare the DHM brands we track by dose, price per serving and ratings.
       </p>
       <CustomLink
         to="/reviews"
@@ -93,8 +93,9 @@ const Callout = ({ variant = 'note', title, children }) => (
 
 /**
  * Split a markdown string at approximately the target percentage, snapping
- * to the nearest paragraph break (double newline) so we never split mid-
- * paragraph, mid-table, or mid-list. Returns [before, after].
+ * forward to the next "## " section heading so the CTA never lands between a
+ * lead-in sentence and its table or list, or inside a product write-up.
+ * Returns [before, after].
  *
  * If no clean break exists at/after the target (or the break is too close
  * to the end), returns [content, ''] - mid-content CTA is then skipped and
@@ -103,10 +104,10 @@ const Callout = ({ variant = 'note', title, children }) => (
 const splitContentAtRatio = (content, ratio = 0.3) => {
   if (!content || typeof content !== 'string') return [content || '', ''];
   const target = Math.floor(content.length * ratio);
-  const breakIdx = content.indexOf('\n\n', target);
+  const breakIdx = content.indexOf('\n## ', target);
   if (breakIdx === -1) return [content, ''];
   if (breakIdx / content.length > 0.85) return [content, ''];
-  return [content.slice(0, breakIdx), content.slice(breakIdx + 2)];
+  return [content.slice(0, breakIdx), content.slice(breakIdx + 1)];
 };
 
 // Helper function to extract key takeaways from content
