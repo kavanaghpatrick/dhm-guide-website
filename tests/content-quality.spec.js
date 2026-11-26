@@ -102,6 +102,28 @@ test('trust: no unsourced efficacy percentages in any post or index title / meta
   expect(offenders, 'efficacy percentages without a named source in SERP-visible fields').toEqual([]);
 });
 
+// Owner ban (2026-11-27): the reusable hedge "animal research is promising and the
+// human evidence is thin" became a sitewide tic. Hedge with the actual evidence instead.
+const HEDGE_FORMULA = [
+  /evidence (is|are) thin/i,
+  /\b(animal|lab|rodent) (research|studies|data|work) (is|are|look|looks) (promising|encouraging)/i,
+  /research is encouraging/i,
+];
+
+test('trust: no reusable hedge formula in any post, index entry or page', () => {
+  const offenders = [];
+  const check = (where, text) => { for (const re of HEDGE_FORMULA) if (re.test(text)) offenders.push(`${where}: ${re.source}`); };
+  for (const f of readdirSync(POSTS).filter((f) => f.endsWith('.json'))) {
+    const p = readJSON(join(POSTS, f));
+    check(f, [p.content, p.title, p.metaDescription, p.excerpt, p.quickAnswer, ...(p.faq || []).map((q) => `${q.question} ${q.answer}`)].join(' '));
+  }
+  for (const e of readJSON(INDEX) || []) check(`index:${e.slug}`, `${e.title} ${e.excerpt} ${e.metaDescription || ''}`);
+  const PAGES = join(ROOT, 'src/pages');
+  for (const f of readdirSync(PAGES).filter((f) => f.endsWith('.jsx'))) check(`page:${f}`, readFileSync(join(PAGES, f), 'utf8').replace(/\s+/g, ' '));
+  for (const f of ['index.html', 'scripts/prerender-main-pages.js']) check(f, readFileSync(join(ROOT, f), 'utf8').replace(/\s+/g, ' '));
+  expect(offenders, 'hedge-formula phrases').toEqual([]);
+});
+
 for (const slug of NEW_CONTENT) {
   test.describe(`content quality — ${slug}`, () => {
     const post = readJSON(join(POSTS, `${slug}.json`));

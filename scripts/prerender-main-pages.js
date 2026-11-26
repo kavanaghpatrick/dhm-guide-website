@@ -24,7 +24,7 @@ const pages = [
     title: 'DHM Guide: DHM Supplements Compared on Dose, Price and Evidence',
     description: 'What the research says about DHM for hangovers, and the three DHM supplements we rank highest, with the dose and price per serving of each.',
     ogImage: '/og-image.jpg',
-    bodyStub: '<h1>DHM supplements, compared on dose, price and evidence.</h1><p>DHM is a plant compound sold to prevent hangovers. The animal research is promising and the human evidence is thin.</p><p>See the <a href="/reviews">eight products we compare</a>, read the <a href="/guide">DHM guide</a>, or work out a starting dose with the <a href="/dhm-dosage-calculator">dosage calculator</a>.</p>'
+    bodyStub: '<h1>DHM supplements, compared on dose, price and evidence.</h1><p>DHM is a plant compound sold to prevent hangovers. Most of what is known comes from rats and mice, and no trial has tested DHM capsules on hangovers.</p><p>See the <a href="/reviews">eight products we compare</a>, read the <a href="/guide">DHM guide</a>, or work out a starting dose with the <a href="/dhm-dosage-calculator">dosage calculator</a>.</p>'
   },
   {
     route: '/guide',
@@ -220,7 +220,7 @@ const pages = [
           "name": "Does DHM work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The evidence is thin. DHM counteracted alcohol intoxication in rats and protected the liver in mice, both given by injection. The one controlled human trial we know of tested a drink made with raisin-tree extract, not DHM capsules. It found lower blood alcohol in the first half hour and milder stomach symptoms than placebo."
+            "text": "Unproven for hangovers. DHM counteracted alcohol intoxication in rats and protected the liver in mice, both given by injection. The one controlled human trial we know of tested a drink made with raisin-tree extract, not DHM capsules. It found lower blood alcohol in the first half hour and milder stomach symptoms than placebo."
           }
         }
       ]
