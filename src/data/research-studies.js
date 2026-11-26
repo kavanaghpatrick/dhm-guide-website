@@ -21,30 +21,9 @@
  */
 
 export const researchStudies = [
-  {
-    id: 1,
-    title: "Dihydromyricetin Protects Against Alcohol-Induced Liver Injury",
-    authors: "Chen, S., Zhao, X., Ran, L., et al.",
-    journal: "Journal of Hepatology",
-    year: 2020,
-    institution: "University of Southern California, School of Pharmacy",
-    participants: 120,
-    duration: "12 weeks",
-    category: "liver",
-    type: "Human Clinical Trial",
-    findings: "DHM significantly reduced liver enzyme levels and improved liver function in participants with chronic alcohol consumption.",
-    keyResults: [
-      "45% reduction in ALT/AST (liver stress indicators)",
-      "38% reduction in AST levels",
-      "Improved liver histology scores",
-      "No serious adverse effects"
-    ],
-    methodology: "Randomized, double-blind, placebo-controlled trial",
-    dosage: "300mg twice daily",
-    significance: "First large-scale human study demonstrating hepatoprotective effects",
-    pmid: "PMC7211127",
-    pubmedUrl: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7211127/"
-  },
+  // (Former id 1 deleted: it linked PMC7211127, the 2020 USC MOUSE study that is
+  // already listed below as id 10, but labelled it a 120-person human trial with
+  // a "45% reduction" the paper does not report.)
   {
     id: 2,
     title: "DHM Reduces Alcohol Intoxication and Withdrawal Symptoms",
@@ -143,49 +122,49 @@ export const researchStudies = [
   },
   {
     id: 6,
-    title: "DHM Hepatoprotective Effects Against Drug-Induced Liver Injury",
-    authors: "Zhang, L., Wang, M., Chen, H., et al.",
+    title: "Evaluation on Hepatoprotection of Dihydromyricetin in Acetaminophen-Induced Hepatotoxicity Based on Analysis of Inflammation and Apoptosis Mediated by PI3K/AKT Pathway",
+    authors: "Gong, J., Zhang, H., Yu, H., et al.",
     journal: "Natural Product Communications",
     year: 2022,
-    institution: "Jilin University",
-    participants: 150,
-    duration: "8 weeks",
+    institution: "Jilin Medical University",
+    participants: "Animal models (mice)",
+    duration: "Single acetaminophen challenge",
     category: "liver",
-    type: "Human Clinical Trial",
-    findings: "DHM demonstrated significant hepatoprotective effects against acetaminophen-induced liver toxicity.",
+    type: "Preclinical Study",
+    findings: "In mice given a toxic acetaminophen dose, DHM pretreatment lowered liver-enzyme (ALT, AST), oxidative-stress and inflammation markers and reduced liver-cell death.",
     keyResults: [
-      "60% reduction in liver damage markers",
-      "Improved antioxidant enzyme activity",
-      "Reduced inflammatory cytokines",
-      "Enhanced liver regeneration"
+      "Lower ALT and AST liver-enzyme markers in mice",
+      "Reversed glutathione depletion",
+      "Reduced inflammatory cytokines (TNF-α, IL-1β)",
+      "Less liver-tissue apoptosis and necrosis"
     ],
-    methodology: "Randomized, double-blind, placebo-controlled trial",
-    dosage: "400mg twice daily",
-    significance: "First study showing DHM protection against drug-induced hepatotoxicity",
+    methodology: "Controlled mouse study (acetaminophen-induced liver injury)",
+    dosage: "Animal dosing (see paper)",
+    significance: "Animal evidence that DHM may protect the liver from acetaminophen toxicity; not tested in people",
     pmid: "1934578X221114234",
     pubmedUrl: "https://journals.sagepub.com/doi/full/10.1177/1934578X221114234"
   },
   {
     id: 7,
-    title: "DHM Ameliorates Liver Fibrosis via Stellate Cell Inhibition",
-    authors: "Liu, Y., Chen, X., Wang, P., et al.",
+    title: "Dihydromyricetin Ameliorates Liver Fibrosis via Inhibition of Hepatic Stellate Cells by Inducing Autophagy and Natural Killer Cell-Mediated Killing Effect",
+    authors: "Zhou, X., Yu, L., Zhou, M., et al.",
     journal: "Nutrition & Metabolism",
     year: 2021,
     institution: "Third Military Medical University (Army Medical University)",
-    participants: 90,
-    duration: "24 weeks",
+    participants: "Animal models (mice) + cell culture",
+    duration: "Not reported here (see paper)",
     category: "liver",
-    type: "Human Clinical Trial",
-    findings: "DHM effectively prevented liver fibrosis progression by inhibiting hepatic stellate cell activation.",
+    type: "Preclinical Study",
+    findings: "In a chemically induced liver-fibrosis mouse model, DHM reduced liver scarring and liver-enzyme markers, partly by switching off hepatic stellate cells.",
     keyResults: [
-      "50% reduction in fibrosis markers",
-      "Improved liver architecture",
-      "Reduced collagen deposition",
-      "Enhanced liver function"
+      "Less liver fibrosis in mice",
+      "Lower ALT liver-enzyme marker in mice",
+      "Inhibited hepatic stellate cell activation",
+      "Enhanced natural killer cell activity against stellate cells"
     ],
-    methodology: "Prospective cohort study with liver biopsy",
-    dosage: "500mg daily",
-    significance: "Breakthrough study on DHM anti-fibrotic mechanisms",
+    methodology: "Controlled mouse study (CCl4-induced fibrosis) with cell-culture experiments",
+    dosage: "Animal dosing (see paper)",
+    significance: "Animal and cell evidence for an anti-fibrotic mechanism; not tested in people",
     pmid: "s12986-021-00589-6",
     pubmedUrl: "https://nutritionandmetabolism.biomedcentral.com/articles/10.1186/s12986-021-00589-6"
   },

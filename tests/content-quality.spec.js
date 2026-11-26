@@ -80,6 +80,28 @@ test('trust: no badge claims in any post or index title / meta / excerpt', () =>
   expect(offenders, 'badge claims in SERP-visible fields').toEqual([]);
 });
 
+// A bare efficacy number ("70% reduction", "cuts X by 60%", "3x faster") in a
+// SERP-visible field must say where it comes from in the same sentence.
+// ABV / BAC / purity / "100% agave" numbers are not efficacy claims and pass.
+const EFFICACY_PCT = /\d+(\.\d+)?\s*%\s*(symptom\s+)?(reduction|less|fewer|faster|better|improvement|more effective|effective(ness)?|success|higher|lower)\b|\b(reduc|cut|lower|improv|boost|decreas|increas|restor|speed)\w*\b[^.%]{0,40}?\bby\s+(up\s+to\s+|about\s+)?\d+(\.\d+)?\s*%|\b\d+(\.\d+)?\s*x\s+(faster|better|more|stronger|higher)\b/i;
+const EFFICACY_QUALIFIER = /\b(stud(y|ies)|trial|rats?|mice|animal|small)\b/i;
+
+test('trust: no unsourced efficacy percentages in any post or index title / meta / excerpt', () => {
+  const offenders = [];
+  const check = (where, rec) => {
+    for (const k of ['title', 'metaDescription', 'excerpt', 'description', 'quickAnswer']) {
+      const v = rec[k];
+      if (typeof v !== 'string') continue;
+      for (const sentence of v.split(/(?<=[.!?])\s+/)) {
+        if (EFFICACY_PCT.test(sentence) && !EFFICACY_QUALIFIER.test(sentence)) offenders.push(`${where} [${k}]: ${sentence.slice(0, 90)}`);
+      }
+    }
+  };
+  for (const f of readdirSync(POSTS).filter((f) => f.endsWith('.json'))) check(f, readJSON(join(POSTS, f)));
+  for (const e of readJSON(INDEX) || []) check(`index:${e.slug}`, e);
+  expect(offenders, 'efficacy percentages without a named source in SERP-visible fields').toEqual([]);
+});
+
 for (const slug of NEW_CONTENT) {
   test.describe(`content quality — ${slug}`, () => {
     const post = readJSON(join(POSTS, `${slug}.json`));

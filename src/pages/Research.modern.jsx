@@ -168,21 +168,21 @@ export default function ResearchModern() {
     },
     {
       icon: <Shield aria-hidden="true" />,
-      title: '45% Reduction',
-      subtitle: 'in liver enzyme damage markers',
-      study: 'USC 2020'
+      title: 'Lower Liver Enzymes',
+      subtitle: 'in mice fed alcohol (no human data)',
+      study: 'USC 2020 · animal study'
     },
     {
       icon: <Brain aria-hidden="true" />,
-      title: '50% Less Fibrosis',
-      subtitle: 'in liver scarring markers',
-      study: 'Army Medical University 2021'
+      title: 'Less Liver Scarring',
+      subtitle: 'in a mouse fibrosis model',
+      study: 'Army Medical University 2021 · animal study'
     },
     {
       icon: <Heart aria-hidden="true" />,
-      title: '60% Reduction',
-      subtitle: 'in liver toxicity markers',
-      study: 'Jilin University 2022'
+      title: 'Less Drug Liver Injury',
+      subtitle: 'in mice given toxic acetaminophen',
+      study: 'Jilin Medical University 2022 · animal study'
     }
   ]
 
@@ -322,7 +322,7 @@ export default function ResearchModern() {
               </h3>
               <ul style={{ margin: 0 }}>
                 <li><strong>{humanTrialCount} human clinical trials</strong> in this list</li>
-                <li><strong>30 to 150 participants</strong> each, where reported</li>
+                <li><strong>30 to 60 participants</strong> each, where reported</li>
                 <li><strong>Mostly liver and metabolic outcomes</strong></li>
                 <li><strong>One hangover trial</strong>, using a DHM-containing extract</li>
               </ul>
