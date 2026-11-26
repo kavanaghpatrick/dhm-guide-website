@@ -125,8 +125,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
   switch (pageType) {
     case 'home':
       return {
-        title: 'DHM Guide: Prevent Hangovers with Science-Backed Supplements',
-        description: 'UCLA-proven hangover prevention. DHM blocks 70% of symptoms in clinical trials. Expert reviews, dosage guides, and 11 studies. Never wake up hungover.',
+        title: 'DHM Guide: DHM Supplements Compared on Dose, Price and Evidence',
+        description: 'What the research says about DHM for hangovers, and the three DHM supplements we rank highest, with the dose and price per serving of each.',
         keywords: 'hangover prevention, hangover cure, never hungover again, stop hangovers, hangover remedy, DHM, dihydromyricetin, anti-hangover supplement, wake up feeling great, alcohol recovery',
         canonicalUrl: baseUrl,
         ogImage: `${baseUrl}/og-image.webp`,
@@ -136,8 +136,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'guide':
       return {
-        title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
-        description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
+        title: 'The Complete Guide to DHM: Dose, Timing and Evidence',
+        description: 'How much DHM to take and when, what the rat, mouse and human studies found, who should skip it, and what a dose costs.',
         keywords: 'hangover prevention guide, stop hangovers, never wake up hungover, hangover cure guide, DHM dosage, hangover prevention strategies',
         canonicalUrl: `${baseUrl}/guide`,
         ogImage: `${baseUrl}/dhm-guide-featured.webp`,
@@ -145,8 +145,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Complete DHM Guide 2026: Science-Backed Hangover Prevention",
-            "description": "Master DHM (Dihydromyricetin) with our comprehensive 2026 guide. Clinical research, dosage protocols, safety data, and expert recommendations.",
+            "headline": "The Complete Guide to DHM: Dose, Timing and Evidence",
+            "description": "How much DHM to take and when, what the rat, mouse and human studies found, who should skip it, and what a dose costs.",
             "author": {
               "@type": "Organization",
               "name": "DHM Guide"

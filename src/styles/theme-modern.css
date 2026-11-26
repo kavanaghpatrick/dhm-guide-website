@@ -37,7 +37,7 @@
   --color-star:         #E8A317; /* warm gold — star-rating convention, distinct from CTA orange */
 
   /* Derived ink-on-color text helpers */
-  --color-on-cta:       #FFFFFF;
+  --color-on-cta:       #1A1D1A; /* ink on orange is 6.1:1; white was 2.8:1 */
   --color-on-brand:     #FFFFFF;
 
   /* --- Typography ---
