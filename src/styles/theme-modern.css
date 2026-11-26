@@ -1353,13 +1353,11 @@
      (4 × 200px columns + factor column) is wider than its container, so the
      region genuinely scrolls. macOS/iOS overlay scrollbars stay hidden until a
      scroll gesture, which made the trailing column read as truncated rather than
-     scrollable. Two affordances fix that:
-       1. An ALWAYS-VISIBLE thin scrollbar (theme-tinted) so the region is
-          obviously scrollable at rest.
-       2. A right-edge fade cue that only appears while there's more content to
-          the right (scroll-driven mask; progressive enhancement — where
-          animation-timeline: scroll() is unsupported the scrollbar alone
-          carries the affordance). */
+     scrollable. The fix is an ALWAYS-VISIBLE thin scrollbar (theme-tinted) so
+     the region is obviously scrollable at rest. (A scroll-driven right-edge
+     fade used to sit here too, but its @keyframes was nested inside
+     .theme-modern, which browsers ignore, so it never ran; removed with the
+     Vite 8 upgrade, whose CSS minifier rejects that nesting.) */
   .compare-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -1376,21 +1374,6 @@
     border-radius: var(--radius-pill);
   }
 
-  @supports (animation-timeline: scroll(self inline)) {
-    .compare-scroll {
-      /* Fade the right edge; the mask animates from "faded" (more to the right)
-         to "no fade" (scrolled to the end), driven by this element's own
-         horizontal scroll position — no JS. */
-      animation: compare-scroll-fade linear;
-      animation-timeline: scroll(self inline);
-    }
-    @keyframes compare-scroll-fade {
-      /* At scroll start (more content to the right): fade the right edge. */
-      from { mask-image: linear-gradient(to right, #000 82%, transparent 100%); }
-      /* Near the end: keep a full-opacity edge (nothing more to scroll to). */
-      to   { mask-image: linear-gradient(to right, #000 100%, #000 100%); }
-    }
-  }
   .compare .row-winner td { box-shadow: inset 3px 0 0 0 var(--color-brand); } /* green winner marker — orange reserved for CTAs */
 
   /* "+N more" overflow indicator (e.g. ingredient lists). A muted, lowercase

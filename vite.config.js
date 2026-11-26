@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import viteImagemin from 'vite-plugin-imagemin'
 
 // https://vite.dev/config/
 // Last updated: 2025-06-28 - Triggering deployment after subscription upgrade
@@ -10,58 +9,14 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Enhanced image optimization plugin for dramatic size reduction
-    viteImagemin({
-      gifsicle: {
-        optimizationLevel: 7,
-        interlaced: false,
-      },
-      mozjpeg: {
-        quality: 75,
-        progressive: true,
-      },
-      pngquant: {
-        quality: [0.5, 0.7],
-        speed: 1,
-        floyd: 0.5,
-      },
-      webp: {
-        quality: 75,
-        method: 6,
-      },
-    }),
   ],
-  esbuild: {
-    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
-  },
   base: '/',
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   build: {
-    // Code splitting for better performance
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Separate vendor libraries
-          vendor: ['react', 'react-dom'],
-          // UI components
-          ui: [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip'
-          ],
-          // Utilities
-          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
-          // Icons and animations
-          icons: ['lucide-react', 'framer-motion'],
-          // Markdown and content
-          content: ['react-markdown', 'remark-gfm']
-        }
-      }
-    },
     // Enhanced minification and compression for SEO performance
     minify: 'terser',
     terserOptions: {
