@@ -281,7 +281,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     const contentStr = typeof post.content === 'string' ? cleanMarkdown(post.content) : '';
     const paragraphMatch = contentStr.match(/^[^#\n].*?(?=\n\n|\n#|$)/m);
     if (paragraphMatch) {
-      safeFirstParagraph = escapeHtml(paragraphMatch[0].replace(/[*_`]/g, ''));
+      safeFirstParagraph = escapeHtml(paragraphMatch[0].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/^>\s*/, '').replace(/[*_`]/g, ''));
     }
   }
   
