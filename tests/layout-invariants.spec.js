@@ -34,12 +34,11 @@ import { test, expect } from '@playwright/test';
  *   Defaults to the local dev server (playwright.config.js webServer). Point at
  *   any environment (incl. still-broken PROD) to prove a regression:
  *     BASE_URL=https://www.dhmguide.com npx playwright test tests/layout-invariants.spec.js
- *   When BASE_URL is set, we do NOT use the localhost storageState seed; instead
- *   we force the shipped modern arm via the ?exp_ override on every route.
+ *   The modern pages render unconditionally (the A/B wrapper is gone), so no
+ *   variant override or storage seed is needed.
  */
 
 const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL.replace(/\/$/, '') : '';
-const EXP = 'exp_site-modern-v1=modern';
 
 // Routes to guard. The primary shipped pages a user actually lands on.
 // SEMICOLON-separated (not comma) so a route may carry a comma-listed query,
@@ -76,9 +75,7 @@ const SCROLLHEIGHT_GROWTH_MAX = 1.5; // documentElement height must not >1.5x af
 
 function buildUrl(route) {
   const base = BASE_URL || 'http://localhost:5173';
-  const sep = route.includes('?') ? '&' : '?';
-  // Always force the shipped modern arm so we test what users see.
-  return `${base}${route}${sep}${EXP}`;
+  return `${base}${route}`;
 }
 
 /**
@@ -287,10 +284,6 @@ for (const route of ROUTES) {
   for (const width of WIDTHS) {
     test.describe(`layout invariants — ${route} @ ${width}px`, () => {
       test.use({ viewport: { width, height: VIEWPORT_H } });
-      // When targeting an external BASE_URL (e.g. prod), drop the localhost
-      // storageState seed (it's origin-scoped to localhost anyway) and rely on
-      // the ?exp_ override to force the modern arm.
-      if (BASE_URL) test.use({ storageState: { cookies: [], origins: [] } });
 
       test('page has no horizontal overflow, no header overlap, no blank band, no clipped table, no large late shift', async ({ page }) => {
         await armCLS(page);

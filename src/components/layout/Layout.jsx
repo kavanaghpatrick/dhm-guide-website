@@ -6,7 +6,6 @@ import { useRouter } from '@/hooks/useRouter'
 import { useHeaderHeight } from '@/hooks/useHeaderHeight'
 import StickyMobileCTA from '@/components/StickyMobileCTA'
 import { useFeatureFlag } from '@/hooks/useFeatureFlag'
-import { useModernExperiment } from '@/lib/experiment'
 import clusterConfig from '../../../scripts/cluster-config.json'
 import '../../styles/theme-modern.css'
 
@@ -96,10 +95,7 @@ function Layout({ children }) {
   // The shared header CTA navigates to /reviews — it is NOT an affiliate/buy CTA, so
   // it must NEVER use the reserved conversion orange. It renders as a calm, single-tone
   // deep brand green (the "trust" accent) via theme-modern tokens on the .btn base,
-  // consistent with the shipped modern chrome. `useModernExperiment` is still consumed
-  // for parity with the rest of the file (and any future variant gating), but the CTA
-  // treatment is now unconditionally modern/green on the restyled chrome.
-  useModernExperiment()
+  // consistent with the shipped modern chrome.
   // Solid brand-strong green fill with white text (7.1:1 contrast, AA); no gradient,
   // no orange. Applied on top of the theme-modern `.btn` base (44px min target, radius).
   const navCtaGreenStyle = {

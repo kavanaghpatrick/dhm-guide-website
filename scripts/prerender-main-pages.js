@@ -10,7 +10,7 @@ import {
 } from '../src/utils/structuredDataHelpers.js';
 import { researchStudies } from '../src/data/research-studies.js';
 
-// Shared product data — same JSON imported by src/pages/Reviews.jsx so the
+// Shared product data — same JSON imported by src/pages/Reviews.modern.jsx so the
 // ItemList schema on /reviews stays in sync with the visible ranked list.
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const topProducts = JSON.parse(
@@ -175,9 +175,9 @@ const pages = [
   {
     route: '/about',
     title: 'About DHM Guide | Hangover Prevention Resource',
-    description: 'DHM Guide: Your resource for science-backed hangover prevention since 2020. We analyze clinical research and test supplements to provide unbiased guidance.',
+    description: 'Who runs DHM Guide, how we pick the studies we cite, how we compare supplements on dose and price, and how we make money from affiliate links.',
     ogImage: '/about-og.jpg',
-    bodyStub: '<h1>About DHM Guide</h1><p>DHM Guide has been your resource for science-backed hangover prevention since 2020. We analyze peer-reviewed clinical research and lab-test supplements.</p><p>Our mission is unbiased, expert guidance: clear dosing recommendations, honest product reviews, and accessible explanations of the science behind DHM.</p>'
+    bodyStub: '<h1>About DHM Guide</h1><p>DHM Guide explains what the published research says about DHM (dihydromyricetin) and hangovers, and compares DHM supplements on dose, price per serving and Amazon ratings. We do not lab-test products.</p><p>We earn a commission when you buy through our Amazon links. That never changes how a product ranks.</p>'
   },
   {
     route: '/dhm-dosage-calculator',
@@ -228,8 +228,8 @@ const pages = [
   },
   {
     route: '/never-hungover',
-    title: 'Never Hungover: Master Science-Backed Hangover Prevention',
-    description: 'Learn how to never wake up hungover again. Expert guides on DHM, proven prevention strategies, and cutting-edge research. Master the hangover-free lifestyle.',
+    title: 'Never Hungover: Articles on DHM, Hangovers and Drinking',
+    description: 'Articles on DHM dosing and timing, what the hangover research found, supplement comparisons, and how alcohol affects sleep, the liver and mood.',
     ogImage: '/og-image.jpg',
     bodyStub: '<h1>Never Hungover</h1><p>Evidence-based articles on DHM, hangover prevention, liver health, and smarter drinking.</p><p>Guides on DHM dosing and timing, clinical research, supplement comparisons, and recovery strategies.</p>'
   },
