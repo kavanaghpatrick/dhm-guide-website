@@ -60,6 +60,40 @@
   --text-small:   0.875rem;
   --text-eyebrow: 0.75rem;
 
+  /* --- Editorial scale (blog design brief 2.2). One fluid scale, no
+         in-between sizes. Pinned by scripts/verify-blog-tokens.mjs; change the
+         contract there on purpose. --text-body / --text-small take their
+         editorial values (18-19px / 16px) on the blog roots only, see the
+         [data-blog] block below, so chrome and other pages keep 17px / 14px. */
+  --text-display:    clamp(2.5rem, 1.75rem + 3vw, 4.25rem);     /* 40-68px hub H1 */
+  --text-title:      clamp(2.125rem, 1.6rem + 2.1vw, 3.25rem);  /* 34-52px post H1 */
+  --text-heading:    clamp(1.625rem, 1.35rem + 1.1vw, 2.125rem);/* 26-34px h2 */
+  --text-subheading: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);   /* 20-24px h3, tiles */
+  --text-lead:       clamp(1.25rem, 1.17rem + 0.35vw, 1.4375rem);/* 20-23px standfirst */
+  --text-label:      0.8125rem;                                 /* 13px eyebrow, <=4 words */
+
+  /* --- Measure (brief 2.5). em, not ch: 68ch on Inter set ~80 chars. --- */
+  --measure-prose: 36em;   /* body text, 66-72 chars */
+  --measure-lead:  30em;   /* standfirst */
+  --measure-wide:  46rem;  /* tables / column width */
+
+  /* --- Editorial palette (brief 2.3): one ink, one accent, one conversion
+         colour. --color-rule renames --color-border for hairlines;
+         --color-accent is the old brand-strong (6.7:1 on paper). --- */
+  --color-rule:        #E7E3DB;
+  --color-accent:      #166534;
+  --color-accent-soft: #ECF3EE;
+
+  /* --- Vertical rhythm (brief 2.4): one 30px body line, gaps in half/whole
+         multiples. Horizontal spacing keeps the 4px --space-* scale. --- */
+  --l:   1.875rem;
+  --s0:  calc(var(--l) * 0.5);   /* 15  heading to its first line */
+  --s1:  var(--l);               /* 30  paragraph to paragraph */
+  --s1h: calc(var(--l) * 1.5);   /* 45  above an h3 */
+  --s2:  calc(var(--l) * 2);     /* 60  above an h2 */
+  --s3:  calc(var(--l) * 3);     /* 90  article end to related */
+  --s4:  calc(var(--l) * 4);     /* 120 */
+
   --leading-tight: 1.05;   /* h1 */
   --leading-snug:  1.15;   /* h2/h3 */
   --leading-body:  1.6;    /* body — relaxed editorial measure */
@@ -259,6 +293,30 @@
 
   .text-soft  { color: var(--color-ink-soft); }
   .text-brand { color: var(--color-brand); }
+
+  /* Editorial type-scale utilities (brief 2.2). One class per scale step;
+     size, leading and tracking travel together so nothing drifts. */
+  .t-display, .t-title, .t-heading, .t-subheading {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  .t-display    { font-size: var(--text-display);    line-height: 1.05; letter-spacing: -0.02em; }
+  .t-title      { font-size: var(--text-title);      line-height: 1.1;  letter-spacing: -0.015em; }
+  .t-heading    { font-size: var(--text-heading);    line-height: 1.2;  letter-spacing: -0.01em; }
+  .t-subheading { font-size: var(--text-subheading); line-height: 1.3;  letter-spacing: -0.005em; font-weight: 550; }
+  .t-lead  { font-family: var(--font-sans); font-size: var(--text-lead);  line-height: 1.5; }
+  .t-body  { font-family: var(--font-sans); font-size: var(--text-body);  line-height: 1.65; }
+  .t-small { font-family: var(--font-sans); font-size: var(--text-small); line-height: 1.5; }
+  .t-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
 
   /* ----------------------------------------------------------------------
      5. BUTTONS
@@ -1723,184 +1781,183 @@
 
   .article-body,
   .prose-modern {
-    /* Reading measure + base rhythm. `ch` is relative to the body font, so
-       ~68ch on Inter ≈ a comfortable 60–75-char editorial line. The container
-       centers itself; page layout still controls outer gutters. */
-    max-width: 68ch;
-    margin-inline: auto;
+    /* Editorial reading column (blog design brief 2.2-2.5). The measure is in
+       em at the body size (36em = 66-72 chars); 68ch on Inter set ~80. Left
+       aligned so the H1, standfirst and body share one left edge. Every size
+       is a scale token and every vertical gap a --s* line multiple. */
+    /* 37.5em, not the 36em token: tests/blog-design.spec.js requires >= 55ch
+       (Inter's wide zero), which 36em misses by 2ch. 37.75em sets ~74 chars. */
+    max-width: 37.75em;
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 1.125rem;              /* 18px editorial body — up from 17px UI */
-    line-height: 1.7;                 /* relaxed reading leading */
+    font-size: var(--text-body);
+    line-height: 1.65;
     font-weight: 400;
     text-rendering: optimizeLegibility;
 
-    /* ---- Vertical rhythm: children flow with a shared top margin, collapsed
-            at the very start so the body opens flush with its first element. --- */
-    & > * { margin-top: 0; }
-    & > * + * { margin-top: var(--space-6); }
+    /* ---- Vertical rhythm: one body line between blocks. ---- */
+    & > * { margin-top: 0; margin-bottom: 0; }
+    & > * + * { margin-top: var(--s1); }
     & > :first-child { margin-top: 0; }
-    & > :last-child { margin-bottom: 0; }
 
     /* ---- Paragraphs ---- */
     p {
       margin: 0;
       max-width: none;                /* the container already caps the measure */
       color: var(--color-ink);
+      text-wrap: pretty;
     }
 
-    /* ---- Headings: Fraunces display, SOLID ink, generous space-before.
-            The article <h1> is rendered ONCE by the page shell (not the body);
-            body headings are h2/h3(/h4). Extra top margin creates section
-            separation without relying on borders. ---- */
+    /* ---- Headings: Fraunces, solid ink, no rules. Space above is at least
+            three times the space below, so a heading belongs to what follows. */
     h2, h3, h4 {
       font-family: var(--font-display);
-      color: var(--color-ink);        /* solid — never gradient clip-text */
-      font-weight: 600;
+      color: var(--color-ink);
       text-wrap: balance;
-      scroll-margin-top: 6rem;        /* TOC anchor jumps clear the fixed header */
+      max-width: 20em;
+      scroll-margin-top: 7rem;        /* TOC anchor jumps clear the fixed header */
     }
     h2 {
-      margin-top: var(--space-12);
-      margin-bottom: var(--space-4);
-      font-size: clamp(1.625rem, 2.5vw, 2rem);
-      line-height: var(--leading-snug);
-      letter-spacing: -0.015em;
-      padding-bottom: var(--space-3);
-      border-bottom: 1px solid var(--color-border);  /* quiet section rule */
-    }
-    h3 {
-      margin-top: var(--space-8);
-      margin-bottom: var(--space-3);
-      font-size: 1.375rem;
-      line-height: var(--leading-snug);
+      margin-top: var(--s2);
+      margin-bottom: var(--s0);
+      font-size: var(--text-heading);
+      font-weight: 500;
+      line-height: 1.2;
       letter-spacing: -0.01em;
     }
-    h4 {
-      margin-top: var(--space-6);
-      margin-bottom: var(--space-2);
-      font-size: 1.125rem;
+    h3 {
+      margin-top: var(--s1h);
+      margin-bottom: var(--s0);
+      font-size: var(--text-subheading);
+      font-weight: 550;
       line-height: 1.3;
       letter-spacing: -0.005em;
     }
-    /* First heading opens flush (no giant gap under the article header). */
-    & > h2:first-child,
-    & > h3:first-child,
-    & > h4:first-child { margin-top: 0; }
+    /* h4 is a run-in label in Inter, not a display moment. */
+    h4 {
+      margin-top: var(--s1);
+      margin-bottom: var(--s0);
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      font-weight: 600;
+      line-height: 1.4;
+      max-width: none;
+    }
+    & > :is(h2, h3, h4) + * { margin-top: 0; }
+    & > :is(h2, h3, h4):first-child { margin-top: 0; }
 
-    /* ---- Links: editorial blue with a comfortable underline offset. In-article
-            links are NAVIGATION/reference, never conversion — they stay blue and
-            NEVER take the orange CTA color (buy CTAs opt into .btn-cta). ---- */
-    a:not(.btn) {
-      color: var(--color-info);
+    /* ---- Links: the one accent, underlined (colour is never the only cue).
+            In-article links are reference, never conversion: buy buttons opt
+            into .btn-cta explicitly. ---- */
+    a:not(.btn):not(.not-prose a),
+    .post-anchor {
+      color: var(--color-accent);
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 0.18em;
-      text-decoration-color: color-mix(in srgb, var(--color-info) 40%, transparent);
+      text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
       transition: color var(--transition), text-decoration-color var(--transition);
+      cursor: pointer;
     }
-    a:not(.btn):hover {
+    a:not(.btn):not(.not-prose a):hover,
+    .post-anchor:hover {
       color: var(--color-ink);
       text-decoration-color: currentColor;
+    }
+    /* External-link glyph sits inline with the text (base rule makes svg block). */
+    a:not(.btn) svg {
+      display: inline-block;
+      width: 0.7em;
+      height: 0.7em;
+      margin-left: 0.2em;
+      vertical-align: baseline;
     }
 
     /* ---- Emphasis ---- */
     strong, b { font-weight: 600; color: var(--color-ink); }
     em, i { font-style: italic; }
     mark {
-      background: var(--color-brand-soft);
-      color: var(--color-brand-strong);
-      padding: 0.05em 0.25em;
-      border-radius: var(--radius-sm);
+      background: var(--color-accent-soft);
+      color: var(--color-ink);
+      padding: 0.05em 0.2em;
     }
 
-    /* ---- Lists: hanging bullets, tokenised markers, breathing room. ---- */
+    /* ---- Lists: hanging markers in the accent. ---- */
     ul, ol {
-      margin: 0;
-      padding-left: 1.5rem;
+      padding-left: 1.4em;
       color: var(--color-ink);
     }
     ul { list-style: disc; }
     ol { list-style: decimal; }
-    li { margin: 0 0 var(--space-2); padding-left: 0.25rem; }
-    li::marker { color: var(--color-brand); }        /* brand-green markers */
-    ol > li::marker { color: var(--color-ink-soft); font-weight: 600; }
-    li:last-child { margin-bottom: 0; }
-    /* Nested lists tighten up and inherit spacing. */
-    li > ul, li > ol { margin-top: var(--space-2); margin-bottom: 0; }
+    li { margin: 0; padding-left: 0.2em; text-wrap: pretty; }
+    li + li { margin-top: calc(var(--s0) * 0.6); }
+    li::marker { color: var(--color-accent); }
+    ol > li::marker { font-weight: 600; font-variant-numeric: tabular-nums; }
+    li > ul, li > ol { margin-top: calc(var(--s0) * 0.6); }
+    li > p + p { margin-top: var(--s0); }
 
-    /* ---- Blockquote: brand-green rule + soft surface, NOT a gradient banner. --- */
+    /* ---- Blockquote: a 2px accent rule, no fill, no box. ---- */
     blockquote {
-      margin: 0;
-      padding: var(--space-4) var(--space-6);
-      border-left: 3px solid var(--color-brand);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      background-color: var(--color-brand-soft);
+      padding-left: var(--space-6);
+      border-left: 2px solid var(--color-accent);
       color: var(--color-ink);
       font-style: normal;
     }
-    blockquote > :first-child { margin-top: 0; }
-    blockquote > :last-child { margin-bottom: 0; }
+    blockquote > * + * { margin-top: var(--s0); }
     blockquote p { color: var(--color-ink); }
     blockquote cite {
       display: block;
-      margin-top: var(--space-2);
+      margin-top: var(--s0);
       font-size: var(--text-small);
       font-style: normal;
       color: var(--color-ink-soft);
     }
 
-    /* ---- Images / figures: rounded, bordered, centered with a caption slot. --- */
+    /* ---- Images: plain rectangles, small radius, no border or shadow. ---- */
     img {
       display: block;
       max-width: 100%;
       height: auto;
-      margin-inline: auto;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
+      border-radius: var(--radius-sm);
     }
     figure { margin: 0; }
-    figure img { margin-bottom: var(--space-2); }
     figcaption {
+      margin-top: var(--s0);
       font-size: var(--text-small);
       line-height: 1.5;
       color: var(--color-ink-soft);
-      text-align: center;
     }
 
-    /* ---- Horizontal rule ---- */
+    /* ---- Section break: a short centred hairline, not a full-width rule. ---- */
     hr {
+      width: 4rem;
+      margin-block: var(--s2);
+      margin-inline: auto;
       border: 0;
-      border-top: 1px solid var(--color-border);
-      margin-block: var(--space-8);
+      border-top: 1px solid var(--color-ink-soft);
     }
+    & > hr + * { margin-top: 0; }
 
-    /* ---- Inline code + code blocks: surface bg, mono, no horizontal overflow.
-            <pre> scrolls within its own box so long code never widens the page
-            (mobile 320/375/414 safety). ---- */
+    /* ---- Code: quiet tint, never under 16px. ---- */
     code, kbd, samp {
       font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono",
                    Menlo, Consolas, monospace;
-      font-size: 0.9em;
+      font-size: max(1rem, 0.9em);
     }
     :not(pre) > code {
-      padding: 0.15em 0.4em;
-      background-color: var(--color-brand-soft);
-      color: var(--color-brand-strong);
-      border: 1px solid var(--color-border);
+      padding: 0.1em 0.3em;
+      background-color: color-mix(in srgb, var(--color-rule) 60%, transparent);
+      color: var(--color-ink);
       border-radius: var(--radius-sm);
-      white-space: break-spaces;      /* wrap long inline tokens, don't overflow */
+      white-space: break-spaces;
       word-break: break-word;
     }
     pre {
-      margin: 0;
       padding: var(--space-4);
       background-color: var(--color-ink);
-      color: #F4F2EC;                 /* paper-warm ink-on-dark for AA on code */
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      overflow-x: auto;               /* code scrolls in its box, not the page */
-      -webkit-overflow-scrolling: touch;
+      color: #F4F2EC;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
       font-size: var(--text-small);
       line-height: 1.6;
       tab-size: 2;
@@ -1908,84 +1965,69 @@
     pre code {
       padding: 0;
       background: none;
-      border: 0;
       color: inherit;
       font-size: inherit;
-      white-space: pre;               /* preserve code formatting */
+      white-space: pre;
       word-break: normal;
     }
     kbd {
       padding: 0.1em 0.4em;
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--color-rule);
       border-bottom-width: 2px;
       border-radius: var(--radius-sm);
-      font-size: 0.85em;
       color: var(--color-ink);
     }
 
-    /* ---- Tables: bordered, zebra-striped, brand-soft header. Wide tables get a
-            horizontal scroll via the .table-scroll wrapper below (mobile safety).
-            The table itself never forces the page wider than the viewport. ---- */
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      overflow: hidden;               /* clip zebra fills to the rounded corners */
-      font-size: var(--text-small);
-      line-height: 1.5;
-    }
-    th, td {
-      padding: 0.625rem 0.875rem;
-      text-align: left;
-      vertical-align: top;
-      border-bottom: 1px solid var(--color-border);
-    }
-    thead th {
-      background-color: var(--color-brand-soft);
-      color: var(--color-brand-strong);
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: var(--text-eyebrow);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
-    tbody tr:nth-child(even) td { background-color: var(--color-paper); }  /* zebra */
-    tbody tr:last-child td { border-bottom: 0; }
-    tbody tr:hover td { background-color: var(--color-brand-soft); }
-    /* In-cell links stay blue but drop the underline until hover for scannability. */
-    td a, th a { text-decoration: none; }
-    td a:hover, th a:hover { text-decoration: underline; }
-
-    /* Wide tables/pre/images should scroll in their own box, never the viewport.
-       Wrap a wide <table> in <div class="table-scroll"> to opt in. */
+    /* ---- Tables: hairline rows only, no vertical lines, no zebra, header
+            row set apart by a darker rule. Text is --text-small (16px). ---- */
+    /* Markdown tables only (the renderer wraps each in .table-scroll), so
+       component tables such as InlineComparisonTable keep their own styling. */
     .table-scroll {
-      width: 100%;
-      max-width: 100%;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--text-small);
+        line-height: 1.5;
+        font-variant-numeric: tabular-nums;
+      }
+      th, td {
+        min-width: 7rem;                 /* 3 columns fit a phone; more scroll */
+        padding: 0.75rem 1rem 0.75rem 0;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--color-rule);
+      }
+      th:last-child, td:last-child { padding-right: 0; }
+      thead th {
+        color: var(--color-ink);
+        font-weight: 600;
+        border-bottom: 1px solid var(--color-ink-soft);
+        vertical-align: bottom;
+      }
+      tbody tr:last-child td { border-bottom: 0; }
+      td a, th a { text-decoration-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+    }
+
+    /* Tables scroll in their own box, never the page, and may run wider than
+       the text measure (up to --measure-wide). The scroll is signposted with
+       edge shadows that only appear while there is more table to see (pure
+       CSS: the paper-coloured covers scroll with the content and uncover the
+       shadows at an edge with hidden columns). */
+    .table-scroll {
+      width: min(var(--measure-wide), calc(100vw - 2 * var(--post-gutter, 1.25rem)));
+      max-width: none;
       overflow-x: auto;
+      overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-brand) var(--color-brand-soft);
+      scrollbar-color: var(--color-ink-soft) transparent;
+      background:
+        linear-gradient(to right, var(--color-paper) 30%, transparent) left / 2.5rem 100% no-repeat local,
+        linear-gradient(to left, var(--color-paper) 30%, transparent) right / 2.5rem 100% no-repeat local,
+        radial-gradient(farthest-side at 0 50%, rgb(26 29 26 / 0.14), transparent) left / 0.875rem 100% no-repeat scroll,
+        radial-gradient(farthest-side at 100% 50%, rgb(26 29 26 / 0.14), transparent) right / 0.875rem 100% no-repeat scroll;
     }
-    .table-scroll table { min-width: 32rem; }   /* let columns keep width, scroll */
-    .table-scroll::-webkit-scrollbar { height: 8px; }
-    .table-scroll::-webkit-scrollbar-track {
-      background: var(--color-brand-soft);
-      border-radius: var(--radius-pill);
-    }
-    .table-scroll::-webkit-scrollbar-thumb {
-      background: var(--color-brand);
-      border-radius: var(--radius-pill);
-    }
-
-    /* First-child of the body opens flush regardless of element type. */
-    & > p:first-child,
-    & > ul:first-child,
-    & > ol:first-child,
-    & > blockquote:first-child { margin-top: 0; }
+    .table-scroll:focus-visible { outline-offset: 4px; }
   }
 
   /* ----------------------------------------------------------------------
@@ -2115,6 +2157,356 @@
   .prose-modern .callout { max-width: none; }
   .article-body .callout > *,
   .prose-modern .callout > * { margin-top: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   16. BLOG ROOTS + POST LAYOUT (blog design brief, Nov 2026)
+   --------------------------------------------------------------------------
+   [data-blog] marks the .theme-modern page root of the blog post and hub
+   (inside <main>, so the chrome's own .theme-modern is never matched). The
+   editorial body and small sizes apply here only; every other page keeps the
+   17px / 14px UI values from section 1.
+   -------------------------------------------------------------------------- */
+main .theme-modern[data-blog] {
+  --text-body:  clamp(1.125rem, 1.09rem + 0.15vw, 1.1875rem); /* 18-19px */
+  --text-small: 1rem;                                        /* 16px floor */
+
+  & :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+@media (max-width: 700px) {
+  .theme-modern {
+    --s3: calc(var(--l) * 2.5);
+    --s4: calc(var(--l) * 3);
+  }
+}
+
+/* The post page. One reading column (--measure-wide) with a single left edge
+   for eyebrow, H1, standfirst, byline and body; the TOC sits in the left
+   margin on wide screens and collapses above the body on narrow ones.
+   No boxes, shadows or motion around the article (CLAUDE.md pattern 14). */
+main .theme-modern[data-blog="post"] {
+  --post-gutter: 1.25rem;
+  /* Buy-button label: ink on the unchanged orange is 6.1:1 (white was 2.8:1,
+     failing WCAG AA). The button colour itself does not change. */
+  --color-on-cta: var(--color-ink);
+  min-height: 100vh;
+
+  .post-shell {
+    max-width: calc(var(--measure-wide) + 2 * var(--post-gutter));
+    margin-inline: auto;
+    padding: var(--s1h) var(--post-gutter) var(--s3);
+  }
+  .post { position: relative; }
+
+  /* ---- Head block ---- */
+  .post-crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .post-crumbs a:hover { color: var(--color-ink); }
+
+  .post-title {
+    margin: var(--space-2) 0 0;
+    max-width: 20em;
+    font-family: var(--font-display);
+    font-size: var(--text-title);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  .post-lead {
+    margin: var(--s0) 0 0;
+    max-width: var(--measure-lead);
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+  }
+  .post-byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--space-4);
+    margin-top: var(--s1);
+    font-size: var(--text-small);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+  }
+  /* Middle-dot separators only where the byline fits on one line; on phones
+     it wraps, and a dot would start the second line. */
+  @media (min-width: 40rem) {
+    .post-byline > * + *::before {
+      content: "\00B7";
+      margin-right: var(--space-3);
+    }
+  }
+  .post-share {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-underline-offset: 0.18em;
+    cursor: pointer;
+  }
+  .post-share:hover { color: var(--color-ink); }
+  .post-disclosure {
+    margin: var(--space-2) 0 0;
+    max-width: var(--measure-prose);
+    font-size: var(--text-small);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+  }
+  .post-figure { margin-top: var(--s1h); }
+  .post-figure img { width: 100%; border-radius: var(--radius-sm); }
+
+  /* ---- The one tinted block style: Quick answer + Key takeaways ---- */
+  .post-answer,
+  .post-takeaways {
+    max-width: var(--measure-prose);
+    margin-top: var(--s1h);
+    padding: var(--space-6);
+    background-color: var(--color-accent-soft);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-body);
+    line-height: 1.65;
+  }
+  .post-answer + .post-takeaways { margin-top: var(--s1); }
+  .post-block-label {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .post-answer__text {
+    margin: 0;
+    max-width: none;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+  .post-takeaways ul { margin: 0; padding-left: 1.25em; }
+  .post-takeaways li { margin: 0; padding-left: 0.2em; color: var(--color-ink); }
+  .post-takeaways li + li { margin-top: var(--space-2); }
+  .post-takeaways li::marker { color: var(--color-accent); }
+
+  .post > .article-body { margin-top: var(--s2); }
+
+  /* ---- Table of contents: H2s only, quiet. Narrow screens: a collapsed row
+          above the body. Wide screens: a sticky list in the left margin. ---- */
+  .post-toc-rail { margin-top: var(--s1h); max-width: var(--measure-prose); }
+  .post-toc__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: 48px;
+    padding: 0;
+    border: 0;
+    border-block: 1px solid var(--color-rule);
+    background: none;
+    font: 600 var(--text-small) / 1.3 var(--font-sans);
+    color: var(--color-ink);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .post-toc__toggle svg { width: 1rem; height: 1rem; transition: transform var(--transition); }
+  .post-toc__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .post-toc__label { display: none; }
+  .post-toc__list {
+    display: none;
+    margin: 0;
+    padding: var(--space-2) 0;
+    list-style: none;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .post-toc.is-open .post-toc__list { display: block; }
+  .post-toc__list li { margin: 0; }
+  .post-toc__link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: var(--space-1);
+    font-size: var(--text-small);
+    line-height: 1.35;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+  }
+  .post-toc__link:hover { color: var(--color-ink); }
+  .post-toc__link[aria-current="true"] { color: var(--color-accent); font-weight: 600; }
+
+  @media (min-width: 80rem) {
+    .post-toc-rail {
+      position: absolute;
+      inset-block: 0;
+      right: calc(100% + 3rem);
+      width: 13rem;
+      max-width: none;
+      margin: 0;
+    }
+    .post-toc {
+      position: sticky;
+      top: calc(var(--header-height, 80px) + var(--s1));
+      max-height: calc(100vh - var(--header-height, 80px) - var(--s2));
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .post-toc__toggle { display: none; }
+    .post-toc__label { display: block; margin: 0 0 var(--space-2); color: var(--color-ink-soft); }
+    .post-toc__list,
+    .post-toc.is-open .post-toc__list { display: block; padding: 0; border: 0; }
+    .post-toc__link {
+      min-height: 0;
+      padding: 0.375rem 0 0.375rem var(--space-3);
+      border-left: 2px solid var(--color-rule);
+    }
+    .post-toc__link[aria-current="true"] { border-left-color: var(--color-accent); }
+  }
+
+  /* ---- In-body blocks ---- */
+  .article-body .btn { text-decoration: none; }
+  .article-body .btn-sm { min-height: 44px; }
+  .article-body .btn-cta { box-shadow: none; }
+  /* InlineComparisonTable (shared with the control /reviews page, so adjusted
+     here, not in the component): no shadow, and no text under 16px. */
+  .article-body .compare-scroll { box-shadow: none; }
+  .article-body .not-prose :is(.text-xs, .text-sm) { font-size: var(--text-small); }
+  .article-body .not-prose a[class*="bg-orange"] { color: var(--color-on-cta); }
+
+  /* Callouts: one style, a 2px rule in the accent (amber only for warnings),
+     no fill, no border box, no icon. */
+  .callout {
+    --_c-accent: var(--color-accent);
+    display: block;
+    max-width: var(--measure-prose);
+    padding: 0 0 0 var(--space-6);
+    border: 0;
+    border-left: 2px solid var(--_c-accent);
+    border-radius: 0;
+    background: none;
+    font-size: var(--text-body);
+    line-height: 1.65;
+  }
+  .callout--warning { --_c-accent: #B45309; } /* 4.9:1 on paper */
+  .callout__icon { display: none; }
+  .callout__title {
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-small);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--_c-accent);
+  }
+  .callout--key .callout__title { color: var(--color-ink); }
+  .callout__body { font-size: var(--text-body); line-height: 1.65; }
+  .callout__body a,
+  .callout--key .callout__body a { color: var(--color-accent); }
+
+  .article-body > :is(.callout, .card-raised) { margin-block: var(--s1); }
+
+  /* Product spotlight reads like a callout, not a raised card. */
+  .article-body .card-raised {
+    padding: 0 0 0 var(--space-6);
+    border: 0;
+    border-left: 2px solid var(--color-accent);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  /* The /reviews offer: a quiet tinted block with one secondary button. */
+  .article-body > .post-offer { margin-block: var(--s2); }
+  .post-offer {
+    max-width: var(--measure-prose);
+    padding: var(--space-6);
+    background-color: var(--color-accent-soft);
+    border-radius: var(--radius-sm);
+  }
+  .post-offer__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: 550;
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .post-offer__text {
+    margin: var(--space-1) 0 var(--space-4);
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+  }
+  .post-offer .btn { color: var(--color-accent); }
+
+  /* ---- Related articles: plain tiles, one hairline above the section ---- */
+  .post-related {
+    margin-top: var(--s3);
+    padding-top: var(--s1);
+    border-top: 1px solid var(--color-rule);
+  }
+  .post-related__title {
+    margin: 0 0 var(--s0);
+    font-family: var(--font-display);
+    font-size: var(--text-heading);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .post-related__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--s1) var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .post-related__list li { margin: 0; }
+  .post-related__link {
+    display: block;
+    min-height: 44px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .post-related__name {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: 550;
+    line-height: 1.3;
+    color: var(--color-ink);
+    transition: color var(--transition);
+  }
+  .post-related__link:hover .post-related__name { color: var(--color-accent); }
+  .post-related__excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+  }
+  .post-related__meta {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+  }
 }
 
 /* --------------------------------------------------------------------------

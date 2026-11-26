@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Calendar, Clock, Tag, ArrowLeft, Share2, List, User, ExternalLink, ChevronRight, Loader2, Info, AlertCircle, CheckCircle, Lightbulb, Leaf } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Loader2 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip.jsx';
 import {
   getPostBySlug,
@@ -17,7 +17,6 @@ import ImageLightbox from './ImageLightbox';
 import Picture from '../../components/Picture';
 import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
-import { motion } from 'framer-motion';
 import InlineComparisonTable from '../../components/InlineComparisonTable';
 import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
 import '../../styles/theme-modern.css';
@@ -54,29 +53,9 @@ const InlineReviewsCTA = ({ placement, postSlug }) => {
   };
 
   return (
-    <div
-      className="not-prose card"
-      style={{
-        marginBlock: 'var(--space-8)',
-        backgroundColor: 'var(--color-brand-soft)',
-        borderLeft: '3px solid var(--color-brand)',
-      }}
-    >
-      <p
-        style={{
-          margin: '0 0 var(--space-1)',
-          fontFamily: 'var(--font-display)',
-          fontSize: '1.125rem',
-          fontWeight: 600,
-          color: 'var(--color-ink)',
-        }}
-      >
-        Looking for the best DHM supplement?
-      </p>
-      <p
-        className="text-soft"
-        style={{ margin: '0 0 var(--space-3)', fontSize: 'var(--text-small)' }}
-      >
+    <div className="not-prose post-offer">
+      <p className="post-offer__title">Looking for the best DHM supplement?</p>
+      <p className="post-offer__text">
         We've independently tested 10+ products for purity, absorption, and value.
       </p>
       <CustomLink
@@ -86,47 +65,31 @@ const InlineReviewsCTA = ({ placement, postSlug }) => {
         data-placement={placement}
         onClick={handleClick}
         className="btn btn-secondary"
-        style={{ color: 'var(--color-brand-strong)' }}
       >
         See our top-rated picks
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-4 h-4" aria-hidden="true" />
       </CustomLink>
     </div>
   );
 };
 
 /**
- * In-article callout — the modern border-first replacement for the shadcn
- * <Alert>/green-gradient boxes the control template used. Uses the scoped
- * .callout primitives from theme-modern.css (icon + title + body, 1px border +
- * 3px accent rule). Variant → semantic mapping (per #384):
+ * In-article callout. One quiet style (a 2px rule, title + body, no icon or
+ * box; see theme-modern.css section 16). Variant → semantic mapping (#384):
  *   note (blue)    — Info Box / Did You Know / Important Medical Information
  *   tip (green)    — Pro Tip
  *   warning (amber)— Warning / Important / Emergency Protocol
  *   key (ink)      — Key Insight
  * Orange is never emitted here — it stays exclusive to affiliate/buy CTAs.
  */
-const CALLOUT_ICONS = {
-  note: Info,
-  tip: CheckCircle,
-  warning: AlertCircle,
-  key: Lightbulb,
-};
-
-const Callout = ({ variant = 'note', title, children }) => {
-  const Icon = CALLOUT_ICONS[variant] || Info;
-  return (
-    <div className={`not-prose callout callout--${variant}`} role="note">
-      <span className="callout__icon" aria-hidden="true">
-        <Icon />
-      </span>
-      <div className="callout__content">
-        {title && <p className="callout__title">{title}</p>}
-        <p className="callout__body">{children}</p>
-      </div>
+const Callout = ({ variant = 'note', title, children }) => (
+  <div className={`not-prose callout callout--${variant}`} role="note">
+    <div className="callout__content">
+      {title && <p className="callout__title">{title}</p>}
+      <p className="callout__body">{children}</p>
     </div>
-  );
-};
+  </div>
+);
 
 /**
  * Split a markdown string at approximately the target percentage, snapping
@@ -144,72 +107,6 @@ const splitContentAtRatio = (content, ratio = 0.3) => {
   if (breakIdx === -1) return [content, ''];
   if (breakIdx / content.length > 0.85) return [content, ''];
   return [content.slice(0, breakIdx), content.slice(breakIdx + 2)];
-};
-
-// Helper function to create enhanced components for special content patterns
-const createEnhancedComponents = () => {
-  // Function to detect and render info boxes → modern .callout primitives
-  const renderInfoBox = (text) => {
-    // Pattern: **Info Box:** content
-    if (text.startsWith('**Info Box:**')) {
-      const content = text.replace('**Info Box:**', '').trim();
-      return <Callout variant="note" title="Did You Know?">{content}</Callout>;
-    }
-
-    // Pattern: **Warning:** content
-    if (text.startsWith('**Warning:**')) {
-      const content = text.replace('**Warning:**', '').trim();
-      return <Callout variant="warning" title="Important">{content}</Callout>;
-    }
-
-    // Pattern: **Pro Tip:** content
-    if (text.startsWith('**Pro Tip:**')) {
-      const content = text.replace('**Pro Tip:**', '').trim();
-      return <Callout variant="tip" title="Pro Tip">{content}</Callout>;
-    }
-
-    // Pattern: **Key Insight:** content
-    if (text.startsWith('**Key Insight:**')) {
-      const content = text.replace('**Key Insight:**', '').trim();
-      return <Callout variant="key" title="Key Insight">{content}</Callout>;
-    }
-
-    return null;
-  };
-
-  // Function to create enhanced product cards → border-first card (brand accents)
-  const renderProductCard = (text) => {
-    // Pattern: **Product Spotlight: [Product Name]** - details
-    const productMatch = text.match(/\*\*Product Spotlight: (.+?)\*\* - (.+)/);
-    if (productMatch) {
-      const [_, productName, details] = productMatch;
-      return (
-        <div className="not-prose card-raised" style={{ marginBlock: 'var(--space-6)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--space-4)', marginBottom: 'var(--space-3)' }}>
-            <p className="card-title" style={{ color: 'var(--color-ink)' }}>{productName}</p>
-            <span className="badge badge-brand" style={{ flex: '0 0 auto' }}>Featured</span>
-          </div>
-          <p className="text-soft" style={{ margin: '0 0 var(--space-4)' }}>{details}</p>
-          <CustomLink to="/reviews" className="btn btn-secondary btn-sm" style={{ color: 'var(--color-brand-strong)' }}>
-            See Full Details →
-          </CustomLink>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Function to render visual separators → quiet brand-green leaf on a hairline
-  const renderVisualSeparator = () => (
-    <div className="not-prose" style={{ position: 'relative', marginBlock: 'var(--space-12)' }}>
-      <div style={{ borderTop: '1px solid var(--color-border)' }} />
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--color-paper)', paddingInline: 'var(--space-4)' }}>
-        <Leaf style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-brand)' }} aria-hidden="true" />
-      </div>
-    </div>
-  );
-
-  return { renderInfoBox, renderProductCard, renderVisualSeparator };
 };
 
 // Helper function to extract key takeaways from content
@@ -299,7 +196,6 @@ const NewBlogPost = () => {
   // State management
   const [tocItems, setTocItems] = useState([]);
   const [activeSection, setActiveSection] = useState('');
-  const [readingProgress, setReadingProgress] = useState(0);
   const [showToc, setShowToc] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [post, setPost] = useState(null);
@@ -553,7 +449,7 @@ const NewBlogPost = () => {
     };
   }, [post]);
 
-  // Track reading progress and active section
+  // Track the active section (H2s only, the same set the TOC lists)
   useEffect(() => {
     let ticking = false;
     
@@ -562,14 +458,7 @@ const NewBlogPost = () => {
         requestAnimationFrame(() => {
           if (!contentRef.current) return;
 
-          // Calculate reading progress
-          const scrollTop = window.scrollY;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const progress = Math.min((scrollTop / docHeight) * 100, 100);
-          setReadingProgress(progress);
-
-          // Find active section
-          const headings = contentRef.current.querySelectorAll('h2, h3');
+          const headings = contentRef.current.querySelectorAll('h2');
           let current = '';
           
           headings.forEach((heading) => {
@@ -579,7 +468,7 @@ const NewBlogPost = () => {
             }
           });
           
-          if (!current && headings.length > 0) {
+          if (!current && headings.length > 0 && headings[0].getBoundingClientRect().top <= 150) {
             let closest = headings[0];
             let closestDistance = Math.abs(headings[0].getBoundingClientRect().top);
             
@@ -618,7 +507,8 @@ const NewBlogPost = () => {
       return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        timeZone: 'UTC'
       }).format(date);
     } catch (error) {
       console.error('Error formatting date:', error);
@@ -731,310 +621,114 @@ const NewBlogPost = () => {
     );
   }
 
-  const formatTitle = (title) => {
-    if (!title || !title.includes(':')) {
-      return { mainTitle: title, subtitle: null };
-    }
-    
-    const [mainTitle, ...subtitleParts] = title.split(':');
-    const subtitle = subtitleParts.join(':').trim();
-    
-    return {
-      mainTitle: mainTitle.trim(),
-      subtitle: subtitle || null
-    };
-  };
+  const tocH2 = tocItems.filter((item) => item.level === 2);
+  // Some posts store readTime as "18 min read", most as a number.
+  const readTimeLabel = (t) => (/min/i.test(String(t)) ? String(t) : `${t} min read`);
+  // Decide from the markdown (available on first render) so the TOC row is in
+  // place before the effect fills its links: no layout shift above the body.
+  const hasToc = (fullContent.match(/^##\s/gm) || []).length > 1;
+  const updated = post.dateModified ? new Date(post.dateModified) : post.date;
 
   return (
-    <div
-      className="theme-modern"
-      style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', color: 'var(--color-ink)' }}
-    >
-      {/* Reading Progress Bar - positioned below header using CSS variable */}
-      {isClient && (
-        <div
-          className="fixed left-0 w-full h-1 z-sticky"
-          style={{ top: 'var(--header-height, 80px)', backgroundColor: 'var(--color-border)' }}
-        >
-          <div
-            className="h-full transition-all duration-150 ease-out"
-            style={{ width: `${readingProgress}%`, backgroundColor: 'var(--color-brand)' }}
-          />
-        </div>
-      )}
-
-      {/* Header */}
-      <div style={{ backgroundColor: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)' }}>
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm mb-4" style={{ color: 'var(--color-ink-soft)' }}>
-            <button
-              onClick={() => handleNavigation('/')}
-              className="transition-colors hover:[color:var(--color-brand-strong)]"
-            >
-              Home
-            </button>
-            <ChevronRight className="w-4 h-4" />
-            <button
-              onClick={() => handleNavigation('/never-hungover')}
-              className="transition-colors hover:[color:var(--color-brand-strong)]"
-            >
-              Never Hungover
-            </button>
-            <ChevronRight className="w-4 h-4" />
-            <span className="truncate" style={{ color: 'var(--color-ink)' }}>
-              {formatTitle(post.title).mainTitle}
-            </span>
+    // key: mount a fresh tree, so React doesn't morph the centred loading
+    // wrapper into the article (that move registered as a 0.33 layout shift).
+    <div key="post" className="theme-modern" data-blog="post">
+      <div className="post-shell">
+        <article className="post">
+          <nav className="post-crumbs t-label" aria-label="Breadcrumb">
+            <CustomLink to="/never-hungover">Never Hungover</CustomLink>
           </nav>
 
-          <button
-            onClick={() => handleNavigation('/never-hungover')}
-            className="btn btn-ghost btn-sm mb-6"
-            style={{ color: 'var(--color-brand-strong)' }}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Never Hungover
-          </button>
+          {/* The full title, matching the prerendered H1 and <title>. */}
+          <h1 className="post-title">{post.title}</h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: 'var(--color-ink-soft)' }}>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>Last Updated: {formatDate(post.date)}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{post.readTime} min read</span>
-            </div>
-            {post.author && (
-              <div className="flex items-center gap-1">
-                <User className="w-4 h-4" />
-                <span>By {post.author}</span>
-              </div>
-            )}
+          {post.excerpt && <p className="post-lead">{post.excerpt}</p>}
+
+          <div className="post-byline">
+            <span>Updated {formatDate(updated)}</span>
+            {post.author && <span>By {post.author}</span>}
+            {post.readTime && <span>{readTimeLabel(post.readTime)}</span>}
             {isClient && (
-              <button
-                onClick={sharePost}
-                data-track="share"
-                className="flex items-center gap-1 transition-colors hover:[color:var(--color-ink)]"
-                style={{ color: 'var(--color-brand-strong)' }}
-              >
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
+              <span>
+                <button type="button" onClick={sharePost} data-track="share" className="post-share">
+                  Share
+                </button>
+              </span>
             )}
           </div>
 
-          <div className="mb-4">
-            {(() => {
-              const { mainTitle, subtitle } = formatTitle(post.title);
-              return (
-                <>
-                  <h1 style={{ marginBottom: subtitle ? 'var(--space-3)' : 0 }}>
-                    {mainTitle}
-                  </h1>
-                  {subtitle && (
-                    <p className="lead" style={{ margin: 0 }}>
-                      {subtitle}
-                    </p>
-                  )}
-                </>
-              );
-            })()}
-          </div>
-
-          {post.excerpt && (
-            <p className="lead" style={{ marginBottom: 'var(--space-6)' }}>
-              {post.excerpt}
+          {/* FTC affiliate disclosure — near the top, only on posts with buy links. */}
+          {/amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '') && (
+            <p className="post-disclosure">
+              We may earn a commission if you buy through links on this page, at no extra cost to you.
             </p>
           )}
 
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span key={tag} className="chip">
-                  <Tag className="w-3 h-3" />
-                  {tag}
-                </span>
-              ))}
+          {/* Hero image - width/height attrs + aspect-video prevent CLS (Issue #293) */}
+          {post.image && (
+            <div className="post-figure">
+              <Picture
+                src={post.image}
+                alt={`${post.title} - DHM Guide`}
+                className="w-full aspect-video object-cover"
+                width={1600}
+                height={900}
+                priority
+                fetchPriority="high"
+              />
             </div>
           )}
-        </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-12 flex gap-8">
-        {/* Table of Contents - Desktop Sidebar */}
-        {isClient && tocItems.length > 0 && (
-          <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky" style={{ top: 'calc(var(--header-height, 80px) + 16px)' }}>
-              <div className="card">
-                {/* Navigation-chrome label — deliberately NOT a heading element so
-                    it stays out of the article's semantic outline (h1 → body h2 → h3). */}
-                <p
-                  className="mb-4 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600, color: 'var(--color-ink)', margin: '0 0 var(--space-4)' }}
+          {/* Quick Answer — in the first ~100 words for AI engine extraction. Issue #292. */}
+          {post.quickAnswer && (
+            <div className="post-answer">
+              <p className="post-block-label">Quick answer</p>
+              <p className="post-answer__text">{post.quickAnswer}</p>
+            </div>
+          )}
+
+          {keyTakeaways.length > 0 && <KeyTakeaways takeaways={keyTakeaways} />}
+
+          {/* Table of contents (H2s only). Collapsed row above the body on narrow
+              screens; sticky list in the left margin on wide ones (CSS only). */}
+          {hasToc && (
+            <div className="post-toc-rail">
+              <nav className={`post-toc${showToc ? ' is-open' : ''}`} aria-label="Table of contents">
+                <button
+                  type="button"
+                  className="post-toc__toggle"
+                  aria-expanded={showToc}
+                  aria-controls="post-toc-list"
+                  onClick={() => setShowToc(!showToc)}
                 >
-                  <List className="w-4 h-4" style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
-                  Table of Contents
-                </p>
-                <nav className="space-y-1">
-                  {tocItems.map((item) => {
-                    const isActive = activeSection === item.id;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => scrollToSection(item.id)}
-                        className={`block w-full text-left text-sm transition-all duration-150 ${item.level === 3 ? 'ml-4' : ''}`}
-                        style={{
-                          minHeight: '44px',
-                          padding: '0.5rem 0.75rem',
-                          borderRadius: 'var(--radius)',
-                          borderLeft: isActive ? '2px solid var(--color-brand)' : '2px solid transparent',
-                          backgroundColor: isActive ? 'var(--color-brand-soft)' : 'transparent',
-                          color: isActive ? 'var(--color-brand-strong)' : 'var(--color-ink-soft)',
-                          fontWeight: isActive ? 600 : 400,
+                  <span>Table of contents</span>
+                  <ChevronDown aria-hidden="true" />
+                </button>
+                <p className="post-toc__label t-label">Table of contents</p>
+                <ol className="post-toc__list" id="post-toc-list">
+                  {tocH2.map((item) => (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className="post-toc__link"
+                        aria-current={activeSection === item.id ? 'true' : undefined}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          scrollToSection(item.id);
+                          setShowToc(false);
                         }}
                       >
                         {item.text}
-                      </button>
-                    );
-                  })}
-                </nav>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Main Content */}
-        <div className="flex-1 min-w-0">
-          {/* Mobile TOC Toggle */}
-          {isClient && tocItems.length > 0 && (
-            <div className="lg:hidden mb-6">
-              <motion.button
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-                onClick={() => setShowToc(!showToc)}
-                className="btn btn-secondary touch-manipulation"
-              >
-                <List className="w-4 h-4" />
-                <span>Table of Contents</span>
-                <div className={`transform transition-transform duration-200 ${showToc ? 'rotate-180' : ''}`}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </motion.button>
-
-              {/* TOC animation uses grid for GPU-accelerated smooth animation (fixes #97) */}
-              <div
-                className="grid transition-all duration-300 ease-in-out"
-                style={{ gridTemplateRows: showToc ? '1fr' : '0fr' }}
-              >
-                <div
-                  className={`overflow-hidden transition-opacity duration-300 ${showToc ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ visibility: showToc ? 'visible' : 'hidden' }}
-                >
-                <div className="card mt-4">
-                  <nav className="space-y-1">
-                    {tocItems.map((item) => {
-                      const isActive = activeSection === item.id;
-                      return (
-                        <button
-                          key={item.id}
-                          onClick={() => {
-                            scrollToSection(item.id);
-                            setShowToc(false);
-                          }}
-                          className={`block w-full text-left text-sm transition-all duration-150 ${item.level === 3 ? 'ml-4' : ''}`}
-                          style={{
-                            minHeight: '44px',
-                            padding: '0.5rem 0.75rem',
-                            borderRadius: 'var(--radius)',
-                            backgroundColor: isActive ? 'var(--color-brand-soft)' : 'transparent',
-                            color: isActive ? 'var(--color-brand-strong)' : 'var(--color-ink-soft)',
-                            fontWeight: isActive ? 600 : 400,
-                          }}
-                        >
-                          {item.text}
-                        </button>
-                      );
-                    })}
-                  </nav>
-                </div>
-              </div>
-              </div>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             </div>
           )}
 
-          {/* Article Content */}
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="overflow-hidden"
-            style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)' }}>
-            {/* Hero Image - aspect-video + width/height attrs prevent CLS (Issue #293) */}
-            {post.image && (
-              <div className="w-full">
-                <Picture
-                  src={post.image}
-                  alt={`${post.title} - DHM Guide`}
-                  className="w-full aspect-video object-cover"
-                  width={1600}
-                  height={900}
-                  priority
-                  fetchPriority="high"
-                />
-              </div>
-            )}
-
-            <div className="p-8 md:p-12">
-              {/* FTC affiliate disclosure — near the top, only on posts with buy links. */}
-              {/amazon\.com|amzn\.to|inline-comparison-table/.test(post.content || '') && (
-                <p className="container-prose text-soft" style={{ margin: '0 0 var(--space-4)', fontSize: 'var(--text-small)' }}>
-                  We may earn a commission if you buy through links on this page, at no extra cost to you.
-                </p>
-              )}
-
-              {/* Quick Answer callout — positioned in the first ~100 words for AI engine extraction (Perplexity, ChatGPT, Gemini). Issue #292. */}
-              {post.quickAnswer && (
-                <div
-                  className="container-prose"
-                  style={{
-                    marginBottom: 'var(--space-8)',
-                    padding: 'var(--space-4) var(--space-6)',
-                    backgroundColor: '#EAF0FE',
-                    borderLeft: '3px solid var(--color-info)',
-                    borderRadius: 'var(--radius)',
-                    border: '1px solid var(--color-border)',
-                  }}
-                >
-                  <p
-                    style={{
-                      margin: '0 0 var(--space-1)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: 'var(--tracking-wide)',
-                      color: 'var(--color-info)',
-                    }}
-                  >
-                    Quick Answer
-                  </p>
-                  <p style={{ margin: 0, fontSize: '1.125rem', lineHeight: 1.6, color: 'var(--color-ink)' }}>
-                    {post.quickAnswer}
-                  </p>
-                </div>
-              )}
-
-              {/* Key Takeaways Component */}
-              {keyTakeaways.length > 0 && (
-                <KeyTakeaways takeaways={keyTakeaways} />
-              )}
-
-              {/* Main Content — the scoped .article-body typography (Fraunces solid
-                  headings, Inter body ~68ch measure) replaces the Tailwind prose. */}
-              <div ref={contentRef} className="article-body">
+          {/* Article body — styled by .article-body (theme-modern.css section 15). */}
+          <div ref={contentRef} className="article-body">
                 {(() => {
                   // Shared components config for ReactMarkdown
                   const markdownComponents = {
@@ -1081,8 +775,6 @@ const NewBlogPost = () => {
                       };
                       
                       const fullText = extractText(children);
-                      const { renderInfoBox, renderProductCard, renderVisualSeparator } = createEnhancedComponents();
-                      
                       // Check for special patterns only at the start of the paragraph
                       const trimmedText = fullText.trim();
                       
@@ -1169,7 +861,7 @@ const NewBlogPost = () => {
 
                       // Check for separator pattern
                       if (fullText.trim() === '---') {
-                        return renderVisualSeparator();
+                        return <hr />;
                       }
 
                       // Default paragraph rendering — styled by .article-body descendant CSS
@@ -1250,8 +942,7 @@ const NewBlogPost = () => {
                               const targetId = href.slice(1); // Remove the #
                               scrollToSection(targetId);
                             }}
-                            className="inline-flex items-center gap-1 cursor-pointer underline"
-                            style={{ color: 'var(--color-brand-strong)' }}
+                            className="post-anchor"
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => {
@@ -1267,14 +958,10 @@ const NewBlogPost = () => {
                         );
                       }
 
-                      // Internal article link — brand green (nav), NOT the body blue
+                      // Internal article link — accent green via the .article-body a rule
                       if (isInternal && isClient) {
                         return (
-                          <CustomLink
-                            to={href}
-                            className="inline-flex items-center gap-1 underline"
-                            style={{ color: 'var(--color-brand-strong)' }}
-                          >
+                          <CustomLink to={href}>
                             {children}
                           </CustomLink>
                         );
@@ -1282,20 +969,20 @@ const NewBlogPost = () => {
 
                       // External / affiliate link — plain <a>, contract preserved
                       // (rel/target/data-placement, NO onClick). Body color comes from
-                      // the .article-body a rule (editorial blue), except affiliate
+                      // the .article-body a rule (accent green), except affiliate
                       // links written as "Check price…" which render as the orange
                       // buy button (.btn-cta).
                       const isBuyButton = isAffiliate && /^check price/i.test([].concat(children).join(''));
                       return (
                         <a
                           href={href}
-                          className={isBuyButton ? 'btn btn-cta' : 'inline-flex items-center gap-1'}
+                          className={isBuyButton ? 'btn btn-cta' : undefined}
                           target={isExternal ? '_blank' : undefined}
                           rel={isAffiliate ? 'nofollow sponsored noopener noreferrer' : (isExternal ? 'noopener noreferrer' : undefined)}
                           data-placement={isAffiliate ? 'blog_content_inline' : undefined}
                         >
                           {children}
-                          {isExternal && <ExternalLink className="w-3 h-3" />}
+                          {isExternal && !isBuyButton && <ExternalLink aria-hidden="true" />}
                         </a>
                       );
                     },
@@ -1303,11 +990,10 @@ const NewBlogPost = () => {
                     // font-weight:600 solid ink — no green pills / gradient text).
                     strong: ({children}) => <strong>{children}</strong>,
                     em: ({children}) => <em>{children}</em>,
-                    // Tables wrap in .table-scroll for mobile overflow safety; the
-                    // .article-body table/thead/th/td CSS supplies brand-soft header,
-                    // paper zebra, 1px border + radius.
+                    // Tables scroll inside .table-scroll (edge shadows signpost the
+                    // scroll); focusable + labelled so keyboard users can scroll it.
                     table: ({children}) => (
-                      <div className="table-scroll">
+                      <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls sideways on small screens)">
                         <table>{children}</table>
                       </div>
                     ),
@@ -1317,10 +1003,9 @@ const NewBlogPost = () => {
                     th: ({children}) => <th>{children}</th>,
                     td: ({children}) => <td>{children}</td>,
                     img: ({src, alt, ...props}) => {
-                      // Use ImageLightbox for blog content images; rounded + 1px
-                      // border comes from the .article-body img rule on the inner img.
+                      // ImageLightbox for content images; .article-body img styles the inner img.
                       return (
-                        <div style={{ marginBlock: 'var(--space-8)' }}>
+                        <div>
                           <ImageLightbox
                             src={src}
                             alt={alt}
@@ -1329,14 +1014,7 @@ const NewBlogPost = () => {
                         </div>
                       );
                     },
-                    hr: () => (
-                      <div className="not-prose" style={{ position: 'relative', marginBlock: 'var(--space-12)' }}>
-                        <div style={{ borderTop: '1px solid var(--color-border)' }} />
-                        <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--color-paper)', paddingInline: 'var(--space-4)' }}>
-                          <Leaf style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-brand)' }} aria-hidden="true" />
-                        </div>
-                      </div>
-                    ),
+                    hr: () => <hr />,
                   };
 
                   // Renders a markdown string, replacing inline-comparison-table markers
@@ -1422,87 +1100,25 @@ const NewBlogPost = () => {
                     </>
                   );
                 })()}
-                </div>
-            </div>
-          </motion.article>
+          </div>
+        </article>
 
-          {/* Related Articles */}
-          {relatedPosts.length > 0 && (
-            <div className="card" style={{ marginTop: 'var(--space-8)' }}>
-              <h3
-                style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-ink)', marginBottom: 'var(--space-6)' }}
-              >
-                Related Articles
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {relatedPosts.map((relatedPost) => (
-                  <article
-                    key={relatedPost.slug}
-                    className="card-raised"
-                    style={{ padding: 0, overflow: 'hidden', height: '100%' }}
-                  >
-                    <CustomLink
-                      to={`/never-hungover/${relatedPost.slug}`}
-                      style={{ display: 'flex', flexDirection: 'column', height: '100%', textDecoration: 'none' }}
-                    >
-                      {relatedPost.image && (
-                        <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
-                          <img
-                            src={relatedPost.image}
-                            alt={relatedPost.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                      <div style={{ padding: 'var(--space-4)', display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
-                        <h4
-                          className="card-title line-clamp-2"
-                          style={{ fontSize: '1.0625rem', color: 'var(--color-ink)', marginBottom: 'var(--space-2)' }}
-                        >
-                          {relatedPost.title}
-                        </h4>
-                        <p
-                          className="text-soft line-clamp-2"
-                          style={{ fontSize: 'var(--text-small)', marginBottom: 'var(--space-3)' }}
-                        >
-                          {relatedPost.excerpt}
-                        </p>
-                        <div
-                          className="cluster"
-                          style={{ gap: 'var(--space-1)', marginTop: 'auto', color: 'var(--color-ink-soft)', fontSize: 'var(--text-eyebrow)' }}
-                        >
-                          <Clock className="w-3 h-3" />
-                          <span>{relatedPost.readTime} min read</span>
-                        </div>
-                        <span
-                          className="cluster"
-                          style={{ gap: 'var(--space-1)', marginTop: 'var(--space-3)', color: 'var(--color-brand-strong)', fontWeight: 600, fontSize: 'var(--text-small)' }}
-                        >
-                          Read
-                          <ChevronRight className="w-4 h-4" />
-                        </span>
-                      </div>
-                    </CustomLink>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Performance Info — dev only, neutral card in production diagnostics off */}
-          {!import.meta.env.PROD && (
-            <div className="card" style={{ marginTop: 'var(--space-8)', fontSize: 'var(--text-small)' }}>
-              <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)', marginBottom: 'var(--space-2)' }}>⚡ Dynamically Loaded</h4>
-              <div className="text-soft" style={{ display: 'grid', gap: '0.25rem' }}>
-                <div>• Post loaded on-demand: {Math.round(JSON.stringify(post).length / 1024)}KB</div>
-                <div>• Related posts preloaded in background</div>
-                <div>• Smart caching active: {getCacheStats().size}/{getCacheStats().maxSize} posts cached</div>
-                <div>• Reading progress and TOC generated client-side</div>
-              </div>
-            </div>
-          )}
-        </div>
+        {relatedPosts.length > 0 && (
+          <section className="post-related" aria-labelledby="post-related-title">
+            <h2 id="post-related-title" className="post-related__title">Related articles</h2>
+            <ul className="post-related__list">
+              {relatedPosts.map((relatedPost) => (
+                <li key={relatedPost.slug}>
+                  <CustomLink to={`/never-hungover/${relatedPost.slug}`} className="post-related__link">
+                    <h3 className="post-related__name">{relatedPost.title}</h3>
+                    {relatedPost.excerpt && <p className="post-related__excerpt">{relatedPost.excerpt}</p>}
+                    {relatedPost.readTime && <p className="post-related__meta">{readTimeLabel(relatedPost.readTime)}</p>}
+                  </CustomLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </div>
   );
