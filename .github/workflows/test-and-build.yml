@@ -11,14 +11,15 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
           cache: pnpm
       - name: Install dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -31,14 +32,15 @@ jobs:
   unit:
     name: Unit tests
     needs: lint
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
           cache: pnpm
       - name: Install dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -48,14 +50,15 @@ jobs:
   build:
     name: Build
     needs: lint
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
           cache: pnpm
       - name: Install dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -65,17 +68,17 @@ jobs:
   e2e:
     name: E2E tests
     needs: [unit, build]
-    # Pinned: ubuntu-latest moved to 26.04, which Playwright chromium does not support yet.
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     # Suite was already ~19.5 min (workers=1); each gated post adds 16 tests.
     # 2026-11-24: 46-page expansion pushed it past 30m (batch 2 died at 30m14s).
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
           cache: pnpm
       - name: Install dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -99,7 +102,7 @@ jobs:
         run: pnpm run test:e2e
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report/
@@ -108,8 +111,7 @@ jobs:
   visual:
     name: Visual baselines (bootstrap)
     needs: e2e
-    # Pinned: ubuntu-latest moved to 26.04, which Playwright chromium does not support yet.
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     # Informational, never blocks merge: this job GENERATES Linux-native baselines
     # (macOS-committed baselines differ from Linux CI font rendering) and uploads them
     # as an artifact. continue-on-error keeps occasional element-stability flakes on
@@ -119,11 +121,12 @@ jobs:
     continue-on-error: true
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
           cache: pnpm
       - name: Install dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -132,7 +135,7 @@ jobs:
       - name: Generate Linux visual baselines
         run: pnpm run test:visual:update
       - name: Upload Linux baselines
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: visual-baselines-linux
           path: tests/visual/**/*.png
@@ -140,16 +143,19 @@ jobs:
 
   mass-edit-check:
     name: Bulk-edit guard (>20 modified existing posts)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 2
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          # Node version comes from package.json engines.node, the same field Vercel builds with.
+          node-version-file: package.json
+          # No pnpm in this job; stop setup-node auto-enabling a pnpm cache from packageManager.
+          package-manager-cache: false
       - name: Self-test the guard
         run: node --test scripts/check-mass-edit.test.mjs scripts/lib/get-date-modified.test.mjs
       - name: Count modified existing posts (added posts exempt)
