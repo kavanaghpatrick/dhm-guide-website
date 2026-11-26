@@ -241,6 +241,8 @@ export default function CompareModern() {
 
     const ids = productIds.split(',').map((id) => parseInt(id)).filter((id) => !isNaN(id))
     const validIds = ids.filter((id) => allProducts.find((p) => p.id === id))
+    // One-time sync from the browser URL (an external system), so the rule does not apply.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (validIds.length > 0) setSelectedProducts(validIds)
     // Mount-only initialization. allProducts is derived from static data and is
     // rebuilt each render, so we intentionally do NOT depend on it (that would

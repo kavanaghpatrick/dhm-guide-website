@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// Unit/component tests only. Kept SEPARATE from vite.config.js so the imagemin /
+// Unit/component tests only. Kept SEPARATE from vite.config.js so the
 // terser / prerender concerns never load under tests. The Playwright `tests/` dir
 // is excluded so Vitest never tries to execute Playwright `.spec.js` files.
 export default defineConfig({
