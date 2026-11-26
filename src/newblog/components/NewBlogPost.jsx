@@ -19,6 +19,7 @@ import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
 import InlineComparisonTable from '../../components/InlineComparisonTable';
 import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
+import { cleanMarkdown } from '../utils/cleanMarkdown.js';
 import '../../styles/theme-modern.css';
 
 // Matches <!-- inline-comparison-table:VARIANT:PLACEMENT:ID,ID,ID --> in markdown.
@@ -187,9 +188,7 @@ const renderContent = (post) => {
   }
   
   // Handle simple string content (legacy posts)
-  // Replace escaped newlines with actual newlines for proper markdown rendering
-  const content = post.content || '';
-  return content.replace(/\\n/g, '\n');
+  return post.content || '';
 };
 
 const NewBlogPost = () => {
@@ -209,7 +208,7 @@ const NewBlogPost = () => {
   // Memoize full content rendering
   const fullContent = useMemo(() => {
     if (!post?.content) return '';
-    return renderContent(post);
+    return cleanMarkdown(renderContent(post));
   }, [post?.content]);
 
   // Extract slug from URL
@@ -354,7 +353,7 @@ const NewBlogPost = () => {
       if (headings.length > 0) {
         // Import the utility function inline to avoid module issues
         const items = Array.from(headings).map((heading, index) => {
-          const text = heading.textContent;
+          const text = heading.textContent.replace(/\s*\{#[^}]*\}\s*$/, '');
           
           // Check if heading already has an ID (from embedded TOC links)
           if (heading.id) {

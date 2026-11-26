@@ -16,6 +16,7 @@ import { generateFAQSchema } from '../src/utils/productSchemaGenerator.js';
 import { generateHowToSchema, generateBreadcrumbSchema } from '../src/utils/structuredDataHelpers.js';
 import { getDateModified } from './lib/get-date-modified.js';
 import { getOgImageForPost } from '../src/lib/og-image.js';
+import { cleanMarkdown } from '../src/newblog/utils/cleanMarkdown.js';
 
 const { JSDOM } = jsdom;
 const __filename = fileURLToPath(import.meta.url);
@@ -277,7 +278,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
   // Extract and escape first paragraph
   let safeFirstParagraph = '';
   if (post.content) {
-    const contentStr = typeof post.content === 'string' ? post.content : '';
+    const contentStr = typeof post.content === 'string' ? cleanMarkdown(post.content) : '';
     const paragraphMatch = contentStr.match(/^[^#\n].*?(?=\n\n|\n#|$)/m);
     if (paragraphMatch) {
       safeFirstParagraph = escapeHtml(paragraphMatch[0].replace(/[*_`]/g, ''));
@@ -312,7 +313,7 @@ async function prerenderPost(post, baseHtml, blogDistDir) {
     // hidden off-screen — that pattern triggered Google cloaking penalty risk
     // and starved AI crawlers of content). React's createRoot replaces this
     // on hydration, so no mismatch concerns; crawlers see full text first.
-    const contentStr = typeof post.content === 'string' ? post.content : '';
+    const contentStr = typeof post.content === 'string' ? cleanMarkdown(post.content) : '';
     const fullContentHtml = contentStr
       ? micromark(contentStr, {
           allowDangerousHtml: true,
