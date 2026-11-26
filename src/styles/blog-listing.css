@@ -63,7 +63,7 @@
 [data-blog="listing"] .blog-listing__title {
   font-family: var(--font-display);
   font-size: var(--text-display, clamp(2.5rem, 1.75rem + 3vw, 4.25rem));
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--color-ink, #1A1D1A);
@@ -219,7 +219,7 @@
 [data-blog="listing"] .blog-section__title {
   font-family: var(--font-display);
   font-size: var(--text-heading, clamp(1.625rem, 1.35rem + 1.1vw, 2.125rem));
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0 0 var(--_s0);
@@ -249,7 +249,7 @@
 [data-blog="listing"] .blog-feature__title {
   font-family: var(--font-display);
   font-size: var(--text-subheading, clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem));
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.005em;
   margin: 0 0 var(--_s0);
@@ -293,7 +293,7 @@
 [data-blog="listing"] .blog-rail__name {
   font-family: var(--font-display);
   font-size: var(--text-subheading, clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem));
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.25;
   margin: 0 0 0.375rem;
 }
@@ -335,7 +335,7 @@
 [data-blog="listing"] .blog-card__title {
   font-family: var(--font-display);
   font-size: var(--text-subheading, clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem));
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.005em;
   color: var(--color-ink, #1A1D1A);

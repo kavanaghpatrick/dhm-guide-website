@@ -12,7 +12,7 @@ import { test, expect } from '@playwright/test';
  * Determinism:
  *   - reducedMotion 'reduce' + colorScheme 'light' + animations:'disabled'
  *     (config-level) freeze motion/scheme.
- *   - We await document.fonts.ready so Fraunces/Inter are painted before capture.
+ *   - We await document.fonts.ready so web fonts (if any) are painted before capture.
  *   - Dynamic nodes are masked so an unrelated refresh never flips the baseline.
  *
  * Baselines are generated later via: pnpm test:visual:update

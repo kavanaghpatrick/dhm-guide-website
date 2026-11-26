@@ -14,7 +14,7 @@ import { test, expect } from '@playwright/test';
  * pass once the header/footer are restyled to the modern language:
  *   - warm-paper / white / neutral surfaces (NO gradient washes; footer is a
  *     WARM neutral, never a cold near-black bg-gray-900)
- *   - Fraunces display face on the logo / headings; NO gradient clip-text
+ *   - system font on the logo / headings; NO gradient clip-text
  *   - orange (#F97316 / #EA580C) reserved for affiliate/buy CTAs only — the
  *     header nav CTA navigates to /reviews (internal), so it must be brand
  *     GREEN or secondary, never orange
@@ -104,11 +104,11 @@ test.describe('Shared chrome — modern restyle contract', () => {
     await page.waitForTimeout(1200);
   });
 
-  test('logo/brand wordmark renders in Fraunces, NOT gradient clip-text', async ({
+  test('logo/brand wordmark renders in the site-wide system font, NOT gradient clip-text', async ({
     page,
   }) => {
     // The logo wordmark links to "/". It is the brand mark for the chrome and
-    // must adopt the modern display face (Fraunces) with SOLID ink — never the
+    // must use the site-wide system font with SOLID ink — never the
     // old bg-clip-text:text gradient wordmark.
     const brand = page.locator('header a[href="/"]').first();
     await expect(brand, 'header logo link to "/" must exist').toBeVisible();
@@ -119,8 +119,8 @@ test.describe('Shared chrome — modern restyle contract', () => {
 
     const font = await wordmark.evaluate((el) => getComputedStyle(el).fontFamily);
     expect(
-      /fraunces/i.test(font),
-      `Logo wordmark font-family "${font}" must include Fraunces (modern display face).`
+      /^-apple-system,/i.test(font),
+      `Logo wordmark font-family "${font}" must lead with the site-wide system stack (-apple-system).`
     ).toBe(true);
 
     // No gradient clip-text: text must be painted, not clipped-to-transparent.

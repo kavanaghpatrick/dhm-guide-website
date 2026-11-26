@@ -76,7 +76,7 @@ async function capture(browser, pdef, profile) {
       try { counts[profile.name] = await capture(browser, pdef, profile); }
       catch (e) { counts[profile.name] = 0; console.log(`  ✗ ${pdef.slug} [${profile.name}]: ${e.message}`); }
     }
-    writeFileSync(join(dir, 'README.md'), `# ${pdef.label} — CURRENT (old, non-restyled) design\n\n- URL: ${BASE}${pdef.path}\n- Source: \`${pdef.source}\`\n- Desktop: ${counts.desktop} frames · Mobile: ${counts.mobile} frames\n\nThis surface was NOT restyled to the modern design system. Audit it for consistency gaps vs the modern pages (paper palette, Fraunces+Inter, border-first cards, orange-only CTAs).\n`);
+    writeFileSync(join(dir, 'README.md'), `# ${pdef.label} — CURRENT (old, non-restyled) design\n\n- URL: ${BASE}${pdef.path}\n- Source: \`${pdef.source}\`\n- Desktop: ${counts.desktop} frames · Mobile: ${counts.mobile} frames\n\nThis surface was NOT restyled to the modern design system. Audit it for consistency gaps vs the modern pages (paper palette, system font, border-first cards, orange-only CTAs).\n`);
   }
   await browser.close();
   console.log(`\nDone. ${OUT}`);

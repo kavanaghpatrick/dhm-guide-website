@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import { researchStudies as studies } from '../data/research-studies.js'
 import { formatAPA } from '../utils/citationFormatter.js'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import { buildAffiliateUrl } from '../lib/utm-builder.js'
 import topProductsData from '../data/topProducts.json'
 import {
@@ -31,7 +30,7 @@ import '../styles/theme-modern.css'
  * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Research.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/recommendations/research.md): warm
- * paper palette, Fraunces display headings in SOLID ink (no gradient clip-text),
+ * paper palette, system-font display headings in SOLID ink (no gradient clip-text),
  * border-first cards, green demoted to mark+trust, and a single saturated orange
  * reserved exclusively for the conversion CTA.
  *
@@ -66,8 +65,7 @@ import '../styles/theme-modern.css'
  * Isolation contract: the ENTIRE page body is wrapped in
  * <div className="theme-modern"> and the scoped stylesheet
  * src/styles/theme-modern.css is imported here so the modern CSS is code-split
- * into this chunk — CONTROL users pay nothing. preloadModernFonts() runs on
- * mount (variant arm only).
+ * into this chunk — CONTROL users pay nothing.
  */
 
 const EXPERIMENT_KEY = 'site-modern-v1'
@@ -127,10 +125,6 @@ function CopyAPAButton({ citation }) {
 export default function ResearchModern() {
   useSEO(generatePageSEO('research'))
 
-  // Variant arm only: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   // ----- State + logic copied VERBATIM from the control (src/pages/Research.jsx) -----
   const [selectedCategory, setSelectedCategory] = useState('all')

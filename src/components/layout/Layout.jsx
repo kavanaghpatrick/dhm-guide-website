@@ -517,7 +517,7 @@ function Layout({ children }) {
           modern pages, separated from the body by a single 1px --color-border hairline
           (border-first, no heavy slab). Replaces the old cold near-black footer slab.
           Links use quiet ink-soft → brand-strong hover; headings/wordmark are solid
-          Fraunces ink; disclosure/copyright use ink-soft. Footer tap targets carry a
+          display ink; disclosure/copyright use ink-soft. Footer tap targets carry a
           44px min-height on mobile (a11y). No orange anywhere — no affiliate CTA here. */}
       <footer
         className="theme-modern py-12"

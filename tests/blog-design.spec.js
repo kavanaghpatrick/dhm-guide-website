@@ -575,3 +575,41 @@ test.describe('blog design: post header + table of contents', () => {
     });
   }
 });
+
+/* Typography: the blog uses the same native system stack as the rest of the
+ * site. The real invariant is cross-page consistency: the post H1 and body text
+ * resolve to the same font-family as the /reviews H1 and body text. */
+test.describe('blog design: typography matches the rest of the site', () => {
+  const fontsOf = (page) =>
+    page.evaluate(() => {
+      const ff = (el) => (el ? getComputedStyle(el).fontFamily.replace(/["']/g, "") : null); // quoting differs, families do not
+      return { h1: ff(document.querySelector('main h1')), p: ff(document.querySelector('main p')) };
+    });
+
+  test('post H1 and body use the same system font as /reviews', async ({ page }) => {
+    await page.setViewportSize(DESKTOP);
+    await page.goto(`${BASE}/reviews`, { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('main h1', { timeout: 20000 });
+    const site = await fontsOf(page);
+    await openPost(page, 'dry-january', DESKTOP);
+    const blog = await fontsOf(page);
+    expect(blog.h1, 'post H1 leads with the system stack').toMatch(/^-apple-system,/);
+    expect(blog.h1, 'post H1 font matches /reviews H1').toBe(site.h1);
+    expect(blog.p, 'post body font matches /reviews body').toBe(site.p);
+    const webFonts = await page.evaluate(() => [...document.fonts].map((f) => f.family));
+    expect(webFonts.filter((f) => /fraunces|inter/i.test(f)), 'no Fraunces/Inter web fonts are declared').toEqual([]);
+  });
+
+  for (const slug of ['dry-january', 'metronidazole-and-alcohol']) {
+    test(`long post title fits the 390px column without clipping: ${slug}`, async ({ page }) => {
+      await openPost(page, slug, PHONE);
+      const t = await page.evaluate(() => {
+        const h = document.querySelector('h1.post-title');
+        const cs = getComputedStyle(h);
+        return { lines: Math.round(h.getBoundingClientRect().height / parseFloat(cs.lineHeight)), over: h.scrollWidth - h.clientWidth };
+      });
+      expect(t.over, 'title does not overflow horizontally').toBeLessThanOrEqual(0);
+      expect(t.lines, 'title wraps to a sane number of lines').toBeLessThanOrEqual(4);
+    });
+  }
+});

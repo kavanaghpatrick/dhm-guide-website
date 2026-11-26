@@ -1,5 +1,3 @@
-@import "./fonts-modern.css";
-
 /* ==========================================================================
    DHM Guide — Modern Design Language theme (2026) — PRODUCTION VARIANT
    --------------------------------------------------------------------------
@@ -14,9 +12,8 @@
      so the tokens cascade into the variant subtree only.
    - The demo `body { … }` base rules are declared as root rules on
      `.theme-modern` (the wrapper IS the body-equivalent for the variant).
-   - Fonts are self-hosted (see ./fonts-modern.css) — NO Google Fonts CDN.
-     The display/sans tokens reference the self-hosted family names
-     "Fraunces Variable" and "Inter Variable" (metric-matched fallbacks kept).
+   - Fonts: the native system stack, the same one the rest of the site uses.
+     No web fonts are downloaded.
    ========================================================================== */
 
 .theme-modern {
@@ -44,13 +41,15 @@
   --color-on-brand:     #FFFFFF;
 
   /* --- Typography ---
-     Display = Fraunces (high-contrast editorial serif, optical-size axis).
-     Text/UI = Inter. Self-hosted variable woff2; metric-matched system
-     fallbacks keep swap reflow low. */
-  --font-display: "Fraunces Variable", "Iowan Old Style", "Palatino Linotype",
-                  "Book Antiqua", Georgia, serif;
-  --font-sans:    "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI",
-                  Roboto, "Helvetica Neue", Arial, sans-serif;
+     Display and text both use the native system stack, the same one Tailwind
+     gives every other page, so the blog matches the rest of the site. No web
+     fonts are downloaded. Headings sit at weight 600 like the site's headings. */
+  --font-display: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+                  "Noto Sans", Arial, sans-serif, "Apple Color Emoji",
+                  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:    -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+                  "Noto Sans", Arial, sans-serif, "Apple Color Emoji",
+                  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   /* Fluid type scale (clamp) — per spec */
   --text-h1:      clamp(2.5rem, 5vw, 4rem);
@@ -299,13 +298,13 @@
   .t-display, .t-title, .t-heading, .t-subheading {
     font-family: var(--font-display);
     color: var(--color-ink);
-    font-weight: 500;
+    font-weight: 600;
     text-wrap: balance;
   }
   .t-display    { font-size: var(--text-display);    line-height: 1.05; letter-spacing: -0.02em; }
   .t-title      { font-size: var(--text-title);      line-height: 1.1;  letter-spacing: -0.015em; }
   .t-heading    { font-size: var(--text-heading);    line-height: 1.2;  letter-spacing: -0.01em; }
-  .t-subheading { font-size: var(--text-subheading); line-height: 1.3;  letter-spacing: -0.005em; font-weight: 550; }
+  .t-subheading { font-size: var(--text-subheading); line-height: 1.3;  letter-spacing: -0.005em; font-weight: 600; }
   .t-lead  { font-family: var(--font-sans); font-size: var(--text-lead);  line-height: 1.5; }
   .t-body  { font-family: var(--font-sans); font-size: var(--text-body);  line-height: 1.65; }
   .t-small { font-family: var(--font-sans); font-size: var(--text-small); line-height: 1.5; }
@@ -1741,7 +1740,7 @@
      (src/newblog/components/NewBlogPost.jsx). Replaces the Tailwind Typography
      `.prose / .prose-lg / .prose-green` body with a scoped, tokenised
      article-typography sheet so post BODY content reads as a warm-paper
-     editorial page: Fraunces display headings in SOLID ink (never gradient
+     editorial page: system-font display headings in SOLID ink (never gradient
      clip-text), Inter body at ~1.125rem / 1.7, a comfortable ~68ch measure,
      blue in-article links, gold star convention untouched, and the single
      saturated orange reserved for affiliate/buy CTAs (NEVER emitted by the
@@ -1793,7 +1792,7 @@
       text-wrap: pretty;
     }
 
-    /* ---- Headings: Fraunces, solid ink, no rules. Space above is at least
+    /* ---- Headings: system sans, solid ink, no rules. Space above is at least
             three times the space below, so a heading belongs to what follows. */
     h2, h3, h4 {
       font-family: var(--font-display);
@@ -1806,7 +1805,7 @@
       margin-top: var(--s2);
       margin-bottom: var(--s0);
       font-size: var(--text-heading);
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.2;
       letter-spacing: -0.01em;
     }
@@ -1814,11 +1813,11 @@
       margin-top: var(--s1h);
       margin-bottom: var(--s0);
       font-size: var(--text-subheading);
-      font-weight: 550;
+      font-weight: 600;
       line-height: 1.3;
       letter-spacing: -0.005em;
     }
-    /* h4 is a run-in label in Inter, not a display moment. */
+    /* h4 is a run-in label at body size, not a display moment. */
     h4 {
       margin-top: var(--s1);
       margin-bottom: var(--s0);
@@ -2207,9 +2206,9 @@ main .theme-modern[data-blog="post"] {
     max-width: 20em;
     font-family: var(--font-display);
     font-size: var(--text-title);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.1;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     color: var(--color-ink);
     text-wrap: balance;
   }
@@ -2465,7 +2464,7 @@ main .theme-modern[data-blog="post"] {
     margin: 0;
     font-family: var(--font-display);
     font-size: var(--text-subheading);
-    font-weight: 550;
+    font-weight: 600;
     line-height: 1.3;
     color: var(--color-ink);
   }
@@ -2486,7 +2485,7 @@ main .theme-modern[data-blog="post"] {
     margin: 0 0 var(--s0);
     font-family: var(--font-display);
     font-size: var(--text-heading);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
@@ -2509,7 +2508,7 @@ main .theme-modern[data-blog="post"] {
     margin: 0 0 var(--space-2);
     font-family: var(--font-display);
     font-size: var(--text-subheading);
-    font-weight: 550;
+    font-weight: 600;
     line-height: 1.3;
     color: var(--color-ink);
     transition: color var(--transition);

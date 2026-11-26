@@ -12,7 +12,7 @@ import { test, expect } from '@playwright/test';
  * Determinism:
  *   - reducedMotion 'reduce' + colorScheme 'light' + animations:'disabled'
  *     (config-level) freeze motion/scheme.
- *   - We await document.fonts.ready so Fraunces/Inter are painted before capture.
+ *   - We await document.fonts.ready so web fonts (if any) are painted before capture.
  *   - Dynamic price/rating nodes are masked so a data refresh never flips the
  *     baseline.
  *

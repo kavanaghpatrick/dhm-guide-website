@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, ArrowRight, Star } from 'lucide-react';
 import {
   getAllPostsMetadata,
@@ -8,7 +8,6 @@ import {
 import { useSEO, generatePageSEO } from '../../hooks/useSEO.js';
 import { Link as CustomLink } from '../../components/CustomLink';
 import { buildAffiliateUrl } from '../../lib/utm-builder.js';
-import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
 import topProductsData from '../../data/topProducts.json';
 import '../../styles/theme-modern.css';
 import '../../styles/blog-listing.css';
@@ -101,9 +100,6 @@ const Meta = ({ post }) => {
 const NewBlogListingModern = () => {
   useSEO(generatePageSEO('never-hungover'));
 
-  useEffect(() => {
-    preloadModernFonts();
-  }, []);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTopics, setSelectedTopics] = useState([]); // lower-case keys

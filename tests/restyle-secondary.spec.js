@@ -13,7 +13,7 @@ import { test, expect } from '@playwright/test';
  * These assertions are RED against the current (pre-restyle) pages and MUST pass
  * once each page is wrapped in .theme-modern and restyled:
  *   - the page body is inside a .theme-modern subtree (self or ancestor)
- *   - the H1 renders in Fraunces (modern display face)
+ *   - the H1 renders in the site-wide system font
  *   - NO gradient clip-text (no transparent-filled + background-clip:text)
  *   - About's "See Tested Products" (internal → /reviews) is NOT conversion
  *     orange (orange is reserved for affiliate/buy CTAs)
@@ -77,14 +77,14 @@ async function expectThemeModernScope(page, sel = 'h1') {
   ).toBe(true);
 }
 
-/** Assert the first H1 renders in Fraunces. */
-async function expectFrauncesH1(page) {
+/** Assert the first H1 renders in the site-wide system font. */
+async function expectSystemFontH1(page) {
   const h1 = page.getByRole('heading', { level: 1 }).first();
   await expect(h1, 'a single visible H1 must exist').toBeVisible();
   const font = await h1.evaluate((el) => getComputedStyle(el).fontFamily);
   expect(
-    /fraunces/i.test(font),
-    `H1 font-family "${font}" must include Fraunces (modern display face).`
+    /^-apple-system,/i.test(font),
+    `H1 font-family "${font}" must lead with the site-wide system stack (-apple-system).`
   ).toBe(true);
 }
 
@@ -149,8 +149,8 @@ test.describe('About page — modern restyle contract', () => {
     await expectThemeModernScope(page, 'h1');
   });
 
-  test('H1 renders in Fraunces', async ({ page }) => {
-    await expectFrauncesH1(page);
+  test('H1 renders in the site-wide system font', async ({ page }) => {
+    await expectSystemFontH1(page);
   });
 
   test('no gradient clip-text on the About surface', async ({ page }) => {
@@ -262,8 +262,8 @@ test.describe('404 page — modern restyle contract', () => {
     await expectThemeModernScope(page, 'h1');
   });
 
-  test('H1 renders in Fraunces', async ({ page }) => {
-    await expectFrauncesH1(page);
+  test('H1 renders in the site-wide system font', async ({ page }) => {
+    await expectSystemFontH1(page);
   });
 
   test('no gradient clip-text on the 404 surface', async ({ page }) => {
