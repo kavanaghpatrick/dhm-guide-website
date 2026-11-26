@@ -15,7 +15,7 @@ import { test, expect } from '@playwright/test';
  *   - the page body is inside a .theme-modern subtree (self or ancestor)
  *   - the H1 renders in the site-wide system font
  *   - NO gradient clip-text (no transparent-filled + background-clip:text)
- *   - About's "See Tested Products" (internal → /reviews) is NOT conversion
+ *   - About's "See Product Comparisons" (internal → /reviews) is NOT conversion
  *     orange (orange is reserved for affiliate/buy CTAs)
  *   - the 404 page keeps a working link back to home ("/")
  *   - no console errors (third-party "Failed to load resource" filtered, per the
@@ -157,21 +157,21 @@ test.describe('About page — modern restyle contract', () => {
     await expectNoClipText(page, 'main');
   });
 
-  test('"See Tested Products" (internal → /reviews) is NOT conversion orange', async ({
+  test('"See Product Comparisons" (internal → /reviews) is NOT conversion orange', async ({
     page,
   }) => {
     // Internal nav CTA: must be brand green / secondary, never the reserved orange.
     // Locate by its stable data-cta-text hook (preserved through the restyle).
-    const cta = page.locator('[data-cta-text="See Tested Products"]').first();
+    const cta = page.locator('[data-cta-text="See Product Comparisons"]').first();
     await expect(
       cta,
-      'About "See Tested Products" CTA ([data-cta-text]) must exist'
+      'About "See Product Comparisons" CTA ([data-cta-text]) must exist'
     ).toBeVisible();
 
     // Check the CTA element and any descendants (the color may live on an inner
     // <a> / label span) — none may be orange background or orange text.
     const targets = page.locator(
-      '[data-cta-text="See Tested Products"], [data-cta-text="See Tested Products"] *'
+      '[data-cta-text="See Product Comparisons"], [data-cta-text="See Product Comparisons"] *'
     );
     const count = await targets.count();
     for (let i = 0; i < count; i++) {

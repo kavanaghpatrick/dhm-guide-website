@@ -24,8 +24,8 @@ export default function About() {
   const values = [
     {
       icon: <Microscope aria-hidden="true" />,
-      title: "Science-Based",
-      description: "Every recommendation is backed by peer-reviewed research and clinical studies."
+      title: "Research First",
+      description: "We start from the published studies and say plainly when they were done in animals, not people."
     },
     {
       icon: <Shield aria-hidden="true" />,
@@ -34,8 +34,8 @@ export default function About() {
     },
     {
       icon: <Heart aria-hidden="true" />,
-      title: "User-Focused",
-      description: "Prioritizing real user experiences and practical effectiveness over marketing claims."
+      title: "Labels Over Marketing",
+      description: "We judge a product by what its label says is in it, not by what the brand says it does."
     },
     {
       icon: <Globe aria-hidden="true" />,
@@ -47,42 +47,19 @@ export default function About() {
   const expertise = [
     {
       area: "Research Standards",
-      description: "We only cite peer-reviewed studies indexed in PubMed"
+      description: "We cite published studies and link to each one so you can check it"
     },
     {
-      area: "Supplement Testing",
-      description: "Products evaluated for purity, dosage accuracy, and value"
+      area: "Label Comparison",
+      description: "Products compared on DHM dose per serving and price per serving, as printed on the label"
     },
     {
       area: "Transparent Analysis",
       description: "All recommendations include source citations"
     },
     {
-      area: "User Experience",
-      description: "Real-world feedback collected and analyzed systematically"
-    }
-  ]
-
-  const achievements = [
-    {
-      value: "50+",
-      title: "Studies Analyzed",
-      description: "Comprehensive review of all major DHM research"
-    },
-    {
-      value: "20+",
-      title: "Brands Tested",
-      description: "Independent testing of leading DHM supplements"
-    },
-    {
-      value: "11",
-      title: "Clinical Studies Reviewed",
-      description: "In-depth analysis of peer-reviewed DHM trials"
-    },
-    {
-      value: "100%",
-      title: "Transparent Methodology",
-      description: "Clear criteria for all product evaluations"
+      area: "No Lab Testing",
+      description: "We do not lab-test products, so we never claim to know what is in the bottle beyond the label"
     }
   ]
 
@@ -94,13 +71,13 @@ export default function About() {
     },
     {
       step: "2",
-      title: "Product Testing",
-      description: "Independent laboratory analysis of DHM supplements for purity, potency, and quality."
+      title: "Label Comparison",
+      description: "Reading each product's label for DHM dose, other ingredients and serving size, then working out the price per serving. We do not run lab tests."
     },
     {
       step: "3",
-      title: "User Feedback",
-      description: "Collection and analysis of real user experiences and effectiveness reports."
+      title: "Amazon Ratings",
+      description: "Noting each product's Amazon star rating and review count as a rough signal, not as proof that it works."
     },
     {
       step: "4",
@@ -121,14 +98,14 @@ export default function About() {
             </span>
 
             <h1 style={{ marginTop: 'var(--space-4)' }}>
-              Your Trusted <span className="accent">DHM Research</span> Resource
+              About <span className="accent">DHM Guide</span>
             </h1>
 
             <p className="lead">
-              Dedicated to helping you{' '}
-              <strong className="text-brand">never wake up hungover again</strong>{' '}
-              through science-backed research, independent testing, and proven
-              hangover prevention strategies.
+              DHM Guide explains what the published research says about DHM
+              (dihydromyricetin) and hangovers, and compares DHM supplements on
+              dose, price per serving and Amazon ratings. We read labels against
+              the studies. We do not lab-test products.
             </p>
 
             <div
@@ -151,10 +128,10 @@ export default function About() {
                 className="btn btn-secondary btn-lg"
                 style={{ textDecoration: 'none' }}
                 data-track="cta"
-                data-cta-text="See Tested Products"
+                data-cta-text="See Product Comparisons"
                 data-cta-destination="/reviews"
               >
-                See Tested Products
+                See Product Comparisons
               </Link>
             </div>
           </header>
@@ -187,7 +164,7 @@ export default function About() {
               <div className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
                 <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.25rem', height: '1.25rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
                 <p style={{ margin: 0, color: 'var(--color-ink-soft)' }}>
-                  <strong>Evidence-Based:</strong> Every recommendation backed by peer-reviewed research
+                  <strong>Research first:</strong> Recommendations start from published studies, with their limits stated
                 </p>
               </div>
               <div className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
@@ -228,7 +205,7 @@ export default function About() {
                     'Conflicting information about DHM online',
                     'Marketing claims without scientific backing',
                     'Complex research difficult to understand',
-                    'No comprehensive product comparisons',
+                    'Few side-by-side comparisons of dose and price',
                   ].map((item) => (
                     <li key={item} className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink-soft)' }}>
                       <XCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-ink-soft)', opacity: 0.7 }} />
@@ -243,9 +220,9 @@ export default function About() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {[
                     'Evidence-based information only',
-                    'Independent product testing',
+                    'Products compared on label dose and price',
                     'Clear, accessible explanations',
-                    'Comprehensive product database',
+                    'Clear about what we have not checked',
                   ].map((item) => (
                     <li key={item} className="cluster" style={{ flexWrap: 'nowrap', alignItems: 'flex-start', gap: 'var(--space-2)', color: 'var(--color-ink-soft)' }}>
                       <CheckCircle aria-hidden="true" style={{ flex: '0 0 auto', width: '1.125rem', height: '1.125rem', marginTop: '0.15em', color: 'var(--color-brand)' }} />
@@ -336,35 +313,6 @@ export default function About() {
                     {step.description}
                   </p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================ IMPACT (stats) ============================ */}
-      <section className="section">
-        <div className="container">
-          <header className="section-head section-head--center">
-            <span className="eyebrow">By the numbers</span>
-            <h2>Our Impact</h2>
-            <p className="lead">
-              Measurable contributions to DHM knowledge and user education.
-            </p>
-          </header>
-
-          <div className="grid-auto">
-            {achievements.map((achievement) => (
-              <div key={achievement.title} className="card" style={{ textAlign: 'center' }}>
-                <div className="stat" style={{ alignItems: 'center' }}>
-                  <span className="stat-value">{achievement.value}</span>
-                  <span className="stat-label" style={{ fontWeight: 600, color: 'var(--color-ink)' }}>
-                    {achievement.title}
-                  </span>
-                </div>
-                <p className="text-soft" style={{ margin: 'var(--space-3) 0 0', fontSize: 'var(--text-small)' }}>
-                  {achievement.description}
-                </p>
               </div>
             ))}
           </div>
