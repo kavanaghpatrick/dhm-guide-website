@@ -1,10 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-// Contract change (money-page rework, 2026-11-26): this spec now forces the modern
-// variant. Before, no override was set, so the suite ran against the legacy Reviews.jsx
-// that almost no real visitor sees (modern ships to 100%). Once the A/B wrapper is
-// deleted the query param is a harmless no-op.
-const REVIEWS_URL = '/reviews?exp_site-modern-v1=modern';
+// The site-modern-v1 A/B wrapper and the legacy Reviews.jsx are deleted: /reviews
+// always serves the modern page, so no variant override is needed.
+const REVIEWS_URL = '/reviews';
 
 test('Item 3 — Fix #1 sort inconsistency: first product card and Editor\'s Pick quick-pick both name "No Days Wasted"', async ({ page }) => {
   await page.goto(REVIEWS_URL);

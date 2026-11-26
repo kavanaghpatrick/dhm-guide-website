@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
  *
  * Variant forced via URL override:
  *   /?exp_site-modern-v1=modern
- * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
+ * (the query param is a leftover no-op: the A/B wrapper is gone and modern always renders).
  *
  * We assert the affiliate CTA *contract* statically (no click) — end-to-end
  * click behavior is covered by tests/affiliate-tracking.spec.js.

@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
  *
  * The variant is forced deterministically via the URL override:
  *   /compare?exp_site-modern-v1=modern
- * (see src/lib/experimentOverride.js — ?exp_<key>=<variant> beats PostHog).
+ * (the query param is a leftover no-op: the A/B wrapper is gone and modern always renders).
  *
  * NOTE: we deliberately do NOT click affiliate links here. This suite runs
  * against a local dev server; clicking would navigate off-site. We assert the

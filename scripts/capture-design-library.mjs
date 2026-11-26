@@ -24,17 +24,17 @@ const LIB = join(ROOT, 'docs/design-modernization-2026-06-25/screenshots');
 const BASE = 'https://www.dhmguide.com';
 
 const PAGES = [
-  { slug: 'home', path: '/', label: 'Homepage', source: 'src/pages/Home.jsx',
+  { slug: 'home', path: '/', label: 'Homepage', source: 'src/pages/Home.modern.jsx',
     purpose: 'Primary marketing landing page: hero (before/after), dual-pathway science explainer, benefits grid, top-3 product showcase, testimonials, competitor comparison, FAQ, final CTA.' },
-  { slug: 'reviews', path: '/reviews', label: 'Best DHM Supplements (Reviews)', source: 'src/pages/Reviews.jsx',
+  { slug: 'reviews', path: '/reviews', label: 'Best DHM Supplements (Reviews)', source: 'src/pages/Reviews.modern.jsx',
     purpose: 'Highest-value conversion page: filterable/sortable product listings, quick comparison table, pros/cons per product, affiliate CTAs to Amazon.' },
-  { slug: 'guide', path: '/guide', label: 'DHM Hangover Relief Guide', source: 'src/pages/Guide.jsx',
+  { slug: 'guide', path: '/guide', label: 'DHM Hangover Relief Guide', source: 'src/pages/Guide.modern.jsx',
     purpose: 'Educational conversion funnel: DHM science, 3-step prevention protocol, dosing scenarios, mechanism explainer, FAQ.' },
-  { slug: 'research', path: '/research', label: 'The Science Behind DHM (Research)', source: 'src/pages/Research.jsx',
+  { slug: 'research', path: '/research', label: 'The Science Behind DHM (Research)', source: 'src/pages/Research.modern.jsx',
     purpose: 'Authority/trust page: 25+ peer-reviewed studies categorized by type, APA citation copy tools, year/category filters.' },
-  { slug: 'compare', path: '/compare', label: 'Compare DHM Supplements', source: 'src/pages/Compare.jsx',
+  { slug: 'compare', path: '/compare', label: 'Compare DHM Supplements', source: 'src/pages/Compare.modern.jsx',
     purpose: 'Side-by-side comparison tool: select up to 4 supplements, compare specs, price, DHM content, features.' },
-  { slug: 'never-hungover', path: '/never-hungover', label: 'Never Hungover Blog Hub', source: 'src/newblog/pages/NewBlogListing.jsx',
+  { slug: 'never-hungover', path: '/never-hungover', label: 'Never Hungover Blog Hub', source: 'src/newblog/pages/NewBlogListing.modern.jsx',
     purpose: 'Organic-discovery content hub: searchable/taggable article index linking to 30+ blog posts.' },
 ];
 

@@ -30,11 +30,9 @@
 import { test, expect, devices } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
-// Contract change (money-page rework, 2026-11-26): this spec now forces the modern
-// variant. Before, no override was set, so the suite ran against the legacy Reviews.jsx
-// that almost no real visitor sees (modern ships to 100%). Once the A/B wrapper is
-// deleted the query param is a harmless no-op.
-const REVIEWS_URL = '/reviews?exp_site-modern-v1=modern';
+// The site-modern-v1 A/B wrapper and the legacy Reviews.jsx are deleted: /reviews
+// always serves the modern page, so no variant override is needed.
+const REVIEWS_URL = '/reviews';
 
 // One CTA per catalog product (was a hardcoded 10 before the catalog shrank to 8).
 const PRODUCT_COUNT = JSON.parse(readFileSync(new URL('../src/data/topProducts.json', import.meta.url), 'utf8')).length;

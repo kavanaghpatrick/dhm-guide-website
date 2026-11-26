@@ -55,9 +55,8 @@ function arg(name, fallback) {
 const BASE = (process.env.BASE_URL || arg('--base', 'https://www.dhmguide.com')).replace(/\/$/, '');
 const IS_LOCAL = /localhost|127\.0\.0\.1/.test(BASE);
 
-// Force the shipped modern variant. On prod it is 100% modern, but the override
-// makes the capture deterministic even if the flag ever changes. Harmless on any
-// route (see src/lib/experimentOverride.js — ?exp_<key>=<variant>).
+// Legacy query param from the retired site-modern-v1 A/B test. The modern pages are
+// now served unconditionally, so this is a harmless no-op kept for old capture URLs.
 const EXP = 'exp_site-modern-v1=modern';
 
 const DEFAULT_ROUTES = [

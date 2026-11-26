@@ -28,9 +28,6 @@ import '../styles/money-pages.css'
  *
  * Affiliate links render through AmazonLink (plain <a>, data-* attributes, no
  * onClick). The global listener in useAffiliateTracking fires affiliate_link_click.
- *
- * The legacy control page (Reviews.jsx) is still rendered by ReviewsRoute for the
- * control arm and for first-time visitors before the flag resolves, so it stays.
  */
 
 const isPick = (p) => p?.badge === "Editor's Choice"

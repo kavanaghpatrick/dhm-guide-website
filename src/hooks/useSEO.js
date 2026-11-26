@@ -254,8 +254,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'never-hungover':
       return {
-        title: 'Never Hungover: Master Science-Backed Hangover Prevention',
-        description: 'Learn how to never wake up hungover again. Expert guides on DHM, proven prevention strategies, and cutting-edge research. Master the hangover-free lifestyle.',
+        title: 'Never Hungover: Articles on DHM, Hangovers and Drinking',
+        description: 'Articles on DHM dosing and timing, what the hangover research found, supplement comparisons, and how alcohol affects sleep, the liver and mood.',
         keywords: 'never hungover, hangover prevention, how to never get hungover, DHM hangover prevention, hangover-free lifestyle, prevent hangovers completely',
         canonicalUrl: `${baseUrl}/never-hungover`,
         ogImage: `${baseUrl}/never-hungover-featured.webp`,
@@ -264,7 +264,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
             "@context": "https://schema.org",
             "@type": "Blog",
             "name": "Never Hungover - DHM Guide",
-            "description": "Master the science of hangover prevention and never wake up hungover again",
+            "description": "Articles on DHM, hangovers and drinking",
             "publisher": {
               "@type": "Organization",
               "name": "DHM Guide"
@@ -277,7 +277,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
     case 'about':
       return {
         title: 'About DHM Guide | Hangover Prevention Resource',
-        description: 'DHM Guide: Your resource for science-backed hangover prevention since 2020. We analyze clinical research and test supplements to provide unbiased guidance.',
+        description: 'Who runs DHM Guide, how we pick the studies we cite, how we compare supplements on dose and price, and how we make money from affiliate links.',
         keywords: 'hangover prevention experts, stop hangovers team, hangover cure specialists, hangover prevention research team',
         canonicalUrl: `${baseUrl}/about`,
         ogImage: `${baseUrl}/about-featured.webp`,
@@ -286,7 +286,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "About DHM Guide",
-            "description": "Your trusted resource for science-backed hangover prevention information"
+            "description": "Who runs DHM Guide and how we compare DHM supplements"
           },
           generateBreadcrumbSchema({ path: '/about' })
         ]
@@ -372,7 +372,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     default:
       return {
-        title: 'DHM Guide: Science-Backed Hangover Prevention',
+        title: 'DHM Guide: DHM Supplements Compared on Dose, Price and Evidence',
         description: 'Your trusted resource for DHM (Dihydromyricetin) information and hangover prevention.',
         keywords: 'DHM, dihydromyricetin, hangover prevention',
         canonicalUrl: baseUrl,

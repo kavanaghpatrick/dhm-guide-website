@@ -1,20 +1,5 @@
 {
   "$schema": "./experiments.registry.schema.json",
   "$comment": "Single source of truth for active experiments. Each entry under `experiments` must have: owner (string), hypothesis (string), start_date (ISO date), decision_date (ISO date), primary_metric (string, e.g. 'affiliate_link_click'), files (array of paths that read the flag). Auto-audited by scripts/audit-feature-flags.mjs which cross-references PostHog flags against this registry and the codebase to flag drift (registered-but-unused, used-but-unregistered, past decision_date).",
-  "experiments": {
-    "site-modern-v1": {
-      "owner": "patrick",
-      "hypothesis": "A unified modern redesign across all 6 primary pages (one shared assignment, so a user is modern everywhere or control everywhere) holds or lifts site-wide affiliate_link_click vs the current design. Replaces the 6 per-page experiments (reviews/home/guide/research/compare/never-hungover-modern-v1) to give consistent UX and faster significance.",
-      "start_date": "2026-06-25",
-      "decision_date": "2026-07-23",
-      "primary_metric": "affiliate_link_click",
-      "files": [
-        "src/pages/ModernRoute.jsx",
-        "src/lib/experiment.js",
-        "src/lib/cachedFlags.js",
-        "src/hooks/useVariant.js",
-        "src/hooks/useFeatureFlag.js"
-      ]
-    }
-  }
+  "experiments": {}
 }
