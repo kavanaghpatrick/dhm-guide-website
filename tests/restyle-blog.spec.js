@@ -423,7 +423,7 @@ test.describe('Blog post template — modern restyle contract', () => {
     // 1) A Table of Contents affordance must render (desktop sidebar OR mobile
     //    toggle — whichever is visible for the current viewport).
     // "On this page" rail on desktop, a native <details> "Contents" block below 1024px.
-    const tocAny = page.getByText(/^(table of contents|on this page|contents)$/i);
+    const tocAny = page.getByText(/^(table of contents|on this page|contents( · \d+ sections)?)$/i);
     // The desktop sidebar copy is hidden on mobile and vice-versa; require that
     // AT LEAST ONE Table-of-Contents element is visible for this viewport.
     const tocCount = await tocAny.count();

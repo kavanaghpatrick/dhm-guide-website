@@ -215,17 +215,22 @@ const NewBlogPost = () => {
   const toc = useMemo(() => {
     const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const plain = (t) => t.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').replace(/\s+#+\s*$/, '').replace(/\s*\{#[^}]*\}/g, '').trim();
+    // Short one-line label: "Hidden Alcohol: Mouthwash, ..." -> "Hidden Alcohol",
+    // "Where Supplements Fit (and Where They Don't)" -> "Where Supplements Fit".
+    // Short prefixes ("Step 1: ...") are kept whole.
+    const short = (t) => {
+      const cut = t.indexOf(': ');
+      return (cut >= 12 ? t.slice(0, cut) : t).replace(/\s+\([^()]*\)$/, '') || t;
+    };
     const items = [];
     for (const [, hashes, raw] of fullContent.replace(/```[\s\S]*?```/g, '').matchAll(/^(##|###)[ \t]+(.+)$/gm)) {
-      const text = plain(raw);
-      const id = slugify(text);
+      const full = plain(raw);
+      const id = slugify(full);
       if (!id) continue;
       if (hashes === '##') {
-        // Short label: "Hidden Alcohol: Mouthwash, Cough Syrup..." -> "Hidden Alcohol".
-        const cut = text.indexOf(': ');
-        items.push({ id, text: cut >= 12 ? text.slice(0, cut) : text, children: [] });
+        items.push({ id, text: short(full), full, children: [] });
       } else if (items.length) {
-        items[items.length - 1].children.push({ id, text });
+        items[items.length - 1].children.push({ id, text: short(full), full });
       }
     }
     for (const item of items) if (item.children.length < 2 || item.children.length > 8) item.children = [];
@@ -504,6 +509,8 @@ const NewBlogPost = () => {
       href={`#${item.id}`}
       className={active ? 'is-active' : undefined}
       aria-current={active ? 'location' : undefined}
+      title={item.full}
+      aria-label={item.full}
       onClick={(e) => {
         e.preventDefault();
         scrollToSection(item.id);
@@ -572,7 +579,9 @@ const NewBlogPost = () => {
           {hasToc && (
             <details className="contents">
               <summary>
-                Contents
+                <span>
+                  Contents<span className="contents__count"> · {toc.length} sections</span>
+                </span>
                 <ChevronDown aria-hidden="true" />
               </summary>
               <nav className="post-toc" aria-label="Contents">{tocList}</nav>
