@@ -121,20 +121,20 @@ const pages = [
   },
   {
     route: '/reviews',
-    title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
-    description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
+    title: 'Best DHM Supplements 2026: 8 Compared on Dose and Price',
+    description: 'Eight DHM supplements compared on dose, price per serving and Amazon ratings, with the one we would buy and the ones we would skip.',
     ogImage: '/reviews-og.jpg',
-    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>' +
+    bodyStub: '<h1>Best DHM Supplements of 2026</h1><p>We compared eight DHM supplements on dose, price per serving and Amazon ratings. This is what we would buy, and what we would skip.</p><p>Editor\u2019s pick: No Days Wasted DHM Detox, for one product with DHM and the usual add-ins. If you only want DHM, NusaPure and Double Wood give you the same 1,000 mg for less. <a href="/compare">Compare up to four side by side</a>.</p>' +
       // Mirrors the "More buying guides" links in Reviews.modern.jsx (crawler-visible internal links).
       '<p>More buying guides: <a href="/never-hungover/no-days-wasted-dhm-review-analysis">No Days Wasted Review 2026</a>, <a href="/never-hungover/best-liver-supplements">best liver supplements</a>, <a href="/never-hungover/best-liver-detox-supplements">best liver detox supplements</a>, <a href="/never-hungover/best-fatty-liver-supplements">best fatty liver supplements</a>, <a href="/never-hungover/best-hangover-recovery-drinks">best hangover recovery drinks</a>.</p>',
-    // ItemList schema for product carousel rich result. Order MUST mirror the
-    // visible ranking in src/pages/Reviews.jsx (which imports the same JSON
-    // from src/data/topProducts.json) — single source of truth, no drift.
+    // ItemList schema for product carousel rich result. Order mirrors the
+    // visible ranking on /reviews (topProducts.json sorted by score, the
+    // "Best overall" order in Reviews.modern.jsx).
     itemListSchema: generateItemListSchema({
       name: 'Best DHM Supplements 2026',
-      description: 'Top 10 DHM supplements tested and ranked for hangover prevention',
+      description: 'Eight DHM supplements ranked on dose and price',
       itemUrlBase: 'https://www.dhmguide.com/reviews',
-      products: topProducts
+      products: [...topProducts].sort((a, b) => b.score - a.score)
     })
   },
   {
@@ -275,10 +275,10 @@ const pages = [
   },
   {
     route: '/compare',
-    title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
-    description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
+    title: 'Compare DHM Supplements Side by Side (2026)',
+    description: 'Put up to four DHM supplements side by side: dose, price per serving, the cost of a 1,000 mg dose, servings and Amazon ratings.',
     ogImage: '/compare-og.jpg',
-    bodyStub: '<h1>Compare 7 Best DHM Hangover Supplements</h1><p>Compare the top DHM hangover supplements side-by-side: price per dose, DHM content per serving, verified user reviews, and shipping speed.</p><p>Interactive comparison tool helps you find your perfect hangover pill in 60 seconds. Filter by budget, dose strength, and shipping options.</p>'
+    bodyStub: '<h1>Compare DHM supplements side by side</h1><p>Pick up to four products. The table lines them up on dose, price, the cost of a 1,000 mg dose and Amazon ratings.</p><p>For the product we would buy and why, see the <a href="/reviews">DHM supplement reviews</a>.</p>'
   }
 ];
 
