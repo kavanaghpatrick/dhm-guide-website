@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import {
@@ -13,7 +13,6 @@ import {
 } from 'lucide-react'
 import topProductsData from '@/data/topProducts.json'
 import ProductCardModern from '../components/modern/ProductCardModern.jsx'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import '../styles/theme-modern.css'
 
 /**
@@ -21,7 +20,7 @@ import '../styles/theme-modern.css'
  *
  * A flag-gated restyle of the homepage hero + key sections in the approved 2026
  * design language (docs/design-modernization-2026-06-25): warm paper palette,
- * Fraunces display + Inter text, border-first cards, and a single saturated
+ * system-font display and text, border-first cards, and a single saturated
  * orange reserved for conversion. Built ONLY from the scoped `.theme-modern`
  * classes in src/styles/theme-modern.css — no new design tokens, no Tailwind
  * z-* classes, no gradient headings, no parallax.
@@ -41,10 +40,6 @@ export default function HomeModern() {
   // Reuse the canonical homepage SEO (same title/description/schema as control).
   useSEO(generatePageSEO('home'))
 
-  // Only the variant arm pays the preload cost (control never imports this).
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   // Top-3 picks reuse the SAME canonical data as control (no new data).
   // Mirror Home.jsx's selection: ids 1, 2, 5 (editor's pick, value, best blend).
@@ -58,7 +53,7 @@ export default function HomeModern() {
       {/* ===================================================================
           HERO — editorial headline, trust row, orange CTA + ghost secondary,
           dual-pathway as two border-first cards (NOT a gradient banner).
-          Solid-ink Fraunces H1 with exactly ONE brand-green accent word.
+          Solid-ink H1 with exactly ONE brand-green accent word.
           No parallax, no gradient clip-text.
           =================================================================== */}
       <section className="hero surface-wash" data-testid="home-hero-modern">

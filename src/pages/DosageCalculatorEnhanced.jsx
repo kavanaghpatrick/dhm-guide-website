@@ -5,7 +5,6 @@ import { useSEO } from '../hooks/useSEO.js'
 import { useMobileOptimization } from '../hooks/useMobileOptimization.js'
 import engagementTracker from '../utils/engagement-tracker.js'
 import { trackEvent } from '../lib/posthog'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import { toast } from 'sonner'
 import '../styles/theme-modern.css'
 import {
@@ -448,11 +447,6 @@ export default function DosageCalculatorEnhanced() {
   const calculatorRef = useRef(null)
   const engagementTimerRef = useRef(null)
 
-  // Modern design system: preload the self-hosted display/body fonts on mount
-  // (mirrors Reviews.modern.jsx — the page body is wrapped in .theme-modern).
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   // Check for returning user
   useEffect(() => {

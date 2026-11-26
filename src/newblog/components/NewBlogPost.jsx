@@ -18,7 +18,6 @@ import Picture from '../../components/Picture';
 import { Link as CustomLink } from '../../components/CustomLink';
 import { trackElementClick } from '../../lib/posthog';
 import InlineComparisonTable from '../../components/InlineComparisonTable';
-import { preloadModernFonts } from '../../lib/preloadModernFonts.js';
 import { cleanMarkdown } from '../utils/cleanMarkdown.js';
 import '../../styles/theme-modern.css';
 
@@ -239,10 +238,6 @@ const NewBlogPost = () => {
     return currentPath.replace('/never-hungover/', '').replace('/newblog/', '');
   };
 
-  // Modern variant: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts();
-  }, []);
 
   // Listen for URL changes
   useEffect(() => {

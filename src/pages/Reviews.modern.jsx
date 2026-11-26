@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import {
   Award,
@@ -13,7 +13,6 @@ import {
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import ProductCardModern from '../components/modern/ProductCardModern.jsx'
 import ComparisonTableModern from '../components/modern/ComparisonTableModern.jsx'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import topProductsData from '../data/topProducts.json'
 import '../styles/theme-modern.css'
 
@@ -21,7 +20,7 @@ import '../styles/theme-modern.css'
  * Reviews.modern — the "modern" arm of the /reviews A/B test
  * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Reviews.jsx), built on the approved 2026 design language
- * (docs/design-modernization-2026-06-25/): warm paper palette, Fraunces display
+ * (docs/design-modernization-2026-06-25/): warm paper palette, system-font display
  * headings in SOLID ink (no gradient), border-first cards, a single saturated
  * orange reserved for conversion CTAs.
  *
@@ -37,7 +36,6 @@ import '../styles/theme-modern.css'
  *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
  *     scoped stylesheet src/styles/theme-modern.css is imported here so the
  *     modern CSS is code-split into this chunk — CONTROL users pay nothing.
- *   - preloadModernFonts() runs on mount (variant arm only).
  *
  * Affiliate CTA contract: ALL product/table CTAs render through
  * ProductCardModern / ComparisonTableModern, which emit a plain <a> with the
@@ -51,10 +49,6 @@ const EXPERIMENT_KEY = 'site-modern-v1'
 export default function ReviewsModern() {
   useSEO(generatePageSEO('reviews'))
 
-  // Variant arm only: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   const [sortBy, setSortBy] = useState('score')
   const [filterBy, setFilterBy] = useState('all')

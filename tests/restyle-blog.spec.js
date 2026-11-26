@@ -25,7 +25,7 @@ import { test, expect } from '@playwright/test';
  * Two axes of assertions:
  *   STYLE (must FLIP once restyled):
  *     - the article shell is inside a .theme-modern subtree (self or ancestor)
- *     - the post <h1> AND the in-article <h2>s render in Fraunces (display face)
+ *     - the post <h1> AND the in-article <h2>s render in the site-wide system font
  *     - NO gradient clip-text (transparent-filled + background-clip:text) anywhere
  *     - NO rainbow / two-hue gradient BACKGROUND on the page shell or article
  *     - the reserved conversion-orange appears ONLY on in-post affiliate/buy CTAs;
@@ -135,12 +135,12 @@ async function expectThemeModernScope(page) {
   ).toBe(true);
 }
 
-/** Assert an element renders in Fraunces (modern display face). */
-async function expectFraunces(locator, label) {
+/** Assert an element renders in the site-wide system font. */
+async function expectSystemFont(locator, label) {
   const font = await locator.evaluate((el) => getComputedStyle(el).fontFamily);
   expect(
-    /fraunces/i.test(font),
-    `${label} font-family "${font}" must include Fraunces (modern display face).`
+    /^-apple-system,/i.test(font),
+    `${label} font-family "${font}" must lead with the site-wide system stack (-apple-system).`
   ).toBe(true);
 }
 
@@ -165,15 +165,15 @@ test.describe('Blog post template — modern restyle contract', () => {
     await expectThemeModernScope(page);
   });
 
-  test('the post H1 renders in Fraunces', async ({ page }) => {
+  test('the post H1 renders in the site-wide system font', async ({ page }) => {
     const h1 = page.getByRole('heading', { level: 1 }).first();
     await expect(h1, 'a single visible H1 must exist').toBeVisible();
-    await expectFraunces(h1, 'Post H1');
+    await expectSystemFont(h1, 'Post H1');
   });
 
-  test('in-article H2s render in Fraunces', async ({ page }) => {
+  test('in-article H2s render in the site-wide system font', async ({ page }) => {
     // The body markdown emits multiple <h2> section headings — they are the
-    // biggest typographic tell of the restyle (editorial Fraunces vs sans).
+    // biggest typographic tell of the restyle (they must match the rest of the site).
     const h2s = page.locator('article h2, main h2');
     const count = await h2s.count();
     expect(count, 'the post body must render at least one <h2>').toBeGreaterThan(0);
@@ -182,7 +182,7 @@ test.describe('Blog post template — modern restyle contract', () => {
     for (let i = 0; i < checkN; i++) {
       const h2 = h2s.nth(i);
       if (!(await h2.isVisible())) continue;
-      await expectFraunces(h2, `Post H2 #${i}`);
+      await expectSystemFont(h2, `Post H2 #${i}`);
     }
   });
 

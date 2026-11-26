@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import missionVisual from '../assets/dhm_mission_visual.webp'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import '../styles/theme-modern.css'
 import {
   Users,
@@ -21,10 +20,6 @@ import {
 export default function About() {
   useSEO(generatePageSEO('about'));
 
-  // Variant/modern surface: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   const values = [
     {

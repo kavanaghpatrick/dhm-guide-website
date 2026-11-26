@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
 import {
@@ -20,7 +20,6 @@ import {
   PartyPopper,
   GlassWater,
 } from 'lucide-react'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import '../styles/theme-modern.css'
 
 /**
@@ -28,7 +27,7 @@ import '../styles/theme-modern.css'
  * (flag key: "site-modern-v1"). A flag-gated restyle of the CONTROL page
  * (src/pages/Guide.jsx), built on the approved 2026 design language
  * (docs/design-modernization-2026-06-25/recommendations/guide.md): warm paper
- * foundation, editorial Fraunces H1 in SOLID ink with one brand-green emphasis
+ * foundation, editorial H1 in SOLID ink with one brand-green emphasis
  * word (no gradient clip), de-rainbowed 2-tone surfaces, border-first elevation,
  * Lucide icons replacing emoji/unicode stars, and a single saturated orange
  * reserved for every primary CTA (the proven +21% conversion lever, Pattern #12).
@@ -45,7 +44,6 @@ import '../styles/theme-modern.css'
  *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
  *     scoped stylesheet src/styles/theme-modern.css is imported here so the
  *     modern CSS is code-split into this chunk — CONTROL users pay nothing.
- *   - preloadModernFonts() runs on mount (variant arm only).
  *
  * No affiliate links exist on /guide — every CTA is an internal <Link> (to
  * /reviews, /research, /dhm-dosage-calculator, /never-hungover/*). So there is
@@ -57,10 +55,6 @@ export default function GuideModern() {
   // SEO optimization for guide page (identical to control).
   useSEO(generatePageSEO('guide'))
 
-  // Variant arm only: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   // ---- Data copied verbatim from the control (src/pages/Guide.jsx) ----
   const keyBenefits = [

@@ -16,7 +16,7 @@ import { test, expect } from '@playwright/test';
  *
  *   STYLE (RED until the restyle lands):
  *     - the page body is inside a .theme-modern subtree
- *     - the H1 renders in Fraunces (modern display face), no gradient clip-text
+ *     - the H1 renders in the site-wide system font, no gradient clip-text
  *     - NO element in the page body carries a rainbow gradient wash or a
  *       purple/blue/indigo/pink multi-color background (scans computed
  *       backgroundImage + backgroundColor across every element in <main>)
@@ -130,13 +130,13 @@ test.describe('DHM Dosage Calculator — modern restyle contract', () => {
     await expectThemeModernScope(page, 'h1');
   });
 
-  test('H1 renders in Fraunces (modern display face)', async ({ page }) => {
+  test('H1 renders in the site-wide system font', async ({ page }) => {
     const h1 = page.getByRole('heading', { level: 1 }).first();
     await expect(h1, 'a single visible H1 must exist').toBeVisible();
     const font = await h1.evaluate((el) => getComputedStyle(el).fontFamily);
     expect(
-      /fraunces/i.test(font),
-      `H1 font-family "${font}" must include Fraunces (modern display face).`
+      /^-apple-system,/i.test(font),
+      `H1 font-family "${font}" must lead with the site-wide system stack (-apple-system).`
     ).toBe(true);
   });
 

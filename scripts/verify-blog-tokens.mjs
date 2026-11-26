@@ -58,6 +58,9 @@ export const TOKENS = {
   '--s2':  'calc(var(--l) * 2)',
   '--s3':  'calc(var(--l) * 3)',
   '--s4':  'calc(var(--l) * 4)',
+  // Fonts: the blog uses the same native system stack as the rest of the site.
+  '--font-display': '-apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  '--font-sans':    '-apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 };
 
 // Present with any value (the CTA colour is the owner's call, brief 2.3).
@@ -100,6 +103,8 @@ for (const name of TOKENS_ANY_VALUE) {
 for (const cls of CLASSES) {
   if (!new RegExp('\\.' + cls + '(?![\\w-])').test(css)) failures.push(`.${cls}: class absent from built CSS`);
 }
+// No self-hosted web fonts: the Fraunces/Inter faces were removed on purpose.
+if (/@font-face[^}]*(fraunces|inter variable)/i.test(css)) failures.push('@font-face for Fraunces/Inter found in built CSS');
 if (failures.length) {
   console.error('\n[verify-blog-tokens] FAIL - ' + failures.length + ' editorial token problems in built CSS:');
   for (const f of failures) console.error('  ' + f);

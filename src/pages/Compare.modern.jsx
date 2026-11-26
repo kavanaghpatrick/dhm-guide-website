@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from '../components/CustomLink.jsx'
 import { useSEO, generatePageSEO } from '../hooks/useSEO.js'
-import { preloadModernFonts } from '../lib/preloadModernFonts.js'
 import { buildAffiliateUrl } from '../lib/utm-builder.js'
 import topProductsData from '@/data/topProducts.json'
 import {
@@ -53,7 +52,6 @@ import '../styles/theme-modern.css'
  *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
  *     scoped stylesheet src/styles/theme-modern.css is imported here so the modern
  *     CSS is code-split into this chunk — CONTROL users pay nothing.
- *   - preloadModernFonts() runs on mount (variant arm only).
  *
  * Affiliate CTA contract: every CTA is a plain <a> built with buildAffiliateUrl
  * + the data-experiment-key / data-variant / data-component-id attributes the
@@ -66,10 +64,6 @@ const EXPERIMENT_KEY = 'site-modern-v1'
 export default function CompareModern() {
   useSEO(generatePageSEO('compare'))
 
-  // Variant arm only: preload the body font once, on mount.
-  useEffect(() => {
-    preloadModernFonts()
-  }, [])
 
   // Product data: canonical fields (price, rating, reviews, affiliateLink, name,
   // brand, dhm, purity, badge, badgeColor, score, servings, category) come from
