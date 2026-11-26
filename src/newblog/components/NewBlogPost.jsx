@@ -498,7 +498,12 @@ const NewBlogPost = () => {
   // Some posts store readTime as "18 min read", most as a number.
   const readTimeLabel = (t) => (/min/i.test(String(t)) ? String(t) : `${t} min read`);
   const hasToc = toc.length > 1;
-  const shownDate = new Date(post.dateModified || post.date);
+  // "Updated" only when the post records an edit after it was published.
+  // post.date is a Date (postLoader); dateModified/lastModified are strings.
+  const published = new Date(post.date || post.datePublished);
+  const modified = new Date(post.dateModified || post.lastModified);
+  const wasEdited = modified > published; // false when either is missing (NaN)
+  const shownDate = wasEdited ? modified : published;
   const tocLink = (item, active) => (
     <a
       href={`#${item.id}`}
@@ -548,10 +553,10 @@ const NewBlogPost = () => {
 
             {post.excerpt && <p className="post-lead">{post.excerpt}</p>}
 
-            {/* One quiet line: "Updated <date> · N min read", nothing else.
-                The author stays in the JSON-LD. */}
+            {/* One quiet line: "Published|Updated <date> · N min read", nothing
+                else. The author stays in the JSON-LD. */}
             <p className="post-meta">
-              Updated{' '}
+              {wasEdited ? 'Updated' : 'Published'}{' '}
               <time dateTime={isNaN(shownDate) ? undefined : shownDate.toISOString().slice(0, 10)}>
                 {formatDate(shownDate)}
               </time>
@@ -563,14 +568,6 @@ const NewBlogPost = () => {
               <p className="post-disclosure">
                 We earn a commission if you buy through our links, at no cost to you.
               </p>
-            )}
-
-            {/* Quick Answer — part of the header, in the first ~100 words for AI engine extraction. Issue #292. */}
-            {post.quickAnswer && (
-              <div className="post-answer">
-                <p className="post-block-label">Quick answer</p>
-                <p className="post-answer__text">{post.quickAnswer}</p>
-              </div>
             )}
 
             <hr className="post-rule" />
@@ -595,6 +592,16 @@ const NewBlogPost = () => {
                 <p className="post-toc__label">On this page</p>
                 {tocList}
               </nav>
+            </div>
+          )}
+
+          {/* Quick Answer — first block of the article column, level with the
+              top of the rail; still in the first ~100 words for AI engine
+              extraction. Issue #292. */}
+          {post.quickAnswer && (
+            <div className="post-answer">
+              <p className="post-block-label">Quick answer</p>
+              <p className="post-answer__text">{post.quickAnswer}</p>
             </div>
           )}
 
