@@ -55,6 +55,31 @@ test('health-content compliance: no overclaiming language in ANY post', () => {
   expect(offenders, 'posts with overclaim phrases').toEqual([]);
 });
 
+// Badge claims are false or unverifiable for this site (we read labels against
+// published research; there is no lab). Banned in every SERP-visible field sitewide.
+// tests/money-pages.spec.js bans the same set on the money pages.
+const BADGE_CLAIMS = [
+  /\bscience[- ]backed\b/i,
+  /\bclinically[- ]proven\b/i,
+  /\blab[- ]tested\b/i,
+  /\bindependent(ly)?[- ]test(ed|ing)\b/i,
+  /\b\d[\d,]*\+?\s+brands\s+tested\b/i,
+  /\b\d[\d,]*\+?\s+(customer\s+|amazon\s+|user\s+)?reviews\s+analy[sz]ed\b/i,
+];
+
+test('trust: no badge claims in any post or index title / meta / excerpt', () => {
+  const offenders = [];
+  const check = (where, rec) => {
+    for (const k of ['title', 'metaDescription', 'excerpt', 'description']) {
+      const v = rec[k];
+      if (typeof v === 'string' && BADGE_CLAIMS.some((re) => re.test(v))) offenders.push(`${where} [${k}]: ${v.slice(0, 90)}`);
+    }
+  };
+  for (const f of readdirSync(POSTS).filter((f) => f.endsWith('.json'))) check(f, readJSON(join(POSTS, f)));
+  for (const e of readJSON(INDEX) || []) check(`index:${e.slug}`, e);
+  expect(offenders, 'badge claims in SERP-visible fields').toEqual([]);
+});
+
 for (const slug of NEW_CONTENT) {
   test.describe(`content quality — ${slug}`, () => {
     const post = readJSON(join(POSTS, `${slug}.json`));

@@ -116,10 +116,10 @@ const pages = [
   },
   {
     route: '/research',
-    title: 'Does DHM Work? 11 Studies Prove 70% Hangover Reduction',
-    description: 'UCLA and USC clinical trials prove DHM reduces hangovers 70%. See evidence from 11 peer-reviewed studies and 600+ participants.',
+    title: 'Does DHM Work? What the Research Actually Shows',
+    description: 'Most DHM research is in animals and cells. What the few human trials found, how big they were, and what is still unproven for hangovers.',
     ogImage: '/research-og.jpg',
-    bodyStub: '<h1>Does DHM Work? 11 Clinical Studies</h1><p>UCLA and USC clinical trials prove DHM reduces hangover symptoms by up to 70%. Evidence from 11 peer-reviewed studies covering 600+ participants.</p><p>Detailed breakdowns of randomized controlled trials, mechanism research, and liver protection findings from major research institutions.</p>',
+    bodyStub: '<h1>Does DHM Work? What the Research Actually Shows</h1><p>Most DHM research has been done in animals and cells. The often-quoted "70%" figure comes from a 2012 UCLA study in rats, not people. Only a handful of small human trials exist, and none proves DHM prevents hangovers.</p><p>Below, each study is labelled by type (human trial, animal study, cell study or review) with its size and what it measured.</p>',
     // One ScholarlyArticle JSON-LD block per study — emitted into the
     // prerendered head so Google crawlers see structured data without
     // executing JavaScript (Pattern #11). Mirror of the faqSchema field
@@ -134,7 +134,7 @@ const pages = [
           "name": "How many clinical studies have been conducted on DHM?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "11 peer-reviewed clinical studies have been published on DHM (dihydromyricetin), including randomized controlled trials, safety assessments, and mechanism studies. Major research institutions like UCLA, USC, and universities in Asia have contributed significant findings."
+            "text": "Dozens of studies have looked at DHM (dihydromyricetin), but most were done in animals or cells. Only a few small human trials exist, and most of those measured liver or metabolic markers rather than hangovers. This page lists each study with its type and size."
           }
         },
         {
@@ -142,7 +142,7 @@ const pages = [
           "name": "What did the UCLA DHM study find?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The landmark UCLA study published in the Journal of Neuroscience found that DHM counteracts acute alcohol intoxication and prevents alcohol withdrawal symptoms by modulating GABA-A receptors. The study showed significant reductions in alcohol-induced impairment."
+            "text": "The 2012 UCLA study (Shen and colleagues, Journal of Neuroscience) was done in rats. DHM shortened alcohol intoxication and reduced withdrawal signs by acting on GABA-A receptors in the brain. It did not test people, so it does not show that DHM prevents hangovers in humans."
           }
         },
         {
@@ -150,7 +150,7 @@ const pages = [
           "name": "Are there randomized controlled trials on DHM for hangovers?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, multiple randomized controlled trials have examined DHM's effectiveness for hangover prevention. A 2024 study in Foods journal showed significant hangover severity reduction (p<0.001) compared to placebo, with improvements in cognitive function and nausea."
+            "text": "Very few. The closest is a 2024 trial in the journal Foods with 30 adults that tested a Hovenia dulcis fruit extract, which contains DHM along with other compounds. It found lower blood alcohol and fewer stomach symptoms than placebo. It did not test DHM on its own."
           }
         },
         {
@@ -158,15 +158,15 @@ const pages = [
           "name": "Is DHM proven to protect the liver?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Clinical studies demonstrate DHM's hepatoprotective effects, including reduced liver enzyme elevation (ALT/AST) by 38-41%, decreased oxidative stress by 55%, and prevention of alcohol-induced fatty liver in 78% of cases. Research shows DHM enhances alcohol metabolism and protects liver cells."
+            "text": "No. Animal studies consistently show liver-protective effects, and a few small human trials in people with fatty liver disease reported better liver enzyme readings with DHM. None has shown that DHM protects the liver of people who drink."
           }
         },
         {
           "@type": "Question",
-          "name": "What is the optimal DHM dosage according to research?",
+          "name": "What DHM dose does the research support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Clinical trials typically use 300-600mg DHM per drinking session. Studies show effectiveness at 5mg per kg body weight, with doses up to 1200mg daily tested safely. Most research supports 300-600mg taken 30-60 minutes before alcohol consumption for optimal hangover prevention."
+            "text": "There is no proven dose. No human trial has tested DHM doses for hangovers. Supplements commonly contain 300 to 1,000 mg per serving. Our calculator starts at 5 mg per kilogram of body weight with a 300 mg minimum, as a starting point rather than an established dose."
           }
         }
       ]

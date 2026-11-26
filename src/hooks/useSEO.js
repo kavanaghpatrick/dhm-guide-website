@@ -192,8 +192,8 @@ export const generatePageSEO = (pageType, pageData = {}) => {
 
     case 'research':
       return {
-        title: 'Does DHM Work? 11 Studies Prove 70% Hangover Reduction',
-        description: 'UCLA and USC clinical trials prove DHM reduces hangovers 70%. See evidence from 11 peer-reviewed studies and 600+ participants.',
+        title: 'Does DHM Work? What the Research Actually Shows',
+        description: 'Most DHM research is in animals and cells. What the few human trials found, how big they were, and what is still unproven for hangovers.',
         keywords: 'does dhm work, dhm clinical studies, dhm research, ucla dhm study, dhm effectiveness, dhm hangover studies',
         canonicalUrl: `${baseUrl}/research`,
         ogImage: `${baseUrl}/dhm-research-featured.webp`,
@@ -202,7 +202,7 @@ export const generatePageSEO = (pageType, pageData = {}) => {
             "@context": "https://schema.org",
             "@type": "Dataset",
             "name": "Dihydromyricetin Randomized Controlled Trial Database",
-            "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
+            "description": "Published studies on dihydromyricetin (DHM), most of them in animals or cells, with the small number of human trials marked as such",
             "creator": {
               "@type": "Organization",
               "name": "DHM Guide"

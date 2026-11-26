@@ -35,7 +35,7 @@ export default function ReviewsCTA({ variant = 'default', placement, postSlug, e
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h4 className="font-semibold text-gray-900">Ready to try DHM?</h4>
-            <p className="text-sm text-gray-600">We've independently tested 10+ supplements.</p>
+            <p className="text-sm text-gray-600">We compare DHM supplements on label dose and price.</p>
           </div>
           <Link
             to="/reviews"
@@ -71,19 +71,19 @@ export default function ReviewsCTA({ variant = 'default', placement, postSlug, e
           </h3>
 
           <p className="text-gray-600 mb-4">
-            We've tested 10+ DHM products for purity, effectiveness, and value.
-            See which ones actually work.
+            We compare DHM supplements on label dose, price per serving and
+            Amazon ratings. We do not run lab tests.
           </p>
 
           {/* Trust signals */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-5">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span>20,000+ reviews analyzed</span>
+              <span>Amazon ratings shown</span>
             </div>
             <div className="flex items-center gap-1">
               <Shield className="w-4 h-4 text-green-600" />
-              <span>Third-party tested</span>
+              <span>Commissions disclosed</span>
             </div>
           </div>
 

@@ -162,9 +162,9 @@ export default function ResearchModern() {
   const keyFindings = [
     {
       icon: <TrendingUp aria-hidden="true" />,
-      title: '70% Faster',
-      subtitle: 'alcohol clearance from system',
-      study: 'UCLA 2012'
+      title: 'Shorter Intoxication',
+      subtitle: 'in rats given DHM (no human data)',
+      study: 'UCLA 2012 · animal study'
     },
     {
       icon: <Shield aria-hidden="true" />,
@@ -260,9 +260,9 @@ export default function ResearchModern() {
             </h1>
 
             <p className="lead" style={{ marginInline: 'auto' }}>
-              Latest <strong>2026 randomized controlled trials</strong> prove dihydromyricetin (DHM)
-              prevents hangovers. Review peer-reviewed <strong>clinical studies and RCT data</strong> on
-              DHM for hangover prevention.
+              Most research on dihydromyricetin (DHM) has been done in <strong>animals and cells</strong>.
+              A few small human trials exist, mostly on liver markers, and none proves DHM prevents
+              hangovers. Each study below is labelled by type and size so you can judge it yourself.
             </p>
 
             {/* Research stats — flat brand-strong numbers on paper, no card chrome. */}
@@ -279,8 +279,8 @@ export default function ResearchModern() {
                 <span className="stat-label">Human Clinical Trials</span>
               </div>
               <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
-                <span className="stat-value">600+</span>
-                <span className="stat-label">Trial Participants</span>
+                <span className="stat-value">{studies.length - humanTrialCount}</span>
+                <span className="stat-label">Animal, Cell or Review Studies</span>
               </div>
               <div className="stat" style={{ alignItems: 'center', textAlign: 'center' }}>
                 <span className="stat-value">{yearsOfResearch}</span>
@@ -308,9 +308,9 @@ export default function ResearchModern() {
             </h2>
 
             <p className="lead" style={{ marginInline: 'auto' }}>
-              Recent <strong>randomized controlled trials</strong> provide the highest level of
-              scientific evidence for DHM&rsquo;s effectiveness in hangover prevention. These studies
-              follow rigorous protocols with control groups and placebo comparisons.
+              <strong>Randomized controlled trials</strong> are the strongest kind of evidence, but
+              for DHM they are few and small. Most measured liver or metabolic markers, not
+              hangovers, and the one hangover trial tested a plant extract that contains DHM.
             </p>
           </div>
 
@@ -321,10 +321,10 @@ export default function ResearchModern() {
                 2026 RCT Results
               </h3>
               <ul style={{ margin: 0 }}>
-                <li><strong>{humanTrialCount} human clinical trials</strong> completed</li>
-                <li><strong>600+ participants</strong> across studies</li>
-                <li><strong>Randomized, double-blind design</strong></li>
-                <li><strong>Placebo-controlled protocols</strong></li>
+                <li><strong>{humanTrialCount} human clinical trials</strong> in this list</li>
+                <li><strong>30 to 150 participants</strong> each, where reported</li>
+                <li><strong>Mostly liver and metabolic outcomes</strong></li>
+                <li><strong>One hangover trial</strong>, using a DHM-containing extract</li>
               </ul>
             </article>
 
@@ -334,10 +334,10 @@ export default function ResearchModern() {
                 Key RCT Findings
               </h3>
               <ul style={{ margin: 0 }}>
-                <li><strong>70% faster</strong> alcohol processing</li>
-                <li><strong>45% faster</strong> alcohol metabolism</li>
-                <li><strong>Significant liver protection</strong> markers</li>
-                <li><strong>No adverse effects</strong> reported</li>
+                <li><strong>Lower blood alcohol</strong> vs placebo in the 2024 extract trial (30 adults)</li>
+                <li><strong>Better liver enzyme readings</strong> in small fatty-liver trials</li>
+                <li><strong>Shorter intoxication</strong> in rats, not yet shown in people</li>
+                <li><strong>No serious side effects</strong> reported in the human trials</li>
               </ul>
             </article>
           </div>
@@ -350,8 +350,8 @@ export default function ResearchModern() {
               <strong>Randomized controlled trials (RCTs)</strong> represent the gold standard for
               testing dihydromyricetin&rsquo;s effectiveness against hangovers. Unlike observational
               studies, RCTs eliminate bias through random assignment, control groups, and blinded
-              protocols, providing definitive proof that <strong>DHM for hangovers</strong> works through
-              direct causal mechanisms rather than correlation.
+              protocols. That is why the lack of a large DHM-only hangover trial matters: until one
+              exists, the case for <strong>DHM for hangovers</strong> rests mostly on animal work.
             </p>
           </div>
         </div>
@@ -364,10 +364,10 @@ export default function ResearchModern() {
             className="section-head section-head--center"
             style={{ marginInline: 'auto' }}
           >
-            <span className="eyebrow">Proven results</span>
-            <h2>Proven Clinical Results</h2>
+            <span className="eyebrow">Headline findings</span>
+            <h2>Key Study Findings</h2>
             <p className="lead" style={{ marginInline: 'auto' }}>
-              Evidence-based benefits from randomized controlled trials and peer-reviewed studies.
+              The numbers most often quoted about DHM, with the kind of study each came from.
             </p>
           </div>
 
@@ -408,8 +408,8 @@ export default function ResearchModern() {
                 Try the DHM Supplement Behind These Results
               </h2>
               <p className="lead">
-                Our top-rated pick, <strong>{winnerProduct.name}</strong>, delivers a clinically-studied
-                DHM dose — the same compound shown to clear alcohol up to 70% faster.
+                Our top-rated pick, <strong>{winnerProduct.name}</strong>, lists its DHM dose clearly
+                on the label. The evidence is early, so treat it as something to try, not a sure fix.
               </p>
               <div className="cta-band__actions">
                 <a
@@ -682,8 +682,8 @@ export default function ResearchModern() {
             <span className="eyebrow">Put it into practice</span>
             <h2>Skip Your Next Hangover</h2>
             <p className="lead">
-              With proven clinical results showing up to 70% faster alcohol recovery, DHM supplements
-              can help you wake up feeling amazing.
+              The evidence for DHM is promising but early. If you want to try it, compare products
+              on dose and price, and pace your drinks either way.
             </p>
             <div className="cta-band__actions">
               <Link

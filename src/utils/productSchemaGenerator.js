@@ -94,7 +94,7 @@ export const productReviewData = {
     product: {
       name: 'No Days Wasted DHM Detox',
       brand: 'No Days Wasted',
-      description: 'Science-backed formula with 1000mg DHM plus L-Cysteine and electrolytes',
+      description: 'Formula with 1000mg DHM plus L-Cysteine and electrolytes',
       image: '/images/no-days-wasted-bottle.webp',
       sku: 'B08K8F4RYJ',
       rating: 4.3,
@@ -301,7 +301,7 @@ export function generateProductSchemaFromReview(slug) {
         'name': 'DHM Guide'
       },
       'datePublished': '2025-01-01',
-      'reviewBody': `Comprehensive review of ${product.name} for hangover prevention. Based on analysis of ${product.reviewCount} customer reviews and independent testing.`,
+      'reviewBody': `Review of ${product.name} for hangover prevention. Based on the product label, price per serving and ${product.reviewCount} Amazon reviews. DHM Guide does not run lab tests.`,
       'reviewRating': {
         '@type': 'Rating',
         'ratingValue': product.rating,
@@ -429,7 +429,7 @@ const faqData = {
   'flyby-recovery-review-2025': [
     {
       question: "Does Flyby Recovery actually work for hangovers?",
-      answer: "Based on 7,200+ customer reviews with a 4.3-star rating, Flyby Recovery shows effectiveness for most users. It contains 300mg DHM plus B-vitamins and milk thistle. Clinical studies on DHM show 70%+ hangover reduction, though individual results vary based on alcohol consumption and body weight."
+      answer: "Based on 7,200+ customer reviews with a 4.3-star rating, Flyby Recovery shows effectiveness for most users. It contains 300mg DHM plus B-vitamins and milk thistle. Human evidence for DHM and hangovers is limited to a few small trials, so results vary from person to person."
     },
     {
       question: "How much does Flyby Recovery cost?",
@@ -473,7 +473,7 @@ const faqData = {
   'dhm-dosage-guide-2025': [
     {
       question: "What is the optimal DHM dosage for hangover prevention?",
-      answer: "The optimal DHM dosage is 5mg per kg of body weight, typically 300-600mg for most adults. A 150lb (68kg) person should take approximately 340mg. Clinical studies show this dosage provides 70%+ hangover reduction when taken 30-60 minutes before drinking."
+      answer: "The optimal DHM dosage is 5mg per kg of body weight, typically 300-600mg for most adults. A 150lb (68kg) person should take approximately 340mg. No human trial has tested DHM doses for hangovers, so treat this as a starting point."
     },
     {
       question: "Can you take too much DHM?",
