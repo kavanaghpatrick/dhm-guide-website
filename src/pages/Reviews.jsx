@@ -177,14 +177,14 @@ export default function Reviews() {
             </Link>
 
             <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-clip-text text-transparent leading-tight">
-              Best DHM Supplements (June 2026)
+              Best DHM Supplements of 2026
             </h1>
 
             <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
               Expert reviews of hangover prevention supplements that actually work - stop hangovers before they start.
             </p>
 
-            <p data-testid="reviews-byline" className="text-sm text-gray-500 mb-4">Reviewed by the DHM Guide editorial team · Updated June 2026</p>
+            <p data-testid="reviews-byline" className="text-sm text-gray-500 mb-4">Reviewed by the DHM Guide editorial team · 2026 edition</p>
 
             {/* Quick Stats - Now visible on mobile (Issue #224) */}
             <div className="grid grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">

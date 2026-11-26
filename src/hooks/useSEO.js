@@ -201,13 +201,13 @@ export const generatePageSEO = (pageType, pageData = {}) => {
           {
             "@context": "https://schema.org",
             "@type": "Dataset",
-            "name": "Dihydromyricetin Randomized Controlled Trial Database 2024",
+            "name": "Dihydromyricetin Randomized Controlled Trial Database",
             "description": "Comprehensive collection of dihydromyricetin (DHM) randomized controlled trials and clinical studies for hangover prevention",
             "creator": {
               "@type": "Organization",
               "name": "DHM Guide"
             },
-            "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials", "2024"]
+            "keywords": ["dihydromyricetin", "randomized controlled trial", "hangover", "DHM", "clinical trials"]
           },
           // Note: FAQ schema is added by prerender script (scripts/prerender-main-pages.js)
           // to avoid duplicate schema markup that causes Google Search Console errors
