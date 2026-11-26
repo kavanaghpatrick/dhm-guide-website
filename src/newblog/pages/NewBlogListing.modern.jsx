@@ -164,18 +164,18 @@ const NewBlogListingModern = () => {
   const isBrowsing = !query && selectedTopics.length === 0;
 
   // Window the list: rendering all ~800 cards at once made the page ~480k px.
+  // Any filter change starts the window over; reset in the handlers, not an effect.
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [query, selectedTopics]);
   const shown = Math.min(visibleCount, filteredPosts.length);
   const remaining = filteredPosts.length - shown;
 
   const toggleTopic = (key) => {
+    setVisibleCount(PAGE_SIZE);
     setSelectedTopics((prev) => (prev.includes(key) ? prev.filter((t) => t !== key) : [...prev, key]));
   };
 
   const clearFilters = () => {
+    setVisibleCount(PAGE_SIZE);
     setSearchQuery('');
     setSelectedTopics([]);
   };
@@ -217,7 +217,7 @@ const NewBlogListingModern = () => {
                 type="search"
                 placeholder="Try “sleep”, “ibuprofen” or “DHM dosage”"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => { setSearchQuery(e.target.value); setVisibleCount(PAGE_SIZE); }}
                 className="blog-search__input"
                 autoComplete="off"
               />
