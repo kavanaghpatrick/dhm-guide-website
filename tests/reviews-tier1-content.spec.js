@@ -1,4 +1,13 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const PRODUCTS = JSON.parse(readFileSync(new URL('../src/data/topProducts.json', import.meta.url), 'utf8'));
+
+// Contract change (money-page rework, 2026-11-26): this spec now forces the modern
+// variant. Before, no override was set, so the suite ran against the legacy Reviews.jsx
+// that almost no real visitor sees (modern ships to 100%). Once the A/B wrapper is
+// deleted the query param is a harmless no-op.
+const REVIEWS_URL = '/reviews?exp_site-modern-v1=modern';
 
 test.describe('Reviews page — tier-1 content (items 7 & 6)', () => {
   let errors;
@@ -8,7 +17,7 @@ test.describe('Reviews page — tier-1 content (items 7 & 6)', () => {
     errors = [];
     page.on('pageerror', e => errors.push(e.message));
 
-    await page.goto('/reviews');
+    await page.goto(REVIEWS_URL);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
   });
@@ -32,5 +41,24 @@ test.describe('Reviews page — tier-1 content (items 7 & 6)', () => {
 
     // Quick-pick "Check Price" CTA link is visible
     await expect(page.getByRole('link', { name: /check price/i }).first()).toBeVisible();
+  });
+
+  // New contract (design audit, /reviews item 1): the first phone screen answers "which
+  // one should I buy". A plain paragraph near the H1 names the pick, so the verdict is in
+  // prose, not only in a badge or in a card further down.
+  test('a plain verdict paragraph naming the pick sits in the first phone screen', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(REVIEWS_URL);
+    await page.locator('h1').first().waitFor();
+    await page.waitForTimeout(1000);
+    const pick = PRODUCTS.find((p) => p.badge === "Editor's Choice") || PRODUCTS[0];
+    const found = await page.evaluate((brand) =>
+      [...document.querySelectorAll('main p')].some((p) => {
+        const r = p.getBoundingClientRect();
+        return r.height > 0 && r.top + window.scrollY < 844
+          && !p.closest('[data-track="product"], table, nav, header')
+          && p.innerText.includes(brand);
+      }), pick.brand);
+    expect(found, `no paragraph naming "${pick.brand}" in the first 844px`).toBe(true);
   });
 });
