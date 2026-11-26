@@ -203,6 +203,14 @@ const NewBlogListingModern = () => {
   // so a narrowed result set isn't visually buried under promo blocks.
   const isBrowsing = !searchQuery.trim() && selectedTags.length === 0;
 
+  // Window the grid: rendering all ~800 cards at once made the page ~480k px.
+  const PAGE_SIZE = 60;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [searchQuery, selectedTags]);
+  const remaining = filteredPosts.length - visibleCount;
+
   // Preload post on hover (copied verbatim from CONTROL).
   const handlePostHover = (slug) => {
     preloadPost(slug);
@@ -593,7 +601,7 @@ const NewBlogListingModern = () => {
             </div>
           ) : (
             <div className="picks-grid">
-              {filteredPosts.map((post) => (
+              {filteredPosts.slice(0, visibleCount).map((post) => (
                 <article
                   key={post.slug ?? post.id}
                   className="card-raised"
@@ -718,6 +726,18 @@ const NewBlogListingModern = () => {
                   </CustomLink>
                 </article>
               ))}
+            </div>
+          )}
+
+          {remaining > 0 && (
+            <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+              >
+                Load more articles ({remaining} remaining)
+              </button>
             </div>
           )}
         </div>
