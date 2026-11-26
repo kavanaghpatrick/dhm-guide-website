@@ -21,120 +21,97 @@ const topProducts = JSON.parse(
 const pages = [
   {
     route: '/',
-    title: 'DHM Guide: Prevent Hangovers with Science-Backed Supplements',
-    description: 'UCLA-proven hangover prevention. DHM blocks 70% of symptoms in clinical trials. Expert reviews, dosage guides, and 11 studies. Never wake up hungover.',
+    title: 'DHM Guide: DHM Supplements Compared on Dose, Price and Evidence',
+    description: 'What the research says about DHM for hangovers, and the three DHM supplements we rank highest, with the dose and price per serving of each.',
     ogImage: '/og-image.jpg',
-    bodyStub: '<h1>DHM Guide: Science-Backed Hangover Prevention</h1><p>UCLA-proven DHM (Dihydromyricetin) blocks up to 70% of hangover symptoms in clinical trials. Expert reviews, dosage guides, and analysis of 11 peer-reviewed studies.</p><p>Discover proper DHM dosing, timing, and the best supplements for hangover prevention. Never wake up hungover again.</p>'
+    bodyStub: '<h1>DHM supplements, compared on dose, price and evidence.</h1><p>DHM is a plant compound sold to prevent hangovers. The animal research is promising and the human evidence is thin.</p><p>See the <a href="/reviews">eight products we compare</a>, read the <a href="/guide">DHM guide</a>, or work out a starting dose with the <a href="/dhm-dosage-calculator">dosage calculator</a>.</p>'
   },
   {
     route: '/guide',
-    title: 'Complete DHM Guide 2026 | Science-Backed Hangover Prevention',
-    description: 'Master DHM hangover prevention with our 2026 guide. Learn proper dosing, timing, and which supplements work. Expert tips backed by 11 clinical studies.',
+    title: 'The Complete Guide to DHM: Dose, Timing and Evidence',
+    description: 'How much DHM to take and when, what the rat, mouse and human studies found, who should skip it, and what a dose costs.',
     ogImage: '/guide-og.jpg',
-    bodyStub: '<h1>Complete DHM Guide 2026</h1><p>Master DHM hangover prevention with our comprehensive 2026 guide. Learn proper dosing, optimal timing, and which supplements actually work.</p><p>Expert tips backed by 11 clinical studies covering DHM mechanisms, GABA-A receptor modulation, and liver protection benefits.</p>',
-    // FAQPage schema — text MUST match Guide.jsx visible "Quick FAQ" section
-    // (~lines 528-571). Decorative emoji prefixes in the visible h3 headers
-    // (❓ 💊 🍺 🤔 💰 📦) are stripped from schema names; question/answer
-    // text is otherwise verbatim. Anchor links inside answers (e.g. emergency
-    // hangover protocol, top picks, Flyby Recovery analysis) are reproduced
-    // as plain text since schema does not carry HTML.
+    bodyStub: '<h1>The complete guide to DHM</h1><p>DHM is a plant compound sold as a hangover supplement. This guide covers what the studies found, how much people take and when, and what to buy if you want to try it.</p><p>Take 300 to 600 mg about 30 to 60 minutes before your first drink. The strong results come from rats and mice, and the one controlled human trial we know of tested a drink made with raisin-tree extract, not a DHM capsule.</p>',
+    // FAQPage schema: text MUST match the "Common questions" section of
+    // src/pages/Guide.modern.jsx (links are reproduced as plain text).
     faqSchema: {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How fast does DHM work?",
+          "name": "Does it matter what I drink?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "DHM starts working within 30 minutes. Peak effects occur 1-2 hours after taking it."
+            "text": "Not to DHM. Its proposed effects are on alcohol itself, so a beer and a shot are the same to it. Dark drinks such as bourbon and red wine tend to cause worse hangovers than clear ones for other reasons, and DHM does nothing about those."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I take too much DHM?",
+          "name": "What if I forgot to take it before drinking?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "DHM is very safe. Studies show no serious side effects at doses up to 1,200mg daily."
+            "text": "Take it when you remember. No study has tested a late dose, so expect less from it. If you have already woken up hungover, our emergency hangover protocol covers what helps."
           }
         },
         {
           "@type": "Question",
-          "name": "Does it work with all alcohol?",
+          "name": "Can I take DHM every day?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes - beer, wine, liquor, cocktails. DHM works by helping your liver process alcohol faster."
+            "text": "It is sold for nights out, not daily use, and no study has followed people taking it daily for months. We wouldn't."
           }
         },
         {
           "@type": "Question",
-          "name": "What if I forget to take it before?",
+          "name": "How is DHM different from ZBiotics?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Take it as soon as you remember, even while drinking. Late is better than never. For emergency situations, see our emergency hangover protocol."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is DHM expensive?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Quality DHM costs $20-35/month. Compare that to weekend hangover recovery costs."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Where do I buy good DHM?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We've tested 10+ brands. See our top picks → or read specific reviews like our Flyby Recovery analysis."
+            "text": "ZBiotics is a probiotic drink engineered to make an enzyme that breaks down acetaldehyde in the gut. DHM is a plant compound you swallow as a capsule. They work in different ways, and neither has strong human evidence. We set them side by side in DHM vs ZBiotics."
           }
         }
       ]
     },
-    // HowTo schema mirroring the visible "3-Step Hangover Prevention Protocol"
-    // section on /guide (Guide.jsx lines 205-330). Schema content must match
-    // on-page content per Google's HowTo guidelines. SERP rich-result
-    // eligibility for medical/health HowTo was removed in Sept 2023; the
-    // ongoing value is LLM/AI-Overview grounding for "how to take DHM" queries.
+    // HowTo schema mirroring the "When to take it" list on /guide
+    // (src/pages/Guide.modern.jsx). Schema content must match on-page content.
     howToSchema: generateHowToSchema({
-      name: 'How to Take DHM to Prevent a Hangover',
-      description: 'A 3-step protocol for using DHM (dihydromyricetin) before, during, and after drinking to support alcohol metabolism and reduce next-day hangover symptoms.',
+      name: 'How to Take DHM Before Drinking',
+      description: 'When to take a 300 to 600 mg dose of DHM (dihydromyricetin) on a night out.',
       image: 'https://www.dhmguide.com/guide-og.jpg',
-      totalTime: 'PT8H',
+      totalTime: 'PT1H',
       supply: ['DHM supplement (300-600mg)', 'Water'],
       steps: [
         {
-          name: 'Before You Drink',
-          text: 'Take 300-600mg of DHM 30 minutes before your first drink. This activates liver enzymes, primes alcohol metabolism, and helps reduce next-day headache risk.'
+          name: 'Before your first drink',
+          text: 'Take your dose 30 to 60 minutes before your first drink, with a glass of water.'
         },
         {
-          name: 'While You Drink',
-          text: 'Stay hydrated with water between drinks. If drinking heavily, take an additional 300mg of DHM to keep protection active through the night and support continued alcohol metabolism.'
+          name: 'Before bed, on a long night',
+          text: 'On a long night, some people take a second dose before bed. No study has tested this either way.'
         },
         {
-          name: 'Before Bed',
-          text: 'Take 300-500mg of DHM with a glass of water before bed. This helps clear remaining toxins, supports overnight recovery, and helps you wake up feeling refreshed.'
+          name: 'Between drinks',
+          text: 'Drink water between drinks. It slows you down, which does more for the morning than any supplement.'
         }
       ]
     })
   },
   {
     route: '/reviews',
-    title: 'Best DHM Supplements 2026: We Tested 7 Hangover Pills',
-    description: 'Lab-tested 7 DHM supplements for purity and effectiveness. See which hangover pills work and which waste money. #1 pick costs $0.50/dose.',
+    title: 'Best DHM Supplements 2026: 8 Compared on Dose and Price',
+    description: 'Eight DHM supplements compared on dose, price per serving and Amazon ratings, with the one we would buy and the ones we would skip.',
     ogImage: '/reviews-og.jpg',
-    bodyStub: '<h1>Best DHM Supplements 2026</h1><p>We lab-tested 7 of the top DHM supplements for purity, dosage accuracy, and effectiveness. See which hangover pills actually work and which waste your money.</p><p>Independent analysis with our #1 pick costing just $0.50 per dose. Side-by-side comparisons of price, DHM content, and user outcomes.</p>' +
+    bodyStub: '<h1>Best DHM Supplements of 2026</h1><p>We compared eight DHM supplements on dose, price per serving and Amazon ratings. This is what we would buy, and what we would skip.</p><p>Editor\u2019s pick: No Days Wasted DHM Detox, for one product with DHM and the usual add-ins. If you only want DHM, NusaPure and Double Wood give you the same 1,000 mg for less. <a href="/compare">Compare up to four side by side</a>.</p>' +
       // Mirrors the "More buying guides" links in Reviews.modern.jsx (crawler-visible internal links).
       '<p>More buying guides: <a href="/never-hungover/no-days-wasted-dhm-review-analysis">No Days Wasted Review 2026</a>, <a href="/never-hungover/best-liver-supplements">best liver supplements</a>, <a href="/never-hungover/best-liver-detox-supplements">best liver detox supplements</a>, <a href="/never-hungover/best-fatty-liver-supplements">best fatty liver supplements</a>, <a href="/never-hungover/best-hangover-recovery-drinks">best hangover recovery drinks</a>.</p>',
-    // ItemList schema for product carousel rich result. Order MUST mirror the
-    // visible ranking in src/pages/Reviews.jsx (which imports the same JSON
-    // from src/data/topProducts.json) — single source of truth, no drift.
+    // ItemList schema for product carousel rich result. Order mirrors the
+    // visible ranking on /reviews (topProducts.json sorted by score, the
+    // "Best overall" order in Reviews.modern.jsx).
     itemListSchema: generateItemListSchema({
       name: 'Best DHM Supplements 2026',
-      description: 'Top 10 DHM supplements tested and ranked for hangover prevention',
+      description: 'Eight DHM supplements ranked on dose and price',
       itemUrlBase: 'https://www.dhmguide.com/reviews',
-      products: topProducts
+      products: [...topProducts].sort((a, b) => b.score - a.score)
     })
   },
   {
@@ -204,63 +181,46 @@ const pages = [
   },
   {
     route: '/dhm-dosage-calculator',
-    title: 'DHM Dosage Calculator | Personalized Prevention',
-    description: 'Calculate your optimal DHM dosage based on weight and drinking habits. Science-backed recommendations for effective hangover prevention.',
+    title: 'DHM Dosage Calculator: How Much DHM Should I Take?',
+    description: 'Enter your weight and how much you plan to drink to get a starting DHM dose, when to take it, and the cheapest product that delivers it.',
     ogImage: '/calculator-og.jpg',
-    bodyStub: '<h1>DHM Dosage Calculator</h1><p>Calculate your personalized optimal DHM dosage based on body weight and drinking habits. Science-backed recommendations for effective hangover prevention.</p><p>Get tailored timing and dose guidance derived from clinical trial data — typically 5mg per kg body weight, 30-60 minutes before drinking.</p>',
-    // FAQPage schema — text MUST match DosageCalculatorEnhanced.jsx visible
-    // FAQ section (~lines 1864-1928). Source array there is plain
-    // {question,answer} objects so this schema reproduces them verbatim.
+    bodyStub: '<h1>DHM dosage calculator</h1><p>Enter your weight and what you plan to drink. You get a starting dose, when to take it, and the cheapest product we track that delivers it.</p><p>The calculator starts at 5 mg per kilogram of body weight with a 300 mg minimum. No human trial has tested DHM doses, so treat the result as a starting point.</p>',
+    // FAQPage schema: text MUST match the FAQ array in
+    // src/pages/DosageCalculatorEnhanced.jsx, verbatim.
     faqSchema: {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How much DHM should I take for hangover prevention?",
+          "name": "How much DHM should I take?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The optimal DHM dosage for hangover prevention depends on your body weight, alcohol consumption, and tolerance. Most people need 300-600mg of dihydromyricetin, calculated at 5mg per kg of body weight. Our DHM dosage calculator provides personalized mg recommendations based on clinical research."
+            "text": "Most people take 300 to 600 mg. This calculator starts at 5 mg per kilogram of body weight with a 300 mg minimum, which puts a 150 lb person at 350 mg. No human trial has tested DHM doses, so treat any number, this one included, as a starting point."
           }
         },
         {
           "@type": "Question",
-          "name": "What is the correct dihydromyricetin dosage by weight?",
+          "name": "When should I take it?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The standard dihydromyricetin dosage is 5mg per kg of body weight. For a 150lb (68kg) person, this equals approximately 340mg of DHM. Heavier individuals may need up to 600-800mg, while lighter people may only need 250-400mg for effective hangover prevention."
+            "text": "30 to 60 minutes before your first drink, with water. The animal studies gave DHM around the time of drinking, and there is little evidence for taking it the morning after."
           }
         },
         {
           "@type": "Question",
-          "name": "When should I take DHM for best results?",
+          "name": "Is it safe?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For hangover prevention, take DHM 30-60 minutes before drinking. For recovery, take it immediately after drinking or before bed. DHM works best when taken with plenty of water."
+            "text": "The one small human trial (25 adults, 2024) reported no safety problems, which says little about regular use. Skip it, or ask a doctor first, if you are pregnant or breastfeeding, take prescription medication, or have liver disease. The 1,200 mg ceiling here is a cautious limit we chose, not a tested threshold."
           }
         },
         {
           "@type": "Question",
-          "name": "Is DHM safe to take daily?",
+          "name": "Does DHM work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "DHM is generally well-tolerated with no serious side effects reported in clinical studies. However, it's designed for occasional use with alcohol consumption. Don't exceed 1200mg in 24 hours."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How effective is DHM for hangover prevention?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Clinical studies demonstrate DHM's effectiveness in reducing hangover symptoms and blood alcohol levels. A 2024 randomized controlled trial showed significant reductions in blood alcohol and gastrointestinal hangover symptoms compared to placebo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I take DHM with other supplements?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "DHM works well with electrolytes, B vitamins, and NAC (N-acetylcysteine). Avoid taking with blood thinners or if you have liver disease. Consult your healthcare provider for specific medication interactions."
+            "text": "The evidence is thin. DHM counteracted alcohol intoxication in rats and protected the liver in mice, both given by injection. The one controlled human trial we know of tested a drink made with raisin-tree extract, not DHM capsules. It found lower blood alcohol in the first half hour and milder stomach symptoms than placebo."
           }
         }
       ]
@@ -275,10 +235,10 @@ const pages = [
   },
   {
     route: '/compare',
-    title: 'Compare 7 Best DHM Hangover Supplements [Side-by-Side 2026]',
-    description: 'Compare DHM supplements side-by-side: price per dose, DHM content, user reviews, and shipping. Find your perfect hangover pill in 60 seconds. Interactive tool.',
+    title: 'Compare DHM Supplements Side by Side (2026)',
+    description: 'Put up to four DHM supplements side by side: dose, price per serving, the cost of a 1,000 mg dose, servings and Amazon ratings.',
     ogImage: '/compare-og.jpg',
-    bodyStub: '<h1>Compare 7 Best DHM Hangover Supplements</h1><p>Compare the top DHM hangover supplements side-by-side: price per dose, DHM content per serving, verified user reviews, and shipping speed.</p><p>Interactive comparison tool helps you find your perfect hangover pill in 60 seconds. Filter by budget, dose strength, and shipping options.</p>'
+    bodyStub: '<h1>Compare DHM supplements side by side</h1><p>Pick up to four products. The table lines them up on dose, price, the cost of a 1,000 mg dose and Amazon ratings.</p><p>For the product we would buy and why, see the <a href="/reviews">DHM supplement reviews</a>.</p>'
   }
 ];
 

@@ -7,6 +7,19 @@
  *   2. Each visible CTA rendered height >= 44px (WCAG tap-target standard).
  *   3. The table does NOT overflow horizontally (scrollWidth <= clientWidth + 4).
  *
+ * Contract change (money-page rework, 2026-11-26): the design audit counted 16 orange
+ * buy slabs on a phone (8 in this table, 8 on the cards), so orange stopped marking
+ * anything. Every row still needs its own visible, 44px-tall "Check price" link
+ * (assertions 1 and 2 are unchanged), but the table must now be quiet: at most ONE row
+ * (the winner) may use the filled orange .btn-cta. The others become text links.
+ * Assertion 4 is new.
+ *
+ * Contract change, same date: `#comparison-table` must wrap the WHOLE comparison
+ * block, the desktop table and the phone stack alike. On the modern page the id sits on
+ * the <table>, which is display:none below 640px, while the phone cards live in a
+ * sibling div, so on a phone this spec saw 8 CTAs in the DOM and 0 visible. Move the id
+ * to the wrapper (or render one structure at every width).
+ *
  * Scroll-container note:
  *   InlineComparisonTable wraps its <table> in
  *   `<div className="overflow-x-auto …">`.  We target that div by querying
@@ -17,6 +30,12 @@
 import { test, expect, devices } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
+// Contract change (money-page rework, 2026-11-26): this spec now forces the modern
+// variant. Before, no override was set, so the suite ran against the legacy Reviews.jsx
+// that almost no real visitor sees (modern ships to 100%). Once the A/B wrapper is
+// deleted the query param is a harmless no-op.
+const REVIEWS_URL = '/reviews?exp_site-modern-v1=modern';
+
 // One CTA per catalog product (was a hardcoded 10 before the catalog shrank to 8).
 const PRODUCT_COUNT = JSON.parse(readFileSync(new URL('../src/data/topProducts.json', import.meta.url), 'utf8')).length;
 
@@ -25,7 +44,7 @@ test.use({ ...devices['Pixel 5'] });
 
 test('comparison table: one visible Check Price CTAs, 44px tap targets, no horizontal overflow', async ({ page }) => {
   // ── Navigate ────────────────────────────────────────────────────────────────
-  await page.goto('/reviews');
+  await page.goto(REVIEWS_URL);
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(1500);
 
@@ -60,6 +79,16 @@ test('comparison table: one visible Check Price CTAs, 44px tap targets, no horiz
       `CTA #${i} height ${box.height}px is below the 44px tap-target minimum`
     ).toBeGreaterThanOrEqual(43.5); // 43.5 tolerates sub-pixel rounding
   }
+
+  // ── 4. Quiet table: at most one filled orange button ───────────────────────
+  let filled = 0;
+  for (const el of visibleCtas) {
+    if (await el.evaluate((a) => a.matches('.btn-cta') || !!a.querySelector('.btn-cta'))) filled++;
+  }
+  expect(
+    filled,
+    `${filled} of ${visibleCtas.length} table CTAs are filled orange buttons; at most 1 (the winner row) is allowed`
+  ).toBeLessThanOrEqual(1);
 
   // ── 3. No horizontal overflow in the scroll container ──────────────────────
   // The table is wrapped in the first div[class*="overflow"] inside #comparison-table.

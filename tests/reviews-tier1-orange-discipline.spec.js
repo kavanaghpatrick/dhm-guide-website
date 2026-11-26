@@ -1,6 +1,12 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
+// Contract change (money-page rework, 2026-11-26): this spec now forces the modern
+// variant. Before, no override was set, so the suite ran against the legacy Reviews.jsx
+// that almost no real visitor sees (modern ships to 100%). Once the A/B wrapper is
+// deleted the query param is a harmless no-op.
+const REVIEWS_URL = '/reviews?exp_site-modern-v1=modern';
+
 /**
  * Tier-1 spec: Orange Discipline (item 4)
  *
@@ -8,7 +14,7 @@ import { test, expect } from '@playwright/test';
  * its background color is GREEN (not orange). Orange must be reserved
  * for affiliate "buy" CTAs exclusively.
  *
- * Currently FAILS because the active filter button uses bg-orange-500
+ * Originally failed because the active filter button uses bg-orange-500
  * (oklch(0.646 0.222 41.116) ≈ rgb(249,115,22)), which dilutes the
  * CTA signal. The fix will make active filter buttons green.
  *
@@ -19,7 +25,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Reviews page — Orange discipline', () => {
   test('active "Best For" filter button should be GREEN, not orange', async ({ page }) => {
-    await page.goto('/reviews');
+    await page.goto(REVIEWS_URL);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
 
@@ -59,32 +65,33 @@ test.describe('Reviews page — Orange discipline', () => {
     // it's orange. This is the authoritative signal and won't break on CSS
     // color space encoding differences (oklch vs rgb).
 
-    const className = await btn.evaluate(el => el.className);
-    console.log(`Active "Best Overall" className: ${className}`);
-
-    // Also capture the raw computed color for reporting
-    const rawColor = await btn.evaluate(el => getComputedStyle(el).backgroundColor);
-    console.log(`Active "Best Overall" backgroundColor: ${rawColor}`);
-
-    // Assert: must have a green background class, must NOT have orange background class.
-    //
-    // Orange (current/failing state): bg-orange-{n} or bg-amber-{n}
-    // Green (passing state):          bg-green-{n} or bg-emerald-{n}
-    //
-    // The test is RED if the button carries bg-orange-* (current state).
-    // The implementer satisfies it by switching to bg-green-*.
-
-    const hasOrangeClass = /\bbg-orange-\d+\b/.test(className) || /\bbg-amber-\d+\b/.test(className);
-    const hasGreenClass  = /\bbg-green-\d+\b/.test(className)  || /\bbg-emerald-\d+\b/.test(className);
-
-    // Report what we see
-    console.log(`hasOrangeClass=${hasOrangeClass}  hasGreenClass=${hasGreenClass}`);
-
+    // Contract change (money-page rework, 2026-11-26): the modern page styles filters
+    // with design tokens, not Tailwind bg-green-* classes, so the old class-name check
+    // could never pass on the page users get. The intent is unchanged and is now read
+    // from the computed color: the active filter must be green (green channel highest)
+    // and must not sit in the orange hue band reserved for buy buttons.
+    const rgb = await btn.evaluate((el) => {
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = 1;
+      const ctx = cv.getContext('2d');
+      ctx.fillStyle = getComputedStyle(el).backgroundColor;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b, a, raw: getComputedStyle(el).backgroundColor };
+    });
+    const max = Math.max(rgb.r, rgb.g, rgb.b);
+    const min = Math.min(rgb.r, rgb.g, rgb.b);
+    let hue = 0;
+    if (max !== min) {
+      if (max === rgb.r) hue = (60 * ((rgb.g - rgb.b) / (max - min)) + 360) % 360;
+      else if (max === rgb.g) hue = 60 * ((rgb.b - rgb.r) / (max - min)) + 120;
+      else hue = 60 * ((rgb.r - rgb.g) / (max - min)) + 240;
+    }
+    const isOrange = hue >= 15 && hue <= 45 && max - min > 60;
+    expect(isOrange, `active filter is orange (${rgb.raw}, hue ${Math.round(hue)})`).toBe(false);
     expect(
-      hasGreenClass,
-      `Expected active filter button to have a bg-green-* or bg-emerald-* class (GREEN). ` +
-      `Got className="${className}" (computed: ${rawColor}). ` +
-      `Remove bg-orange-* and replace with a green Tailwind class.`
+      rgb.g > rgb.r && rgb.g >= rgb.b && rgb.a > 0,
+      `active filter background ${rgb.raw} is not green`
     ).toBe(true);
   });
 });

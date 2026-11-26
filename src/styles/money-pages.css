@@ -1,0 +1,386 @@
+/* ==========================================================================
+   Money pages (/reviews, /compare) on the blog's editorial system.
+   --------------------------------------------------------------------------
+   Scoped to `main .theme-modern[data-money]` (the page root, inside <main>, so
+   the header's own .theme-modern is never matched). Uses only the tokens from
+   theme-modern.css section 1: the editorial type scale, the 30px rhythm
+   (--s0..--s3), --measure-*, --color-rule / --color-accent. No shadows, no
+   tinted section bands, no motion beyond the shared button transitions.
+   ========================================================================== */
+
+main .theme-modern[data-money] {
+  /* The blog's reading sizes (18-19px body, 16px floor) and the accessible buy
+     button: ink on the unchanged orange is 6.1:1 (white was 2.8:1). */
+  --text-body:  clamp(1.125rem, 1.09rem + 0.15vw, 1.1875rem);
+  --text-small: 1rem;
+  --color-on-cta: var(--color-ink);
+  --m-gutter: 1.25rem;
+  min-height: 100vh;
+
+  & :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* ---- Column ---- */
+  .m-shell {
+    max-width: calc(var(--measure-wide) + 2 * var(--m-gutter));
+    margin-inline: auto;
+    padding: var(--s1) var(--m-gutter) var(--s3);
+  }
+  .m-shell--wide { max-width: calc(64rem + 2 * var(--m-gutter)); }
+
+  p { margin: 0; max-width: var(--measure-prose); }
+  p + p { margin-top: var(--s0); }
+
+  a:not(.btn) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+    text-underline-offset: 0.18em;
+  }
+  a:not(.btn):hover { color: var(--color-ink); text-decoration-color: currentColor; }
+
+  .m-soft  { color: var(--color-ink-soft); }
+  .m-small { font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-soft); }
+  .m-sr {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  /* One label style for every small uppercase marker on the page. */
+  .m-label,
+  .m-eyebrow {
+    display: block;
+    margin: 0;
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* ---- Head block: same order and gaps as the blog post head ---- */
+  .m-title {
+    margin: var(--s0) 0 0;
+    max-width: 20em;
+    font-size: var(--text-title);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .m-lead {
+    margin: var(--s0) 0 0;
+    max-width: var(--measure-lead);
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink);
+    text-wrap: pretty;
+  }
+  .m-meta,
+  .m-disclosure {
+    font-size: var(--text-small);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+  }
+  .m-meta { margin-top: var(--s1); }
+  p.m-disclosure { margin-top: var(--space-2); }
+  .m-rule {
+    height: 0;
+    margin: var(--s1) 0 0;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* ---- Sections ---- */
+  .m-section { margin-top: var(--s2); }
+  .m-section--tight { margin-top: var(--s1); }
+  .m-section > h2,
+  .m-h2-follow {
+    margin: 0 0 var(--s0);
+    font-size: var(--text-heading);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .m-section > p + .m-h2-follow { margin-top: var(--s1h); }
+  .m-section > .m-small { margin-top: var(--space-4); }
+
+  /* ---- The verdict: the one framed block on the page ---- */
+  .m-verdict { margin-top: var(--s1); }
+  .m-winner {
+    max-width: var(--measure-prose);
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .m-winner__name {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-subheading);
+    line-height: 1.3;
+  }
+  .m-winner__why { margin-top: var(--s0); }
+  .m-alt { margin-top: var(--s1); }
+
+  .m-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) var(--space-6);
+    margin: var(--s1) 0 0;
+    padding: var(--space-4) 0 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .m-facts dt {
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .m-facts dd {
+    margin: var(--space-1) 0 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+  }
+  @media (min-width: 640px) {
+    .m-facts { grid-template-columns: repeat(4, auto); justify-content: start; }
+  }
+
+  .m-buy { margin-top: var(--s1); }
+  @media (max-width: 639.98px) {
+    .m-buy { width: 100%; }
+    .m-buy--note { width: auto; }
+  }
+
+  /* ---- Sort control (green when active; orange is for buying only) ---- */
+  .m-sort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--s0) 0 var(--space-4);
+  }
+  .m-sort__label {
+    margin-right: var(--space-1);
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+  }
+  .m-sort .btn,
+  .m-picker .btn { font-weight: 500; }
+  .m-sort .btn[aria-pressed='true'],
+  .m-picker .btn[aria-pressed='true'] {
+    --_btn-bg: var(--color-brand);
+    --_btn-bd: var(--color-brand);
+    --_btn-fg: var(--color-on-brand);
+    font-weight: 600;
+  }
+
+  /* ---- Tables: hairline rows, 13px uppercase headers, tabular figures.
+          A table wider than its column scrolls inside its own box, never the
+          page, and the scroll is signposted: a visible thin scrollbar plus edge
+          shadows that only show while there is more table to see (the blog's
+          .table-scroll technique). ---- */
+  .m-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-soft) transparent;
+    background:
+      linear-gradient(to right, var(--color-paper) 30%, transparent) left / 2.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--color-paper) 30%, transparent) right / 2.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgb(26 29 26 / 0.14), transparent) left / 0.875rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgb(26 29 26 / 0.14), transparent) right / 0.875rem 100% no-repeat scroll;
+  }
+  .m-scroll:focus-visible { outline-offset: 4px; }
+
+  .m-table,
+  .m-ctable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  .m-table th,
+  .m-table td,
+  .m-ctable th,
+  .m-ctable td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .m-table thead th,
+  .m-ctable tbody th {
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .m-table thead th {
+    vertical-align: bottom;
+    border-bottom-color: var(--color-ink-soft);
+  }
+  .m-table tbody th {
+    min-width: 10rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .m-table td { white-space: nowrap; }
+  .m-table tr.is-pick { background-color: var(--color-accent-soft); }
+  .m-label--row { margin-top: var(--space-1); }
+
+  .m-textlink {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -0.75rem;   /* keep the 44px target without padding the row */
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Phones and small tablets: the /reviews table reflows into one block per
+     product (the same <table>, so there is one set of links and the column
+     headers stay in the accessibility tree). Each value carries its column
+     name. From 820px the seven columns fit without scrolling. */
+  @media (max-width: 819.98px) {
+    .m-table thead {
+      position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+    }
+    .m-table,
+    .m-table tbody { display: block; }
+    .m-table tr {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3) var(--space-2);
+      padding: var(--space-4) var(--space-3);
+      border-bottom: 1px solid var(--color-rule);
+    }
+    .m-table th,
+    .m-table td { display: block; padding: 0; border: 0; white-space: normal; }
+    .m-table tbody th { grid-column: 1 / -1; min-width: 0; }
+    .m-table td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 0.125rem;
+      font-size: var(--text-label);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+    }
+    .m-table td[data-label='Rating'] { grid-column: span 2; }
+    .m-table .m-cell-buy { grid-column: 1 / -1; }
+    .m-textlink { margin-block: 0; }
+  }
+  @media (min-width: 560px) and (max-width: 819.98px) {
+    .m-table tr { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .m-table td[data-label='Rating'] { grid-column: auto; }
+  }
+
+  /* ---- Product notes ---- */
+  .m-products { margin: 0; padding: 0; list-style: none; }
+  .m-products > li { margin: 0; }
+  .m-product {
+    padding-block: var(--s1);
+    border-top: 1px solid var(--color-rule);
+  }
+  .m-products > li:first-child .m-product { padding-top: var(--s0); border-top: 0; }
+  .m-product__name {
+    margin: 0;
+    font-size: var(--text-subheading);
+    line-height: 1.3;
+  }
+  .m-product__rank { color: var(--color-ink-soft); font-variant-numeric: tabular-nums; }
+  .m-product .m-product__facts {
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    color: var(--color-ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .m-product .m-product__suits { margin-top: var(--s0); }
+  .m-product__suits .m-label { display: inline; margin-right: var(--space-2); }
+
+  /* ---- Link lists ---- */
+  .m-links { margin: 0 0 var(--s0); padding: 0; list-style: none; max-width: var(--measure-prose); }
+  .m-links li { margin: 0; padding-block: var(--space-2); border-bottom: 1px solid var(--color-rule); }
+  .m-links li:first-child { border-top: 1px solid var(--color-rule); }
+  .m-links a { font-weight: 600; }
+  .m-links .m-soft { display: block; font-size: var(--text-small); }
+
+  /* ---- /compare: picker, product-per-column table, picked-products cards ---- */
+  .m-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: var(--s0) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .m-picker li { margin: 0; }
+  .m-picker .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .m-picker-note { margin-top: var(--space-3); }
+
+  .m-ctable thead th {
+    min-width: 10.5rem;
+    vertical-align: bottom;
+    border-bottom-color: var(--color-ink-soft);
+  }
+  .m-ctable thead th:first-child { min-width: 8rem; }
+  @media (min-width: 640px) {
+    .m-ctable thead th:first-child { min-width: 10rem; }
+  }
+  .m-ctable .m-colname {
+    display: block;
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .m-ctable thead .btn { margin-top: var(--space-3); }
+  .m-ctable tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: var(--color-paper);
+  }
+  .m-ctable td.is-best { background-color: var(--color-accent-soft); font-weight: 600; }
+  .m-ctable td.m-text { min-width: 10.5rem; }
+
+  .m-scroll-hint { display: none; }
+  @media (max-width: 639.98px) {
+    .m-scroll-hint { display: block; margin: 0 0 var(--space-3); }
+  }
+
+  .m-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--s0);
+  }
+  .m-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+  }
+  .m-card h3 {
+    margin: 0;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .m-card .m-card__name { margin-top: var(--space-2); font-weight: 600; }
+  .m-card .m-card__why { margin-top: var(--space-2); color: var(--color-ink-soft); }
+  .m-card .m-textlink { margin: auto 0 0; padding-top: var(--space-3); }
+}
