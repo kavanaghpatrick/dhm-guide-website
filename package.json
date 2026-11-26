@@ -39,7 +39,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.43.0",
-    "lucide-react": "^0.510.0",
+    "lucide-react": "^1.72.0",
     "micromark": "^4.0.3",
     "micromark-extension-gfm": "^3.0.0",
     "playwright": "^1.65.1",
