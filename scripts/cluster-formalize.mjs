@@ -38,8 +38,9 @@ const onlyArg = args.find(a => a.startsWith('--only='));
 const ONLY_CLUSTER = onlyArg ? onlyArg.split('=')[1] : null;
 
 const RELATED_POSTS_CAP = 5;
-const PILLAR_LINK_SENTINEL = '<!-- cluster-pillar-link:auto -->';
-const CLUSTER_INDEX_SENTINEL = '<!-- cluster-index:auto -->';
+// The section heading doubles as the sentinel: HTML comments render as visible
+// text in react-markdown, so posts must not carry comment markers.
+const CLUSTER_INDEX_SENTINEL = '## Related Topics in This Series';
 
 function readJSON(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -140,7 +141,6 @@ function pickAnchor(spokeSlug, anchorPhrases) {
 
 function buildPillarLinkBlock(pillarSlug, pillarTitle, anchor) {
   return [
-    PILLAR_LINK_SENTINEL,
     `> **Related pillar guide:** [${anchor}](/never-hungover/${pillarSlug}) — ${pillarTitle}`,
   ].join('\n');
 }
@@ -153,7 +153,6 @@ function buildClusterIndexSection(spokeEntries, sep = '\n') {
   return [
     '',
     CLUSTER_INDEX_SENTINEL,
-    '## Related Topics in This Series',
     '',
     items,
     '',
