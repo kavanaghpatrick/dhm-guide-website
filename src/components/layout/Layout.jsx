@@ -545,7 +545,7 @@ function Layout({ children }) {
                 </span>
               </div>
               <p className="mb-4 max-w-md" style={{ color: 'var(--color-ink-soft)' }}>
-                Your comprehensive resource for understanding DHM (Dihydromyricetin) and its benefits for hangover prevention and liver health.
+                Plain-language research on DHM (dihydromyricetin), hangovers and liver health.
               </p>
               <p className="text-sm" style={{ color: 'var(--color-ink-soft)' }}>
                 © 2026 DHM Guide. All rights reserved.
