@@ -13,12 +13,14 @@ test.describe('Reviews page — tier-1 content (items 7 & 6)', () => {
     await page.waitForTimeout(1500);
   });
 
-  test('Item 7 — H1 date is current (June 2026), not stale (January 2026)', async ({ page }) => {
-    // Must NOT contain the stale month
-    await expect(page.getByText('January 2026')).toHaveCount(0);
-
-    // Must contain the current month
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('June 2026');
+  test('Item 7 — H1 carries the current year with no stale month-year stamp', async ({ page }) => {
+    const h1 = page.getByRole('heading', { level: 1 });
+    await expect(h1).toContainText('2026');
+    const text = (await h1.textContent()) || '';
+    // No parenthesised year and no month-year stamp ("(June 2026)", "June 2026")
+    expect(text).not.toMatch(/\(\s*(?:[A-Za-z]+\s+)?20\d\d\s*\)/);
+    expect(text).not.toMatch(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d\d\b/);
+    await expect(page.getByText(/(?:January|June) 2026/)).toHaveCount(0);
   });
 
   test('Item 6 — hero renders without JS errors; H1 and quick-pick CTA are visible', async ({ page }) => {

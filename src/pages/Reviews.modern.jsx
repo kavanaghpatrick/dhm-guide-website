@@ -31,7 +31,7 @@ import '../styles/theme-modern.css'
  *   - Same SEO: useSEO(generatePageSEO('reviews')).
  *   - Same conversion testids preserved for the A/B harness:
  *       reviews-byline, lab-tested-link, free-shipping-badge,
- *       the H1 containing "June 2026", and a green active "Best For" filter.
+ *       the H1 containing "2026", and a green active "Best For" filter.
  *
  * Isolation contract:
  *   - The ENTIRE page body is wrapped in <div className="theme-modern"> and the
@@ -161,9 +161,9 @@ export default function ReviewsModern() {
               </span>
             </Link>
 
-            {/* H1 must contain the "June 2026" month text (conversion testid parity). */}
+            {/* H1 carries the year only, never a month-year stamp (goes stale). */}
             <h1 style={{ marginTop: 'var(--space-4)' }}>
-              Best DHM Supplements <span className="accent">(June 2026)</span>
+              Best DHM Supplements <span className="accent">of 2026</span>
             </h1>
 
             <p className="lead">
@@ -172,7 +172,7 @@ export default function ReviewsModern() {
             </p>
 
             <p data-testid="reviews-byline" className="text-soft" style={{ fontSize: 'var(--text-small)', marginTop: 'var(--space-2)' }}>
-              Reviewed by the DHM Guide editorial team · Updated June 2026
+              Reviewed by the DHM Guide editorial team · 2026 edition
             </p>
 
             {/* Inline trust-signal row (paper, brand-green icons, no saturated color). */}
@@ -295,7 +295,7 @@ export default function ReviewsModern() {
       <section className="section">
         <div className="container">
           <header className="section-head">
-            <span className="eyebrow">Editor&rsquo;s top picks · June 2026</span>
+            <span className="eyebrow">Editor&rsquo;s top picks · 2026</span>
             <h2>Detailed reviews</h2>
             {/* free-shipping-badge testid parity — surfaces the winner's free-shipping
                 signal (the control attached this testid to the #1 CTA). */}
